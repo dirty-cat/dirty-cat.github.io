@@ -38,7 +38,7 @@ package because of its small size (500kb)
         transformed_data = se.fit_transform(
             data.iloc[:, 1].values.reshape((-1, 1)))
 
-**Total running time of the script:** ( 0 minutes  3.083 seconds)
+**Total running time of the script:** ( 0 minutes  2.801 seconds)
 
 
 
