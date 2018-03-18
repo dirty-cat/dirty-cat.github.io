@@ -50,23 +50,75 @@
 package because of its small size (500kb)</p>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-default"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">circleci</span><span class="o">/</span><span class="n">project</span><span class="o">/</span><span class="n">dirty_cat</span><span class="o">/</span><span class="n">datasets</span>
+<span class="n">onehot</span>
+<span class="n">Accuracy</span><span class="p">:</span>  <span class="n">mean</span><span class="p">:</span> <span class="mf">0.521</span><span class="p">;</span> <span class="n">std</span><span class="p">:</span> <span class="mf">0.019</span>
+
+<span class="n">similarity</span>
+<span class="n">Accuracy</span><span class="p">:</span>  <span class="n">mean</span><span class="p">:</span> <span class="mf">0.584</span><span class="p">;</span> <span class="n">std</span><span class="p">:</span> <span class="mf">0.033</span>
 </pre></div>
 </div>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dirty_cat.datasets</span> <span class="kn">import</span> <span class="n">fetch_midwest_survey</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">sparse</span>
+
+<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">FeatureUnion</span>
+<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">Pipeline</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">FunctionTransformer</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">LabelEncoder</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">OneHotEncoder</span>
+<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">cross_val_score</span>
+
+<span class="kn">from</span> <span class="nn">dirty_cat.datasets</span> <span class="kn">import</span> <span class="n">fetch_midwest_survey</span>
 <span class="kn">from</span> <span class="nn">dirty_cat.similarity_encoder</span> <span class="kn">import</span> <a href="../index.html#dirty_cat.SimilarityEncoder" title="View documentation for dirty_cat.similarity_encoder.SimilarityEncoder"><span class="n">SimilarityEncoder</span></a>
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">fetch_midwest_survey</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
-    <span class="n">se</span> <span class="o">=</span> <a href="../index.html#dirty_cat.SimilarityEncoder" title="View documentation for dirty_cat.similarity_encoder.SimilarityEncoder"><span class="n">SimilarityEncoder</span></a><span class="p">()</span>
-    <span class="c1"># take only first 100 rows for speed limitations</span>
-    <span class="n">transformed_data</span> <span class="o">=</span> <span class="n">se</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span>
-        <span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
+
+<span class="c1"># encoding methods</span>
+<span class="n">encoder_dict</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;onehot&#39;</span><span class="p">:</span> <span class="n">OneHotEncoder</span><span class="p">(</span><span class="n">handle_unknown</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">),</span>
+    <span class="s1">&#39;similarity&#39;</span><span class="p">:</span> <a href="../index.html#dirty_cat.SimilarityEncoder" title="View documentation for dirty_cat.similarity_encoder.SimilarityEncoder"><span class="n">SimilarityEncoder</span></a><span class="p">(</span><span class="n">similarity</span><span class="o">=</span><span class="s1">&#39;ngram&#39;</span><span class="p">,</span>
+                                    <span class="n">handle_unknown</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">),</span>
+    <span class="s1">&#39;num&#39;</span><span class="p">:</span> <span class="n">FunctionTransformer</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span>
+    <span class="p">}</span>
+
+
+<span class="k">for</span> <span class="n">method</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;onehot&#39;</span><span class="p">,</span> <span class="s1">&#39;similarity&#39;</span><span class="p">]:</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">fetch_midwest_survey</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+
+    <span class="n">target_column</span> <span class="o">=</span> <span class="s1">&#39;Location (Census Region)&#39;</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">target_column</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+
+    <span class="n">feature_columns</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">(</span><span class="s1">&#39;In your own words, what would you call the part of the country &#39;</span>
+         <span class="s1">&#39;you live in now?&#39;</span><span class="p">,</span> <span class="n">method</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;Wyoming in MW?&#39;</span><span class="p">,</span> <span class="s1">&#39;onehot&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;Age&#39;</span><span class="p">,</span> <span class="s1">&#39;onehot&#39;</span><span class="p">)</span>
+        <span class="p">]</span>
+    <span class="c1"># LabelEncoder before using OneHotEncoder</span>
+    <span class="n">label_encoder</span> <span class="o">=</span> <span class="n">LabelEncoder</span><span class="p">()</span>
+    <span class="n">onehot_columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span><span class="p">,</span> <span class="n">enc</span> <span class="ow">in</span> <span class="n">feature_columns</span> <span class="k">if</span> <span class="n">enc</span> <span class="o">==</span> <span class="s1">&#39;onehot&#39;</span><span class="p">]</span>
+    <span class="n">df</span><span class="p">[</span><span class="n">onehot_columns</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">onehot_columns</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">label_encoder</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">)</span>
+
+    <span class="n">X</span> <span class="o">=</span> <span class="p">[</span><span class="n">encoder_dict</span><span class="p">[</span><span class="n">encoder</span><span class="p">]</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+         <span class="k">for</span> <span class="n">column</span><span class="p">,</span> <span class="n">encoder</span> <span class="ow">in</span> <span class="n">feature_columns</span><span class="p">]</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">sparse</span><span class="o">.</span><span class="n">hstack</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+    <span class="n">pipeline</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([</span>
+                         <span class="p">(</span><span class="s1">&#39;scaler&#39;</span><span class="p">,</span> <span class="n">StandardScaler</span><span class="p">(</span><span class="n">with_mean</span><span class="o">=</span><span class="bp">False</span><span class="p">)),</span>
+                         <span class="p">(</span><span class="s1">&#39;classifier&#39;</span><span class="p">,</span> <span class="n">RandomForestClassifier</span><span class="p">(</span>
+                             <span class="n">random_state</span><span class="o">=</span><span class="mi">12</span><span class="p">))</span>
+                         <span class="p">])</span>
+
+    <span class="k">print</span><span class="p">(</span><span class="n">method</span><span class="p">)</span>
+    <span class="n">scores</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">pipeline</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Accuracy:  mean: </span><span class="si">%.3f</span><span class="s1">; std: </span><span class="si">%.3f</span><span class="se">\n</span><span class="s1">&#39;</span>
+          <span class="o">%</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">scores</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">scores</span><span class="p">)))</span>
 </pre></div>
 </div>
-<p><strong>Total running time of the script:</strong> ( 0 minutes  2.801 seconds)</p>
+<p><strong>Total running time of the script:</strong> ( 0 minutes  9.520 seconds)</p>
 <div class="sphx-glr-footer docutils container">
 <div class="sphx-glr-download docutils container">
 <a class="reference download internal" href="../_downloads/midwest_survey.py" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">midwest_survey.py</span></code></a></div>
