@@ -89,6 +89,48 @@
 
 
 <div class="viewcode-block" id="SimilarityEncoder"><a class="viewcode-back" href="../../index.html#dirty_cat.SimilarityEncoder">[docs]</a><span class="k">class</span> <span class="nc">SimilarityEncoder</span><span class="p">(</span><span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">TransformerMixin</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Encode categorical features as a numeric array.</span>
+<span class="sd">    The input to this transformer should be an array-like of integers or</span>
+<span class="sd">    strings, denoting the values taken on by categorical (discrete) features.</span>
+<span class="sd">    The method is based on calculating the morphological similarities</span>
+<span class="sd">    between the categories.</span>
+<span class="sd">    The features can be encoded using one of the implemented string</span>
+<span class="sd">    similarities: ``similarity=&#39;ngram&#39;`` (default), &#39;levenshtein-ratio&#39; or</span>
+<span class="sd">    &#39;jaro-winkler&#39;.</span>
+<span class="sd">    This encoding is an alternative to OneHotEncoder in the case of</span>
+<span class="sd">    dirty categorical variables.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    similarity : str, &#39;ngram&#39;, &#39;levenshtein-ratio&#39; or &#39;jaro-winkler&#39;</span>
+<span class="sd">        The type of similarity to use (default is &#39;ngram&#39;):</span>
+<span class="sd">        - &#39;ngram&#39;: n-gram similarity between two strings</span>
+<span class="sd">        - &#39;levenshtein-ratio&#39;:</span>
+<span class="sd">        - &#39;jaro-winkler&#39;:</span>
+<span class="sd">    categories : &#39;auto&#39; or a list of lists/arrays of values.</span>
+<span class="sd">        Categories (unique values) per feature:</span>
+<span class="sd">        - &#39;auto&#39; : Determine categories automatically from the training data.</span>
+<span class="sd">        - list : ``categories[i]`` holds the categories expected in the ith</span>
+<span class="sd">          column. The passed categories must be sorted and should not mix</span>
+<span class="sd">          strings and numeric values.</span>
+<span class="sd">        The used categories can be found in the ``categories_`` attribute.</span>
+<span class="sd">    dtype : number type, default np.float64</span>
+<span class="sd">        Desired dtype of output.</span>
+<span class="sd">    handle_unknown : &#39;error&#39; (default) or &#39;ignore&#39;</span>
+<span class="sd">        Whether to raise an error or ignore if a unknown categorical feature is</span>
+<span class="sd">        present during transform (default is to raise). When this parameter</span>
+<span class="sd">        is set to &#39;ignore&#39; and an unknown category is encountered during</span>
+<span class="sd">        transform, the resulting one-hot encoded columns for this feature</span>
+<span class="sd">        will be all zeros. In the inverse transform, an unknown category</span>
+<span class="sd">        will be denoted as None.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    categories_ : list of arrays</span>
+<span class="sd">        The categories of each feature determined during fitting</span>
+<span class="sd">        (in order corresponding with output of ``transform``).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">similarity</span><span class="o">=</span><span class="s1">&#39;ngram&#39;</span><span class="p">,</span>
                  <span class="n">n_min</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">n_max</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">categories</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span>
                  <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span> <span class="n">handle_unknown</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">):</span>
@@ -99,7 +141,17 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">n_min</span> <span class="o">=</span> <span class="n">n_min</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">n_max</span> <span class="o">=</span> <span class="n">n_max</span>
 
-    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="SimilarityEncoder.fit"><a class="viewcode-back" href="../../index.html#dirty_cat.SimilarityEncoder.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Fit the CategoricalEncoder to X.</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        X : array-like, shape [n_samples, n_features]</span>
+<span class="sd">            The data to determine the categories of each feature.</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        self</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_unknown</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="s1">&#39;ignore&#39;</span><span class="p">]:</span>
             <span class="n">template</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;handle_unknown should be either &#39;error&#39; or &quot;</span>
                         <span class="s2">&quot;&#39;ignore&#39;, got </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -137,7 +189,7 @@
                 <span class="n">le</span><span class="o">.</span><span class="n">classes_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">categories</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">categories_</span> <span class="o">=</span> <span class="p">[</span><span class="n">le</span><span class="o">.</span><span class="n">classes_</span> <span class="k">for</span> <span class="n">le</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_label_encoders_</span><span class="p">]</span>
-        <span class="k">return</span> <span class="bp">self</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
 
 <div class="viewcode-block" id="SimilarityEncoder.transform"><a class="viewcode-back" href="../../index.html#dirty_cat.SimilarityEncoder.transform">[docs]</a>    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Transform X using specified encoding scheme.</span>
@@ -149,8 +201,7 @@
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        X_out : sparse matrix or a 2-d array</span>
-<span class="sd">            Transformed input.</span>
+<span class="sd">        X_out : 2-d array transformed input.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">X_temp</span> <span class="o">=</span> <span class="n">check_array</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
@@ -205,18 +256,6 @@
                 <span class="n">encoder</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">encoder</span><span class="p">)</span>
                 <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">encoder</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
-
-        <span class="c1"># if self.similarity == &#39;ngram2&#39;:</span>
-        <span class="c1">#     out = []</span>
-        <span class="c1">#     for j, cats in enumerate(self.categories_):</span>
-        <span class="c1">#         unqX = np.unique(X[:, j])</span>
-        <span class="c1">#         vect = np.vectorize(string_distances.ngram_similarity)</span>
-        <span class="c1">#         encoder_dict = {x: vect(x, cats.reshape(1, -1), self.n_min)</span>
-        <span class="c1">#                         for x in unqX}</span>
-        <span class="c1">#         encoder = [encoder_dict[x] for x in X[:, j]]</span>
-        <span class="c1">#         encoder = np.vstack(encoder)</span>
-        <span class="c1">#         out.append(encoder)</span>
-        <span class="c1">#     return np.hstack(out)</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">similarity</span> <span class="o">==</span> <span class="s1">&#39;ngram&#39;</span><span class="p">:</span>
             <span class="n">out</span> <span class="o">=</span> <span class="p">[]</span>

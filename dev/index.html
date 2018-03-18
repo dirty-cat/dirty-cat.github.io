@@ -28,7 +28,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Semantic variation in the “midwest”" href="auto_examples/midwest_survey.html" />
+    <link rel="next" title="Semantic variation in the “Midwest”" href="auto_examples/midwest_survey.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -53,7 +53,71 @@
 <dl class="class">
 <dt id="dirty_cat.SimilarityEncoder">
 <em class="property">class </em><code class="descclassname">dirty_cat.</code><code class="descname">SimilarityEncoder</code><span class="sig-paren">(</span><em>similarity=’ngram’</em>, <em>n_min=3</em>, <em>n_max=3</em>, <em>categories=’auto’</em>, <em>dtype=&lt;class ‘numpy.float64’&gt;</em>, <em>handle_unknown=’ignore’</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dirty_cat/similarity_encoder.html#SimilarityEncoder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirty_cat.SimilarityEncoder" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="method">
+<dd><p>Encode categorical features as a numeric array.
+The input to this transformer should be an array-like of integers or
+strings, denoting the values taken on by categorical (discrete) features.
+The method is based on calculating the morphological similarities
+between the categories.
+The features can be encoded using one of the implemented string
+similarities: <code class="docutils literal"><span class="pre">similarity='ngram'</span></code> (default), ‘levenshtein-ratio’ or
+‘jaro-winkler’.
+This encoding is an alternative to OneHotEncoder in the case of
+dirty categorical variables.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>similarity</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.6)"><em>str</em></a><em>, </em><em>'ngram'</em><em>, </em><em>'levenshtein-ratio'</em><em> or </em><em>'jaro-winkler'</em>) – The type of similarity to use (default is ‘ngram’):
+- ‘ngram’: n-gram similarity between two strings
+- ‘levenshtein-ratio’:
+- ‘jaro-winkler’:</li>
+<li><strong>categories</strong> (<em>'auto'</em><em> or </em><em>a list of lists/arrays of values.</em>) – <p>Categories (unique values) per feature:
+- ‘auto’ : Determine categories automatically from the training data.
+- list : <code class="docutils literal"><span class="pre">categories[i]</span></code> holds the categories expected in the ith</p>
+<blockquote>
+<div>column. The passed categories must be sorted and should not mix
+strings and numeric values.</div></blockquote>
+<p>The used categories can be found in the <code class="docutils literal"><span class="pre">categories_</span></code> attribute.</p>
+</li>
+<li><strong>dtype</strong> (<em>number type</em><em>, </em><em>default np.float64</em>) – Desired dtype of output.</li>
+<li><strong>handle_unknown</strong> (<em>'error'</em><em> (</em><em>default</em><em>) or </em><em>'ignore'</em>) – Whether to raise an error or ignore if a unknown categorical feature is
+present during transform (default is to raise). When this parameter
+is set to ‘ignore’ and an unknown category is encountered during
+transform, the resulting one-hot encoded columns for this feature
+will be all zeros. In the inverse transform, an unknown category
+will be denoted as None.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="dirty_cat.SimilarityEncoder.categories_">
+<code class="descname">categories_</code><a class="headerlink" href="#dirty_cat.SimilarityEncoder.categories_" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>list of arrays</em> – The categories of each feature determined during fitting
+(in order corresponding with output of <code class="docutils literal"><span class="pre">transform</span></code>).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dirty_cat.SimilarityEncoder.fit">
+<code class="descname">fit</code><span class="sig-paren">(</span><em>X</em>, <em>y=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dirty_cat/similarity_encoder.html#SimilarityEncoder.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirty_cat.SimilarityEncoder.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fit the CategoricalEncoder to X.
+:param X: The data to determine the categories of each feature.
+:type X: array-like, shape [n_samples, n_features]</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">self</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="dirty_cat.SimilarityEncoder.transform">
 <code class="descname">transform</code><span class="sig-paren">(</span><em>X</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dirty_cat/similarity_encoder.html#SimilarityEncoder.transform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirty_cat.SimilarityEncoder.transform" title="Permalink to this definition">¶</a></dt>
 <dd><p>Transform X using specified encoding scheme.</p>
@@ -63,9 +127,9 @@
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>X</strong> (<em>array-like</em><em>, </em><em>shape</em><em> [</em><em>n_samples</em><em>, </em><em>n_features</em><em>]</em>) – The data to encode.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>X_out</strong> – Transformed input.</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>X_out</strong></td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">sparse matrix or a 2-d array</td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">2-d array transformed input.</td>
 </tr>
 </tbody>
 </table>
@@ -107,9 +171,9 @@
 </div>
 <div class="section" id="usage-examples">
 <h2>Usage examples<a class="headerlink" href="#usage-examples" title="Permalink to this headline">¶</a></h2>
-<div class="sphx-glr-thumbcontainer" tooltip="base example script. the midwest survey datasets will be included in the package because of its..."><div class="figure" id="id1">
+<div class="sphx-glr-thumbcontainer" tooltip="Benchmark of encoders for the midwest_survey dataset "><div class="figure" id="id1">
 <img alt="_images/sphx_glr_midwest_survey_thumb.png" src="_images/sphx_glr_midwest_survey_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="auto_examples/midwest_survey.html#sphx-glr-auto-examples-midwest-survey-py"><span class="std std-ref">Semantic variation in the “midwest”</span></a></span></p>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="auto_examples/midwest_survey.html#sphx-glr-auto-examples-midwest-survey-py"><span class="std std-ref">Semantic variation in the “Midwest”</span></a></span></p>
 </div>
 </div><div class="toctree-wrapper compound">
 </div>
@@ -150,7 +214,7 @@
 <h3>Related Topics</h3>
 <ul>
   <li><a href="#">Documentation overview</a><ul>
-      <li>Next: <a href="auto_examples/midwest_survey.html" title="next chapter">Semantic variation in the “midwest”</a></li>
+      <li>Next: <a href="auto_examples/midwest_survey.html" title="next chapter">Semantic variation in the “Midwest”</a></li>
   </ul></li>
 </ul>
 </div>

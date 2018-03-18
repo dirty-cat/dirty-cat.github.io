@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Semantic variation in the “midwest” &#8212; dirty_cat 0.0.1a documentation</title>
+    <title>Semantic variation in the “Midwest” &#8212; dirty_cat 0.0.1a documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -45,16 +45,15 @@
           <div class="body" role="main">
             
   <div class="section" id="semantic-variation-in-the-midwest">
-<span id="sphx-glr-auto-examples-midwest-survey-py"></span><h1>Semantic variation in the “midwest”<a class="headerlink" href="#semantic-variation-in-the-midwest" title="Permalink to this headline">¶</a></h1>
-<p>base example script. the midwest survey datasets will be included in the
-package because of its small size (500kb)</p>
+<span id="sphx-glr-auto-examples-midwest-survey-py"></span><h1>Semantic variation in the “Midwest”<a class="headerlink" href="#semantic-variation-in-the-midwest" title="Permalink to this headline">¶</a></h1>
+<p>Benchmark of encoders for the midwest_survey dataset</p>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-default"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">circleci</span><span class="o">/</span><span class="n">project</span><span class="o">/</span><span class="n">dirty_cat</span><span class="o">/</span><span class="n">datasets</span>
-<span class="n">onehot</span>
-<span class="n">Accuracy</span><span class="p">:</span>  <span class="n">mean</span><span class="p">:</span> <span class="mf">0.521</span><span class="p">;</span> <span class="n">std</span><span class="p">:</span> <span class="mf">0.019</span>
+<span class="n">one</span><span class="o">-</span><span class="n">hot</span>
+<span class="n">Accuracy</span><span class="p">:</span>  <span class="n">mean</span><span class="p">:</span> <span class="mf">0.477</span><span class="p">;</span> <span class="n">std</span><span class="p">:</span> <span class="mf">0.021</span>
 
 <span class="n">similarity</span>
-<span class="n">Accuracy</span><span class="p">:</span>  <span class="n">mean</span><span class="p">:</span> <span class="mf">0.584</span><span class="p">;</span> <span class="n">std</span><span class="p">:</span> <span class="mf">0.033</span>
+<span class="n">Accuracy</span><span class="p">:</span>  <span class="n">mean</span><span class="p">:</span> <span class="mf">0.651</span><span class="p">;</span> <span class="n">std</span><span class="p">:</span> <span class="mf">0.026</span>
 </pre></div>
 </div>
 <div class="line-block">
@@ -70,6 +69,7 @@ package because of its small size (500kb)</p>
 <span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">LabelEncoder</span>
 <span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">OneHotEncoder</span>
 <span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">RidgeClassifierCV</span>
 <span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">cross_val_score</span>
 
 <span class="kn">from</span> <span class="nn">dirty_cat.datasets</span> <span class="kn">import</span> <span class="n">fetch_midwest_survey</span>
@@ -78,14 +78,13 @@ package because of its small size (500kb)</p>
 
 <span class="c1"># encoding methods</span>
 <span class="n">encoder_dict</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;onehot&#39;</span><span class="p">:</span> <span class="n">OneHotEncoder</span><span class="p">(</span><span class="n">handle_unknown</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">),</span>
+    <span class="s1">&#39;one-hot&#39;</span><span class="p">:</span> <span class="n">OneHotEncoder</span><span class="p">(</span><span class="n">handle_unknown</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">),</span>
     <span class="s1">&#39;similarity&#39;</span><span class="p">:</span> <a href="../index.html#dirty_cat.SimilarityEncoder" title="View documentation for dirty_cat.similarity_encoder.SimilarityEncoder"><span class="n">SimilarityEncoder</span></a><span class="p">(</span><span class="n">similarity</span><span class="o">=</span><span class="s1">&#39;ngram&#39;</span><span class="p">,</span>
                                     <span class="n">handle_unknown</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">),</span>
     <span class="s1">&#39;num&#39;</span><span class="p">:</span> <span class="n">FunctionTransformer</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span>
     <span class="p">}</span>
 
-
-<span class="k">for</span> <span class="n">method</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;onehot&#39;</span><span class="p">,</span> <span class="s1">&#39;similarity&#39;</span><span class="p">]:</span>
+<span class="k">for</span> <span class="n">method</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;one-hot&#39;</span><span class="p">,</span> <span class="s1">&#39;similarity&#39;</span><span class="p">]:</span>
     <span class="n">df</span> <span class="o">=</span> <span class="n">fetch_midwest_survey</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
 
     <span class="n">target_column</span> <span class="o">=</span> <span class="s1">&#39;Location (Census Region)&#39;</span>
@@ -94,12 +93,35 @@ package because of its small size (500kb)</p>
     <span class="n">feature_columns</span> <span class="o">=</span> <span class="p">[</span>
         <span class="p">(</span><span class="s1">&#39;In your own words, what would you call the part of the country &#39;</span>
          <span class="s1">&#39;you live in now?&#39;</span><span class="p">,</span> <span class="n">method</span><span class="p">),</span>
-        <span class="p">(</span><span class="s1">&#39;Wyoming in MW?&#39;</span><span class="p">,</span> <span class="s1">&#39;onehot&#39;</span><span class="p">),</span>
-        <span class="p">(</span><span class="s1">&#39;Age&#39;</span><span class="p">,</span> <span class="s1">&#39;onehot&#39;</span><span class="p">)</span>
+        <span class="p">(</span><span class="s1">&#39;Personally identification as a Midwesterner?&#39;</span><span class="p">,</span> <span class="s1">&#39;one-hot&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;Illinois in MW?&#39;</span><span class="p">,</span> <span class="s1">&#39;one-hot&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;Indiana in MW?&#39;</span><span class="p">,</span> <span class="s1">&#39;one-hot&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;Kansas in MW?&#39;</span><span class="p">,</span> <span class="s1">&#39;one-hot&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;Iowa in MW?&#39;</span><span class="p">,</span> <span class="s1">&#39;one-hot&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;Michigan in MW?&#39;</span><span class="p">,</span> <span class="s1">&#39;one-hot&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;Minnesota in MW?&#39;</span><span class="p">,</span> <span class="s1">&#39;one-hot&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;Missouri in MW?&#39;</span><span class="p">,</span> <span class="s1">&#39;one-hot&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;Nebraska in MW?&#39;</span><span class="p">,</span> <span class="s1">&#39;one-hot&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;North Dakota in MW?&#39;</span><span class="p">,</span> <span class="s1">&#39;one-hot&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;Ohio in MW?&#39;</span><span class="p">,</span> <span class="s1">&#39;one-hot&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;South Dakota in MW?&#39;</span><span class="p">,</span> <span class="s1">&#39;one-hot&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;Wisconsin in MW?&#39;</span><span class="p">,</span> <span class="s1">&#39;one-hot&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;Arkansas in MW?&#39;</span><span class="p">,</span> <span class="s1">&#39;one-hot&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;Colorado in MW?&#39;</span><span class="p">,</span> <span class="s1">&#39;one-hot&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;Kentucky in MW?&#39;</span><span class="p">,</span> <span class="s1">&#39;one-hot&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;Oklahoma in MW?&#39;</span><span class="p">,</span> <span class="s1">&#39;one-hot&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;Pennsylvania in MW?&#39;</span><span class="p">,</span> <span class="s1">&#39;one-hot&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;West Virginia in MW?&#39;</span><span class="p">,</span> <span class="s1">&#39;one-hot&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;Montana in MW?&#39;</span><span class="p">,</span> <span class="s1">&#39;one-hot&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;Wyoming in MW?&#39;</span><span class="p">,</span> <span class="s1">&#39;one-hot&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;Gender&#39;</span><span class="p">,</span> <span class="s1">&#39;one-hot&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;Age&#39;</span><span class="p">,</span> <span class="s1">&#39;one-hot&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;Household Income&#39;</span><span class="p">,</span> <span class="s1">&#39;one-hot&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;Education&#39;</span><span class="p">,</span> <span class="s1">&#39;one-hot&#39;</span><span class="p">),</span>
         <span class="p">]</span>
     <span class="c1"># LabelEncoder before using OneHotEncoder</span>
     <span class="n">label_encoder</span> <span class="o">=</span> <span class="n">LabelEncoder</span><span class="p">()</span>
-    <span class="n">onehot_columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span><span class="p">,</span> <span class="n">enc</span> <span class="ow">in</span> <span class="n">feature_columns</span> <span class="k">if</span> <span class="n">enc</span> <span class="o">==</span> <span class="s1">&#39;onehot&#39;</span><span class="p">]</span>
+    <span class="n">onehot_columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span><span class="p">,</span> <span class="n">enc</span> <span class="ow">in</span> <span class="n">feature_columns</span> <span class="k">if</span> <span class="n">enc</span> <span class="o">==</span> <span class="s1">&#39;one-hot&#39;</span><span class="p">]</span>
     <span class="n">df</span><span class="p">[</span><span class="n">onehot_columns</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">onehot_columns</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">label_encoder</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">)</span>
 
     <span class="n">X</span> <span class="o">=</span> <span class="p">[</span><span class="n">encoder_dict</span><span class="p">[</span><span class="n">encoder</span><span class="p">]</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
@@ -109,7 +131,7 @@ package because of its small size (500kb)</p>
     <span class="n">pipeline</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([</span>
                          <span class="p">(</span><span class="s1">&#39;scaler&#39;</span><span class="p">,</span> <span class="n">StandardScaler</span><span class="p">(</span><span class="n">with_mean</span><span class="o">=</span><span class="bp">False</span><span class="p">)),</span>
                          <span class="p">(</span><span class="s1">&#39;classifier&#39;</span><span class="p">,</span> <span class="n">RandomForestClassifier</span><span class="p">(</span>
-                             <span class="n">random_state</span><span class="o">=</span><span class="mi">12</span><span class="p">))</span>
+                             <span class="n">random_state</span><span class="o">=</span><span class="mi">5</span><span class="p">))</span>
                          <span class="p">])</span>
 
     <span class="k">print</span><span class="p">(</span><span class="n">method</span><span class="p">)</span>
@@ -118,7 +140,7 @@ package because of its small size (500kb)</p>
           <span class="o">%</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">scores</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">scores</span><span class="p">)))</span>
 </pre></div>
 </div>
-<p><strong>Total running time of the script:</strong> ( 0 minutes  9.520 seconds)</p>
+<p><strong>Total running time of the script:</strong> ( 0 minutes  6.798 seconds)</p>
 <div class="sphx-glr-footer docutils container">
 <div class="sphx-glr-download docutils container">
 <a class="reference download internal" href="../_downloads/midwest_survey.py" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">midwest_survey.py</span></code></a></div>
