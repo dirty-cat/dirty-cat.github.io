@@ -18,13 +18,10 @@ Benchmark of encoders for the "employee_salaries" dataset.
  Out::
 
     one-hot encoding
-    R^2 score:  mean: 0.854; std: 0.014
-
-    target encoding
-    R^2 score:  mean: 0.804; std: 0.014
+    R^2 score:  mean: 0.867; std: 0.013
 
     similarity encoding
-    R^2 score:  mean: 0.869; std: 0.012
+    R^2 score:  mean: 0.914; std: 0.007
 
 
 
@@ -61,7 +58,7 @@ Benchmark of encoders for the "employee_salaries" dataset.
 
     data_file = datasets.fetch_employee_salaries()
 
-    for method in ['one-hot', 'target', 'similarity']:
+    for method in ['one-hot', 'similarity']:
         # Load the data
         df = pd.read_csv(data_file).astype(str)
         df['Current Annual Salary'] = [float(s[1:]) for s
@@ -108,7 +105,7 @@ Benchmark of encoders for the "employee_salaries" dataset.
             X_test = sparse.hstack(X_test).toarray()
 
             # Now predict the salary of each worker
-            classifier = RidgeCV(normalize=True)
+            classifier = RidgeCV()
             classifier.fit(X_train, y_train)
             score = classifier.score(X_test, y_test)
             scores.append(score)
@@ -117,7 +114,7 @@ Benchmark of encoders for the "employee_salaries" dataset.
         print('R^2 score:  mean: %.3f; std: %.3f\n'
               % (np.mean(scores), np.std(scores)))
 
-**Total running time of the script:** ( 0 minutes  22.119 seconds)
+**Total running time of the script:** ( 0 minutes  15.317 seconds)
 
 
 
