@@ -56,6 +56,24 @@
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="dirty_cat.TargetEncoder.fit">
+<code class="descname">fit</code><span class="sig-paren">(</span><em>X</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/target_encoder.html#TargetEncoder.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirty_cat.TargetEncoder.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fit the TargetEncoder to X.
+:param X: The data to determine the categories of each feature.
+:type X: array-like, shape [n_samples, n_features]</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">self</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="dirty_cat.TargetEncoder.fit_transform">
 <code class="descname">fit_transform</code><span class="sig-paren">(</span><em>X</em>, <em>y=None</em>, <em>**fit_params</em><span class="sig-paren">)</span><a class="headerlink" href="#dirty_cat.TargetEncoder.fit_transform" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fit to data, then transform it.</p>
@@ -132,7 +150,7 @@ component of a nested object.</p>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>X_out</strong> – Transformed input.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">sparse matrix or a 2-d array</td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">2-d array</td>
 </tr>
 </tbody>
 </table>
