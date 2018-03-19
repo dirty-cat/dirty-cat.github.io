@@ -46,7 +46,9 @@
             
   <div class="section" id="semantic-variation-in-the-midwest">
 <span id="sphx-glr-auto-examples-midwest-survey-py"></span><h1>Semantic variation in the “Midwest”<a class="headerlink" href="#semantic-variation-in-the-midwest" title="Permalink to this headline">¶</a></h1>
-<p>Benchmark of encoders for the midwest_survey dataset</p>
+<p>Benchmark of encoders for the midwest_survey dataset: the data comprises
+an open-ended question, on which one-hot encoding does not work well.</p>
+<p>Similarity encoding on this column gives much improved performance.</p>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-default"><div class="highlight"><pre><span></span><span class="n">one</span><span class="o">-</span><span class="n">hot</span> <span class="n">encoding</span>
 <span class="n">Accuracy</span><span class="p">:</span>  <span class="n">mean</span><span class="p">:</span> <span class="mf">0.477</span><span class="p">;</span> <span class="n">std</span><span class="p">:</span> <span class="mf">0.021</span>
@@ -84,11 +86,13 @@
 <span class="n">data_file</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">fetch_midwest_survey</span><span class="p">()</span>
 
 <span class="k">for</span> <span class="n">method</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;one-hot&#39;</span><span class="p">,</span> <span class="s1">&#39;similarity&#39;</span><span class="p">]:</span>
-    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">data_file</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+    <span class="c1"># Load the data</span>
+    <span class="n">df</span> <span class="o">=</span> <a href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.read_csv.html#pandas.read_csv" title="View documentation for pandas.read_csv"><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span></a><span class="p">(</span><span class="n">data_file</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
 
     <span class="n">target_column</span> <span class="o">=</span> <span class="s1">&#39;Location (Census Region)&#39;</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">target_column</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
 
+    <span class="c1"># Transform the data into a numerical matrix</span>
     <span class="n">feature_columns</span> <span class="o">=</span> <span class="p">[</span>
         <span class="p">(</span><span class="s1">&#39;In your own words, what would you call the part of the country &#39;</span>
          <span class="s1">&#39;you live in now?&#39;</span><span class="p">,</span> <span class="n">method</span><span class="p">),</span>
@@ -118,24 +122,24 @@
         <span class="p">(</span><span class="s1">&#39;Household Income&#39;</span><span class="p">,</span> <span class="s1">&#39;one-hot&#39;</span><span class="p">),</span>
         <span class="p">(</span><span class="s1">&#39;Education&#39;</span><span class="p">,</span> <span class="s1">&#39;one-hot&#39;</span><span class="p">),</span>
         <span class="p">]</span>
-    <span class="c1"># LabelEncoder before using OneHotEncoder</span>
+    <span class="c1"># OneHotEncoder needs numerical data, hence we first use LabelEncoder</span>
     <span class="n">label_encoder</span> <span class="o">=</span> <span class="n">LabelEncoder</span><span class="p">()</span>
     <span class="n">onehot_columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span><span class="p">,</span> <span class="n">enc</span> <span class="ow">in</span> <span class="n">feature_columns</span> <span class="k">if</span> <span class="n">enc</span> <span class="o">==</span> <span class="s1">&#39;one-hot&#39;</span><span class="p">]</span>
     <span class="n">df</span><span class="p">[</span><span class="n">onehot_columns</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">onehot_columns</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">label_encoder</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">)</span>
 
     <span class="n">X</span> <span class="o">=</span> <span class="p">[</span><span class="n">encoder_dict</span><span class="p">[</span><span class="n">encoder</span><span class="p">]</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
          <span class="k">for</span> <span class="n">column</span><span class="p">,</span> <span class="n">encoder</span> <span class="ow">in</span> <span class="n">feature_columns</span><span class="p">]</span>
-    <span class="n">X</span> <span class="o">=</span> <span class="n">sparse</span><span class="o">.</span><span class="n">hstack</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+    <span class="n">X</span> <span class="o">=</span> <a href="http://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.hstack.html#scipy.sparse.hstack" title="View documentation for scipy.sparse.hstack"><span class="n">sparse</span><span class="o">.</span><span class="n">hstack</span></a><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 
     <span class="c1"># Now predict whether or not each row is about the midwest</span>
     <span class="n">classifier</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
     <span class="k">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> encoding&#39;</span> <span class="o">%</span> <span class="n">method</span><span class="p">)</span>
     <span class="n">scores</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">classifier</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
     <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Accuracy:  mean: </span><span class="si">%.3f</span><span class="s1">; std: </span><span class="si">%.3f</span><span class="se">\n</span><span class="s1">&#39;</span>
-          <span class="o">%</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">scores</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">scores</span><span class="p">)))</span>
+          <span class="o">%</span> <span class="p">(</span><a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.mean.html#numpy.mean" title="View documentation for numpy.mean"><span class="n">np</span><span class="o">.</span><span class="n">mean</span></a><span class="p">(</span><span class="n">scores</span><span class="p">),</span> <a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.std.html#numpy.std" title="View documentation for numpy.std"><span class="n">np</span><span class="o">.</span><span class="n">std</span></a><span class="p">(</span><span class="n">scores</span><span class="p">)))</span>
 </pre></div>
 </div>
-<p><strong>Total running time of the script:</strong> ( 0 minutes  8.269 seconds)</p>
+<p><strong>Total running time of the script:</strong> ( 0 minutes  6.948 seconds)</p>
 <div class="sphx-glr-footer docutils container">
 <div class="sphx-glr-download docutils container">
 <a class="reference download internal" href="../_downloads/midwest_survey.py" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">midwest_survey.py</span></code></a></div>
