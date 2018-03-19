@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Semantic variation in the “Midwest” &#8212; dirty_cat 0.0.1a documentation</title>
+    <title>Predicting the salary of employees &#8212; dirty_cat 0.0.1a documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -28,7 +28,8 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="Predicting the salary of employees" href="employee_salaries.html" />
+    <link rel="next" title="Semantic variation in the “Midwest”" href="midwest_survey.html" />
+    <link rel="prev" title="dirty_cat.datasets.fetch_midwest_survey" href="../generated/dirty_cat.datasets.fetch_midwest_survey.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
@@ -44,17 +45,16 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="semantic-variation-in-the-midwest">
-<span id="sphx-glr-auto-examples-midwest-survey-py"></span><h1>Semantic variation in the “Midwest”<a class="headerlink" href="#semantic-variation-in-the-midwest" title="Permalink to this headline">¶</a></h1>
-<p>Benchmark of encoders for the midwest_survey dataset: the data comprises
-an open-ended question, on which one-hot encoding does not work well.</p>
+  <div class="section" id="predicting-the-salary-of-employees">
+<span id="sphx-glr-auto-examples-employee-salaries-py"></span><h1>Predicting the salary of employees<a class="headerlink" href="#predicting-the-salary-of-employees" title="Permalink to this headline">¶</a></h1>
+<p>Benchmark of encoders for the “employee_salaries” dataset.</p>
 <p>Similarity encoding on this column gives much improved performance.</p>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-default"><div class="highlight"><pre><span></span><span class="n">one</span><span class="o">-</span><span class="n">hot</span> <span class="n">encoding</span>
-<span class="n">Accuracy</span> <span class="n">score</span><span class="p">:</span>  <span class="n">mean</span><span class="p">:</span> <span class="mf">0.488</span><span class="p">;</span> <span class="n">std</span><span class="p">:</span> <span class="mf">0.013</span>
+<span class="n">Accuracy</span> <span class="n">score</span><span class="p">:</span>  <span class="n">mean</span><span class="p">:</span> <span class="mf">0.864</span><span class="p">;</span> <span class="n">std</span><span class="p">:</span> <span class="mf">0.005</span>
 
 <span class="n">similarity</span> <span class="n">encoding</span>
-<span class="n">Accuracy</span> <span class="n">score</span><span class="p">:</span>  <span class="n">mean</span><span class="p">:</span> <span class="mf">0.658</span><span class="p">;</span> <span class="n">std</span><span class="p">:</span> <span class="mf">0.017</span>
+<span class="n">Accuracy</span> <span class="n">score</span><span class="p">:</span>  <span class="n">mean</span><span class="p">:</span> <span class="mf">0.912</span><span class="p">;</span> <span class="n">std</span><span class="p">:</span> <span class="mf">0.008</span>
 </pre></div>
 </div>
 <div class="line-block">
@@ -68,11 +68,11 @@ an open-ended question, on which one-hot encoding does not work well.</p>
 <span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">FunctionTransformer</span>
 <span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">LabelEncoder</span>
 <span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">OneHotEncoder</span>
-<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
-<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">StratifiedKFold</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">RidgeCV</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">KFold</span>
 
 <span class="kn">from</span> <span class="nn">dirty_cat</span> <span class="kn">import</span> <span class="n">datasets</span>
-<span class="kn">from</span> <span class="nn">dirty_cat</span> <span class="kn">import</span> <a href="../generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="View documentation for dirty_cat.SimilarityEncoder"><span class="n">SimilarityEncoder</span></a>
+<span class="kn">from</span> <span class="nn">dirty_cat</span> <span class="kn">import</span> <a href="../generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="View documentation for dirty_cat.SimilarityEncoder"><span class="n">SimilarityEncoder</span></a><span class="p">,</span> <a href="../generated/dirty_cat.TargetEncoder.html#dirty_cat.TargetEncoder" title="View documentation for dirty_cat.TargetEncoder"><span class="n">TargetEncoder</span></a>
 
 
 <span class="c1"># encoding methods</span>
@@ -80,83 +80,61 @@ an open-ended question, on which one-hot encoding does not work well.</p>
     <span class="s1">&#39;one-hot&#39;</span><span class="p">:</span> <span class="n">OneHotEncoder</span><span class="p">(</span><span class="n">handle_unknown</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">),</span>
     <span class="s1">&#39;similarity&#39;</span><span class="p">:</span> <a href="../generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="View documentation for dirty_cat.SimilarityEncoder"><span class="n">SimilarityEncoder</span></a><span class="p">(</span><span class="n">similarity</span><span class="o">=</span><span class="s1">&#39;ngram&#39;</span><span class="p">,</span>
                                     <span class="n">handle_unknown</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">),</span>
+    <span class="s1">&#39;target&#39;</span><span class="p">:</span> <a href="../generated/dirty_cat.TargetEncoder.html#dirty_cat.TargetEncoder" title="View documentation for dirty_cat.TargetEncoder"><span class="n">TargetEncoder</span></a><span class="p">(</span><span class="n">handle_unknown</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">),</span>
     <span class="s1">&#39;num&#39;</span><span class="p">:</span> <span class="n">FunctionTransformer</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span>
     <span class="p">}</span>
 
-<span class="n">data_file</span> <span class="o">=</span> <a href="../generated/dirty_cat.datasets.fetch_midwest_survey.html#dirty_cat.datasets.fetch_midwest_survey" title="View documentation for dirty_cat.datasets.fetch_midwest_survey"><span class="n">datasets</span><span class="o">.</span><span class="n">fetch_midwest_survey</span></a><span class="p">()</span>
+<span class="n">data_file</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">fetch_employee_salaries</span><span class="p">()</span>
 
 <span class="k">for</span> <span class="n">method</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;one-hot&#39;</span><span class="p">,</span> <span class="s1">&#39;similarity&#39;</span><span class="p">]:</span>
     <span class="c1"># Load the data</span>
     <span class="n">df</span> <span class="o">=</span> <a href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.read_csv.html#pandas.read_csv" title="View documentation for pandas.read_csv"><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span></a><span class="p">(</span><span class="n">data_file</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Current Annual Salary&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span> <span class="k">for</span> <span class="n">s</span>
+                                   <span class="ow">in</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Current Annual Salary&#39;</span><span class="p">]]</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Year First Hired&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+                              <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Date First Hired&#39;</span><span class="p">]]</span>
 
-    <span class="n">target_column</span> <span class="o">=</span> <span class="s1">&#39;Location (Census Region)&#39;</span>
+    <span class="n">target_column</span> <span class="o">=</span> <span class="s1">&#39;Current Annual Salary&#39;</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">target_column</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
 
     <span class="c1"># Transform the data into a numerical matrix</span>
     <span class="n">encoder_type</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s1">&#39;one-hot&#39;</span><span class="p">:</span> <span class="p">[</span>
-            <span class="s1">&#39;Personally identification as a Midwesterner?&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;Illinois in MW?&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;Indiana in MW?&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;Kansas in MW?&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;Iowa in MW?&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;Michigan in MW?&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;Minnesota in MW?&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;Missouri in MW?&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;Nebraska in MW?&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;North Dakota in MW?&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;Ohio in MW?&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;South Dakota in MW?&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;Wisconsin in MW?&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;Arkansas in MW?&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;Colorado in MW?&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;Kentucky in MW?&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;Oklahoma in MW?&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;Pennsylvania in MW?&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;West Virginia in MW?&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;Montana in MW?&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;Wyoming in MW?&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;Gender&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;Age&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;Household Income&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;Education&#39;</span><span class="p">]</span>
+        <span class="s1">&#39;one-hot&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Gender&#39;</span><span class="p">,</span> <span class="s1">&#39;Department Name&#39;</span><span class="p">,</span> <span class="s1">&#39;Assignment Category&#39;</span><span class="p">],</span>
+        <span class="s1">&#39;num&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Year First Hired&#39;</span><span class="p">]</span>
         <span class="p">}</span>
     <span class="k">try</span><span class="p">:</span>
-        <span class="n">encoder_type</span><span class="p">[</span><span class="n">method</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-            <span class="s1">&#39;In your own words, what would you call the part of the country &#39;</span>
-            <span class="s1">&#39;you live in now?&#39;</span><span class="p">)</span>
+        <span class="n">encoder_type</span><span class="p">[</span><span class="n">method</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;Employee Position Title&#39;</span><span class="p">)</span>
     <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
-        <span class="n">encoder_type</span><span class="p">[</span><span class="n">method</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;In your own words, what would you call the &#39;</span>
-                               <span class="s1">&#39;part of the country you live in now?&#39;</span><span class="p">)</span>
+        <span class="n">encoder_type</span><span class="p">[</span><span class="n">method</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Employee Position Title&#39;</span><span class="p">]</span>
 
     <span class="c1"># OneHotEncoder needs numerical data, hence we first use LabelEncoder</span>
     <span class="n">label_encoder</span> <span class="o">=</span> <span class="n">LabelEncoder</span><span class="p">()</span>
     <span class="n">df</span><span class="p">[</span><span class="n">encoder_type</span><span class="p">[</span><span class="s1">&#39;one-hot&#39;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span>
         <span class="n">encoder_type</span><span class="p">[</span><span class="s1">&#39;one-hot&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">label_encoder</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">)</span>
 
-    <span class="n">cv</span> <span class="o">=</span> <span class="n">StratifiedKFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">cv</span> <span class="o">=</span> <span class="n">KFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 
     <span class="n">scores</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">train_index</span><span class="p">,</span> <span class="n">test_index</span> <span class="ow">in</span> <span class="n">cv</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="n">target_column</span><span class="p">]):</span>
+        <span class="n">y_train</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">train_index</span><span class="p">]</span>
         <span class="n">X_train</span> <span class="o">=</span> <span class="p">[</span>
             <span class="n">encoder_dict</span><span class="p">[</span><span class="n">encoder</span><span class="p">]</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span>
-            <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">train_index</span><span class="p">,</span> <span class="n">encoder_type</span><span class="p">[</span><span class="n">encoder</span><span class="p">]</span>
-                   <span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">train_index</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+                <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">train_index</span><span class="p">,</span> <span class="n">encoder_type</span><span class="p">[</span><span class="n">encoder</span><span class="p">]</span>
+                       <span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">train_index</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
             <span class="k">for</span> <span class="n">encoder</span> <span class="ow">in</span> <span class="n">encoder_type</span><span class="p">]</span>
-        <span class="n">X_train</span> <span class="o">=</span> <a href="http://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.hstack.html#scipy.sparse.hstack" title="View documentation for scipy.sparse.hstack"><span class="n">sparse</span><span class="o">.</span><span class="n">hstack</span></a><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
-        <span class="n">y_train</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">train_index</span><span class="p">]</span>
+        <span class="n">X_train</span> <span class="o">=</span> <a href="http://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.hstack.html#scipy.sparse.hstack" title="View documentation for scipy.sparse.hstack"><span class="n">sparse</span><span class="o">.</span><span class="n">hstack</span></a><span class="p">(</span><span class="n">X_train</span><span class="p">)</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
 
+        <span class="n">y_test</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">test_index</span><span class="p">]</span>
         <span class="n">X_test</span> <span class="o">=</span> <span class="p">[</span>
             <span class="n">encoder_dict</span><span class="p">[</span><span class="n">encoder</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span>
-            <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">test_index</span><span class="p">,</span> <span class="n">encoder_type</span><span class="p">[</span><span class="n">encoder</span><span class="p">]</span>
-                   <span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">test_index</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+                 <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">test_index</span><span class="p">,</span> <span class="n">encoder_type</span><span class="p">[</span><span class="n">encoder</span><span class="p">]</span>
+                        <span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">test_index</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
             <span class="k">for</span> <span class="n">encoder</span> <span class="ow">in</span> <span class="n">encoder_type</span><span class="p">]</span>
-        <span class="n">X_test</span> <span class="o">=</span> <a href="http://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.hstack.html#scipy.sparse.hstack" title="View documentation for scipy.sparse.hstack"><span class="n">sparse</span><span class="o">.</span><span class="n">hstack</span></a><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
-        <span class="n">y_test</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">test_index</span><span class="p">]</span>
+        <span class="n">X_test</span> <span class="o">=</span> <a href="http://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.hstack.html#scipy.sparse.hstack" title="View documentation for scipy.sparse.hstack"><span class="n">sparse</span><span class="o">.</span><span class="n">hstack</span></a><span class="p">(</span><span class="n">X_test</span><span class="p">)</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
         <span class="n">X_test</span><span class="o">.</span><span class="n">shape</span>
         <span class="n">X_train</span><span class="o">.</span><span class="n">shape</span>
         <span class="c1"># Now predict whether or not each row is about the midwest</span>
-        <span class="n">classifier</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+        <span class="n">classifier</span> <span class="o">=</span> <span class="n">RidgeCV</span><span class="p">()</span>
         <span class="n">classifier</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
         <span class="n">score</span> <span class="o">=</span> <span class="n">classifier</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
         <span class="n">scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">score</span><span class="p">)</span>
@@ -166,12 +144,12 @@ an open-ended question, on which one-hot encoding does not work well.</p>
           <span class="o">%</span> <span class="p">(</span><a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.mean.html#numpy.mean" title="View documentation for numpy.mean"><span class="n">np</span><span class="o">.</span><span class="n">mean</span></a><span class="p">(</span><span class="n">scores</span><span class="p">),</span> <a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.std.html#numpy.std" title="View documentation for numpy.std"><span class="n">np</span><span class="o">.</span><span class="n">std</span></a><span class="p">(</span><span class="n">scores</span><span class="p">)))</span>
 </pre></div>
 </div>
-<p><strong>Total running time of the script:</strong> ( 0 minutes  7.913 seconds)</p>
+<p><strong>Total running time of the script:</strong> ( 0 minutes  14.278 seconds)</p>
 <div class="sphx-glr-footer docutils container">
 <div class="sphx-glr-download docutils container">
-<a class="reference download internal" href="../_downloads/midwest_survey.py" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">midwest_survey.py</span></code></a></div>
+<a class="reference download internal" href="../_downloads/employee_salaries.py" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">employee_salaries.py</span></code></a></div>
 <div class="sphx-glr-download docutils container">
-<a class="reference download internal" href="../_downloads/midwest_survey.ipynb" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">midwest_survey.ipynb</span></code></a></div>
+<a class="reference download internal" href="../_downloads/employee_salaries.ipynb" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">employee_salaries.ipynb</span></code></a></div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.readthedocs.io">Gallery generated by Sphinx-Gallery</a></p>
 </div>
@@ -213,18 +191,19 @@ an open-ended question, on which one-hot encoding does not work well.</p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../generated/dirty_cat.datasets.fetch_midwest_survey.html"><code class="docutils literal"><span class="pre">dirty_cat.datasets</span></code>.fetch_midwest_survey</a></li>
 </ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="employee_salaries.html">Predicting the salary of employees</a></li>
-</ul>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Semantic variation in the “Midwest”</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Predicting the salary of employees</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="midwest_survey.html">Semantic variation in the “Midwest”</a></li>
 </ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="employee_salaries.html" title="previous chapter">Predicting the salary of employees</a></li>
+      <li>Previous: <a href="../generated/dirty_cat.datasets.fetch_midwest_survey.html" title="previous chapter"><code class="docutils literal"><span class="pre">dirty_cat.datasets</span></code>.fetch_midwest_survey</a></li>
+      <li>Next: <a href="midwest_survey.html" title="next chapter">Semantic variation in the “Midwest”</a></li>
   </ul></li>
 </ul>
 </div>
@@ -246,7 +225,7 @@ an open-ended question, on which one-hot encoding does not work well.</p>
       &copy;2018, dirty_cat developers.
       
       |
-      <a href="../_sources/auto_examples/midwest_survey.rst.txt"
+      <a href="../_sources/auto_examples/employee_salaries.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 
