@@ -56,8 +56,8 @@ strings, denoting the values taken on by categorical (discrete) features.
 The method is based on calculating the morphological similarities
 between the categories.
 The features can be encoded using one of the implemented string
-similarities: <code class="docutils literal"><span class="pre">similarity='ngram'</span></code> (default), ‘levenshtein-ratio’ or
-‘jaro-winkler’.
+similarities: <code class="docutils literal"><span class="pre">similarity='ngram'</span></code> (default), ‘levenshtein-ratio’,
+‘jaro’, or ‘jaro-winkler’.
 This encoding is an alternative to OneHotEncoder in the case of
 dirty categorical variables.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -65,9 +65,10 @@ dirty categorical variables.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>similarity</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.6)"><em>str</em></a><em>, </em><em>'ngram'</em><em>, </em><em>'levenshtein-ratio'</em><em> or </em><em>'jaro-winkler'</em>) – The type of similarity to use (default is ‘ngram’):
+<li><strong>similarity</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.6)"><em>str</em></a><em>, </em><em>'ngram'</em><em>, </em><em>'levenshtein-ratio'</em><em>, </em><em>'jaro'</em><em>, or </em><em>'jaro-winkler'</em>) – The type of similarity to use (default is ‘ngram’):
 - ‘ngram’: n-gram similarity between two strings
 - ‘levenshtein-ratio’:
+- ‘jaro’:
 - ‘jaro-winkler’:</li>
 <li><strong>categories</strong> (<em>'auto'</em><em> or </em><em>a list of lists/arrays of values.</em>) – <p>Categories (unique values) per feature:</p>
 <ul>

@@ -103,17 +103,18 @@
 <span class="sd">    The method is based on calculating the morphological similarities</span>
 <span class="sd">    between the categories.</span>
 <span class="sd">    The features can be encoded using one of the implemented string</span>
-<span class="sd">    similarities: ``similarity=&#39;ngram&#39;`` (default), &#39;levenshtein-ratio&#39; or</span>
-<span class="sd">    &#39;jaro-winkler&#39;.</span>
+<span class="sd">    similarities: ``similarity=&#39;ngram&#39;`` (default), &#39;levenshtein-ratio&#39;,</span>
+<span class="sd">    &#39;jaro&#39;, or &#39;jaro-winkler&#39;.</span>
 <span class="sd">    This encoding is an alternative to OneHotEncoder in the case of</span>
 <span class="sd">    dirty categorical variables.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    similarity : str, &#39;ngram&#39;, &#39;levenshtein-ratio&#39; or &#39;jaro-winkler&#39;</span>
+<span class="sd">    similarity : str, &#39;ngram&#39;, &#39;levenshtein-ratio&#39;, &#39;jaro&#39;, or &#39;jaro-winkler&#39;</span>
 <span class="sd">        The type of similarity to use (default is &#39;ngram&#39;):</span>
 <span class="sd">        - &#39;ngram&#39;: n-gram similarity between two strings</span>
 <span class="sd">        - &#39;levenshtein-ratio&#39;:</span>
+<span class="sd">        - &#39;jaro&#39;:</span>
 <span class="sd">        - &#39;jaro-winkler&#39;:</span>
 <span class="sd">    categories : &#39;auto&#39; or a list of lists/arrays of values.</span>
 <span class="sd">        Categories (unique values) per feature:</span>
