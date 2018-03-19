@@ -50,8 +50,8 @@
 <dl class="class">
 <dt id="dirty_cat.SimilarityEncoder">
 <em class="property">class </em><code class="descclassname">dirty_cat.</code><code class="descname">SimilarityEncoder</code><span class="sig-paren">(</span><em>similarity=’ngram’</em>, <em>ngram_range=(3</em>, <em>3)</em>, <em>categories=’auto’</em>, <em>dtype=&lt;class ‘numpy.float64’&gt;</em>, <em>handle_unknown=’ignore’</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/similarity_encoder.html#SimilarityEncoder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirty_cat.SimilarityEncoder" title="Permalink to this definition">¶</a></dt>
-<dd><p>Encode categorical features as a numeric array.
-The input to this transformer should be an array-like of integers or
+<dd><p>Encode categorical features as a numeric array.</p>
+<p>The input to this transformer should be an array-like of integers or
 strings, denoting the values taken on by categorical (discrete) features.
 The method is based on calculating the morphological similarities
 between the categories.
@@ -69,13 +69,14 @@ dirty categorical variables.</p>
 - ‘ngram’: n-gram similarity between two strings
 - ‘levenshtein-ratio’:
 - ‘jaro-winkler’:</li>
-<li><strong>categories</strong> (<em>'auto'</em><em> or </em><em>a list of lists/arrays of values.</em>) – <p>Categories (unique values) per feature:
-- ‘auto’ : Determine categories automatically from the training data.
-- list : <code class="docutils literal"><span class="pre">categories[i]</span></code> holds the categories expected in the ith</p>
-<blockquote>
-<div>column. The passed categories must be sorted and should not mix
-strings and numeric values.</div></blockquote>
-<p>The used categories can be found in the <code class="docutils literal"><span class="pre">categories_</span></code> attribute.</p>
+<li><strong>categories</strong> (<em>'auto'</em><em> or </em><em>a list of lists/arrays of values.</em>) – <p>Categories (unique values) per feature:</p>
+<ul>
+<li>’auto’ : Determine categories automatically from the training data.</li>
+<li>list : <code class="docutils literal"><span class="pre">categories[i]</span></code> holds the categories expected in the ith
+column. The passed categories must be sorted and should not mix
+strings and numeric values.</li>
+</ul>
+<p>The categories used can be found in the <code class="docutils literal"><span class="pre">categories_</span></code> attribute.</p>
 </li>
 <li><strong>dtype</strong> (<em>number type</em><em>, </em><em>default np.float64</em>) – Desired dtype of output.</li>
 <li><strong>handle_unknown</strong> (<em>'error'</em><em> (</em><em>default</em><em>) or </em><em>'ignore'</em>) – Whether to raise an error or ignore if a unknown categorical feature is

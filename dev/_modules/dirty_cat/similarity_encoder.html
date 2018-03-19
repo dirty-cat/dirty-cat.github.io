@@ -91,6 +91,7 @@
 
 <div class="viewcode-block" id="SimilarityEncoder"><a class="viewcode-back" href="../../generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder">[docs]</a><span class="k">class</span> <span class="nc">SimilarityEncoder</span><span class="p">(</span><span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">TransformerMixin</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Encode categorical features as a numeric array.</span>
+
 <span class="sd">    The input to this transformer should be an array-like of integers or</span>
 <span class="sd">    strings, denoting the values taken on by categorical (discrete) features.</span>
 <span class="sd">    The method is based on calculating the morphological similarities</span>
@@ -110,11 +111,13 @@
 <span class="sd">        - &#39;jaro-winkler&#39;:</span>
 <span class="sd">    categories : &#39;auto&#39; or a list of lists/arrays of values.</span>
 <span class="sd">        Categories (unique values) per feature:</span>
+
 <span class="sd">        - &#39;auto&#39; : Determine categories automatically from the training data.</span>
 <span class="sd">        - list : ``categories[i]`` holds the categories expected in the ith</span>
 <span class="sd">          column. The passed categories must be sorted and should not mix</span>
 <span class="sd">          strings and numeric values.</span>
-<span class="sd">        The used categories can be found in the ``categories_`` attribute.</span>
+
+<span class="sd">        The categories used can be found in the ``categories_`` attribute.</span>
 <span class="sd">    dtype : number type, default np.float64</span>
 <span class="sd">        Desired dtype of output.</span>
 <span class="sd">    handle_unknown : &#39;error&#39; (default) or &#39;ignore&#39;</span>
