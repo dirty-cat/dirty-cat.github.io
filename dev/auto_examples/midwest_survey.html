@@ -51,10 +51,10 @@ an open-ended question, on which one-hot encoding does not work well.</p>
 <p>Similarity encoding on this column gives much improved performance.</p>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-default"><div class="highlight"><pre><span></span><span class="n">one</span><span class="o">-</span><span class="n">hot</span> <span class="n">encoding</span>
-<span class="n">Accuracy</span><span class="p">:</span>  <span class="n">mean</span><span class="p">:</span> <span class="mf">0.477</span><span class="p">;</span> <span class="n">std</span><span class="p">:</span> <span class="mf">0.021</span>
+<span class="n">Accuracy</span> <span class="n">score</span><span class="p">:</span>  <span class="n">mean</span><span class="p">:</span> <span class="mf">0.477</span><span class="p">;</span> <span class="n">std</span><span class="p">:</span> <span class="mf">0.021</span>
 
 <span class="n">similarity</span> <span class="n">encoding</span>
-<span class="n">Accuracy</span><span class="p">:</span>  <span class="n">mean</span><span class="p">:</span> <span class="mf">0.651</span><span class="p">;</span> <span class="n">std</span><span class="p">:</span> <span class="mf">0.026</span>
+<span class="n">Accuracy</span> <span class="n">score</span><span class="p">:</span>  <span class="n">mean</span><span class="p">:</span> <span class="mf">0.651</span><span class="p">;</span> <span class="n">std</span><span class="p">:</span> <span class="mf">0.026</span>
 </pre></div>
 </div>
 <div class="line-block">
@@ -135,11 +135,11 @@ an open-ended question, on which one-hot encoding does not work well.</p>
     <span class="n">classifier</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
     <span class="k">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> encoding&#39;</span> <span class="o">%</span> <span class="n">method</span><span class="p">)</span>
     <span class="n">scores</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">classifier</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
-    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Accuracy:  mean: </span><span class="si">%.3f</span><span class="s1">; std: </span><span class="si">%.3f</span><span class="se">\n</span><span class="s1">&#39;</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Accuracy score:  mean: </span><span class="si">%.3f</span><span class="s1">; std: </span><span class="si">%.3f</span><span class="se">\n</span><span class="s1">&#39;</span>
           <span class="o">%</span> <span class="p">(</span><a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.mean.html#numpy.mean" title="View documentation for numpy.mean"><span class="n">np</span><span class="o">.</span><span class="n">mean</span></a><span class="p">(</span><span class="n">scores</span><span class="p">),</span> <a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.std.html#numpy.std" title="View documentation for numpy.std"><span class="n">np</span><span class="o">.</span><span class="n">std</span></a><span class="p">(</span><span class="n">scores</span><span class="p">)))</span>
 </pre></div>
 </div>
-<p><strong>Total running time of the script:</strong> ( 0 minutes  6.466 seconds)</p>
+<p><strong>Total running time of the script:</strong> ( 0 minutes  7.187 seconds)</p>
 <div class="sphx-glr-footer docutils container">
 <div class="sphx-glr-download docutils container">
 <a class="reference download internal" href="../_downloads/midwest_survey.py" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">midwest_survey.py</span></code></a></div>

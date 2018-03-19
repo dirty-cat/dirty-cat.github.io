@@ -21,10 +21,10 @@ Similarity encoding on this column gives much improved performance.
  Out::
 
     one-hot encoding
-    Accuracy:  mean: 0.477; std: 0.021
+    Accuracy score:  mean: 0.477; std: 0.021
 
     similarity encoding
-    Accuracy:  mean: 0.651; std: 0.026
+    Accuracy score:  mean: 0.651; std: 0.026
 
 
 
@@ -110,10 +110,10 @@ Similarity encoding on this column gives much improved performance.
         classifier = RandomForestClassifier(random_state=5)
         print('%s encoding' % method)
         scores = cross_val_score(classifier, X, y, cv=5)
-        print('Accuracy:  mean: %.3f; std: %.3f\n'
+        print('Accuracy score:  mean: %.3f; std: %.3f\n'
               % (np.mean(scores), np.std(scores)))
 
-**Total running time of the script:** ( 0 minutes  6.466 seconds)
+**Total running time of the script:** ( 0 minutes  7.187 seconds)
 
 
 
