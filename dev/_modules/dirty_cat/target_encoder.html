@@ -57,8 +57,8 @@
     <span class="k">return</span> <span class="n">out</span>
 
 
-<div class="viewcode-block" id="TargetEncoder"><a class="viewcode-back" href="../../index.html#dirty_cat.TargetEncoder">[docs]</a><span class="k">class</span> <span class="nc">TargetEncoder</span><span class="p">(</span><span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">TransformerMixin</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+<div class="viewcode-block" id="TargetEncoder"><a class="viewcode-back" href="../../generated/dirty_cat.TargetEncoder.html#dirty_cat.TargetEncoder">[docs]</a><span class="k">class</span> <span class="nc">TargetEncoder</span><span class="p">(</span><span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">TransformerMixin</span><span class="p">):</span>
+<div class="viewcode-block" id="TargetEncoder.__init__"><a class="viewcode-back" href="../../generated/dirty_cat.TargetEncoder.html#dirty_cat.TargetEncoder.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                  <span class="n">categories</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span>
                  <span class="n">clf_type</span><span class="o">=</span><span class="s1">&#39;binary-clf&#39;</span><span class="p">,</span>
                  <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span> <span class="n">handle_unknown</span><span class="o">=</span><span class="s1">&#39;error&#39;</span><span class="p">,</span>
@@ -66,7 +66,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">categories</span> <span class="o">=</span> <span class="n">categories</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span> <span class="o">=</span> <span class="n">dtype</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">clf_type</span> <span class="o">=</span> <span class="n">clf_type</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">handle_unknown</span> <span class="o">=</span> <span class="n">handle_unknown</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">handle_unknown</span> <span class="o">=</span> <span class="n">handle_unknown</span></div>
 
     <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_unknown</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="s1">&#39;ignore&#39;</span><span class="p">]:</span>
@@ -114,7 +114,7 @@
                     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">categories_</span><span class="p">))]</span>
         <span class="k">return</span> <span class="bp">self</span>
 
-<div class="viewcode-block" id="TargetEncoder.transform"><a class="viewcode-back" href="../../index.html#dirty_cat.TargetEncoder.transform">[docs]</a>    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+<div class="viewcode-block" id="TargetEncoder.transform"><a class="viewcode-back" href="../../generated/dirty_cat.TargetEncoder.html#dirty_cat.TargetEncoder.transform">[docs]</a>    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Transform X using specified encoding scheme.</span>
 
 <span class="sd">        Parameters</span>
