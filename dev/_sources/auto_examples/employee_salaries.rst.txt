@@ -8,8 +8,6 @@ Predicting the salary of employees
 
 Benchmark of encoders for the "employee_salaries" dataset.
 
-Similarity encoding on this column gives much improved performance.
-
 
 
 
@@ -20,10 +18,13 @@ Similarity encoding on this column gives much improved performance.
  Out::
 
     one-hot encoding
-    R^2 score:  mean: 0.864; std: 0.005
+    R^2 score:  mean: 0.854; std: 0.014
+
+    target encoding
+    R^2 score:  mean: 0.804; std: 0.014
 
     similarity encoding
-    R^2 score:  mean: 0.912; std: 0.008
+    R^2 score:  mean: 0.869; std: 0.012
 
 
 
@@ -60,7 +61,7 @@ Similarity encoding on this column gives much improved performance.
 
     data_file = datasets.fetch_employee_salaries()
 
-    for method in ['one-hot', 'similarity']:
+    for method in ['one-hot', 'target', 'similarity']:
         # Load the data
         df = pd.read_csv(data_file).astype(str)
         df['Current Annual Salary'] = [float(s[1:]) for s
@@ -86,7 +87,7 @@ Similarity encoding on this column gives much improved performance.
         df[encoder_type['one-hot']] = df[
             encoder_type['one-hot']].apply(label_encoder.fit_transform)
 
-        cv = KFold(n_splits=3, random_state=12, shuffle=True)
+        cv = KFold(n_splits=5, random_state=12, shuffle=True)
 
         scores = []
         for train_index, test_index in cv.split(df, df[target_column]):
@@ -94,7 +95,7 @@ Similarity encoding on this column gives much improved performance.
             X_train = [
                 encoder_dict[encoder].fit_transform(
                     df.loc[train_index, encoder_type[encoder]
-                           ].values.reshape(len(train_index), -1))
+                           ].values.reshape(len(train_index), -1), y_train)
                 for encoder in encoder_type]
             X_train = sparse.hstack(X_train).toarray()
 
@@ -105,10 +106,9 @@ Similarity encoding on this column gives much improved performance.
                             ].values.reshape(len(test_index), -1))
                 for encoder in encoder_type]
             X_test = sparse.hstack(X_test).toarray()
-            X_test.shape
-            X_train.shape
-            # Now predict whether or not each row is about the midwest
-            classifier = RidgeCV()
+
+            # Now predict the salary of each worker
+            classifier = RidgeCV(normalize=True)
             classifier.fit(X_train, y_train)
             score = classifier.score(X_test, y_test)
             scores.append(score)
@@ -117,7 +117,7 @@ Similarity encoding on this column gives much improved performance.
         print('R^2 score:  mean: %.3f; std: %.3f\n'
               % (np.mean(scores), np.std(scores)))
 
-**Total running time of the script:** ( 0 minutes  9.086 seconds)
+**Total running time of the script:** ( 0 minutes  22.119 seconds)
 
 
 

@@ -50,12 +50,12 @@
 <dl class="class">
 <dt id="dirty_cat.SimilarityEncoder">
 <em class="property">class </em><code class="descclassname">dirty_cat.</code><code class="descname">SimilarityEncoder</code><span class="sig-paren">(</span><em>similarity=’ngram’</em>, <em>ngram_range=(3</em>, <em>3)</em>, <em>categories=’auto’</em>, <em>dtype=&lt;class ‘numpy.float64’&gt;</em>, <em>handle_unknown=’ignore’</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/similarity_encoder.html#SimilarityEncoder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirty_cat.SimilarityEncoder" title="Permalink to this definition">¶</a></dt>
-<dd><p>Encode categorical features as a numeric array.</p>
-<p>The input to this transformer should be an array-like of integers or
-strings, denoting the values taken on by categorical (discrete) features.
+<dd><p>Encode string categorical features as a numeric array.</p>
+<p>The input to this transformer should be an array-like of
+strings.
 The method is based on calculating the morphological similarities
 between the categories.
-The features can be encoded using one of the implemented string
+The categories can be encoded using one of the implemented string
 similarities: <code class="docutils literal"><span class="pre">similarity='ngram'</span></code> (default), ‘levenshtein-ratio’,
 ‘jaro’, or ‘jaro-winkler’.
 This encoding is an alternative to OneHotEncoder in the case of
@@ -65,11 +65,10 @@ dirty categorical variables.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>similarity</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.6)"><em>str</em></a><em>, </em><em>'ngram'</em><em>, </em><em>'levenshtein-ratio'</em><em>, </em><em>'jaro'</em><em>, or </em><em>'jaro-winkler'</em>) – The type of similarity to use (default is ‘ngram’):
-- ‘ngram’: n-gram similarity between two strings
-- ‘levenshtein-ratio’:
-- ‘jaro’:
-- ‘jaro-winkler’:</li>
+<li><strong>similarity</strong> (<em>str {'ngram'</em><em>, </em><em>'levenshtein-ratio'</em><em>, </em><em>'jaro'</em><em>, </em><em>or</em>) – </li>
+<li><strong>'jaro-winkler'}</strong> – The type of pairwise string similarity to use.</li>
+<li><strong>ngram_range</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.6)"><em>tuple</em></a><em> (</em><em>min_n</em><em>, </em><em>max_n</em><em>)</em><em>, </em><em>default=</em><em>(</em><em>3</em><em>, </em><em>3</em><em>)</em>) – Only significant for <code class="docutils literal"><span class="pre">similarity='ngram'</span></code>. The range of
+values for the n_gram similarity.</li>
 <li><strong>categories</strong> (<em>'auto'</em><em> or </em><em>a list of lists/arrays of values.</em>) – <p>Categories (unique values) per feature:</p>
 <ul>
 <li>’auto’ : Determine categories automatically from the training data.</li>
@@ -196,9 +195,9 @@ component of a nested object.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>X</strong> (<em>array-like</em><em>, </em><em>shape</em><em> [</em><em>n_samples</em><em>, </em><em>n_features</em><em>]</em>) – The data to encode.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>X_out</strong> – Transformed input.</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>X_new</strong> – Transformed input.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">2-d array</td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">2-d array, shape [n_samples, n_features_new]</td>
 </tr>
 </tbody>
 </table>

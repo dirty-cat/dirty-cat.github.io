@@ -48,13 +48,15 @@
   <div class="section" id="predicting-the-salary-of-employees">
 <span id="sphx-glr-auto-examples-employee-salaries-py"></span><h1>Predicting the salary of employees<a class="headerlink" href="#predicting-the-salary-of-employees" title="Permalink to this headline">¶</a></h1>
 <p>Benchmark of encoders for the “employee_salaries” dataset.</p>
-<p>Similarity encoding on this column gives much improved performance.</p>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-default"><div class="highlight"><pre><span></span><span class="n">one</span><span class="o">-</span><span class="n">hot</span> <span class="n">encoding</span>
-<span class="n">R</span><span class="o">^</span><span class="mi">2</span> <span class="n">score</span><span class="p">:</span>  <span class="n">mean</span><span class="p">:</span> <span class="mf">0.864</span><span class="p">;</span> <span class="n">std</span><span class="p">:</span> <span class="mf">0.005</span>
+<span class="n">R</span><span class="o">^</span><span class="mi">2</span> <span class="n">score</span><span class="p">:</span>  <span class="n">mean</span><span class="p">:</span> <span class="mf">0.854</span><span class="p">;</span> <span class="n">std</span><span class="p">:</span> <span class="mf">0.014</span>
+
+<span class="n">target</span> <span class="n">encoding</span>
+<span class="n">R</span><span class="o">^</span><span class="mi">2</span> <span class="n">score</span><span class="p">:</span>  <span class="n">mean</span><span class="p">:</span> <span class="mf">0.804</span><span class="p">;</span> <span class="n">std</span><span class="p">:</span> <span class="mf">0.014</span>
 
 <span class="n">similarity</span> <span class="n">encoding</span>
-<span class="n">R</span><span class="o">^</span><span class="mi">2</span> <span class="n">score</span><span class="p">:</span>  <span class="n">mean</span><span class="p">:</span> <span class="mf">0.912</span><span class="p">;</span> <span class="n">std</span><span class="p">:</span> <span class="mf">0.008</span>
+<span class="n">R</span><span class="o">^</span><span class="mi">2</span> <span class="n">score</span><span class="p">:</span>  <span class="n">mean</span><span class="p">:</span> <span class="mf">0.869</span><span class="p">;</span> <span class="n">std</span><span class="p">:</span> <span class="mf">0.012</span>
 </pre></div>
 </div>
 <div class="line-block">
@@ -86,7 +88,7 @@
 
 <span class="n">data_file</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">fetch_employee_salaries</span><span class="p">()</span>
 
-<span class="k">for</span> <span class="n">method</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;one-hot&#39;</span><span class="p">,</span> <span class="s1">&#39;similarity&#39;</span><span class="p">]:</span>
+<span class="k">for</span> <span class="n">method</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;one-hot&#39;</span><span class="p">,</span> <span class="s1">&#39;target&#39;</span><span class="p">,</span> <span class="s1">&#39;similarity&#39;</span><span class="p">]:</span>
     <span class="c1"># Load the data</span>
     <span class="n">df</span> <span class="o">=</span> <a href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.read_csv.html#pandas.read_csv" title="View documentation for pandas.read_csv"><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span></a><span class="p">(</span><span class="n">data_file</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
     <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Current Annual Salary&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span> <span class="k">for</span> <span class="n">s</span>
@@ -112,7 +114,7 @@
     <span class="n">df</span><span class="p">[</span><span class="n">encoder_type</span><span class="p">[</span><span class="s1">&#39;one-hot&#39;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span>
         <span class="n">encoder_type</span><span class="p">[</span><span class="s1">&#39;one-hot&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">label_encoder</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">)</span>
 
-    <span class="n">cv</span> <span class="o">=</span> <span class="n">KFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">cv</span> <span class="o">=</span> <span class="n">KFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 
     <span class="n">scores</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">train_index</span><span class="p">,</span> <span class="n">test_index</span> <span class="ow">in</span> <span class="n">cv</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="n">target_column</span><span class="p">]):</span>
@@ -120,7 +122,7 @@
         <span class="n">X_train</span> <span class="o">=</span> <span class="p">[</span>
             <span class="n">encoder_dict</span><span class="p">[</span><span class="n">encoder</span><span class="p">]</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span>
                 <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">train_index</span><span class="p">,</span> <span class="n">encoder_type</span><span class="p">[</span><span class="n">encoder</span><span class="p">]</span>
-                       <span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">train_index</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+                       <span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">train_index</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">y_train</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">encoder</span> <span class="ow">in</span> <span class="n">encoder_type</span><span class="p">]</span>
         <span class="n">X_train</span> <span class="o">=</span> <a href="http://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.hstack.html#scipy.sparse.hstack" title="View documentation for scipy.sparse.hstack"><span class="n">sparse</span><span class="o">.</span><span class="n">hstack</span></a><span class="p">(</span><span class="n">X_train</span><span class="p">)</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
 
@@ -131,10 +133,9 @@
                         <span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">test_index</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
             <span class="k">for</span> <span class="n">encoder</span> <span class="ow">in</span> <span class="n">encoder_type</span><span class="p">]</span>
         <span class="n">X_test</span> <span class="o">=</span> <a href="http://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.hstack.html#scipy.sparse.hstack" title="View documentation for scipy.sparse.hstack"><span class="n">sparse</span><span class="o">.</span><span class="n">hstack</span></a><span class="p">(</span><span class="n">X_test</span><span class="p">)</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
-        <span class="n">X_test</span><span class="o">.</span><span class="n">shape</span>
-        <span class="n">X_train</span><span class="o">.</span><span class="n">shape</span>
-        <span class="c1"># Now predict whether or not each row is about the midwest</span>
-        <span class="n">classifier</span> <span class="o">=</span> <span class="n">RidgeCV</span><span class="p">()</span>
+
+        <span class="c1"># Now predict the salary of each worker</span>
+        <span class="n">classifier</span> <span class="o">=</span> <span class="n">RidgeCV</span><span class="p">(</span><span class="n">normalize</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
         <span class="n">classifier</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
         <span class="n">score</span> <span class="o">=</span> <span class="n">classifier</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
         <span class="n">scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">score</span><span class="p">)</span>
@@ -144,7 +145,7 @@
           <span class="o">%</span> <span class="p">(</span><a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.mean.html#numpy.mean" title="View documentation for numpy.mean"><span class="n">np</span><span class="o">.</span><span class="n">mean</span></a><span class="p">(</span><span class="n">scores</span><span class="p">),</span> <a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.std.html#numpy.std" title="View documentation for numpy.std"><span class="n">np</span><span class="o">.</span><span class="n">std</span></a><span class="p">(</span><span class="n">scores</span><span class="p">)))</span>
 </pre></div>
 </div>
-<p><strong>Total running time of the script:</strong> ( 0 minutes  9.086 seconds)</p>
+<p><strong>Total running time of the script:</strong> ( 0 minutes  22.119 seconds)</p>
 <div class="sphx-glr-footer docutils container">
 <div class="sphx-glr-download docutils container">
 <a class="reference download internal" href="../_downloads/employee_salaries.py" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">employee_salaries.py</span></code></a></div>
