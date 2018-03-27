@@ -21,7 +21,7 @@ Benchmark of encoders for the "employee_salaries" dataset.
     R^2 score:  mean: 0.856; std: 0.013
 
     target encoding
-    R^2 score:  mean: 0.793; std: 0.014
+    R^2 score:  mean: 0.773; std: 0.016
 
     similarity encoding
     R^2 score:  mean: 0.913; std: 0.006
@@ -121,7 +121,7 @@ Benchmark of encoders for the "employee_salaries" dataset.
         print('R^2 score:  mean: %.3f; std: %.3f\n'
               % (np.mean(scores), np.std(scores)))
 
-**Total running time of the script:** ( 0 minutes  17.866 seconds)
+**Total running time of the script:** ( 0 minutes  20.800 seconds)
 
 
 
