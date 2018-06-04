@@ -143,7 +143,7 @@ an open-ended question, on which one-hot encoding does not work well.</p>
             <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">train_index</span><span class="p">,</span> <span class="n">encoder_type</span><span class="p">[</span><span class="n">encoder</span><span class="p">]</span>
                    <span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">train_index</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
             <span class="k">for</span> <span class="n">encoder</span> <span class="ow">in</span> <span class="n">encoder_type</span><span class="p">]</span>
-        <span class="n">X_train</span> <span class="o">=</span> <a href="http://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.hstack.html#scipy.sparse.hstack" title="View documentation for scipy.sparse.hstack"><span class="n">sparse</span><span class="o">.</span><span class="n">hstack</span></a><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+        <span class="n">X_train</span> <span class="o">=</span> <span class="n">sparse</span><span class="o">.</span><span class="n">hstack</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
         <span class="n">y_train</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">train_index</span><span class="p">]</span>
 
         <span class="n">X_test</span> <span class="o">=</span> <span class="p">[</span>
@@ -151,7 +151,7 @@ an open-ended question, on which one-hot encoding does not work well.</p>
             <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">test_index</span><span class="p">,</span> <span class="n">encoder_type</span><span class="p">[</span><span class="n">encoder</span><span class="p">]</span>
                    <span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">test_index</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
             <span class="k">for</span> <span class="n">encoder</span> <span class="ow">in</span> <span class="n">encoder_type</span><span class="p">]</span>
-        <span class="n">X_test</span> <span class="o">=</span> <a href="http://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.hstack.html#scipy.sparse.hstack" title="View documentation for scipy.sparse.hstack"><span class="n">sparse</span><span class="o">.</span><span class="n">hstack</span></a><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+        <span class="n">X_test</span> <span class="o">=</span> <span class="n">sparse</span><span class="o">.</span><span class="n">hstack</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
         <span class="n">y_test</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">test_index</span><span class="p">]</span>
         <span class="n">X_test</span><span class="o">.</span><span class="n">shape</span>
         <span class="n">X_train</span><span class="o">.</span><span class="n">shape</span>
@@ -167,14 +167,14 @@ an open-ended question, on which one-hot encoding does not work well.</p>
           <span class="o">%</span> <span class="p">(</span><a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.mean.html#numpy.mean" title="View documentation for numpy.mean"><span class="n">np</span><span class="o">.</span><span class="n">mean</span></a><span class="p">(</span><span class="n">scores</span><span class="p">),</span> <a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.std.html#numpy.std" title="View documentation for numpy.std"><span class="n">np</span><span class="o">.</span><span class="n">std</span></a><span class="p">(</span><span class="n">scores</span><span class="p">)))</span>
 </pre></div>
 </div>
-<p><strong>Total running time of the script:</strong> ( 0 minutes  7.265 seconds)</p>
+<p><strong>Total running time of the script:</strong> ( 0 minutes  7.721 seconds)</p>
 <div class="sphx-glr-footer docutils container">
 <div class="sphx-glr-download docutils container">
 <a class="reference download internal" href="../_downloads/midwest_survey.py" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">midwest_survey.py</span></code></a></div>
 <div class="sphx-glr-download docutils container">
 <a class="reference download internal" href="../_downloads/midwest_survey.ipynb" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">midwest_survey.ipynb</span></code></a></div>
 </div>
-<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.readthedocs.io">Gallery generated by Sphinx-Gallery</a></p>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.readthedocs.io">Generated by Sphinx-Gallery</a></p>
 </div>
 
 
