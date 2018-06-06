@@ -29,7 +29,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Predicting the salary of employees" href="plot_employee_salaries.html" />
-    <link rel="prev" title="dirty_cat.datasets.fetching.fetch_employee_salaries" href="../generated/dirty_cat.datasets.fetching.fetch_employee_salaries.html" />
+    <link rel="prev" title="dirty_cat.datasets.fetch_employee_salaries" href="../generated/dirty_cat.datasets.fetch_employee_salaries.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
@@ -53,13 +53,10 @@
 <h2>What do we mean by dirty data?<a class="headerlink" href="#what-do-we-mean-by-dirty-data" title="Permalink to this headline">¶</a></h2>
 <p>Let’s look at a dataset called employee salaries:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">dirty_cat.datasets.fetching</span> <span class="kn">import</span> <span class="n">fetch_employee_salaries</span><span class="p">,</span> <span class="n">get_data_dir</span>
+<span class="kn">from</span> <span class="nn">dirty_cat</span> <span class="kn">import</span> <span class="n">datasets</span>
 
-<span class="n">fetch_employee_salaries</span><span class="p">()</span>
-<span class="n">data_path</span> <span class="o">=</span> <span class="n">get_data_dir</span><span class="p">()</span>
-<span class="n">data_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span> <span class="s1">&#39;employee_salaries&#39;</span><span class="p">,</span> <span class="s1">&#39;rows.csv&#39;</span><span class="p">)</span>
-<span class="n">df</span> <span class="o">=</span> <a href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.read_csv.html#pandas.read_csv" title="View documentation for pandas.read_csv"><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span></a><span class="p">(</span><span class="n">data_path</span><span class="p">)</span>
+<span class="n">employee_salaries</span> <span class="o">=</span> <a href="../generated/dirty_cat.datasets.fetch_employee_salaries.html#dirty_cat.datasets.fetch_employee_salaries" title="View documentation for dirty_cat.datasets.fetch_employee_salaries"><span class="n">datasets</span><span class="o">.</span><span class="n">fetch_employee_salaries</span></a><span class="p">()</span>
+<span class="n">df</span> <span class="o">=</span> <a href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.read_csv.html#pandas.read_csv" title="View documentation for pandas.read_csv"><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span></a><span class="p">(</span><span class="n">employee_salaries</span><span class="p">[</span><span class="s1">&#39;path&#39;</span><span class="p">])</span>
 <span class="k">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">5</span><span class="p">))</span>
 </pre></div>
 </div>
@@ -119,13 +116,13 @@ for other categorical columns  such as Employee position title:</p>
 Now, there are some reason why traditional word-encoding methods won’t work
 very well.</p>
 <ul class="simple">
-<li>Using simple one-hot encoding will create orthogonal features, </li>
+<li>Using simple one-hot encoding will create orthogonal features,
+whereas it is clear that those 3 terms have a lot in common.</li>
+<li>If we wanted to use word embedding methods such as word2vec,
+we would have to go through a cleaning phase: those algorithms
+are not trained to work on data such as ‘Accountant/Auditor I’.
+However, that can be unsafe and take a long time.</li>
 </ul>
-<p>whereas it is clear that those 3 terms have a lot in common.</p>
-<ul class="simple">
-<li>If we wanted to use word embedding methods such as word2vec, </li>
-</ul>
-<p>we would have to go through a cleaning phase: those algorithms are not trained to work on data such as ‘Accountant/Auditor I’. However, that can be unsafe and take a long time.</p>
 </div>
 <div class="section" id="encoding-categorical-data-using-similarityencoder">
 <h2>Encoding categorical data using SimilarityEncoder<a class="headerlink" href="#encoding-categorical-data-using-similarityencoder" title="Permalink to this headline">¶</a></h2>
@@ -208,7 +205,7 @@ nearest neighbor is “telecommunication technician”, although it is also
 very close to senior “supply technician”: therefore, we grasp the
 “communication” part (not initially present in the category as a unique word)
 as well as the technician part of this category.</p>
-<p><strong>Total running time of the script:</strong> ( 0 minutes  17.961 seconds)</p>
+<p><strong>Total running time of the script:</strong> ( 0 minutes  17.300 seconds)</p>
 <div class="sphx-glr-footer docutils container">
 <div class="sphx-glr-download docutils container">
 <a class="reference download internal" href="../_downloads/plot_investigating_dirty_categories.py" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_investigating_dirty_categories.py</span></code></a></div>
@@ -255,7 +252,7 @@ as well as the technician part of this category.</p>
 <li class="toctree-l1"><a class="reference internal" href="../generated/dirty_cat.TargetEncoder.html"><code class="docutils literal"><span class="pre">dirty_cat</span></code>.TargetEncoder</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../generated/dirty_cat.datasets.fetching.fetch_employee_salaries.html"><code class="docutils literal"><span class="pre">dirty_cat.datasets.fetching</span></code>.fetch_employee_salaries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../generated/dirty_cat.datasets.fetch_employee_salaries.html"><code class="docutils literal"><span class="pre">dirty_cat.datasets</span></code>.fetch_employee_salaries</a></li>
 </ul>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Basic dirty_cat example: manipulating and looking at data</a><ul>
@@ -279,7 +276,7 @@ as well as the technician part of this category.</p>
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="../generated/dirty_cat.datasets.fetching.fetch_employee_salaries.html" title="previous chapter"><code class="docutils literal"><span class="pre">dirty_cat.datasets.fetching</span></code>.fetch_employee_salaries</a></li>
+      <li>Previous: <a href="../generated/dirty_cat.datasets.fetch_employee_salaries.html" title="previous chapter"><code class="docutils literal"><span class="pre">dirty_cat.datasets</span></code>.fetch_employee_salaries</a></li>
       <li>Next: <a href="plot_employee_salaries.html" title="next chapter">Predicting the salary of employees</a></li>
   </ul></li>
 </ul>
