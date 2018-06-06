@@ -56,9 +56,6 @@ target variable y. The method considers that categorical
 variables can present rare categories. It represents each category by the
 probability of y conditional on this category.
 In addition it takes an empirical Bayes approach to shrink the estimate.</p>
-<p>For more details, see Micci-Barreca, 2001: A preprocessing scheme for
-high-cardinality categorical attributes in classification and prediction
-problems.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -93,6 +90,10 @@ will be denoted as None.</li>
 (in order corresponding with output of <code class="docutils literal"><span class="pre">transform</span></code>).</p>
 </dd></dl>
 
+<p class="rubric">References</p>
+<p>For more details, see Micci-Barreca, 2001: A preprocessing scheme for
+high-cardinality categorical attributes in classification and prediction
+problems.</p>
 <dl class="method">
 <dt id="dirty_cat.TargetEncoder.__init__">
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>categories=’auto’</em>, <em>clf_type=’binary-clf’</em>, <em>dtype=&lt;class ‘numpy.float64’&gt;</em>, <em>handle_unknown=’error’</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/target_encoder.html#TargetEncoder.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirty_cat.TargetEncoder.__init__" title="Permalink to this definition">¶</a></dt>

@@ -60,9 +60,6 @@ similarities: <code class="docutils literal"><span class="pre">similarity='ngram
 ‘jaro’, or ‘jaro-winkler’.
 This encoding is an alternative to OneHotEncoder in the case of
 dirty categorical variables.</p>
-<p>For a detailed description of the method, see
-<a class="reference external" href="https://hal.inria.fr/hal-01806175">Similarity encoding for learning with dirty categorical variables</a> by Cerda, Varoquaux, Kégl. 2018
-(accepted for publication at: Machine Learning journal, Springer).</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -99,6 +96,10 @@ will be denoted as None.</li>
 (in order corresponding with output of <code class="docutils literal"><span class="pre">transform</span></code>).</p>
 </dd></dl>
 
+<p class="rubric">References</p>
+<p>For a detailed description of the method, see
+<a class="reference external" href="https://hal.inria.fr/hal-01806175">Similarity encoding for learning with dirty categorical variables</a> by Cerda, Varoquaux, Kegl. 2018
+(accepted for publication at: Machine Learning journal, Springer).</p>
 <dl class="method">
 <dt id="dirty_cat.SimilarityEncoder.__init__">
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>similarity=’ngram’</em>, <em>ngram_range=(3</em>, <em>3)</em>, <em>categories=’auto’</em>, <em>dtype=&lt;class ‘numpy.float64’&gt;</em>, <em>handle_unknown=’ignore’</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/similarity_encoder.html#SimilarityEncoder.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirty_cat.SimilarityEncoder.__init__" title="Permalink to this definition">¶</a></dt>
