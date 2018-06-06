@@ -54,6 +54,14 @@ robust to morphological variants, such as typos, in the category strings.</p>
 <p>The <a class="reference internal" href="generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="dirty_cat.SimilarityEncoder"><code class="xref py py-class docutils literal"><span class="pre">SimilarityEncoder</span></code></a> can be used as a drop-in replacement for
 the <a class="reference external" href="https://scikit-learn.org">scikit-learn</a> class
 <a class="reference external" href="http://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.OneHotEncoder.html#sklearn.preprocessing.OneHotEncoder" title="(in scikit-learn v0.19.1)"><code class="xref py py-class docutils literal"><span class="pre">sklearn.preprocessing.OneHotEncoder</span></code></a>.</p>
+<p>For a detailed description of the problem of encoding dirty categorical data,
+see <a class="reference external" href="https://hal.inria.fr/hal-01806175">Similarity encoding for learning with dirty categorical variables</a> <a class="footnote-reference" href="#id2" id="id1">[1]</a>.</p>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>Patricio Cerda, Gaël Varoquaux, Balázs Kégl. Similarity encoding for learning with dirty categorical variables. 2018. Accepted for publication at: Machine Learning journal, Springer.</td></tr>
+</tbody>
+</table>
 <div class="section" id="api-documentation">
 <h2>API documentation<a class="headerlink" href="#api-documentation" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="base-classes">
@@ -91,19 +99,19 @@ the <a class="reference external" href="https://scikit-learn.org">scikit-learn</
 <div class="section" id="dirty-cat-usage">
 <h2>dirty_cat usage<a class="headerlink" href="#dirty-cat-usage" title="Permalink to this headline">¶</a></h2>
 <p>Tutorials on how to use dirty_cat.</p>
-<div class="sphx-glr-thumbcontainer" tooltip="let&#x27;s try to understand how embedding dirty categorical variables with 3gram similarity can hel..."><div class="figure" id="id1">
+<div class="sphx-glr-thumbcontainer" tooltip="let&#x27;s try to understand how embedding dirty categorical variables with 3gram similarity can hel..."><div class="figure" id="id3">
 <img alt="_images/sphx_glr_plot_investigating_dirty_categories_thumb.png" src="_images/sphx_glr_plot_investigating_dirty_categories_thumb.png" />
 <p class="caption"><span class="caption-text"><a class="reference internal" href="auto_examples/plot_investigating_dirty_categories.html#sphx-glr-auto-examples-plot-investigating-dirty-categories-py"><span class="std std-ref">Basic dirty_cat example: manipulating and looking at data</span></a></span></p>
 </div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Let&#x27;s have a look on how using similarity encoding instead of more traditional categorical enco..."><div class="figure" id="id2">
+<div class="sphx-glr-thumbcontainer" tooltip="Let&#x27;s have a look on how using similarity encoding instead of more traditional categorical enco..."><div class="figure" id="id4">
 <img alt="_images/sphx_glr_plot_employee_salaries_thumb.png" src="_images/sphx_glr_plot_employee_salaries_thumb.png" />
 <p class="caption"><span class="caption-text"><a class="reference internal" href="auto_examples/plot_employee_salaries.html#sphx-glr-auto-examples-plot-employee-salaries-py"><span class="std std-ref">Predicting the salary of employees</span></a></span></p>
 </div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Let&#x27;s see how different encoding for the dirty column impact on the score of a classification p..."><div class="figure" id="id3">
+<div class="sphx-glr-thumbcontainer" tooltip="Let&#x27;s see how different encoding for the dirty column impact on the score of a classification p..."><div class="figure" id="id5">
 <img alt="_images/sphx_glr_midwest_survey_thumb.png" src="_images/sphx_glr_midwest_survey_thumb.png" />
 <p class="caption"><span class="caption-text"><a class="reference internal" href="auto_examples/midwest_survey.html#sphx-glr-auto-examples-midwest-survey-py"><span class="std std-ref">Semantic variation in the “Midwest”</span></a></span></p>
 </div>
