@@ -1,0 +1,446 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>dirty_cat.datasets.fetching &#8212; dirty_cat 0.0.1a documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/gallery.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.0.1a',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for dirty_cat.datasets.fetching</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">fetching function to retrieve example dataset, using nilearn</span>
+<span class="sd">fetching convention.</span>
+
+<span class="sd">The parts of the nilearn fetching utils that have an obvious</span>
+<span class="sd">meaning are directly copied. The rest is annoted.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">shutil</span>
+<span class="kn">import</span> <span class="nn">urllib</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">namedtuple</span>
+
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="kn">from</span> <span class="nn">..datasets.utils</span> <span class="k">import</span> <span class="n">md5_hash</span><span class="p">,</span> <span class="n">_check_if_exists</span><span class="p">,</span> \
+    <span class="n">_uncompress_file</span><span class="p">,</span> \
+    <span class="n">_md5_sum_file</span><span class="p">,</span> <span class="n">get_data_dir</span>
+
+<span class="c1"># in nilearn, urllib is used. Here the request package will be used</span>
+<span class="c1"># trying to use requests as much as possible (everything except the</span>
+<span class="c1"># parsing function)</span>
+
+<span class="c1"># current data has been pulled from bigml, which require authentication</span>
+<span class="c1"># for downloading. So for now we download the data from github</span>
+<span class="c1"># however, the data differ a little bit from the two sources</span>
+<span class="c1"># so we either have to implement login into _fetch_data</span>
+<span class="c1"># or to reverse-engineer the processing script that can transform the data</span>
+<span class="c1"># from git</span>
+<span class="c1"># to the data from bigml</span>
+<span class="c1"># this is true for bigml and midwest survey</span>
+
+
+<span class="n">DatasetInfo</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;DatasetInfo&#39;</span><span class="p">,</span>
+                         <span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;urlinfos&#39;</span><span class="p">,</span> <span class="s1">&#39;main_file&#39;</span><span class="p">,</span> <span class="s1">&#39;source&#39;</span><span class="p">])</span>
+<span class="c1"># a DatasetInfo Object is basically a tuple of UrlInfos object</span>
+<span class="c1"># an UrlInfo object is composed of an url and the filenames contained</span>
+<span class="c1"># in the request content</span>
+<span class="n">UrlInfo</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;UrlInfo&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;url&#39;</span><span class="p">,</span> <span class="s1">&#39;filenames&#39;</span><span class="p">,</span> <span class="s1">&#39;uncompress&#39;</span><span class="p">])</span>
+
+<span class="n">ROAD_SAFETY_CONFIG</span> <span class="o">=</span> <span class="n">DatasetInfo</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;road_safety&#39;</span><span class="p">,</span>
+    <span class="n">urlinfos</span><span class="o">=</span><span class="p">(</span>
+        <span class="n">UrlInfo</span><span class="p">(</span>
+            <span class="n">url</span><span class="o">=</span><span class="s2">&quot;http://data.dft.gov.uk/road-accidents-safety-data/&quot;</span>
+                <span class="s2">&quot;RoadSafetyData_2015.zip&quot;</span><span class="p">,</span>
+            <span class="n">filenames</span><span class="o">=</span><span class="p">(</span>
+                <span class="s2">&quot;Casualties_2015.csv&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;Vehicles_2015.csv&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;Accidents_2015.csv&quot;</span>
+            <span class="p">),</span>
+            <span class="n">uncompress</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+        <span class="n">UrlInfo</span><span class="p">(</span>
+            <span class="n">url</span><span class="o">=</span><span class="s2">&quot;http://data.dft.gov.uk/road-accidents-safety-data/&quot;</span>
+                <span class="s2">&quot;MakeModel2015.zip&quot;</span><span class="p">,</span>
+            <span class="n">filenames</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;2015_Make_Model.csv&quot;</span><span class="p">,),</span>
+            <span class="n">uncompress</span><span class="o">=</span><span class="kc">True</span>
+        <span class="p">)</span>
+    <span class="p">),</span>
+    <span class="n">main_file</span><span class="o">=</span><span class="s2">&quot;Accidents_2015.csv&quot;</span><span class="p">,</span>  <span class="c1"># for consistency, all files are relevant,</span>
+    <span class="n">source</span><span class="o">=</span><span class="s2">&quot;https://data.gov.uk/dataset/road-accidents-safety-data&quot;</span>
+<span class="p">)</span>
+
+<span class="n">OPEN_PAYMENTS_CONFIG</span> <span class="o">=</span> <span class="n">DatasetInfo</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;open_payments&#39;</span><span class="p">,</span>
+    <span class="n">urlinfos</span><span class="o">=</span>
+    <span class="p">(</span>
+        <span class="n">UrlInfo</span><span class="p">(</span>
+            <span class="n">url</span><span class="o">=</span><span class="s1">&#39;http://download.cms.gov/openpayments/PGYR13_P011718.ZIP&#39;</span><span class="p">,</span>
+            <span class="n">filenames</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">uncompress</span><span class="o">=</span><span class="kc">True</span>
+        <span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">main_file</span><span class="o">=</span><span class="s1">&#39;OP_DTL_GNRL_PGYR2013_P01172018.csv&#39;</span><span class="p">,</span>  <span class="c1"># same</span>
+    <span class="n">source</span><span class="o">=</span><span class="s1">&#39;https://openpaymentsdata.cms.gov&#39;</span>
+<span class="p">)</span>
+
+<span class="n">MIDWEST_SURVEY_CONFIG</span> <span class="o">=</span> <span class="n">DatasetInfo</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;midwest_survey&#39;</span><span class="p">,</span>
+    <span class="n">urlinfos</span><span class="o">=</span><span class="p">(</span>
+        <span class="n">UrlInfo</span><span class="p">(</span>
+            <span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://github.com/fivethirtyeight/data/tree/&quot;</span>
+                <span class="s2">&quot;master/region-survey/FiveThirtyEight_Midwest_Survey.csv&quot;</span><span class="p">,</span>
+            <span class="n">filenames</span><span class="o">=</span><span class="p">(</span>
+                <span class="s2">&quot;FiveThirtyEight_Midwest_Survey.csv&quot;</span><span class="p">,</span>
+            <span class="p">),</span> <span class="n">uncompress</span><span class="o">=</span><span class="kc">False</span>
+        <span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">main_file</span><span class="o">=</span><span class="s2">&quot;FiveThirtyEight_Midwest_Survey.csv&quot;</span><span class="p">,</span>
+    <span class="n">source</span><span class="o">=</span><span class="s2">&quot;https://github.com/fivethirtyeight/data/tree/ master/region-survey&quot;</span>
+<span class="p">)</span>
+<span class="n">MEDICAL_CHARGE_CONFIG</span> <span class="o">=</span> <span class="n">DatasetInfo</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;medical_charge&#39;</span><span class="p">,</span>
+    <span class="n">urlinfos</span><span class="o">=</span><span class="p">(</span>
+        <span class="n">UrlInfo</span><span class="p">(</span>
+            <span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://www.cms.gov/Research-Statistics-Data-and-Systems/&quot;</span>
+                <span class="s2">&quot;Statistics-Trends-and-Reports/Medicare-Provider-Charge-Data/&quot;</span>
+                <span class="s2">&quot;Downloads/Inpatient_Data_2011_CSV.zip&quot;</span><span class="p">,</span>
+            <span class="n">filenames</span><span class="o">=</span><span class="p">(</span>
+                <span class="s2">&quot;MedicalProviderChargeInpatient.csv&quot;</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="n">uncompress</span><span class="o">=</span><span class="kc">True</span>
+
+        <span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">main_file</span><span class="o">=</span><span class="s2">&quot;MedicalProviderChargeInpatient.csv&quot;</span><span class="p">,</span>
+    <span class="n">source</span><span class="o">=</span><span class="s2">&quot;https://www.cms.gov/Research-Statistics-Data-and-Systems/&quot;</span>
+           <span class="s2">&quot;Statistics-Trends-and-Reports/Medicare-Provider-Charge-Data&quot;</span>
+           <span class="s2">&quot;/Inpatient.html&quot;</span>
+<span class="p">)</span>
+
+<span class="n">EMPLOYEE_SALARIES_CONFIG</span> <span class="o">=</span> <span class="n">DatasetInfo</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;employee_salaries&#39;</span><span class="p">,</span>
+    <span class="n">urlinfos</span><span class="o">=</span><span class="p">(</span>
+        <span class="n">UrlInfo</span><span class="p">(</span>
+            <span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://data.montgomerycountymd.gov/api/views/&quot;</span>
+                <span class="s2">&quot;xj3h-s2i7/rows.csv?accessType=DOWNLOAD&quot;</span><span class="p">,</span>
+            <span class="n">filenames</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;rows.csv&quot;</span><span class="p">,),</span>
+            <span class="n">uncompress</span><span class="o">=</span><span class="kc">False</span>
+        <span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">main_file</span><span class="o">=</span><span class="s2">&quot;rows.csv&quot;</span><span class="p">,</span>
+    <span class="n">source</span><span class="o">=</span><span class="s2">&quot;https://catalog.data.gov/dataset/ employee-salaries-2016&quot;</span>
+<span class="p">)</span>
+
+<span class="n">TRAFFIC_VIOLATIONS_CONFIG</span> <span class="o">=</span> <span class="n">DatasetInfo</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;traffic_violations&#39;</span><span class="p">,</span>
+    <span class="n">urlinfos</span><span class="o">=</span><span class="p">(</span>
+        <span class="n">UrlInfo</span><span class="p">(</span>
+            <span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://data.montgomerycountymd.gov/api/views/&quot;</span>
+                <span class="s2">&quot;4mse-ku6q/rows.csv?accessType=DOWNLOAD&quot;</span><span class="p">,</span>
+            <span class="n">filenames</span><span class="o">=</span><span class="p">(</span>
+                <span class="s2">&quot;rows.csv&quot;</span><span class="p">,</span>
+            <span class="p">),</span> <span class="n">uncompress</span><span class="o">=</span><span class="kc">True</span>
+        <span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">main_file</span><span class="o">=</span><span class="s2">&quot;rows.csv&quot;</span><span class="p">,</span>
+    <span class="n">source</span><span class="o">=</span><span class="s2">&quot;https://catalog.data.gov/dataset/ traffic-violations-56dda&quot;</span>
+<span class="p">)</span>
+<span class="n">FOLDER_PATH</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">realpath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))</span>
+
+
+<span class="k">class</span> <span class="nc">FileChangedError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+
+<span class="k">def</span> <span class="nf">_download_and_write</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">show_progress</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">show_progress</span><span class="p">:</span>  <span class="c1"># maybe not an ideal design, should we mark</span>
+        <span class="c1"># clint as mandatory?</span>
+        <span class="kn">from</span> <span class="nn">clint.textui</span> <span class="k">import</span> <span class="n">progress</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># using stream=True to download the response body only when</span>
+        <span class="c1"># accessing the content attribute</span>
+        <span class="kn">from</span> <span class="nn">..datasets.utils</span> <span class="k">import</span> <span class="n">request_get</span>
+        <span class="k">with</span> <span class="n">request_get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">as</span> <span class="n">r</span><span class="p">:</span>
+            <span class="n">total_length</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;Content-Length&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">total_length</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">local_file</span><span class="p">:</span>
+                    <span class="n">content_iterator</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">iter_content</span><span class="p">(</span><span class="n">chunk_size</span><span class="o">=</span><span class="mi">1024</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">show_progress</span><span class="p">:</span>
+                        <span class="n">content_iterator</span> <span class="o">=</span> <span class="n">progress</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span>
+                            <span class="n">content_iterator</span><span class="p">,</span> <span class="n">expected_size</span><span class="o">=</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">total_length</span><span class="p">)</span> <span class="o">/</span>
+                                                             <span class="mi">1024</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+
+                    <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">content_iterator</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">chunk</span><span class="p">:</span>
+                            <span class="n">local_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
+                            <span class="n">local_file</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;content size cannot be found, &#39;</span>
+                              <span class="s1">&#39;downloading file from </span><span class="si">{}</span><span class="s1"> as a whole&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">url</span><span class="p">))</span>
+                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">local_file</span><span class="p">:</span>
+                    <span class="n">local_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+
+    <span class="k">except</span> <span class="n">requests</span><span class="o">.</span><span class="n">RequestException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="c1"># pretty general request exception. subject to change</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;error while fetching: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">fetch_dataset</span><span class="p">(</span><span class="n">configfile</span><span class="p">:</span> <span class="n">DatasetInfo</span><span class="p">,</span> <span class="n">show_progress</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="n">data_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">get_data_dir</span><span class="p">(),</span> <span class="n">configfile</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">urlinfo</span> <span class="ow">in</span> <span class="n">configfile</span><span class="o">.</span><span class="n">urlinfos</span><span class="p">:</span>
+        <span class="n">_fetch_file</span><span class="p">(</span><span class="n">urlinfo</span><span class="o">.</span><span class="n">url</span><span class="p">,</span> <span class="n">data_dir</span><span class="p">,</span> <span class="n">filenames</span><span class="o">=</span><span class="n">urlinfo</span><span class="o">.</span><span class="n">filenames</span><span class="p">,</span>
+                    <span class="n">uncompress</span><span class="o">=</span><span class="n">urlinfo</span><span class="o">.</span><span class="n">uncompress</span><span class="p">,</span> <span class="n">show_progress</span><span class="o">=</span><span class="n">show_progress</span><span class="p">)</span>
+    <span class="c1"># returns the absolute path of the csv file where the data is</span>
+    <span class="n">result_dict</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;the downloaded data contains the </span><span class="si">{}</span><span class="s1"> dataset.</span><span class="se">\n</span><span class="s1">&#39;</span>
+                       <span class="s1">&#39;It can originally be found at: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">configfile</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">configfile</span><span class="o">.</span><span class="n">source</span><span class="p">),</span>
+        <span class="s1">&#39;path&#39;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="n">configfile</span><span class="o">.</span><span class="n">main_file</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">result_dict</span>
+
+
+<span class="k">def</span> <span class="nf">_fetch_file</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data_dir</span><span class="p">,</span> <span class="n">filenames</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="n">md5sum</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">uncompress</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">show_progress</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;fetches the content of a requested url</span>
+
+<span class="sd">    IF the downloaded file is compressed, then the fetcher</span>
+<span class="sd">    looks also for the uncompressed files before downloading .</span>
+
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    url: str</span>
+<span class="sd">        url from where to fetch the file from</span>
+<span class="sd">    data_dir: str</span>
+<span class="sd">        directory where the data will be stored</span>
+<span class="sd">    filenames: list</span>
+<span class="sd">        names of the files in the url content</span>
+<span class="sd">    overwrite: bool</span>
+<span class="sd">        whether to overwrite present data</span>
+<span class="sd">    md5sum: str</span>
+<span class="sd">        if provided, verifies the integrity of the file using a hash</span>
+<span class="sd">    uncompress: bool</span>
+<span class="sd">        whether to uncompress the content of the url</span>
+
+<span class="sd">    show_progress: if True, displays a progressbar during the downloading</span>
+<span class="sd">    of the dataset. Warning: clint needs to be implemented and is not in the</span>
+<span class="sd">    requirements for now</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    full_name: the full name of the extracted file</span>
+
+<span class="sd">    NOTES</span>
+<span class="sd">    -----</span>
+<span class="sd">    NON-implemented nilearn parameters:</span>
+<span class="sd">    * the resume option, that would resume partially downloaded files</span>
+<span class="sd">    * username/password</span>
+<span class="sd">    * handlers</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">data_dir</span><span class="p">):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">data_dir</span><span class="p">)</span>
+
+    <span class="c1"># Determine filename using URL. sticking to urllib.parse, requests does not</span>
+    <span class="c1"># provide parsing tools</span>
+    <span class="n">parse</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">urlparse</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="n">file_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">parse</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+    <span class="n">download</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">if</span> <span class="n">file_name</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+        <span class="n">file_name</span> <span class="o">=</span> <span class="n">md5_hash</span><span class="p">(</span><span class="n">parse</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+
+    <span class="n">temp_file_name</span> <span class="o">=</span> <span class="n">file_name</span> <span class="o">+</span> <span class="s2">&quot;.part&quot;</span>
+    <span class="n">full_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="n">file_name</span><span class="p">)</span>
+    <span class="n">temp_full_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="n">temp_file_name</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">overwrite</span><span class="p">:</span>
+        <span class="n">download</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">files_to_overwrite</span> <span class="o">=</span> <span class="p">[</span><span class="n">file_name</span><span class="p">,</span> <span class="n">temp_file_name</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">filenames</span><span class="p">:</span>
+            <span class="n">files_to_overwrite</span> <span class="o">+=</span> <span class="n">filenames</span>
+        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">files_to_overwrite</span><span class="p">:</span>
+            <span class="c1"># remove all compressed/uncompressed files</span>
+            <span class="n">_check_if_exists</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="n">name</span><span class="p">),</span> <span class="n">remove</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># if no filenames info provided, overwrite</span>
+        <span class="n">is_file_missing</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="n">filenames</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># first look for uncompressed files</span>
+            <span class="n">is_file_missing</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span>
+                <span class="p">[</span><span class="ow">not</span> <span class="n">_check_if_exists</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="n">name</span><span class="p">),</span>
+                                      <span class="n">remove</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                 <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">filenames</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">is_file_missing</span><span class="p">:</span>
+            <span class="c1"># then look for compressed files</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">_check_if_exists</span><span class="p">(</span><span class="n">full_name</span><span class="p">,</span> <span class="n">remove</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+                <span class="n">download</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="k">if</span> <span class="n">download</span><span class="p">:</span>
+        <span class="n">_download_and_write</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">temp_full_name</span><span class="p">,</span> <span class="n">show_progress</span><span class="o">=</span><span class="n">show_progress</span><span class="p">)</span>
+
+    <span class="c1"># chunk writing is not implemented, see if necessary</span>
+    <span class="k">if</span> <span class="n">_check_if_exists</span><span class="p">(</span><span class="n">temp_full_name</span><span class="p">,</span> <span class="n">remove</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">md5sum</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">_md5_sum_file</span><span class="p">(</span><span class="n">temp_full_name</span><span class="p">)</span> <span class="o">!=</span> <span class="n">md5sum</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">FileChangedError</span><span class="p">(</span>
+                    <span class="s2">&quot;File </span><span class="si">%s</span><span class="s2"> checksum verification has failed.&quot;</span>
+                    <span class="s2">&quot;Dataset fetching aborted.&quot;</span> <span class="o">%</span> <span class="n">temp_full_name</span><span class="p">)</span>
+
+        <span class="n">shutil</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">temp_full_name</span><span class="p">,</span> <span class="n">full_name</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">_check_if_exists</span><span class="p">(</span><span class="n">full_name</span><span class="p">,</span> <span class="n">remove</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="ow">and</span> <span class="n">uncompress</span><span class="p">:</span>
+        <span class="n">_uncompress_file</span><span class="p">(</span><span class="n">full_name</span><span class="p">,</span> <span class="n">delete_archive</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">full_name</span>
+
+
+<div class="viewcode-block" id="fetch_employee_salaries"><a class="viewcode-back" href="../../../generated/dirty_cat.datasets.fetching.fetch_employee_salaries.html#dirty_cat.datasets.fetching.fetch_employee_salaries">[docs]</a><span class="k">def</span> <span class="nf">fetch_employee_salaries</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">fetch_dataset</span><span class="p">(</span><span class="n">EMPLOYEE_SALARIES_CONFIG</span><span class="p">,</span> <span class="n">show_progress</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
+
+
+<span class="k">def</span> <span class="nf">fetch_road_safety</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">fetch_dataset</span><span class="p">(</span><span class="n">ROAD_SAFETY_CONFIG</span><span class="p">,</span> <span class="n">show_progress</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">fetch_medical_charge</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">fetch_dataset</span><span class="p">(</span><span class="n">MEDICAL_CHARGE_CONFIG</span><span class="p">,</span> <span class="n">show_progress</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">fetch_midwest_survey</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">fetch_dataset</span><span class="p">(</span><span class="n">MIDWEST_SURVEY_CONFIG</span><span class="p">,</span> <span class="n">show_progress</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">fetch_open_payments</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">fetch_dataset</span><span class="p">(</span><span class="n">OPEN_PAYMENTS_CONFIG</span><span class="p">,</span> <span class="n">show_progress</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">fetch_traffic_violations</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">fetch_dataset</span><span class="p">(</span><span class="n">TRAFFIC_VIOLATIONS_CONFIG</span><span class="p">,</span> <span class="n">show_progress</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="c1"># fetch_midwest_survey()</span>
+    <span class="n">fetch_medical_charge</span><span class="p">()</span>
+    <span class="c1"># fetch_road_safety()</span>
+    <span class="c1"># fetch_employee_salaries()</span>
+    <span class="c1"># fetch_open_payments()</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../../../index.html">
+    <img class="logo" src="../../../_static/dirty_cat.svg" alt="Logo"/>
+    
+    <h1 class="logo logo-name">dirty_cat</h1>
+    
+  </a>
+</p>
+
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=dirty-cat&repo=dirty_cat&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../generated/dirty_cat.SimilarityEncoder.html"><code class="docutils literal"><span class="pre">dirty_cat</span></code>.SimilarityEncoder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../generated/dirty_cat.TargetEncoder.html"><code class="docutils literal"><span class="pre">dirty_cat</span></code>.TargetEncoder</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../generated/dirty_cat.datasets.fetching.fetch_employee_salaries.html"><code class="docutils literal"><span class="pre">dirty_cat.datasets.fetching</span></code>.fetch_employee_salaries</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_examples/plot_investigating_dirty_categories.html">Basic dirty_cat example: manipulating and looking at data</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_examples/plot_employee_salaries.html">Predicting the salary of employees</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_examples/midwest_survey.html">Semantic variation in the “Midwest”</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, dirty_cat developers.
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

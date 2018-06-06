@@ -1,20 +1,37 @@
 :orphan:
 
-Usage examples
-===============
 
+dirty_cat  usage examples
+=========================
+
+.. warning::
+
+    If you want to run the examples, make sure you execute them in a directory
+    where you have write permissions, or you copy the examples into such a
+    directory. If you install dirty_cat  manually, make sure you have followed
+    :ref:`the instructions <installation>`.
+
+
+.. contents:: **Contents**
+    :local:
+    :depth: 1
+
+Tutorial examples
+------------------
+
+Introductory examples that teach how to use dirty_cat.
 
 
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Benchmark of encoders for the &quot;employee_salaries&quot; dataset.">
+    <div class="sphx-glr-thumbcontainer" tooltip="let&#x27;s try to understand how embedding dirty categorical variables with  3gram similarity can he...">
 
 .. only:: html
 
-    .. figure:: /auto_examples/images/thumb/sphx_glr_employee_salaries_thumb.png
+    .. figure:: /auto_examples/images/thumb/sphx_glr_plot_investigating_dirty_categories_thumb.png
 
-        :ref:`sphx_glr_auto_examples_employee_salaries.py`
+        :ref:`sphx_glr_auto_examples_plot_investigating_dirty_categories.py`
 
 .. raw:: html
 
@@ -24,11 +41,31 @@ Usage examples
 .. toctree::
    :hidden:
 
-   /auto_examples/employee_salaries
+   /auto_examples/plot_investigating_dirty_categories
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Benchmark of encoders for the midwest_survey dataset: the data comprises an open-ended question...">
+    <div class="sphx-glr-thumbcontainer" tooltip="Let&#x27;s have a look on how using similarity encoding instead of more traditional categorical enco...">
+
+.. only:: html
+
+    .. figure:: /auto_examples/images/thumb/sphx_glr_plot_employee_salaries_thumb.png
+
+        :ref:`sphx_glr_auto_examples_plot_employee_salaries.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_examples/plot_employee_salaries
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Let&#x27;s see how different encoding for the dirty column impact on the score of a classification p...">
 
 .. only:: html
 

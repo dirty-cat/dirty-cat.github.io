@@ -1,0 +1,313 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Basic dirty_cat example: manipulating and looking at data &#8212; dirty_cat 0.0.1a documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.0.1a',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Predicting the salary of employees" href="plot_employee_salaries.html" />
+    <link rel="prev" title="dirty_cat.datasets.fetching.fetch_employee_salaries" href="../generated/dirty_cat.datasets.fetching.fetch_employee_salaries.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="basic-dirty-cat-example-manipulating-and-looking-at-data">
+<span id="sphx-glr-auto-examples-plot-investigating-dirty-categories-py"></span><h1>Basic dirty_cat example: manipulating and looking at data<a class="headerlink" href="#basic-dirty-cat-example-manipulating-and-looking-at-data" title="Permalink to this headline">¶</a></h1>
+<p>let’s try to understand how embedding dirty categorical variables with
+3gram similarity can help in learning better models</p>
+<div class="section" id="what-do-we-mean-by-dirty-data">
+<h2>What do we mean by dirty data?<a class="headerlink" href="#what-do-we-mean-by-dirty-data" title="Permalink to this headline">¶</a></h2>
+<p>Let’s look at a dataset called employee salaries:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">dirty_cat.datasets.fetching</span> <span class="kn">import</span> <span class="n">fetch_employee_salaries</span><span class="p">,</span> <span class="n">get_data_dir</span>
+
+<span class="n">fetch_employee_salaries</span><span class="p">()</span>
+<span class="n">data_path</span> <span class="o">=</span> <span class="n">get_data_dir</span><span class="p">()</span>
+<span class="n">data_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span> <span class="s1">&#39;employee_salaries&#39;</span><span class="p">,</span> <span class="s1">&#39;rows.csv&#39;</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <a href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.read_csv.html#pandas.read_csv" title="View documentation for pandas.read_csv"><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span></a><span class="p">(</span><span class="n">data_path</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">5</span><span class="p">))</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-default"><div class="highlight"><pre><span></span><span class="n">Full</span> <span class="n">Name</span>       <span class="o">...</span>        <span class="n">Date</span> <span class="n">First</span> <span class="n">Hired</span>
+<span class="mi">0</span>      <span class="n">Aarhus</span><span class="p">,</span> <span class="n">Pam</span> <span class="n">J</span><span class="o">.</span>       <span class="o">...</span>              <span class="mi">09</span><span class="o">/</span><span class="mi">22</span><span class="o">/</span><span class="mi">1986</span>
+<span class="mi">1</span>     <span class="n">Aaron</span><span class="p">,</span> <span class="n">David</span> <span class="n">J</span><span class="o">.</span>       <span class="o">...</span>              <span class="mi">09</span><span class="o">/</span><span class="mi">12</span><span class="o">/</span><span class="mi">1988</span>
+<span class="mi">2</span>    <span class="n">Aaron</span><span class="p">,</span> <span class="n">Marsha</span> <span class="n">M</span><span class="o">.</span>       <span class="o">...</span>              <span class="mi">11</span><span class="o">/</span><span class="mi">19</span><span class="o">/</span><span class="mi">1989</span>
+<span class="mi">3</span>  <span class="n">Ababio</span><span class="p">,</span> <span class="n">Godfred</span> <span class="n">A</span><span class="o">.</span>       <span class="o">...</span>              <span class="mi">05</span><span class="o">/</span><span class="mi">05</span><span class="o">/</span><span class="mi">2014</span>
+<span class="mi">4</span>      <span class="n">Ababu</span><span class="p">,</span> <span class="n">Essayas</span>       <span class="o">...</span>              <span class="mi">03</span><span class="o">/</span><span class="mi">05</span><span class="o">/</span><span class="mi">2007</span>
+
+<span class="p">[</span><span class="mi">5</span> <span class="n">rows</span> <span class="n">x</span> <span class="mi">12</span> <span class="n">columns</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Here is how the columns are distributed:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">nunique</span><span class="p">())</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-default"><div class="highlight"><pre><span></span><span class="n">Full</span> <span class="n">Name</span>                  <span class="mi">9222</span>
+<span class="n">Gender</span>                        <span class="mi">2</span>
+<span class="n">Current</span> <span class="n">Annual</span> <span class="n">Salary</span>      <span class="mi">3403</span>
+<span class="mi">2016</span> <span class="n">Gross</span> <span class="n">Pay</span> <span class="n">Received</span>    <span class="mi">8977</span>
+<span class="mi">2016</span> <span class="n">Overtime</span> <span class="n">Pay</span>          <span class="mi">6176</span>
+<span class="n">Department</span>                   <span class="mi">37</span>
+<span class="n">Department</span> <span class="n">Name</span>              <span class="mi">37</span>
+<span class="n">Division</span>                    <span class="mi">694</span>
+<span class="n">Assignment</span> <span class="n">Category</span>           <span class="mi">2</span>
+<span class="n">Employee</span> <span class="n">Position</span> <span class="n">Title</span>     <span class="mi">385</span>
+<span class="n">Underfilled</span> <span class="n">Job</span> <span class="n">Title</span>        <span class="mi">84</span>
+<span class="n">Date</span> <span class="n">First</span> <span class="n">Hired</span>           <span class="mi">2264</span>
+<span class="n">dtype</span><span class="p">:</span> <span class="n">int64</span>
+</pre></div>
+</div>
+<p>Some numerical columns (Gross pay, etc..) and some obvious categorical
+columns such as full_name
+of course have many different values. but it is also the case
+for other categorical columns  such as Employee position title:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">sorted_values</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Employee Position Title&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">sorted_values</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-default"><div class="highlight"><pre><span></span><span class="n">Abandoned</span> <span class="n">Vehicle</span> <span class="n">Code</span> <span class="n">Enforcement</span> <span class="n">Specialist</span>
+
+<span class="n">Accountant</span><span class="o">/</span><span class="n">Auditor</span> <span class="n">I</span>
+
+<span class="n">Accountant</span><span class="o">/</span><span class="n">Auditor</span> <span class="n">II</span>
+
+<span class="n">Accountant</span><span class="o">/</span><span class="n">Auditor</span> <span class="n">III</span>
+
+<span class="n">Administrative</span> <span class="n">Assistant</span> <span class="n">to</span> <span class="n">the</span> <span class="n">County</span> <span class="n">Executive</span>
+</pre></div>
+</div>
+<p>Here we go! See how there are 3 kinds of Accountant/Auditor? I,II,and III.
+Now, there are some reason why traditional word-encoding methods won’t work
+very well.</p>
+<ul class="simple">
+<li>Using simple one-hot encoding will create orthogonal features, </li>
+</ul>
+<p>whereas it is clear that those 3 terms have a lot in common.</p>
+<ul class="simple">
+<li>If we wanted to use word embedding methods such as word2vec, </li>
+</ul>
+<p>we would have to go through a cleaning phase: those algorithms are not trained to work on data such as ‘Accountant/Auditor I’. However, that can be unsafe and take a long time.</p>
+</div>
+<div class="section" id="encoding-categorical-data-using-similarityencoder">
+<h2>Encoding categorical data using SimilarityEncoder<a class="headerlink" href="#encoding-categorical-data-using-similarityencoder" title="Permalink to this headline">¶</a></h2>
+<p>That’s where our encoders get into play. In order to robustly
+embed dirty semantic data, the SimilarityEncoder creates a similarity
+matrix based on the 3-gram structure of the data.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dirty_cat</span> <span class="kn">import</span> <a href="../generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="View documentation for dirty_cat.SimilarityEncoder"><span class="n">SimilarityEncoder</span></a>
+
+<span class="n">similarity_encoder</span> <span class="o">=</span> <a href="../generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="View documentation for dirty_cat.SimilarityEncoder"><span class="n">SimilarityEncoder</span></a><span class="p">(</span><span class="n">similarity</span><span class="o">=</span><span class="s1">&#39;ngram&#39;</span><span class="p">)</span>
+<span class="n">transformed_values</span> <span class="o">=</span> <span class="n">similarity_encoder</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span>
+    <span class="n">sorted_values</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="section" id="plotting-the-new-feature-map-using-multi-dimensional-scaling">
+<h3>Plotting the new feature map using multi-dimensional scaling<a class="headerlink" href="#plotting-the-new-feature-map-using-multi-dimensional-scaling" title="Permalink to this headline">¶</a></h3>
+<p>lets now plot a couple points at random using a low-dimensional representation
+to get an intuition of what the similarity encoder is doing:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.manifold</span> <span class="kn">import</span> <span class="n">MDS</span>
+
+<span class="n">mds</span> <span class="o">=</span> <span class="n">MDS</span><span class="p">(</span><span class="n">dissimilarity</span><span class="o">=</span><span class="s1">&#39;precomputed&#39;</span><span class="p">,</span> <span class="n">n_init</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">two_dim_data</span> <span class="o">=</span> <span class="n">mds</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span>
+    <span class="mi">1</span> <span class="o">-</span> <span class="n">transformed_values</span><span class="p">)</span>  <span class="c1"># transformed values lie</span>
+<span class="c1"># in the 0-1 range, so 1-transformed_value yields a positive dissimilarity matrix</span>
+<span class="k">print</span><span class="p">(</span><span class="n">two_dim_data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">sorted_values</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-default"><div class="highlight"><pre><span></span><span class="p">(</span><span class="mi">385</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="p">(</span><span class="mi">385</span><span class="p">,)</span>
+</pre></div>
+</div>
+<p>we first quickly fit a KNN so that the plots does not get too busy:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+
+<span class="n">n_points</span> <span class="o">=</span> <span class="mi">5</span>
+<a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.random.seed.html#numpy.random.seed" title="View documentation for numpy.random.seed"><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span></a><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">NearestNeighbors</span>
+
+<span class="n">random_points</span> <span class="o">=</span> <a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.random.choice.html#numpy.random.choice" title="View documentation for numpy.random.choice"><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span></a><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">similarity_encoder</span><span class="o">.</span><span class="n">categories_</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+                                 <span class="n">n_points</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="n">nn</span> <span class="o">=</span> <span class="n">NearestNeighbors</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">transformed_values</span><span class="p">)</span>
+<span class="n">_</span><span class="p">,</span> <span class="n">indices_</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">kneighbors</span><span class="p">(</span><span class="n">transformed_values</span><span class="p">[</span><span class="n">random_points</span><span class="p">])</span>
+<span class="n">indices</span> <span class="o">=</span> <a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.unique.html#numpy.unique" title="View documentation for numpy.unique"><span class="n">np</span><span class="o">.</span><span class="n">unique</span></a><span class="p">(</span><span class="n">indices_</span><span class="o">.</span><span class="n">squeeze</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>and then plot it, adding the categories in the scatter plot:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+
+<span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">two_dim_data</span><span class="p">[</span><span class="n">indices</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">two_dim_data</span><span class="p">[</span><span class="n">indices</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="c1"># adding the legend</span>
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">two_dim_data</span><span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">two_dim_data</span><span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="n">sorted_values</span><span class="p">[</span><span class="n">x</span><span class="p">],</span>
+            <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span>
+    <span class="s1">&#39;multi-dimensional-scaling representation using a 3gram similarity matrix&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="../_images/sphx_glr_plot_investigating_dirty_categories_001.png" class="align-center" src="../_images/sphx_glr_plot_investigating_dirty_categories_001.png" />
+</div>
+<div class="section" id="heatmap-of-the-similarity-matrix">
+<h3>Heatmap of the similarity matrix<a class="headerlink" href="#heatmap-of-the-similarity-matrix" title="Permalink to this headline">¶</a></h3>
+<p>We can also plot the distance matrix for those observations:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">f2</span><span class="p">,</span> <span class="n">ax2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">cax2</span> <span class="o">=</span> <span class="n">ax2</span><span class="o">.</span><span class="n">matshow</span><span class="p">(</span><span class="n">transformed_values</span><span class="p">[</span><span class="n">indices</span><span class="p">,</span> <span class="p">:][:,</span> <span class="n">indices</span><span class="p">])</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.arange.html#numpy.arange" title="View documentation for numpy.arange"><span class="n">np</span><span class="o">.</span><span class="n">arange</span></a><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">indices</span><span class="p">)))</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.arange.html#numpy.arange" title="View documentation for numpy.arange"><span class="n">np</span><span class="o">.</span><span class="n">arange</span></a><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">indices</span><span class="p">)))</span>
+<span class="c1"># we crop the labels to that they do not take too much rooms in the figure</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[:</span><span class="mi">10</span><span class="p">],</span> <span class="n">sorted_values</span><span class="p">[</span><span class="n">indices</span><span class="p">]))</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="s1">&#39;30&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="s1">&#39;30&#39;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+<span class="n">f2</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">cax2</span><span class="p">)</span>
+<span class="n">f2</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+<img alt="../_images/sphx_glr_plot_investigating_dirty_categories_002.png" class="align-center" src="../_images/sphx_glr_plot_investigating_dirty_categories_002.png" />
+<p>As shown in the previous plot, we see that “communication Equipment technician“‘s
+nearest neighbor is “telecommunication technician”, although it is also
+very close to senior “supply technician”: therefore, we grasp the
+“communication” part (not initially present in the category as a unique word)
+as well as the technician part of this category.</p>
+<p><strong>Total running time of the script:</strong> ( 0 minutes  17.961 seconds)</p>
+<div class="sphx-glr-footer docutils container">
+<div class="sphx-glr-download docutils container">
+<a class="reference download internal" href="../_downloads/plot_investigating_dirty_categories.py" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_investigating_dirty_categories.py</span></code></a></div>
+<div class="sphx-glr-download docutils container">
+<a class="reference download internal" href="../_downloads/plot_investigating_dirty_categories.ipynb" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_investigating_dirty_categories.ipynb</span></code></a></div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.readthedocs.io">Generated by Sphinx-Gallery</a></p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/dirty_cat.svg" alt="Logo"/>
+    
+    <h1 class="logo logo-name">dirty_cat</h1>
+    
+  </a>
+</p>
+
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=dirty-cat&repo=dirty_cat&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../generated/dirty_cat.SimilarityEncoder.html"><code class="docutils literal"><span class="pre">dirty_cat</span></code>.SimilarityEncoder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../generated/dirty_cat.TargetEncoder.html"><code class="docutils literal"><span class="pre">dirty_cat</span></code>.TargetEncoder</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../generated/dirty_cat.datasets.fetching.fetch_employee_salaries.html"><code class="docutils literal"><span class="pre">dirty_cat.datasets.fetching</span></code>.fetch_employee_salaries</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Basic dirty_cat example: manipulating and looking at data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#what-do-we-mean-by-dirty-data">What do we mean by dirty data?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#encoding-categorical-data-using-similarityencoder">Encoding categorical data using SimilarityEncoder</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#plotting-the-new-feature-map-using-multi-dimensional-scaling">Plotting the new feature map using multi-dimensional scaling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#heatmap-of-the-similarity-matrix">Heatmap of the similarity matrix</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="plot_employee_salaries.html">Predicting the salary of employees</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="midwest_survey.html">Semantic variation in the “Midwest”</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="../generated/dirty_cat.datasets.fetching.fetch_employee_salaries.html" title="previous chapter"><code class="docutils literal"><span class="pre">dirty_cat.datasets.fetching</span></code>.fetch_employee_salaries</a></li>
+      <li>Next: <a href="plot_employee_salaries.html" title="next chapter">Predicting the salary of employees</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, dirty_cat developers.
+      
+      |
+      <a href="../_sources/auto_examples/plot_investigating_dirty_categories.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
