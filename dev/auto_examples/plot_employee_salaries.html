@@ -28,8 +28,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Semantic variation in the “Midwest”" href="midwest_survey.html" />
-    <link rel="prev" title="Basic dirty_cat example: manipulating and looking at data" href="plot_investigating_dirty_categories.html" />
+    <link rel="prev" title="Semantic variation in the “Midwest”" href="midwest_survey.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
@@ -51,29 +50,30 @@
 </div>
 <div class="sphx-glr-example-title section" id="predicting-the-salary-of-employees">
 <span id="sphx-glr-auto-examples-plot-employee-salaries-py"></span><h1>Predicting the salary of employees<a class="headerlink" href="#predicting-the-salary-of-employees" title="Permalink to this headline">¶</a></h1>
-<p>Let’s have a look on how using similarity encoding instead of
-more traditional categorical encoding like one-hot encoding can affect
-prediction performance.</p>
-<p>The structure of this example will run as follows:</p>
-<ul class="simple">
-<li>in the employee_salaries dataset we will first create a learning problem by</li>
-</ul>
-<blockquote>
-<div>chosing a column to predict</div></blockquote>
-<ul class="simple">
-<li>then we will benchmark the different kind of encodings (one-hot, similarity encoding, target encoding) for one categoricl variable</li>
-</ul>
-<p>by fitting the target using their respective output and a Ridge Regression</p>
-<p>The learning problem consists of prediciting the column ‘Current Annual Salary’depending on a mix of clean columns and on dirty column We choose to benchmark different categorical encodings for the dirty column ‘Employee Position Title’, that contains dirty categorical data.</p>
+<p>The <a class="reference external" href="https://catalog.data.gov/dataset/employee-salaries-2016">employee salaries</a>
+dataset contains information
+about annual salaries (year 2016) for more than 9,000 employees of the
+Montgomery County (Maryland, US). In this example, we are interested
+in predicting the column <em>Current Annual Salary</em>
+depending on a mix of clean columns and a dirty column.
+We choose to benchmark different categorical encodings for
+the dirty column <em>Employee Position Title</em>, that contains
+dirty categorical data.</p>
 <p><strong>Warning: this example is using the master branch of scikit-learn</strong></p>
 <div class="section" id="data-importing-and-preprocessing">
 <h2>Data Importing and preprocessing<a class="headerlink" href="#data-importing-and-preprocessing" title="Permalink to this headline">¶</a></h2>
-<p>we first import the datataset ‘employee_salaries’</p>
+<p>We first import the datataset:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">dirty_cat.datasets</span> <span class="kn">import</span> <a href="../generated/dirty_cat.datasets.fetch_employee_salaries.html#dirty_cat.datasets.fetch_employee_salaries" title="View documentation for dirty_cat.datasets.fetch_employee_salaries"><span class="n">fetch_employee_salaries</span></a>
 
-<span class="n">description</span> <span class="o">=</span> <a href="../generated/dirty_cat.datasets.fetch_employee_salaries.html#dirty_cat.datasets.fetch_employee_salaries" title="View documentation for dirty_cat.datasets.fetch_employee_salaries"><span class="n">fetch_employee_salaries</span></a><span class="p">()</span>
-<span class="n">df</span> <span class="o">=</span> <a href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.read_csv.html#pandas.read_csv" title="View documentation for pandas.read_csv"><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span></a><span class="p">(</span><span class="n">description</span><span class="p">[</span><span class="s1">&#39;path&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+<span class="n">employee_salaries</span> <span class="o">=</span> <a href="../generated/dirty_cat.datasets.fetch_employee_salaries.html#dirty_cat.datasets.fetch_employee_salaries" title="View documentation for dirty_cat.datasets.fetch_employee_salaries"><span class="n">fetch_employee_salaries</span></a><span class="p">()</span>
+<span class="n">df</span> <span class="o">=</span> <a href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.read_csv.html#pandas.read_csv" title="View documentation for pandas.read_csv"><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span></a><span class="p">(</span><span class="n">employee_salaries</span><span class="p">[</span><span class="s1">&#39;path&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">employee_salaries</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>The downloaded data contains the employee_salaries dataset.
+It can originally be found at: https://catalog.data.gov/dataset/ employee-salaries-2016
 </pre></div>
 </div>
 <p>and carry out some basic preprocessing:</p>
@@ -87,26 +87,27 @@ prediction performance.</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="choosing-clean-columns">
-<h2>Choosing clean columns<a class="headerlink" href="#choosing-clean-columns" title="Permalink to this headline">¶</a></h2>
-<p>the other column are supposed clean, so it is ‘safe’ to use
-one hot encoding to transform them</p>
+<div class="section" id="choosing-columns">
+<h2>Choosing columns<a class="headerlink" href="#choosing-columns" title="Permalink to this headline">¶</a></h2>
+<p>For categorical columns that are supossed to be clean, it is “safe” to
+use one hot encoding to transform them:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">clean_columns</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s1">&#39;Gender&#39;</span><span class="p">:</span> <span class="s1">&#39;one-hot&#39;</span><span class="p">,</span>
     <span class="s1">&#39;Department Name&#39;</span><span class="p">:</span> <span class="s1">&#39;one-hot&#39;</span><span class="p">,</span>
     <span class="s1">&#39;Assignment Category&#39;</span><span class="p">:</span> <span class="s1">&#39;one-hot&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;Year First Hired&#39;</span><span class="p">:</span> <span class="s1">&#39;num&#39;</span><span class="p">}</span>
+    <span class="s1">&#39;Year First Hired&#39;</span><span class="p">:</span> <span class="s1">&#39;numerical&#39;</span><span class="p">}</span>
 </pre></div>
 </div>
-<p>We then choose  which categorical encoding methods to benchmark:</p>
+<p>We then choose the categorical encoding methods we want to benchmark
+and the dirty categorical variable:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">encoding_methods</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;one-hot&#39;</span><span class="p">,</span> <span class="s1">&#39;target&#39;</span><span class="p">,</span> <span class="s1">&#39;similarity&#39;</span><span class="p">]</span>
 <span class="n">dirty_column</span> <span class="o">=</span> <span class="s1">&#39;Employee Position Title&#39;</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="creating-a-model-fitting-pipeline">
-<h2>Creating a model fitting pipeline<a class="headerlink" href="#creating-a-model-fitting-pipeline" title="Permalink to this headline">¶</a></h2>
-<p>the encoders for both clean and dirty data are first imported:</p>
+<div class="section" id="creating-a-learning-pipeline">
+<h2>Creating a learning pipeline<a class="headerlink" href="#creating-a-learning-pipeline" title="Permalink to this headline">¶</a></h2>
+<p>The encoders for both clean and dirty data are first imported:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">FunctionTransformer</span>
 <span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">CategoricalEncoder</span>
 <span class="kn">from</span> <span class="nn">dirty_cat</span> <span class="kn">import</span> <a href="../generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="View documentation for dirty_cat.SimilarityEncoder"><span class="n">SimilarityEncoder</span></a><span class="p">,</span> <a href="../generated/dirty_cat.TargetEncoder.html#dirty_cat.TargetEncoder" title="View documentation for dirty_cat.TargetEncoder"><span class="n">TargetEncoder</span></a>
@@ -117,11 +118,12 @@ one hot encoding to transform them</p>
     <span class="s1">&#39;similarity&#39;</span><span class="p">:</span> <a href="../generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="View documentation for dirty_cat.SimilarityEncoder"><span class="n">SimilarityEncoder</span></a><span class="p">(</span><span class="n">similarity</span><span class="o">=</span><span class="s1">&#39;ngram&#39;</span><span class="p">,</span>
                                     <span class="n">handle_unknown</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">),</span>
     <span class="s1">&#39;target&#39;</span><span class="p">:</span> <a href="../generated/dirty_cat.TargetEncoder.html#dirty_cat.TargetEncoder" title="View documentation for dirty_cat.TargetEncoder"><span class="n">TargetEncoder</span></a><span class="p">(</span><span class="n">handle_unknown</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">),</span>
-    <span class="s1">&#39;num&#39;</span><span class="p">:</span> <span class="n">FunctionTransformer</span><span class="p">(</span><span class="bp">None</span><span class="p">)}</span>
+    <span class="s1">&#39;numerical&#39;</span><span class="p">:</span> <span class="n">FunctionTransformer</span><span class="p">(</span><span class="bp">None</span><span class="p">)}</span>
 
-<span class="c1"># we create a function that takes one key of our encoders_dict,</span>
-<span class="c1"># returns a encoding+fitting pipeline with the associated encoder,</span>
+<span class="c1"># We then create a function that takes one key of our ``encoders_dict``,</span>
+<span class="c1"># returns a pipeline object with the associated encoder,</span>
 <span class="c1"># as well as a Scaler and a RidgeCV regressor:</span>
+
 <span class="kn">from</span> <span class="nn">sklearn.compose</span> <span class="kn">import</span> <span class="n">ColumnTransformer</span>
 <span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">Pipeline</span>
 
@@ -147,7 +149,7 @@ one hot encoding to transform them</p>
 </div>
 <div class="section" id="fitting-each-encoding-methods-with-a-ridgecv">
 <h2>Fitting each encoding methods with a RidgeCV<a class="headerlink" href="#fitting-each-encoding-methods-with-a-ridgecv" title="Permalink to this headline">¶</a></h2>
-<p>eventually, we loop over the different encoding methods,
+<p>Eventually, we loop over the different encoding methods,
 instanciate each time a new pipeline, fit it
 and and store the returned cross-validation score</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
@@ -182,16 +184,16 @@ r2 score:  mean: 0.913; std: 0.006
 </div>
 <div class="section" id="plotting-the-results">
 <h2>Plotting the results<a class="headerlink" href="#plotting-the-results" title="Permalink to this headline">¶</a></h2>
-<p>plotting the scores on a boxplot, we get:</p>
+<p>Finally, we plot the scores on a boxplot:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
 
 <span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">all_scores</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">encoding_methods</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">all_scores</span><span class="p">,</span> <span class="n">vert</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">(</span><span class="n">encoding_methods</span><span class="p">)</span>
 </pre></div>
 </div>
 <img alt="../_images/sphx_glr_plot_employee_salaries_001.png" class="sphx-glr-single-img" src="../_images/sphx_glr_plot_employee_salaries_001.png" />
-<p><strong>Total running time of the script:</strong> ( 0 minutes  16.038 seconds)</p>
+<p><strong>Total running time of the script:</strong> ( 0 minutes  15.167 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-employee-salaries-py">
 <div class="sphx-glr-download docutils container">
 <a class="reference download internal" href="../_downloads/plot_employee_salaries.py" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_employee_salaries.py</span></code></a></div>
@@ -242,26 +244,25 @@ r2 score:  mean: 0.913; std: 0.006
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="plot_investigating_dirty_categories.html">Basic dirty_cat example: manipulating and looking at data</a></li>
 </ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="midwest_survey.html">Semantic variation in the “Midwest”</a></li>
+</ul>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Predicting the salary of employees</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#data-importing-and-preprocessing">Data Importing and preprocessing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#choosing-clean-columns">Choosing clean columns</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#creating-a-model-fitting-pipeline">Creating a model fitting pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#choosing-columns">Choosing columns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#creating-a-learning-pipeline">Creating a learning pipeline</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#fitting-each-encoding-methods-with-a-ridgecv">Fitting each encoding methods with a RidgeCV</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#plotting-the-results">Plotting the results</a></li>
 </ul>
 </li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="midwest_survey.html">Semantic variation in the “Midwest”</a></li>
 </ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="plot_investigating_dirty_categories.html" title="previous chapter">Basic dirty_cat example: manipulating and looking at data</a></li>
-      <li>Next: <a href="midwest_survey.html" title="next chapter">Semantic variation in the “Midwest”</a></li>
+      <li>Previous: <a href="midwest_survey.html" title="previous chapter">Semantic variation in the “Midwest”</a></li>
   </ul></li>
 </ul>
 </div>
