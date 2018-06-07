@@ -28,8 +28,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Semantic variation in the “Midwest”" href="midwest_survey.html" />
-    <link rel="prev" title="dirty_cat.datasets.fetch_employee_salaries" href="../generated/dirty_cat.datasets.fetch_employee_salaries.html" />
+    <link rel="prev" title="Predicting the salary of employees" href="plot_employee_salaries.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
@@ -53,19 +52,22 @@
 <span id="sphx-glr-auto-examples-plot-investigating-dirty-categories-py"></span><h1>Basic dirty_cat example: manipulating and looking at data<a class="headerlink" href="#basic-dirty-cat-example-manipulating-and-looking-at-data" title="Permalink to this headline">¶</a></h1>
 <p>let’s try to understand how embedding dirty categorical variables with
 3gram similarity can help in learning better models</p>
-<div class="section" id="what-do-we-mean-by-dirty-data">
-<h2>What do we mean by dirty data?<a class="headerlink" href="#what-do-we-mean-by-dirty-data" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="what-do-we-mean-by-dirty-categories">
+<h2>What do we mean by dirty categories?<a class="headerlink" href="#what-do-we-mean-by-dirty-categories" title="Permalink to this headline">¶</a></h2>
 <p>Let’s look at a dataset called employee salaries:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">dirty_cat</span> <span class="kn">import</span> <span class="n">datasets</span>
 
 <span class="n">employee_salaries</span> <span class="o">=</span> <a href="../generated/dirty_cat.datasets.fetch_employee_salaries.html#dirty_cat.datasets.fetch_employee_salaries" title="View documentation for dirty_cat.datasets.fetch_employee_salaries"><span class="n">datasets</span><span class="o">.</span><span class="n">fetch_employee_salaries</span></a><span class="p">()</span>
-<span class="n">df</span> <span class="o">=</span> <a href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.read_csv.html#pandas.read_csv" title="View documentation for pandas.read_csv"><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span></a><span class="p">(</span><span class="n">employee_salaries</span><span class="p">[</span><span class="s1">&#39;path&#39;</span><span class="p">])</span>
-<span class="k">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">5</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">employee_salaries</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">])</span>
+<span class="n">data</span> <span class="o">=</span> <a href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.read_csv.html#pandas.read_csv" title="View documentation for pandas.read_csv"><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span></a><span class="p">(</span><span class="n">employee_salaries</span><span class="p">[</span><span class="s1">&#39;path&#39;</span><span class="p">])</span>
+<span class="k">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">5</span><span class="p">))</span>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Full Name       ...        Date First Hired
+<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>The downloaded data contains the employee_salaries dataset.
+It can originally be found at: https://catalog.data.gov/dataset/ employee-salaries-2016
+            Full Name       ...        Date First Hired
 0      Aarhus, Pam J.       ...              09/22/1986
 1     Aaron, David J.       ...              09/12/1988
 2    Aaron, Marsha M.       ...              11/19/1989
@@ -75,8 +77,8 @@
 [5 rows x 12 columns]
 </pre></div>
 </div>
-<p>Here is how the columns are distributed:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">nunique</span><span class="p">())</span>
+<p>Here is how many unique entries there is per column</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">nunique</span><span class="p">())</span>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
@@ -95,53 +97,111 @@ Date First Hired           2264
 dtype: int64
 </pre></div>
 </div>
-<p>Some numerical columns (Gross pay, etc..) and some obvious categorical
-columns such as full_name
-of course have many different values. but it is also the case
-for other categorical columns  such as Employee position title:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">sorted_values</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Employee Position Title&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">sorted_values</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<p>As we can see, some entries have many different unique values:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Employee Position Title&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">sort_index</span><span class="p">())</span>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Abandoned Vehicle Code Enforcement Specialist
-
-Accountant/Auditor I
-
-Accountant/Auditor II
-
-Accountant/Auditor III
-
-Administrative Assistant to the County Executive
+<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Abandoned Vehicle Code Enforcement Specialist                4
+Accountant/Auditor I                                         3
+Accountant/Auditor II                                        1
+Accountant/Auditor III                                      35
+Administrative Assistant to the County Executive             1
+Administrative Hearing Examiner                              1
+Administrative Specialist I                                 37
+Administrative Specialist II                                70
+Administrative Specialist III                               48
+Alcohol Beverage Purchasing Specialist                      17
+Alcohol/Tobacco Enforcement Specialist II                    6
+Animal Care Attendant                                       11
+Animal Care Attendant Supervisor                             1
+Aquatic Programs Supervisor                                  1
+Arborist                                                     5
+Architect III                                                1
+Assistant Chief Administrative Officer                       3
+Assistant Chief of Police                                    4
+Assistant County Attorney III                               38
+Assistant Inspector General III                              4
+Assistant Sheriff                                            2
+Audiovisual Production Specialist                            3
+Autobody Repairer                                            4
+Background Screening Specialist                             10
+Behavioral Health Associate Counselor                       13
+Building Services Inspector                                  2
+Building Services Supervisor                                 1
+Building Services Worker II                                 22
+Bus Operator                                               638
+Business Development Specialist III                          2
+                                                          ...
+Telecommunications Technician                                2
+Therapist II                                                93
+Traffic Enforcement Field Service Technician II             12
+Traffic Field Service Technician II                          1
+Traffic Management Technician II                             7
+Transit Analyst                                              4
+Transit Communications Supervisor                           10
+Transit Coordinator                                         34
+Transit Information Systems Technician                       3
+Transit Marketing Specialist                                 3
+Transit Operations Supervisor                               18
+Transit Services Supervisor                                  3
+Transportation Systems Technician II                         3
+Transportation Systems Technician III                       11
+Truck Driver Helper/Warehouse Worker                        24
+Truck Driver/Warehouse Worker                               41
+Urban District Public Service Aide                          21
+Urban District Public Service Team Supervisor                4
+Urban District Public Service and Maintenance Team Supv      4
+Veterinary Assistant                                         1
+Visual Information Specialist                                6
+Warehouse Assistant Supervisor                               3
+Warehouse Equipment Operator                                13
+Warehouse Worker                                             6
+Water Quality Specialist II                                  6
+Welder                                                       3
+Work Force Leader I                                          1
+Work Force Leader II                                        28
+Work Force Leader III                                        2
+Work Force Leader IV                                         9
+Name: Employee Position Title, Length: 385, dtype: int64
 </pre></div>
 </div>
-<p>Here we go! See how there are 3 kinds of Accountant/Auditor? I,II,and III.
-Now, there are some reason why traditional word-encoding methods won’t work
-very well.</p>
+<p>These different entries are often variations on the same entities:
+there are 4 kinds of Work Force Leader.</p>
+<p>Such variations will break traditional categorical encoding methods:</p>
 <ul class="simple">
 <li>Using simple one-hot encoding will create orthogonal features,
 whereas it is clear that those 3 terms have a lot in common.</li>
 <li>If we wanted to use word embedding methods such as word2vec,
 we would have to go through a cleaning phase: those algorithms
 are not trained to work on data such as ‘Accountant/Auditor I’.
-However, that can be unsafe and take a long time.</li>
+However, this can be error prone and time consumming</li>
 </ul>
+<p>The problem is made easier if we can capture relationships between
+entries</p>
+<p>To simplify understanding, we will focus on the column describing the
+employee’s position title
+data</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">values</span> <span class="o">=</span> <span class="n">data</span><span class="p">[[</span><span class="s1">&#39;Employee Position Title&#39;</span><span class="p">,</span> <span class="s1">&#39;Gender&#39;</span><span class="p">,</span> <span class="s1">&#39;Current Annual Salary&#39;</span><span class="p">]]</span>
+</pre></div>
 </div>
-<div class="section" id="encoding-categorical-data-using-similarityencoder">
-<h2>Encoding categorical data using SimilarityEncoder<a class="headerlink" href="#encoding-categorical-data-using-similarityencoder" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="string-similarity-between-entries">
+<h2>String similarity between entries<a class="headerlink" href="#string-similarity-between-entries" title="Permalink to this headline">¶</a></h2>
 <p>That’s where our encoders get into play. In order to robustly
 embed dirty semantic data, the SimilarityEncoder creates a similarity
 matrix based on the 3-gram structure of the data.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dirty_cat</span> <span class="kn">import</span> <a href="../generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="View documentation for dirty_cat.SimilarityEncoder"><span class="n">SimilarityEncoder</span></a>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">sorted_values</span> <span class="o">=</span> <span class="n">values</span><span class="p">[</span><span class="s1">&#39;Employee Position Title&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+
+<span class="kn">from</span> <span class="nn">dirty_cat</span> <span class="kn">import</span> <a href="../generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="View documentation for dirty_cat.SimilarityEncoder"><span class="n">SimilarityEncoder</span></a>
 
 <span class="n">similarity_encoder</span> <span class="o">=</span> <a href="../generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="View documentation for dirty_cat.SimilarityEncoder"><span class="n">SimilarityEncoder</span></a><span class="p">(</span><span class="n">similarity</span><span class="o">=</span><span class="s1">&#39;ngram&#39;</span><span class="p">)</span>
 <span class="n">transformed_values</span> <span class="o">=</span> <span class="n">similarity_encoder</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span>
     <span class="n">sorted_values</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
 </pre></div>
 </div>
-<div class="section" id="plotting-the-new-feature-map-using-multi-dimensional-scaling">
-<h3>Plotting the new feature map using multi-dimensional scaling<a class="headerlink" href="#plotting-the-new-feature-map-using-multi-dimensional-scaling" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="plotting-the-new-representation-using-multi-dimensional-scaling">
+<h3>Plotting the new representation using multi-dimensional scaling<a class="headerlink" href="#plotting-the-new-representation-using-multi-dimensional-scaling" title="Permalink to this headline">¶</a></h3>
 <p>lets now plot a couple points at random using a low-dimensional representation
 to get an intuition of what the similarity encoder is doing:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.manifold</span> <span class="kn">import</span> <span class="n">MDS</span>
@@ -203,12 +263,51 @@ to get an intuition of what the similarity encoder is doing:</p>
 </pre></div>
 </div>
 <img alt="../_images/sphx_glr_plot_investigating_dirty_categories_002.png" class="sphx-glr-single-img" src="../_images/sphx_glr_plot_investigating_dirty_categories_002.png" />
-<p>As shown in the previous plot, we see that “communication Equipment technician“‘s
-nearest neighbor is “telecommunication technician”, although it is also
+<p>As shown in the previous plot, we see that the nearest neighbor of
+“Communication Equipment Technician”
+is “telecommunication technician”, although it is also
 very close to senior “supply technician”: therefore, we grasp the
 “communication” part (not initially present in the category as a unique word)
 as well as the technician part of this category.</p>
-<p><strong>Total running time of the script:</strong> ( 0 minutes  14.667 seconds)</p>
+</div>
+</div>
+<div class="section" id="encoding-categorical-data-using-similarityencoder">
+<h2>Encoding categorical data using SimilarityEncoder<a class="headerlink" href="#encoding-categorical-data-using-similarityencoder" title="Permalink to this headline">¶</a></h2>
+<p>A typical data-science workflow uses one-hot encoding to represent
+categories.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">CategoricalEncoder</span>
+
+<span class="c1"># encoding simply a subset of the observations</span>
+<span class="n">n_obs</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="n">employee_position_titles</span> <span class="o">=</span> <span class="n">values</span><span class="p">[</span><span class="s1">&#39;Employee Position Title&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span>
+    <span class="n">n_obs</span><span class="p">)</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
+<span class="n">categorical_encoder</span> <span class="o">=</span> <span class="n">CategoricalEncoder</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;onehot-dense&#39;</span><span class="p">)</span>
+<span class="n">one_hot_encoded</span> <span class="o">=</span> <span class="n">categorical_encoder</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">employee_position_titles</span><span class="p">)</span>
+<span class="n">f3</span><span class="p">,</span> <span class="n">ax3</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">cax3</span> <span class="o">=</span> <span class="n">ax3</span><span class="o">.</span><span class="n">matshow</span><span class="p">(</span><span class="n">one_hot_encoded</span><span class="p">)</span>
+<span class="n">f3</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">cax3</span><span class="p">)</span>
+<span class="n">f3</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Employee Position Title values, one-hot encoded&#39;</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">tick_bottom</span><span class="p">()</span>
+<span class="n">f3</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+<img alt="../_images/sphx_glr_plot_investigating_dirty_categories_003.png" class="sphx-glr-single-img" src="../_images/sphx_glr_plot_investigating_dirty_categories_003.png" />
+<p>The corresponding is very sparse</p>
+<p>SimilarityEncoder can be used to replace one-hot encoding capturing the
+similarities:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">f4</span><span class="p">,</span> <span class="n">ax4</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">similarity_encoded</span> <span class="o">=</span> <span class="n">similarity_encoder</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">employee_position_titles</span><span class="p">)</span>
+<span class="n">cax4</span> <span class="o">=</span> <span class="n">ax4</span><span class="o">.</span><span class="n">matshow</span><span class="p">(</span><span class="n">similarity_encoded</span><span class="p">)</span>
+<span class="n">f4</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">cax4</span><span class="p">)</span>
+<span class="n">f4</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Employee Position Title values, similarity encoded&#39;</span><span class="p">)</span>
+<span class="n">ax4</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">tick_bottom</span><span class="p">()</span>
+<span class="n">f4</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+<img alt="../_images/sphx_glr_plot_investigating_dirty_categories_004.png" class="sphx-glr-single-img" src="../_images/sphx_glr_plot_investigating_dirty_categories_004.png" />
+<p>Other examples in the dirty_cat documentation show how
+similarity encoding impacts prediction performance.</p>
+<p><strong>Total running time of the script:</strong> ( 0 minutes  35.639 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-investigating-dirty-categories-py">
 <div class="sphx-glr-download docutils container">
 <a class="reference download internal" href="../_downloads/plot_investigating_dirty_categories.py" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_investigating_dirty_categories.py</span></code></a></div>
@@ -216,7 +315,6 @@ as well as the technician part of this category.</p>
 <a class="reference download internal" href="../_downloads/plot_investigating_dirty_categories.ipynb" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_investigating_dirty_categories.ipynb</span></code></a></div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.readthedocs.io">Gallery generated by Sphinx-Gallery</a></p>
-</div>
 </div>
 </div>
 
@@ -257,30 +355,30 @@ as well as the technician part of this category.</p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../generated/dirty_cat.datasets.fetch_employee_salaries.html"><code class="docutils literal"><span class="pre">dirty_cat.datasets</span></code>.fetch_employee_salaries</a></li>
 </ul>
-<ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Basic dirty_cat example: manipulating and looking at data</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#what-do-we-mean-by-dirty-data">What do we mean by dirty data?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#encoding-categorical-data-using-similarityencoder">Encoding categorical data using SimilarityEncoder</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#plotting-the-new-feature-map-using-multi-dimensional-scaling">Plotting the new feature map using multi-dimensional scaling</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#heatmap-of-the-similarity-matrix">Heatmap of the similarity matrix</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="midwest_survey.html">Semantic variation in the “Midwest”</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="plot_employee_salaries.html">Predicting the salary of employees</a></li>
 </ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Basic dirty_cat example: manipulating and looking at data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#what-do-we-mean-by-dirty-categories">What do we mean by dirty categories?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#string-similarity-between-entries">String similarity between entries</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#plotting-the-new-representation-using-multi-dimensional-scaling">Plotting the new representation using multi-dimensional scaling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#heatmap-of-the-similarity-matrix">Heatmap of the similarity matrix</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#encoding-categorical-data-using-similarityencoder">Encoding categorical data using SimilarityEncoder</a></li>
+</ul>
+</li>
+</ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="../generated/dirty_cat.datasets.fetch_employee_salaries.html" title="previous chapter"><code class="docutils literal"><span class="pre">dirty_cat.datasets</span></code>.fetch_employee_salaries</a></li>
-      <li>Next: <a href="midwest_survey.html" title="next chapter">Semantic variation in the “Midwest”</a></li>
+      <li>Previous: <a href="plot_employee_salaries.html" title="previous chapter">Predicting the salary of employees</a></li>
   </ul></li>
 </ul>
 </div>
