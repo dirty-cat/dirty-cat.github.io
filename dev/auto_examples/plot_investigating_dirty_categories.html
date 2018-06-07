@@ -45,7 +45,11 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="basic-dirty-cat-example-manipulating-and-looking-at-data">
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Click <a class="reference internal" href="#sphx-glr-download-auto-examples-plot-investigating-dirty-categories-py"><span class="std std-ref">here</span></a> to download the full example code</p>
+</div>
+<div class="sphx-glr-example-title section" id="basic-dirty-cat-example-manipulating-and-looking-at-data">
 <span id="sphx-glr-auto-examples-plot-investigating-dirty-categories-py"></span><h1>Basic dirty_cat example: manipulating and looking at data<a class="headerlink" href="#basic-dirty-cat-example-manipulating-and-looking-at-data" title="Permalink to this headline">¶</a></h1>
 <p>let’s try to understand how embedding dirty categorical variables with
 3gram similarity can help in learning better models</p>
@@ -61,14 +65,14 @@
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-default"><div class="highlight"><pre><span></span><span class="n">Full</span> <span class="n">Name</span>       <span class="o">...</span>        <span class="n">Date</span> <span class="n">First</span> <span class="n">Hired</span>
-<span class="mi">0</span>      <span class="n">Aarhus</span><span class="p">,</span> <span class="n">Pam</span> <span class="n">J</span><span class="o">.</span>       <span class="o">...</span>              <span class="mi">09</span><span class="o">/</span><span class="mi">22</span><span class="o">/</span><span class="mi">1986</span>
-<span class="mi">1</span>     <span class="n">Aaron</span><span class="p">,</span> <span class="n">David</span> <span class="n">J</span><span class="o">.</span>       <span class="o">...</span>              <span class="mi">09</span><span class="o">/</span><span class="mi">12</span><span class="o">/</span><span class="mi">1988</span>
-<span class="mi">2</span>    <span class="n">Aaron</span><span class="p">,</span> <span class="n">Marsha</span> <span class="n">M</span><span class="o">.</span>       <span class="o">...</span>              <span class="mi">11</span><span class="o">/</span><span class="mi">19</span><span class="o">/</span><span class="mi">1989</span>
-<span class="mi">3</span>  <span class="n">Ababio</span><span class="p">,</span> <span class="n">Godfred</span> <span class="n">A</span><span class="o">.</span>       <span class="o">...</span>              <span class="mi">05</span><span class="o">/</span><span class="mi">05</span><span class="o">/</span><span class="mi">2014</span>
-<span class="mi">4</span>      <span class="n">Ababu</span><span class="p">,</span> <span class="n">Essayas</span>       <span class="o">...</span>              <span class="mi">03</span><span class="o">/</span><span class="mi">05</span><span class="o">/</span><span class="mi">2007</span>
+<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Full Name       ...        Date First Hired
+0      Aarhus, Pam J.       ...              09/22/1986
+1     Aaron, David J.       ...              09/12/1988
+2    Aaron, Marsha M.       ...              11/19/1989
+3  Ababio, Godfred A.       ...              05/05/2014
+4      Ababu, Essayas       ...              03/05/2007
 
-<span class="p">[</span><span class="mi">5</span> <span class="n">rows</span> <span class="n">x</span> <span class="mi">12</span> <span class="n">columns</span><span class="p">]</span>
+[5 rows x 12 columns]
 </pre></div>
 </div>
 <p>Here is how the columns are distributed:</p>
@@ -76,19 +80,19 @@
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-default"><div class="highlight"><pre><span></span><span class="n">Full</span> <span class="n">Name</span>                  <span class="mi">9222</span>
-<span class="n">Gender</span>                        <span class="mi">2</span>
-<span class="n">Current</span> <span class="n">Annual</span> <span class="n">Salary</span>      <span class="mi">3403</span>
-<span class="mi">2016</span> <span class="n">Gross</span> <span class="n">Pay</span> <span class="n">Received</span>    <span class="mi">8977</span>
-<span class="mi">2016</span> <span class="n">Overtime</span> <span class="n">Pay</span>          <span class="mi">6176</span>
-<span class="n">Department</span>                   <span class="mi">37</span>
-<span class="n">Department</span> <span class="n">Name</span>              <span class="mi">37</span>
-<span class="n">Division</span>                    <span class="mi">694</span>
-<span class="n">Assignment</span> <span class="n">Category</span>           <span class="mi">2</span>
-<span class="n">Employee</span> <span class="n">Position</span> <span class="n">Title</span>     <span class="mi">385</span>
-<span class="n">Underfilled</span> <span class="n">Job</span> <span class="n">Title</span>        <span class="mi">84</span>
-<span class="n">Date</span> <span class="n">First</span> <span class="n">Hired</span>           <span class="mi">2264</span>
-<span class="n">dtype</span><span class="p">:</span> <span class="n">int64</span>
+<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Full Name                  9222
+Gender                        2
+Current Annual Salary      3403
+2016 Gross Pay Received    8977
+2016 Overtime Pay          6176
+Department                   37
+Department Name              37
+Division                    694
+Assignment Category           2
+Employee Position Title     385
+Underfilled Job Title        84
+Date First Hired           2264
+dtype: int64
 </pre></div>
 </div>
 <p>Some numerical columns (Gross pay, etc..) and some obvious categorical
@@ -101,15 +105,15 @@ for other categorical columns  such as Employee position title:</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-default"><div class="highlight"><pre><span></span><span class="n">Abandoned</span> <span class="n">Vehicle</span> <span class="n">Code</span> <span class="n">Enforcement</span> <span class="n">Specialist</span>
+<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Abandoned Vehicle Code Enforcement Specialist
 
-<span class="n">Accountant</span><span class="o">/</span><span class="n">Auditor</span> <span class="n">I</span>
+Accountant/Auditor I
 
-<span class="n">Accountant</span><span class="o">/</span><span class="n">Auditor</span> <span class="n">II</span>
+Accountant/Auditor II
 
-<span class="n">Accountant</span><span class="o">/</span><span class="n">Auditor</span> <span class="n">III</span>
+Accountant/Auditor III
 
-<span class="n">Administrative</span> <span class="n">Assistant</span> <span class="n">to</span> <span class="n">the</span> <span class="n">County</span> <span class="n">Executive</span>
+Administrative Assistant to the County Executive
 </pre></div>
 </div>
 <p>Here we go! See how there are 3 kinds of Accountant/Auditor? I,II,and III.
@@ -151,8 +155,8 @@ to get an intuition of what the similarity encoder is doing:</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-default"><div class="highlight"><pre><span></span><span class="p">(</span><span class="mi">385</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<span class="p">(</span><span class="mi">385</span><span class="p">,)</span>
+<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>(385, 2)
+(385,)
 </pre></div>
 </div>
 <p>we first quickly fit a KNN so that the plots does not get too busy:</p>
@@ -182,7 +186,7 @@ to get an intuition of what the similarity encoder is doing:</p>
     <span class="s1">&#39;multi-dimensional-scaling representation using a 3gram similarity matrix&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<img alt="../_images/sphx_glr_plot_investigating_dirty_categories_001.png" class="align-center" src="../_images/sphx_glr_plot_investigating_dirty_categories_001.png" />
+<img alt="../_images/sphx_glr_plot_investigating_dirty_categories_001.png" class="sphx-glr-single-img" src="../_images/sphx_glr_plot_investigating_dirty_categories_001.png" />
 </div>
 <div class="section" id="heatmap-of-the-similarity-matrix">
 <h3>Heatmap of the similarity matrix<a class="headerlink" href="#heatmap-of-the-similarity-matrix" title="Permalink to this headline">¶</a></h3>
@@ -198,20 +202,20 @@ to get an intuition of what the similarity encoder is doing:</p>
 <span class="n">f2</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
-<img alt="../_images/sphx_glr_plot_investigating_dirty_categories_002.png" class="align-center" src="../_images/sphx_glr_plot_investigating_dirty_categories_002.png" />
+<img alt="../_images/sphx_glr_plot_investigating_dirty_categories_002.png" class="sphx-glr-single-img" src="../_images/sphx_glr_plot_investigating_dirty_categories_002.png" />
 <p>As shown in the previous plot, we see that “communication Equipment technician“‘s
 nearest neighbor is “telecommunication technician”, although it is also
 very close to senior “supply technician”: therefore, we grasp the
 “communication” part (not initially present in the category as a unique word)
 as well as the technician part of this category.</p>
-<p><strong>Total running time of the script:</strong> ( 0 minutes  26.009 seconds)</p>
-<div class="sphx-glr-footer docutils container">
+<p><strong>Total running time of the script:</strong> ( 0 minutes  26.068 seconds)</p>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-investigating-dirty-categories-py">
 <div class="sphx-glr-download docutils container">
 <a class="reference download internal" href="../_downloads/plot_investigating_dirty_categories.py" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_investigating_dirty_categories.py</span></code></a></div>
 <div class="sphx-glr-download docutils container">
 <a class="reference download internal" href="../_downloads/plot_investigating_dirty_categories.ipynb" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_investigating_dirty_categories.ipynb</span></code></a></div>
 </div>
-<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.readthedocs.io">Generated by Sphinx-Gallery</a></p>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.readthedocs.io">Gallery generated by Sphinx-Gallery</a></p>
 </div>
 </div>
 </div>
