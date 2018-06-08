@@ -209,7 +209,7 @@ Plotting the data
 
     f, ax = plt.subplots()
     ax.boxplot(all_scores, vert=False)
-    ax.set_xticklabels(['one-hot', 'similarity'])
+    ax.set_yticklabels(['one-hot\nencoding', 'similarity\nencoding'])
 
 
 
@@ -223,7 +223,7 @@ We can see that encoding the data using a SimilarityEncoder instead of
 OneHotEncoder helps a lot in improving the cross validation score!
 
 
-**Total running time of the script:** ( 0 minutes  8.613 seconds)
+**Total running time of the script:** ( 0 minutes  7.648 seconds)
 
 
 .. _sphx_glr_download_auto_examples_03_midwest_survey.py:

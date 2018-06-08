@@ -183,13 +183,13 @@ Accuracy score:  mean: 0.658; std: 0.017
 
 <span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">all_scores</span><span class="p">,</span> <span class="n">vert</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([</span><span class="s1">&#39;one-hot&#39;</span><span class="p">,</span> <span class="s1">&#39;similarity&#39;</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">([</span><span class="s1">&#39;one-hot</span><span class="se">\n</span><span class="s1">encoding&#39;</span><span class="p">,</span> <span class="s1">&#39;similarity</span><span class="se">\n</span><span class="s1">encoding&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
 <img alt="../_images/sphx_glr_03_midwest_survey_001.png" class="sphx-glr-single-img" src="../_images/sphx_glr_03_midwest_survey_001.png" />
 <p>We can see that encoding the data using a SimilarityEncoder instead of
 OneHotEncoder helps a lot in improving the cross validation score!</p>
-<p><strong>Total running time of the script:</strong> ( 0 minutes  8.613 seconds)</p>
+<p><strong>Total running time of the script:</strong> ( 0 minutes  7.648 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-03-midwest-survey-py">
 <div class="sphx-glr-download docutils container">
 <a class="reference download internal" href="../_downloads/03_midwest_survey.py" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">03_midwest_survey.py</span></code></a></div>
