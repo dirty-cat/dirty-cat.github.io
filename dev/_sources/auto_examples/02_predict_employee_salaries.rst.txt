@@ -26,18 +26,17 @@ dirty categorical data.
 
 Data Importing and preprocessing
 --------------------------------
-We first import the datataset:
+
+We first download the dataset:
 
 
 
 .. code-block:: python
 
-    import pandas as pd
     from dirty_cat.datasets import fetch_employee_salaries
-
     employee_salaries = fetch_employee_salaries()
-    df = pd.read_csv(employee_salaries['path']).astype(str)
     print(employee_salaries['description'])
+
 
 
 
@@ -52,12 +51,26 @@ We first import the datataset:
     It can originally be found at: https://catalog.data.gov/dataset/ employee-salaries-2016
 
 
-and carry out some basic preprocessing:
+load it:
 
 
 
 .. code-block:: python
 
+    import pandas as pd
+    df = pd.read_csv(employee_salaries['path']).astype(str)
+
+
+
+
+
+
+
+and carry out some basic preprocessing:
+
+
+
+.. code-block:: python
 
     df['Current Annual Salary'] = df['Current Annual Salary'].str.strip('$').astype(
         float)
@@ -239,7 +252,7 @@ Finally, we plot the scores on a boxplot:
 
 
 
-**Total running time of the script:** ( 0 minutes  16.820 seconds)
+**Total running time of the script:** ( 0 minutes  15.254 seconds)
 
 
 .. _sphx_glr_download_auto_examples_02_predict_employee_salaries.py:

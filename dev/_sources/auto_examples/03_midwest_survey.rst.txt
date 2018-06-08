@@ -43,8 +43,8 @@ Loading the data
     from dirty_cat.datasets import fetch_midwest_survey
     import pandas as pd
 
-    description = fetch_midwest_survey()
-    df = pd.read_csv(description['path']).astype(str)
+    dataset = fetch_midwest_survey()
+    df = pd.read_csv(dataset['path']).astype(str)
 
 
 
@@ -227,7 +227,7 @@ We can see that encoding the data using a SimilarityEncoder instead of
 OneHotEncoder helps a lot in improving the cross validation score!
 
 
-**Total running time of the script:** ( 0 minutes  8.293 seconds)
+**Total running time of the script:** ( 0 minutes  7.254 seconds)
 
 
 .. _sphx_glr_download_auto_examples_03_midwest_survey.py:
