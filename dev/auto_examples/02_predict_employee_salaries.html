@@ -158,7 +158,7 @@ and and store the returned cross-validation score</p>
 <span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">KFold</span><span class="p">,</span> <span class="n">cross_val_score</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 
-<span class="n">all_scores</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">all_scores</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
 
 <span class="n">cv</span> <span class="o">=</span> <span class="n">KFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 <span class="n">scoring</span> <span class="o">=</span> <span class="s1">&#39;r2&#39;</span>
@@ -168,7 +168,7 @@ and and store the returned cross-validation score</p>
     <span class="k">print</span><span class="p">(</span><span class="s1">&#39;{} encoding&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">method</span><span class="p">))</span>
     <span class="k">print</span><span class="p">(</span><span class="s1">&#39;{} score:  mean: {:.3f}; std: {:.3f}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
         <span class="n">scoring</span><span class="p">,</span> <a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.mean.html#numpy.mean" title="View documentation for numpy.mean"><span class="n">np</span><span class="o">.</span><span class="n">mean</span></a><span class="p">(</span><span class="n">scores</span><span class="p">),</span> <a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.std.html#numpy.std" title="View documentation for numpy.std"><span class="n">np</span><span class="o">.</span><span class="n">std</span></a><span class="p">(</span><span class="n">scores</span><span class="p">)))</span>
-    <span class="n">all_scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>
+    <span class="n">all_scores</span><span class="p">[</span><span class="n">method</span><span class="p">]</span> <span class="o">=</span> <span class="n">scores</span>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
@@ -186,15 +186,17 @@ r2 score:  mean: 0.913; std: 0.006
 <div class="section" id="plotting-the-results">
 <h2>Plotting the results<a class="headerlink" href="#plotting-the-results" title="Permalink to this headline">¶</a></h2>
 <p>Finally, we plot the scores on a boxplot:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
-
-<span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">all_scores</span><span class="p">,</span> <span class="n">vert</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">(</span><span class="n">encoding_methods</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">seaborn</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><a href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.html#pandas.DataFrame" title="View documentation for pandas.DataFrame"><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span></a><span class="p">(</span><span class="n">all_scores</span><span class="p">),</span> <span class="n">orient</span><span class="o">=</span><span class="s1">&#39;h&#39;</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Encoding&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">17</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Prediction accuracy&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">17</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">17</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
 <img alt="../_images/sphx_glr_02_predict_employee_salaries_001.png" class="sphx-glr-single-img" src="../_images/sphx_glr_02_predict_employee_salaries_001.png" />
-<p><strong>Total running time of the script:</strong> ( 0 minutes  17.003 seconds)</p>
+<p><strong>Total running time of the script:</strong> ( 0 minutes  26.046 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-02-predict-employee-salaries-py">
 <div class="sphx-glr-download docutils container">
 <a class="reference download internal" href="../_downloads/02_predict_employee_salaries.py" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">02_predict_employee_salaries.py</span></code></a></div>

@@ -95,8 +95,8 @@ Separating clean, and dirty columns as well a a column we will try to predict
 
 
 
-Creating a pipeline for data fitting and prediction
------------------------------------------------------
+A pipeline for data fitting and prediction
+-------------------------------------------
  we first import the right encoders to transform our clean/dirty data:
 
 
@@ -157,8 +157,8 @@ scikit-learn pipeline for our problem.
 
 
 
-Looping over dirty-encoding methods
-----------------------------------
+Evaluation of different encoding methods
+-----------------------------------------
 We then loop over encoding methods, scoring the different pipeline predictions
 using a cross validation score:
 
@@ -170,12 +170,12 @@ using a cross validation score:
     from sklearn.model_selection import StratifiedKFold
 
     cv = StratifiedKFold(n_splits=3, random_state=12, shuffle=True)
-    all_scores = []
+    all_scores = {}
     for method in ['one-hot', 'similarity']:
         pipeline = make_pipeline(method)
         # Now predict the census region of each participant
         scores = cross_val_score(pipeline, df, y, cv=cv)
-        all_scores.append(scores)
+        all_scores[method] = scores
 
         print('%s encoding' % method)
         print('Accuracy score:  mean: %.3f; std: %.3f\n'
@@ -198,18 +198,21 @@ using a cross validation score:
     Accuracy score:  mean: 0.658; std: 0.017
 
 
-Plotting the data
-----------------------------------
+Plot the results
+------------------
 
 
 
 .. code-block:: python
 
+    import seaborn
+    ax = seaborn.boxplot(data=pd.DataFrame(all_scores), orient='h')
     import matplotlib.pyplot as plt
+    plt.ylabel('Encoding', size=17)
+    plt.xlabel('Prediction accuracy', size=17)
+    plt.yticks(size=17)
+    plt.tight_layout()
 
-    f, ax = plt.subplots()
-    ax.boxplot(all_scores, vert=False)
-    ax.set_yticklabels(['one-hot\nencoding', 'similarity\nencoding'])
 
 
 
@@ -223,7 +226,7 @@ We can see that encoding the data using a SimilarityEncoder instead of
 OneHotEncoder helps a lot in improving the cross validation score!
 
 
-**Total running time of the script:** ( 0 minutes  7.648 seconds)
+**Total running time of the script:** ( 0 minutes  7.095 seconds)
 
 
 .. _sphx_glr_download_auto_examples_03_midwest_survey.py:

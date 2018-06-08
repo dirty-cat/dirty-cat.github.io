@@ -105,8 +105,8 @@ score of a classification problem.</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="creating-a-pipeline-for-data-fitting-and-prediction">
-<h2>Creating a pipeline for data fitting and prediction<a class="headerlink" href="#creating-a-pipeline-for-data-fitting-and-prediction" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="a-pipeline-for-data-fitting-and-prediction">
+<h2>A pipeline for data fitting and prediction<a class="headerlink" href="#a-pipeline-for-data-fitting-and-prediction" title="Permalink to this headline">¶</a></h2>
 <blockquote>
 <div>we first import the right encoders to transform our clean/dirty data:</div></blockquote>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">FunctionTransformer</span><span class="p">,</span> <span class="n">CategoricalEncoder</span>
@@ -148,20 +148,20 @@ we create a function that takes an encoding as an input, and returns a scikit-le
 </pre></div>
 </div>
 </div>
-<div class="section" id="looping-over-dirty-encoding-methods">
-<h2>Looping over dirty-encoding methods<a class="headerlink" href="#looping-over-dirty-encoding-methods" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="evaluation-of-different-encoding-methods">
+<h2>Evaluation of different encoding methods<a class="headerlink" href="#evaluation-of-different-encoding-methods" title="Permalink to this headline">¶</a></h2>
 <p>We then loop over encoding methods, scoring the different pipeline predictions
 using a cross validation score:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">cross_val_score</span>
 <span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">StratifiedKFold</span>
 
 <span class="n">cv</span> <span class="o">=</span> <span class="n">StratifiedKFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-<span class="n">all_scores</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">all_scores</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="k">for</span> <span class="n">method</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;one-hot&#39;</span><span class="p">,</span> <span class="s1">&#39;similarity&#39;</span><span class="p">]:</span>
     <span class="n">pipeline</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">method</span><span class="p">)</span>
     <span class="c1"># Now predict the census region of each participant</span>
     <span class="n">scores</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">pipeline</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">cv</span><span class="p">)</span>
-    <span class="n">all_scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>
+    <span class="n">all_scores</span><span class="p">[</span><span class="n">method</span><span class="p">]</span> <span class="o">=</span> <span class="n">scores</span>
 
     <span class="k">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> encoding&#39;</span> <span class="o">%</span> <span class="n">method</span><span class="p">)</span>
     <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Accuracy score:  mean: </span><span class="si">%.3f</span><span class="s1">; std: </span><span class="si">%.3f</span><span class="se">\n</span><span class="s1">&#39;</span>
@@ -177,19 +177,21 @@ Accuracy score:  mean: 0.658; std: 0.017
 </pre></div>
 </div>
 </div>
-<div class="section" id="plotting-the-data">
-<h2>Plotting the data<a class="headerlink" href="#plotting-the-data" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
-
-<span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">all_scores</span><span class="p">,</span> <span class="n">vert</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">([</span><span class="s1">&#39;one-hot</span><span class="se">\n</span><span class="s1">encoding&#39;</span><span class="p">,</span> <span class="s1">&#39;similarity</span><span class="se">\n</span><span class="s1">encoding&#39;</span><span class="p">])</span>
+<div class="section" id="plot-the-results">
+<h2>Plot the results<a class="headerlink" href="#plot-the-results" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">seaborn</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><a href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.html#pandas.DataFrame" title="View documentation for pandas.DataFrame"><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span></a><span class="p">(</span><span class="n">all_scores</span><span class="p">),</span> <span class="n">orient</span><span class="o">=</span><span class="s1">&#39;h&#39;</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Encoding&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">17</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Prediction accuracy&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">17</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">17</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
 <img alt="../_images/sphx_glr_03_midwest_survey_001.png" class="sphx-glr-single-img" src="../_images/sphx_glr_03_midwest_survey_001.png" />
 <p>We can see that encoding the data using a SimilarityEncoder instead of
 OneHotEncoder helps a lot in improving the cross validation score!</p>
-<p><strong>Total running time of the script:</strong> ( 0 minutes  7.648 seconds)</p>
+<p><strong>Total running time of the script:</strong> ( 0 minutes  7.095 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-03-midwest-survey-py">
 <div class="sphx-glr-download docutils container">
 <a class="reference download internal" href="../_downloads/03_midwest_survey.py" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">03_midwest_survey.py</span></code></a></div>
@@ -247,9 +249,9 @@ OneHotEncoder helps a lot in improving the cross validation score!</p>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Semantic variation in the “Midwest”</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#loading-the-data">Loading the data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#separating-clean-and-dirty-columns-as-well-a-a-column-we-will-try-to-predict">Separating clean, and dirty columns as well a a column we will try to predict</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#creating-a-pipeline-for-data-fitting-and-prediction">Creating a pipeline for data fitting and prediction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#looping-over-dirty-encoding-methods">Looping over dirty-encoding methods</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#plotting-the-data">Plotting the data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#a-pipeline-for-data-fitting-and-prediction">A pipeline for data fitting and prediction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#evaluation-of-different-encoding-methods">Evaluation of different encoding methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#plot-the-results">Plot the results</a></li>
 </ul>
 </li>
 </ul>

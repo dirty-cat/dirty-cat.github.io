@@ -179,7 +179,7 @@ and and store the returned cross-validation score
     from sklearn.model_selection import KFold, cross_val_score
     import numpy as np
 
-    all_scores = []
+    all_scores = dict()
 
     cv = KFold(n_splits=5, random_state=12, shuffle=True)
     scoring = 'r2'
@@ -189,7 +189,7 @@ and and store the returned cross-validation score
         print('{} encoding'.format(method))
         print('{} score:  mean: {:.3f}; std: {:.3f}\n'.format(
             scoring, np.mean(scores), np.std(scores)))
-        all_scores.append(scores)
+        all_scores[method] = scores
 
 
 
@@ -219,11 +219,13 @@ Finally, we plot the scores on a boxplot:
 
 .. code-block:: python
 
+    import seaborn
+    ax = seaborn.boxplot(data=pd.DataFrame(all_scores), orient='h')
     import matplotlib.pyplot as plt
-
-    f, ax = plt.subplots()
-    ax.boxplot(all_scores, vert=False)
-    ax.set_yticklabels(encoding_methods)
+    plt.ylabel('Encoding', size=17)
+    plt.xlabel('Prediction accuracy', size=17)
+    plt.yticks(size=17)
+    plt.tight_layout()
 
 
 
@@ -236,7 +238,7 @@ Finally, we plot the scores on a boxplot:
 
 
 
-**Total running time of the script:** ( 0 minutes  17.003 seconds)
+**Total running time of the script:** ( 0 minutes  26.046 seconds)
 
 
 .. _sphx_glr_download_auto_examples_02_predict_employee_salaries.py:
