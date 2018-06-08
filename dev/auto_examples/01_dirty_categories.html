@@ -28,7 +28,8 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="Predicting the salary of employees" href="plot_employee_salaries.html" />
+    <link rel="next" title="Predicting the salary of employees" href="02_predict_employee_salaries.html" />
+    <link rel="prev" title="dirty_cat.datasets.fetch_employee_salaries" href="../generated/dirty_cat.datasets.fetch_employee_salaries.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
@@ -46,10 +47,10 @@
             
   <div class="sphx-glr-download-link-note admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Click <a class="reference internal" href="#sphx-glr-download-auto-examples-plot-dirty-categories-py"><span class="std std-ref">here</span></a> to download the full example code</p>
+<p class="last">Click <a class="reference internal" href="#sphx-glr-download-auto-examples-01-dirty-categories-py"><span class="std std-ref">here</span></a> to download the full example code</p>
 </div>
 <div class="sphx-glr-example-title section" id="investigating-dirty-categories">
-<span id="sphx-glr-auto-examples-plot-dirty-categories-py"></span><h1>Investigating dirty categories<a class="headerlink" href="#investigating-dirty-categories" title="Permalink to this headline">¶</a></h1>
+<span id="sphx-glr-auto-examples-01-dirty-categories-py"></span><h1>Investigating dirty categories<a class="headerlink" href="#investigating-dirty-categories" title="Permalink to this headline">¶</a></h1>
 <p>What are dirty categorical variables and how can a good encoding help
 with statistical learning.</p>
 <div class="section" id="what-do-we-mean-by-dirty-categories">
@@ -246,7 +247,7 @@ to get an intuition of what the similarity encoder is doing:</p>
     <span class="s1">&#39;multi-dimensional-scaling representation using a 3gram similarity matrix&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<img alt="../_images/sphx_glr_plot_dirty_categories_001.png" class="sphx-glr-single-img" src="../_images/sphx_glr_plot_dirty_categories_001.png" />
+<img alt="../_images/sphx_glr_01_dirty_categories_001.png" class="sphx-glr-single-img" src="../_images/sphx_glr_01_dirty_categories_001.png" />
 </div>
 <div class="section" id="heatmap-of-the-similarity-matrix">
 <h3>Heatmap of the similarity matrix<a class="headerlink" href="#heatmap-of-the-similarity-matrix" title="Permalink to this headline">¶</a></h3>
@@ -262,7 +263,7 @@ to get an intuition of what the similarity encoder is doing:</p>
 <span class="n">f2</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
-<img alt="../_images/sphx_glr_plot_dirty_categories_002.png" class="sphx-glr-single-img" src="../_images/sphx_glr_plot_dirty_categories_002.png" />
+<img alt="../_images/sphx_glr_01_dirty_categories_002.png" class="sphx-glr-single-img" src="../_images/sphx_glr_01_dirty_categories_002.png" />
 <p>As shown in the previous plot, we see that the nearest neighbor of
 “Communication Equipment Technician”
 is “telecommunication technician”, although it is also
@@ -291,7 +292,7 @@ categories.</p>
 <span class="n">f3</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
-<img alt="../_images/sphx_glr_plot_dirty_categories_003.png" class="sphx-glr-single-img" src="../_images/sphx_glr_plot_dirty_categories_003.png" />
+<img alt="../_images/sphx_glr_01_dirty_categories_003.png" class="sphx-glr-single-img" src="../_images/sphx_glr_01_dirty_categories_003.png" />
 <p>The corresponding is very sparse</p>
 <p>SimilarityEncoder can be used to replace one-hot encoding capturing the
 similarities:</p>
@@ -304,15 +305,15 @@ similarities:</p>
 <span class="n">f4</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
-<img alt="../_images/sphx_glr_plot_dirty_categories_004.png" class="sphx-glr-single-img" src="../_images/sphx_glr_plot_dirty_categories_004.png" />
+<img alt="../_images/sphx_glr_01_dirty_categories_004.png" class="sphx-glr-single-img" src="../_images/sphx_glr_01_dirty_categories_004.png" />
 <p>Other examples in the dirty_cat documentation show how
 similarity encoding impacts prediction performance.</p>
-<p><strong>Total running time of the script:</strong> ( 0 minutes  46.104 seconds)</p>
-<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-dirty-categories-py">
+<p><strong>Total running time of the script:</strong> ( 1 minutes  36.461 seconds)</p>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-01-dirty-categories-py">
 <div class="sphx-glr-download docutils container">
-<a class="reference download internal" href="../_downloads/plot_dirty_categories.py" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_dirty_categories.py</span></code></a></div>
+<a class="reference download internal" href="../_downloads/01_dirty_categories.py" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">01_dirty_categories.py</span></code></a></div>
 <div class="sphx-glr-download docutils container">
-<a class="reference download internal" href="../_downloads/plot_dirty_categories.ipynb" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_dirty_categories.ipynb</span></code></a></div>
+<a class="reference download internal" href="../_downloads/01_dirty_categories.ipynb" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">01_dirty_categories.ipynb</span></code></a></div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.readthedocs.io">Gallery generated by Sphinx-Gallery</a></p>
 </div>
@@ -355,12 +356,6 @@ similarity encoding impacts prediction performance.</p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../generated/dirty_cat.datasets.fetch_employee_salaries.html"><code class="docutils literal"><span class="pre">dirty_cat.datasets</span></code>.fetch_employee_salaries</a></li>
 </ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="midwest_survey.html">Semantic variation in the “Midwest”</a></li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="plot_employee_salaries.html">Predicting the salary of employees</a></li>
-</ul>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Investigating dirty categories</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#what-do-we-mean-by-dirty-categories">What do we mean by dirty categories?</a></li>
@@ -373,12 +368,19 @@ similarity encoding impacts prediction performance.</p>
 </ul>
 </li>
 </ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="02_predict_employee_salaries.html">Predicting the salary of employees</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="03_midwest_survey.html">Semantic variation in the “Midwest”</a></li>
+</ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="plot_employee_salaries.html" title="previous chapter">Predicting the salary of employees</a></li>
+      <li>Previous: <a href="../generated/dirty_cat.datasets.fetch_employee_salaries.html" title="previous chapter"><code class="docutils literal"><span class="pre">dirty_cat.datasets</span></code>.fetch_employee_salaries</a></li>
+      <li>Next: <a href="02_predict_employee_salaries.html" title="next chapter">Predicting the salary of employees</a></li>
   </ul></li>
 </ul>
 </div>
@@ -400,7 +402,7 @@ similarity encoding impacts prediction performance.</p>
       &copy;2018, dirty_cat developers.
       
       |
-      <a href="../_sources/auto_examples/plot_dirty_categories.rst.txt"
+      <a href="../_sources/auto_examples/01_dirty_categories.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 
