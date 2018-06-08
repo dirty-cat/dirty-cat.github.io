@@ -1,17 +1,17 @@
 .. note::
     :class: sphx-glr-download-link-note
 
-    Click :ref:`here <sphx_glr_download_auto_examples_plot_investigating_dirty_categories.py>` to download the full example code
+    Click :ref:`here <sphx_glr_download_auto_examples_plot_dirty_categories.py>` to download the full example code
 .. rst-class:: sphx-glr-example-title
 
-.. _sphx_glr_auto_examples_plot_investigating_dirty_categories.py:
+.. _sphx_glr_auto_examples_plot_dirty_categories.py:
 
 
-Basic dirty_cat example: manipulating and looking at data
-=========================================================
+Investigating dirty categories
+=================================
 
-let's try to understand how embedding dirty categorical variables with
-3gram similarity can help in learning better models
+What are dirty categorical variables and how can a good encoding help
+with statistical learning.
 
 
 What do we mean by dirty categories?
@@ -303,7 +303,7 @@ and then plot it, adding the categories in the scatter plot:
 
 
 
-.. image:: /auto_examples/images/sphx_glr_plot_investigating_dirty_categories_001.png
+.. image:: /auto_examples/images/sphx_glr_plot_dirty_categories_001.png
     :class: sphx-glr-single-img
 
 
@@ -331,7 +331,7 @@ We can also plot the distance matrix for those observations:
 
 
 
-.. image:: /auto_examples/images/sphx_glr_plot_investigating_dirty_categories_002.png
+.. image:: /auto_examples/images/sphx_glr_plot_dirty_categories_002.png
     :class: sphx-glr-single-img
 
 
@@ -373,7 +373,7 @@ categories.
 
 
 
-.. image:: /auto_examples/images/sphx_glr_plot_investigating_dirty_categories_003.png
+.. image:: /auto_examples/images/sphx_glr_plot_dirty_categories_003.png
     :class: sphx-glr-single-img
 
 
@@ -400,7 +400,7 @@ similarities:
 
 
 
-.. image:: /auto_examples/images/sphx_glr_plot_investigating_dirty_categories_004.png
+.. image:: /auto_examples/images/sphx_glr_plot_dirty_categories_004.png
     :class: sphx-glr-single-img
 
 
@@ -410,10 +410,10 @@ Other examples in the dirty_cat documentation show how
 similarity encoding impacts prediction performance.
 
 
-**Total running time of the script:** ( 0 minutes  35.639 seconds)
+**Total running time of the script:** ( 0 minutes  46.104 seconds)
 
 
-.. _sphx_glr_download_auto_examples_plot_investigating_dirty_categories.py:
+.. _sphx_glr_download_auto_examples_plot_dirty_categories.py:
 
 
 .. only :: html
@@ -425,13 +425,13 @@ similarity encoding impacts prediction performance.
 
   .. container:: sphx-glr-download
 
-     :download:`Download Python source code: plot_investigating_dirty_categories.py <plot_investigating_dirty_categories.py>`
+     :download:`Download Python source code: plot_dirty_categories.py <plot_dirty_categories.py>`
 
 
 
   .. container:: sphx-glr-download
 
-     :download:`Download Jupyter notebook: plot_investigating_dirty_categories.ipynb <plot_investigating_dirty_categories.ipynb>`
+     :download:`Download Jupyter notebook: plot_dirty_categories.ipynb <plot_dirty_categories.ipynb>`
 
 
 .. only:: html
