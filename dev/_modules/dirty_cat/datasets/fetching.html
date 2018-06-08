@@ -269,7 +269,10 @@
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    full_name: the full name of the extracted file</span>
+<span class="sd">    a dictionary containing:</span>
+<span class="sd">    - a short description of the dataset (under the &#39;description&#39; key )</span>
+<span class="sd">    - an absolute path leading to the csv file where the data is stored locally</span>
+<span class="sd">    (under the &#39;path&#39; key)</span>
 
 <span class="sd">    NOTES</span>
 <span class="sd">    -----</span>
@@ -334,6 +337,28 @@
 
 
 <div class="viewcode-block" id="fetch_employee_salaries"><a class="viewcode-back" href="../../../generated/dirty_cat.datasets.fetch_employee_salaries.html#dirty_cat.datasets.fetch_employee_salaries">[docs]</a><span class="k">def</span> <span class="nf">fetch_employee_salaries</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;fetches the employee_salaries dataset</span>
+
+<span class="sd">    the employee_salaries dataset contains information about annual salaries</span>
+<span class="sd">    (year 2016) for more than 9,000 employees of the Montgomery County</span>
+<span class="sd">    (Maryland, US).</span>
+
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict</span>
+<span class="sd">        a dictionary containing:</span>
+<span class="sd">            - a short description of the dataset (under the &#39;description&#39; key)</span>
+<span class="sd">            - an absolute path leading to the csv file where the data is</span>
+<span class="sd">            stored locally (under the &#39;path&#39; key)</span>
+
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    https://catalog.data.gov/dataset/ employee-salaries-2016</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">return</span> <span class="n">fetch_dataset</span><span class="p">(</span><span class="n">EMPLOYEE_SALARIES_CONFIG</span><span class="p">,</span> <span class="n">show_progress</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
 
 
