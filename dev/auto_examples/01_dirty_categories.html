@@ -29,7 +29,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Predicting the salary of employees" href="02_predict_employee_salaries.html" />
-    <link rel="prev" title="dirty_cat.datasets.fetch_employee_salaries" href="../generated/dirty_cat.datasets.fetch_employee_salaries.html" />
+    <link rel="prev" title="dirty_cat: machine learning on dirty categories" href="../index.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
@@ -168,7 +168,7 @@ Name: Employee Position Title, Length: 385, dtype: int64
 </pre></div>
 </div>
 <p>These different entries are often variations on the same entities:
-there are 4 kinds of Work Force Leader.</p>
+there are 3 kinds of Accountant/Auditor.</p>
 <p>Such variations will break traditional categorical encoding methods:</p>
 <ul class="simple">
 <li>Using simple one-hot encoding will create orthogonal features,
@@ -259,6 +259,7 @@ to get an intuition of what the similarity encoder is doing:</p>
 <span class="n">ax2</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">(</span><span class="n">sorted_values</span><span class="p">[</span><span class="n">indices</span><span class="p">],</span> <span class="n">rotation</span><span class="o">=</span><span class="s1">&#39;30&#39;</span><span class="p">)</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">sorted_values</span><span class="p">[</span><span class="n">indices</span><span class="p">],</span> <span class="n">rotation</span><span class="o">=</span><span class="s1">&#39;60&#39;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">)</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">tick_bottom</span><span class="p">()</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Similarities across categories&#39;</span><span class="p">)</span>
 <span class="n">f2</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">cax2</span><span class="p">)</span>
 <span class="n">f2</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
@@ -285,10 +286,9 @@ categories.</p>
 <span class="n">categorical_encoder</span> <span class="o">=</span> <span class="n">CategoricalEncoder</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;onehot-dense&#39;</span><span class="p">)</span>
 <span class="n">one_hot_encoded</span> <span class="o">=</span> <span class="n">categorical_encoder</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">employee_position_titles</span><span class="p">)</span>
 <span class="n">f3</span><span class="p">,</span> <span class="n">ax3</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
-<span class="n">cax3</span> <span class="o">=</span> <span class="n">ax3</span><span class="o">.</span><span class="n">matshow</span><span class="p">(</span><span class="n">one_hot_encoded</span><span class="p">)</span>
-<span class="n">f3</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">cax3</span><span class="p">)</span>
-<span class="n">f3</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Employee Position Title values, one-hot encoded&#39;</span><span class="p">)</span>
-<span class="n">ax3</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">tick_bottom</span><span class="p">()</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">matshow</span><span class="p">(</span><span class="n">one_hot_encoded</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Employee Position Title values, one-hot encoded&#39;</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
 <span class="n">f3</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -298,17 +298,16 @@ categories.</p>
 similarities:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">f4</span><span class="p">,</span> <span class="n">ax4</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
 <span class="n">similarity_encoded</span> <span class="o">=</span> <span class="n">similarity_encoder</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">employee_position_titles</span><span class="p">)</span>
-<span class="n">cax4</span> <span class="o">=</span> <span class="n">ax4</span><span class="o">.</span><span class="n">matshow</span><span class="p">(</span><span class="n">similarity_encoded</span><span class="p">)</span>
-<span class="n">f4</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">cax4</span><span class="p">)</span>
-<span class="n">f4</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Employee Position Title values, similarity encoded&#39;</span><span class="p">)</span>
-<span class="n">ax4</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">tick_bottom</span><span class="p">()</span>
+<span class="n">ax4</span><span class="o">.</span><span class="n">matshow</span><span class="p">(</span><span class="n">similarity_encoded</span><span class="p">)</span>
+<span class="n">ax4</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Employee Position Title values, similarity encoded&#39;</span><span class="p">)</span>
+<span class="n">ax4</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
 <span class="n">f4</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
 <img alt="../_images/sphx_glr_01_dirty_categories_004.png" class="sphx-glr-single-img" src="../_images/sphx_glr_01_dirty_categories_004.png" />
 <p>Other examples in the dirty_cat documentation show how
 similarity encoding impacts prediction performance.</p>
-<p><strong>Total running time of the script:</strong> ( 1 minutes  9.249 seconds)</p>
+<p><strong>Total running time of the script:</strong> ( 0 minutes  34.988 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-01-dirty-categories-py">
 <div class="sphx-glr-download docutils container">
 <a class="reference download internal" href="../_downloads/01_dirty_categories.py" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">01_dirty_categories.py</span></code></a></div>
@@ -349,13 +348,6 @@ similarity encoding impacts prediction performance.</p>
 
 
 <h3>Navigation</h3>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../generated/dirty_cat.SimilarityEncoder.html"><code class="docutils literal"><span class="pre">dirty_cat</span></code>.SimilarityEncoder</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../generated/dirty_cat.TargetEncoder.html"><code class="docutils literal"><span class="pre">dirty_cat</span></code>.TargetEncoder</a></li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../generated/dirty_cat.datasets.fetch_employee_salaries.html"><code class="docutils literal"><span class="pre">dirty_cat.datasets</span></code>.fetch_employee_salaries</a></li>
-</ul>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Investigating dirty categories</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#what-do-we-mean-by-dirty-categories">What do we mean by dirty categories?</a></li>
@@ -374,12 +366,19 @@ similarity encoding impacts prediction performance.</p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="03_midwest_survey.html">Semantic variation in the “Midwest”</a></li>
 </ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../generated/dirty_cat.SimilarityEncoder.html"><code class="docutils literal"><span class="pre">dirty_cat</span></code>.SimilarityEncoder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../generated/dirty_cat.TargetEncoder.html"><code class="docutils literal"><span class="pre">dirty_cat</span></code>.TargetEncoder</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../generated/dirty_cat.datasets.fetch_employee_salaries.html"><code class="docutils literal"><span class="pre">dirty_cat.datasets</span></code>.fetch_employee_salaries</a></li>
+</ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="../generated/dirty_cat.datasets.fetch_employee_salaries.html" title="previous chapter"><code class="docutils literal"><span class="pre">dirty_cat.datasets</span></code>.fetch_employee_salaries</a></li>
+      <li>Previous: <a href="../index.html" title="previous chapter">dirty_cat: machine learning on dirty categories</a></li>
       <li>Next: <a href="02_predict_employee_salaries.html" title="next chapter">Predicting the salary of employees</a></li>
   </ul></li>
 </ul>
