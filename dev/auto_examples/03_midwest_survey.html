@@ -57,11 +57,6 @@ The other columns are more traditional categorical or numerical
 variables.</p>
 <p>Let’s see how different encoding for the dirty column impact on the
 score of a classification problem.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-
-<span class="kn">from</span> <span class="nn">dirty_cat</span> <span class="kn">import</span> <a href="../generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="View documentation for dirty_cat.SimilarityEncoder"><span class="n">SimilarityEncoder</span></a>
-</pre></div>
-</div>
 <div class="section" id="loading-the-data">
 <h2>Loading the data<a class="headerlink" href="#loading-the-data" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dirty_cat.datasets</span> <span class="kn">import</span> <span class="n">fetch_midwest_survey</span>
@@ -111,6 +106,7 @@ score of a classification problem.</p>
 <blockquote>
 <div>we first import the right encoders to transform our clean/dirty data:</div></blockquote>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">FunctionTransformer</span><span class="p">,</span> <span class="n">CategoricalEncoder</span>
+<span class="kn">from</span> <span class="nn">dirty_cat</span> <span class="kn">import</span> <a href="../generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="View documentation for dirty_cat.SimilarityEncoder"><span class="n">SimilarityEncoder</span></a>
 
 <span class="n">encoder_dict</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s1">&#39;one-hot&#39;</span><span class="p">:</span> <span class="n">CategoricalEncoder</span><span class="p">(</span><span class="n">handle_unknown</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span>
@@ -166,7 +162,7 @@ using a cross validation score:</p>
 
     <span class="k">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> encoding&#39;</span> <span class="o">%</span> <span class="n">method</span><span class="p">)</span>
     <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Accuracy score:  mean: </span><span class="si">%.3f</span><span class="s1">; std: </span><span class="si">%.3f</span><span class="se">\n</span><span class="s1">&#39;</span>
-          <span class="o">%</span> <span class="p">(</span><a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.mean.html#numpy.mean" title="View documentation for numpy.mean"><span class="n">np</span><span class="o">.</span><span class="n">mean</span></a><span class="p">(</span><span class="n">scores</span><span class="p">),</span> <a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.std.html#numpy.std" title="View documentation for numpy.std"><span class="n">np</span><span class="o">.</span><span class="n">std</span></a><span class="p">(</span><span class="n">scores</span><span class="p">)))</span>
+          <span class="o">%</span> <span class="p">(</span><span class="n">scores</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">scores</span><span class="o">.</span><span class="n">std</span><span class="p">()))</span>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
@@ -193,7 +189,7 @@ Accuracy score:  mean: 0.658; std: 0.017
 <img alt="../_images/sphx_glr_03_midwest_survey_001.png" class="sphx-glr-single-img" src="../_images/sphx_glr_03_midwest_survey_001.png" />
 <p>We can see that encoding the data using a SimilarityEncoder instead of
 OneHotEncoder helps a lot in improving the cross validation score!</p>
-<p><strong>Total running time of the script:</strong> ( 0 minutes  8.476 seconds)</p>
+<p><strong>Total running time of the script:</strong> ( 0 minutes  6.919 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-03-midwest-survey-py">
 <div class="sphx-glr-download docutils container">
 <a class="reference download internal" href="../_downloads/03_midwest_survey.py" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">03_midwest_survey.py</span></code></a></div>

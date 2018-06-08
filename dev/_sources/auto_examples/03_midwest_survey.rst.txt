@@ -19,20 +19,6 @@ score of a classification problem.
 
 
 
-
-.. code-block:: python
-
-
-    import numpy as np
-
-    from dirty_cat import SimilarityEncoder
-
-
-
-
-
-
-
 Loading the data
 ----------------
 
@@ -104,6 +90,7 @@ A pipeline for data fitting and prediction
 .. code-block:: python
 
     from sklearn.preprocessing import FunctionTransformer, CategoricalEncoder
+    from dirty_cat import SimilarityEncoder
 
     encoder_dict = {
         'one-hot': CategoricalEncoder(handle_unknown='ignore',
@@ -179,7 +166,7 @@ using a cross validation score:
 
         print('%s encoding' % method)
         print('Accuracy score:  mean: %.3f; std: %.3f\n'
-              % (np.mean(scores), np.std(scores)))
+              % (scores.mean(), scores.std()))
 
 
 
@@ -227,7 +214,7 @@ We can see that encoding the data using a SimilarityEncoder instead of
 OneHotEncoder helps a lot in improving the cross validation score!
 
 
-**Total running time of the script:** ( 0 minutes  8.476 seconds)
+**Total running time of the script:** ( 0 minutes  6.919 seconds)
 
 
 .. _sphx_glr_download_auto_examples_03_midwest_survey.py:
