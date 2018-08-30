@@ -43,6 +43,8 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <div class="sphx-glr-download-link-note admonition note">
@@ -277,13 +279,13 @@ as well as the technician part of this category.</p>
 <h2>Encoding categorical data using SimilarityEncoder<a class="headerlink" href="#encoding-categorical-data-using-similarityencoder" title="Permalink to this headline">¶</a></h2>
 <p>A typical data-science workflow uses one-hot encoding to represent
 categories.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">CategoricalEncoder</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">OneHotEncoder</span>
 
 <span class="c1"># encoding simply a subset of the observations</span>
 <span class="n">n_obs</span> <span class="o">=</span> <span class="mi">20</span>
 <span class="n">employee_position_titles</span> <span class="o">=</span> <span class="n">values</span><span class="p">[</span><span class="s1">&#39;Employee Position Title&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span>
     <span class="n">n_obs</span><span class="p">)</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
-<span class="n">categorical_encoder</span> <span class="o">=</span> <span class="n">CategoricalEncoder</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;onehot-dense&#39;</span><span class="p">)</span>
+<span class="n">categorical_encoder</span> <span class="o">=</span> <span class="n">OneHotEncoder</span><span class="p">(</span><span class="n">sparse</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 <span class="n">one_hot_encoded</span> <span class="o">=</span> <span class="n">categorical_encoder</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">employee_position_titles</span><span class="p">)</span>
 <span class="n">f3</span><span class="p">,</span> <span class="n">ax3</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
 <span class="n">ax3</span><span class="o">.</span><span class="n">matshow</span><span class="p">(</span><span class="n">one_hot_encoded</span><span class="p">)</span>
@@ -307,7 +309,7 @@ similarities:</p>
 <img alt="../_images/sphx_glr_01_dirty_categories_004.png" class="sphx-glr-single-img" src="../_images/sphx_glr_01_dirty_categories_004.png" />
 <p>Other examples in the dirty_cat documentation show how
 similarity encoding impacts prediction performance.</p>
-<p><strong>Total running time of the script:</strong> ( 1 minutes  20.198 seconds)</p>
+<p><strong>Total running time of the script:</strong> ( 0 minutes  26.218 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-01-dirty-categories-py">
 <div class="sphx-glr-download docutils container">
 <a class="reference download internal" href="../_downloads/01_dirty_categories.py" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">01_dirty_categories.py</span></code></a></div>
@@ -320,6 +322,7 @@ similarity encoding impacts prediction performance.</p>
 
 
           </div>
+          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">

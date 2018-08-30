@@ -134,12 +134,11 @@ The encoders for both clean and dirty data are first imported:
 
 
     from sklearn.preprocessing import FunctionTransformer
-    from sklearn.preprocessing import CategoricalEncoder
+    from sklearn.preprocessing import OneHotEncoder
     from dirty_cat import SimilarityEncoder, TargetEncoder
 
     encoders_dict = {
-        'one-hot': CategoricalEncoder(handle_unknown='ignore',
-                                      encoding='onehot-dense'),
+        'one-hot': OneHotEncoder(handle_unknown='ignore', sparse=False),
         'similarity': SimilarityEncoder(similarity='ngram',
                                         handle_unknown='ignore'),
         'target': TargetEncoder(handle_unknown='ignore'),
@@ -252,7 +251,7 @@ Finally, we plot the scores on a boxplot:
 
 
 
-**Total running time of the script:** ( 0 minutes  18.769 seconds)
+**Total running time of the script:** ( 0 minutes  18.223 seconds)
 
 
 .. _sphx_glr_download_auto_examples_02_predict_employee_salaries.py:

@@ -41,6 +41,8 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <h1>Source code for sklearn.base</h1><div class="highlight"><pre>
@@ -113,57 +115,10 @@
     <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">new_object_params</span><span class="p">:</span>
         <span class="n">param1</span> <span class="o">=</span> <span class="n">new_object_params</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
         <span class="n">param2</span> <span class="o">=</span> <span class="n">params_set</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">param1</span> <span class="ow">is</span> <span class="n">param2</span><span class="p">:</span>
-            <span class="c1"># this should always happen</span>
-            <span class="k">continue</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">param1</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
-            <span class="c1"># For most ndarrays, we do not test for complete equality</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">param2</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">param1</span><span class="p">)):</span>
-                <span class="n">equality_test</span> <span class="o">=</span> <span class="kc">False</span>
-            <span class="k">elif</span> <span class="p">(</span><span class="n">param1</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">0</span>
-                    <span class="ow">and</span> <span class="n">param1</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span>
-                    <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">param2</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span>
-                    <span class="ow">and</span> <span class="n">param2</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">0</span>
-                    <span class="ow">and</span> <span class="n">param2</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
-                <span class="n">equality_test</span> <span class="o">=</span> <span class="p">(</span>
-                    <span class="n">param1</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">param2</span><span class="o">.</span><span class="n">shape</span>
-                    <span class="ow">and</span> <span class="n">param1</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="n">param2</span><span class="o">.</span><span class="n">dtype</span>
-                    <span class="ow">and</span> <span class="p">(</span><span class="n">_first_and_last_element</span><span class="p">(</span><span class="n">param1</span><span class="p">)</span> <span class="o">==</span>
-                         <span class="n">_first_and_last_element</span><span class="p">(</span><span class="n">param2</span><span class="p">))</span>
-                <span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">equality_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">param1</span> <span class="o">==</span> <span class="n">param2</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">sparse</span><span class="o">.</span><span class="n">issparse</span><span class="p">(</span><span class="n">param1</span><span class="p">):</span>
-            <span class="c1"># For sparse matrices equality doesn&#39;t work</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">sparse</span><span class="o">.</span><span class="n">issparse</span><span class="p">(</span><span class="n">param2</span><span class="p">):</span>
-                <span class="n">equality_test</span> <span class="o">=</span> <span class="kc">False</span>
-            <span class="k">elif</span> <span class="n">param1</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">param2</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="n">equality_test</span> <span class="o">=</span> <span class="p">(</span>
-                    <span class="n">param1</span><span class="o">.</span><span class="vm">__class__</span> <span class="o">==</span> <span class="n">param2</span><span class="o">.</span><span class="vm">__class__</span>
-                    <span class="ow">and</span> <span class="n">param1</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span>
-                    <span class="ow">and</span> <span class="n">param2</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span>
-                <span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">equality_test</span> <span class="o">=</span> <span class="p">(</span>
-                    <span class="n">param1</span><span class="o">.</span><span class="vm">__class__</span> <span class="o">==</span> <span class="n">param2</span><span class="o">.</span><span class="vm">__class__</span>
-                    <span class="ow">and</span> <span class="p">(</span><span class="n">_first_and_last_element</span><span class="p">(</span><span class="n">param1</span><span class="p">)</span> <span class="o">==</span>
-                         <span class="n">_first_and_last_element</span><span class="p">(</span><span class="n">param2</span><span class="p">))</span>
-                    <span class="ow">and</span> <span class="n">param1</span><span class="o">.</span><span class="n">nnz</span> <span class="o">==</span> <span class="n">param2</span><span class="o">.</span><span class="n">nnz</span>
-                    <span class="ow">and</span> <span class="n">param1</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">param2</span><span class="o">.</span><span class="n">shape</span>
-                <span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="c1"># fall back on standard equality</span>
-            <span class="n">equality_test</span> <span class="o">=</span> <span class="n">param1</span> <span class="o">==</span> <span class="n">param2</span>
-        <span class="k">if</span> <span class="n">equality_test</span><span class="p">:</span>
-            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Estimator </span><span class="si">%s</span><span class="s2"> modifies parameters in __init__.&quot;</span>
-                          <span class="s2">&quot; This behavior is deprecated as of 0.18 and &quot;</span>
-                          <span class="s2">&quot;support for this behavior will be removed in 0.20.&quot;</span>
-                          <span class="o">%</span> <span class="nb">type</span><span class="p">(</span><span class="n">estimator</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="ne">DeprecationWarning</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">param1</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">param2</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;Cannot clone object </span><span class="si">%s</span><span class="s1">, as the constructor &#39;</span>
-                               <span class="s1">&#39;does not seem to set parameter </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span>
+                               <span class="s1">&#39;either does not set or modifies parameter </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span>
                                <span class="p">(</span><span class="n">estimator</span><span class="p">,</span> <span class="n">name</span><span class="p">))</span>
-
     <span class="k">return</span> <span class="n">new_object</span>
 
 
@@ -435,9 +390,12 @@
 <span class="sd">        X : ndarray, shape (n_samples, n_features)</span>
 <span class="sd">            Input data.</span>
 
+<span class="sd">        y : Ignored</span>
+<span class="sd">            not used, present for API consistency by convention.</span>
+
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        y : ndarray, shape (n_samples,)</span>
+<span class="sd">        labels : ndarray, shape (n_samples,)</span>
 <span class="sd">            cluster labels</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># non-optimized default implementation; override when a better</span>
@@ -587,6 +545,9 @@
 <span class="sd">        X : ndarray, shape (n_samples, n_features)</span>
 <span class="sd">            Input data.</span>
 
+<span class="sd">        y : Ignored</span>
+<span class="sd">            not used, present for API consistency by convention.</span>
+
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        y : ndarray, shape (n_samples,)</span>
@@ -653,6 +614,7 @@
 </pre></div>
 
           </div>
+          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">

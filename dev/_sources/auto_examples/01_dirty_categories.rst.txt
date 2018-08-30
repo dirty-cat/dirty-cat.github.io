@@ -356,13 +356,13 @@ categories.
 
 .. code-block:: python
 
-    from sklearn.preprocessing import CategoricalEncoder
+    from sklearn.preprocessing import OneHotEncoder
 
     # encoding simply a subset of the observations
     n_obs = 20
     employee_position_titles = values['Employee Position Title'].head(
         n_obs).to_frame()
-    categorical_encoder = CategoricalEncoder(encoding='onehot-dense')
+    categorical_encoder = OneHotEncoder(sparse=False)
     one_hot_encoded = categorical_encoder.fit_transform(employee_position_titles)
     f3, ax3 = plt.subplots(figsize=(6, 6))
     ax3.matshow(one_hot_encoded)
@@ -409,7 +409,7 @@ Other examples in the dirty_cat documentation show how
 similarity encoding impacts prediction performance.
 
 
-**Total running time of the script:** ( 1 minutes  20.198 seconds)
+**Total running time of the script:** ( 0 minutes  26.218 seconds)
 
 
 .. _sphx_glr_download_auto_examples_01_dirty_categories.py:
