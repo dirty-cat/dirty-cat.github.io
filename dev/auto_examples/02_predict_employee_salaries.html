@@ -76,12 +76,12 @@ dirty categorical data.</p>
 It can originally be found at: https://catalog.data.gov/dataset/ employee-salaries-2016
 </pre></div>
 </div>
-<p>load it:</p>
+<p>Then we load it:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
 <span class="n">df</span> <span class="o">=</span> <a href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.read_csv.html#pandas.read_csv" title="View documentation for pandas.read_csv"><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span></a><span class="p">(</span><span class="n">employee_salaries</span><span class="p">[</span><span class="s1">&#39;path&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>and carry out some basic preprocessing:</p>
+<p>Now, let's carry out some basic preprocessing:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Current Annual Salary&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Current Annual Salary&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;$&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span>
     <span class="nb">float</span><span class="p">)</span>
 <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Date First Hired&#39;</span><span class="p">]</span> <span class="o">=</span> <a href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.to_datetime.html#pandas.to_datetime" title="View documentation for pandas.to_datetime"><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span></a><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Date First Hired&#39;</span><span class="p">])</span>
@@ -94,7 +94,7 @@ It can originally be found at: https://catalog.data.gov/dataset/ employee-salari
 </div>
 <div class="section" id="choosing-columns">
 <h2>Choosing columns<a class="headerlink" href="#choosing-columns" title="Permalink to this headline">¶</a></h2>
-<p>For categorical columns that are supossed to be clean, it is “safe” to
+<p>For categorical columns that are supposed to be clean, it is “safe” to
 use one hot encoding to transform them:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">clean_columns</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s1">&#39;Gender&#39;</span><span class="p">:</span> <span class="s1">&#39;one-hot&#39;</span><span class="p">,</span>
@@ -154,8 +154,8 @@ and the dirty categorical variable:</p>
 <div class="section" id="fitting-each-encoding-methods-with-a-ridgecv">
 <h2>Fitting each encoding methods with a RidgeCV<a class="headerlink" href="#fitting-each-encoding-methods-with-a-ridgecv" title="Permalink to this headline">¶</a></h2>
 <p>Eventually, we loop over the different encoding methods,
-instanciate each time a new pipeline, fit it
-and and store the returned cross-validation score</p>
+instantiate each time a new pipeline, fit it
+and store the returned cross-validation score:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
 <span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">RidgeCV</span>
 <span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">KFold</span><span class="p">,</span> <span class="n">cross_val_score</span>
