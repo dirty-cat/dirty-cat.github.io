@@ -178,7 +178,7 @@ whereas it is clear that those 3 terms have a lot in common.</li>
 <li>If we wanted to use word embedding methods such as word2vec,
 we would have to go through a cleaning phase: those algorithms
 are not trained to work on data such as ‘Accountant/Auditor I’.
-However, this can be error prone and time consumming</li>
+However, this can be error prone and time consuming</li>
 </ul>
 <p>The problem is made easier if we can capture relationships between
 entries</p>
@@ -205,7 +205,7 @@ matrix based on the 3-gram structure of the data.</p>
 </div>
 <div class="section" id="plotting-the-new-representation-using-multi-dimensional-scaling">
 <h3>Plotting the new representation using multi-dimensional scaling<a class="headerlink" href="#plotting-the-new-representation-using-multi-dimensional-scaling" title="Permalink to this headline">¶</a></h3>
-<p>lets now plot a couple points at random using a low-dimensional representation
+<p>Let's now plot a couple points at random using a low-dimensional representation
 to get an intuition of what the similarity encoder is doing:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.manifold</span> <span class="kn">import</span> <span class="n">MDS</span>
 
@@ -222,7 +222,7 @@ to get an intuition of what the similarity encoder is doing:</p>
 (385,)
 </pre></div>
 </div>
-<p>we first quickly fit a KNN so that the plots does not get too busy:</p>
+<p>We first quickly fit a KNN so that the plots does not get too busy:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 
 <span class="n">n_points</span> <span class="o">=</span> <span class="mi">5</span>
@@ -236,7 +236,7 @@ to get an intuition of what the similarity encoder is doing:</p>
 <span class="n">indices</span> <span class="o">=</span> <a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.unique.html#numpy.unique" title="View documentation for numpy.unique"><span class="n">np</span><span class="o">.</span><span class="n">unique</span></a><span class="p">(</span><span class="n">indices_</span><span class="o">.</span><span class="n">squeeze</span><span class="p">())</span>
 </pre></div>
 </div>
-<p>and then plot it, adding the categories in the scatter plot:</p>
+<p>Then we plot it, adding the categories in the scatter plot:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
 
 <span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
