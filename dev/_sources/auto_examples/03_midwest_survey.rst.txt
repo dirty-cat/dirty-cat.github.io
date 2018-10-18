@@ -83,7 +83,7 @@ Separating clean, and dirty columns as well a a column we will try to predict
 
 A pipeline for data fitting and prediction
 -------------------------------------------
- we first import the right encoders to transform our clean/dirty data:
+We first import the right encoders to transform our clean/dirty data:
 
 
 
@@ -213,7 +213,7 @@ We can see that encoding the data using a SimilarityEncoder instead of
 OneHotEncoder helps a lot in improving the cross validation score!
 
 
-**Total running time of the script:** ( 0 minutes  4.938 seconds)
+**Total running time of the script:** ( 0 minutes  5.113 seconds)
 
 
 .. _sphx_glr_download_auto_examples_03_midwest_survey.py:
