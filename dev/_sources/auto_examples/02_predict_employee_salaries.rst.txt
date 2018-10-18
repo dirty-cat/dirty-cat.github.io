@@ -51,7 +51,7 @@ We first download the dataset:
     It can originally be found at: https://catalog.data.gov/dataset/ employee-salaries-2016
 
 
-load it:
+Then we load it:
 
 
 
@@ -66,7 +66,7 @@ load it:
 
 
 
-and carry out some basic preprocessing:
+Now, let's carry out some basic preprocessing:
 
 
 
@@ -88,7 +88,7 @@ and carry out some basic preprocessing:
 
 Choosing columns
 -----------------
-For categorical columns that are supossed to be clean, it is "safe" to
+For categorical columns that are supposed to be clean, it is "safe" to
 use one hot encoding to transform them:
 
 
@@ -179,8 +179,8 @@ The encoders for both clean and dirty data are first imported:
 Fitting each encoding methods with a RidgeCV
 --------------------------------------------
 Eventually, we loop over the different encoding methods,
-instanciate each time a new pipeline, fit it
-and and store the returned cross-validation score
+instantiate each time a new pipeline, fit it
+and store the returned cross-validation score:
 
 
 
@@ -251,7 +251,7 @@ Finally, we plot the scores on a boxplot:
 
 
 
-**Total running time of the script:** ( 0 minutes  13.559 seconds)
+**Total running time of the script:** ( 0 minutes  10.999 seconds)
 
 
 .. _sphx_glr_download_auto_examples_02_predict_employee_salaries.py:
