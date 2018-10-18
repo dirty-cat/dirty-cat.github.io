@@ -179,13 +179,13 @@ Such variations will break traditional categorical encoding methods:
 * If we wanted to use word embedding methods such as word2vec,
   we would have to go through a cleaning phase: those algorithms
   are not trained to work on data such as 'Accountant/Auditor I'.
-  However, this can be error prone and time consumming
+  However, this can be error prone and time consuming.
 
-The problem is made easier if we can capture relationships between
-entries
+The problem becomes easier if we can capture relationships between
+entries.
 
 To simplify understanding, we will focus on the column describing the
-employee's position title
+employee's position title:
 data
 
 
@@ -228,7 +228,7 @@ matrix based on the 3-gram structure of the data.
 Plotting the new representation using multi-dimensional scaling
 ................................................................
 
-lets now plot a couple points at random using a low-dimensional representation
+Let's now plot a couple points at random using a low-dimensional representation
 to get an intuition of what the similarity encoder is doing:
 
 
@@ -258,7 +258,7 @@ to get an intuition of what the similarity encoder is doing:
     (385,)
 
 
-we first quickly fit a KNN so that the plots does not get too busy:
+We first quickly fit a KNN so that the plots does not get too busy:
 
 
 
@@ -282,7 +282,7 @@ we first quickly fit a KNN so that the plots does not get too busy:
 
 
 
-and then plot it, adding the categories in the scatter plot:
+Then we plot it, adding the categories in the scatter plot:
 
 
 
@@ -409,7 +409,7 @@ Other examples in the dirty_cat documentation show how
 similarity encoding impacts prediction performance.
 
 
-**Total running time of the script:** ( 0 minutes  17.348 seconds)
+**Total running time of the script:** ( 0 minutes  41.288 seconds)
 
 
 .. _sphx_glr_download_auto_examples_01_dirty_categories.py:
