@@ -179,7 +179,7 @@
                 <span class="s2">&quot;4mse-ku6q/rows.csv?accessType=DOWNLOAD&quot;</span><span class="p">,</span>
             <span class="n">filenames</span><span class="o">=</span><span class="p">(</span>
                 <span class="s2">&quot;rows.csv&quot;</span><span class="p">,</span>
-            <span class="p">),</span> <span class="n">uncompress</span><span class="o">=</span><span class="kc">True</span>
+            <span class="p">),</span> <span class="n">uncompress</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="p">),</span>
     <span class="p">),</span>
     <span class="n">main_file</span><span class="o">=</span><span class="s2">&quot;rows.csv&quot;</span><span class="p">,</span>
@@ -364,24 +364,100 @@
     <span class="k">return</span> <span class="n">fetch_dataset</span><span class="p">(</span><span class="n">EMPLOYEE_SALARIES_CONFIG</span><span class="p">,</span> <span class="n">show_progress</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
 
 
-<span class="k">def</span> <span class="nf">fetch_road_safety</span><span class="p">():</span>
-    <span class="k">return</span> <span class="n">fetch_dataset</span><span class="p">(</span><span class="n">ROAD_SAFETY_CONFIG</span><span class="p">,</span> <span class="n">show_progress</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class="viewcode-block" id="fetch_road_safety"><a class="viewcode-back" href="../../../generated/dirty_cat.datasets.fetch_road_safety.html#dirty_cat.datasets.fetch_road_safety">[docs]</a><span class="k">def</span> <span class="nf">fetch_road_safety</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;fetches the road safety dataset</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict</span>
+<span class="sd">        a dictionary containing:</span>
+<span class="sd">            - a short description of the dataset (under the &#39;description&#39; key)</span>
+<span class="sd">            - an absolute path leading to the csv file where the data is</span>
+<span class="sd">            stored locally (under the &#39;path&#39; key)</span>
 
 
-<span class="k">def</span> <span class="nf">fetch_medical_charge</span><span class="p">():</span>
-    <span class="k">return</span> <span class="n">fetch_dataset</span><span class="p">(</span><span class="n">MEDICAL_CHARGE_CONFIG</span><span class="p">,</span> <span class="n">show_progress</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    https://data.gov.uk/dataset/road-accidents-safety-dataset</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">return</span> <span class="n">fetch_dataset</span><span class="p">(</span><span class="n">ROAD_SAFETY_CONFIG</span><span class="p">,</span> <span class="n">show_progress</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
 
 
-<span class="k">def</span> <span class="nf">fetch_midwest_survey</span><span class="p">():</span>
-    <span class="k">return</span> <span class="n">fetch_dataset</span><span class="p">(</span><span class="n">MIDWEST_SURVEY_CONFIG</span><span class="p">,</span> <span class="n">show_progress</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class="viewcode-block" id="fetch_medical_charge"><a class="viewcode-back" href="../../../generated/dirty_cat.datasets.fetch_medical_charge.html#dirty_cat.datasets.fetch_medical_charge">[docs]</a><span class="k">def</span> <span class="nf">fetch_medical_charge</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;fetches the medical charge dataset</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict</span>
+<span class="sd">        a dictionary containing:</span>
+<span class="sd">            - a short description of the dataset (under the &#39;description&#39; key)</span>
+<span class="sd">            - an absolute path leading to the csv file where the data is</span>
+<span class="sd">            stored locally (under the &#39;path&#39; key)</span>
 
 
-<span class="k">def</span> <span class="nf">fetch_open_payments</span><span class="p">():</span>
-    <span class="k">return</span> <span class="n">fetch_dataset</span><span class="p">(</span><span class="n">OPEN_PAYMENTS_CONFIG</span><span class="p">,</span> <span class="n">show_progress</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    https://www.cms.gov/Research-Statistics-Data-and-Systems/Statistics-Trends-and-Reports/Medicare-Provider-Charge-Data/Inpatient.html&quot;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">fetch_dataset</span><span class="p">(</span><span class="n">MEDICAL_CHARGE_CONFIG</span><span class="p">,</span> <span class="n">show_progress</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
 
 
-<span class="k">def</span> <span class="nf">fetch_traffic_violations</span><span class="p">():</span>
-    <span class="k">return</span> <span class="n">fetch_dataset</span><span class="p">(</span><span class="n">TRAFFIC_VIOLATIONS_CONFIG</span><span class="p">,</span> <span class="n">show_progress</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class="viewcode-block" id="fetch_midwest_survey"><a class="viewcode-back" href="../../../generated/dirty_cat.datasets.fetch_midwest_survey.html#dirty_cat.datasets.fetch_midwest_survey">[docs]</a><span class="k">def</span> <span class="nf">fetch_midwest_survey</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;fetches the midwest survey dataset</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict</span>
+<span class="sd">        a dictionary containing:</span>
+<span class="sd">            - a short description of the dataset (under the &#39;description&#39; key)</span>
+<span class="sd">            - an absolute path leading to the csv file where the data is</span>
+<span class="sd">            stored locally (under the &#39;path&#39; key)</span>
+
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    https://github.com/fivethirtyeight/data/tree/master/region-survey</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">fetch_dataset</span><span class="p">(</span><span class="n">MIDWEST_SURVEY_CONFIG</span><span class="p">,</span> <span class="n">show_progress</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="fetch_open_payments"><a class="viewcode-back" href="../../../generated/dirty_cat.datasets.fetch_open_payments.html#dirty_cat.datasets.fetch_open_payments">[docs]</a><span class="k">def</span> <span class="nf">fetch_open_payments</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;fetches the open payements dataset</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict</span>
+<span class="sd">        a dictionary containing:</span>
+<span class="sd">            - a short description of the dataset (under the &#39;description&#39; key)</span>
+<span class="sd">            - an absolute path leading to the csv file where the data is</span>
+<span class="sd">            stored locally (under the &#39;path&#39; key)</span>
+
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    https://openpaymentsdata.cms.gov</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">fetch_dataset</span><span class="p">(</span><span class="n">OPEN_PAYMENTS_CONFIG</span><span class="p">,</span> <span class="n">show_progress</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="fetch_traffic_violations"><a class="viewcode-back" href="../../../generated/dirty_cat.datasets.fetch_traffic_violations.html#dirty_cat.datasets.fetch_traffic_violations">[docs]</a><span class="k">def</span> <span class="nf">fetch_traffic_violations</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;fetches the traffic violations dataset</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict</span>
+<span class="sd">        a dictionary containing:</span>
+<span class="sd">            - a short description of the dataset (under the &#39;description&#39; key)</span>
+<span class="sd">            - an absolute path leading to the csv file where the data is</span>
+<span class="sd">            stored locally (under the &#39;path&#39; key)</span>
+
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    https://catalog.data.gov/dataset/ traffic-violations-56dda</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">fetch_dataset</span><span class="p">(</span><span class="n">TRAFFIC_VIOLATIONS_CONFIG</span><span class="p">,</span> <span class="n">show_progress</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
@@ -437,6 +513,12 @@
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../generated/dirty_cat.datasets.fetch_employee_salaries.html"><code class="docutils literal"><span class="pre">dirty_cat.datasets</span></code>.fetch_employee_salaries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../generated/dirty_cat.datasets.fetch_medical_charge.html"><code class="docutils literal"><span class="pre">dirty_cat.datasets</span></code>.fetch_medical_charge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../generated/dirty_cat.datasets.fetch_midwest_survey.html"><code class="docutils literal"><span class="pre">dirty_cat.datasets</span></code>.fetch_midwest_survey</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../generated/dirty_cat.datasets.fetch_open_payments.html"><code class="docutils literal"><span class="pre">dirty_cat.datasets</span></code>.fetch_open_payments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../generated/dirty_cat.datasets.fetch_road_safety.html"><code class="docutils literal"><span class="pre">dirty_cat.datasets</span></code>.fetch_road_safety</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../generated/dirty_cat.datasets.fetch_traffic_violations.html"><code class="docutils literal"><span class="pre">dirty_cat.datasets</span></code>.fetch_traffic_violations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../generated/dirty_cat.datasets.get_data_dir.html"><code class="docutils literal"><span class="pre">dirty_cat.datasets</span></code>.get_data_dir</a></li>
 </ul>
 
 <div class="relations">
