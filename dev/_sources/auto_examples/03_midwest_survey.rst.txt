@@ -38,6 +38,39 @@ Loading the data
 
 
 
+The challenge with this data is that it contains a free-form input
+column, where people put whatever they want:
+
+
+
+.. code-block:: python
+
+    dirty_column = 'In your own words, what would you call the part of the country you live in now?'
+    print(df[dirty_column].value_counts()[-10:])
+
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+    God's country                 1
+    North east. New England       1
+    Wonderful weather Colorado    1
+    western Kentucky              1
+    new york                      1
+    Northcentral Midwest          1
+    central atlantic              1
+    northeast Pa                  1
+    high desert                   1
+    Central New York              1
+    Name: In your own words, what would you call the part of the country you live in now?, dtype: int64
+
+
 Separating clean, and dirty columns as well a a column we will try to predict
 ------------------------------------------------------------------------------
 
@@ -45,8 +78,8 @@ Separating clean, and dirty columns as well a a column we will try to predict
 
 .. code-block:: python
 
+
     target_column = 'Location (Census Region)'
-    dirty_column = 'In your own words, what would you call the part of the country you live in now?'
     clean_columns = [
         'Personally identification as a Midwesterner?',
         'Illinois in MW?',
@@ -213,7 +246,7 @@ We can see that encoding the data using a SimilarityEncoder instead of
 OneHotEncoder helps a lot in improving the cross validation score!
 
 
-**Total running time of the script:** ( 0 minutes  4.723 seconds)
+**Total running time of the script:** ( 0 minutes  4.905 seconds)
 
 
 .. _sphx_glr_download_auto_examples_03_midwest_survey.py:
