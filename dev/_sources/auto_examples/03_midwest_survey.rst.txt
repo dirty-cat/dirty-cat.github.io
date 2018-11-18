@@ -58,16 +58,16 @@ column, where people put whatever they want:
 
  .. code-block:: none
 
-    The midwest.  The rust belt.                                                                                                                      1
-    Great lakes region                                                                                                                                1
-    US - Minnesota                                                                                                                                    1
-    Rural Midwest                                                                                                                                     1
-    Great Plains                                                                                                                                      1
-    East, great lakes area of the US                                                                                                                  1
-    Sleepless                                                                                                                                         1
-    Mid-north                                                                                                                                         1
-    East coast with a mix of country side, suburban neighborhoods, and cities.  All of this can be found within a two hour radius of where I live.    1
-    Sunshine State                                                                                                                                    1
+    metropolitan area or city                                                                                       1
+    a beautiful country where you have all seasons, hills, flowers, green grass, tall trees, rivers and streams.    1
+    the midwest DUH                                                                                                 1
+    The northeast.                                                                                                  1
+    Livingston County                                                                                               1
+    COLD  NORTHEAST                                                                                                 1
+    South Central Pennsylvania                                                                                      1
+    USA upper midwest                                                                                               1
+    Southwest Missouri                                                                                              1
+    Suburban Chicago                                                                                                1
     Name: In your own words, what would you call the part of the country you live in now?, dtype: int64
 
 
@@ -246,7 +246,7 @@ We can see that encoding the data using a SimilarityEncoder instead of
 OneHotEncoder helps a lot in improving the cross validation score!
 
 
-**Total running time of the script:** ( 0 minutes  4.270 seconds)
+**Total running time of the script:** ( 0 minutes  4.155 seconds)
 
 
 .. _sphx_glr_download_auto_examples_03_midwest_survey.py:
