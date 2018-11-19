@@ -1,0 +1,367 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Scalability considerations for similarity encoding &#8212; dirty_cat 0.0.1a documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.0.1a',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="dirty_cat.SimilarityEncoder" href="../generated/dirty_cat.SimilarityEncoder.html" />
+    <link rel="prev" title="Semantic variation in the “Midwest”" href="03_midwest_survey.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Click <a class="reference internal" href="#sphx-glr-download-auto-examples-04-scalability-py"><span class="std std-ref">here</span></a> to download the full example code</p>
+</div>
+<div class="sphx-glr-example-title section" id="scalability-considerations-for-similarity-encoding">
+<span id="sphx-glr-auto-examples-04-scalability-py"></span><h1>Scalability considerations for  similarity encoding<a class="headerlink" href="#scalability-considerations-for-similarity-encoding" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="n">action</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="section" id="a-tool-to-report-memory-usage-and-run-time-of-a-function">
+<h2>A tool to report memory usage and run time of a function<a class="headerlink" href="#a-tool-to-report-memory-usage-and-run-time-of-a-function" title="Permalink to this headline">¶</a></h2>
+<p>For the sake of this example, we build a small tool that reports memory
+usage and compute time of a function</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">time</span>
+<span class="kn">import</span> <span class="nn">functools</span>
+<span class="kn">import</span> <span class="nn">memory_profiler</span>
+
+
+
+<span class="k">def</span> <span class="nf">resource_used</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Decorator that return a function that prints its usage</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="nd">@functools.wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">wrapped_func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">t0</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
+        <span class="n">mem</span><span class="p">,</span> <span class="n">out</span> <span class="o">=</span> <span class="n">memory_profiler</span><span class="o">.</span><span class="n">memory_usage</span><span class="p">((</span><span class="n">func</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">),</span>
+                                                <span class="n">max_usage</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                                                <span class="n">retval</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Run time: </span><span class="si">%.1i</span><span class="s2">s    Memory used: </span><span class="si">%i</span><span class="s2">Mb&quot;</span>
+              <span class="o">%</span> <span class="p">(</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t0</span><span class="p">,</span> <span class="n">mem</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+        <span class="k">return</span> <span class="n">out</span>
+    <span class="k">return</span> <span class="n">wrapped_func</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="data-importing-and-preprocessing">
+<h2>Data Importing and preprocessing<a class="headerlink" href="#data-importing-and-preprocessing" title="Permalink to this headline">¶</a></h2>
+<p>We first download the dataset:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dirty_cat.datasets</span> <span class="kn">import</span> <a href="../generated/dirty_cat.datasets.fetch_traffic_violations.html#dirty_cat.datasets.fetch_traffic_violations" title="View documentation for dirty_cat.datasets.fetch_traffic_violations"><span class="n">fetch_traffic_violations</span></a>
+
+<span class="n">data</span> <span class="o">=</span> <a href="../generated/dirty_cat.datasets.fetch_traffic_violations.html#dirty_cat.datasets.fetch_traffic_violations" title="View documentation for dirty_cat.datasets.fetch_traffic_violations"><span class="n">fetch_traffic_violations</span></a><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>The downloaded data contains the traffic_violations dataset.
+It can originally be found at: https://catalog.data.gov/dataset/ traffic-violations-56dda
+</pre></div>
+</div>
+<p>Then we load it:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+
+<span class="n">df</span> <span class="o">=</span> <a href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.read_csv.html#pandas.read_csv" title="View documentation for pandas.read_csv"><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span></a><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;path&#39;</span><span class="p">])</span>
+
+<span class="c1"># Limit to 50 000 rows, for a faster example</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[:</span><span class="mi">50000</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>We will use SimilarityEncoder on the ‘description’ column. One
+difficulty is that it many different entries</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Description&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">())</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>1762
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Description&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()[:</span><span class="mi">30</span><span class="p">])</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>DRIVER FAILURE TO OBEY PROPERLY PLACED TRAFFIC CONTROL DEVICE INSTRUCTIONS                              2963
+FAILURE TO DISPLAY REGISTRATION CARD UPON DEMAND BY POLICE OFFICER                                      1834
+DRIVING VEHICLE ON HIGHWAY WITH SUSPENDED REGISTRATION                                                  1820
+PERSON DRIVING MOTOR VEHICLE ON HIGHWAY OR PUBLIC USE PROPERTY ON SUSPENDED LICENSE AND PRIVILEGE       1503
+FAILURE OF INDIVIDUAL DRIVING ON HIGHWAY TO DISPLAY LICENSE TO UNIFORMED POLICE ON DEMAND               1491
+DISPLAYING EXPIRED REGISTRATION PLATE ISSUED BY ANY STATE                                               1251
+DRIVING WHILE IMPAIRED BY ALCOHOL                                                                        832
+DRIVING VEHICLE WHILE UNDER THE INFLUENCE OF ALCOHOL                                                     805
+DRIVER USING HANDS TO USE HANDHELD TELEPHONE WHILEMOTOR VEHICLE IS IN MOTION                             790
+DRIVING VEHICLE ON HIGHWAY WITHOUT CURRENT REGISTRATION PLATES AND VALIDATION TABS                       783
+DRIVING MOTOR VEHICLE ON HIGHWAY WITHOUT REQUIRED LICENSE AND AUTHORIZATION                              767
+DRIVER FAILURE TO STOP AT STOP SIGN LINE                                                                 748
+FAILURE TO CONTROL VEHICLE SPEED ON HIGHWAY TO AVOID COLLISION                                           744
+DRIVER CHANGING LANES WHEN UNSAFE                                                                        713
+NEGLIGENT DRIVING VEHICLE IN CARELESS AND IMPRUDENT MANNER ENDANGERING PROPERTY, LIFE AND PERSON         693
+DRIVER FAILURE TO STOP AT STEADY CIRCULAR RED SIGNAL                                                     620
+OPERATOR NOT RESTRAINED BY SEATBELT                                                                      597
+DRIVING TO DRIVE MOTOR VEHICLE ON HIGHWAY WITHOUT REQUIRED LICENSE AND AUTHORIZATION                     557
+DRIVING UNDER THE INFLUENCE OF ALCOHOL PER SE                                                            542
+FAILURE OF VEH. ON HWY. TO DISPLAY LIGHTED LAMPS, ILLUMINATING DEVICE IN UNFAVORABLE VISIBILITY COND     535
+PERSON DRIVING MOTOR VEHICLE WHILE LICENSE SUSPENDED UNDER 17-106, 26-204, 26-206, 27-103                500
+FAILURE TO STOP AT STOP SIGN                                                                             465
+FAILURE OF LICENSEE TO NOTIFY ADMINISTRATION OF CHANGE OF ADDRESS WITHIN 30 DAYS                         432
+DRIVER FAIL TO STOP AT FLASHING RED TRAFFIC SIGNAL STOP LINE                                             410
+FAILURE TO ATTACH VEHICLE REGISTRATION PLATES AT FRONT AND REAR                                          407
+PERSON DRIVING MOTOR VEHICLE WHILE LICENSE SUSPENDED UNDER TR 17-106, 26-204, 26-206, 27-103             400
+FAILURE TO DRIVE VEHICLE ON RIGHT HALF OF ROADWAY WHEN REQUIRED                                          388
+DRIVER WHEN TURNING LEFT FAIL TO YIELD RIGHT OF WAY TO VEHICLE APPROACHING FROM OPPOSITE DIRECTION       374
+FAILURE TO DISPLAY TWO LIGHTED FRONT LAMPS WHEN REQUIRED                                                 363
+OPERATING UNREGISTERED MOTOR VEHICLE ON HIGHWAY                                                          351
+Name: Description, dtype: int64
+</pre></div>
+</div>
+<p>As we will see,SimilarityEncoder takes a while on such data</p>
+</div>
+<div class="section" id="similarityencoder-with-default-options">
+<h2>SimilarityEncoder with default options<a class="headerlink" href="#similarityencoder-with-default-options" title="Permalink to this headline">¶</a></h2>
+<p>Let us build our vectorizer, using a ColumnTransformer to combine
+one-hot encoding and similarity encoding</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">OneHotEncoder</span>
+<span class="kn">from</span> <span class="nn">sklearn.compose</span> <span class="kn">import</span> <span class="n">ColumnTransformer</span>
+<span class="kn">from</span> <span class="nn">dirty_cat</span> <span class="kn">import</span> <a href="../generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="View documentation for dirty_cat.SimilarityEncoder"><span class="n">SimilarityEncoder</span></a>
+
+<span class="n">sim_enc</span> <span class="o">=</span> <a href="../generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="View documentation for dirty_cat.SimilarityEncoder"><span class="n">SimilarityEncoder</span></a><span class="p">(</span><span class="n">similarity</span><span class="o">=</span><span class="s1">&#39;ngram&#39;</span><span class="p">,</span> <span class="n">handle_unknown</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+
+<span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Violation Type&#39;</span><span class="p">]</span>
+
+<span class="c1"># clean columns</span>
+<span class="n">transformers</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;one_hot&#39;</span><span class="p">,</span> <span class="n">OneHotEncoder</span><span class="p">(</span><span class="n">sparse</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">handle_unknown</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">),</span>
+                 <span class="p">[</span><span class="s1">&#39;Alcohol&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;Arrest Type&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;Belts&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;Commercial License&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;Commercial Vehicle&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;Fatal&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;Gender&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;HAZMAT&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;Property Damage&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;Race&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;Work Zone&#39;</span><span class="p">]),</span>
+                <span class="p">(</span><span class="s1">&#39;pass&#39;</span><span class="p">,</span> <span class="s1">&#39;passthrough&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;Year&#39;</span><span class="p">]),</span>
+                <span class="p">]</span>
+
+<span class="n">column_trans</span> <span class="o">=</span> <span class="n">ColumnTransformer</span><span class="p">(</span>
+    <span class="c1"># adding the dirty column</span>
+    <span class="n">transformers</span><span class="o">=</span><span class="n">transformers</span> <span class="o">+</span> <span class="p">[(</span><span class="s1">&#39;sim_enc&#39;</span><span class="p">,</span> <span class="n">sim_enc</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;Description&#39;</span><span class="p">])],</span>
+    <span class="n">remainder</span><span class="o">=</span><span class="s1">&#39;drop&#39;</span><span class="p">)</span>
+
+
+<span class="n">t0</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">column_trans</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<span class="n">t1</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;Time to vectorize: </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">t1</span> <span class="o">-</span> <span class="n">t0</span><span class="p">))</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Time to vectorize: 5.321468830108643
+</pre></div>
+</div>
+<p>We can run a cross-validation</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">linear_model</span><span class="p">,</span> <span class="n">pipeline</span><span class="p">,</span> <span class="n">model_selection</span>
+<span class="n">log_ref</span> <span class="o">=</span> <span class="n">linear_model</span><span class="o">.</span><span class="n">LogisticRegression</span><span class="p">()</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">make_pipeline</span><span class="p">(</span><span class="n">column_trans</span><span class="p">,</span> <span class="n">log_ref</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Cross-validation score: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span>
+      <span class="n">resource_used</span><span class="p">(</span><span class="n">model_selection</span><span class="o">.</span><span class="n">cross_val_score</span><span class="p">)(</span><span class="n">model</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Run time: 60s    Memory used: 1829Mb
+Cross-validation score: [0.78972421 0.78676934 0.79096955]
+</pre></div>
+</div>
+</div>
+<div class="section" id="similarityencoder-with-most-frequent-strategy">
+<h2>SimilarityEncoder with most frequent strategy<a class="headerlink" href="#similarityencoder-with-most-frequent-strategy" title="Permalink to this headline">¶</a></h2>
+<p>The most frequent strategy selects the n most frequent values in a dirty
+categorical variable to reduce the dimensionality of the problem and thus
+speed things up. We select manually the number of prototypes we want to use.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">sim_enc</span> <span class="o">=</span> <a href="../generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="View documentation for dirty_cat.SimilarityEncoder"><span class="n">SimilarityEncoder</span></a><span class="p">(</span><span class="n">similarity</span><span class="o">=</span><span class="s1">&#39;ngram&#39;</span><span class="p">,</span> <span class="n">categories</span><span class="o">=</span><span class="s1">&#39;most_frequent&#39;</span><span class="p">,</span> <span class="n">n_prototypes</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+
+<span class="n">column_trans</span> <span class="o">=</span> <span class="n">ColumnTransformer</span><span class="p">(</span>
+    <span class="c1"># adding the dirty column</span>
+    <span class="n">transformers</span><span class="o">=</span><span class="n">transformers</span> <span class="o">+</span> <span class="p">[(</span><span class="s1">&#39;sim_enc&#39;</span><span class="p">,</span> <span class="n">sim_enc</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;Description&#39;</span><span class="p">])],</span>
+    <span class="n">remainder</span><span class="o">=</span><span class="s1">&#39;drop&#39;</span><span class="p">)</span>
+
+<span class="n">t0</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">column_trans</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<span class="n">t1</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;Time to vectorize: </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">t1</span> <span class="o">-</span> <span class="n">t0</span><span class="p">))</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Time to vectorize: 1.7807505130767822
+</pre></div>
+</div>
+<p>Check now that prediction is still as good</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">make_pipeline</span><span class="p">(</span><span class="n">column_trans</span><span class="p">,</span> <span class="n">log_ref</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Cross-validation score: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span>
+      <span class="n">resource_used</span><span class="p">(</span><span class="n">model_selection</span><span class="o">.</span><span class="n">cross_val_score</span><span class="p">)(</span><span class="n">model</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Run time: 9s    Memory used: 705Mb
+Cross-validation score: [0.78461431 0.78865943 0.78550928]
+</pre></div>
+</div>
+</div>
+<div class="section" id="similarityencoder-with-k-means-strategy">
+<h2>SimilarityEncoder with k-means strategy<a class="headerlink" href="#similarityencoder-with-k-means-strategy" title="Permalink to this headline">¶</a></h2>
+<p>K-means strategy is also a dimensionality reduction technique. But we apply
+a K-means and nearest neighbors algorithm to find the prototypes. The number
+of prototypes is set manually.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">sim_enc</span> <span class="o">=</span> <a href="../generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="View documentation for dirty_cat.SimilarityEncoder"><span class="n">SimilarityEncoder</span></a><span class="p">(</span><span class="n">similarity</span><span class="o">=</span><span class="s1">&#39;ngram&#39;</span><span class="p">,</span> <span class="n">categories</span><span class="o">=</span><span class="s1">&#39;k-means&#39;</span><span class="p">,</span> <span class="n">n_prototypes</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+
+<span class="n">column_trans</span> <span class="o">=</span> <span class="n">ColumnTransformer</span><span class="p">(</span>
+    <span class="c1"># adding the dirty column</span>
+    <span class="n">transformers</span><span class="o">=</span><span class="n">transformers</span> <span class="o">+</span> <span class="p">[(</span><span class="s1">&#39;sim_enc&#39;</span><span class="p">,</span> <span class="n">sim_enc</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;Description&#39;</span><span class="p">])],</span>
+    <span class="n">remainder</span><span class="o">=</span><span class="s1">&#39;drop&#39;</span><span class="p">)</span>
+
+<span class="n">t0</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">column_trans</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<span class="n">t1</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;Time to vectorize: </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">t1</span> <span class="o">-</span> <span class="n">t0</span><span class="p">))</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Time to vectorize: 3.8715672492980957
+</pre></div>
+</div>
+<p>Check now that prediction is still as good</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">make_pipeline</span><span class="p">(</span><span class="n">column_trans</span><span class="p">,</span> <span class="n">log_ref</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;cross-validation score: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span>
+      <span class="n">resource_used</span><span class="p">(</span><span class="n">model_selection</span><span class="o">.</span><span class="n">cross_val_score</span><span class="p">)(</span><span class="n">model</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Run time: 16s    Memory used: 704Mb
+cross-validation score: [0.7852443  0.78347917 0.78312916]
+</pre></div>
+</div>
+<p><strong>Total running time of the script:</strong> ( 3 minutes  59.632 seconds)</p>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-04-scalability-py">
+<div class="sphx-glr-download docutils container">
+<a class="reference download internal" href="../_downloads/04_scalability.py" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">04_scalability.py</span></code></a></div>
+<div class="sphx-glr-download docutils container">
+<a class="reference download internal" href="../_downloads/04_scalability.ipynb" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">04_scalability.ipynb</span></code></a></div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.readthedocs.io">Gallery generated by Sphinx-Gallery</a></p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/dirty_cat.svg" alt="Logo"/>
+    
+    <h1 class="logo logo-name">dirty_cat</h1>
+    
+  </a>
+</p>
+
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=dirty-cat&repo=dirty_cat&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<hr />
+<ul>
+    <li class="toctree-l1"><a href="../index.html#using-dirty-cat">Usage</a></li>
+    <li class="toctree-l1"><a href="../index.html#api-documentation">API</a></li>
+    <li class="toctree-l1"><a href="../index.html#about">About</a></li>
+</ul><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="03_midwest_survey.html" title="previous chapter">Semantic variation in the “Midwest”</a></li>
+      <li>Next: <a href="../generated/dirty_cat.SimilarityEncoder.html" title="next chapter"><code class="docutils literal"><span class="pre">dirty_cat</span></code>.SimilarityEncoder</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, dirty_cat developers.
+      
+      |
+      <a href="../_sources/auto_examples/04_scalability.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

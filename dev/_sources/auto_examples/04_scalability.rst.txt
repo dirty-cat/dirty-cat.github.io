@@ -1,0 +1,418 @@
+.. note::
+    :class: sphx-glr-download-link-note
+
+    Click :ref:`here <sphx_glr_download_auto_examples_04_scalability.py>` to download the full example code
+.. rst-class:: sphx-glr-example-title
+
+.. _sphx_glr_auto_examples_04_scalability.py:
+
+
+Scalability considerations for  similarity encoding
+===================================================
+
+
+
+
+.. code-block:: python
+
+    import warnings
+    warnings.simplefilter(action='ignore', category=FutureWarning)
+
+
+
+
+
+
+
+A tool to report memory usage and run time of a function
+---------------------------------------------------------
+
+For the sake of this example, we build a small tool that reports memory
+usage and compute time of a function
+
+
+
+.. code-block:: python
+
+    from time import time
+    import functools
+    import memory_profiler
+
+
+
+    def resource_used(func):
+        """ Decorator that return a function that prints its usage
+        """
+        @functools.wraps(func)
+        def wrapped_func(*args, **kwargs):
+            t0 = time()
+            mem, out = memory_profiler.memory_usage((func, args, kwargs),
+                                                    max_usage=True,
+                                                    retval=True)
+            print("Run time: %.1is    Memory used: %iMb"
+                  % (time() - t0, mem[0]))
+            return out
+        return wrapped_func
+
+
+
+
+
+
+
+
+Data Importing and preprocessing
+--------------------------------
+
+We first download the dataset:
+
+
+
+.. code-block:: python
+
+    from dirty_cat.datasets import fetch_traffic_violations
+
+    data = fetch_traffic_violations()
+    print(data['description'])
+
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+    The downloaded data contains the traffic_violations dataset.
+    It can originally be found at: https://catalog.data.gov/dataset/ traffic-violations-56dda
+
+
+Then we load it:
+
+
+
+.. code-block:: python
+
+    import pandas as pd
+
+    df = pd.read_csv(data['path'])
+
+    # Limit to 50 000 rows, for a faster example
+    df = df[:50000].copy()
+    df = df.dropna(axis=0)
+    df = df.reset_index()
+
+
+
+
+
+
+We will use SimilarityEncoder on the 'description' column. One
+difficulty is that it many different entries
+
+
+
+.. code-block:: python
+
+    print(df['Description'].nunique())
+
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+    1762
+
+
+
+.. code-block:: python
+
+    print(df['Description'].value_counts()[:30])
+
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+    DRIVER FAILURE TO OBEY PROPERLY PLACED TRAFFIC CONTROL DEVICE INSTRUCTIONS                              2963
+    FAILURE TO DISPLAY REGISTRATION CARD UPON DEMAND BY POLICE OFFICER                                      1834
+    DRIVING VEHICLE ON HIGHWAY WITH SUSPENDED REGISTRATION                                                  1820
+    PERSON DRIVING MOTOR VEHICLE ON HIGHWAY OR PUBLIC USE PROPERTY ON SUSPENDED LICENSE AND PRIVILEGE       1503
+    FAILURE OF INDIVIDUAL DRIVING ON HIGHWAY TO DISPLAY LICENSE TO UNIFORMED POLICE ON DEMAND               1491
+    DISPLAYING EXPIRED REGISTRATION PLATE ISSUED BY ANY STATE                                               1251
+    DRIVING WHILE IMPAIRED BY ALCOHOL                                                                        832
+    DRIVING VEHICLE WHILE UNDER THE INFLUENCE OF ALCOHOL                                                     805
+    DRIVER USING HANDS TO USE HANDHELD TELEPHONE WHILEMOTOR VEHICLE IS IN MOTION                             790
+    DRIVING VEHICLE ON HIGHWAY WITHOUT CURRENT REGISTRATION PLATES AND VALIDATION TABS                       783
+    DRIVING MOTOR VEHICLE ON HIGHWAY WITHOUT REQUIRED LICENSE AND AUTHORIZATION                              767
+    DRIVER FAILURE TO STOP AT STOP SIGN LINE                                                                 748
+    FAILURE TO CONTROL VEHICLE SPEED ON HIGHWAY TO AVOID COLLISION                                           744
+    DRIVER CHANGING LANES WHEN UNSAFE                                                                        713
+    NEGLIGENT DRIVING VEHICLE IN CARELESS AND IMPRUDENT MANNER ENDANGERING PROPERTY, LIFE AND PERSON         693
+    DRIVER FAILURE TO STOP AT STEADY CIRCULAR RED SIGNAL                                                     620
+    OPERATOR NOT RESTRAINED BY SEATBELT                                                                      597
+    DRIVING TO DRIVE MOTOR VEHICLE ON HIGHWAY WITHOUT REQUIRED LICENSE AND AUTHORIZATION                     557
+    DRIVING UNDER THE INFLUENCE OF ALCOHOL PER SE                                                            542
+    FAILURE OF VEH. ON HWY. TO DISPLAY LIGHTED LAMPS, ILLUMINATING DEVICE IN UNFAVORABLE VISIBILITY COND     535
+    PERSON DRIVING MOTOR VEHICLE WHILE LICENSE SUSPENDED UNDER 17-106, 26-204, 26-206, 27-103                500
+    FAILURE TO STOP AT STOP SIGN                                                                             465
+    FAILURE OF LICENSEE TO NOTIFY ADMINISTRATION OF CHANGE OF ADDRESS WITHIN 30 DAYS                         432
+    DRIVER FAIL TO STOP AT FLASHING RED TRAFFIC SIGNAL STOP LINE                                             410
+    FAILURE TO ATTACH VEHICLE REGISTRATION PLATES AT FRONT AND REAR                                          407
+    PERSON DRIVING MOTOR VEHICLE WHILE LICENSE SUSPENDED UNDER TR 17-106, 26-204, 26-206, 27-103             400
+    FAILURE TO DRIVE VEHICLE ON RIGHT HALF OF ROADWAY WHEN REQUIRED                                          388
+    DRIVER WHEN TURNING LEFT FAIL TO YIELD RIGHT OF WAY TO VEHICLE APPROACHING FROM OPPOSITE DIRECTION       374
+    FAILURE TO DISPLAY TWO LIGHTED FRONT LAMPS WHEN REQUIRED                                                 363
+    OPERATING UNREGISTERED MOTOR VEHICLE ON HIGHWAY                                                          351
+    Name: Description, dtype: int64
+
+
+As we will see,SimilarityEncoder takes a while on such data
+
+
+SimilarityEncoder with default options
+--------------------------------------
+
+Let us build our vectorizer, using a ColumnTransformer to combine
+one-hot encoding and similarity encoding
+
+
+
+.. code-block:: python
+
+    from sklearn.preprocessing import OneHotEncoder
+    from sklearn.compose import ColumnTransformer
+    from dirty_cat import SimilarityEncoder
+
+    sim_enc = SimilarityEncoder(similarity='ngram', handle_unknown='ignore')
+
+    y = df['Violation Type']
+
+    # clean columns
+    transformers = [('one_hot', OneHotEncoder(sparse=False, handle_unknown='ignore'),
+                     ['Alcohol',
+                      'Arrest Type',
+                      'Belts',
+                      'Commercial License',
+                      'Commercial Vehicle',
+                      'Fatal',
+                      'Gender',
+                      'HAZMAT',
+                      'Property Damage',
+                      'Race',
+                      'Work Zone']),
+                    ('pass', 'passthrough', ['Year']),
+                    ]
+
+    column_trans = ColumnTransformer(
+        # adding the dirty column
+        transformers=transformers + [('sim_enc', sim_enc, ['Description'])],
+        remainder='drop')
+
+
+    t0 = time()
+    X = column_trans.fit_transform(df)
+    t1 = time()
+    print('Time to vectorize: %s' % (t1 - t0))
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+    Time to vectorize: 5.321468830108643
+
+
+We can run a cross-validation
+
+
+
+.. code-block:: python
+
+    from sklearn import linear_model, pipeline, model_selection
+    log_ref = linear_model.LogisticRegression()
+
+    model = pipeline.make_pipeline(column_trans, log_ref)
+    print("Cross-validation score: %s" %
+          resource_used(model_selection.cross_val_score)(model, df, y))
+
+
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+    Run time: 60s    Memory used: 1829Mb
+    Cross-validation score: [0.78972421 0.78676934 0.79096955]
+
+
+SimilarityEncoder with most frequent strategy
+---------------------------------------------
+
+The most frequent strategy selects the n most frequent values in a dirty
+categorical variable to reduce the dimensionality of the problem and thus
+speed things up. We select manually the number of prototypes we want to use.
+
+
+
+.. code-block:: python
+
+    sim_enc = SimilarityEncoder(similarity='ngram', categories='most_frequent', n_prototypes=100)
+
+    column_trans = ColumnTransformer(
+        # adding the dirty column
+        transformers=transformers + [('sim_enc', sim_enc, ['Description'])],
+        remainder='drop')
+
+    t0 = time()
+    X = column_trans.fit_transform(df)
+    t1 = time()
+    print('Time to vectorize: %s' % (t1 - t0))
+
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+    Time to vectorize: 1.7807505130767822
+
+
+Check now that prediction is still as good
+
+
+
+.. code-block:: python
+
+    model = pipeline.make_pipeline(column_trans, log_ref)
+    print("Cross-validation score: %s" %
+          resource_used(model_selection.cross_val_score)(model, df, y))
+
+
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+    Run time: 9s    Memory used: 705Mb
+    Cross-validation score: [0.78461431 0.78865943 0.78550928]
+
+
+SimilarityEncoder with k-means strategy
+---------------------------------------
+
+K-means strategy is also a dimensionality reduction technique. But we apply
+a K-means and nearest neighbors algorithm to find the prototypes. The number
+of prototypes is set manually.
+
+
+
+.. code-block:: python
+
+    sim_enc = SimilarityEncoder(similarity='ngram', categories='k-means', n_prototypes=100)
+
+    column_trans = ColumnTransformer(
+        # adding the dirty column
+        transformers=transformers + [('sim_enc', sim_enc, ['Description'])],
+        remainder='drop')
+
+    t0 = time()
+    X = column_trans.fit_transform(df)
+    t1 = time()
+    print('Time to vectorize: %s' % (t1 - t0))
+
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+    Time to vectorize: 3.8715672492980957
+
+
+Check now that prediction is still as good
+
+
+
+.. code-block:: python
+
+    model = pipeline.make_pipeline(column_trans, log_ref)
+    print("cross-validation score: %s" %
+          resource_used(model_selection.cross_val_score)(model, df, y))
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+    Run time: 16s    Memory used: 704Mb
+    cross-validation score: [0.7852443  0.78347917 0.78312916]
+
+
+**Total running time of the script:** ( 3 minutes  59.632 seconds)
+
+
+.. _sphx_glr_download_auto_examples_04_scalability.py:
+
+
+.. only :: html
+
+ .. container:: sphx-glr-footer
+    :class: sphx-glr-footer-example
+
+
+
+  .. container:: sphx-glr-download
+
+     :download:`Download Python source code: 04_scalability.py <04_scalability.py>`
+
+
+
+  .. container:: sphx-glr-download
+
+     :download:`Download Jupyter notebook: 04_scalability.ipynb <04_scalability.ipynb>`
+
+
+.. only:: html
+
+ .. rst-class:: sphx-glr-signature
+
+    `Gallery generated by Sphinx-Gallery <https://sphinx-gallery.readthedocs.io>`_
