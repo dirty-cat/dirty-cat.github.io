@@ -58,16 +58,16 @@ column, where people put whatever they want:
 
  .. code-block:: none
 
-    Mountain states.                                                    1
-    Central Texas                                                       1
-    Mid Atlantic Region                                                 1
-    Southern Illinois                                                   1
-    Laid back, gorgeous, home! Colorado's the best state to live in!    1
-    Western U.S.                                                        1
-    A shithole                                                          1
-    Northeast Ohio                                                      1
-    The Cornbelt                                                        1
-    the mid-Atlantic region...or else maybe "D.C. suburbs"              1
+    I'm move from Southeastern Kentucky to an area with decent roads,NO Coal Companies and where people can find decent paying jobs    1
+    the country, south, but not rural                                                                                                  1
+    Southern Midwest                                                                                                                   1
+    Canada                                                                                                                             1
+    Sourheast                                                                                                                          1
+    Southeastern U.S.                                                                                                                  1
+    DC Metro area                                                                                                                      1
+    A taxpayers hell                                                                                                                   1
+    I live in the Midwest part of the country                                                                                          1
+    mountains south west                                                                                                               1
     Name: In your own words, what would you call the part of the country you live in now?, dtype: int64
 
 
@@ -214,7 +214,7 @@ using a cross validation score:
     Accuracy score:  mean: 0.488; std: 0.013
 
     similarity encoding
-    Accuracy score:  mean: 0.658; std: 0.017
+    Accuracy score:  mean: 0.657; std: 0.010
 
 
 Plot the results
@@ -246,7 +246,7 @@ We can see that encoding the data using a SimilarityEncoder instead of
 OneHotEncoder helps a lot in improving the cross validation score!
 
 
-**Total running time of the script:** ( 0 minutes  4.602 seconds)
+**Total running time of the script:** ( 0 minutes  5.768 seconds)
 
 
 .. _sphx_glr_download_auto_examples_03_midwest_survey.py:

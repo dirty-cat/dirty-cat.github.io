@@ -38,9 +38,60 @@
 
   </head>
   <body>
-  
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/dirty_cat.svg" alt="Logo"/>
+    
+    <h1 class="logo logo-name">dirty_cat</h1>
+    
+  </a>
+</p>
 
-    <div class="document">
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=dirty-cat&repo=dirty_cat&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<hr />
+<ul>
+    <li class="toctree-l1"><a href="../index.html#using-dirty-cat">Usage</a></li>
+    <li class="toctree-l1"><a href="../index.html#api-documentation">API</a></li>
+    <li class="toctree-l1"><a href="../index.html#about">About</a></li>
+</ul><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="../auto_examples/04_scalability.html" title="previous chapter">Scalability considerations for similarity encoding</a></li>
+      <li>Next: <a href="dirty_cat.TargetEncoder.html" title="next chapter"><code class="docutils literal"><span class="pre">dirty_cat</span></code>.TargetEncoder</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
       <div class="documentwrapper">
         <div class="bodywrapper">
           
@@ -51,7 +102,7 @@
 <h1><code class="xref py py-mod docutils literal"><span class="pre">dirty_cat</span></code>.SimilarityEncoder<a class="headerlink" href="#dirty-cat-similarityencoder" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="dirty_cat.SimilarityEncoder">
-<em class="property">class </em><code class="descclassname">dirty_cat.</code><code class="descname">SimilarityEncoder</code><span class="sig-paren">(</span><em>similarity=’ngram’</em>, <em>ngram_range=(3</em>, <em>3)</em>, <em>categories=’auto’</em>, <em>dtype=&lt;class ‘numpy.float64’&gt;</em>, <em>handle_unknown=’ignore’</em>, <em>hashing_dim=None</em>, <em>n_prototypes=None</em>, <em>random_state=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/similarity_encoder.html#SimilarityEncoder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirty_cat.SimilarityEncoder" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">dirty_cat.</code><code class="descname">SimilarityEncoder</code><span class="sig-paren">(</span><em>similarity=’ngram’</em>, <em>ngram_range=(2</em>, <em>4)</em>, <em>categories=’auto’</em>, <em>dtype=&lt;class ‘numpy.float64’&gt;</em>, <em>handle_unknown=’ignore’</em>, <em>hashing_dim=None</em>, <em>n_prototypes=None</em>, <em>random_state=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/similarity_encoder.html#SimilarityEncoder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirty_cat.SimilarityEncoder" title="Permalink to this definition">¶</a></dt>
 <dd><p>Encode string categorical features as a numeric array.</p>
 <p>The input to this transformer should be an array-like of
 strings.
@@ -68,7 +119,7 @@ dirty categorical variables.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>similarity</strong> (<em>str {'ngram'</em><em>, </em><em>'levenshtein-ratio'</em><em>, </em><em>'jaro'</em><em>, </em><em>or'jaro-winkler'}</em>) – The type of pairwise string similarity to use.</li>
-<li><strong>ngram_range</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.7)"><em>tuple</em></a><em> (</em><em>min_n</em><em>, </em><em>max_n</em><em>)</em><em>, </em><em>default=</em><em>(</em><em>3</em><em>, </em><em>3</em><em>)</em>) – Only significant for <code class="docutils literal"><span class="pre">similarity='ngram'</span></code>. The range of
+<li><strong>ngram_range</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.7)"><em>tuple</em></a><em> (</em><em>min_n</em><em>, </em><em>max_n</em><em>)</em><em>, </em><em>default=</em><em>(</em><em>2</em><em>, </em><em>4</em><em>)</em>) – Only significant for <code class="docutils literal"><span class="pre">similarity='ngram'</span></code>. The range of
 values for the n_gram similarity.</li>
 <li><strong>categories</strong> (<em>'auto'</em><em>, </em><em>'k-means'</em><em>, </em><em>'most_frequent'</em><em> or </em><em>a list of lists/arrays</em>) – </li>
 <li><strong>values.</strong> (<em>of</em>) – <p>Categories (unique values) per feature:</p>
@@ -120,7 +171,7 @@ Must be a positive non null integer.</li>
 (accepted for publication at: Machine Learning journal, Springer).</p>
 <dl class="method">
 <dt id="dirty_cat.SimilarityEncoder.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>similarity=’ngram’</em>, <em>ngram_range=(3</em>, <em>3)</em>, <em>categories=’auto’</em>, <em>dtype=&lt;class ‘numpy.float64’&gt;</em>, <em>handle_unknown=’ignore’</em>, <em>hashing_dim=None</em>, <em>n_prototypes=None</em>, <em>random_state=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/similarity_encoder.html#SimilarityEncoder.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirty_cat.SimilarityEncoder.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>similarity=’ngram’</em>, <em>ngram_range=(2</em>, <em>4)</em>, <em>categories=’auto’</em>, <em>dtype=&lt;class ‘numpy.float64’&gt;</em>, <em>handle_unknown=’ignore’</em>, <em>hashing_dim=None</em>, <em>n_prototypes=None</em>, <em>random_state=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/similarity_encoder.html#SimilarityEncoder.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirty_cat.SimilarityEncoder.__init__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -320,60 +371,8 @@ component of a nested object.</p>
           
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-<p class="logo">
-  <a href="../index.html">
-    <img class="logo" src="../_static/dirty_cat.svg" alt="Logo"/>
-    
-    <h1 class="logo logo-name">dirty_cat</h1>
-    
-  </a>
-</p>
-
-
-
-
-
-
-<p>
-<iframe src="https://ghbtns.com/github-btn.html?user=dirty-cat&repo=dirty_cat&type=watch&count=true&size=large&v=2"
-  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
-</p>
-
-
-
-
-
-<h3>Navigation</h3>
-<hr />
-<ul>
-    <li class="toctree-l1"><a href="../index.html#using-dirty-cat">Usage</a></li>
-    <li class="toctree-l1"><a href="../index.html#api-documentation">API</a></li>
-    <li class="toctree-l1"><a href="../index.html#about">About</a></li>
-</ul><div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="../auto_examples/04_scalability.html" title="previous chapter">Scalability considerations for similarity encoding</a></li>
-      <li>Next: <a href="dirty_cat.TargetEncoder.html" title="next chapter"><code class="docutils literal"><span class="pre">dirty_cat</span></code>.TargetEncoder</a></li>
-  </ul></li>
-</ul>
-</div>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <form class="search" action="../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
-      </div>
-      <div class="clearer"></div>
-    </div>
+    <div class="clearer"></div>
+  </div>
     <div class="footer">
       &copy;2018, dirty_cat developers.
       
