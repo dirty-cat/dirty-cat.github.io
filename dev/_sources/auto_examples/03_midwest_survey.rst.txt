@@ -58,16 +58,16 @@ column, where people put whatever they want:
 
  .. code-block:: none
 
-    US - Minnesota                                  1
-    DC Metro area                                   1
-    36758                                           1
-    The Rural Mid-West                              1
-    Frigid and liberal                              1
-    The East Coast                                  1
-    Southeasters United States or the Deep South    1
-    A great place to live.                          1
-    New Mexico                                      1
-    Mountain states.                                1
+    south central Virginia                                                                          1
+    Rural Pennsylvania                                                                              1
+    A little city with no windows or doors or at least this is how it feels if you don't conform    1
+    heartbeat of america                                                                            1
+    middle atlantic state                                                                           1
+    The upper south                                                                                 1
+    North East Pennsylvania                                                                         1
+    n central                                                                                       1
+    Sf                                                                                              1
+    The Rural Mid-West                                                                              1
     Name: In your own words, what would you call the part of the country you live in now?, dtype: int64
 
 
@@ -246,7 +246,7 @@ We can see that encoding the data using a SimilarityEncoder instead of
 OneHotEncoder helps a lot in improving the cross validation score!
 
 
-**Total running time of the script:** ( 0 minutes  4.674 seconds)
+**Total running time of the script:** ( 0 minutes  4.561 seconds)
 
 
 .. _sphx_glr_download_auto_examples_03_midwest_survey.py:
