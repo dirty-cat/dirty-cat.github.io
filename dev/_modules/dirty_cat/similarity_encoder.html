@@ -55,7 +55,7 @@
 <span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="k">import</span> <span class="n">OneHotEncoder</span>
 <span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="k">import</span> <span class="n">CountVectorizer</span><span class="p">,</span> <span class="n">HashingVectorizer</span>
 
-<span class="kn">from</span> <span class="nn">dirty_cat</span> <span class="k">import</span> <span class="n">string_distances</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">string_distances</span>
 
 
 <span class="k">def</span> <span class="nf">ngram_similarity</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">cats</span><span class="p">,</span> <span class="n">ngram_range</span><span class="p">,</span> <span class="n">hashing_dim</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">):</span>
@@ -74,30 +74,39 @@
     <span class="n">unq_X_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s1">&#39; </span><span class="si">%s</span><span class="s1"> &#39;</span> <span class="o">%</span> <span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">unq_X</span><span class="p">])</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">hashing_dim</span><span class="p">:</span>
         <span class="n">vectorizer</span> <span class="o">=</span> <span class="n">CountVectorizer</span><span class="p">(</span><span class="n">analyzer</span><span class="o">=</span><span class="s1">&#39;char&#39;</span><span class="p">,</span>
-                                     <span class="n">ngram_range</span><span class="o">=</span><span class="p">(</span><span class="n">min_n</span><span class="p">,</span> <span class="n">max_n</span><span class="p">))</span>
+                                     <span class="n">ngram_range</span><span class="o">=</span><span class="p">(</span><span class="n">min_n</span><span class="p">,</span> <span class="n">max_n</span><span class="p">),</span>
+                                     <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
+        <span class="n">vectorizer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">cats</span><span class="p">,</span> <span class="n">unq_X_</span><span class="p">)))</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">vectorizer</span> <span class="o">=</span> <span class="n">HashingVectorizer</span><span class="p">(</span><span class="n">analyzer</span><span class="o">=</span><span class="s1">&#39;char&#39;</span><span class="p">,</span>
                                        <span class="n">ngram_range</span><span class="o">=</span><span class="p">(</span><span class="n">min_n</span><span class="p">,</span> <span class="n">max_n</span><span class="p">),</span>
                                        <span class="n">n_features</span><span class="o">=</span><span class="n">hashing_dim</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                                       <span class="n">alternate_sign</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="n">vectorizer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">cats</span><span class="p">,</span> <span class="n">unq_X_</span><span class="p">)))</span>
-    <span class="n">count2</span> <span class="o">=</span> <span class="n">vectorizer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">cats</span><span class="p">)</span>
-    <span class="n">count1</span> <span class="o">=</span> <span class="n">vectorizer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">unq_X_</span><span class="p">)</span>
-    <span class="n">sum2</span> <span class="o">=</span> <span class="n">count2</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+                                       <span class="n">alternate_sign</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                                       <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
+        <span class="c1"># The hashing vectorizer is stateless. We don&#39;t need to fit it on the data</span>
+        <span class="n">vectorizer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+    <span class="n">count_cats</span> <span class="o">=</span> <span class="n">vectorizer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">cats</span><span class="p">)</span>
+    <span class="n">count_X</span> <span class="o">=</span> <span class="n">vectorizer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">unq_X_</span><span class="p">)</span>
+    <span class="c1"># We don&#39;t need the vectorizer anymore, delete it to save memory</span>
+    <span class="k">del</span> <span class="n">vectorizer</span>
+    <span class="n">sum_cats</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">count_cats</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
     <span class="n">SE_dict</span> <span class="o">=</span> <span class="p">{}</span>
 
-    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">count1</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">count_X</span><span class="p">):</span>
         <span class="n">_</span><span class="p">,</span> <span class="n">nonzero_idx</span><span class="p">,</span> <span class="n">nonzero_vals</span> <span class="o">=</span> <span class="n">sparse</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-        <span class="n">samegrams</span> <span class="o">=</span> <span class="p">(</span><span class="n">count2</span><span class="p">[:,</span> <span class="n">nonzero_idx</span><span class="p">]</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span><span class="n">nonzero_vals</span><span class="p">)</span>
-                     <span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-        <span class="n">allgrams</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">+</span> <span class="n">sum2</span> <span class="o">-</span> <span class="n">samegrams</span>
+        <span class="n">samegrams</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">((</span><span class="n">count_cats</span><span class="p">[:,</span> <span class="n">nonzero_idx</span><span class="p">]</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span><span class="n">nonzero_vals</span><span class="p">)</span>
+                     <span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+        <span class="n">allgrams</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">+</span> <span class="n">sum_cats</span> <span class="o">-</span> <span class="n">samegrams</span>
         <span class="n">similarity</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="n">samegrams</span><span class="p">,</span> <span class="n">allgrams</span><span class="p">)</span>
-        <span class="n">SE_dict</span><span class="p">[</span><span class="n">unq_X</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">similarity</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">out</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">X</span><span class="p">:</span>
-        <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">SE_dict</span><span class="p">[</span><span class="n">x</span><span class="p">])</span>
+        <span class="n">SE_dict</span><span class="p">[</span><span class="n">unq_X</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">similarity</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># We don&#39;t need the counts anymore, delete them to save memory</span>
+    <span class="k">del</span> <span class="n">count_cats</span><span class="p">,</span> <span class="n">count_X</span>
 
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">nan_to_num</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">out</span><span class="p">))</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="n">similarity</span><span class="o">.</span><span class="n">size</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">out_row</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">out</span><span class="p">):</span>
+        <span class="n">out_row</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">SE_dict</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">nan_to_num</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
 
 
 <span class="k">def</span> <span class="nf">get_prototype_frequencies</span><span class="p">(</span><span class="n">prototypes</span><span class="p">):</span>

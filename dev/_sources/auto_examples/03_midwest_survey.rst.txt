@@ -58,16 +58,16 @@ column, where people put whatever they want:
 
  .. code-block:: none
 
-    Southern california                                         1
-    North central America                                       1
-    southwestern pacific                                        1
-    Pretty scenery, filled with trashy shitty minded idiots.    1
-    ok                                                          1
-    CENTRAL LAWTON,OKLAHOM                                      1
-    to close to the city                                        1
-    Denver... Mountains... Colorado                             1
-    middle atlantic state                                       1
-    CENTRAL                                                     1
+    North Midwestern-scenic beauty          1
+    A shithole                              1
+    The armpit of the nation.               1
+    CENTRAL LAWTON,OKLAHOM                  1
+    I live in the Rocky Mountain region.    1
+    cold, expensive and limiting.           1
+    central plains                          1
+    the Mid-Atlantic region                 1
+    Fly over                                1
+    Midwest/plains                          1
     Name: In your own words, what would you call the part of the country you live in now?, dtype: int64
 
 
@@ -246,7 +246,7 @@ We can see that encoding the data using a SimilarityEncoder instead of
 OneHotEncoder helps a lot in improving the cross validation score!
 
 
-**Total running time of the script:** ( 0 minutes  4.412 seconds)
+**Total running time of the script:** ( 0 minutes  4.248 seconds)
 
 
 .. _sphx_glr_download_auto_examples_03_midwest_survey.py:
