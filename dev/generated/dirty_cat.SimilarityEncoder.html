@@ -51,7 +51,7 @@
 <h1><code class="xref py py-mod docutils literal"><span class="pre">dirty_cat</span></code>.SimilarityEncoder<a class="headerlink" href="#dirty-cat-similarityencoder" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="dirty_cat.SimilarityEncoder">
-<em class="property">class </em><code class="descclassname">dirty_cat.</code><code class="descname">SimilarityEncoder</code><span class="sig-paren">(</span><em>similarity=’ngram’</em>, <em>ngram_range=(3</em>, <em>3)</em>, <em>categories=’auto’</em>, <em>dtype=&lt;class ‘numpy.float64’&gt;</em>, <em>handle_unknown=’ignore’</em>, <em>hashing_dim=None</em>, <em>n_prototypes=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/similarity_encoder.html#SimilarityEncoder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirty_cat.SimilarityEncoder" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">dirty_cat.</code><code class="descname">SimilarityEncoder</code><span class="sig-paren">(</span><em>similarity=’ngram’</em>, <em>ngram_range=(3</em>, <em>3)</em>, <em>categories=’auto’</em>, <em>dtype=&lt;class ‘numpy.float64’&gt;</em>, <em>handle_unknown=’ignore’</em>, <em>hashing_dim=None</em>, <em>n_prototypes=None</em>, <em>random_state=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/similarity_encoder.html#SimilarityEncoder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirty_cat.SimilarityEncoder" title="Permalink to this definition">¶</a></dt>
 <dd><p>Encode string categorical features as a numeric array.</p>
 <p>The input to this transformer should be an array-like of
 strings.
@@ -101,6 +101,7 @@ will be denoted as None.</li>
 HashingVectorizer with a number of features equal to <cite>hashing_dim</cite>.</li>
 <li><strong>n_prototypes</strong> (<em>number of prototype we want to use.</em>) – Useful when <cite>most_frequent</cite> or <cite>k-means</cite> is used.
 Must be a positive non null integer.</li>
+<li><strong>random_state</strong> (<em>either an int used as a seed</em><em>, </em><em>a RandomState instance</em><em> or </em><em>None.</em>) – Useful when <cite>k-means</cite> strategy is used.</li>
 </ul>
 </td>
 </tr>
@@ -119,7 +120,7 @@ Must be a positive non null integer.</li>
 (accepted for publication at: Machine Learning journal, Springer).</p>
 <dl class="method">
 <dt id="dirty_cat.SimilarityEncoder.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>similarity=’ngram’</em>, <em>ngram_range=(3</em>, <em>3)</em>, <em>categories=’auto’</em>, <em>dtype=&lt;class ‘numpy.float64’&gt;</em>, <em>handle_unknown=’ignore’</em>, <em>hashing_dim=None</em>, <em>n_prototypes=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/similarity_encoder.html#SimilarityEncoder.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirty_cat.SimilarityEncoder.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>similarity=’ngram’</em>, <em>ngram_range=(3</em>, <em>3)</em>, <em>categories=’auto’</em>, <em>dtype=&lt;class ‘numpy.float64’&gt;</em>, <em>handle_unknown=’ignore’</em>, <em>hashing_dim=None</em>, <em>n_prototypes=None</em>, <em>random_state=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/similarity_encoder.html#SimilarityEncoder.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirty_cat.SimilarityEncoder.__init__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
