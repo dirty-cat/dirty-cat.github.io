@@ -7,14 +7,21 @@
 .. _sphx_glr_auto_examples_04_scalability.py:
 
 
-Scalability considerations for  similarity encoding
+Scalability considerations for similarity encoding
 ===================================================
+
+Here we discuss how to apply efficiently SimilarityEncoder to larger
+datasets: reducing the number of reference categories to "prototypes",
+either chosen as the most frequent categories, or with kmeans clustering.
 
 
 
 
 .. code-block:: python
 
+
+    # Avoid the warning in scikit-learn's LogisticRegression for the change
+    # in the solver
     import warnings
     warnings.simplefilter(action='ignore', category=FutureWarning)
 
@@ -24,10 +31,10 @@ Scalability considerations for  similarity encoding
 
 
 
-A tool to report memory usage and run time of a function
----------------------------------------------------------
+A tool to report memory usage and run time
+-------------------------------------------
 
-For the sake of this example, we build a small tool that reports memory
+For this example, we build a small tool that reports memory
 usage and compute time of a function
 
 
@@ -37,7 +44,6 @@ usage and compute time of a function
     from time import time
     import functools
     import memory_profiler
-
 
 
     def resource_used(func):
@@ -134,7 +140,7 @@ difficulty is that it many different entries
 
 .. code-block:: python
 
-    print(df['Description'].value_counts()[:30])
+    print(df['Description'].value_counts()[:20])
 
 
 
@@ -166,16 +172,6 @@ difficulty is that it many different entries
     DRIVING TO DRIVE MOTOR VEHICLE ON HIGHWAY WITHOUT REQUIRED LICENSE AND AUTHORIZATION                     557
     DRIVING UNDER THE INFLUENCE OF ALCOHOL PER SE                                                            542
     FAILURE OF VEH. ON HWY. TO DISPLAY LIGHTED LAMPS, ILLUMINATING DEVICE IN UNFAVORABLE VISIBILITY COND     535
-    PERSON DRIVING MOTOR VEHICLE WHILE LICENSE SUSPENDED UNDER 17-106, 26-204, 26-206, 27-103                500
-    FAILURE TO STOP AT STOP SIGN                                                                             465
-    FAILURE OF LICENSEE TO NOTIFY ADMINISTRATION OF CHANGE OF ADDRESS WITHIN 30 DAYS                         432
-    DRIVER FAIL TO STOP AT FLASHING RED TRAFFIC SIGNAL STOP LINE                                             410
-    FAILURE TO ATTACH VEHICLE REGISTRATION PLATES AT FRONT AND REAR                                          407
-    PERSON DRIVING MOTOR VEHICLE WHILE LICENSE SUSPENDED UNDER TR 17-106, 26-204, 26-206, 27-103             400
-    FAILURE TO DRIVE VEHICLE ON RIGHT HALF OF ROADWAY WHEN REQUIRED                                          388
-    DRIVER WHEN TURNING LEFT FAIL TO YIELD RIGHT OF WAY TO VEHICLE APPROACHING FROM OPPOSITE DIRECTION       374
-    FAILURE TO DISPLAY TWO LIGHTED FRONT LAMPS WHEN REQUIRED                                                 363
-    OPERATING UNREGISTERED MOTOR VEHICLE ON HIGHWAY                                                          351
     Name: Description, dtype: int64
 
 
@@ -236,7 +232,7 @@ one-hot encoding and similarity encoding
 
  .. code-block:: none
 
-    Time to vectorize: 5.321468830108643
+    Time to vectorize: 5.390516996383667
 
 
 We can run a cross-validation
@@ -249,9 +245,8 @@ We can run a cross-validation
     log_ref = linear_model.LogisticRegression()
 
     model = pipeline.make_pipeline(column_trans, log_ref)
-    print("Cross-validation score: %s" %
-          resource_used(model_selection.cross_val_score)(model, df, y))
-
+    results = resource_used(model_selection.cross_validate)(model, df, y)
+    print("Cross-validation score: %s" % results['test_score'])
 
 
 
@@ -263,11 +258,29 @@ We can run a cross-validation
 
  .. code-block:: none
 
-    Run time: 60s    Memory used: 1829Mb
+    Run time: 71s    Memory used: 1829Mb
     Cross-validation score: [0.78972421 0.78676934 0.79096955]
 
 
-SimilarityEncoder with most frequent strategy
+Store results for later
+
+
+
+.. code-block:: python
+
+    scores = dict()
+    scores['Default options'] = results['test_score']
+    times = dict()
+    times['Default options'] = results['fit_time']
+
+
+
+
+
+
+
+
+Most frequent strategy to define prototypes
 ---------------------------------------------
 
 The most frequent strategy selects the n most frequent values in a dirty
@@ -278,29 +291,18 @@ speed things up. We select manually the number of prototypes we want to use.
 
 .. code-block:: python
 
-    sim_enc = SimilarityEncoder(similarity='ngram', categories='most_frequent', n_prototypes=100)
+    sim_enc = SimilarityEncoder(similarity='ngram', categories='most_frequent',
+                                n_prototypes=100)
 
     column_trans = ColumnTransformer(
         # adding the dirty column
         transformers=transformers + [('sim_enc', sim_enc, ['Description'])],
         remainder='drop')
 
-    t0 = time()
-    X = column_trans.fit_transform(df)
-    t1 = time()
-    print('Time to vectorize: %s' % (t1 - t0))
 
 
 
 
-
-.. rst-class:: sphx-glr-script-out
-
- Out:
-
- .. code-block:: none
-
-    Time to vectorize: 1.7807505130767822
 
 
 Check now that prediction is still as good
@@ -310,9 +312,8 @@ Check now that prediction is still as good
 .. code-block:: python
 
     model = pipeline.make_pipeline(column_trans, log_ref)
-    print("Cross-validation score: %s" %
-          resource_used(model_selection.cross_val_score)(model, df, y))
-
+    results = resource_used(model_selection.cross_validate)(model, df, y)
+    print("Cross-validation score: %s" % results['test_score'])
 
 
 
@@ -324,44 +325,49 @@ Check now that prediction is still as good
 
  .. code-block:: none
 
-    Run time: 9s    Memory used: 705Mb
+    Run time: 14s    Memory used: 1295Mb
     Cross-validation score: [0.78461431 0.78865943 0.78550928]
 
 
-SimilarityEncoder with k-means strategy
----------------------------------------
-
-K-means strategy is also a dimensionality reduction technique. But we apply
-a K-means and nearest neighbors algorithm to find the prototypes. The number
-of prototypes is set manually.
+Store results for later
 
 
 
 .. code-block:: python
 
-    sim_enc = SimilarityEncoder(similarity='ngram', categories='k-means', n_prototypes=100)
+    scores['Most frequent'] = results['test_score']
+    times['Most frequent'] = results['fit_time']
+
+
+
+
+
+
+
+
+KMeans strategy to define prototypes
+---------------------------------------
+
+K-means strategy is also a dimensionality reduction technique.
+SimilarityEncoder can apply a K-means and nearest neighbors algorithm
+to find the prototypes. The number of prototypes is set manually.
+
+
+
+.. code-block:: python
+
+    sim_enc = SimilarityEncoder(similarity='ngram', categories='k-means',
+                                n_prototypes=100)
 
     column_trans = ColumnTransformer(
         # adding the dirty column
         transformers=transformers + [('sim_enc', sim_enc, ['Description'])],
         remainder='drop')
 
-    t0 = time()
-    X = column_trans.fit_transform(df)
-    t1 = time()
-    print('Time to vectorize: %s' % (t1 - t0))
 
 
 
 
-
-.. rst-class:: sphx-glr-script-out
-
- Out:
-
- .. code-block:: none
-
-    Time to vectorize: 3.8715672492980957
 
 
 Check now that prediction is still as good
@@ -371,8 +377,9 @@ Check now that prediction is still as good
 .. code-block:: python
 
     model = pipeline.make_pipeline(column_trans, log_ref)
-    print("cross-validation score: %s" %
-          resource_used(model_selection.cross_val_score)(model, df, y))
+    results = resource_used(model_selection.cross_validate)(model, df, y)
+    print("Cross-validation score: %s" % results['test_score'])
+
 
 
 
@@ -383,11 +390,55 @@ Check now that prediction is still as good
 
  .. code-block:: none
 
-    Run time: 16s    Memory used: 704Mb
-    cross-validation score: [0.7852443  0.78347917 0.78312916]
+    Run time: 29s    Memory used: 1294Mb
+    Cross-validation score: [0.78657427 0.78116906 0.78683934]
 
 
-**Total running time of the script:** ( 3 minutes  59.632 seconds)
+Store results for later
+
+
+
+.. code-block:: python
+
+    scores['KMeans'] = results['test_score']
+    times['KMeans'] = results['fit_time']
+
+
+
+
+
+
+
+
+Plot a summary figure
+----------------------
+
+
+
+.. code-block:: python
+
+    import seaborn
+    import matplotlib.pyplot as plt
+    _, (ax1, ax2) = plt.subplots(nrows=2, figsize=(4, 3))
+    seaborn.boxplot(data=pd.DataFrame(scores), orient='h', ax=ax1)
+    ax1.set_xlabel('Prediction accuracy', size=16)
+    [t.set(size=16) for t in ax1.get_yticklabels()]
+
+    seaborn.boxplot(data=pd.DataFrame(times), orient='h', ax=ax2)
+    ax2.set_xlabel('Computation time', size=16)
+    [t.set(size=16) for t in ax2.get_yticklabels()]
+    plt.tight_layout()
+
+
+
+
+.. image:: /auto_examples/images/sphx_glr_04_scalability_001.png
+    :class: sphx-glr-single-img
+
+
+
+
+**Total running time of the script:** ( 4 minutes  31.523 seconds)
 
 
 .. _sphx_glr_download_auto_examples_04_scalability.py:

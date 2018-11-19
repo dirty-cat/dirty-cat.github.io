@@ -58,16 +58,16 @@ column, where people put whatever they want:
 
  .. code-block:: none
 
-    middle America                                                      1
-    Little .Mexico                                                      1
-    Western PA                                                          1
-    Pacific Northwest, more specifically, Central Oregon High Desert    1
-    deep south                                                          1
-    High desert pacific new united syates                               1
-    ohio                                                                1
-    severely broken                                                     1
-    Washington, DC                                                      1
-    I travel throughout the USA and live at various Wal-Marts           1
+    Mountain states.                                                    1
+    Central Texas                                                       1
+    Mid Atlantic Region                                                 1
+    Southern Illinois                                                   1
+    Laid back, gorgeous, home! Colorado's the best state to live in!    1
+    Western U.S.                                                        1
+    A shithole                                                          1
+    Northeast Ohio                                                      1
+    The Cornbelt                                                        1
+    the mid-Atlantic region...or else maybe "D.C. suburbs"              1
     Name: In your own words, what would you call the part of the country you live in now?, dtype: int64
 
 
@@ -246,7 +246,7 @@ We can see that encoding the data using a SimilarityEncoder instead of
 OneHotEncoder helps a lot in improving the cross validation score!
 
 
-**Total running time of the script:** ( 0 minutes  4.868 seconds)
+**Total running time of the script:** ( 0 minutes  4.602 seconds)
 
 
 .. _sphx_glr_download_auto_examples_03_midwest_survey.py:
