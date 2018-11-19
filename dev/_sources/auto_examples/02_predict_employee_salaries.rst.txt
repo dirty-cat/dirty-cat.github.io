@@ -20,8 +20,6 @@ We choose to benchmark different categorical encodings for
 the dirty column *Employee Position Title*, that contains
 dirty categorical data.
 
-**Warning: this example is using the master branch of scikit-learn**
-
 
 
 Data Importing and preprocessing
@@ -251,7 +249,7 @@ Finally, we plot the scores on a boxplot:
 
 
 
-**Total running time of the script:** ( 0 minutes  27.745 seconds)
+**Total running time of the script:** ( 0 minutes  11.430 seconds)
 
 
 .. _sphx_glr_download_auto_examples_02_predict_employee_salaries.py:

@@ -58,16 +58,16 @@ column, where people put whatever they want:
 
  .. code-block:: none
 
-    the West Coast              1
-    Beautiful dessert area.     1
-    Mountain town               1
-    Pacific NW                  1
-    Midwestern area big city    1
-    Beautiful Montana!          1
-    Cold closed                 1
-    Country living              1
-    hell                        1
-    Beachy                      1
+    paradise                                                1
+    COLD  NORTHEAST                                         1
+    heartbeat of america                                    1
+    The North East                                          1
+    hoosier country                                         1
+    island                                                  1
+    South Philly                                            1
+    great plains                                            1
+    northeast PA. rural, on the edge of the appalachians    1
+    snooty and unfriendly                                   1
     Name: In your own words, what would you call the part of the country you live in now?, dtype: int64
 
 
@@ -246,7 +246,7 @@ We can see that encoding the data using a SimilarityEncoder instead of
 OneHotEncoder helps a lot in improving the cross validation score!
 
 
-**Total running time of the script:** ( 0 minutes  6.951 seconds)
+**Total running time of the script:** ( 0 minutes  5.420 seconds)
 
 
 .. _sphx_glr_download_auto_examples_03_midwest_survey.py:
