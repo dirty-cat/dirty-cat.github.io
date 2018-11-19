@@ -58,16 +58,16 @@ column, where people put whatever they want:
 
  .. code-block:: none
 
-    Washington suburbs                                  1
-    Livingston County                                   1
-    The best evn climate. Not to hot or not to cold.    1
-    Mid Atlantic/North East                             1
-    Mid south                                           1
-    Pacific Coast  South West United States             1
-    South Central Pennsylvania                          1
-    te northwest                                        1
-    Midwest rural area                                  1
-    Beautiful                                           1
+    Carolina coast                          1
+    The Upper Plains                        1
+    South eastern                           1
+    Southeast Idaho                         1
+    I will call the The solitary streets    1
+    mountains south west                    1
+    Gods Country....                        1
+    Atlantic region                         1
+    the southwest                           1
+    North East Pennsylvania                 1
     Name: In your own words, what would you call the part of the country you live in now?, dtype: int64
 
 
@@ -246,7 +246,7 @@ We can see that encoding the data using a SimilarityEncoder instead of
 OneHotEncoder helps a lot in improving the cross validation score!
 
 
-**Total running time of the script:** ( 0 minutes  5.732 seconds)
+**Total running time of the script:** ( 0 minutes  6.119 seconds)
 
 
 .. _sphx_glr_download_auto_examples_03_midwest_survey.py:
