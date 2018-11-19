@@ -50,10 +50,10 @@
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">scipy</span> <span class="k">import</span> <span class="n">sparse</span>
-<span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="k">import</span> <span class="n">CountVectorizer</span><span class="p">,</span> <span class="n">HashingVectorizer</span>
-<span class="kn">from</span> <span class="nn">sklearn.preprocessing._encoders</span> <span class="k">import</span> <span class="n">_BaseEncoder</span>
 <span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="k">import</span> <span class="n">KMeans</span>
 <span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="k">import</span> <span class="n">NearestNeighbors</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="k">import</span> <span class="n">OneHotEncoder</span>
+<span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="k">import</span> <span class="n">CountVectorizer</span><span class="p">,</span> <span class="n">HashingVectorizer</span>
 
 <span class="kn">from</span> <span class="nn">dirty_cat</span> <span class="k">import</span> <span class="n">string_distances</span>
 
@@ -145,7 +145,7 @@
 <span class="p">}</span>
 
 
-<div class="viewcode-block" id="SimilarityEncoder"><a class="viewcode-back" href="../../generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder">[docs]</a><span class="k">class</span> <span class="nc">SimilarityEncoder</span><span class="p">(</span><span class="n">_BaseEncoder</span><span class="p">):</span>
+<div class="viewcode-block" id="SimilarityEncoder"><a class="viewcode-back" href="../../generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder">[docs]</a><span class="k">class</span> <span class="nc">SimilarityEncoder</span><span class="p">(</span><span class="n">OneHotEncoder</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Encode string categorical features as a numeric array.</span>
 
 <span class="sd">    The input to this transformer should be an array-like of</span>
@@ -191,9 +191,12 @@
 <span class="sd">        transform, the resulting one-hot encoded columns for this feature</span>
 <span class="sd">        will be all zeros. In the inverse transform, an unknown category</span>
 <span class="sd">        will be denoted as None.</span>
+<span class="sd">    hashing_dim : int type or None.</span>
+<span class="sd">        If None, the base vectorizer is CountVectorizer, else it&#39;s set to</span>
+<span class="sd">        HashingVectorizer with a number of features equal to `hashing_dim`.</span>
 <span class="sd">    n_prototypes: number of prototype we want to use.</span>
 <span class="sd">        Useful when `most_frequent` or `k-means` is used.</span>
-<span class="sd">        Must be a positiv non null integer.</span>
+<span class="sd">        Must be a positive non null integer.</span>
 
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
@@ -211,11 +214,10 @@
 
 
 <span class="sd">    &quot;&quot;&quot;</span>
-
 <div class="viewcode-block" id="SimilarityEncoder.__init__"><a class="viewcode-back" href="../../generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">similarity</span><span class="o">=</span><span class="s1">&#39;ngram&#39;</span><span class="p">,</span> <span class="n">ngram_range</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
-                 <span class="n">categories</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span>
-                 <span class="n">handle_unknown</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">hashing_dim</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">n_prototypes</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-
+                 <span class="n">categories</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span> <span class="n">handle_unknown</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span>
+                 <span class="n">hashing_dim</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">n_prototypes</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">categories</span> <span class="o">=</span> <span class="n">categories</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span> <span class="o">=</span> <span class="n">dtype</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">handle_unknown</span> <span class="o">=</span> <span class="n">handle_unknown</span>
