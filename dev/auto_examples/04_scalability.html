@@ -80,16 +80,6 @@
   </ul></li>
 </ul>
 </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <form class="search" action="../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="documentwrapper">
@@ -179,22 +169,22 @@ difficulty is that it many different entries</p>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>DRIVER FAILURE TO OBEY PROPERLY PLACED TRAFFIC CONTROL DEVICE INSTRUCTIONS                              2963
-FAILURE TO DISPLAY REGISTRATION CARD UPON DEMAND BY POLICE OFFICER                                      1834
+FAILURE TO DISPLAY REGISTRATION CARD UPON DEMAND BY POLICE OFFICER                                      1833
 DRIVING VEHICLE ON HIGHWAY WITH SUSPENDED REGISTRATION                                                  1820
-PERSON DRIVING MOTOR VEHICLE ON HIGHWAY OR PUBLIC USE PROPERTY ON SUSPENDED LICENSE AND PRIVILEGE       1503
-FAILURE OF INDIVIDUAL DRIVING ON HIGHWAY TO DISPLAY LICENSE TO UNIFORMED POLICE ON DEMAND               1491
+PERSON DRIVING MOTOR VEHICLE ON HIGHWAY OR PUBLIC USE PROPERTY ON SUSPENDED LICENSE AND PRIVILEGE       1502
+FAILURE OF INDIVIDUAL DRIVING ON HIGHWAY TO DISPLAY LICENSE TO UNIFORMED POLICE ON DEMAND               1490
 DISPLAYING EXPIRED REGISTRATION PLATE ISSUED BY ANY STATE                                               1251
 DRIVING WHILE IMPAIRED BY ALCOHOL                                                                        832
-DRIVING VEHICLE WHILE UNDER THE INFLUENCE OF ALCOHOL                                                     805
+DRIVING VEHICLE WHILE UNDER THE INFLUENCE OF ALCOHOL                                                     803
 DRIVER USING HANDS TO USE HANDHELD TELEPHONE WHILEMOTOR VEHICLE IS IN MOTION                             790
 DRIVING VEHICLE ON HIGHWAY WITHOUT CURRENT REGISTRATION PLATES AND VALIDATION TABS                       783
-DRIVING MOTOR VEHICLE ON HIGHWAY WITHOUT REQUIRED LICENSE AND AUTHORIZATION                              767
+DRIVING MOTOR VEHICLE ON HIGHWAY WITHOUT REQUIRED LICENSE AND AUTHORIZATION                              765
 DRIVER FAILURE TO STOP AT STOP SIGN LINE                                                                 748
 FAILURE TO CONTROL VEHICLE SPEED ON HIGHWAY TO AVOID COLLISION                                           744
-DRIVER CHANGING LANES WHEN UNSAFE                                                                        713
+DRIVER CHANGING LANES WHEN UNSAFE                                                                        712
 NEGLIGENT DRIVING VEHICLE IN CARELESS AND IMPRUDENT MANNER ENDANGERING PROPERTY, LIFE AND PERSON         693
 DRIVER FAILURE TO STOP AT STEADY CIRCULAR RED SIGNAL                                                     620
-OPERATOR NOT RESTRAINED BY SEATBELT                                                                      597
+OPERATOR NOT RESTRAINED BY SEATBELT                                                                      596
 DRIVING TO DRIVE MOTOR VEHICLE ON HIGHWAY WITHOUT REQUIRED LICENSE AND AUTHORIZATION                     557
 DRIVING UNDER THE INFLUENCE OF ALCOHOL PER SE                                                            542
 FAILURE OF VEH. ON HWY. TO DISPLAY LIGHTED LAMPS, ILLUMINATING DEVICE IN UNFAVORABLE VISIBILITY COND     535
@@ -243,7 +233,7 @@ one-hot encoding and similarity encoding</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Time to vectorize: 7.979496717453003
+<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Time to vectorize: 7.763119220733643
 </pre></div>
 </div>
 <p>We can run a cross-validation</p>
@@ -257,8 +247,8 @@ one-hot encoding and similarity encoding</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Run time: 84s    Memory used: 1852Mb
-Cross-validation score: [0.78909422 0.78788939 0.78822459]
+<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Run time: 84s    Memory used: 1851Mb
+Cross-validation score: [0.79049086 0.77920168 0.78697479]
 </pre></div>
 </div>
 <p>Store results for later</p>
@@ -290,8 +280,8 @@ speed things up. We select manually the number of prototypes we want to use.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Run time: 17s    Memory used: 1266Mb
-Cross-validation score: [0.78755425 0.78669933 0.7858443 ]
+<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Run time: 16s    Memory used: 1266Mb
+Cross-validation score: [0.78747987 0.78662465 0.78578431]
 </pre></div>
 </div>
 <p>Store results for later</p>
@@ -321,8 +311,8 @@ to find the prototypes. The number of prototypes is set manually.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Run time: 29s    Memory used: 1265Mb
-Cross-validation score: [0.78328433 0.78032902 0.78129376]
+<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Run time: 25s    Memory used: 1265Mb
+Cross-validation score: [0.78320846 0.78011204 0.78130252]
 </pre></div>
 </div>
 <p>Store results for later</p>
@@ -392,7 +382,7 @@ algorithm). The memory savings will then happen during the encoding.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Time to vectorize: 2.027954339981079
+<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Time to vectorize: 2.045328140258789
 </pre></div>
 </div>
 <p>We can run a cross-validation to confirm the memory footprint reduction</p>
@@ -402,11 +392,11 @@ algorithm). The memory savings will then happen during the encoding.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Run time: 17s    Memory used: 406Mb
-Cross-validation score: [0.78755425 0.78669933 0.7858443 ]
+<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Run time: 17s    Memory used: 407Mb
+Cross-validation score: [0.78747987 0.78662465 0.78578431]
 </pre></div>
 </div>
-<p><strong>Total running time of the script:</strong> ( 4 minutes  50.834 seconds)</p>
+<p><strong>Total running time of the script:</strong> ( 4 minutes  34.372 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-04-scalability-py">
 <div class="sphx-glr-download docutils container">
 <a class="reference download internal" href="../_downloads/04_scalability.py" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">04_scalability.py</span></code></a></div>
