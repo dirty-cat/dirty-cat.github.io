@@ -58,16 +58,16 @@ column, where people put whatever they want:
 
  .. code-block:: none
 
-    n central                                    1
-    western PA                                   1
-    Very Country                                 1
-    busy & popular                               1
-    Northern Rockies Region                      1
-    Mormonville                                  1
-    Great weather here in Southern California    1
-    South Atlantic                               1
-    Heaven                                       1
-    pitts                                        1
+    I live on the west coast.                                                                                               1
+    A Midwest city                                                                                                          1
+    North Eastern Kentucky                                                                                                  1
+    Pennsylvania                                                                                                            1
+    A community with a Bird Sanctuary that is on the outskirts of Denver.                                                   1
+    Southern Plains                                                                                                         1
+    US                                                                                                                      1
+    unstable                                                                                                                1
+    in a mess                                                                                                               1
+    Beautiful and scenic, peaceful and calm. A poor area due to lack of industry but overall an excellent place to live.    1
     Name: In your own words, what would you call the part of the country you live in now?, dtype: int64
 
 
@@ -246,7 +246,7 @@ We can see that encoding the data using a SimilarityEncoder instead of
 OneHotEncoder helps a lot in improving the cross validation score!
 
 
-**Total running time of the script:** ( 0 minutes  5.653 seconds)
+**Total running time of the script:** ( 0 minutes  5.630 seconds)
 
 
 .. _sphx_glr_download_auto_examples_03_midwest_survey.py:

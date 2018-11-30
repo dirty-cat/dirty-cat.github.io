@@ -125,6 +125,7 @@ usage and compute time of a function</p>
 <span class="k">def</span> <span class="nf">resource_used</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Decorator that return a function that prints its usage</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="nd">@functools.wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">wrapped_func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="n">t0</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
@@ -134,6 +135,7 @@ usage and compute time of a function</p>
         <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Run time: </span><span class="si">%.1i</span><span class="s2">s    Memory used: </span><span class="si">%i</span><span class="s2">Mb&quot;</span>
               <span class="o">%</span> <span class="p">(</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t0</span><span class="p">,</span> <span class="n">mem</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
         <span class="k">return</span> <span class="n">out</span>
+
     <span class="k">return</span> <span class="n">wrapped_func</span>
 </pre></div>
 </div>
@@ -234,7 +236,6 @@ one-hot encoding and similarity encoding</p>
     <span class="n">transformers</span><span class="o">=</span><span class="n">transformers</span> <span class="o">+</span> <span class="p">[(</span><span class="s1">&#39;sim_enc&#39;</span><span class="p">,</span> <span class="n">sim_enc</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;Description&#39;</span><span class="p">])],</span>
     <span class="n">remainder</span><span class="o">=</span><span class="s1">&#39;drop&#39;</span><span class="p">)</span>
 
-
 <span class="n">t0</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
 <span class="n">X</span> <span class="o">=</span> <span class="n">column_trans</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
 <span class="n">t1</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
@@ -242,21 +243,22 @@ one-hot encoding and similarity encoding</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Time to vectorize: 9.307256698608398
+<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Time to vectorize: 8.074456214904785
 </pre></div>
 </div>
 <p>We can run a cross-validation</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">linear_model</span><span class="p">,</span> <span class="n">pipeline</span><span class="p">,</span> <span class="n">model_selection</span>
-<span class="n">log_ref</span> <span class="o">=</span> <span class="n">linear_model</span><span class="o">.</span><span class="n">LogisticRegression</span><span class="p">()</span>
 
-<span class="n">model</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">make_pipeline</span><span class="p">(</span><span class="n">column_trans</span><span class="p">,</span> <span class="n">log_ref</span><span class="p">)</span>
-<span class="n">results</span> <span class="o">=</span> <span class="n">resource_used</span><span class="p">(</span><span class="n">model_selection</span><span class="o">.</span><span class="n">cross_validate</span><span class="p">)(</span><span class="n">model</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Cross-validation score: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;test_score&#39;</span><span class="p">])</span>
+<span class="n">log_reg</span> <span class="o">=</span> <span class="n">linear_model</span><span class="o">.</span><span class="n">LogisticRegression</span><span class="p">()</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">make_pipeline</span><span class="p">(</span><span class="n">column_trans</span><span class="p">,</span> <span class="n">log_reg</span><span class="p">)</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">resource_used</span><span class="p">(</span><span class="n">model_selection</span><span class="o">.</span><span class="n">cross_validate</span><span class="p">)(</span><span class="n">model</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Cross-validation score with default settings: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;test_score&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Run time: 93s    Memory used: 1850Mb
-Cross-validation score: [0.79196416 0.78732937 0.78676934]
+<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Run time: 86s    Memory used: 1851Mb
+Cross-validation score with default settings: [0.78909422 0.78788939 0.78822459]
 </pre></div>
 </div>
 <p>Store results for later</p>
@@ -282,14 +284,14 @@ speed things up. We select manually the number of prototypes we want to use.</p>
 </pre></div>
 </div>
 <p>Check now that prediction is still as good</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">make_pipeline</span><span class="p">(</span><span class="n">column_trans</span><span class="p">,</span> <span class="n">log_ref</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">make_pipeline</span><span class="p">(</span><span class="n">column_trans</span><span class="p">,</span> <span class="n">log_reg</span><span class="p">)</span>
 <span class="n">results</span> <span class="o">=</span> <span class="n">resource_used</span><span class="p">(</span><span class="n">model_selection</span><span class="o">.</span><span class="n">cross_validate</span><span class="p">)(</span><span class="n">model</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Cross-validation score: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;test_score&#39;</span><span class="p">])</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Cross-validation score with most-frequent strategy: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;test_score&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Run time: 17s    Memory used: 1276Mb
-Cross-validation score: [0.78755425 0.78669933 0.78585929]
+<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Run time: 16s    Memory used: 1266Mb
+Cross-validation score with most-frequent strategy: [0.78755425 0.78669933 0.7858443 ]
 </pre></div>
 </div>
 <p>Store results for later</p>
@@ -313,14 +315,14 @@ to find the prototypes. The number of prototypes is set manually.</p>
 </pre></div>
 </div>
 <p>Check now that prediction is still as good</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">make_pipeline</span><span class="p">(</span><span class="n">column_trans</span><span class="p">,</span> <span class="n">log_ref</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">make_pipeline</span><span class="p">(</span><span class="n">column_trans</span><span class="p">,</span> <span class="n">log_reg</span><span class="p">)</span>
 <span class="n">results</span> <span class="o">=</span> <span class="n">resource_used</span><span class="p">(</span><span class="n">model_selection</span><span class="o">.</span><span class="n">cross_validate</span><span class="p">)(</span><span class="n">model</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Cross-validation score: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;test_score&#39;</span><span class="p">])</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Cross-validation score with k-means strategy: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;test_score&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Run time: 27s    Memory used: 1275Mb
-Cross-validation score: [0.78342433 0.78032902 0.78130907]
+<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Run time: 32s    Memory used: 1265Mb
+Cross-validation score with k-means strategy: [0.78328433 0.78032902 0.78129376]
 </pre></div>
 </div>
 <p>Store results for later</p>
@@ -333,6 +335,7 @@ Cross-validation score: [0.78342433 0.78032902 0.78130907]
 <h2>Plot a summary figure<a class="headerlink" href="#plot-a-summary-figure" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+
 <span class="n">_</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
 <span class="n">seaborn</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><a href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.html#pandas.DataFrame" title="View documentation for pandas.DataFrame"><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span></a><span class="p">(</span><span class="n">scores</span><span class="p">),</span> <span class="n">orient</span><span class="o">=</span><span class="s1">&#39;h&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax1</span><span class="p">)</span>
 <span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Prediction accuracy&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
@@ -345,7 +348,63 @@ Cross-validation score: [0.78342433 0.78032902 0.78130907]
 </pre></div>
 </div>
 <img alt="../_images/sphx_glr_04_scalability_001.png" class="sphx-glr-single-img" src="../_images/sphx_glr_04_scalability_001.png" />
-<p><strong>Total running time of the script:</strong> ( 4 minutes  42.037 seconds)</p>
+</div>
+<div class="section" id="reduce-memory-usage-during-encoding-using-float32">
+<h2>Reduce memory usage during encoding using float32<a class="headerlink" href="#reduce-memory-usage-during-encoding-using-float32" title="Permalink to this headline">¶</a></h2>
+<p>We use a float32 dtype in this example to show some speed and memory gains.
+The use of the scikit-learn model may upcast to float64 (depending on the used
+algorithm). The memory savings will then happen during the encoding.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+
+<span class="n">sim_enc</span> <span class="o">=</span> <a href="../generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="View documentation for dirty_cat.SimilarityEncoder"><span class="n">SimilarityEncoder</span></a><span class="p">(</span><span class="n">similarity</span><span class="o">=</span><span class="s1">&#39;ngram&#39;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">categories</span><span class="o">=</span><span class="s1">&#39;most_frequent&#39;</span><span class="p">,</span> <span class="n">n_prototypes</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+                            <span class="n">handle_unknown</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+
+<span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Violation Type&#39;</span><span class="p">]</span>
+<span class="c1"># cast the year column to float32</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Year&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Year&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="c1"># clean columns</span>
+<span class="n">transformers</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;one_hot&#39;</span><span class="p">,</span> <span class="n">OneHotEncoder</span><span class="p">(</span><span class="n">sparse</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">handle_unknown</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">),</span>
+                 <span class="p">[</span><span class="s1">&#39;Alcohol&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;Arrest Type&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;Belts&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;Commercial License&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;Commercial Vehicle&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;Fatal&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;Gender&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;HAZMAT&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;Property Damage&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;Race&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;Work Zone&#39;</span><span class="p">]),</span>
+                <span class="p">(</span><span class="s1">&#39;pass&#39;</span><span class="p">,</span> <span class="s1">&#39;passthrough&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;Year&#39;</span><span class="p">]),</span>
+                <span class="p">]</span>
+
+<span class="n">column_trans</span> <span class="o">=</span> <span class="n">ColumnTransformer</span><span class="p">(</span>
+    <span class="c1"># adding the dirty column</span>
+    <span class="n">transformers</span><span class="o">=</span><span class="n">transformers</span> <span class="o">+</span> <span class="p">[(</span><span class="s1">&#39;sim_enc&#39;</span><span class="p">,</span> <span class="n">sim_enc</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;Description&#39;</span><span class="p">])],</span>
+    <span class="n">remainder</span><span class="o">=</span><span class="s1">&#39;drop&#39;</span><span class="p">)</span>
+
+<span class="n">t0</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">column_trans</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<span class="n">t1</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;Time to vectorize: </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">t1</span> <span class="o">-</span> <span class="n">t0</span><span class="p">))</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Time to vectorize: 2.261240005493164
+</pre></div>
+</div>
+<p>We can run a cross-validation to confirm the memory footprint reduction</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">make_pipeline</span><span class="p">(</span><span class="n">column_trans</span><span class="p">,</span> <span class="n">log_reg</span><span class="p">)</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">resource_used</span><span class="p">(</span><span class="n">model_selection</span><span class="o">.</span><span class="n">cross_validate</span><span class="p">)(</span><span class="n">model</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Cross-validation score with most-frequent strategy and float32 dtype: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;test_score&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Run time: 19s    Memory used: 406Mb
+Cross-validation score with most-frequent strategy and float32 dtype: [0.78755425 0.78669933 0.7858443 ]
+</pre></div>
+</div>
+<p><strong>Total running time of the script:</strong> ( 4 minutes  57.268 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-04-scalability-py">
 <div class="sphx-glr-download docutils container">
 <a class="reference download internal" href="../_downloads/04_scalability.py" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">04_scalability.py</span></code></a></div>

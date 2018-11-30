@@ -19,7 +19,6 @@ either chosen as the most frequent categories, or with kmeans clustering.
 
 .. code-block:: python
 
-
     # Avoid the warning in scikit-learn's LogisticRegression for the change
     # in the solver
     import warnings
@@ -49,6 +48,7 @@ usage and compute time of a function
     def resource_used(func):
         """ Decorator that return a function that prints its usage
         """
+
         @functools.wraps(func)
         def wrapped_func(*args, **kwargs):
             t0 = time()
@@ -58,6 +58,7 @@ usage and compute time of a function
             print("Run time: %.1is    Memory used: %iMb"
                   % (time() - t0, mem[0]))
             return out
+
         return wrapped_func
 
 
@@ -217,11 +218,11 @@ one-hot encoding and similarity encoding
         transformers=transformers + [('sim_enc', sim_enc, ['Description'])],
         remainder='drop')
 
-
     t0 = time()
     X = column_trans.fit_transform(df)
     t1 = time()
     print('Time to vectorize: %s' % (t1 - t0))
+
 
 
 
@@ -232,7 +233,7 @@ one-hot encoding and similarity encoding
 
  .. code-block:: none
 
-    Time to vectorize: 9.307256698608398
+    Time to vectorize: 8.074456214904785
 
 
 We can run a cross-validation
@@ -242,11 +243,12 @@ We can run a cross-validation
 .. code-block:: python
 
     from sklearn import linear_model, pipeline, model_selection
-    log_ref = linear_model.LogisticRegression()
 
-    model = pipeline.make_pipeline(column_trans, log_ref)
-    results = resource_used(model_selection.cross_validate)(model, df, y)
-    print("Cross-validation score: %s" % results['test_score'])
+    log_reg = linear_model.LogisticRegression()
+
+    model = pipeline.make_pipeline(column_trans, log_reg)
+    results = resource_used(model_selection.cross_validate)(model, df, y, )
+    print("Cross-validation score with default settings: %s" % results['test_score'])
 
 
 
@@ -258,8 +260,8 @@ We can run a cross-validation
 
  .. code-block:: none
 
-    Run time: 93s    Memory used: 1850Mb
-    Cross-validation score: [0.79196416 0.78732937 0.78676934]
+    Run time: 86s    Memory used: 1851Mb
+    Cross-validation score with default settings: [0.78909422 0.78788939 0.78822459]
 
 
 Store results for later
@@ -272,7 +274,6 @@ Store results for later
     scores['Default options'] = results['test_score']
     times = dict()
     times['Default options'] = results['fit_time']
-
 
 
 
@@ -311,9 +312,9 @@ Check now that prediction is still as good
 
 .. code-block:: python
 
-    model = pipeline.make_pipeline(column_trans, log_ref)
+    model = pipeline.make_pipeline(column_trans, log_reg)
     results = resource_used(model_selection.cross_validate)(model, df, y)
-    print("Cross-validation score: %s" % results['test_score'])
+    print("Cross-validation score with most-frequent strategy: %s" % results['test_score'])
 
 
 
@@ -325,8 +326,8 @@ Check now that prediction is still as good
 
  .. code-block:: none
 
-    Run time: 17s    Memory used: 1276Mb
-    Cross-validation score: [0.78755425 0.78669933 0.78585929]
+    Run time: 16s    Memory used: 1266Mb
+    Cross-validation score with most-frequent strategy: [0.78755425 0.78669933 0.7858443 ]
 
 
 Store results for later
@@ -337,7 +338,6 @@ Store results for later
 
     scores['Most frequent'] = results['test_score']
     times['Most frequent'] = results['fit_time']
-
 
 
 
@@ -376,9 +376,9 @@ Check now that prediction is still as good
 
 .. code-block:: python
 
-    model = pipeline.make_pipeline(column_trans, log_ref)
+    model = pipeline.make_pipeline(column_trans, log_reg)
     results = resource_used(model_selection.cross_validate)(model, df, y)
-    print("Cross-validation score: %s" % results['test_score'])
+    print("Cross-validation score with k-means strategy: %s" % results['test_score'])
 
 
 
@@ -390,8 +390,8 @@ Check now that prediction is still as good
 
  .. code-block:: none
 
-    Run time: 27s    Memory used: 1275Mb
-    Cross-validation score: [0.78342433 0.78032902 0.78130907]
+    Run time: 32s    Memory used: 1265Mb
+    Cross-validation score with k-means strategy: [0.78328433 0.78032902 0.78129376]
 
 
 Store results for later
@@ -409,7 +409,6 @@ Store results for later
 
 
 
-
 Plot a summary figure
 ----------------------
 
@@ -419,6 +418,7 @@ Plot a summary figure
 
     import seaborn
     import matplotlib.pyplot as plt
+
     _, (ax1, ax2) = plt.subplots(nrows=2, figsize=(4, 3))
     seaborn.boxplot(data=pd.DataFrame(scores), orient='h', ax=ax1)
     ax1.set_xlabel('Prediction accuracy', size=16)
@@ -438,7 +438,88 @@ Plot a summary figure
 
 
 
-**Total running time of the script:** ( 4 minutes  42.037 seconds)
+Reduce memory usage during encoding using float32
+----------------------------------------------------------------
+
+We use a float32 dtype in this example to show some speed and memory gains.
+The use of the scikit-learn model may upcast to float64 (depending on the used
+algorithm). The memory savings will then happen during the encoding.
+
+
+
+.. code-block:: python
+
+    import numpy as np
+
+    sim_enc = SimilarityEncoder(similarity='ngram', dtype=np.float32, categories='most_frequent', n_prototypes=100,
+                                handle_unknown='ignore')
+
+    y = df['Violation Type']
+    # cast the year column to float32
+    df['Year'] = df['Year'].astype(np.float32)
+    # clean columns
+    transformers = [('one_hot', OneHotEncoder(sparse=False, dtype=np.float32, handle_unknown='ignore'),
+                     ['Alcohol',
+                      'Arrest Type',
+                      'Belts',
+                      'Commercial License',
+                      'Commercial Vehicle',
+                      'Fatal',
+                      'Gender',
+                      'HAZMAT',
+                      'Property Damage',
+                      'Race',
+                      'Work Zone']),
+                    ('pass', 'passthrough', ['Year']),
+                    ]
+
+    column_trans = ColumnTransformer(
+        # adding the dirty column
+        transformers=transformers + [('sim_enc', sim_enc, ['Description'])],
+        remainder='drop')
+
+    t0 = time()
+    X = column_trans.fit_transform(df)
+    t1 = time()
+    print('Time to vectorize: %s' % (t1 - t0))
+
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+    Time to vectorize: 2.261240005493164
+
+
+We can run a cross-validation to confirm the memory footprint reduction
+
+
+
+.. code-block:: python
+
+    model = pipeline.make_pipeline(column_trans, log_reg)
+    results = resource_used(model_selection.cross_validate)(model, df, y, )
+    print("Cross-validation score with most-frequent strategy and float32 dtype: %s" % results['test_score'])
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+    Run time: 19s    Memory used: 406Mb
+    Cross-validation score with most-frequent strategy and float32 dtype: [0.78755425 0.78669933 0.7858443 ]
+
+
+**Total running time of the script:** ( 4 minutes  57.268 seconds)
 
 
 .. _sphx_glr_download_auto_examples_04_scalability.py:
