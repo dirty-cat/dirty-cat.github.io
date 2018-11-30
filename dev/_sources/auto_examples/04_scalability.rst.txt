@@ -193,7 +193,7 @@ one-hot encoding and similarity encoding
     from sklearn.compose import ColumnTransformer
     from dirty_cat import SimilarityEncoder
 
-    sim_enc = SimilarityEncoder(similarity='ngram', handle_unknown='ignore')
+    sim_enc = SimilarityEncoder(similarity='ngram')
 
     y = df['Violation Type']
 
@@ -233,7 +233,7 @@ one-hot encoding and similarity encoding
 
  .. code-block:: none
 
-    Time to vectorize: 7.763119220733643
+    Time to vectorize: 7.638755559921265
 
 
 We can run a cross-validation
@@ -260,7 +260,7 @@ We can run a cross-validation
 
  .. code-block:: none
 
-    Run time: 84s    Memory used: 1851Mb
+    Run time: 80s    Memory used: 1851Mb
     Cross-validation score: [0.79049086 0.77920168 0.78697479]
 
 
@@ -326,7 +326,7 @@ Check now that prediction is still as good
 
  .. code-block:: none
 
-    Run time: 16s    Memory used: 1266Mb
+    Run time: 16s    Memory used: 1265Mb
     Cross-validation score: [0.78747987 0.78662465 0.78578431]
 
 
@@ -390,7 +390,7 @@ Check now that prediction is still as good
 
  .. code-block:: none
 
-    Run time: 25s    Memory used: 1265Mb
+    Run time: 26s    Memory used: 1264Mb
     Cross-validation score: [0.78320846 0.78011204 0.78130252]
 
 
@@ -452,8 +452,7 @@ algorithm). The memory savings will then happen during the encoding.
     import numpy as np
 
     sim_enc = SimilarityEncoder(similarity='ngram', dtype=np.float32,
-                                categories='most_frequent', n_prototypes=100,
-                                handle_unknown='ignore')
+                                categories='most_frequent', n_prototypes=100)
 
     y = df['Violation Type']
     # cast the year column to float32
@@ -495,7 +494,7 @@ algorithm). The memory savings will then happen during the encoding.
 
  .. code-block:: none
 
-    Time to vectorize: 2.045328140258789
+    Time to vectorize: 2.099968194961548
 
 
 We can run a cross-validation to confirm the memory footprint reduction
@@ -517,11 +516,11 @@ We can run a cross-validation to confirm the memory footprint reduction
 
  .. code-block:: none
 
-    Run time: 17s    Memory used: 407Mb
+    Run time: 16s    Memory used: 406Mb
     Cross-validation score: [0.78747987 0.78662465 0.78578431]
 
 
-**Total running time of the script:** ( 4 minutes  34.372 seconds)
+**Total running time of the script:** ( 4 minutes  50.548 seconds)
 
 
 .. _sphx_glr_download_auto_examples_04_scalability.py:

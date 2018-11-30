@@ -116,16 +116,16 @@ column, where people put whatever they want:</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Central Valley of California                                                       1
-Northwest country                                                                  1
-Midwest USA                                                                        1
-New York City, the east, the east coast                                            1
-Northeastern Midwest.                                                              1
-central midwest                                                                    1
-I live on an island in the Pacific Ocean.  Pacific.  Way, way west.   Tropical.    1
-TEXAS!                                                                             1
-Atlantic region                                                                    1
-Beachy                                                                             1
+<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Southeast Idaho                         1
+eastern usa                             1
+Mid-north                               1
+I will call the The solitary streets    1
+New York/Northeast                      1
+Depressed                               1
+nORTHERN mINNESOTA                      1
+fly over country!!                      1
+a state, Colorado                       1
+The Bay Area                            1
 Name: In your own words, what would you call the part of the country you live in now?, dtype: int64
 </pre></div>
 </div>
@@ -171,8 +171,7 @@ Name: In your own words, what would you call the part of the country you live in
 
 <span class="n">encoder_dict</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s1">&#39;one-hot&#39;</span><span class="p">:</span> <span class="n">OneHotEncoder</span><span class="p">(</span><span class="n">handle_unknown</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="bp">False</span><span class="p">),</span>
-    <span class="s1">&#39;similarity&#39;</span><span class="p">:</span> <a href="../generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="View documentation for dirty_cat.SimilarityEncoder"><span class="n">SimilarityEncoder</span></a><span class="p">(</span><span class="n">similarity</span><span class="o">=</span><span class="s1">&#39;ngram&#39;</span><span class="p">,</span>
-                                    <span class="n">handle_unknown</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">),</span>
+    <span class="s1">&#39;similarity&#39;</span><span class="p">:</span> <a href="../generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="View documentation for dirty_cat.SimilarityEncoder"><span class="n">SimilarityEncoder</span></a><span class="p">(</span><span class="n">similarity</span><span class="o">=</span><span class="s1">&#39;ngram&#39;</span><span class="p">),</span>
     <span class="s1">&#39;num&#39;</span><span class="p">:</span> <span class="n">FunctionTransformer</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span>
 <span class="p">}</span>
 </pre></div>
@@ -249,7 +248,7 @@ Accuracy score:  mean: 0.657; std: 0.010
 <img alt="../_images/sphx_glr_03_midwest_survey_001.png" class="sphx-glr-single-img" src="../_images/sphx_glr_03_midwest_survey_001.png" />
 <p>We can see that encoding the data using a SimilarityEncoder instead of
 OneHotEncoder helps a lot in improving the cross validation score!</p>
-<p><strong>Total running time of the script:</strong> ( 0 minutes  5.616 seconds)</p>
+<p><strong>Total running time of the script:</strong> ( 0 minutes  5.581 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-03-midwest-survey-py">
 <div class="sphx-glr-download docutils container">
 <a class="reference download internal" href="../_downloads/03_midwest_survey.py" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">03_midwest_survey.py</span></code></a></div>

@@ -132,8 +132,8 @@ strings and numeric values.</li>
 <p>The categories used can be found in the <code class="docutils literal"><span class="pre">categories_</span></code> attribute.</p>
 </li>
 <li><strong>dtype</strong> (<em>number type</em><em>, </em><em>default np.float64</em>) – Desired dtype of output.</li>
-<li><strong>handle_unknown</strong> (<em>'error'</em><em> (</em><em>default</em><em>) or </em><em>'ignore'</em>) – Whether to raise an error or ignore if a unknown categorical feature is
-present during transform (default is to raise). When this parameter
+<li><strong>handle_unknown</strong> (<em>'error'</em><em> or </em><em>'ignore'</em><em> (</em><em>default</em><em>)</em>) – Whether to raise an error or ignore if a unknown categorical feature is
+present during transform (default is to ignore). When this parameter
 is set to ‘ignore’ and an unknown category is encountered during
 transform, the resulting one-hot encoded columns for this feature
 will be all zeros. In the inverse transform, an unknown category

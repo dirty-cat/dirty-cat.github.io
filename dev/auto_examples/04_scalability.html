@@ -201,7 +201,7 @@ one-hot encoding and similarity encoding</p>
 <span class="kn">from</span> <span class="nn">sklearn.compose</span> <span class="kn">import</span> <span class="n">ColumnTransformer</span>
 <span class="kn">from</span> <span class="nn">dirty_cat</span> <span class="kn">import</span> <a href="../generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="View documentation for dirty_cat.SimilarityEncoder"><span class="n">SimilarityEncoder</span></a>
 
-<span class="n">sim_enc</span> <span class="o">=</span> <a href="../generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="View documentation for dirty_cat.SimilarityEncoder"><span class="n">SimilarityEncoder</span></a><span class="p">(</span><span class="n">similarity</span><span class="o">=</span><span class="s1">&#39;ngram&#39;</span><span class="p">,</span> <span class="n">handle_unknown</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+<span class="n">sim_enc</span> <span class="o">=</span> <a href="../generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="View documentation for dirty_cat.SimilarityEncoder"><span class="n">SimilarityEncoder</span></a><span class="p">(</span><span class="n">similarity</span><span class="o">=</span><span class="s1">&#39;ngram&#39;</span><span class="p">)</span>
 
 <span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Violation Type&#39;</span><span class="p">]</span>
 
@@ -233,7 +233,7 @@ one-hot encoding and similarity encoding</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Time to vectorize: 7.763119220733643
+<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Time to vectorize: 7.638755559921265
 </pre></div>
 </div>
 <p>We can run a cross-validation</p>
@@ -247,7 +247,7 @@ one-hot encoding and similarity encoding</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Run time: 84s    Memory used: 1851Mb
+<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Run time: 80s    Memory used: 1851Mb
 Cross-validation score: [0.79049086 0.77920168 0.78697479]
 </pre></div>
 </div>
@@ -280,7 +280,7 @@ speed things up. We select manually the number of prototypes we want to use.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Run time: 16s    Memory used: 1266Mb
+<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Run time: 16s    Memory used: 1265Mb
 Cross-validation score: [0.78747987 0.78662465 0.78578431]
 </pre></div>
 </div>
@@ -311,7 +311,7 @@ to find the prototypes. The number of prototypes is set manually.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Run time: 25s    Memory used: 1265Mb
+<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Run time: 26s    Memory used: 1264Mb
 Cross-validation score: [0.78320846 0.78011204 0.78130252]
 </pre></div>
 </div>
@@ -347,8 +347,7 @@ algorithm). The memory savings will then happen during the encoding.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 
 <span class="n">sim_enc</span> <span class="o">=</span> <a href="../generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="View documentation for dirty_cat.SimilarityEncoder"><span class="n">SimilarityEncoder</span></a><span class="p">(</span><span class="n">similarity</span><span class="o">=</span><span class="s1">&#39;ngram&#39;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span>
-                            <span class="n">categories</span><span class="o">=</span><span class="s1">&#39;most_frequent&#39;</span><span class="p">,</span> <span class="n">n_prototypes</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
-                            <span class="n">handle_unknown</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+                            <span class="n">categories</span><span class="o">=</span><span class="s1">&#39;most_frequent&#39;</span><span class="p">,</span> <span class="n">n_prototypes</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
 
 <span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Violation Type&#39;</span><span class="p">]</span>
 <span class="c1"># cast the year column to float32</span>
@@ -382,7 +381,7 @@ algorithm). The memory savings will then happen during the encoding.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Time to vectorize: 2.045328140258789
+<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Time to vectorize: 2.099968194961548
 </pre></div>
 </div>
 <p>We can run a cross-validation to confirm the memory footprint reduction</p>
@@ -392,11 +391,11 @@ algorithm). The memory savings will then happen during the encoding.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Run time: 17s    Memory used: 407Mb
+<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Run time: 16s    Memory used: 406Mb
 Cross-validation score: [0.78747987 0.78662465 0.78578431]
 </pre></div>
 </div>
-<p><strong>Total running time of the script:</strong> ( 4 minutes  34.372 seconds)</p>
+<p><strong>Total running time of the script:</strong> ( 4 minutes  50.548 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-04-scalability-py">
 <div class="sphx-glr-download docutils container">
 <a class="reference download internal" href="../_downloads/04_scalability.py" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">04_scalability.py</span></code></a></div>

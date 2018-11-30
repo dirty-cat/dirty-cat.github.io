@@ -58,16 +58,16 @@ column, where people put whatever they want:
 
  .. code-block:: none
 
-    Central Valley of California                                                       1
-    Northwest country                                                                  1
-    Midwest USA                                                                        1
-    New York City, the east, the east coast                                            1
-    Northeastern Midwest.                                                              1
-    central midwest                                                                    1
-    I live on an island in the Pacific Ocean.  Pacific.  Way, way west.   Tropical.    1
-    TEXAS!                                                                             1
-    Atlantic region                                                                    1
-    Beachy                                                                             1
+    Southeast Idaho                         1
+    eastern usa                             1
+    Mid-north                               1
+    I will call the The solitary streets    1
+    New York/Northeast                      1
+    Depressed                               1
+    nORTHERN mINNESOTA                      1
+    fly over country!!                      1
+    a state, Colorado                       1
+    The Bay Area                            1
     Name: In your own words, what would you call the part of the country you live in now?, dtype: int64
 
 
@@ -127,8 +127,7 @@ We first import the right encoders to transform our clean/dirty data:
 
     encoder_dict = {
         'one-hot': OneHotEncoder(handle_unknown='ignore', sparse=False),
-        'similarity': SimilarityEncoder(similarity='ngram',
-                                        handle_unknown='ignore'),
+        'similarity': SimilarityEncoder(similarity='ngram'),
         'num': FunctionTransformer(None)
     }
 
@@ -246,7 +245,7 @@ We can see that encoding the data using a SimilarityEncoder instead of
 OneHotEncoder helps a lot in improving the cross validation score!
 
 
-**Total running time of the script:** ( 0 minutes  5.616 seconds)
+**Total running time of the script:** ( 0 minutes  5.581 seconds)
 
 
 .. _sphx_glr_download_auto_examples_03_midwest_survey.py:
