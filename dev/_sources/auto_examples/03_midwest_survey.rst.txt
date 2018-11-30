@@ -58,16 +58,16 @@ column, where people put whatever they want:
 
  .. code-block:: none
 
-    I live on the west coast.                                                                                               1
-    A Midwest city                                                                                                          1
-    North Eastern Kentucky                                                                                                  1
-    Pennsylvania                                                                                                            1
-    A community with a Bird Sanctuary that is on the outskirts of Denver.                                                   1
-    Southern Plains                                                                                                         1
-    US                                                                                                                      1
-    unstable                                                                                                                1
-    in a mess                                                                                                               1
-    Beautiful and scenic, peaceful and calm. A poor area due to lack of industry but overall an excellent place to live.    1
+    colorado                                                                                                                                                                                 1
+    Great                                                                                                                                                                                    1
+    Eastern U.S.                                                                                                                                                                             1
+    Rust Belt                                                                                                                                                                                1
+    central midwest. Entrance to the Ozarks. one of the most beautiful parts of our country with all seasons, flats, hills, trees, flowers, rivers, lakes. has everything you could want.    1
+    Mid-Western, Great Lakes Region                                                                                                                                                          1
+    very sunny                                                                                                                                                                               1
+    severely broken                                                                                                                                                                          1
+    pacific west                                                                                                                                                                             1
+    Mid Atlantic region                                                                                                                                                                      1
     Name: In your own words, what would you call the part of the country you live in now?, dtype: int64
 
 
@@ -246,7 +246,7 @@ We can see that encoding the data using a SimilarityEncoder instead of
 OneHotEncoder helps a lot in improving the cross validation score!
 
 
-**Total running time of the script:** ( 0 minutes  5.630 seconds)
+**Total running time of the script:** ( 0 minutes  5.468 seconds)
 
 
 .. _sphx_glr_download_auto_examples_03_midwest_survey.py:

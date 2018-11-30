@@ -243,7 +243,7 @@ one-hot encoding and similarity encoding</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Time to vectorize: 8.074456214904785
+<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Time to vectorize: 7.979496717453003
 </pre></div>
 </div>
 <p>We can run a cross-validation</p>
@@ -253,12 +253,12 @@ one-hot encoding and similarity encoding</p>
 
 <span class="n">model</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">make_pipeline</span><span class="p">(</span><span class="n">column_trans</span><span class="p">,</span> <span class="n">log_reg</span><span class="p">)</span>
 <span class="n">results</span> <span class="o">=</span> <span class="n">resource_used</span><span class="p">(</span><span class="n">model_selection</span><span class="o">.</span><span class="n">cross_validate</span><span class="p">)(</span><span class="n">model</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Cross-validation score with default settings: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;test_score&#39;</span><span class="p">])</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Cross-validation score: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;test_score&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Run time: 86s    Memory used: 1851Mb
-Cross-validation score with default settings: [0.78909422 0.78788939 0.78822459]
+<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Run time: 84s    Memory used: 1852Mb
+Cross-validation score: [0.78909422 0.78788939 0.78822459]
 </pre></div>
 </div>
 <p>Store results for later</p>
@@ -286,12 +286,12 @@ speed things up. We select manually the number of prototypes we want to use.</p>
 <p>Check now that prediction is still as good</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">make_pipeline</span><span class="p">(</span><span class="n">column_trans</span><span class="p">,</span> <span class="n">log_reg</span><span class="p">)</span>
 <span class="n">results</span> <span class="o">=</span> <span class="n">resource_used</span><span class="p">(</span><span class="n">model_selection</span><span class="o">.</span><span class="n">cross_validate</span><span class="p">)(</span><span class="n">model</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Cross-validation score with most-frequent strategy: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;test_score&#39;</span><span class="p">])</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Cross-validation score: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;test_score&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Run time: 16s    Memory used: 1266Mb
-Cross-validation score with most-frequent strategy: [0.78755425 0.78669933 0.7858443 ]
+<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Run time: 17s    Memory used: 1266Mb
+Cross-validation score: [0.78755425 0.78669933 0.7858443 ]
 </pre></div>
 </div>
 <p>Store results for later</p>
@@ -317,12 +317,12 @@ to find the prototypes. The number of prototypes is set manually.</p>
 <p>Check now that prediction is still as good</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">make_pipeline</span><span class="p">(</span><span class="n">column_trans</span><span class="p">,</span> <span class="n">log_reg</span><span class="p">)</span>
 <span class="n">results</span> <span class="o">=</span> <span class="n">resource_used</span><span class="p">(</span><span class="n">model_selection</span><span class="o">.</span><span class="n">cross_validate</span><span class="p">)(</span><span class="n">model</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Cross-validation score with k-means strategy: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;test_score&#39;</span><span class="p">])</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Cross-validation score: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;test_score&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Run time: 32s    Memory used: 1265Mb
-Cross-validation score with k-means strategy: [0.78328433 0.78032902 0.78129376]
+<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Run time: 29s    Memory used: 1265Mb
+Cross-validation score: [0.78328433 0.78032902 0.78129376]
 </pre></div>
 </div>
 <p>Store results for later</p>
@@ -356,14 +356,16 @@ The use of the scikit-learn model may upcast to float64 (depending on the used
 algorithm). The memory savings will then happen during the encoding.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 
-<span class="n">sim_enc</span> <span class="o">=</span> <a href="../generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="View documentation for dirty_cat.SimilarityEncoder"><span class="n">SimilarityEncoder</span></a><span class="p">(</span><span class="n">similarity</span><span class="o">=</span><span class="s1">&#39;ngram&#39;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">categories</span><span class="o">=</span><span class="s1">&#39;most_frequent&#39;</span><span class="p">,</span> <span class="n">n_prototypes</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+<span class="n">sim_enc</span> <span class="o">=</span> <a href="../generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="View documentation for dirty_cat.SimilarityEncoder"><span class="n">SimilarityEncoder</span></a><span class="p">(</span><span class="n">similarity</span><span class="o">=</span><span class="s1">&#39;ngram&#39;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span>
+                            <span class="n">categories</span><span class="o">=</span><span class="s1">&#39;most_frequent&#39;</span><span class="p">,</span> <span class="n">n_prototypes</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
                             <span class="n">handle_unknown</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
 
 <span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Violation Type&#39;</span><span class="p">]</span>
 <span class="c1"># cast the year column to float32</span>
 <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Year&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Year&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
 <span class="c1"># clean columns</span>
-<span class="n">transformers</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;one_hot&#39;</span><span class="p">,</span> <span class="n">OneHotEncoder</span><span class="p">(</span><span class="n">sparse</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">handle_unknown</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">),</span>
+<span class="n">transformers</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;one_hot&#39;</span><span class="p">,</span> <span class="n">OneHotEncoder</span><span class="p">(</span><span class="n">sparse</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span>
+                                          <span class="n">handle_unknown</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">),</span>
                  <span class="p">[</span><span class="s1">&#39;Alcohol&#39;</span><span class="p">,</span>
                   <span class="s1">&#39;Arrest Type&#39;</span><span class="p">,</span>
                   <span class="s1">&#39;Belts&#39;</span><span class="p">,</span>
@@ -390,21 +392,21 @@ algorithm). The memory savings will then happen during the encoding.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Time to vectorize: 2.261240005493164
+<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Time to vectorize: 2.027954339981079
 </pre></div>
 </div>
 <p>We can run a cross-validation to confirm the memory footprint reduction</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">make_pipeline</span><span class="p">(</span><span class="n">column_trans</span><span class="p">,</span> <span class="n">log_reg</span><span class="p">)</span>
 <span class="n">results</span> <span class="o">=</span> <span class="n">resource_used</span><span class="p">(</span><span class="n">model_selection</span><span class="o">.</span><span class="n">cross_validate</span><span class="p">)(</span><span class="n">model</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Cross-validation score with most-frequent strategy and float32 dtype: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;test_score&#39;</span><span class="p">])</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Cross-validation score: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;test_score&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Run time: 19s    Memory used: 406Mb
-Cross-validation score with most-frequent strategy and float32 dtype: [0.78755425 0.78669933 0.7858443 ]
+<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Run time: 17s    Memory used: 406Mb
+Cross-validation score: [0.78755425 0.78669933 0.7858443 ]
 </pre></div>
 </div>
-<p><strong>Total running time of the script:</strong> ( 4 minutes  57.268 seconds)</p>
+<p><strong>Total running time of the script:</strong> ( 4 minutes  50.834 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-04-scalability-py">
 <div class="sphx-glr-download docutils container">
 <a class="reference download internal" href="../_downloads/04_scalability.py" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">04_scalability.py</span></code></a></div>

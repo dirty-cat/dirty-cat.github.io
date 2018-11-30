@@ -233,7 +233,7 @@ one-hot encoding and similarity encoding
 
  .. code-block:: none
 
-    Time to vectorize: 8.074456214904785
+    Time to vectorize: 7.979496717453003
 
 
 We can run a cross-validation
@@ -248,7 +248,7 @@ We can run a cross-validation
 
     model = pipeline.make_pipeline(column_trans, log_reg)
     results = resource_used(model_selection.cross_validate)(model, df, y, )
-    print("Cross-validation score with default settings: %s" % results['test_score'])
+    print("Cross-validation score: %s" % results['test_score'])
 
 
 
@@ -260,8 +260,8 @@ We can run a cross-validation
 
  .. code-block:: none
 
-    Run time: 86s    Memory used: 1851Mb
-    Cross-validation score with default settings: [0.78909422 0.78788939 0.78822459]
+    Run time: 84s    Memory used: 1852Mb
+    Cross-validation score: [0.78909422 0.78788939 0.78822459]
 
 
 Store results for later
@@ -314,7 +314,7 @@ Check now that prediction is still as good
 
     model = pipeline.make_pipeline(column_trans, log_reg)
     results = resource_used(model_selection.cross_validate)(model, df, y)
-    print("Cross-validation score with most-frequent strategy: %s" % results['test_score'])
+    print("Cross-validation score: %s" % results['test_score'])
 
 
 
@@ -326,8 +326,8 @@ Check now that prediction is still as good
 
  .. code-block:: none
 
-    Run time: 16s    Memory used: 1266Mb
-    Cross-validation score with most-frequent strategy: [0.78755425 0.78669933 0.7858443 ]
+    Run time: 17s    Memory used: 1266Mb
+    Cross-validation score: [0.78755425 0.78669933 0.7858443 ]
 
 
 Store results for later
@@ -378,7 +378,7 @@ Check now that prediction is still as good
 
     model = pipeline.make_pipeline(column_trans, log_reg)
     results = resource_used(model_selection.cross_validate)(model, df, y)
-    print("Cross-validation score with k-means strategy: %s" % results['test_score'])
+    print("Cross-validation score: %s" % results['test_score'])
 
 
 
@@ -390,8 +390,8 @@ Check now that prediction is still as good
 
  .. code-block:: none
 
-    Run time: 32s    Memory used: 1265Mb
-    Cross-validation score with k-means strategy: [0.78328433 0.78032902 0.78129376]
+    Run time: 29s    Memory used: 1265Mb
+    Cross-validation score: [0.78328433 0.78032902 0.78129376]
 
 
 Store results for later
@@ -451,14 +451,16 @@ algorithm). The memory savings will then happen during the encoding.
 
     import numpy as np
 
-    sim_enc = SimilarityEncoder(similarity='ngram', dtype=np.float32, categories='most_frequent', n_prototypes=100,
+    sim_enc = SimilarityEncoder(similarity='ngram', dtype=np.float32,
+                                categories='most_frequent', n_prototypes=100,
                                 handle_unknown='ignore')
 
     y = df['Violation Type']
     # cast the year column to float32
     df['Year'] = df['Year'].astype(np.float32)
     # clean columns
-    transformers = [('one_hot', OneHotEncoder(sparse=False, dtype=np.float32, handle_unknown='ignore'),
+    transformers = [('one_hot', OneHotEncoder(sparse=False, dtype=np.float32,
+                                              handle_unknown='ignore'),
                      ['Alcohol',
                       'Arrest Type',
                       'Belts',
@@ -493,7 +495,7 @@ algorithm). The memory savings will then happen during the encoding.
 
  .. code-block:: none
 
-    Time to vectorize: 2.261240005493164
+    Time to vectorize: 2.027954339981079
 
 
 We can run a cross-validation to confirm the memory footprint reduction
@@ -504,7 +506,7 @@ We can run a cross-validation to confirm the memory footprint reduction
 
     model = pipeline.make_pipeline(column_trans, log_reg)
     results = resource_used(model_selection.cross_validate)(model, df, y, )
-    print("Cross-validation score with most-frequent strategy and float32 dtype: %s" % results['test_score'])
+    print("Cross-validation score: %s" % results['test_score'])
 
 
 
@@ -515,11 +517,11 @@ We can run a cross-validation to confirm the memory footprint reduction
 
  .. code-block:: none
 
-    Run time: 19s    Memory used: 406Mb
-    Cross-validation score with most-frequent strategy and float32 dtype: [0.78755425 0.78669933 0.7858443 ]
+    Run time: 17s    Memory used: 406Mb
+    Cross-validation score: [0.78755425 0.78669933 0.7858443 ]
 
 
-**Total running time of the script:** ( 4 minutes  57.268 seconds)
+**Total running time of the script:** ( 4 minutes  50.834 seconds)
 
 
 .. _sphx_glr_download_auto_examples_04_scalability.py:
