@@ -1,10 +1,10 @@
 .. note::
     :class: sphx-glr-download-link-note
 
-    Click :ref:`here <sphx_glr_download_auto_examples_03_midwest_survey.py>` to download the full example code
+    Click :ref:`here <sphx_glr_download_auto_examples_03_fit_predict_plot_midwest_survey.py>` to download the full example code
 .. rst-class:: sphx-glr-example-title
 
-.. _sphx_glr_auto_examples_03_midwest_survey.py:
+.. _sphx_glr_auto_examples_03_fit_predict_plot_midwest_survey.py:
 
 
 Semantic variation in the "Midwest"
@@ -58,16 +58,16 @@ column, where people put whatever they want:
 
  .. code-block:: none
 
-    Southeast Idaho                         1
-    eastern usa                             1
-    Mid-north                               1
-    I will call the The solitary streets    1
-    New York/Northeast                      1
-    Depressed                               1
-    nORTHERN mINNESOTA                      1
-    fly over country!!                      1
-    a state, Colorado                       1
-    The Bay Area                            1
+    the north east                                          1
+    Midwestern US                                           1
+    East central USA                                        1
+    Merry Go Round of Weather!                              1
+    the Mountain west                                       1
+    South Cental                                            1
+    The only semi-descent place to live in this country.    1
+    Suthe eastern US                                        1
+    Midwest North America                                   1
+    Northeast US                                            1
     Name: In your own words, what would you call the part of the country you live in now?, dtype: int64
 
 
@@ -235,7 +235,7 @@ Plot the results
 
 
 
-.. image:: /auto_examples/images/sphx_glr_03_midwest_survey_001.png
+.. image:: /auto_examples/images/sphx_glr_03_fit_predict_plot_midwest_survey_001.png
     :class: sphx-glr-single-img
 
 
@@ -245,10 +245,10 @@ We can see that encoding the data using a SimilarityEncoder instead of
 OneHotEncoder helps a lot in improving the cross validation score!
 
 
-**Total running time of the script:** ( 0 minutes  5.581 seconds)
+**Total running time of the script:** ( 0 minutes  5.578 seconds)
 
 
-.. _sphx_glr_download_auto_examples_03_midwest_survey.py:
+.. _sphx_glr_download_auto_examples_03_fit_predict_plot_midwest_survey.py:
 
 
 .. only :: html
@@ -260,13 +260,13 @@ OneHotEncoder helps a lot in improving the cross validation score!
 
   .. container:: sphx-glr-download
 
-     :download:`Download Python source code: 03_midwest_survey.py <03_midwest_survey.py>`
+     :download:`Download Python source code: 03_fit_predict_plot_midwest_survey.py <03_fit_predict_plot_midwest_survey.py>`
 
 
 
   .. container:: sphx-glr-download
 
-     :download:`Download Jupyter notebook: 03_midwest_survey.ipynb <03_midwest_survey.ipynb>`
+     :download:`Download Jupyter notebook: 03_fit_predict_plot_midwest_survey.ipynb <03_fit_predict_plot_midwest_survey.ipynb>`
 
 
 .. only:: html

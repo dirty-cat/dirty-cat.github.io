@@ -28,8 +28,8 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Scalability considerations for similarity encoding" href="04_scalability.html" />
-    <link rel="prev" title="Predicting the salary of employees" href="02_predict_employee_salaries.html" />
+    <link rel="next" title="Scalability considerations for similarity encoding" href="04_dimension_reduction_and_performance.html" />
+    <link rel="prev" title="Predicting the salary of employees" href="02_fit_predict_plot_employee_salaries.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
@@ -75,8 +75,8 @@
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="02_predict_employee_salaries.html" title="previous chapter">Predicting the salary of employees</a></li>
-      <li>Next: <a href="04_scalability.html" title="next chapter">Scalability considerations for similarity encoding</a></li>
+      <li>Previous: <a href="02_fit_predict_plot_employee_salaries.html" title="previous chapter">Predicting the salary of employees</a></li>
+      <li>Next: <a href="04_dimension_reduction_and_performance.html" title="next chapter">Scalability considerations for similarity encoding</a></li>
   </ul></li>
 </ul>
 </div>
@@ -90,10 +90,10 @@
             
   <div class="sphx-glr-download-link-note admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Click <a class="reference internal" href="#sphx-glr-download-auto-examples-03-midwest-survey-py"><span class="std std-ref">here</span></a> to download the full example code</p>
+<p class="last">Click <a class="reference internal" href="#sphx-glr-download-auto-examples-03-fit-predict-plot-midwest-survey-py"><span class="std std-ref">here</span></a> to download the full example code</p>
 </div>
 <div class="sphx-glr-example-title section" id="semantic-variation-in-the-midwest">
-<span id="sphx-glr-auto-examples-03-midwest-survey-py"></span><h1>Semantic variation in the “Midwest”<a class="headerlink" href="#semantic-variation-in-the-midwest" title="Permalink to this headline">¶</a></h1>
+<span id="sphx-glr-auto-examples-03-fit-predict-plot-midwest-survey-py"></span><h1>Semantic variation in the “Midwest”<a class="headerlink" href="#semantic-variation-in-the-midwest" title="Permalink to this headline">¶</a></h1>
 <p>Here’s some survey data with one dirty column, consisting of
 an open-ended question, on which one-hot encoding does not work well.
 The other columns are more traditional categorical or numerical
@@ -116,16 +116,16 @@ column, where people put whatever they want:</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Southeast Idaho                         1
-eastern usa                             1
-Mid-north                               1
-I will call the The solitary streets    1
-New York/Northeast                      1
-Depressed                               1
-nORTHERN mINNESOTA                      1
-fly over country!!                      1
-a state, Colorado                       1
-The Bay Area                            1
+<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>the north east                                          1
+Midwestern US                                           1
+East central USA                                        1
+Merry Go Round of Weather!                              1
+the Mountain west                                       1
+South Cental                                            1
+The only semi-descent place to live in this country.    1
+Suthe eastern US                                        1
+Midwest North America                                   1
+Northeast US                                            1
 Name: In your own words, what would you call the part of the country you live in now?, dtype: int64
 </pre></div>
 </div>
@@ -245,15 +245,15 @@ Accuracy score:  mean: 0.657; std: 0.010
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
-<img alt="../_images/sphx_glr_03_midwest_survey_001.png" class="sphx-glr-single-img" src="../_images/sphx_glr_03_midwest_survey_001.png" />
+<img alt="../_images/sphx_glr_03_fit_predict_plot_midwest_survey_001.png" class="sphx-glr-single-img" src="../_images/sphx_glr_03_fit_predict_plot_midwest_survey_001.png" />
 <p>We can see that encoding the data using a SimilarityEncoder instead of
 OneHotEncoder helps a lot in improving the cross validation score!</p>
-<p><strong>Total running time of the script:</strong> ( 0 minutes  5.581 seconds)</p>
-<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-03-midwest-survey-py">
+<p><strong>Total running time of the script:</strong> ( 0 minutes  5.578 seconds)</p>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-03-fit-predict-plot-midwest-survey-py">
 <div class="sphx-glr-download docutils container">
-<a class="reference download internal" href="../_downloads/03_midwest_survey.py" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">03_midwest_survey.py</span></code></a></div>
+<a class="reference download internal" href="../_downloads/03_fit_predict_plot_midwest_survey.py" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">03_fit_predict_plot_midwest_survey.py</span></code></a></div>
 <div class="sphx-glr-download docutils container">
-<a class="reference download internal" href="../_downloads/03_midwest_survey.ipynb" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">03_midwest_survey.ipynb</span></code></a></div>
+<a class="reference download internal" href="../_downloads/03_fit_predict_plot_midwest_survey.ipynb" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">03_fit_predict_plot_midwest_survey.ipynb</span></code></a></div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.readthedocs.io">Gallery generated by Sphinx-Gallery</a></p>
 </div>
@@ -270,7 +270,7 @@ OneHotEncoder helps a lot in improving the cross validation score!</p>
       &copy;2018, dirty_cat developers.
       
       |
-      <a href="../_sources/auto_examples/03_midwest_survey.rst.txt"
+      <a href="../_sources/auto_examples/03_fit_predict_plot_midwest_survey.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 

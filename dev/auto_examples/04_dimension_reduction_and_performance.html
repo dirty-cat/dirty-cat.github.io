@@ -29,7 +29,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="dirty_cat.SimilarityEncoder" href="../generated/dirty_cat.SimilarityEncoder.html" />
-    <link rel="prev" title="Semantic variation in the “Midwest”" href="03_midwest_survey.html" />
+    <link rel="prev" title="Semantic variation in the “Midwest”" href="03_fit_predict_plot_midwest_survey.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
@@ -75,7 +75,7 @@
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="03_midwest_survey.html" title="previous chapter">Semantic variation in the “Midwest”</a></li>
+      <li>Previous: <a href="03_fit_predict_plot_midwest_survey.html" title="previous chapter">Semantic variation in the “Midwest”</a></li>
       <li>Next: <a href="../generated/dirty_cat.SimilarityEncoder.html" title="next chapter"><code class="docutils literal"><span class="pre">dirty_cat</span></code>.SimilarityEncoder</a></li>
   </ul></li>
 </ul>
@@ -90,10 +90,10 @@
             
   <div class="sphx-glr-download-link-note admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Click <a class="reference internal" href="#sphx-glr-download-auto-examples-04-scalability-py"><span class="std std-ref">here</span></a> to download the full example code</p>
+<p class="last">Click <a class="reference internal" href="#sphx-glr-download-auto-examples-04-dimension-reduction-and-performance-py"><span class="std std-ref">here</span></a> to download the full example code</p>
 </div>
 <div class="sphx-glr-example-title section" id="scalability-considerations-for-similarity-encoding">
-<span id="sphx-glr-auto-examples-04-scalability-py"></span><h1>Scalability considerations for similarity encoding<a class="headerlink" href="#scalability-considerations-for-similarity-encoding" title="Permalink to this headline">¶</a></h1>
+<span id="sphx-glr-auto-examples-04-dimension-reduction-and-performance-py"></span><h1>Scalability considerations for similarity encoding<a class="headerlink" href="#scalability-considerations-for-similarity-encoding" title="Permalink to this headline">¶</a></h1>
 <p>Here we discuss how to apply efficiently SimilarityEncoder to larger
 datasets: reducing the number of reference categories to “prototypes”,
 either chosen as the most frequent categories, or with kmeans clustering.</p>
@@ -161,33 +161,33 @@ difficulty is that it many different entries</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>1762
+<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>1760
 </pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Description&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()[:</span><span class="mi">20</span><span class="p">])</span>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>DRIVER FAILURE TO OBEY PROPERLY PLACED TRAFFIC CONTROL DEVICE INSTRUCTIONS                              2963
-FAILURE TO DISPLAY REGISTRATION CARD UPON DEMAND BY POLICE OFFICER                                      1833
-DRIVING VEHICLE ON HIGHWAY WITH SUSPENDED REGISTRATION                                                  1820
-PERSON DRIVING MOTOR VEHICLE ON HIGHWAY OR PUBLIC USE PROPERTY ON SUSPENDED LICENSE AND PRIVILEGE       1502
-FAILURE OF INDIVIDUAL DRIVING ON HIGHWAY TO DISPLAY LICENSE TO UNIFORMED POLICE ON DEMAND               1490
-DISPLAYING EXPIRED REGISTRATION PLATE ISSUED BY ANY STATE                                               1251
-DRIVING WHILE IMPAIRED BY ALCOHOL                                                                        832
-DRIVING VEHICLE WHILE UNDER THE INFLUENCE OF ALCOHOL                                                     803
-DRIVER USING HANDS TO USE HANDHELD TELEPHONE WHILEMOTOR VEHICLE IS IN MOTION                             790
-DRIVING VEHICLE ON HIGHWAY WITHOUT CURRENT REGISTRATION PLATES AND VALIDATION TABS                       783
-DRIVING MOTOR VEHICLE ON HIGHWAY WITHOUT REQUIRED LICENSE AND AUTHORIZATION                              765
+<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>DRIVER FAILURE TO OBEY PROPERLY PLACED TRAFFIC CONTROL DEVICE INSTRUCTIONS                              2958
+FAILURE TO DISPLAY REGISTRATION CARD UPON DEMAND BY POLICE OFFICER                                      1827
+DRIVING VEHICLE ON HIGHWAY WITH SUSPENDED REGISTRATION                                                  1813
+PERSON DRIVING MOTOR VEHICLE ON HIGHWAY OR PUBLIC USE PROPERTY ON SUSPENDED LICENSE AND PRIVILEGE       1495
+FAILURE OF INDIVIDUAL DRIVING ON HIGHWAY TO DISPLAY LICENSE TO UNIFORMED POLICE ON DEMAND               1476
+DISPLAYING EXPIRED REGISTRATION PLATE ISSUED BY ANY STATE                                               1248
+DRIVING WHILE IMPAIRED BY ALCOHOL                                                                        826
+DRIVING VEHICLE WHILE UNDER THE INFLUENCE OF ALCOHOL                                                     799
+DRIVER USING HANDS TO USE HANDHELD TELEPHONE WHILEMOTOR VEHICLE IS IN MOTION                             786
+DRIVING VEHICLE ON HIGHWAY WITHOUT CURRENT REGISTRATION PLATES AND VALIDATION TABS                       782
+DRIVING MOTOR VEHICLE ON HIGHWAY WITHOUT REQUIRED LICENSE AND AUTHORIZATION                              762
 DRIVER FAILURE TO STOP AT STOP SIGN LINE                                                                 748
-FAILURE TO CONTROL VEHICLE SPEED ON HIGHWAY TO AVOID COLLISION                                           744
-DRIVER CHANGING LANES WHEN UNSAFE                                                                        712
-NEGLIGENT DRIVING VEHICLE IN CARELESS AND IMPRUDENT MANNER ENDANGERING PROPERTY, LIFE AND PERSON         693
-DRIVER FAILURE TO STOP AT STEADY CIRCULAR RED SIGNAL                                                     620
-OPERATOR NOT RESTRAINED BY SEATBELT                                                                      596
-DRIVING TO DRIVE MOTOR VEHICLE ON HIGHWAY WITHOUT REQUIRED LICENSE AND AUTHORIZATION                     557
-DRIVING UNDER THE INFLUENCE OF ALCOHOL PER SE                                                            542
-FAILURE OF VEH. ON HWY. TO DISPLAY LIGHTED LAMPS, ILLUMINATING DEVICE IN UNFAVORABLE VISIBILITY COND     535
+FAILURE TO CONTROL VEHICLE SPEED ON HIGHWAY TO AVOID COLLISION                                           739
+DRIVER CHANGING LANES WHEN UNSAFE                                                                        709
+NEGLIGENT DRIVING VEHICLE IN CARELESS AND IMPRUDENT MANNER ENDANGERING PROPERTY, LIFE AND PERSON         689
+DRIVER FAILURE TO STOP AT STEADY CIRCULAR RED SIGNAL                                                     618
+OPERATOR NOT RESTRAINED BY SEATBELT                                                                      593
+DRIVING TO DRIVE MOTOR VEHICLE ON HIGHWAY WITHOUT REQUIRED LICENSE AND AUTHORIZATION                     555
+DRIVING UNDER THE INFLUENCE OF ALCOHOL PER SE                                                            539
+FAILURE OF VEH. ON HWY. TO DISPLAY LIGHTED LAMPS, ILLUMINATING DEVICE IN UNFAVORABLE VISIBILITY COND     533
 Name: Description, dtype: int64
 </pre></div>
 </div>
@@ -233,7 +233,7 @@ one-hot encoding and similarity encoding</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Time to vectorize: 7.638755559921265
+<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Time to vectorize: 7.986293077468872
 </pre></div>
 </div>
 <p>We can run a cross-validation</p>
@@ -247,8 +247,8 @@ one-hot encoding and similarity encoding</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Run time: 80s    Memory used: 1851Mb
-Cross-validation score: [0.79049086 0.77920168 0.78697479]
+<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Run time: 82s    Memory used: 1844Mb
+Cross-validation score: [0.7898622  0.78381609 0.79090206]
 </pre></div>
 </div>
 <p>Store results for later</p>
@@ -280,8 +280,8 @@ speed things up. We select manually the number of prototypes we want to use.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Run time: 16s    Memory used: 1265Mb
-Cross-validation score: [0.78747987 0.78662465 0.78578431]
+<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Run time: 15s    Memory used: 1257Mb
+Cross-validation score: [0.78620641 0.78522216 0.78492582]
 </pre></div>
 </div>
 <p>Store results for later</p>
@@ -311,8 +311,8 @@ to find the prototypes. The number of prototypes is set manually.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Run time: 26s    Memory used: 1264Mb
-Cross-validation score: [0.78320846 0.78011204 0.78130252]
+<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Run time: 21s    Memory used: 1256Mb
+Cross-validation score: [0.7821288  0.78473003 0.78612107]
 </pre></div>
 </div>
 <p>Store results for later</p>
@@ -337,7 +337,7 @@ Cross-validation score: [0.78320846 0.78011204 0.78130252]
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
-<img alt="../_images/sphx_glr_04_scalability_001.png" class="sphx-glr-single-img" src="../_images/sphx_glr_04_scalability_001.png" />
+<img alt="../_images/sphx_glr_04_dimension_reduction_and_performance_001.png" class="sphx-glr-single-img" src="../_images/sphx_glr_04_dimension_reduction_and_performance_001.png" />
 </div>
 <div class="section" id="reduce-memory-usage-during-encoding-using-float32">
 <h2>Reduce memory usage during encoding using float32<a class="headerlink" href="#reduce-memory-usage-during-encoding-using-float32" title="Permalink to this headline">¶</a></h2>
@@ -381,7 +381,7 @@ algorithm). The memory savings will then happen during the encoding.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Time to vectorize: 2.099968194961548
+<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Time to vectorize: 2.0215282440185547
 </pre></div>
 </div>
 <p>We can run a cross-validation to confirm the memory footprint reduction</p>
@@ -391,16 +391,16 @@ algorithm). The memory savings will then happen during the encoding.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Run time: 16s    Memory used: 406Mb
-Cross-validation score: [0.78747987 0.78662465 0.78578431]
+<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Run time: 15s    Memory used: 405Mb
+Cross-validation score: [0.78620641 0.78522216 0.78492582]
 </pre></div>
 </div>
-<p><strong>Total running time of the script:</strong> ( 4 minutes  50.548 seconds)</p>
-<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-04-scalability-py">
+<p><strong>Total running time of the script:</strong> ( 4 minutes  54.968 seconds)</p>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-04-dimension-reduction-and-performance-py">
 <div class="sphx-glr-download docutils container">
-<a class="reference download internal" href="../_downloads/04_scalability.py" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">04_scalability.py</span></code></a></div>
+<a class="reference download internal" href="../_downloads/04_dimension_reduction_and_performance.py" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">04_dimension_reduction_and_performance.py</span></code></a></div>
 <div class="sphx-glr-download docutils container">
-<a class="reference download internal" href="../_downloads/04_scalability.ipynb" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">04_scalability.ipynb</span></code></a></div>
+<a class="reference download internal" href="../_downloads/04_dimension_reduction_and_performance.ipynb" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">04_dimension_reduction_and_performance.ipynb</span></code></a></div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.readthedocs.io">Gallery generated by Sphinx-Gallery</a></p>
 </div>
@@ -417,7 +417,7 @@ Cross-validation score: [0.78747987 0.78662465 0.78578431]
       &copy;2018, dirty_cat developers.
       
       |
-      <a href="../_sources/auto_examples/04_scalability.rst.txt"
+      <a href="../_sources/auto_examples/04_dimension_reduction_and_performance.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 
