@@ -58,16 +58,16 @@ column, where people put whatever they want:
 
  .. code-block:: none
 
-    Mid Atlantic region                                               1
-    to close to the city                                              1
-    northern plains                                                   1
-    Midwest - Northeast Ohio                                          1
-    The South, but I being so close to Missouri, I prefer midwest.    1
-    MIDwESTERN                                                        1
-    Eastern with lake effect weather.                                 1
-    Upper MIdwest                                                     1
-    The mid west, rust belt                                           1
-    Suburban Chicago                                                  1
+    Northern climate, Alaska                                                                                 1
+    Mid-West.                                                                                                1
+    arizona                                                                                                  1
+    rural northwestern Pennsylvania                                                                          1
+    Spoiled                                                                                                  1
+    Rednecksville                                                                                            1
+    Pittsburgh                                                                                               1
+    I live in the border between the South and the Midwest. Not totally Southern, not totally Midwestern.    1
+    One of the best places in te entire world                                                                1
+    Midwest/Northern Plains                                                                                  1
     Name: In your own words, what would you call the part of the country you live in now?, dtype: int64
 
 
@@ -245,7 +245,7 @@ We can see that encoding the data using a SimilarityEncoder instead of
 OneHotEncoder helps a lot in improving the cross validation score!
 
 
-**Total running time of the script:** ( 0 minutes  5.922 seconds)
+**Total running time of the script:** ( 0 minutes  5.668 seconds)
 
 
 .. _sphx_glr_download_auto_examples_03_fit_predict_plot_midwest_survey.py:
