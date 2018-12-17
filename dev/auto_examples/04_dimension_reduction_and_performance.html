@@ -197,8 +197,8 @@ Name: Description, dtype: int64
 <h2>SimilarityEncoder with default options<a class="headerlink" href="#similarityencoder-with-default-options" title="Permalink to this headline">¶</a></h2>
 <p>Let us build our vectorizer, using a ColumnTransformer to combine
 one-hot encoding and similarity encoding</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">OneHotEncoder</span>
-<span class="kn">from</span> <span class="nn">sklearn.compose</span> <span class="kn">import</span> <span class="n">ColumnTransformer</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <a href="http://scikit-learn.org/0.20/modules/generated/sklearn.preprocessing.OneHotEncoder.html#sklearn.preprocessing.OneHotEncoder" title="View documentation for sklearn.preprocessing.OneHotEncoder"><span class="n">OneHotEncoder</span></a>
+<span class="kn">from</span> <span class="nn">sklearn.compose</span> <span class="kn">import</span> <a href="http://scikit-learn.org/0.20/modules/generated/sklearn.compose.ColumnTransformer.html#sklearn.compose.ColumnTransformer" title="View documentation for sklearn.compose.ColumnTransformer"><span class="n">ColumnTransformer</span></a>
 <span class="kn">from</span> <span class="nn">dirty_cat</span> <span class="kn">import</span> <a href="../generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="View documentation for dirty_cat.SimilarityEncoder"><span class="n">SimilarityEncoder</span></a>
 
 <span class="n">sim_enc</span> <span class="o">=</span> <a href="../generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="View documentation for dirty_cat.SimilarityEncoder"><span class="n">SimilarityEncoder</span></a><span class="p">(</span><span class="n">similarity</span><span class="o">=</span><span class="s1">&#39;ngram&#39;</span><span class="p">)</span>
@@ -206,7 +206,7 @@ one-hot encoding and similarity encoding</p>
 <span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Violation Type&#39;</span><span class="p">]</span>
 
 <span class="c1"># clean columns</span>
-<span class="n">transformers</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;one_hot&#39;</span><span class="p">,</span> <span class="n">OneHotEncoder</span><span class="p">(</span><span class="n">sparse</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">handle_unknown</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">),</span>
+<span class="n">transformers</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;one_hot&#39;</span><span class="p">,</span> <a href="http://scikit-learn.org/0.20/modules/generated/sklearn.preprocessing.OneHotEncoder.html#sklearn.preprocessing.OneHotEncoder" title="View documentation for sklearn.preprocessing.OneHotEncoder"><span class="n">OneHotEncoder</span></a><span class="p">(</span><span class="n">sparse</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">handle_unknown</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">),</span>
                  <span class="p">[</span><span class="s1">&#39;Alcohol&#39;</span><span class="p">,</span>
                   <span class="s1">&#39;Arrest Type&#39;</span><span class="p">,</span>
                   <span class="s1">&#39;Belts&#39;</span><span class="p">,</span>
@@ -221,7 +221,7 @@ one-hot encoding and similarity encoding</p>
                 <span class="p">(</span><span class="s1">&#39;pass&#39;</span><span class="p">,</span> <span class="s1">&#39;passthrough&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;Year&#39;</span><span class="p">]),</span>
                 <span class="p">]</span>
 
-<span class="n">column_trans</span> <span class="o">=</span> <span class="n">ColumnTransformer</span><span class="p">(</span>
+<span class="n">column_trans</span> <span class="o">=</span> <a href="http://scikit-learn.org/0.20/modules/generated/sklearn.compose.ColumnTransformer.html#sklearn.compose.ColumnTransformer" title="View documentation for sklearn.compose.ColumnTransformer"><span class="n">ColumnTransformer</span></a><span class="p">(</span>
     <span class="c1"># adding the dirty column</span>
     <span class="n">transformers</span><span class="o">=</span><span class="n">transformers</span> <span class="o">+</span> <span class="p">[(</span><span class="s1">&#39;sim_enc&#39;</span><span class="p">,</span> <span class="n">sim_enc</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;Description&#39;</span><span class="p">])],</span>
     <span class="n">remainder</span><span class="o">=</span><span class="s1">&#39;drop&#39;</span><span class="p">)</span>
@@ -233,21 +233,21 @@ one-hot encoding and similarity encoding</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Time to vectorize: 7.670969009399414
+<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Time to vectorize: 7.918867111206055
 </pre></div>
 </div>
 <p>We can run a cross-validation</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">linear_model</span><span class="p">,</span> <span class="n">pipeline</span><span class="p">,</span> <span class="n">model_selection</span>
 
-<span class="n">log_reg</span> <span class="o">=</span> <span class="n">linear_model</span><span class="o">.</span><span class="n">LogisticRegression</span><span class="p">()</span>
+<span class="n">log_reg</span> <span class="o">=</span> <a href="http://scikit-learn.org/0.20/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression" title="View documentation for sklearn.linear_model.LogisticRegression"><span class="n">linear_model</span><span class="o">.</span><span class="n">LogisticRegression</span></a><span class="p">()</span>
 
-<span class="n">model</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">make_pipeline</span><span class="p">(</span><span class="n">column_trans</span><span class="p">,</span> <span class="n">log_reg</span><span class="p">)</span>
-<span class="n">results</span> <span class="o">=</span> <span class="n">resource_used</span><span class="p">(</span><span class="n">model_selection</span><span class="o">.</span><span class="n">cross_validate</span><span class="p">)(</span><span class="n">model</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <a href="http://scikit-learn.org/0.20/modules/generated/sklearn.pipeline.make_pipeline.html#sklearn.pipeline.make_pipeline" title="View documentation for sklearn.pipeline.make_pipeline"><span class="n">pipeline</span><span class="o">.</span><span class="n">make_pipeline</span></a><span class="p">(</span><span class="n">column_trans</span><span class="p">,</span> <span class="n">log_reg</span><span class="p">)</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">resource_used</span><span class="p">(</span><a href="http://scikit-learn.org/0.20/modules/generated/sklearn.model_selection.cross_validate.html#sklearn.model_selection.cross_validate" title="View documentation for sklearn.model_selection.cross_validate"><span class="n">model_selection</span><span class="o">.</span><span class="n">cross_validate</span></a><span class="p">)(</span><span class="n">model</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Cross-validation score: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;test_score&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Run time: 83s    Memory used: 1846Mb
+<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Run time: 86s    Memory used: 1846Mb
 Cross-validation score: [0.7898622  0.78381609 0.79090206]
 </pre></div>
 </div>
@@ -267,20 +267,20 @@ speed things up. We select manually the number of prototypes we want to use.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">sim_enc</span> <span class="o">=</span> <a href="../generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="View documentation for dirty_cat.SimilarityEncoder"><span class="n">SimilarityEncoder</span></a><span class="p">(</span><span class="n">similarity</span><span class="o">=</span><span class="s1">&#39;ngram&#39;</span><span class="p">,</span> <span class="n">categories</span><span class="o">=</span><span class="s1">&#39;most_frequent&#39;</span><span class="p">,</span>
                             <span class="n">n_prototypes</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
 
-<span class="n">column_trans</span> <span class="o">=</span> <span class="n">ColumnTransformer</span><span class="p">(</span>
+<span class="n">column_trans</span> <span class="o">=</span> <a href="http://scikit-learn.org/0.20/modules/generated/sklearn.compose.ColumnTransformer.html#sklearn.compose.ColumnTransformer" title="View documentation for sklearn.compose.ColumnTransformer"><span class="n">ColumnTransformer</span></a><span class="p">(</span>
     <span class="c1"># adding the dirty column</span>
     <span class="n">transformers</span><span class="o">=</span><span class="n">transformers</span> <span class="o">+</span> <span class="p">[(</span><span class="s1">&#39;sim_enc&#39;</span><span class="p">,</span> <span class="n">sim_enc</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;Description&#39;</span><span class="p">])],</span>
     <span class="n">remainder</span><span class="o">=</span><span class="s1">&#39;drop&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Check now that prediction is still as good</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">make_pipeline</span><span class="p">(</span><span class="n">column_trans</span><span class="p">,</span> <span class="n">log_reg</span><span class="p">)</span>
-<span class="n">results</span> <span class="o">=</span> <span class="n">resource_used</span><span class="p">(</span><span class="n">model_selection</span><span class="o">.</span><span class="n">cross_validate</span><span class="p">)(</span><span class="n">model</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <a href="http://scikit-learn.org/0.20/modules/generated/sklearn.pipeline.make_pipeline.html#sklearn.pipeline.make_pipeline" title="View documentation for sklearn.pipeline.make_pipeline"><span class="n">pipeline</span><span class="o">.</span><span class="n">make_pipeline</span></a><span class="p">(</span><span class="n">column_trans</span><span class="p">,</span> <span class="n">log_reg</span><span class="p">)</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">resource_used</span><span class="p">(</span><a href="http://scikit-learn.org/0.20/modules/generated/sklearn.model_selection.cross_validate.html#sklearn.model_selection.cross_validate" title="View documentation for sklearn.model_selection.cross_validate"><span class="n">model_selection</span><span class="o">.</span><span class="n">cross_validate</span></a><span class="p">)(</span><span class="n">model</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Cross-validation score: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;test_score&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Run time: 16s    Memory used: 1259Mb
+<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Run time: 16s    Memory used: 1260Mb
 Cross-validation score: [0.78620641 0.78522216 0.78492582]
 </pre></div>
 </div>
@@ -298,20 +298,20 @@ to find the prototypes. The number of prototypes is set manually.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">sim_enc</span> <span class="o">=</span> <a href="../generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="View documentation for dirty_cat.SimilarityEncoder"><span class="n">SimilarityEncoder</span></a><span class="p">(</span><span class="n">similarity</span><span class="o">=</span><span class="s1">&#39;ngram&#39;</span><span class="p">,</span> <span class="n">categories</span><span class="o">=</span><span class="s1">&#39;k-means&#39;</span><span class="p">,</span>
                             <span class="n">n_prototypes</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
 
-<span class="n">column_trans</span> <span class="o">=</span> <span class="n">ColumnTransformer</span><span class="p">(</span>
+<span class="n">column_trans</span> <span class="o">=</span> <a href="http://scikit-learn.org/0.20/modules/generated/sklearn.compose.ColumnTransformer.html#sklearn.compose.ColumnTransformer" title="View documentation for sklearn.compose.ColumnTransformer"><span class="n">ColumnTransformer</span></a><span class="p">(</span>
     <span class="c1"># adding the dirty column</span>
     <span class="n">transformers</span><span class="o">=</span><span class="n">transformers</span> <span class="o">+</span> <span class="p">[(</span><span class="s1">&#39;sim_enc&#39;</span><span class="p">,</span> <span class="n">sim_enc</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;Description&#39;</span><span class="p">])],</span>
     <span class="n">remainder</span><span class="o">=</span><span class="s1">&#39;drop&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Check now that prediction is still as good</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">make_pipeline</span><span class="p">(</span><span class="n">column_trans</span><span class="p">,</span> <span class="n">log_reg</span><span class="p">)</span>
-<span class="n">results</span> <span class="o">=</span> <span class="n">resource_used</span><span class="p">(</span><span class="n">model_selection</span><span class="o">.</span><span class="n">cross_validate</span><span class="p">)(</span><span class="n">model</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <a href="http://scikit-learn.org/0.20/modules/generated/sklearn.pipeline.make_pipeline.html#sklearn.pipeline.make_pipeline" title="View documentation for sklearn.pipeline.make_pipeline"><span class="n">pipeline</span><span class="o">.</span><span class="n">make_pipeline</span></a><span class="p">(</span><span class="n">column_trans</span><span class="p">,</span> <span class="n">log_reg</span><span class="p">)</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">resource_used</span><span class="p">(</span><a href="http://scikit-learn.org/0.20/modules/generated/sklearn.model_selection.cross_validate.html#sklearn.model_selection.cross_validate" title="View documentation for sklearn.model_selection.cross_validate"><span class="n">model_selection</span><span class="o">.</span><span class="n">cross_validate</span></a><span class="p">)(</span><span class="n">model</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Cross-validation score: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;test_score&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Run time: 28s    Memory used: 1258Mb
+<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Run time: 23s    Memory used: 1258Mb
 Cross-validation score: [0.7821288  0.78473003 0.78612107]
 </pre></div>
 </div>
@@ -326,15 +326,15 @@ Cross-validation score: [0.7821288  0.78473003 0.78612107]
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
 
-<span class="n">_</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
-<span class="n">seaborn</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><a href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.html#pandas.DataFrame" title="View documentation for pandas.DataFrame"><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span></a><span class="p">(</span><span class="n">scores</span><span class="p">),</span> <span class="n">orient</span><span class="o">=</span><span class="s1">&#39;h&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax1</span><span class="p">)</span>
+<span class="n">_</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.subplots.html#matplotlib.pyplot.subplots" title="View documentation for matplotlib.pyplot.subplots"><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span></a><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<a href="http://seaborn.pydata.org/generated/seaborn.boxplot.html#seaborn.boxplot" title="View documentation for seaborn.boxplot"><span class="n">seaborn</span><span class="o">.</span><span class="n">boxplot</span></a><span class="p">(</span><span class="n">data</span><span class="o">=</span><a href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.html#pandas.DataFrame" title="View documentation for pandas.DataFrame"><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span></a><span class="p">(</span><span class="n">scores</span><span class="p">),</span> <span class="n">orient</span><span class="o">=</span><span class="s1">&#39;h&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax1</span><span class="p">)</span>
 <span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Prediction accuracy&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
 <span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">ax1</span><span class="o">.</span><span class="n">get_yticklabels</span><span class="p">()]</span>
 
-<span class="n">seaborn</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><a href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.html#pandas.DataFrame" title="View documentation for pandas.DataFrame"><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span></a><span class="p">(</span><span class="n">times</span><span class="p">),</span> <span class="n">orient</span><span class="o">=</span><span class="s1">&#39;h&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">)</span>
+<a href="http://seaborn.pydata.org/generated/seaborn.boxplot.html#seaborn.boxplot" title="View documentation for seaborn.boxplot"><span class="n">seaborn</span><span class="o">.</span><span class="n">boxplot</span></a><span class="p">(</span><span class="n">data</span><span class="o">=</span><a href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.html#pandas.DataFrame" title="View documentation for pandas.DataFrame"><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span></a><span class="p">(</span><span class="n">times</span><span class="p">),</span> <span class="n">orient</span><span class="o">=</span><span class="s1">&#39;h&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">)</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Computation time&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
 <span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">ax2</span><span class="o">.</span><span class="n">get_yticklabels</span><span class="p">()]</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.tight_layout.html#matplotlib.pyplot.tight_layout" title="View documentation for matplotlib.pyplot.tight_layout"><span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span></a><span class="p">()</span>
 </pre></div>
 </div>
 <img alt="../_images/sphx_glr_04_dimension_reduction_and_performance_001.png" class="sphx-glr-single-img" src="../_images/sphx_glr_04_dimension_reduction_and_performance_001.png" />
@@ -353,7 +353,7 @@ algorithm). The memory savings will then happen during the encoding.</p>
 <span class="c1"># cast the year column to float32</span>
 <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Year&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Year&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
 <span class="c1"># clean columns</span>
-<span class="n">transformers</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;one_hot&#39;</span><span class="p">,</span> <span class="n">OneHotEncoder</span><span class="p">(</span><span class="n">sparse</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span>
+<span class="n">transformers</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;one_hot&#39;</span><span class="p">,</span> <a href="http://scikit-learn.org/0.20/modules/generated/sklearn.preprocessing.OneHotEncoder.html#sklearn.preprocessing.OneHotEncoder" title="View documentation for sklearn.preprocessing.OneHotEncoder"><span class="n">OneHotEncoder</span></a><span class="p">(</span><span class="n">sparse</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span>
                                           <span class="n">handle_unknown</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">),</span>
                  <span class="p">[</span><span class="s1">&#39;Alcohol&#39;</span><span class="p">,</span>
                   <span class="s1">&#39;Arrest Type&#39;</span><span class="p">,</span>
@@ -369,7 +369,7 @@ algorithm). The memory savings will then happen during the encoding.</p>
                 <span class="p">(</span><span class="s1">&#39;pass&#39;</span><span class="p">,</span> <span class="s1">&#39;passthrough&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;Year&#39;</span><span class="p">]),</span>
                 <span class="p">]</span>
 
-<span class="n">column_trans</span> <span class="o">=</span> <span class="n">ColumnTransformer</span><span class="p">(</span>
+<span class="n">column_trans</span> <span class="o">=</span> <a href="http://scikit-learn.org/0.20/modules/generated/sklearn.compose.ColumnTransformer.html#sklearn.compose.ColumnTransformer" title="View documentation for sklearn.compose.ColumnTransformer"><span class="n">ColumnTransformer</span></a><span class="p">(</span>
     <span class="c1"># adding the dirty column</span>
     <span class="n">transformers</span><span class="o">=</span><span class="n">transformers</span> <span class="o">+</span> <span class="p">[(</span><span class="s1">&#39;sim_enc&#39;</span><span class="p">,</span> <span class="n">sim_enc</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;Description&#39;</span><span class="p">])],</span>
     <span class="n">remainder</span><span class="o">=</span><span class="s1">&#39;drop&#39;</span><span class="p">)</span>
@@ -381,21 +381,21 @@ algorithm). The memory savings will then happen during the encoding.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Time to vectorize: 2.0143063068389893
+<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Time to vectorize: 2.049398422241211
 </pre></div>
 </div>
 <p>We can run a cross-validation to confirm the memory footprint reduction</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">make_pipeline</span><span class="p">(</span><span class="n">column_trans</span><span class="p">,</span> <span class="n">log_reg</span><span class="p">)</span>
-<span class="n">results</span> <span class="o">=</span> <span class="n">resource_used</span><span class="p">(</span><span class="n">model_selection</span><span class="o">.</span><span class="n">cross_validate</span><span class="p">)(</span><span class="n">model</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <a href="http://scikit-learn.org/0.20/modules/generated/sklearn.pipeline.make_pipeline.html#sklearn.pipeline.make_pipeline" title="View documentation for sklearn.pipeline.make_pipeline"><span class="n">pipeline</span><span class="o">.</span><span class="n">make_pipeline</span></a><span class="p">(</span><span class="n">column_trans</span><span class="p">,</span> <span class="n">log_reg</span><span class="p">)</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">resource_used</span><span class="p">(</span><a href="http://scikit-learn.org/0.20/modules/generated/sklearn.model_selection.cross_validate.html#sklearn.model_selection.cross_validate" title="View documentation for sklearn.model_selection.cross_validate"><span class="n">model_selection</span><span class="o">.</span><span class="n">cross_validate</span></a><span class="p">)(</span><span class="n">model</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Cross-validation score: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;test_score&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Run time: 16s    Memory used: 407Mb
+<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>Run time: 16s    Memory used: 408Mb
 Cross-validation score: [0.78620641 0.78522216 0.78492582]
 </pre></div>
 </div>
-<p><strong>Total running time of the script:</strong> ( 5 minutes  4.688 seconds)</p>
+<p><strong>Total running time of the script:</strong> ( 5 minutes  12.712 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-04-dimension-reduction-and-performance-py">
 <div class="sphx-glr-download docutils container">
 <a class="reference download internal" href="../_downloads/04_dimension_reduction_and_performance.py" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">04_dimension_reduction_and_performance.py</span></code></a></div>
