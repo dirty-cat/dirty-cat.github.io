@@ -58,16 +58,16 @@ column, where people put whatever they want:
 
  .. code-block:: none
 
-    Pacific                                      1
-    central part of US                           1
-    Mid-south                                    1
-    Southeast Texas                              1
-    rural northwestern Pennsylvania              1
-    Hawaii :)                                    1
-    Midwest rural area                           1
-    Northeast Region                             1
-    I live in the Midwest part of the country    1
-    boring                                       1
+    North eastern US                             1
+    One of the best places in te entire world    1
+    Lost                                         1
+    Mojave Desert, California                    1
+    Fly over                                     1
+    Mid-Atlantice                                1
+    The Rural Mid-West                           1
+    Mountain/central/west                        1
+    Little .Mexico                               1
+    A mix of urban and rural                     1
     Name: In your own words, what would you call the part of the country you live in now?, dtype: int64
 
 
@@ -245,7 +245,7 @@ We can see that encoding the data using a SimilarityEncoder instead of
 OneHotEncoder helps a lot in improving the cross validation score!
 
 
-**Total running time of the script:** ( 0 minutes  5.297 seconds)
+**Total running time of the script:** ( 0 minutes  5.718 seconds)
 
 
 .. _sphx_glr_download_auto_examples_03_fit_predict_plot_midwest_survey.py:
