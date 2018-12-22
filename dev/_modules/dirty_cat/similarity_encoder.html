@@ -90,6 +90,7 @@
 <span></span><span class="kn">import</span> <span class="nn">warnings</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">joblib</span> <span class="k">import</span> <span class="n">Parallel</span><span class="p">,</span> <span class="n">delayed</span>
 <span class="kn">from</span> <span class="nn">scipy</span> <span class="k">import</span> <span class="n">sparse</span>
 <span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="k">import</span> <span class="n">KMeans</span>
 <span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="k">import</span> <span class="n">CountVectorizer</span><span class="p">,</span> <span class="n">HashingVectorizer</span>
@@ -98,6 +99,45 @@
 <span class="kn">from</span> <span class="nn">sklearn.utils</span> <span class="k">import</span> <span class="n">check_random_state</span>
 
 <span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">string_distances</span>
+<span class="kn">from</span> <span class="nn">.string_distances</span> <span class="k">import</span> <span class="n">get_ngram_count</span><span class="p">,</span> <span class="n">preprocess</span>
+
+
+<span class="k">def</span> <span class="nf">_ngram_similarity_one_sample_inplace</span><span class="p">(</span>
+        <span class="n">x_count_vector</span><span class="p">,</span> <span class="n">vocabulary_count_matrix</span><span class="p">,</span> <span class="n">str_x</span><span class="p">,</span>
+        <span class="n">vocabulary_ngram_counts</span><span class="p">,</span> <span class="n">se_dict</span><span class="p">,</span> <span class="n">unq_X</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">ngram_range</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Update inplace a dict of similarities between a string and a vocabulary</span>
+
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    x_count_vector: np.array</span>
+<span class="sd">        count vector of the sample based on the ngrams of the vocabulary</span>
+<span class="sd">    vocabulary_count_matrix: np.array</span>
+<span class="sd">        count vector of the vocabulary based on its ngrams</span>
+<span class="sd">    str_x: str</span>
+<span class="sd">        the actual sample string</span>
+<span class="sd">    vocabulary_ngram_counts: np.array</span>
+<span class="sd">        number of ngrams for each unique element of the vocabulary</span>
+<span class="sd">    se_dict: dict</span>
+<span class="sd">        dictionary containing the similarities for each x in unq_X</span>
+<span class="sd">    unq_X: np.array</span>
+<span class="sd">        the arrayes of all unique samples</span>
+<span class="sd">    i: str</span>
+<span class="sd">        the index of x_count_vector in the csr count matrix</span>
+<span class="sd">    ngram_range: tuple</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">nonzero_idx</span> <span class="o">=</span> <span class="n">x_count_vector</span><span class="o">.</span><span class="n">indices</span>
+    <span class="n">nonzero_vals</span> <span class="o">=</span> <span class="n">x_count_vector</span><span class="o">.</span><span class="n">data</span>
+
+    <span class="n">samegrams</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">vocabulary_count_matrix</span><span class="p">[:,</span> <span class="n">nonzero_idx</span><span class="p">]</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span><span class="n">nonzero_vals</span><span class="p">))</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span>
+            <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+
+    <span class="n">allgrams</span> <span class="o">=</span> <span class="n">get_ngram_count</span><span class="p">(</span>
+        <span class="n">str_x</span><span class="p">,</span> <span class="n">ngram_range</span><span class="p">)</span> <span class="o">+</span> <span class="n">vocabulary_ngram_counts</span> <span class="o">-</span> <span class="n">samegrams</span>
+    <span class="n">similarity</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="n">samegrams</span><span class="p">,</span> <span class="n">allgrams</span><span class="p">)</span>
+    <span class="n">se_dict</span><span class="p">[</span><span class="n">unq_X</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">similarity</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
 
 
 <span class="k">def</span> <span class="nf">ngram_similarity</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">cats</span><span class="p">,</span> <span class="n">ngram_range</span><span class="p">,</span> <span class="n">hashing_dim</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">):</span>
@@ -250,6 +290,9 @@
 <span class="sd">        Must be a positive non null integer.</span>
 <span class="sd">    random_state: either an int used as a seed, a RandomState instance or None.</span>
 <span class="sd">        Useful when `k-means` strategy is used.</span>
+<span class="sd">    n_jobs: int, optional</span>
+<span class="sd">        maximum number of processes used to compute similarity matrices. Used</span>
+<span class="sd">        only if ``fast=True`` in ``SimilarityEncoder.transform``</span>
 
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
@@ -270,7 +313,8 @@
 
 <div class="viewcode-block" id="SimilarityEncoder.__init__"><a class="viewcode-back" href="../../generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">similarity</span><span class="o">=</span><span class="s1">&#39;ngram&#39;</span><span class="p">,</span> <span class="n">ngram_range</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
                  <span class="n">categories</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span>
-                 <span class="n">handle_unknown</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">hashing_dim</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">n_prototypes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+                 <span class="n">handle_unknown</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">hashing_dim</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">n_prototypes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">categories</span> <span class="o">=</span> <span class="n">categories</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span> <span class="o">=</span> <span class="n">dtype</span>
@@ -280,6 +324,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">hashing_dim</span> <span class="o">=</span> <span class="n">hashing_dim</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">n_prototypes</span> <span class="o">=</span> <span class="n">n_prototypes</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">random_state</span> <span class="o">=</span> <span class="n">random_state</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_jobs</span> <span class="o">=</span> <span class="n">n_jobs</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">categories</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
             <span class="k">assert</span> <span class="n">categories</span> <span class="ow">in</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="s1">&#39;k-means&#39;</span><span class="p">,</span> <span class="s1">&#39;most_frequent&#39;</span><span class="p">]</span>
@@ -353,9 +398,38 @@
                         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">categories_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">categories</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">))</span>
 
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">similarity</span> <span class="o">==</span> <span class="s1">&#39;ngram&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">vectorizers_</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">vocabulary_count_matrices_</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">vocabulary_ngram_counts_</span> <span class="o">=</span> <span class="p">[]</span>
+
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_features</span><span class="p">):</span>
+                <span class="n">vectorizer</span> <span class="o">=</span> <span class="n">CountVectorizer</span><span class="p">(</span>
+                    <span class="n">analyzer</span><span class="o">=</span><span class="s1">&#39;char&#39;</span><span class="p">,</span> <span class="n">ngram_range</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ngram_range</span><span class="p">,</span>
+                    <span class="n">dtype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">strip_accents</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+
+                <span class="c1"># Store the raw-categories (and not the preprocessed</span>
+                <span class="c1"># categories) but use the preprocessed categories to compute</span>
+                <span class="c1"># the stored count_matrices. This done to preserve the</span>
+                <span class="c1"># equivalency between the user input and the categories_</span>
+                <span class="c1"># attribute of the SimilarityEncoder, while being compliant</span>
+                <span class="c1"># with the CountVectorizer preprocessing steps.</span>
+                <span class="n">preprocessed_categories</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span>
+                    <span class="n">preprocess</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">categories_</span><span class="p">[</span><span class="n">i</span><span class="p">])),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
+
+                <span class="n">vocabulary_count_matrix</span> <span class="o">=</span> <span class="n">vectorizer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span>
+                    <span class="n">preprocessed_categories</span><span class="p">)</span>
+
+                <span class="n">vocabulary_ngram_count</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">get_ngram_count</span><span class="p">(</span>
+                    <span class="n">preprocess</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">ngram_range</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">categories_</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">vectorizers_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vectorizer</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">vocabulary_count_matrices_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vocabulary_count_matrix</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">vocabulary_ngram_counts_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vocabulary_ngram_count</span><span class="p">)</span>
+
         <span class="k">return</span> <span class="bp">self</span></div>
 
-<div class="viewcode-block" id="SimilarityEncoder.transform"><a class="viewcode-back" href="../../generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder.transform">[docs]</a>    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+<div class="viewcode-block" id="SimilarityEncoder.transform"><a class="viewcode-back" href="../../generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder.transform">[docs]</a>    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">fast</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Transform X using specified encoding scheme.</span>
 
 <span class="sd">        Parameters</span>
@@ -405,14 +479,64 @@
             <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="n">total_length</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
             <span class="n">last</span> <span class="o">=</span> <span class="mi">0</span>
             <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">cats</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">categories_</span><span class="p">):</span>
-                <span class="n">out</span><span class="p">[:,</span> <span class="n">last</span><span class="p">:</span><span class="n">last</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">cats</span><span class="p">)]</span> <span class="o">=</span> <span class="n">ngram_similarity</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="n">j</span><span class="p">],</span> <span class="n">cats</span><span class="p">,</span>
-                                                                 <span class="n">ngram_range</span><span class="o">=</span><span class="p">(</span><span class="n">min_n</span><span class="p">,</span> <span class="n">max_n</span><span class="p">),</span>
-                                                                 <span class="n">hashing_dim</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">hashing_dim</span><span class="p">,</span>
-                                                                 <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">fast</span><span class="p">:</span>
+                    <span class="n">encoded_Xj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ngram_similarity_fast</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="n">j</span><span class="p">],</span> <span class="n">j</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">encoded_Xj</span> <span class="o">=</span> <span class="n">ngram_similarity</span><span class="p">(</span>
+                        <span class="n">X</span><span class="p">[:,</span> <span class="n">j</span><span class="p">],</span> <span class="n">cats</span><span class="p">,</span> <span class="n">ngram_range</span><span class="o">=</span><span class="p">(</span><span class="n">min_n</span><span class="p">,</span> <span class="n">max_n</span><span class="p">),</span>
+                        <span class="n">hashing_dim</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">hashing_dim</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+
+                <span class="n">out</span><span class="p">[:,</span> <span class="n">last</span><span class="p">:</span><span class="n">last</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">cats</span><span class="p">)]</span> <span class="o">=</span> <span class="n">encoded_Xj</span>
                 <span class="n">last</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">cats</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">out</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Unknown similarity: &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">similarity</span><span class="p">)</span></div></div>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Unknown similarity: &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">similarity</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_ngram_similarity_fast</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">col_idx</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Fast computation of ngram similarity, for SimilarityEncoder.</span>
+
+
+<span class="sd">        SimilarityEncoder.transform uses the count vectors of the vocabulary in</span>
+<span class="sd">        its computations. In ngram_similarity, these count vectors have to be</span>
+<span class="sd">        re-computed each time, which can slow down the execution. In this</span>
+<span class="sd">        method, the count vectors are recovered from the</span>
+<span class="sd">        ``vocabulary_count_matrices`` attribute of the SimilarityEncoder,</span>
+<span class="sd">        speeding up the execution.</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        X: np.array, list</span>
+<span class="sd">            observations being transformed.</span>
+<span class="sd">        col_idx: int</span>
+<span class="sd">            the column index of X in the original feature matrix.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">min_n</span><span class="p">,</span> <span class="n">max_n</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ngram_range</span>
+        <span class="n">vectorizer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">vectorizers_</span><span class="p">[</span><span class="n">col_idx</span><span class="p">]</span>
+
+        <span class="n">unq_X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+        <span class="n">unq_X_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">preprocess</span><span class="p">,</span> <span class="n">unq_X</span><span class="p">)))</span>
+
+        <span class="n">X_count_matrix</span> <span class="o">=</span> <span class="n">vectorizer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">unq_X_</span><span class="p">)</span>
+        <span class="n">vocabulary_count_matrix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">vocabulary_count_matrices_</span><span class="p">[</span><span class="n">col_idx</span><span class="p">]</span>
+        <span class="n">vocabulary_ngram_count</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">vocabulary_ngram_counts_</span><span class="p">[</span><span class="n">col_idx</span><span class="p">])</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">se_dict</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="n">Parallel</span><span class="p">(</span><span class="n">n_jobs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_jobs</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="s1">&#39;threading&#39;</span><span class="p">)(</span><span class="n">delayed</span><span class="p">(</span>
+            <span class="n">_ngram_similarity_one_sample_inplace</span><span class="p">)(</span>
+            <span class="n">X_count_vector</span><span class="p">,</span> <span class="n">vocabulary_count_matrix</span><span class="p">,</span> <span class="n">x_str</span><span class="p">,</span>
+            <span class="n">vocabulary_ngram_count</span><span class="p">,</span> <span class="n">se_dict</span><span class="p">,</span> <span class="n">unq_X</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ngram_range</span><span class="p">)</span> <span class="k">for</span>
+            <span class="n">X_count_vector</span><span class="p">,</span> <span class="n">x_str</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
+                <span class="n">X_count_matrix</span><span class="p">,</span> <span class="n">unq_X_</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">unq_X</span><span class="p">))))</span>
+
+        <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span>
+            <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="n">vocabulary_count_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">dtype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">out_row</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">out</span><span class="p">):</span>
+            <span class="n">out_row</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">se_dict</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">nan_to_num</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
 </pre></div>
 
           </div>
