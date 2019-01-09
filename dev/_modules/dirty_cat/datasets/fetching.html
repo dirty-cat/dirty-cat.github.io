@@ -126,7 +126,8 @@
 <span class="c1"># a DatasetInfo Object is basically a tuple of UrlInfos object</span>
 <span class="c1"># an UrlInfo object is composed of an url and the filenames contained</span>
 <span class="c1"># in the request content</span>
-<span class="n">UrlInfo</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;UrlInfo&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;url&#39;</span><span class="p">,</span> <span class="s1">&#39;filenames&#39;</span><span class="p">,</span> <span class="s1">&#39;uncompress&#39;</span><span class="p">])</span>
+<span class="n">UrlInfo</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span>
+    <span class="s1">&#39;UrlInfo&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;url&#39;</span><span class="p">,</span> <span class="s1">&#39;filenames&#39;</span><span class="p">,</span> <span class="s1">&#39;uncompress&#39;</span><span class="p">,</span> <span class="s1">&#39;encoding&#39;</span><span class="p">])</span>
 
 <span class="n">ROAD_SAFETY_CONFIG</span> <span class="o">=</span> <span class="n">DatasetInfo</span><span class="p">(</span>
     <span class="n">name</span><span class="o">=</span><span class="s1">&#39;road_safety&#39;</span><span class="p">,</span>
@@ -139,12 +140,12 @@
                 <span class="s2">&quot;Vehicles_2015.csv&quot;</span><span class="p">,</span>
                 <span class="s2">&quot;Accidents_2015.csv&quot;</span>
             <span class="p">),</span>
-            <span class="n">uncompress</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+            <span class="n">uncompress</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">),</span>
         <span class="n">UrlInfo</span><span class="p">(</span>
             <span class="n">url</span><span class="o">=</span><span class="s2">&quot;http://data.dft.gov.uk/road-accidents-safety-data/&quot;</span>
                 <span class="s2">&quot;MakeModel2015.zip&quot;</span><span class="p">,</span>
             <span class="n">filenames</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;2015_Make_Model.csv&quot;</span><span class="p">,),</span>
-            <span class="n">uncompress</span><span class="o">=</span><span class="kc">True</span>
+            <span class="n">uncompress</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span>
         <span class="p">)</span>
     <span class="p">),</span>
     <span class="n">main_file</span><span class="o">=</span><span class="s2">&quot;Accidents_2015.csv&quot;</span><span class="p">,</span>  <span class="c1"># for consistency, all files are relevant,</span>
@@ -157,7 +158,7 @@
     <span class="p">(</span>
         <span class="n">UrlInfo</span><span class="p">(</span>
             <span class="n">url</span><span class="o">=</span><span class="s1">&#39;http://download.cms.gov/openpayments/PGYR13_P011718.ZIP&#39;</span><span class="p">,</span>
-            <span class="n">filenames</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">uncompress</span><span class="o">=</span><span class="kc">True</span>
+            <span class="n">filenames</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">uncompress</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span>
         <span class="p">),</span>
     <span class="p">),</span>
     <span class="n">main_file</span><span class="o">=</span><span class="s1">&#39;OP_DTL_GNRL_PGYR2013_P01172018.csv&#39;</span><span class="p">,</span>  <span class="c1"># same</span>
@@ -172,7 +173,7 @@
                 <span class="s2">&quot;master/region-survey/FiveThirtyEight_Midwest_Survey.csv&quot;</span><span class="p">,</span>
             <span class="n">filenames</span><span class="o">=</span><span class="p">(</span>
                 <span class="s2">&quot;FiveThirtyEight_Midwest_Survey.csv&quot;</span><span class="p">,</span>
-            <span class="p">),</span> <span class="n">uncompress</span><span class="o">=</span><span class="kc">False</span>
+            <span class="p">),</span> <span class="n">uncompress</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span>
         <span class="p">),</span>
     <span class="p">),</span>
     <span class="n">main_file</span><span class="o">=</span><span class="s2">&quot;FiveThirtyEight_Midwest_Survey.csv&quot;</span><span class="p">,</span>
@@ -188,7 +189,7 @@
             <span class="n">filenames</span><span class="o">=</span><span class="p">(</span>
                 <span class="s2">&quot;Medicare_Provider_Charge_Inpatient_DRG100_FY2011.csv&quot;</span><span class="p">,</span>
             <span class="p">),</span>
-            <span class="n">uncompress</span><span class="o">=</span><span class="kc">True</span>
+            <span class="n">uncompress</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span>
 
         <span class="p">),</span>
     <span class="p">),</span>
@@ -205,7 +206,7 @@
             <span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://data.montgomerycountymd.gov/api/views/&quot;</span>
                 <span class="s2">&quot;xj3h-s2i7/rows.csv?accessType=DOWNLOAD&quot;</span><span class="p">,</span>
             <span class="n">filenames</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;rows.csv&quot;</span><span class="p">,),</span>
-            <span class="n">uncompress</span><span class="o">=</span><span class="kc">False</span>
+            <span class="n">uncompress</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span>
         <span class="p">),</span>
     <span class="p">),</span>
     <span class="n">main_file</span><span class="o">=</span><span class="s2">&quot;rows.csv&quot;</span><span class="p">,</span>
@@ -220,17 +221,51 @@
                 <span class="s2">&quot;4mse-ku6q/rows.csv?accessType=DOWNLOAD&quot;</span><span class="p">,</span>
             <span class="n">filenames</span><span class="o">=</span><span class="p">(</span>
                 <span class="s2">&quot;rows.csv&quot;</span><span class="p">,</span>
-            <span class="p">),</span> <span class="n">uncompress</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="p">),</span> <span class="n">uncompress</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span>
         <span class="p">),</span>
     <span class="p">),</span>
     <span class="n">main_file</span><span class="o">=</span><span class="s2">&quot;rows.csv&quot;</span><span class="p">,</span>
     <span class="n">source</span><span class="o">=</span><span class="s2">&quot;https://catalog.data.gov/dataset/ traffic-violations-56dda&quot;</span>
 <span class="p">)</span>
+
+<span class="n">DRUG_DIRECTORY_CONFIG</span> <span class="o">=</span> <span class="n">DatasetInfo</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;drug_directory&#39;</span><span class="p">,</span>
+    <span class="n">urlinfos</span><span class="o">=</span><span class="p">(</span>
+        <span class="n">UrlInfo</span><span class="p">(</span>
+            <span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://www.accessdata.fda.gov/cder/ndctext.zip&quot;</span><span class="p">,</span>
+            <span class="n">filenames</span><span class="o">=</span><span class="p">(</span>
+                <span class="s2">&quot;product.txt&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;package.txt&quot;</span><span class="p">,</span>
+            <span class="p">),</span> <span class="n">uncompress</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;latin-1&#39;</span>
+        <span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">main_file</span><span class="o">=</span><span class="s2">&quot;product.txt&quot;</span><span class="p">,</span>
+    <span class="n">source</span><span class="o">=</span><span class="s2">&quot;https://www.fda.gov/Drugs/InformationOnDrugs/ucm142438.htm&quot;</span>
+<span class="p">)</span>
+
 <span class="n">FOLDER_PATH</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">realpath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))</span>
 
 
 <span class="k">class</span> <span class="nc">FileChangedError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span>
+
+
+<span class="k">def</span> <span class="nf">_change_file_encoding</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">initial_encoding</span><span class="p">,</span> <span class="n">target_encoding</span><span class="p">):</span>
+
+    <span class="n">temp_file_name</span> <span class="o">=</span> <span class="n">file_name</span> <span class="o">+</span> <span class="s1">&#39;.temp&#39;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="n">initial_encoding</span><span class="p">)</span> <span class="k">as</span> <span class="n">source</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">temp_file_name</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="n">target_encoding</span><span class="p">)</span> <span class="k">as</span> <span class="n">target</span><span class="p">:</span>
+                <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+                    <span class="n">contents</span> <span class="o">=</span> <span class="n">source</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">100000</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">contents</span><span class="p">:</span>
+                        <span class="k">break</span>
+                    <span class="n">target</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">contents</span><span class="p">)</span>
+        <span class="n">shutil</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">temp_file_name</span><span class="p">,</span> <span class="n">file_name</span><span class="p">)</span>
+
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">temp_file_name</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">unlink</span><span class="p">(</span><span class="n">temp_file_name</span><span class="p">)</span>
 
 
 <span class="k">def</span> <span class="nf">_download_and_write</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">show_progress</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
@@ -272,7 +307,8 @@
     <span class="n">data_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">get_data_dir</span><span class="p">(),</span> <span class="n">configfile</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">urlinfo</span> <span class="ow">in</span> <span class="n">configfile</span><span class="o">.</span><span class="n">urlinfos</span><span class="p">:</span>
         <span class="n">_fetch_file</span><span class="p">(</span><span class="n">urlinfo</span><span class="o">.</span><span class="n">url</span><span class="p">,</span> <span class="n">data_dir</span><span class="p">,</span> <span class="n">filenames</span><span class="o">=</span><span class="n">urlinfo</span><span class="o">.</span><span class="n">filenames</span><span class="p">,</span>
-                    <span class="n">uncompress</span><span class="o">=</span><span class="n">urlinfo</span><span class="o">.</span><span class="n">uncompress</span><span class="p">,</span> <span class="n">show_progress</span><span class="o">=</span><span class="n">show_progress</span><span class="p">)</span>
+                    <span class="n">uncompress</span><span class="o">=</span><span class="n">urlinfo</span><span class="o">.</span><span class="n">uncompress</span><span class="p">,</span> <span class="n">show_progress</span><span class="o">=</span><span class="n">show_progress</span><span class="p">,</span>
+                    <span class="n">initial_encoding</span><span class="o">=</span><span class="n">urlinfo</span><span class="o">.</span><span class="n">encoding</span><span class="p">)</span>
     <span class="c1"># returns the absolute path of the csv file where the data is</span>
     <span class="n">result_dict</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;The downloaded data contains the </span><span class="si">{}</span><span class="s1"> dataset.</span><span class="se">\n</span><span class="s1">&#39;</span>
@@ -284,7 +320,8 @@
 
 
 <span class="k">def</span> <span class="nf">_fetch_file</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data_dir</span><span class="p">,</span> <span class="n">filenames</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                <span class="n">md5sum</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">uncompress</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">show_progress</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+                <span class="n">md5sum</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">uncompress</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">show_progress</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">initial_encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;fetches the content of a requested url</span>
 
 <span class="sd">    IF the downloaded file is compressed, then the fetcher</span>
@@ -378,6 +415,10 @@
     <span class="k">if</span> <span class="n">_check_if_exists</span><span class="p">(</span><span class="n">full_name</span><span class="p">,</span> <span class="n">remove</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="ow">and</span> <span class="n">uncompress</span><span class="p">:</span>
         <span class="n">_uncompress_file</span><span class="p">(</span><span class="n">full_name</span><span class="p">,</span> <span class="n">delete_archive</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
+    <span class="k">if</span> <span class="n">download</span> <span class="ow">and</span> <span class="p">(</span><span class="n">initial_encoding</span> <span class="o">!=</span> <span class="s1">&#39;utf-8&#39;</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">data_dir</span><span class="p">):</span>
+            <span class="n">_change_file_encoding</span><span class="p">(</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="n">file</span><span class="p">),</span> <span class="n">initial_encoding</span><span class="p">,</span> <span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">full_name</span>
 
 
@@ -512,6 +553,27 @@
 <span class="sd">    https://catalog.data.gov/dataset/traffic-violations-56dda</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">fetch_dataset</span><span class="p">(</span><span class="n">TRAFFIC_VIOLATIONS_CONFIG</span><span class="p">,</span> <span class="n">show_progress</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
+
+
+<span class="k">def</span> <span class="nf">fetch_drug_directory</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;fetches the drug directory dataset</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict</span>
+<span class="sd">        a dictionary containing:</span>
+
+<span class="sd">            - a short description of the dataset (under the ``description``</span>
+<span class="sd">              key)</span>
+<span class="sd">            - an absolute path leading to the csv file where the data is stored</span>
+<span class="sd">              locally (under the ``path`` key)</span>
+
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    https://www.fda.gov/Drugs/InformationOnDrugs/ucm142438.htm</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">fetch_dataset</span><span class="p">(</span><span class="n">DRUG_DIRECTORY_CONFIG</span><span class="p">,</span> <span class="n">show_progress</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 
           </div>

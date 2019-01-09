@@ -110,9 +110,7 @@
 <span class="kn">from</span> <span class="nn">.base</span> <span class="k">import</span> <span class="n">_transform_selected</span>
 <span class="kn">from</span> <span class="nn">.label</span> <span class="k">import</span> <span class="n">_encode</span><span class="p">,</span> <span class="n">_encode_check_unknown</span>
 
-
 <span class="nb">range</span> <span class="o">=</span> <span class="n">six</span><span class="o">.</span><span class="n">moves</span><span class="o">.</span><span class="n">range</span>
-
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s1">&#39;OneHotEncoder&#39;</span><span class="p">,</span>
@@ -171,7 +169,7 @@
                 <span class="n">cats</span> <span class="o">=</span> <span class="n">_encode</span><span class="p">(</span><span class="n">Xi</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">cats</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_categories</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_unknown</span> <span class="o">==</span> <span class="s1">&#39;error&#39;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">handle_unknown</span> <span class="o">==</span> <span class="s1">&#39;error&#39;</span><span class="p">:</span>
                     <span class="n">diff</span> <span class="o">=</span> <span class="n">_encode_check_unknown</span><span class="p">(</span><span class="n">Xi</span><span class="p">,</span> <span class="n">cats</span><span class="p">)</span>
                     <span class="k">if</span> <span class="n">diff</span><span class="p">:</span>
                         <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Found unknown categories </span><span class="si">{0}</span><span class="s2"> in column </span><span class="si">{1}</span><span class="s2">&quot;</span>
@@ -201,7 +199,14 @@
                     <span class="c1"># continue `The rows are marked `X_mask` and will be</span>
                     <span class="c1"># removed later.</span>
                     <span class="n">X_mask</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">valid_mask</span>
-                    <span class="n">Xi</span> <span class="o">=</span> <span class="n">Xi</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+                    <span class="c1"># cast Xi into the largest string type necessary</span>
+                    <span class="c1"># to handle different lengths of numpy strings</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">categories_</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">kind</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;U&#39;</span><span class="p">,</span> <span class="s1">&#39;S&#39;</span><span class="p">)</span>
+                            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">categories_</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">itemsize</span> <span class="o">&gt;</span> <span class="n">Xi</span><span class="o">.</span><span class="n">itemsize</span><span class="p">):</span>
+                        <span class="n">Xi</span> <span class="o">=</span> <span class="n">Xi</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">categories_</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">Xi</span> <span class="o">=</span> <span class="n">Xi</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
                     <span class="n">Xi</span><span class="p">[</span><span class="o">~</span><span class="n">valid_mask</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">categories_</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
             <span class="n">_</span><span class="p">,</span> <span class="n">encoded</span> <span class="o">=</span> <span class="n">_encode</span><span class="p">(</span><span class="n">Xi</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">categories_</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">encode</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
             <span class="n">X_int</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">encoded</span>
@@ -234,7 +239,7 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    categories : &#39;auto&#39; or a list of lists/arrays of values.</span>
+<span class="sd">    categories : &#39;auto&#39; or a list of lists/arrays of values, default=&#39;auto&#39;.</span>
 <span class="sd">        Categories (unique values) per feature:</span>
 
 <span class="sd">        - &#39;auto&#39; : Determine categories automatically from the training data.</span>
@@ -251,7 +256,7 @@
 <span class="sd">    dtype : number type, default=np.float</span>
 <span class="sd">        Desired dtype of output.</span>
 
-<span class="sd">    handle_unknown : &#39;error&#39; (default) or &#39;ignore&#39;</span>
+<span class="sd">    handle_unknown : &#39;error&#39; or &#39;ignore&#39;, default=&#39;error&#39;.</span>
 <span class="sd">        Whether to raise an error or ignore if an unknown categorical feature</span>
 <span class="sd">        is present during transform (default is to raise). When this parameter</span>
 <span class="sd">        is set to &#39;ignore&#39; and an unknown category is encountered during</span>
@@ -259,7 +264,7 @@
 <span class="sd">        will be all zeros. In the inverse transform, an unknown category</span>
 <span class="sd">        will be denoted as None.</span>
 
-<span class="sd">    n_values : &#39;auto&#39;, int or array of ints</span>
+<span class="sd">    n_values : &#39;auto&#39;, int or array of ints, default=&#39;auto&#39;</span>
 <span class="sd">        Number of values per feature.</span>
 
 <span class="sd">        - &#39;auto&#39; : determine value range from training data.</span>
@@ -273,10 +278,10 @@
 <span class="sd">            The `n_values` keyword was deprecated in version 0.20 and will</span>
 <span class="sd">            be removed in 0.22. Use `categories` instead.</span>
 
-<span class="sd">    categorical_features : &quot;all&quot; or array of indices or mask</span>
+<span class="sd">    categorical_features : &#39;all&#39; or array of indices or mask, default=&#39;all&#39;</span>
 <span class="sd">        Specify what features are treated as categorical.</span>
 
-<span class="sd">        - &#39;all&#39; (default): All features are treated as categorical.</span>
+<span class="sd">        - &#39;all&#39;: All features are treated as categorical.</span>
 <span class="sd">        - array of indices: Array of categorical feature indices.</span>
 <span class="sd">        - mask: Array of length n_features and with dtype=bool.</span>
 
@@ -393,8 +398,8 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n_values_</span>
 
     <span class="k">def</span> <span class="nf">_handle_deprecations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
-
         <span class="c1"># internal version of the attributes to handle deprecations</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_n_values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_values</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_categories</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_categories&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_categorical_features</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_categorical_features&#39;</span><span class="p">,</span>
                                              <span class="kc">None</span><span class="p">)</span>
@@ -451,7 +456,7 @@
                     <span class="p">)</span>
                     <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="ne">FutureWarning</span><span class="p">)</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_legacy_mode</span> <span class="o">=</span> <span class="kc">True</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">n_values</span> <span class="o">=</span> <span class="s1">&#39;auto&#39;</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_n_values</span> <span class="o">=</span> <span class="s1">&#39;auto&#39;</span>
 
         <span class="c1"># if user specified categorical_features -&gt; always use legacy mode</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">categorical_features</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -472,6 +477,12 @@
                     <span class="s2">&quot;The &#39;categorical_features&#39; keyword is deprecated in &quot;</span>
                     <span class="s2">&quot;version 0.20 and will be removed in 0.22. You can &quot;</span>
                     <span class="s2">&quot;use the ColumnTransformer instead.&quot;</span><span class="p">,</span> <span class="ne">DeprecationWarning</span><span class="p">)</span>
+                <span class="c1"># Set categories_ to empty list if no categorical columns exist</span>
+                <span class="n">n_features</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">sel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n_features</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+                <span class="n">sel</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">categorical_features</span><span class="p">)]</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">if</span> <span class="nb">sum</span><span class="p">(</span><span class="n">sel</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">categories_</span> <span class="o">=</span> <span class="p">[]</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_legacy_mode</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_categorical_features</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">categorical_features</span>
         <span class="k">else</span><span class="p">:</span>
@@ -510,20 +521,24 @@
         <span class="n">dtype</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="s1">&#39;dtype&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="n">X</span> <span class="o">=</span> <span class="n">check_array</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">X</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;X needs to contain only non-negative integers.&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;OneHotEncoder in legacy mode cannot handle &quot;</span>
+                             <span class="s2">&quot;categories encoded as negative integers. &quot;</span>
+                             <span class="s2">&quot;Please set categories=&#39;auto&#39; explicitly to &quot;</span>
+                             <span class="s2">&quot;be able to use arbitrary integer values as &quot;</span>
+                             <span class="s2">&quot;category identifiers.&quot;</span><span class="p">)</span>
         <span class="n">n_samples</span><span class="p">,</span> <span class="n">n_features</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_values</span><span class="p">,</span> <span class="n">six</span><span class="o">.</span><span class="n">string_types</span><span class="p">)</span> <span class="ow">and</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">n_values</span> <span class="o">==</span> <span class="s1">&#39;auto&#39;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_n_values</span><span class="p">,</span> <span class="n">six</span><span class="o">.</span><span class="n">string_types</span><span class="p">)</span> <span class="ow">and</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_n_values</span> <span class="o">==</span> <span class="s1">&#39;auto&#39;</span><span class="p">):</span>
             <span class="n">n_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_values</span><span class="p">,</span> <span class="n">numbers</span><span class="o">.</span><span class="n">Integral</span><span class="p">):</span>
-            <span class="k">if</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_values</span><span class="p">)</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_n_values</span><span class="p">,</span> <span class="n">numbers</span><span class="o">.</span><span class="n">Integral</span><span class="p">):</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n_values</span><span class="p">)</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Feature out of bounds for n_values=</span><span class="si">%d</span><span class="s2">&quot;</span>
-                                 <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_values</span><span class="p">)</span>
+                                 <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n_values</span><span class="p">)</span>
             <span class="n">n_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">n_features</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">)</span>
-            <span class="n">n_values</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_values</span><span class="p">)</span>
+            <span class="n">n_values</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_n_values</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="n">n_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_values</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+                <span class="n">n_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_n_values</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
             <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span>
                 <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Wrong type for parameter `n_values`. Expected&quot;</span>
                                 <span class="s2">&quot; &#39;auto&#39;, int or array of ints, got </span><span class="si">%r</span><span class="s2">&quot;</span>
@@ -547,8 +562,8 @@
                                 <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">n_samples</span><span class="p">,</span> <span class="n">indices</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span>
                                 <span class="n">dtype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span><span class="o">.</span><span class="n">tocsr</span><span class="p">()</span>
 
-        <span class="k">if</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_values</span><span class="p">,</span> <span class="n">six</span><span class="o">.</span><span class="n">string_types</span><span class="p">)</span> <span class="ow">and</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">n_values</span> <span class="o">==</span> <span class="s1">&#39;auto&#39;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_n_values</span><span class="p">,</span> <span class="n">six</span><span class="o">.</span><span class="n">string_types</span><span class="p">)</span> <span class="ow">and</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_n_values</span> <span class="o">==</span> <span class="s1">&#39;auto&#39;</span><span class="p">):</span>
             <span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">out</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">0</span>
             <span class="n">active_features</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">mask</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
             <span class="n">out</span> <span class="o">=</span> <span class="n">out</span><span class="p">[:,</span> <span class="n">active_features</span><span class="p">]</span>
@@ -593,7 +608,11 @@
         <span class="sd">&quot;&quot;&quot;Assumes X contains only categorical features.&quot;&quot;&quot;</span>
         <span class="n">X</span> <span class="o">=</span> <span class="n">check_array</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">X</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;X needs to contain only non-negative integers.&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;OneHotEncoder in legacy mode cannot handle &quot;</span>
+                             <span class="s2">&quot;categories encoded as negative integers. &quot;</span>
+                             <span class="s2">&quot;Please set categories=&#39;auto&#39; explicitly to &quot;</span>
+                             <span class="s2">&quot;be able to use arbitrary integer values as &quot;</span>
+                             <span class="s2">&quot;category identifiers.&quot;</span><span class="p">)</span>
         <span class="n">n_samples</span><span class="p">,</span> <span class="n">n_features</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
 
         <span class="n">indices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_feature_indices_</span>
@@ -623,8 +642,8 @@
         <span class="n">out</span> <span class="o">=</span> <span class="n">sparse</span><span class="o">.</span><span class="n">coo_matrix</span><span class="p">((</span><span class="n">data</span><span class="p">,</span> <span class="p">(</span><span class="n">row_indices</span><span class="p">,</span> <span class="n">column_indices</span><span class="p">)),</span>
                                 <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">n_samples</span><span class="p">,</span> <span class="n">indices</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span>
                                 <span class="n">dtype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span><span class="o">.</span><span class="n">tocsr</span><span class="p">()</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_values</span><span class="p">,</span> <span class="n">six</span><span class="o">.</span><span class="n">string_types</span><span class="p">)</span> <span class="ow">and</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">n_values</span> <span class="o">==</span> <span class="s1">&#39;auto&#39;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_n_values</span><span class="p">,</span> <span class="n">six</span><span class="o">.</span><span class="n">string_types</span><span class="p">)</span> <span class="ow">and</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_n_values</span> <span class="o">==</span> <span class="s1">&#39;auto&#39;</span><span class="p">):</span>
             <span class="n">out</span> <span class="o">=</span> <span class="n">out</span><span class="p">[:,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_active_features_</span><span class="p">]</span>
 
         <span class="k">return</span> <span class="n">out</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sparse</span> <span class="k">else</span> <span class="n">out</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
@@ -672,6 +691,7 @@
 <span class="sd">        X_out : sparse matrix if sparse=True else a 2-d array</span>
 <span class="sd">            Transformed input.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">check_is_fitted</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;categories_&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_legacy_mode</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">_transform_selected</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_legacy_transform</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span>
                                        <span class="bp">self</span><span class="o">.</span><span class="n">_categorical_features</span><span class="p">,</span>
@@ -764,7 +784,7 @@
         <span class="n">cats</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">categories_</span>
         <span class="k">if</span> <span class="n">input_features</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">input_features</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;x</span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">cats</span><span class="p">))]</span>
-        <span class="k">elif</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">input_features</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">categories_</span><span class="p">)):</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">input_features</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">categories_</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                 <span class="s2">&quot;input_features should have length equal to number of &quot;</span>
                 <span class="s2">&quot;features (</span><span class="si">{}</span><span class="s2">), got </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">categories_</span><span class="p">),</span>

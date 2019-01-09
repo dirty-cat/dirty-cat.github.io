@@ -1,0 +1,651 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Fitting scalable, non-linear models on data with dirty categories &#8212; dirty_cat 0.0.5 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.0.5',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="dirty_cat.SimilarityEncoder" href="../generated/dirty_cat.SimilarityEncoder.html" />
+    <link rel="prev" title="Scalability considerations for similarity encoding" href="04_dimension_reduction_and_performance.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/dirty_cat.svg" alt="Logo"/>
+    
+    <h1 class="logo logo-name">dirty_cat</h1>
+    
+  </a>
+</p>
+
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=dirty-cat&repo=dirty_cat&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<hr />
+<ul>
+    <li class="toctree-l1"><a href="../index.html#using-dirty-cat">Usage</a></li>
+    <li class="toctree-l1"><a href="../index.html#api-documentation">API</a></li>
+    <li class="toctree-l1"><a href="../index.html#about">About</a></li>
+</ul><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="04_dimension_reduction_and_performance.html" title="previous chapter">Scalability considerations for similarity encoding</a></li>
+      <li>Next: <a href="../generated/dirty_cat.SimilarityEncoder.html" title="next chapter"><code class="docutils literal"><span class="pre">dirty_cat</span></code>.SimilarityEncoder</a></li>
+  </ul></li>
+</ul>
+</div>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Click <a class="reference internal" href="#sphx-glr-download-auto-examples-05-scaling-non-linear-models-py"><span class="std std-ref">here</span></a> to download the full example code</p>
+</div>
+<div class="sphx-glr-example-title section" id="fitting-scalable-non-linear-models-on-data-with-dirty-categories">
+<span id="sphx-glr-auto-examples-05-scaling-non-linear-models-py"></span><h1>Fitting scalable, non-linear models on data with dirty categories<a class="headerlink" href="#fitting-scalable-non-linear-models-on-data-with-dirty-categories" title="Permalink to this headline">¶</a></h1>
+<p>A very classic dilemna when training a machine learning model consists in
+choosing between using a linear model or a non-linear one.</p>
+<p>Linear models are very well studied and understood. They are generally fast
+and easy to optimize, and generate interpretable results. However, for some
+problems with a complex relationship between the input and the output, linear
+models reach their expressivity limit: whatever the number of samples the
+training set may have, past some point, it’s precision won’t get any better.</p>
+<p>Non-linear models, however, tend to <em>scale</em> better with sample size: they are
+able to digest the information in the additional samples to get a better
+estimate of the link between the input and the output.</p>
+<p>Non-linear models form a very large model class. Among others, this class
+includes:</p>
+<ul class="simple">
+<li>Neural Networks</li>
+<li>Tree-based methods such as Random Forests, and the very powerful Gradient
+Boosting Machines <a class="footnote-reference" href="#xgboost" id="id1">[1]</a></li>
+<li>Kernel Methods.</li>
+</ul>
+<p>However, reaching the phase where the non-linear model outpeforms the linear
+one can be complicated. Indeed, a more complex models means often a longer
+fitting/tuning process:</p>
+<ul class="simple">
+<li>Neural networks often necessitate extended model tuning time, in order to
+achieve good optimization and network architecture.</li>
+<li>Gradient Boosting Machines do not tend to scale extremely well with
+increasing sample size, as all the data needs to be loaded into the main
+memory.</li>
+<li>For kernel methods, parameter fitting requires the inversion of a gram matrix
+of size <span class="math">\(n \times n\)</span> (<span class="math">\(n\)</span> being the number of samples), yiedling
+a quadratic dependency (with n) in the final compmutation time.</li>
+</ul>
+<p>In order to make the best out of a non-linear model, one has to <strong>make it
+scalable</strong>. For kernel methods, there exist approximation algorithms that
+drop the quadratic dependency with the sample size while ensuring almost the
+same model capacity.</p>
+<dl class="docutils">
+<dt>In this example, you will learn how to:</dt>
+<dd><ol class="first last arabic simple">
+<li>Build a ML pipeline that uses a kernel method.</li>
+<li>Make this pipeline scalable, by using online algorithms and dimension
+reduction methods.</li>
+</ol>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>This example assumes the reader to be familiar with similarity encoding and
+its use-cases.</p>
+<ul class="last simple">
+<li>For an introduction to dirty categories, see <span class="xref std std-ref">this example</span>.</li>
+<li>To learn with dirty categories using the SimilarityEncoder, see <span class="xref std std-ref">this example</span>.</li>
+</ul>
+</div>
+<div class="section" id="training-a-first-simple-pipeline">
+<h2>Training a first simple pipeline<a class="headerlink" href="#training-a-first-simple-pipeline" title="Permalink to this headline">¶</a></h2>
+<p>The data that the model will fit is the <code class="code docutils literal"><span class="pre">drug_directory</span></code> dataset.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dirty_cat.datasets</span> <span class="kn">import</span> <span class="n">fetch_drug_directory</span>
+
+<span class="n">info</span> <span class="o">=</span> <span class="n">fetch_drug_directory</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>The downloaded data contains the drug_directory dataset.
+It can originally be found at: https://www.fda.gov/Drugs/InformationOnDrugs/ucm142438.htm
+</pre></div>
+</div>
+<div class="topic">
+<p class="topic-title first">Problem Setting</p>
+<p>We set the goal of our machine learning problem as follows:</p>
+<p class="centered">
+<strong><strong>predict the type of a drug given its composition.</strong></strong></p></div>
+<p>The <code class="code docutils literal"><span class="pre">NONPROPRIETARYNAME</span></code> column, is composed of text observations with
+describing each drug’s composition. The <code class="code docutils literal"><span class="pre">PRODUCTTYPENAME</span></code> column
+consists of categorial values: therefore, our problem is a classification
+problem. You can have a glimpse of the values here:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+
+<span class="n">df</span> <span class="o">=</span> <a href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.read_csv.html#pandas.read_csv" title="View documentation for pandas.read_csv"><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span></a><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;path&#39;</span><span class="p">],</span> <span class="n">nrows</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="s1">&#39;NONPROPRIETARYNAME&#39;</span><span class="p">,</span> <span class="s1">&#39;PRODUCTTYPENAME&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+<span class="c1"># This will be useful further down in the example.</span>
+<span class="n">columns_names</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>NONPROPRIETARYNAME          PRODUCTTYPENAME
+0              diluent           HUMAN OTC DRUG
+1     Florbetapir F 18  HUMAN PRESCRIPTION DRUG
+2  Quinidine Gluconate  HUMAN PRESCRIPTION DRUG
+3          Dulaglutide  HUMAN PRESCRIPTION DRUG
+4          Dulaglutide  HUMAN PRESCRIPTION DRUG
+</pre></div>
+</div>
+</div>
+<div class="section" id="estimators-construction">
+<h2>Estimators construction<a class="headerlink" href="#estimators-construction" title="Permalink to this headline">¶</a></h2>
+<p>Our input is categorical, thus needs to be encoded. As observations often
+consist in variations around a few concepts (for instance,
+<code class="code docutils literal"><span class="pre">'Amlodipine</span> <span class="pre">Besylate'</span></code> and
+<code class="code docutils literal"><span class="pre">'Amlodipine</span> <span class="pre">besylate</span> <span class="pre">and</span> <span class="pre">atorvastatin</span> <span class="pre">calcium'</span></code>
+have one ingredient in common), we need an encoding able to
+capture similarities between observations.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dirty_cat</span> <span class="kn">import</span> <a href="../generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="View documentation for dirty_cat.SimilarityEncoder"><span class="n">SimilarityEncoder</span></a>
+<span class="kn">from</span> <span class="nn">sklearn.compose</span> <span class="kn">import</span> <a href="http://scikit-learn.org/0.20/modules/generated/sklearn.compose.make_column_transformer.html#sklearn.compose.make_column_transformer" title="View documentation for sklearn.compose.make_column_transformer"><span class="n">make_column_transformer</span></a>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <a href="http://scikit-learn.org/0.20/modules/generated/sklearn.preprocessing.OneHotEncoder.html#sklearn.preprocessing.OneHotEncoder" title="View documentation for sklearn.preprocessing.OneHotEncoder"><span class="n">OneHotEncoder</span></a>
+<span class="n">similarity_encoder</span> <span class="o">=</span> <a href="../generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="View documentation for dirty_cat.SimilarityEncoder"><span class="n">SimilarityEncoder</span></a><span class="p">(</span><span class="n">similarity</span><span class="o">=</span><span class="s1">&#39;ngram&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Two other columns are used to predict the output: <code class="docutils literal"><span class="pre">DOSAGEFORMNAME</span></code> and
+<code class="docutils literal"><span class="pre">ROUTENAME</span></code>. They are both categorical and can be encoded with a
+<a class="reference external" href="https://scikit-learn.org/0.20/modules/generated/sklearn.preprocessing.OneHotEncoder.html#sklearn.preprocessing.OneHotEncoder" title="(in scikit-learn v0.20.2)"><code class="xref py py-class docutils literal"><span class="pre">OneHotEncoder</span></code></a>. We use a <a class="reference external" href="https://scikit-learn.org/0.20/modules/generated/sklearn.compose.ColumnTransformer.html#sklearn.compose.ColumnTransformer" title="(in scikit-learn v0.20.2)"><code class="xref py py-class docutils literal"><span class="pre">ColumnTransformer</span></code></a> to stack the <a class="reference external" href="https://scikit-learn.org/0.20/modules/generated/sklearn.preprocessing.OneHotEncoder.html#sklearn.preprocessing.OneHotEncoder" title="(in scikit-learn v0.20.2)"><code class="xref py py-class docutils literal"><span class="pre">OneHotEncoder</span></code></a>
+and the <a class="reference internal" href="../generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="dirty_cat.SimilarityEncoder"><code class="xref py py-class docutils literal"><span class="pre">SimilarityEncoder</span></code></a>.  We can now choose a kernel method, for instance a <a class="reference external" href="https://scikit-learn.org/0.20/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="(in scikit-learn v0.20.2)"><code class="xref py py-class docutils literal"><span class="pre">SupportVectorClassifier</span></code></a>, to
+fit the encoded inputs.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <a href="http://scikit-learn.org/0.20/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="View documentation for sklearn.pipeline.Pipeline"><span class="n">Pipeline</span></a>
+<span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <a href="http://scikit-learn.org/0.20/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="View documentation for sklearn.svm.SVC"><span class="n">SVC</span></a>
+
+<span class="n">column_transformer</span> <span class="o">=</span> <a href="http://scikit-learn.org/0.20/modules/generated/sklearn.compose.make_column_transformer.html#sklearn.compose.make_column_transformer" title="View documentation for sklearn.compose.make_column_transformer"><span class="n">make_column_transformer</span></a><span class="p">(</span>
+    <span class="p">(</span><span class="n">similarity_encoder</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;NONPROPRIETARYNAME&#39;</span><span class="p">]),</span>
+    <span class="p">(</span><a href="http://scikit-learn.org/0.20/modules/generated/sklearn.preprocessing.OneHotEncoder.html#sklearn.preprocessing.OneHotEncoder" title="View documentation for sklearn.preprocessing.OneHotEncoder"><span class="n">OneHotEncoder</span></a><span class="p">(</span><span class="n">handle_unknown</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">),</span> <span class="p">[</span><span class="s1">&#39;DOSAGEFORMNAME&#39;</span><span class="p">,</span> <span class="s1">&#39;ROUTENAME&#39;</span><span class="p">]),</span>
+    <span class="n">sparse_threshold</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># The classifier and the ColumnTransformer are stacked into a Pipeline object</span>
+<span class="n">classifier</span> <span class="o">=</span> <a href="http://scikit-learn.org/0.20/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="View documentation for sklearn.svm.SVC"><span class="n">SVC</span></a><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s1">&#39;rbf&#39;</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">steps</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;transformer&#39;</span><span class="p">,</span> <span class="n">column_transformer</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;classifier&#39;</span><span class="p">,</span> <span class="n">classifier</span><span class="p">)]</span>
+<span class="n">model</span> <span class="o">=</span> <a href="http://scikit-learn.org/0.20/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="View documentation for sklearn.pipeline.Pipeline"><span class="n">Pipeline</span></a><span class="p">(</span><span class="n">steps</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="data-loading-and-preprocessing">
+<h2>Data Loading and Preprocessing<a class="headerlink" href="#data-loading-and-preprocessing" title="Permalink to this headline">¶</a></h2>
+<p>Like in most machine learning setups, the data has to be splitted into 2
+exclusive parts:</p>
+<ul class="simple">
+<li>One for model training.</li>
+<li>One for model testing.</li>
+</ul>
+<p>For this reason, we create a simple wrapper around <a class="reference external" href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.read_csv.html#pandas.read_csv" title="(in pandas v0.23.4)"><code class="xref py py-func docutils literal"><span class="pre">pandas.read_csv()</span></code></a>, that
+extracts the <code class="code docutils literal"><span class="pre">X</span></code>, and <code class="code docutils literal"><span class="pre">y</span></code> from the dataset.</p>
+<div class="topic">
+<p class="topic-title first">Note about class imbalance:</p>
+<p>The <code class="code docutils literal"><span class="pre">y</span></code> labels are composed of 7 unique classes. However, <code class="docutils literal"><span class="pre">HUMAN</span>
+<span class="pre">OTC</span> <span class="pre">DRUG</span></code> and <code class="docutils literal"><span class="pre">HUMAN</span> <span class="pre">PRESCRIPTION</span> <span class="pre">DRUG</span></code> represent around 97% of the
+data, in a fairly balanced manner. The last 5 classes are much rarer.
+Dealing with class imbalance is out of the scope of this example, so the
+models will be trained on the first two classes only.</p>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">preprocess</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">label_encoder</span><span class="p">):</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;PRODUCTTYPENAME&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span>
+        <span class="p">[</span><span class="s1">&#39;HUMAN OTC DRUG&#39;</span><span class="p">,</span> <span class="s1">&#39;HUMAN PRESCRIPTION DRUG&#39;</span><span class="p">])]</span>
+
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;NONPROPRIETARYNAME&#39;</span><span class="p">,</span> <span class="s1">&#39;DOSAGEFORMNAME&#39;</span><span class="p">,</span> <span class="s1">&#39;ROUTENAME&#39;</span><span class="p">,</span> <span class="s1">&#39;PRODUCTTYPENAME&#39;</span><span class="p">]]</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+
+    <span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;NONPROPRIETARYNAME&#39;</span><span class="p">,</span> <span class="s1">&#39;DOSAGEFORMNAME&#39;</span><span class="p">,</span> <span class="s1">&#39;ROUTENAME&#39;</span><span class="p">]]</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;PRODUCTTYPENAME&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+
+    <span class="n">y_int</span> <span class="o">=</span> <span class="n">label_encoder</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.squeeze.html#numpy.squeeze" title="View documentation for numpy.squeeze"><span class="n">np</span><span class="o">.</span><span class="n">squeeze</span></a><span class="p">(</span><span class="n">y</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">X</span><span class="p">,</span> <span class="n">y_int</span>
+
+
+<span class="k">def</span> <span class="nf">get_X_y</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;simple wrapper around pd.read_csv that extracts features and labels</span>
+
+<span class="sd">    Some systematic preprocessing is also carried out to avoid doing this</span>
+<span class="sd">    transformation repeatedly in the code.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">global</span> <span class="n">label_encoder</span>
+    <span class="n">df</span> <span class="o">=</span> <a href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.read_csv.html#pandas.read_csv" title="View documentation for pandas.read_csv"><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span></a><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;path&#39;</span><span class="p">],</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">preprocess</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">label_encoder</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Classifier objects in <a class="reference external" href="https://scikit-learn.org/0.20/index.html" title="(in scikit-learn v0.20.2)"><span class="xref std std-doc">scikit-learn</span></a> often require <code class="code docutils literal"><span class="pre">y</span></code> to be integer labels.
+Additionally, <a class="reference external" href="https://scikit-learn.org/0.20/modules/generated/sklearn.metrics.average_precision_score.html#sklearn.metrics.average_precision_score" title="(in scikit-learn v0.20.2)"><code class="xref py py-func docutils literal"><span class="pre">average_precision_score()</span></code></a> requires a binary version of the labels.  For these two
+purposes, we create:</p>
+<ul class="simple">
+<li>a <a class="reference external" href="https://scikit-learn.org/0.20/modules/generated/sklearn.preprocessing.LabelEncoder.html#sklearn.preprocessing.LabelEncoder" title="(in scikit-learn v0.20.2)"><code class="xref py py-class docutils literal"><span class="pre">LabelEncoder</span></code></a>, that we pre-fitted on the known <code class="code docutils literal"><span class="pre">y</span></code> classes</li>
+<li>a <a class="reference external" href="https://scikit-learn.org/0.20/modules/generated/sklearn.preprocessing.OneHotEncoder.html#sklearn.preprocessing.OneHotEncoder" title="(in scikit-learn v0.20.2)"><code class="xref py py-class docutils literal"><span class="pre">OneHotEncoder</span></code></a>, pre-fitted on the resulting integer labels.</li>
+</ul>
+<p>Their <a class="reference external" href="https://scikit-learn.org/0.20/glossary.html#term-transform" title="(in scikit-learn v0.20.2)"><span class="xref std std-term">transform</span></a> methods can the be called at appopriate times.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <a href="http://scikit-learn.org/0.20/modules/generated/sklearn.preprocessing.LabelEncoder.html#sklearn.preprocessing.LabelEncoder" title="View documentation for sklearn.preprocessing.LabelEncoder"><span class="n">LabelEncoder</span></a><span class="p">,</span> <a href="http://scikit-learn.org/0.20/modules/generated/sklearn.preprocessing.OneHotEncoder.html#sklearn.preprocessing.OneHotEncoder" title="View documentation for sklearn.preprocessing.OneHotEncoder"><span class="n">OneHotEncoder</span></a>
+
+<span class="n">label_encoder</span> <span class="o">=</span> <a href="http://scikit-learn.org/0.20/modules/generated/sklearn.preprocessing.LabelEncoder.html#sklearn.preprocessing.LabelEncoder" title="View documentation for sklearn.preprocessing.LabelEncoder"><span class="n">LabelEncoder</span></a><span class="p">()</span>
+<span class="n">label_encoder</span><span class="o">.</span><span class="n">fit</span><span class="p">([</span><span class="s1">&#39;HUMAN OTC DRUG&#39;</span><span class="p">,</span> <span class="s1">&#39;HUMAN PRESCRIPTION DRUG&#39;</span><span class="p">])</span>
+
+<span class="n">one_hot_encoder</span> <span class="o">=</span> <a href="http://scikit-learn.org/0.20/modules/generated/sklearn.preprocessing.OneHotEncoder.html#sklearn.preprocessing.OneHotEncoder" title="View documentation for sklearn.preprocessing.OneHotEncoder"><span class="n">OneHotEncoder</span></a><span class="p">(</span><span class="n">categories</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="n">one_hot_encoder</span><span class="o">.</span><span class="n">fit</span><span class="p">([[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">]])</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">During the following training procedures of this example, we will assume
+that the dataset was shuffled prior to its loading. As a reason, we can
+take the first <span class="math">\(n\)</span> observations for the training set, the next
+<span class="math">\(m\)</span> observations for the test set and so on. This may not be the
+case for all datasets, so be careful before applying this code to your own
+!</p>
+</div>
+<p>Finally, the <code class="code docutils literal"><span class="pre">X</span></code> and <code class="code docutils literal"><span class="pre">y</span></code> are loaded.</p>
+<div class="topic">
+<p class="topic-title first">Note: offsetting the test set</p>
+<p>We create an offset to separate the training and the test set. The reason
+for this, is that the online procedures of this example will consume far
+more rows, but we still would like to compare accuracies with the same the
+same test set, and not change it each time. Therefore, we “reserve” the
+first 100000 rows for the training phase. The rest is made available to
+the test set.</p>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">train_set_size</span> <span class="o">=</span> <span class="mi">5000</span>
+<span class="n">test_set_size</span> <span class="o">=</span> <span class="mi">10000</span>
+<span class="n">offset</span> <span class="o">=</span> <span class="mi">100000</span>
+
+<span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span> <span class="o">=</span> <span class="n">get_X_y</span><span class="p">(</span><span class="n">skiprows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="n">columns_names</span><span class="p">,</span>
+                           <span class="n">nrows</span><span class="o">=</span><span class="n">train_set_size</span><span class="p">)</span>
+
+<span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">get_X_y</span><span class="p">(</span><span class="n">skiprows</span><span class="o">=</span><span class="n">offset</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="n">columns_names</span><span class="p">,</span>
+                         <span class="n">nrows</span><span class="o">=</span><span class="n">test_set_size</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="evaluating-time-and-sample-complexity">
+<h2>Evaluating time and sample complexity<a class="headerlink" href="#evaluating-time-and-sample-complexity" title="Permalink to this headline">¶</a></h2>
+<p>Let’s get an idea of model precision and performance depending on the number
+of the samples used in the train set.
+The <a class="reference external" href="https://scikit-learn.org/0.20/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="(in scikit-learn v0.20.2)"><code class="xref py py-class docutils literal"><span class="pre">Pipeline</span></code></a> is trained over different training set sizes. For this,
+<code class="code docutils literal"><span class="pre">X_train</span></code> and <code class="code docutils literal"><span class="pre">y_train</span></code> get sliced into subsets of increasing
+size, while <code class="code docutils literal"><span class="pre">X_test</span></code> and <code class="code docutils literal"><span class="pre">y_test</span></code> do not change when the
+sample size varies.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <a href="http://scikit-learn.org/0.20/modules/generated/sklearn.metrics.average_precision_score.html#sklearn.metrics.average_precision_score" title="View documentation for sklearn.metrics.average_precision_score"><span class="n">average_precision_score</span></a>
+
+<span class="c1"># define the different train set sizes on which to evaluate the model</span>
+<span class="n">train_set_sizes</span> <span class="o">=</span> <span class="p">[</span><span class="n">train_set_size</span> <span class="o">//</span> <span class="mi">10</span><span class="p">,</span> <span class="n">train_set_size</span> <span class="o">//</span> <span class="mi">3</span><span class="p">,</span> <span class="n">train_set_size</span><span class="p">]</span>
+
+<span class="n">train_times_svc</span><span class="p">,</span> <span class="n">test_scores_svc</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">train_set_sizes</span><span class="p">:</span>
+
+    <span class="n">t0</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">[:</span><span class="n">n</span><span class="p">],</span> <span class="n">y_train</span><span class="p">[:</span><span class="n">n</span><span class="p">])</span>
+    <span class="n">train_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span> <span class="o">-</span> <span class="n">t0</span>
+
+    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+    <span class="n">y_pred_onehot</span> <span class="o">=</span> <span class="n">one_hot_encoder</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">y_pred</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="n">y_test_onehot</span> <span class="o">=</span> <span class="n">one_hot_encoder</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">y_test</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+
+    <span class="n">test_score</span> <span class="o">=</span> <a href="http://scikit-learn.org/0.20/modules/generated/sklearn.metrics.average_precision_score.html#sklearn.metrics.average_precision_score" title="View documentation for sklearn.metrics.average_precision_score"><span class="n">average_precision_score</span></a><span class="p">(</span><span class="n">y_test_onehot</span><span class="p">,</span> <span class="n">y_pred_onehot</span><span class="p">)</span>
+
+    <span class="n">train_times_svc</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">train_time</span><span class="p">)</span>
+    <span class="n">test_scores_svc</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">test_score</span><span class="p">)</span>
+
+    <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;using {:&gt;5} samples: model fitting took {:.1f}s, test accuracy of &quot;</span>
+           <span class="s2">&quot;{:.3f}&quot;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">train_time</span><span class="p">,</span> <span class="n">test_score</span><span class="p">))</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>using   500 samples: model fitting took 0.2s, test accuracy of 0.517
+using  1666 samples: model fitting took 3.4s, test accuracy of 0.527
+using  5000 samples: model fitting took 63.9s, test accuracy of 0.725
+</pre></div>
+</div>
+<p>Increasing training size cleary improves model accuracy. However, the
+training time and the input size increase quadratically with the training set
+size.  Indeed, kernel methods need to process an entire <span class="math">\(n \times n\)</span>
+matrix at once. In order for this matrix to be loaded into memory, <span class="math">\(n\)</span>
+has to remain low: Using 30000 observations, the input is a <span class="math">\(30000
+\times 30000\)</span> matrix.  If composed of 32-bit floats, its total size is around
+<span class="math">\(30000^2 \times 32 = 2.8 \times 10^{10} \text{bits} = 4\text{GB}\)</span></p>
+</div>
+<div class="section" id="reducing-input-dimension-using-kernel-approximation-methods">
+<h2>Reducing input dimension using kernel approximation methods.<a class="headerlink" href="#reducing-input-dimension-using-kernel-approximation-methods" title="Permalink to this headline">¶</a></h2>
+<p>The main scalability issues with kernels methods is the processing of a large
+square matrix. To understand where this matrix comes from, we need to delve a
+little bit deeper these methods internals.</p>
+<div class="topic">
+<p class="topic-title first">Kernel methods</p>
+<p>Kernel methods address non-linear problems by leveraging similarities
+between each pair of inputs. Using a similarity matrix to solve a machine
+learning problem allows to catch complex, non-linear relationships within
+the data.  But it requires inverting this matrix, which can be a
+computational burden when the sample sizes increases.</p>
+</div>
+</div>
+<div class="section" id="kernel-approximation-methods">
+<h2>Kernel approximation methods<a class="headerlink" href="#kernel-approximation-methods" title="Permalink to this headline">¶</a></h2>
+<p>From what was said below, two criterions are limiting a kernel algorithm to
+scale:</p>
+<ul class="simple">
+<li>It processes a matrix, whose size increases quadratically with the number
+of samples.</li>
+<li>During fitting time, this matrix is <strong>inverted</strong>, meaning it has to be
+loaded into main memory.</li>
+</ul>
+<p>Kernel approximation methods such as <a class="reference external" href="https://scikit-learn.org/0.20/modules/generated/sklearn.kernel_approximation.RBFSampler.html#sklearn.kernel_approximation.RBFSampler" title="(in scikit-learn v0.20.2)"><code class="xref py py-class docutils literal"><span class="pre">RBFSampler</span></code></a> or <a class="reference external" href="https://scikit-learn.org/0.20/modules/generated/sklearn.kernel_approximation.Nystroem.html#sklearn.kernel_approximation.Nystroem" title="(in scikit-learn v0.20.2)"><code class="xref py py-class docutils literal"><span class="pre">Nystroem</span></code></a> <a class="footnote-reference" href="#nys-ref" id="id2">[4]</a> try to
+approximate this similarity matrix, without actually creating it. By allowing
+the program to not compute the perfect similarity matrix, the problem
+complexity becomes linear! Plus, the samples also do not need to be processed
+at once into main memory. We are not bound to use a <a class="reference external" href="https://scikit-learn.org/0.20/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="(in scikit-learn v0.20.2)"><code class="xref py py-class docutils literal"><span class="pre">SupportVectorClassifier</span></code></a> anymore, and can
+instead use an online optimization that will process the input by batch.</p>
+<div class="topic">
+<p class="topic-title first">Online algorithms</p>
+<p>An online algorithm <a class="footnote-reference" href="#online-ref" id="id3">[2]</a> is an algorithm that treats its input
+piece by piece in a serial fashion. An famous example is the stochastic
+gradient descent <a class="footnote-reference" href="#sgd-ref" id="id4">[3]</a>, where an estimation the objective function’s
+gradient is computed on a batch of the data at each step.</p>
+</div>
+</div>
+<div class="section" id="reducing-the-transformers-dimensionality">
+<h2>Reducing the transformers dimensionality<a class="headerlink" href="#reducing-the-transformers-dimensionality" title="Permalink to this headline">¶</a></h2>
+<p>There is one last scalability issue in our pipeline: the <a class="reference internal" href="../generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="dirty_cat.SimilarityEncoder"><code class="xref py py-class docutils literal"><span class="pre">SimilarityEncoder</span></code></a> and the <a class="reference external" href="https://scikit-learn.org/0.20/modules/generated/sklearn.kernel_approximation.RBFSampler.html#sklearn.kernel_approximation.RBFSampler" title="(in scikit-learn v0.20.2)"><code class="xref py py-class docutils literal"><span class="pre">RBFSampler</span></code></a>
+both implement the <a class="reference external" href="https://scikit-learn.org/0.20/glossary.html#term-fit" title="(in scikit-learn v0.20.2)"><span class="xref std std-term">fit</span></a> method. How to adapt those method to an online
+setting, where the data is never loaded as a whole?</p>
+<p>A simple solution is to partially fit the <a class="reference internal" href="../generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="dirty_cat.SimilarityEncoder"><code class="xref py py-class docutils literal"><span class="pre">SimilarityEncoder</span></code></a> and the <a class="reference external" href="https://scikit-learn.org/0.20/modules/generated/sklearn.kernel_approximation.RBFSampler.html#sklearn.kernel_approximation.RBFSampler" title="(in scikit-learn v0.20.2)"><code class="xref py py-class docutils literal"><span class="pre">RBFSampler</span></code></a> on a subset of
+the data, prior to the online fitting step.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.kernel_approximation</span> <span class="kn">import</span> <a href="http://scikit-learn.org/0.20/modules/generated/sklearn.kernel_approximation.RBFSampler.html#sklearn.kernel_approximation.RBFSampler" title="View documentation for sklearn.kernel_approximation.RBFSampler"><span class="n">RBFSampler</span></a>
+<span class="n">n_out_encoder</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">n_out_rbf</span> <span class="o">=</span> <span class="mi">5000</span>
+<span class="n">n_samples_encoder</span> <span class="o">=</span> <span class="mi">10000</span>
+
+<span class="n">X_encoder</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">get_X_y</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="n">n_samples_encoder</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="n">columns_names</span><span class="p">)</span>
+
+<span class="n">similarity_encoder</span> <span class="o">=</span> <a href="../generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="View documentation for dirty_cat.SimilarityEncoder"><span class="n">SimilarityEncoder</span></a><span class="p">(</span>
+    <span class="n">similarity</span><span class="o">=</span><span class="s1">&#39;ngram&#39;</span><span class="p">,</span> <span class="n">categories</span><span class="o">=</span><span class="s1">&#39;most_frequent&#39;</span><span class="p">,</span> <span class="n">n_prototypes</span><span class="o">=</span><span class="n">n_out_encoder</span><span class="p">,</span>
+    <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">ngram_range</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+<span class="c1"># Fit the rbf_sampler with the similarity matrix.</span>
+<span class="n">column_transformer</span> <span class="o">=</span> <a href="http://scikit-learn.org/0.20/modules/generated/sklearn.compose.make_column_transformer.html#sklearn.compose.make_column_transformer" title="View documentation for sklearn.compose.make_column_transformer"><span class="n">make_column_transformer</span></a><span class="p">(</span>
+    <span class="p">(</span><span class="n">similarity_encoder</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;NONPROPRIETARYNAME&#39;</span><span class="p">]),</span>
+    <span class="p">(</span><a href="http://scikit-learn.org/0.20/modules/generated/sklearn.preprocessing.OneHotEncoder.html#sklearn.preprocessing.OneHotEncoder" title="View documentation for sklearn.preprocessing.OneHotEncoder"><span class="n">OneHotEncoder</span></a><span class="p">(</span><span class="n">handle_unknown</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">),</span> <span class="p">[</span><span class="s1">&#39;DOSAGEFORMNAME&#39;</span><span class="p">,</span> <span class="s1">&#39;ROUTENAME&#39;</span><span class="p">]),</span>
+    <span class="n">sparse_threshold</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">transformed_categories</span> <span class="o">=</span> <span class="n">column_transformer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_encoder</span><span class="p">)</span>
+
+<span class="c1"># gamma is a parameter of the rbf function, that sets how fast the similarity</span>
+<span class="c1"># between two points should decrease as the distance between them rises. It</span>
+<span class="c1"># is data-specific, and needs to be chosen carefully, for example using</span>
+<span class="c1"># cross-validation.</span>
+<span class="n">rbf_sampler</span> <span class="o">=</span> <a href="http://scikit-learn.org/0.20/modules/generated/sklearn.kernel_approximation.RBFSampler.html#sklearn.kernel_approximation.RBFSampler" title="View documentation for sklearn.kernel_approximation.RBFSampler"><span class="n">RBFSampler</span></a><span class="p">(</span>
+    <span class="n">gamma</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">n_components</span><span class="o">=</span><span class="n">n_out_rbf</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">rbf_sampler</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">transformed_categories</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">encode</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y_int</span><span class="p">,</span> <span class="n">one_hot_encoder</span><span class="p">,</span> <span class="n">column_transformer</span><span class="p">,</span> <span class="n">rbf_sampler</span><span class="p">):</span>
+    <span class="n">X_sim_encoded</span> <span class="o">=</span> <span class="n">column_transformer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+    <span class="n">X_highdim</span> <span class="o">=</span> <span class="n">rbf_sampler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_sim_encoded</span><span class="o">.</span><span class="n">toarray</span><span class="p">())</span>
+
+    <span class="n">y_onehot</span> <span class="o">=</span> <span class="n">one_hot_encoder</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">y_int</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">X_highdim</span><span class="p">,</span> <span class="n">y_onehot</span>
+
+
+<span class="c1"># The inputs and labels of the val and test sets have to be pre-processed the</span>
+<span class="c1"># same way the training set was processed:</span>
+<span class="n">X_test_kernel_approx</span><span class="p">,</span> <span class="n">y_true_test_onehot</span> <span class="o">=</span> <span class="n">encode</span><span class="p">(</span>
+    <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">one_hot_encoder</span><span class="p">,</span> <span class="n">column_transformer</span><span class="p">,</span> <span class="n">rbf_sampler</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="online-training-for-out-of-memory-data">
+<h2>Online training for out-of-memory data<a class="headerlink" href="#online-training-for-out-of-memory-data" title="Permalink to this headline">¶</a></h2>
+<p>We now have all the theoretical elements to create an non-linear, online
+kernel method.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model.stochastic_gradient</span> <span class="kn">import</span> <a href="http://scikit-learn.org/0.20/modules/generated/sklearn.linear_model.SGDClassifier.html#sklearn.linear_model.SGDClassifier" title="View documentation for sklearn.linear_model.stochastic_gradient.SGDClassifier"><span class="n">SGDClassifier</span></a>
+
+<span class="n">online_train_set_size</span> <span class="o">=</span> <span class="mi">100000</span>
+<span class="c1"># Filter warning on max_iter and tol</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">module</span><span class="o">=</span><span class="s1">&#39;sklearn.linear_model&#39;</span><span class="p">)</span>
+<span class="n">sgd_classifier</span> <span class="o">=</span> <a href="http://scikit-learn.org/0.20/modules/generated/sklearn.linear_model.SGDClassifier.html#sklearn.linear_model.SGDClassifier" title="View documentation for sklearn.linear_model.stochastic_gradient.SGDClassifier"><span class="n">SGDClassifier</span></a><span class="p">(</span>
+    <span class="n">max_iter</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We can now start the training, by looping over batches one by one. Note that
+only one pass over the whole dataset is done. It may be worth doing several
+passes, but for very large sample sizes, the increase in test accuracy is
+likely to be marginal.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">batchsize</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">test_scores_rbf</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">train_times_rbf</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">online_train_set_sizes</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">t0</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
+
+<span class="n">iter_csv</span> <span class="o">=</span> <a href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.read_csv.html#pandas.read_csv" title="View documentation for pandas.read_csv"><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span></a><span class="p">(</span>
+    <span class="n">info</span><span class="p">[</span><span class="s1">&#39;path&#39;</span><span class="p">],</span> <span class="n">nrows</span><span class="o">=</span><span class="n">online_train_set_size</span><span class="p">,</span> <span class="n">chunksize</span><span class="o">=</span><span class="n">batchsize</span><span class="p">,</span>
+    <span class="n">skiprows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="n">columns_names</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">batch_no</span><span class="p">,</span> <span class="n">batch</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">iter_csv</span><span class="p">):</span>
+    <span class="n">X_batch</span><span class="p">,</span> <span class="n">y_batch</span> <span class="o">=</span> <span class="n">preprocess</span><span class="p">(</span><span class="n">batch</span><span class="p">,</span> <span class="n">label_encoder</span><span class="p">)</span>
+    <span class="n">X_batch_kernel_approx</span><span class="p">,</span> <span class="n">y_batch_onehot</span> <span class="o">=</span> <span class="n">encode</span><span class="p">(</span>
+        <span class="n">X_batch</span><span class="p">,</span> <span class="n">y_batch</span><span class="p">,</span> <span class="n">one_hot_encoder</span><span class="p">,</span> <span class="n">column_transformer</span><span class="p">,</span> <span class="n">rbf_sampler</span><span class="p">)</span>
+
+    <span class="c1"># make one pass of stochastic gradient descent over the batch.</span>
+    <span class="n">sgd_classifier</span><span class="o">.</span><span class="n">partial_fit</span><span class="p">(</span>
+        <span class="n">X_batch_kernel_approx</span><span class="p">,</span> <span class="n">y_batch</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+
+    <span class="c1"># print train/test accuracy metrics every 5 batch</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">batch_no</span> <span class="o">%</span> <span class="mi">5</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;batch {:&gt;4} &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">batch_no</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">origin</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y_true_onehot</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
+                <span class="p">(</span><span class="s1">&#39;train&#39;</span><span class="p">,</span> <span class="s1">&#39;val&#39;</span><span class="p">),</span>
+                <span class="p">(</span><span class="n">X_batch_kernel_approx</span><span class="p">,</span> <span class="n">X_test_kernel_approx</span><span class="p">),</span>
+                <span class="p">(</span><span class="n">y_batch_onehot</span><span class="p">,</span> <span class="n">y_true_test_onehot</span><span class="p">)):</span>
+
+            <span class="n">y_pred</span> <span class="o">=</span> <span class="n">sgd_classifier</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+            <span class="c1"># preprocess correctly the labels and prediction to match</span>
+            <span class="c1"># average_precision_score expectations</span>
+            <span class="n">y_pred_onehot</span> <span class="o">=</span> <span class="n">one_hot_encoder</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span>
+                <span class="n">y_pred</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+
+            <span class="n">score</span> <span class="o">=</span> <a href="http://scikit-learn.org/0.20/modules/generated/sklearn.metrics.average_precision_score.html#sklearn.metrics.average_precision_score" title="View documentation for sklearn.metrics.average_precision_score"><span class="n">average_precision_score</span></a><span class="p">(</span><span class="n">y_true_onehot</span><span class="p">,</span> <span class="n">y_pred_onehot</span><span class="p">)</span>
+            <span class="n">message</span> <span class="o">+=</span> <span class="s2">&quot;{} precision: {:.4f}  &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">origin</span><span class="p">,</span> <span class="n">score</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">origin</span> <span class="o">==</span> <span class="s1">&#39;val&#39;</span><span class="p">:</span>
+                <span class="n">test_scores_rbf</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">score</span><span class="p">)</span>
+                <span class="n">train_times_rbf</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span> <span class="o">-</span> <span class="n">t0</span><span class="p">)</span>
+                <span class="n">online_train_set_sizes</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">batch_no</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">batchsize</span><span class="p">)</span>
+
+        <span class="k">print</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none"><div class="highlight"><pre><span></span>batch    0 train precision: 0.8793  val precision: 0.5144
+batch    5 train precision: nan  val precision: 0.5940
+batch   10 train precision: 0.7411  val precision: 0.8181
+batch   15 train precision: 0.7560  val precision: 0.8433
+batch   20 train precision: 0.9087  val precision: 0.8866
+batch   25 train precision: 0.9054  val precision: 0.9021
+batch   30 train precision: 0.9513  val precision: 0.9307
+batch   35 train precision: nan  val precision: 0.9371
+batch   40 train precision: 0.9501  val precision: 0.9374
+batch   45 train precision: 0.5000  val precision: 0.9426
+batch   50 train precision: 0.9420  val precision: 0.9452
+batch   55 train precision: 0.9645  val precision: 0.9448
+batch   60 train precision: 0.9172  val precision: 0.9452
+batch   65 train precision: 0.9401  val precision: 0.9460
+batch   70 train precision: 0.9181  val precision: 0.9464
+batch   75 train precision: 0.9679  val precision: 0.9464
+batch   80 train precision: 0.8991  val precision: 0.9477
+batch   85 train precision: 0.8980  val precision: 0.9477
+batch   90 train precision: 0.9421  val precision: 0.9480
+batch   95 train precision: 0.9479  val precision: 0.9480
+</pre></div>
+</div>
+<p>So far, we fitted two kinds of models: a exact kernel algorithm, and an
+approximate, online one. Lets compare both the accuracies and the number of
+visited samples for each model as we increase our time budget:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+
+<span class="n">f</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.subplots.html#matplotlib.pyplot.subplots" title="View documentation for matplotlib.pyplot.subplots"><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span></a><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="n">ax_score</span><span class="p">,</span> <span class="n">ax_capacity</span> <span class="o">=</span> <span class="n">axs</span>
+
+<span class="n">ax_score</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;score&#39;</span><span class="p">)</span>
+<span class="n">ax_capacity</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;training set size&#39;</span><span class="p">)</span>
+<span class="n">ax_capacity</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">)</span>
+
+<span class="n">ax_score</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">train_times_svc</span><span class="p">,</span> <span class="n">test_scores_svc</span><span class="p">,</span> <span class="s1">&#39;b-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;exact&#39;</span><span class="p">)</span>
+<span class="n">ax_score</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">train_times_rbf</span><span class="p">,</span> <span class="n">test_scores_rbf</span><span class="p">,</span> <span class="s1">&#39;r-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;online&#39;</span><span class="p">)</span>
+
+<span class="n">ax_capacity</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">train_times_svc</span><span class="p">,</span> <span class="n">train_set_sizes</span><span class="p">,</span> <span class="s1">&#39;b-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;exact&#39;</span><span class="p">)</span>
+<span class="n">ax_capacity</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">train_times_rbf</span><span class="p">,</span> <span class="n">online_train_set_sizes</span><span class="p">,</span> <span class="s1">&#39;r-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;online&#39;</span><span class="p">)</span>
+<span class="n">ax_capacity</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+
+<span class="n">ax_score</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span>
+    <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">1.02</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="o">.</span><span class="mi">102</span><span class="p">),</span>
+    <span class="n">loc</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;expand&#39;</span><span class="p">,</span>
+    <span class="n">borderaxespad</span><span class="o">=</span><span class="mf">0.</span><span class="p">)</span>
+
+<span class="c1"># compare the two methods in their common time range</span>
+<span class="n">ax_score</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="n">train_times_svc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">train_times_rbf</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+
+<span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;Test set accuracy and number of samples visited</span>
+<span class="s2">samples seen by the SGDClassifier&quot;&quot;&quot;</span>
+<span class="n">f</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="../_images/sphx_glr_05_scaling_non_linear_models_001.png" class="sphx-glr-single-img" src="../_images/sphx_glr_05_scaling_non_linear_models_001.png" />
+<p>This plot shows us that for the time budget, the online model will eventually
+process more samples, be faster and reach a far higher test accuracy that the
+non-online, exact kernel method.</p>
+<p>Our online model also outperforms online <strong>linear</strong> models (for instance,
+<a class="reference internal" href="../generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="dirty_cat.SimilarityEncoder"><code class="xref py py-class docutils literal"><span class="pre">SimilarityEncoder</span></code></a> + <a class="reference external" href="https://scikit-learn.org/0.20/modules/generated/sklearn.linear_model.SGDClassifier.html#sklearn.linear_model.SGDClassifier" title="(in scikit-learn v0.20.2)"><code class="xref py py-class docutils literal"><span class="pre">SGDClassifier</span></code></a>). We did not fit two online models here for simplicity
+purposes, but to train an online linear model, simply comment out the line in
+encode <code class="code docutils literal"><span class="pre">X_highdim</span> <span class="pre">=</span> <span class="pre">rbf_sampler.transform(X_sim_encoded.toarray())</span></code> and
+change it for example with <code class="code docutils literal"><span class="pre">X_highdim</span> <span class="pre">=</span> <span class="pre">X_sim_encoded</span></code>.</p>
+<p>In particular, this hierarchy between the linear model and the non-linear
+one shows that there were some significant non-linear relashionships
+between the input and the output. By scaling a kernel method, we succesfully
+took this non-linearity into account in our model, which was a far from
+trivial task at the beginning of this example!</p>
+<p class="rubric">Footnotes</p>
+<table class="docutils footnote" frame="void" id="xgboost" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="https://homes.cs.washington.edu/~tqchen/pdf/BoostedTree.pdf">Slides on gradient boosting by Tianqi Chen, the founder of XGBoost</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="online-ref" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[2]</a></td><td><a class="reference external" href="https://en.wikipedia.org/wiki/Online_algorithm">Wikipedia article on online algorithms</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="sgd-ref" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id4">[3]</a></td><td><a class="reference external" href="http://khalilghorbal.info/assets/spa/papers/ML_GradDescent.pdf">Leon Bouttou’s article on stochastic gradient descent</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="nys-ref" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[4]</a></td><td><a class="reference external" href="https://scikit-learn.org/0.20/modules/kernel_approximation.html#nystroem-kernel-approx" title="(in scikit-learn v0.20.2)"><span class="xref std std-ref">scikit-learn documentation</span></a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="dual-ref" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[5]</td><td><a class="reference external" href="https://pdfs.semanticscholar.org/0373/e7289a1978108d6455218160a529c85842c0.pdf">Introduction to duality</a></td></tr>
+</tbody>
+</table>
+<p><strong>Total running time of the script:</strong> ( 5 minutes  12.605 seconds)</p>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-05-scaling-non-linear-models-py">
+<div class="sphx-glr-download docutils container">
+<a class="reference download internal" href="../_downloads/05_scaling_non_linear_models.py" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">05_scaling_non_linear_models.py</span></code></a></div>
+<div class="sphx-glr-download docutils container">
+<a class="reference download internal" href="../_downloads/05_scaling_non_linear_models.ipynb" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">05_scaling_non_linear_models.ipynb</span></code></a></div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.readthedocs.io">Gallery generated by Sphinx-Gallery</a></p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2018, dirty_cat developers.
+      
+      |
+      <a href="../_sources/auto_examples/05_scaling_non_linear_models.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
