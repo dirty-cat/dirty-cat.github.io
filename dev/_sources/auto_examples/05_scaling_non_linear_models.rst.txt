@@ -1,10 +1,12 @@
-.. note::
-    :class: sphx-glr-download-link-note
+.. only:: html
 
-    Click :ref:`here <sphx_glr_download_auto_examples_05_scaling_non_linear_models.py>` to download the full example code
-.. rst-class:: sphx-glr-example-title
+    .. note::
+        :class: sphx-glr-download-link-note
 
-.. _sphx_glr_auto_examples_05_scaling_non_linear_models.py:
+        Click :ref:`here <sphx_glr_download_auto_examples_05_scaling_non_linear_models.py>`     to download the full example code
+    .. rst-class:: sphx-glr-example-title
+
+    .. _sphx_glr_auto_examples_05_scaling_non_linear_models.py:
 
 
 Fitting scalable, non-linear models on data with dirty categories
@@ -110,15 +112,12 @@ In this example, you will learn how to:
 .. |fit| replace::
     :std:term:`fit <sklearn:fit>`
 
-
-
 Training a first simple pipeline
 --------------------------------
 The data that the model will fit is the :code:`drug_directory` dataset.
 
 
-
-.. code-block:: python
+.. code-block:: default
 
     from dirty_cat.datasets import fetch_drug_directory
 
@@ -135,8 +134,11 @@ The data that the model will fit is the :code:`drug_directory` dataset.
 
  .. code-block:: none
 
+    Extracting data from /home/circleci/project/dirty_cat/data/drug_directory/ndctext.zip..... done.
     The downloaded data contains the drug_directory dataset.
     It can originally be found at: https://www.fda.gov/Drugs/InformationOnDrugs/ucm142438.htm
+
+
 
 
 .. topic:: Problem Setting
@@ -153,8 +155,7 @@ consists of categorial values: therefore, our problem is a classification
 problem. You can have a glimpse of the values here:
 
 
-
-.. code-block:: python
+.. code-block:: default
 
     import pandas as pd
 
@@ -173,12 +174,14 @@ problem. You can have a glimpse of the values here:
 
  .. code-block:: none
 
-    NONPROPRIETARYNAME          PRODUCTTYPENAME
-    0              diluent           HUMAN OTC DRUG
-    1     Florbetapir F 18  HUMAN PRESCRIPTION DRUG
-    2  Quinidine Gluconate  HUMAN PRESCRIPTION DRUG
-    3          Dulaglutide  HUMAN PRESCRIPTION DRUG
-    4          Dulaglutide  HUMAN PRESCRIPTION DRUG
+      NONPROPRIETARYNAME          PRODUCTTYPENAME
+    0            diluent           HUMAN OTC DRUG
+    1   Florbetapir F 18  HUMAN PRESCRIPTION DRUG
+    2        Dulaglutide  HUMAN PRESCRIPTION DRUG
+    3        Dulaglutide  HUMAN PRESCRIPTION DRUG
+    4       galcanezumab  HUMAN PRESCRIPTION DRUG
+
+
 
 
 Estimators construction
@@ -191,14 +194,14 @@ have one ingredient in common), we need an encoding able to
 capture similarities between observations.
 
 
-
-.. code-block:: python
+.. code-block:: default
 
 
     from dirty_cat import SimilarityEncoder
     from sklearn.compose import make_column_transformer
     from sklearn.preprocessing import OneHotEncoder
     similarity_encoder = SimilarityEncoder(similarity='ngram')
+
 
 
 
@@ -213,8 +216,7 @@ and the |SE|.  We can now choose a kernel method, for instance a |SVC|, to
 fit the encoded inputs.
 
 
-
-.. code-block:: python
+.. code-block:: default
 
     from sklearn.pipeline import Pipeline
     from sklearn.svm import SVC
@@ -228,6 +230,7 @@ fit the encoded inputs.
     classifier = SVC(kernel='rbf', random_state=42, gamma=1)
     steps = [('transformer', column_transformer), ('classifier', classifier)]
     model = Pipeline(steps)
+
 
 
 
@@ -255,8 +258,7 @@ extracts the :code:`X`, and :code:`y` from the dataset.
    models will be trained on the first two classes only.
 
 
-
-.. code-block:: python
+.. code-block:: default
 
 
 
@@ -291,6 +293,7 @@ extracts the :code:`X`, and :code:`y` from the dataset.
 
 
 
+
 Classifier objects in |sklearn| often require :code:`y` to be integer labels.
 Additionally, |APS| requires a binary version of the labels.  For these two
 purposes, we create:
@@ -301,8 +304,7 @@ purposes, we create:
 Their |transform| methods can the be called at appopriate times.
 
 
-
-.. code-block:: python
+.. code-block:: default
 
     import numpy as np
     from sklearn.preprocessing import LabelEncoder, OneHotEncoder
@@ -316,6 +318,15 @@ Their |transform| methods can the be called at appopriate times.
 
 
 
+
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+
+    OneHotEncoder(sparse=False)
 
 
 
@@ -342,8 +353,7 @@ Finally, the :code:`X` and :code:`y` are loaded.
    the test set.
 
 
-
-.. code-block:: python
+.. code-block:: default
 
     train_set_size = 5000
     test_set_size = 10000
@@ -361,6 +371,7 @@ Finally, the :code:`X` and :code:`y` are loaded.
 
 
 
+
 Evaluating time and sample complexity
 -------------------------------------
 Let's get an idea of model precision and performance depending on the number
@@ -371,8 +382,7 @@ size, while :code:`X_test` and :code:`y_test` do not change when the
 sample size varies.
 
 
-
-.. code-block:: python
+.. code-block:: default
 
     import time
     from sklearn.metrics import average_precision_score
@@ -413,9 +423,11 @@ sample size varies.
 
  .. code-block:: none
 
-    using   500 samples: model fitting took 0.2s, test accuracy of 0.517
-    using  1666 samples: model fitting took 3.4s, test accuracy of 0.527
-    using  5000 samples: model fitting took 63.9s, test accuracy of 0.725
+    using   500 samples: model fitting took 0.2s, test accuracy of 0.505
+    using  1666 samples: model fitting took 3.3s, test accuracy of 0.513
+    using  5000 samples: model fitting took 52.5s, test accuracy of 0.603
+
+
 
 
 Increasing training size cleary improves model accuracy. However, the
@@ -425,7 +437,6 @@ matrix at once. In order for this matrix to be loaded into memory, :math:`n`
 has to remain low: Using 30000 observations, the input is a :math:`30000
 \times 30000` matrix.  If composed of 32-bit floats, its total size is around
 :math:`30000^2 \times 32 = 2.8 \times 10^{10} \text{bits} = 4\text{GB}`
-
 
 Reducing input dimension using kernel approximation methods.
 ------------------------------------------------------------
@@ -441,7 +452,6 @@ little bit deeper these methods internals.
    learning problem allows to catch complex, non-linear relationships within
    the data.  But it requires inverting this matrix, which can be a
    computational burden when the sample sizes increases.
-
 
 Kernel approximation methods
 ----------------------------
@@ -469,7 +479,6 @@ instead use an online optimization that will process the input by batch.
 
 
 
-
 Reducing the transformers dimensionality
 ----------------------------------------
 There is one last scalability issue in our pipeline: the |SE| and the |RBF|
@@ -480,8 +489,7 @@ A simple solution is to partially fit the |SE| and the |RBF| on a subset of
 the data, prior to the online fitting step.
 
 
-
-.. code-block:: python
+.. code-block:: default
 
 
     from sklearn.kernel_approximation import RBFSampler
@@ -534,14 +542,14 @@ the data, prior to the online fitting step.
 
 
 
+
 Online training for out-of-memory data
 --------------------------------------
 We now have all the theoretical elements to create an non-linear, online
 kernel method.
 
 
-
-.. code-block:: python
+.. code-block:: default
 
     import warnings
     from sklearn.linear_model.stochastic_gradient import SGDClassifier
@@ -559,14 +567,14 @@ kernel method.
 
 
 
+
 We can now start the training, by looping over batches one by one. Note that
 only one pass over the whole dataset is done. It may be worth doing several
 passes, but for very large sample sizes, the increase in test accuracy is
 likely to be marginal.
 
 
-
-.. code-block:: python
+.. code-block:: default
 
     batchsize = 1000
     test_scores_rbf = []
@@ -580,6 +588,9 @@ likely to be marginal.
 
     for batch_no, batch in enumerate(iter_csv):
         X_batch, y_batch = preprocess(batch, label_encoder)
+        # skip iteration if batch is empty after preprocessing
+        if len(y_batch) == 0:
+            continue
         X_batch_kernel_approx, y_batch_onehot = encode(
             X_batch, y_batch, one_hot_encoder, column_transformer, rbf_sampler)
 
@@ -621,26 +632,30 @@ likely to be marginal.
 
  .. code-block:: none
 
-    batch    0 train precision: 0.8793  val precision: 0.5144  
-    batch    5 train precision: nan  val precision: 0.5940  
-    batch   10 train precision: 0.7411  val precision: 0.8181  
-    batch   15 train precision: 0.7560  val precision: 0.8433  
-    batch   20 train precision: 0.9087  val precision: 0.8866  
-    batch   25 train precision: 0.9054  val precision: 0.9021  
-    batch   30 train precision: 0.9513  val precision: 0.9307  
-    batch   35 train precision: nan  val precision: 0.9371  
-    batch   40 train precision: 0.9501  val precision: 0.9374  
-    batch   45 train precision: 0.5000  val precision: 0.9426  
-    batch   50 train precision: 0.9420  val precision: 0.9452  
-    batch   55 train precision: 0.9645  val precision: 0.9448  
-    batch   60 train precision: 0.9172  val precision: 0.9452  
-    batch   65 train precision: 0.9401  val precision: 0.9460  
-    batch   70 train precision: 0.9181  val precision: 0.9464  
-    batch   75 train precision: 0.9679  val precision: 0.9464  
-    batch   80 train precision: 0.8991  val precision: 0.9477  
-    batch   85 train precision: 0.8980  val precision: 0.9477  
-    batch   90 train precision: 0.9421  val precision: 0.9480  
-    batch   95 train precision: 0.9479  val precision: 0.9480
+    batch    0 train precision: 0.9067  val precision: 0.5034  
+    batch    5 train precision: 0.5193  val precision: 0.7071  
+    batch   10 train precision: 0.8025  val precision: 0.8364  
+    batch   15 train precision: 0.8042  val precision: 0.9012  
+    batch   20 train precision: 0.8226  val precision: 0.9025  
+    /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/metrics/_ranking.py:681: RuntimeWarning: invalid value encountered in true_divide
+      recall = tps / tps[-1]
+    batch   25 train precision: nan  val precision: 0.9167  
+    batch   30 train precision: 0.8718  val precision: 0.9233  
+    batch   35 train precision: 0.9179  val precision: 0.9293  
+    batch   40 train precision: 0.8294  val precision: 0.9327  
+    batch   45 train precision: 0.8981  val precision: 0.9371  
+    batch   50 train precision: 0.9251  val precision: 0.9360  
+    batch   55 train precision: 0.9274  val precision: 0.9377  
+    batch   60 train precision: 0.9243  val precision: 0.9420  
+    batch   65 train precision: 0.9881  val precision: 0.9418  
+    batch   70 train precision: 0.9271  val precision: 0.9437  
+    batch   75 train precision: 0.7765  val precision: 0.9437  
+    batch   80 train precision: 0.9493  val precision: 0.9447  
+    batch   85 train precision: 0.9535  val precision: 0.9455  
+    batch   90 train precision: 0.9555  val precision: 0.9455  
+    batch   95 train precision: 0.9610  val precision: 0.9495  
+
+
 
 
 So far, we fitted two kinds of models: a exact kernel algorithm, and an
@@ -648,8 +663,7 @@ approximate, online one. Lets compare both the accuracies and the number of
 visited samples for each model as we increase our time budget:
 
 
-
-.. code-block:: python
+.. code-block:: default
 
     import matplotlib.pyplot as plt
 
@@ -687,6 +701,15 @@ visited samples for each model as we increase our time budget:
     :class: sphx-glr-single-img
 
 
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+
+    Text(0.5, 0.98, 'Test set accuracy and number of samples visited\nsamples seen by the SGDClassifier')
+
 
 
 This plot shows us that for the time budget, the online model will eventually
@@ -705,7 +728,6 @@ between the input and the output. By scaling a kernel method, we succesfully
 took this non-linearity into account in our model, which was a far from
 trivial task at the beginning of this example!
 
-
 .. rubric:: Footnotes
 .. [#xgboost] `Slides on gradient boosting by Tianqi Chen, the founder of XGBoost <https://homes.cs.washington.edu/~tqchen/pdf/BoostedTree.pdf>`_
 .. [#online_ref] `Wikipedia article on online algorithms <https://en.wikipedia.org/wiki/Online_algorithm>`_
@@ -714,7 +736,9 @@ trivial task at the beginning of this example!
 .. [#dual_ref] `Introduction to duality <https://pdfs.semanticscholar.org/0373/e7289a1978108d6455218160a529c85842c0.pdf>`_
 
 
-**Total running time of the script:** ( 5 minutes  12.605 seconds)
+.. rst-class:: sphx-glr-timing
+
+   **Total running time of the script:** ( 3 minutes  2.117 seconds)
 
 
 .. _sphx_glr_download_auto_examples_05_scaling_non_linear_models.py:
@@ -727,13 +751,13 @@ trivial task at the beginning of this example!
 
 
 
-  .. container:: sphx-glr-download
+  .. container:: sphx-glr-download sphx-glr-download-python
 
      :download:`Download Python source code: 05_scaling_non_linear_models.py <05_scaling_non_linear_models.py>`
 
 
 
-  .. container:: sphx-glr-download
+  .. container:: sphx-glr-download sphx-glr-download-jupyter
 
      :download:`Download Jupyter notebook: 05_scaling_non_linear_models.ipynb <05_scaling_non_linear_models.ipynb>`
 
@@ -742,4 +766,4 @@ trivial task at the beginning of this example!
 
  .. rst-class:: sphx-glr-signature
 
-    `Gallery generated by Sphinx-Gallery <https://sphinx-gallery.readthedocs.io>`_
+    `Gallery generated by Sphinx-Gallery <https://sphinx-gallery.github.io>`_

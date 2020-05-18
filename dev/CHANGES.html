@@ -1,31 +1,21 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Release 0.0.6 &#8212; dirty_cat 0.0.5 documentation</title>
-    
+    <meta charset="utf-8" />
+    <title>Release 0.0.7 &#8212; dirty_cat 0.0.5 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/gallery.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '0.0.5',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="stylesheet" type="text/css" href="_static/gallery.css" />
+    <link rel="stylesheet" type="text/css" href="_static/gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="_static/gallery-dataframe.css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
    
@@ -34,8 +24,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
-  </head>
-  <body>
+  </head><body>
   <div class="document">
     
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -84,34 +73,52 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="release-0-0-6">
-<h1>Release 0.0.6<a class="headerlink" href="#release-0-0-6" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="release-0-0-7">
+<h1>Release 0.0.7<a class="headerlink" href="#release-0-0-7" title="Permalink to this headline">¶</a></h1>
+<ul>
+<li><p><strong>datasets.fetch_employee_salaries</strong>: change the origin of download for employee_salaries.
+- The function now return a bunch with a dataframe under the field “data”,</p>
+<blockquote>
+<div><p>and not the path to the csv file.</p>
+</div></blockquote>
 <ul class="simple">
-<li><strong>SimilarityEncoder</strong>: Accelerate <code class="docutils literal"><span class="pre">SimilarityEncoder.transform</span></code>, by:<ul>
-<li>computing the vocabulary count vectors in <code class="docutils literal"><span class="pre">fit</span></code> instead of <code class="docutils literal"><span class="pre">transform</span></code></li>
-<li>computing the similarities in parallel using <code class="docutils literal"><span class="pre">joblib</span></code>. This option can be
-turned on/off via the <code class="docutils literal"><span class="pre">n_jobs</span></code> attribute of the <code class="docutils literal"><span class="pre">SimilarityEncoder</span></code>.</li>
+<li><p>The field “description” has been renamed to “DESCR”.</p></li>
 </ul>
 </li>
-<li><strong>SimilarityEncoder</strong>: Fix a bug that was preventing a <code class="docutils literal"><span class="pre">SimilarityEncoder</span></code>
-to be created when <code class="docutils literal"><span class="pre">categories</span></code> was a list.</li>
-<li><strong>SimilarityEncoder</strong>: Set the dtype passed to the ngram similarity
-to float32, which reduces memory consumption during encoding.</li>
+</ul>
+</div>
+<div class="section" id="release-0-0-6">
+<h1>Release 0.0.6<a class="headerlink" href="#release-0-0-6" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p><strong>SimilarityEncoder</strong>: Fixed a bug when using the Jaro-Winkler distance as a
+similarity metric. Our implementation now accurately reproduces the behaviour
+of the <code class="docutils literal notranslate"><span class="pre">python-Levenshtein</span></code> implementation.</p></li>
+<li><p><strong>SimilarityEncoder</strong>: Accelerate <code class="docutils literal notranslate"><span class="pre">SimilarityEncoder.transform</span></code>, by:</p>
+<ul>
+<li><p>computing the vocabulary count vectors in <code class="docutils literal notranslate"><span class="pre">fit</span></code> instead of <code class="docutils literal notranslate"><span class="pre">transform</span></code></p></li>
+<li><p>computing the similarities in parallel using <code class="docutils literal notranslate"><span class="pre">joblib</span></code>. This option can be
+turned on/off via the <code class="docutils literal notranslate"><span class="pre">n_jobs</span></code> attribute of the <code class="docutils literal notranslate"><span class="pre">SimilarityEncoder</span></code>.</p></li>
+</ul>
+</li>
+<li><p><strong>SimilarityEncoder</strong>: Fix a bug that was preventing a <code class="docutils literal notranslate"><span class="pre">SimilarityEncoder</span></code>
+to be created when <code class="docutils literal notranslate"><span class="pre">categories</span></code> was a list.</p></li>
+<li><p><strong>SimilarityEncoder</strong>: Set the dtype passed to the ngram similarity
+to float32, which reduces memory consumption during encoding.</p></li>
 </ul>
 </div>
 <div class="section" id="release-0-0-5">
 <h1>Release 0.0.5<a class="headerlink" href="#release-0-0-5" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
-<li><strong>SimilarityEncoder</strong>: Change the default ngram range to (2, 4) which
-performs better empirically.</li>
-<li><strong>SimilarityEncoder</strong>: Added a “most_frequent” strategy to define
-prototype categories for large-scale learning.</li>
-<li><strong>SimilarityEncoder</strong>: Added a “k-means” strategy to define prototype
-categories for large-scale learning.</li>
-<li><strong>SimilarityEncoder</strong>: Added the possibility to use hashing ngrams for
-stateless fitting with the ngram similarity.</li>
-<li><strong>SimilarityEncoder</strong>: Performance improvements in the ngram similarity.</li>
-<li><strong>SimilarityEncoder</strong>: Expose a get_feature_names method.</li>
+<li><p><strong>SimilarityEncoder</strong>: Change the default ngram range to (2, 4) which
+performs better empirically.</p></li>
+<li><p><strong>SimilarityEncoder</strong>: Added a “most_frequent” strategy to define
+prototype categories for large-scale learning.</p></li>
+<li><p><strong>SimilarityEncoder</strong>: Added a “k-means” strategy to define prototype
+categories for large-scale learning.</p></li>
+<li><p><strong>SimilarityEncoder</strong>: Added the possibility to use hashing ngrams for
+stateless fitting with the ngram similarity.</p></li>
+<li><p><strong>SimilarityEncoder</strong>: Performance improvements in the ngram similarity.</p></li>
+<li><p><strong>SimilarityEncoder</strong>: Expose a get_feature_names method.</p></li>
 </ul>
 </div>
 

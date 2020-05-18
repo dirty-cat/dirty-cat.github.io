@@ -1,10 +1,12 @@
-.. note::
-    :class: sphx-glr-download-link-note
+.. only:: html
 
-    Click :ref:`here <sphx_glr_download_auto_examples_04_dimension_reduction_and_performance.py>` to download the full example code
-.. rst-class:: sphx-glr-example-title
+    .. note::
+        :class: sphx-glr-download-link-note
 
-.. _sphx_glr_auto_examples_04_dimension_reduction_and_performance.py:
+        Click :ref:`here <sphx_glr_download_auto_examples_04_dimension_reduction_and_performance.py>`     to download the full example code
+    .. rst-class:: sphx-glr-example-title
+
+    .. _sphx_glr_auto_examples_04_dimension_reduction_and_performance.py:
 
 
 Scalability considerations for similarity encoding
@@ -15,14 +17,13 @@ datasets: reducing the number of reference categories to "prototypes",
 either chosen as the most frequent categories, or with kmeans clustering.
 
 
-
-
-.. code-block:: python
+.. code-block:: default
 
     # Avoid the warning in scikit-learn's LogisticRegression for the change
     # in the solver
     import warnings
     warnings.simplefilter(action='ignore', category=FutureWarning)
+
 
 
 
@@ -37,8 +38,7 @@ For this example, we build a small tool that reports memory
 usage and compute time of a function
 
 
-
-.. code-block:: python
+.. code-block:: default
 
     from time import time
     import functools
@@ -56,10 +56,11 @@ usage and compute time of a function
                                                     max_usage=True,
                                                     retval=True)
             print("Run time: %.1is    Memory used: %iMb"
-                  % (time() - t0, mem[0]))
+                  % (time() - t0, mem))
             return out
 
         return wrapped_func
+
 
 
 
@@ -74,8 +75,7 @@ Data Importing and preprocessing
 We first download the dataset:
 
 
-
-.. code-block:: python
+.. code-block:: default
 
     from dirty_cat.datasets import fetch_traffic_violations
 
@@ -92,15 +92,18 @@ We first download the dataset:
 
  .. code-block:: none
 
+    /home/circleci/project/dirty_cat/datasets/fetching.py:207: UserWarning: content size cannot be found, downloading file from https://data.montgomerycountymd.gov/api/views/4mse-ku6q/rows.csv?accessType=DOWNLOAD as a whole
+      warnings.warn('content size cannot be found, '
     The downloaded data contains the traffic_violations dataset.
     It can originally be found at: https://catalog.data.gov/dataset/ traffic-violations-56dda
+
+
 
 
 Then we load it:
 
 
-
-.. code-block:: python
+.. code-block:: default
 
     import pandas as pd
 
@@ -114,14 +117,23 @@ Then we load it:
 
 
 
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+    /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sphinx_gallery/gen_rst.py:549: DtypeWarning: Columns (19,20,21,22,23,24,25,34) have mixed types.Specify dtype option on import or set low_memory=False.
+      _, mem_max = _memory_usage(
+
+
 
 
 We will use SimilarityEncoder on the 'description' column. One
 difficulty is that it many different entries
 
 
-
-.. code-block:: python
+.. code-block:: default
 
     print(df['Description'].nunique())
 
@@ -135,11 +147,13 @@ difficulty is that it many different entries
 
  .. code-block:: none
 
-    1760
+    142
 
 
 
-.. code-block:: python
+
+
+.. code-block:: default
 
     print(df['Description'].value_counts()[:20])
 
@@ -153,31 +167,32 @@ difficulty is that it many different entries
 
  .. code-block:: none
 
-    DRIVER FAILURE TO OBEY PROPERLY PLACED TRAFFIC CONTROL DEVICE INSTRUCTIONS                              2958
-    FAILURE TO DISPLAY REGISTRATION CARD UPON DEMAND BY POLICE OFFICER                                      1827
-    DRIVING VEHICLE ON HIGHWAY WITH SUSPENDED REGISTRATION                                                  1813
-    PERSON DRIVING MOTOR VEHICLE ON HIGHWAY OR PUBLIC USE PROPERTY ON SUSPENDED LICENSE AND PRIVILEGE       1495
-    FAILURE OF INDIVIDUAL DRIVING ON HIGHWAY TO DISPLAY LICENSE TO UNIFORMED POLICE ON DEMAND               1476
-    DISPLAYING EXPIRED REGISTRATION PLATE ISSUED BY ANY STATE                                               1248
-    DRIVING WHILE IMPAIRED BY ALCOHOL                                                                        826
-    DRIVING VEHICLE WHILE UNDER THE INFLUENCE OF ALCOHOL                                                     799
-    DRIVER USING HANDS TO USE HANDHELD TELEPHONE WHILEMOTOR VEHICLE IS IN MOTION                             786
-    DRIVING VEHICLE ON HIGHWAY WITHOUT CURRENT REGISTRATION PLATES AND VALIDATION TABS                       782
-    DRIVING MOTOR VEHICLE ON HIGHWAY WITHOUT REQUIRED LICENSE AND AUTHORIZATION                              762
-    DRIVER FAILURE TO STOP AT STOP SIGN LINE                                                                 748
-    FAILURE TO CONTROL VEHICLE SPEED ON HIGHWAY TO AVOID COLLISION                                           739
-    DRIVER CHANGING LANES WHEN UNSAFE                                                                        709
-    NEGLIGENT DRIVING VEHICLE IN CARELESS AND IMPRUDENT MANNER ENDANGERING PROPERTY, LIFE AND PERSON         689
-    DRIVER FAILURE TO STOP AT STEADY CIRCULAR RED SIGNAL                                                     618
-    OPERATOR NOT RESTRAINED BY SEATBELT                                                                      593
-    DRIVING TO DRIVE MOTOR VEHICLE ON HIGHWAY WITHOUT REQUIRED LICENSE AND AUTHORIZATION                     555
-    DRIVING UNDER THE INFLUENCE OF ALCOHOL PER SE                                                            539
-    FAILURE OF VEH. ON HWY. TO DISPLAY LIGHTED LAMPS, ILLUMINATING DEVICE IN UNFAVORABLE VISIBILITY COND     533
+    DRIVING VEH. WHILE IMPAIRED BY ALCOHOL                                                               76
+    DRIVING VEHICLE WHILE UNDER THE INFLUENCE OF ALCOHOL                                                 76
+    NEGLIGENT DRIVING VEHICLE IN CARELESS AND IMPRUDENT MANNER ENDANGERING PROPERTY, LIFE AND PERSON     55
+    DRIVING VEHICLE WHILE UNDER THE INFLUENCE OF ALCOHOL PER SE                                          47
+    DRIVER FAILURE TO OBEY PROPERLY PLACED TRAFFIC CONTROL DEVICE INSTRUCTIONS                           46
+    RECKLESS DRIVING VEHICLE IN WANTON AND WILLFUL DISREGARD FOR SAFETY OF PERSONS AND PROPERTY          38
+    FAILURE OF INDIVIDUAL DRIVING ON HIGHWAY TO DISPLAY LICENSE TO UNIFORMED POLICE ON DEMAND            24
+    FAILURE TO DISPLAY REGISTRATION CARD UPON DEMAND BY POLICE OFFICER                                   18
+    DRIVING MOTOR VEHICLE ON HIGHWAY WITHOUT REQUIRED LICENSE AND AUTHORIZATION                          17
+    FAILURE TO DRIVE VEHICLE ON RIGHT HALF OF ROADWAY WHEN REQUIRED                                      17
+    PERSON DRIVING MOTOR VEHICLE ON HIGHWAY OR PUBLIC USE PROPERTY ON SUSPENDED LICENSE AND PRIVILEGE    15
+    DRIVER FAILURE TO STOP AT STOP SIGN LINE                                                             14
+    DRIVING VEH. W/O ADEQUATE REAR REG. PLATE ILLUMINATION                                               11
+    DRIVER CHANGING LANES WHEN UNSAFE                                                                    10
+    DRIVING WHILE LIC. SUSP. UNDER 16-203, 16-206A2 FAIL TO ATTEND DIP, 17-106, 26-204/206, 27-103       10
+    DRIVING VEHICLE IN EXCESS OF REASONABLE AND PRUDENT SPEED ON HIGHWAY                                 10
+    CAUSING STANDING VEH. TO OBSTRUCT FREE VEH. PASSAGE OF ROADWAY                                        9
+    DRIVER FAIL TO STOP AT FLASHING RED TRAFFIC SIGNAL STOP LINE                                          8
+    FAILURE TO CONTROL VEHICLE SPEED ON HIGHWAY TO AVOID COLLISION                                        8
+    OPERATING VEHICLE ON HIGHWAY WITH UNAUTHORIZED WINDOW TINTING MATERIAL                                7
     Name: Description, dtype: int64
 
 
-As we will see,SimilarityEncoder takes a while on such data
 
+
+As we will see,SimilarityEncoder takes a while on such data
 
 SimilarityEncoder with default options
 --------------------------------------
@@ -186,8 +201,7 @@ Let us build our vectorizer, using a ColumnTransformer to combine
 one-hot encoding and similarity encoding
 
 
-
-.. code-block:: python
+.. code-block:: default
 
     from sklearn.preprocessing import OneHotEncoder
     from sklearn.compose import ColumnTransformer
@@ -233,14 +247,15 @@ one-hot encoding and similarity encoding
 
  .. code-block:: none
 
-    Time to vectorize: 8.206304788589478
+    Time to vectorize: 0.15008854866027832
+
+
 
 
 We can run a cross-validation
 
 
-
-.. code-block:: python
+.. code-block:: default
 
     from sklearn import linear_model, pipeline, model_selection
 
@@ -260,20 +275,62 @@ We can run a cross-validation
 
  .. code-block:: none
 
-    Run time: 82s    Memory used: 1845Mb
-    Cross-validation score: [0.78915917 0.78578459 0.78605076]
+    /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:760: ConvergenceWarning: lbfgs failed to converge (status=1):
+    STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+    Increase the number of iterations (max_iter) or scale the data as shown in:
+        https://scikit-learn.org/stable/modules/preprocessing.html
+    Please also refer to the documentation for alternative solver options:
+        https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+      n_iter_i = _check_optimize_result(
+    /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:760: ConvergenceWarning: lbfgs failed to converge (status=1):
+    STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+    Increase the number of iterations (max_iter) or scale the data as shown in:
+        https://scikit-learn.org/stable/modules/preprocessing.html
+    Please also refer to the documentation for alternative solver options:
+        https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+      n_iter_i = _check_optimize_result(
+    /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:760: ConvergenceWarning: lbfgs failed to converge (status=1):
+    STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+    Increase the number of iterations (max_iter) or scale the data as shown in:
+        https://scikit-learn.org/stable/modules/preprocessing.html
+    Please also refer to the documentation for alternative solver options:
+        https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+      n_iter_i = _check_optimize_result(
+    /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:760: ConvergenceWarning: lbfgs failed to converge (status=1):
+    STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+    Increase the number of iterations (max_iter) or scale the data as shown in:
+        https://scikit-learn.org/stable/modules/preprocessing.html
+    Please also refer to the documentation for alternative solver options:
+        https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+      n_iter_i = _check_optimize_result(
+    /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:760: ConvergenceWarning: lbfgs failed to converge (status=1):
+    STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+    Increase the number of iterations (max_iter) or scale the data as shown in:
+        https://scikit-learn.org/stable/modules/preprocessing.html
+    Please also refer to the documentation for alternative solver options:
+        https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+      n_iter_i = _check_optimize_result(
+    Run time: 1s    Memory used: 861Mb
+    Cross-validation score: [0.8974359  0.91025641 0.87179487 0.92258065 0.89032258]
+
+
 
 
 Store results for later
 
 
-
-.. code-block:: python
+.. code-block:: default
 
     scores = dict()
     scores['Default options'] = results['test_score']
     times = dict()
     times['Default options'] = results['fit_time']
+
 
 
 
@@ -289,8 +346,7 @@ categorical variable to reduce the dimensionality of the problem and thus
 speed things up. We select manually the number of prototypes we want to use.
 
 
-
-.. code-block:: python
+.. code-block:: default
 
     sim_enc = SimilarityEncoder(similarity='ngram', categories='most_frequent',
                                 n_prototypes=100)
@@ -306,11 +362,11 @@ speed things up. We select manually the number of prototypes we want to use.
 
 
 
+
 Check now that prediction is still as good
 
 
-
-.. code-block:: python
+.. code-block:: default
 
     model = pipeline.make_pipeline(column_trans, log_reg)
     results = resource_used(model_selection.cross_validate)(model, df, y)
@@ -326,18 +382,52 @@ Check now that prediction is still as good
 
  .. code-block:: none
 
-    Run time: 14s    Memory used: 1276Mb
-    Cross-validation score: [0.78620641 0.78522216 0.78492582]
+    /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:760: ConvergenceWarning: lbfgs failed to converge (status=1):
+    STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+    Increase the number of iterations (max_iter) or scale the data as shown in:
+        https://scikit-learn.org/stable/modules/preprocessing.html
+    Please also refer to the documentation for alternative solver options:
+        https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+      n_iter_i = _check_optimize_result(
+    /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:760: ConvergenceWarning: lbfgs failed to converge (status=1):
+    STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+    Increase the number of iterations (max_iter) or scale the data as shown in:
+        https://scikit-learn.org/stable/modules/preprocessing.html
+    Please also refer to the documentation for alternative solver options:
+        https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+      n_iter_i = _check_optimize_result(
+    /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:760: ConvergenceWarning: lbfgs failed to converge (status=1):
+    STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+    Increase the number of iterations (max_iter) or scale the data as shown in:
+        https://scikit-learn.org/stable/modules/preprocessing.html
+    Please also refer to the documentation for alternative solver options:
+        https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+      n_iter_i = _check_optimize_result(
+    /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:760: ConvergenceWarning: lbfgs failed to converge (status=1):
+    STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+    Increase the number of iterations (max_iter) or scale the data as shown in:
+        https://scikit-learn.org/stable/modules/preprocessing.html
+    Please also refer to the documentation for alternative solver options:
+        https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+      n_iter_i = _check_optimize_result(
+    Run time: 1s    Memory used: 861Mb
+    Cross-validation score: [0.89102564 0.91025641 0.87820513 0.92258065 0.89032258]
+
+
 
 
 Store results for later
 
 
-
-.. code-block:: python
+.. code-block:: default
 
     scores['Most frequent'] = results['test_score']
     times['Most frequent'] = results['fit_time']
+
 
 
 
@@ -353,8 +443,7 @@ SimilarityEncoder can apply a K-means and nearest neighbors algorithm
 to find the prototypes. The number of prototypes is set manually.
 
 
-
-.. code-block:: python
+.. code-block:: default
 
     sim_enc = SimilarityEncoder(similarity='ngram', categories='k-means',
                                 n_prototypes=100)
@@ -370,11 +459,11 @@ to find the prototypes. The number of prototypes is set manually.
 
 
 
+
 Check now that prediction is still as good
 
 
-
-.. code-block:: python
+.. code-block:: default
 
     model = pipeline.make_pipeline(column_trans, log_reg)
     results = resource_used(model_selection.cross_validate)(model, df, y)
@@ -390,18 +479,60 @@ Check now that prediction is still as good
 
  .. code-block:: none
 
-    Run time: 21s    Memory used: 1268Mb
-    Cross-validation score: [0.7821288  0.78557368 0.78612107]
+    /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:760: ConvergenceWarning: lbfgs failed to converge (status=1):
+    STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+    Increase the number of iterations (max_iter) or scale the data as shown in:
+        https://scikit-learn.org/stable/modules/preprocessing.html
+    Please also refer to the documentation for alternative solver options:
+        https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+      n_iter_i = _check_optimize_result(
+    /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:760: ConvergenceWarning: lbfgs failed to converge (status=1):
+    STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+    Increase the number of iterations (max_iter) or scale the data as shown in:
+        https://scikit-learn.org/stable/modules/preprocessing.html
+    Please also refer to the documentation for alternative solver options:
+        https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+      n_iter_i = _check_optimize_result(
+    /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:760: ConvergenceWarning: lbfgs failed to converge (status=1):
+    STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+    Increase the number of iterations (max_iter) or scale the data as shown in:
+        https://scikit-learn.org/stable/modules/preprocessing.html
+    Please also refer to the documentation for alternative solver options:
+        https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+      n_iter_i = _check_optimize_result(
+    /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:760: ConvergenceWarning: lbfgs failed to converge (status=1):
+    STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+    Increase the number of iterations (max_iter) or scale the data as shown in:
+        https://scikit-learn.org/stable/modules/preprocessing.html
+    Please also refer to the documentation for alternative solver options:
+        https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+      n_iter_i = _check_optimize_result(
+    /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:760: ConvergenceWarning: lbfgs failed to converge (status=1):
+    STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+    Increase the number of iterations (max_iter) or scale the data as shown in:
+        https://scikit-learn.org/stable/modules/preprocessing.html
+    Please also refer to the documentation for alternative solver options:
+        https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+      n_iter_i = _check_optimize_result(
+    Run time: 13s    Memory used: 864Mb
+    Cross-validation score: [0.89102564 0.91025641 0.87820513 0.92258065 0.89032258]
+
+
 
 
 Store results for later
 
 
-
-.. code-block:: python
+.. code-block:: default
 
     scores['KMeans'] = results['test_score']
     times['KMeans'] = results['fit_time']
+
 
 
 
@@ -413,8 +544,7 @@ Plot a summary figure
 ----------------------
 
 
-
-.. code-block:: python
+.. code-block:: default
 
     import seaborn
     import matplotlib.pyplot as plt
@@ -438,6 +568,7 @@ Plot a summary figure
 
 
 
+
 Reduce memory usage during encoding using float32
 ----------------------------------------------------------------
 
@@ -446,8 +577,7 @@ The use of the scikit-learn model may upcast to float64 (depending on the used
 algorithm). The memory savings will then happen during the encoding.
 
 
-
-.. code-block:: python
+.. code-block:: default
 
     import numpy as np
 
@@ -494,14 +624,15 @@ algorithm). The memory savings will then happen during the encoding.
 
  .. code-block:: none
 
-    Time to vectorize: 1.6185128688812256
+    Time to vectorize: 0.09603261947631836
+
+
 
 
 We can run a cross-validation to confirm the memory footprint reduction
 
 
-
-.. code-block:: python
+.. code-block:: default
 
     model = pipeline.make_pipeline(column_trans, log_reg)
     results = resource_used(model_selection.cross_validate)(model, df, y, )
@@ -516,11 +647,56 @@ We can run a cross-validation to confirm the memory footprint reduction
 
  .. code-block:: none
 
-    Run time: 13s    Memory used: 680Mb
-    Cross-validation score: [0.78620641 0.78522216 0.78492582]
+    /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:760: ConvergenceWarning: lbfgs failed to converge (status=1):
+    STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+    Increase the number of iterations (max_iter) or scale the data as shown in:
+        https://scikit-learn.org/stable/modules/preprocessing.html
+    Please also refer to the documentation for alternative solver options:
+        https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+      n_iter_i = _check_optimize_result(
+    /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:760: ConvergenceWarning: lbfgs failed to converge (status=1):
+    STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+    Increase the number of iterations (max_iter) or scale the data as shown in:
+        https://scikit-learn.org/stable/modules/preprocessing.html
+    Please also refer to the documentation for alternative solver options:
+        https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+      n_iter_i = _check_optimize_result(
+    /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:760: ConvergenceWarning: lbfgs failed to converge (status=1):
+    STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+    Increase the number of iterations (max_iter) or scale the data as shown in:
+        https://scikit-learn.org/stable/modules/preprocessing.html
+    Please also refer to the documentation for alternative solver options:
+        https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+      n_iter_i = _check_optimize_result(
+    /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:760: ConvergenceWarning: lbfgs failed to converge (status=1):
+    STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+    Increase the number of iterations (max_iter) or scale the data as shown in:
+        https://scikit-learn.org/stable/modules/preprocessing.html
+    Please also refer to the documentation for alternative solver options:
+        https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+      n_iter_i = _check_optimize_result(
+    /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:760: ConvergenceWarning: lbfgs failed to converge (status=1):
+    STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+    Increase the number of iterations (max_iter) or scale the data as shown in:
+        https://scikit-learn.org/stable/modules/preprocessing.html
+    Please also refer to the documentation for alternative solver options:
+        https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+      n_iter_i = _check_optimize_result(
+    Run time: 1s    Memory used: 864Mb
+    Cross-validation score: [0.89102564 0.91025641 0.87820513 0.92258065 0.89032258]
 
 
-**Total running time of the script:** ( 4 minutes  44.355 seconds)
+
+
+
+.. rst-class:: sphx-glr-timing
+
+   **Total running time of the script:** ( 2 minutes  33.558 seconds)
 
 
 .. _sphx_glr_download_auto_examples_04_dimension_reduction_and_performance.py:
@@ -533,13 +709,13 @@ We can run a cross-validation to confirm the memory footprint reduction
 
 
 
-  .. container:: sphx-glr-download
+  .. container:: sphx-glr-download sphx-glr-download-python
 
      :download:`Download Python source code: 04_dimension_reduction_and_performance.py <04_dimension_reduction_and_performance.py>`
 
 
 
-  .. container:: sphx-glr-download
+  .. container:: sphx-glr-download sphx-glr-download-jupyter
 
      :download:`Download Jupyter notebook: 04_dimension_reduction_and_performance.ipynb <04_dimension_reduction_and_performance.ipynb>`
 
@@ -548,4 +724,4 @@ We can run a cross-validation to confirm the memory footprint reduction
 
  .. rst-class:: sphx-glr-signature
 
-    `Gallery generated by Sphinx-Gallery <https://sphinx-gallery.readthedocs.io>`_
+    `Gallery generated by Sphinx-Gallery <https://sphinx-gallery.github.io>`_

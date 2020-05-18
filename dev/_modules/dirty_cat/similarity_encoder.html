@@ -1,31 +1,21 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
+    <meta charset="utf-8" />
     <title>dirty_cat.similarity_encoder &#8212; dirty_cat 0.0.5 documentation</title>
-    
     <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../',
-        VERSION:     '0.0.5',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="../../_static/jquery.js"></script>
-    <script type="text/javascript" src="../../_static/underscore.js"></script>
-    <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="stylesheet" type="text/css" href="../../_static/gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/gallery-dataframe.css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
    
@@ -34,8 +24,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
-  </head>
-  <body>
+  </head><body>
   <div class="document">
     
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -90,16 +79,18 @@
 <span></span><span class="kn">import</span> <span class="nn">warnings</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">joblib</span> <span class="k">import</span> <span class="n">Parallel</span><span class="p">,</span> <span class="n">delayed</span>
-<span class="kn">from</span> <span class="nn">scipy</span> <span class="k">import</span> <span class="n">sparse</span>
-<span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="k">import</span> <span class="n">KMeans</span>
-<span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="k">import</span> <span class="n">CountVectorizer</span><span class="p">,</span> <span class="n">HashingVectorizer</span>
-<span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="k">import</span> <span class="n">NearestNeighbors</span>
-<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="k">import</span> <span class="n">OneHotEncoder</span>
-<span class="kn">from</span> <span class="nn">sklearn.utils</span> <span class="k">import</span> <span class="n">check_random_state</span>
+<span class="kn">from</span> <span class="nn">distutils.version</span> <span class="kn">import</span> <span class="n">LooseVersion</span>
+<span class="kn">from</span> <span class="nn">joblib</span> <span class="kn">import</span> <span class="n">Parallel</span><span class="p">,</span> <span class="n">delayed</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">sparse</span>
+<span class="kn">import</span> <span class="nn">sklearn</span>
+<span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">KMeans</span>
+<span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">CountVectorizer</span><span class="p">,</span> <span class="n">HashingVectorizer</span>
+<span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">NearestNeighbors</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">OneHotEncoder</span>
+<span class="kn">from</span> <span class="nn">sklearn.utils</span> <span class="kn">import</span> <span class="n">check_random_state</span>
 
-<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">string_distances</span>
-<span class="kn">from</span> <span class="nn">.string_distances</span> <span class="k">import</span> <span class="n">get_ngram_count</span><span class="p">,</span> <span class="n">preprocess</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">string_distances</span>
+<span class="kn">from</span> <span class="nn">.string_distances</span> <span class="kn">import</span> <span class="n">get_ngram_count</span><span class="p">,</span> <span class="n">preprocess</span>
 
 
 <span class="k">def</span> <span class="nf">_ngram_similarity_one_sample_inplace</span><span class="p">(</span>
@@ -165,7 +156,6 @@
                                        <span class="n">n_features</span><span class="o">=</span><span class="n">hashing_dim</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                                        <span class="n">alternate_sign</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                                        <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
-        <span class="c1"># The hashing vectorizer is stateless. We don&#39;t need to fit it on the data</span>
         <span class="n">vectorizer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
     <span class="n">count_cats</span> <span class="o">=</span> <span class="n">vectorizer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">cats</span><span class="p">)</span>
     <span class="n">count_X</span> <span class="o">=</span> <span class="n">vectorizer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">unq_X_</span><span class="p">)</span>
@@ -176,8 +166,8 @@
 
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">count_X</span><span class="p">):</span>
         <span class="n">_</span><span class="p">,</span> <span class="n">nonzero_idx</span><span class="p">,</span> <span class="n">nonzero_vals</span> <span class="o">=</span> <span class="n">sparse</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-        <span class="n">samegrams</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">((</span><span class="n">count_cats</span><span class="p">[:,</span> <span class="n">nonzero_idx</span><span class="p">]</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span><span class="n">nonzero_vals</span><span class="p">)</span>
-                                <span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+        <span class="n">samegrams</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">count_cats</span><span class="p">[:,</span> <span class="n">nonzero_idx</span><span class="p">]</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span><span class="n">nonzero_vals</span><span class="p">))</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
         <span class="n">allgrams</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">+</span> <span class="n">sum_cats</span> <span class="o">-</span> <span class="n">samegrams</span>
         <span class="n">similarity</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="n">samegrams</span><span class="p">,</span> <span class="n">allgrams</span><span class="p">)</span>
         <span class="n">SE_dict</span><span class="p">[</span><span class="n">unq_X</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">similarity</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
@@ -203,7 +193,8 @@
 
 
 <span class="k">def</span> <span class="nf">get_kmeans_prototypes</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">n_prototypes</span><span class="p">,</span> <span class="n">hashing_dim</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span>
-                          <span class="n">ngram_range</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sample_weight</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+                          <span class="n">ngram_range</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sample_weight</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                          <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Computes prototypes based on:</span>
 <span class="sd">      - dimensionality reduction (via hashing n-grams)</span>
@@ -311,7 +302,7 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="SimilarityEncoder.__init__"><a class="viewcode-back" href="../../generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">similarity</span><span class="o">=</span><span class="s1">&#39;ngram&#39;</span><span class="p">,</span> <span class="n">ngram_range</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+<div class="viewcode-block" id="SimilarityEncoder.__init__"><a class="viewcode-back" href="../../generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">similarity</span><span class="o">=</span><span class="s1">&#39;ngram&#39;</span><span class="p">,</span> <span class="n">ngram_range</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
                  <span class="n">categories</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span>
                  <span class="n">handle_unknown</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">hashing_dim</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">n_prototypes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -328,12 +319,16 @@
 
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">categories</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
             <span class="k">assert</span> <span class="n">categories</span> <span class="ow">in</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="s1">&#39;k-means&#39;</span><span class="p">,</span> <span class="s1">&#39;most_frequent&#39;</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">categories</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;k-means&#39;</span><span class="p">,</span> <span class="s1">&#39;most_frequent&#39;</span><span class="p">]</span> <span class="ow">and</span> <span class="p">(</span><span class="n">n_prototypes</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">n_prototypes</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;n_prototypes expected None or a positive non null integer&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">categories</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;k-means&#39;</span><span class="p">,</span> <span class="s1">&#39;most_frequent&#39;</span><span class="p">]</span> <span class="ow">and</span> <span class="p">(</span><span class="n">n_prototypes</span> <span class="ow">is</span> <span class="kc">None</span>
+                                                           <span class="ow">or</span> <span class="n">n_prototypes</span> <span class="o">==</span> <span class="mi">0</span>
+                                                           <span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s1">&#39;n_prototypes expected None or a positive non null integer&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">categories</span> <span class="o">==</span> <span class="s1">&#39;auto&#39;</span> <span class="ow">and</span> <span class="n">n_prototypes</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;n_prototypes parameter ignored with category type </span><span class="se">\&#39;</span><span class="s1">auto</span><span class="se">\&#39;</span><span class="s1">&#39;</span><span class="p">)</span></div>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="s1">&#39;n_prototypes parameter ignored with category type </span><span class="se">\&#39;</span><span class="s1">auto</span><span class="se">\&#39;</span><span class="s1">&#39;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="SimilarityEncoder.get_most_frequent"><a class="viewcode-back" href="../../generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder.get_most_frequent">[docs]</a>    <span class="k">def</span> <span class="nf">get_most_frequent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prototypes</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get_most_frequent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prototypes</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Get the most frequent category prototypes</span>
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -343,9 +338,9 @@
 <span class="sd">        The n_prototypes most frequent values for a category variable</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">values</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">get_prototype_frequencies</span><span class="p">(</span><span class="n">prototypes</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">values</span><span class="p">[:</span><span class="bp">self</span><span class="o">.</span><span class="n">n_prototypes</span><span class="p">]</span></div>
+        <span class="k">return</span> <span class="n">values</span><span class="p">[:</span><span class="bp">self</span><span class="o">.</span><span class="n">n_prototypes</span><span class="p">]</span>
 
-<div class="viewcode-block" id="SimilarityEncoder.fit"><a class="viewcode-back" href="../../generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Fit the CategoricalEncoder to X.</span>
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -355,7 +350,14 @@
 <span class="sd">        -------</span>
 <span class="sd">        self</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">X</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_X</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">LooseVersion</span><span class="p">(</span><span class="n">sklearn</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">LooseVersion</span><span class="p">(</span><span class="s1">&#39;0.21&#39;</span><span class="p">):</span>
+            <span class="n">Xlist</span><span class="p">,</span> <span class="n">n_samples</span><span class="p">,</span> <span class="n">n_features</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_X</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">X</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_X</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+            <span class="n">Xlist</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">T</span>
+            <span class="n">n_samples</span><span class="p">,</span> <span class="n">n_features</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
+
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_unknown</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="s1">&#39;ignore&#39;</span><span class="p">]:</span>
             <span class="n">template</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;handle_unknown should be either &#39;error&#39; or &quot;</span>
                         <span class="s2">&quot;&#39;ignore&#39;, got </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -373,12 +375,11 @@
                     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Unsorted categories are not yet &quot;</span>
                                      <span class="s2">&quot;supported&quot;</span><span class="p">)</span>
 
-        <span class="n">n_samples</span><span class="p">,</span> <span class="n">n_features</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">categories_</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">random_state_</span> <span class="o">=</span> <span class="n">check_random_state</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">random_state</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_features</span><span class="p">):</span>
-            <span class="n">Xi</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span>
+            <span class="n">Xi</span> <span class="o">=</span> <span class="n">Xlist</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">categories</span> <span class="o">==</span> <span class="s1">&#39;auto&#39;</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">categories_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">Xi</span><span class="p">))</span>
             <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">categories</span> <span class="o">==</span> <span class="s1">&#39;most_frequent&#39;</span><span class="p">:</span>
@@ -386,7 +387,8 @@
             <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">categories</span> <span class="o">==</span> <span class="s1">&#39;k-means&#39;</span><span class="p">:</span>
                 <span class="n">uniques</span><span class="p">,</span> <span class="n">count</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">Xi</span><span class="p">,</span> <span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">categories_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                    <span class="n">get_kmeans_prototypes</span><span class="p">(</span><span class="n">uniques</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_prototypes</span><span class="p">,</span> <span class="n">sample_weight</span><span class="o">=</span><span class="n">count</span><span class="p">,</span>
+                    <span class="n">get_kmeans_prototypes</span><span class="p">(</span><span class="n">uniques</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_prototypes</span><span class="p">,</span>
+                                          <span class="n">sample_weight</span><span class="o">=</span><span class="n">count</span><span class="p">,</span>
                                           <span class="n">random_state</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">random_state_</span><span class="p">))</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_unknown</span> <span class="o">==</span> <span class="s1">&#39;error&#39;</span><span class="p">:</span>
@@ -396,7 +398,8 @@
                         <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Found unknown categories </span><span class="si">{0}</span><span class="s2"> in column </span><span class="si">{1}</span><span class="s2">&quot;</span>
                                <span class="s2">&quot; during fit&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">diff</span><span class="p">,</span> <span class="n">i</span><span class="p">))</span>
                         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">categories_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">categories</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">categories_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">categories</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+                                                 <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">))</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">similarity</span> <span class="o">==</span> <span class="s1">&#39;ngram&#39;</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">vectorizers_</span> <span class="o">=</span> <span class="p">[]</span>
@@ -423,13 +426,13 @@
                 <span class="n">vocabulary_ngram_count</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">get_ngram_count</span><span class="p">(</span>
                     <span class="n">preprocess</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">ngram_range</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">categories_</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
 
-            <span class="bp">self</span><span class="o">.</span><span class="n">vectorizers_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vectorizer</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">vocabulary_count_matrices_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vocabulary_count_matrix</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">vocabulary_ngram_counts_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vocabulary_ngram_count</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">vectorizers_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vectorizer</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">vocabulary_count_matrices_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vocabulary_count_matrix</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">vocabulary_ngram_counts_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vocabulary_ngram_count</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="bp">self</span></div>
+        <span class="k">return</span> <span class="bp">self</span>
 
-<div class="viewcode-block" id="SimilarityEncoder.transform"><a class="viewcode-back" href="../../generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder.transform">[docs]</a>    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">fast</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">fast</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Transform X using specified encoding scheme.</span>
 
 <span class="sd">        Parameters</span>
@@ -443,12 +446,16 @@
 <span class="sd">            Transformed input.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">X</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_X</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 
-        <span class="n">n_samples</span><span class="p">,</span> <span class="n">n_features</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
+        <span class="k">if</span> <span class="n">LooseVersion</span><span class="p">(</span><span class="n">sklearn</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">LooseVersion</span><span class="p">(</span><span class="s1">&#39;0.21&#39;</span><span class="p">):</span>
+            <span class="n">Xlist</span><span class="p">,</span> <span class="n">n_samples</span><span class="p">,</span> <span class="n">n_features</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_X</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">X</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_X</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+            <span class="n">Xlist</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">T</span>
+            <span class="n">n_samples</span><span class="p">,</span> <span class="n">n_features</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
 
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_features</span><span class="p">):</span>
-            <span class="n">Xi</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span>
+            <span class="n">Xi</span> <span class="o">=</span> <span class="n">Xlist</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
             <span class="n">valid_mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">in1d</span><span class="p">(</span><span class="n">Xi</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">categories_</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
 
             <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">valid_mask</span><span class="p">):</span>
@@ -464,10 +471,10 @@
             <span class="n">out</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="n">vect</span> <span class="o">=</span> <span class="n">_VECTORIZED_EDIT_DISTANCES</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">similarity</span><span class="p">]</span>
             <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">cats</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">categories_</span><span class="p">):</span>
-                <span class="n">unqX</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="n">j</span><span class="p">])</span>
+                <span class="n">unqX</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">Xlist</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
                 <span class="n">encoder_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">x</span><span class="p">:</span> <span class="n">vect</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">cats</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
                                 <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">unqX</span><span class="p">}</span>
-                <span class="n">encoder</span> <span class="o">=</span> <span class="p">[</span><span class="n">encoder_dict</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">X</span><span class="p">[:,</span> <span class="n">j</span><span class="p">]]</span>
+                <span class="n">encoder</span> <span class="o">=</span> <span class="p">[</span><span class="n">encoder_dict</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">Xlist</span><span class="p">[</span><span class="n">j</span><span class="p">]]</span>
                 <span class="n">encoder</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">encoder</span><span class="p">)</span>
                 <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">encoder</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
@@ -480,17 +487,17 @@
             <span class="n">last</span> <span class="o">=</span> <span class="mi">0</span>
             <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">cats</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">categories_</span><span class="p">):</span>
                 <span class="k">if</span> <span class="n">fast</span><span class="p">:</span>
-                    <span class="n">encoded_Xj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ngram_similarity_fast</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="n">j</span><span class="p">],</span> <span class="n">j</span><span class="p">)</span>
+                    <span class="n">encoded_Xj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ngram_similarity_fast</span><span class="p">(</span><span class="n">Xlist</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">j</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">encoded_Xj</span> <span class="o">=</span> <span class="n">ngram_similarity</span><span class="p">(</span>
-                        <span class="n">X</span><span class="p">[:,</span> <span class="n">j</span><span class="p">],</span> <span class="n">cats</span><span class="p">,</span> <span class="n">ngram_range</span><span class="o">=</span><span class="p">(</span><span class="n">min_n</span><span class="p">,</span> <span class="n">max_n</span><span class="p">),</span>
+                        <span class="n">Xlist</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">cats</span><span class="p">,</span> <span class="n">ngram_range</span><span class="o">=</span><span class="p">(</span><span class="n">min_n</span><span class="p">,</span> <span class="n">max_n</span><span class="p">),</span>
                         <span class="n">hashing_dim</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">hashing_dim</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
 
                 <span class="n">out</span><span class="p">[:,</span> <span class="n">last</span><span class="p">:</span><span class="n">last</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">cats</span><span class="p">)]</span> <span class="o">=</span> <span class="n">encoded_Xj</span>
                 <span class="n">last</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">cats</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">out</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Unknown similarity: &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">similarity</span><span class="p">)</span></div>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Unknown similarity: &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">similarity</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_ngram_similarity_fast</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">col_idx</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>

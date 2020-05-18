@@ -1,31 +1,21 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
+    <meta charset="utf-8" />
     <title>dirty_cat.TargetEncoder &#8212; dirty_cat 0.0.5 documentation</title>
-    
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '0.0.5',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-dataframe.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="dirty_cat.datasets.fetch_employee_salaries" href="dirty_cat.datasets.fetch_employee_salaries.html" />
@@ -36,8 +26,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
-  </head>
-  <body>
+  </head><body>
   <div class="document">
     
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -75,8 +64,8 @@
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="dirty_cat.SimilarityEncoder.html" title="previous chapter"><code class="docutils literal"><span class="pre">dirty_cat</span></code>.SimilarityEncoder</a></li>
-      <li>Next: <a href="dirty_cat.datasets.fetch_employee_salaries.html" title="next chapter"><code class="docutils literal"><span class="pre">dirty_cat.datasets</span></code>.fetch_employee_salaries</a></li>
+      <li>Previous: <a href="dirty_cat.SimilarityEncoder.html" title="previous chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat</span></code>.SimilarityEncoder</a></li>
+      <li>Next: <a href="dirty_cat.datasets.fetch_employee_salaries.html" title="next chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat.datasets</span></code>.fetch_employee_salaries</a></li>
   </ul></li>
 </ul>
 </div>
@@ -89,169 +78,68 @@
           <div class="body" role="main">
             
   <div class="section" id="dirty-cat-targetencoder">
-<h1><code class="xref py py-mod docutils literal"><span class="pre">dirty_cat</span></code>.TargetEncoder<a class="headerlink" href="#dirty-cat-targetencoder" title="Permalink to this headline">¶</a></h1>
-<dl class="class">
+<h1><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat</span></code>.TargetEncoder<a class="headerlink" href="#dirty-cat-targetencoder" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
 <dt id="dirty_cat.TargetEncoder">
-<em class="property">class </em><code class="descclassname">dirty_cat.</code><code class="descname">TargetEncoder</code><span class="sig-paren">(</span><em>categories=’auto’</em>, <em>clf_type=’binary-clf’</em>, <em>dtype=&lt;class ‘numpy.float64’&gt;</em>, <em>handle_unknown=’error’</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/target_encoder.html#TargetEncoder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirty_cat.TargetEncoder" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">dirty_cat.</code><code class="sig-name descname">TargetEncoder</code><span class="sig-paren">(</span><em class="sig-param">categories='auto'</em>, <em class="sig-param">clf_type='binary-clf'</em>, <em class="sig-param">dtype=&lt;class 'numpy.float64'&gt;</em>, <em class="sig-param">handle_unknown='error'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/target_encoder.html#TargetEncoder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirty_cat.TargetEncoder" title="Permalink to this definition">¶</a></dt>
 <dd><p>Encode categorical features as a numeric array given a target vector.</p>
 <p>Each category is encoded given the effect that it has in the
 target variable y. The method considers that categorical
 variables can present rare categories. It represents each category by the
 probability of y conditional on this category.
 In addition it takes an empirical Bayes approach to shrink the estimate.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>categories</strong> (<em>'auto'</em><em> or </em><em>a list of lists/arrays of values.</em>) – <p>Categories (unique values) per feature:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>categories</strong> (<em>'auto'</em><em> or </em><em>a list of lists/arrays of values.</em>) – <p>Categories (unique values) per feature:</p>
 <ul>
-<li>’auto’ : Determine categories automatically from the training data.</li>
-<li>list : <code class="docutils literal"><span class="pre">categories[i]</span></code> holds the categories expected in the i-th
+<li><p>’auto’ : Determine categories automatically from the training data.</p></li>
+<li><p>list : <code class="docutils literal notranslate"><span class="pre">categories[i]</span></code> holds the categories expected in the i-th
 column. The passed categories must be sorted and should not mix
-strings and numeric values.</li>
+strings and numeric values.</p></li>
 </ul>
-<p>The categories used can be found in the <code class="docutils literal"><span class="pre">categories_</span></code> attribute.</p>
-</li>
-<li><strong>clf_type</strong> (<em>string {'regression'</em><em>, </em><em>'binary-clf'</em><em>, </em><em>'multiclass-clf'}</em>) – The type of classification/regression problem.</li>
-<li><strong>dtype</strong> (<em>number type</em><em>, </em><em>default np.float64</em>) – Desired dtype of output.</li>
-<li><strong>handle_unknown</strong> (<em>'error'</em><em> (</em><em>default</em><em>) or </em><em>'ignore'</em>) – Whether to raise an error or ignore if a unknown categorical feature is
+<p>The categories used can be found in the <code class="docutils literal notranslate"><span class="pre">categories_</span></code> attribute.</p>
+</p></li>
+<li><p><strong>clf_type</strong> (<em>string {'regression'</em><em>, </em><em>'binary-clf'</em><em>, </em><em>'multiclass-clf'}</em>) – The type of classification/regression problem.</p></li>
+<li><p><strong>dtype</strong> (<em>number type</em><em>, </em><em>default np.float64</em>) – Desired dtype of output.</p></li>
+<li><p><strong>handle_unknown</strong> (<em>'error'</em><em> (</em><em>default</em><em>) or </em><em>'ignore'</em>) – Whether to raise an error or ignore if a unknown categorical feature is
 present during transform (default is to raise). When this parameter
 is set to ‘ignore’ and an unknown category is encountered during
 transform, the resulting one-hot encoded columns for this feature
 will be all zeros. In the inverse transform, an unknown category
-will be denoted as None.</li>
+will be denoted as None.</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
-<dl class="attribute">
-<dt id="dirty_cat.TargetEncoder.categories_">
-<code class="descname">categories_</code><a class="headerlink" href="#dirty_cat.TargetEncoder.categories_" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>list of arrays</em> – The categories of each feature determined during fitting
-(in order corresponding with output of <code class="docutils literal"><span class="pre">transform</span></code>).</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt>
+<code class="sig-name descname">categories\_</code></dt>
+<dd><p>The categories of each feature determined during fitting
+(in order corresponding with output of <code class="docutils literal notranslate"><span class="pre">transform</span></code>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>list of arrays</p>
+</dd>
+</dl>
 </dd></dl>
 
 <p class="rubric">References</p>
 <p>For more details, see Micci-Barreca, 2001: A preprocessing scheme for
 high-cardinality categorical attributes in classification and prediction
 problems.</p>
-<dl class="method">
+<dl class="py method">
 <dt id="dirty_cat.TargetEncoder.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>categories=’auto’</em>, <em>clf_type=’binary-clf’</em>, <em>dtype=&lt;class ‘numpy.float64’&gt;</em>, <em>handle_unknown=’error’</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/target_encoder.html#TargetEncoder.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirty_cat.TargetEncoder.__init__" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="dirty_cat.TargetEncoder.fit">
-<code class="descname">fit</code><span class="sig-paren">(</span><em>X</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/target_encoder.html#TargetEncoder.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirty_cat.TargetEncoder.fit" title="Permalink to this definition">¶</a></dt>
-<dd><p>Fit the TargetEncoder to X.
-:param X: The data to determine the categories of each feature.
-:type X: array-like, shape [n_samples, n_features]
-:param y: The associated target vector.
-:type y: array</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">self</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="dirty_cat.TargetEncoder.fit_transform">
-<code class="descname">fit_transform</code><span class="sig-paren">(</span><em>X</em>, <em>y=None</em>, <em>**fit_params</em><span class="sig-paren">)</span><a class="headerlink" href="#dirty_cat.TargetEncoder.fit_transform" title="Permalink to this definition">¶</a></dt>
-<dd><p>Fit to data, then transform it.</p>
-<p>Fits transformer to X and y with optional parameters fit_params
-and returns a transformed version of X.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>X</strong> (<em>numpy array of shape</em><em> [</em><em>n_samples</em><em>, </em><em>n_features</em><em>]</em>) – Training set.</li>
-<li><strong>y</strong> (<em>numpy array of shape</em><em> [</em><em>n_samples</em><em>]</em>) – Target values.</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>X_new</strong> – Transformed array.</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">numpy array of shape [n_samples, n_features_new]</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="dirty_cat.TargetEncoder.get_params">
-<code class="descname">get_params</code><span class="sig-paren">(</span><em>deep=True</em><span class="sig-paren">)</span><a class="headerlink" href="#dirty_cat.TargetEncoder.get_params" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get parameters for this estimator.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>deep</strong> (<em>boolean</em><em>, </em><em>optional</em>) – If True, will return the parameters for this estimator and
-contained subobjects that are estimators.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>params</strong> – Parameter names mapped to their values.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">mapping of string to any</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="dirty_cat.TargetEncoder.set_params">
-<code class="descname">set_params</code><span class="sig-paren">(</span><em>**params</em><span class="sig-paren">)</span><a class="headerlink" href="#dirty_cat.TargetEncoder.set_params" title="Permalink to this definition">¶</a></dt>
-<dd><p>Set the parameters of this estimator.</p>
-<p>The method works on simple estimators as well as on nested objects
-(such as pipelines). The latter have parameters of the form
-<code class="docutils literal"><span class="pre">&lt;component&gt;__&lt;parameter&gt;</span></code> so that it’s possible to update each
-component of a nested object.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">self</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="dirty_cat.TargetEncoder.transform">
-<code class="descname">transform</code><span class="sig-paren">(</span><em>X</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/target_encoder.html#TargetEncoder.transform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirty_cat.TargetEncoder.transform" title="Permalink to this definition">¶</a></dt>
-<dd><p>Transform X using specified encoding scheme.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>X</strong> (<em>array-like</em><em>, </em><em>shape</em><em> [</em><em>n_samples</em><em>, </em><em>n_features_new</em><em>]</em>) – The data to encode.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>X_new</strong> – Transformed input.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">2-d array</td>
-</tr>
-</tbody>
-</table>
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">categories='auto'</em>, <em class="sig-param">clf_type='binary-clf'</em>, <em class="sig-param">dtype=&lt;class 'numpy.float64'&gt;</em>, <em class="sig-param">handle_unknown='error'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/target_encoder.html#TargetEncoder.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirty_cat.TargetEncoder.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 
 </dd></dl>
 
 <div class="section" id="examples-using-dirty-cat-targetencoder">
-<h2>Examples using <code class="docutils literal"><span class="pre">dirty_cat.TargetEncoder</span></code><a class="headerlink" href="#examples-using-dirty-cat-targetencoder" title="Permalink to this headline">¶</a></h2>
-<div class="sphx-glr-thumbcontainer" tooltip="The `employee salaries &lt;https://catalog.data.gov/dataset/employee-salaries-2016&gt;`_ dataset cont..."><div class="figure" id="id1">
+<h2>Examples using <code class="docutils literal notranslate"><span class="pre">dirty_cat.TargetEncoder</span></code><a class="headerlink" href="#examples-using-dirty-cat-targetencoder" title="Permalink to this headline">¶</a></h2>
+<div class="sphx-glr-thumbcontainer" tooltip="The `employee salaries &lt;https://catalog.data.gov/dataset/employee-salaries-2016&gt;`_ dataset cont..."><div class="figure align-default" id="id1">
 <img alt="../_images/sphx_glr_02_fit_predict_plot_employee_salaries_thumb.png" src="../_images/sphx_glr_02_fit_predict_plot_employee_salaries_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="../auto_examples/02_fit_predict_plot_employee_salaries.html#sphx-glr-auto-examples-02-fit-predict-plot-employee-salaries-py"><span class="std std-ref">Predicting the salary of employees</span></a></span></p>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../auto_examples/02_fit_predict_plot_employee_salaries.html#sphx-glr-auto-examples-02-fit-predict-plot-employee-salaries-py"><span class="std std-ref">Predicting the salary of employees</span></a></span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
 </div>
 </div><div class="clearer"></div></div>
 </div>

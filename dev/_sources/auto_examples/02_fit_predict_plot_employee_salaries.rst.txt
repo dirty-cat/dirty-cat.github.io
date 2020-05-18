@@ -1,10 +1,12 @@
-.. note::
-    :class: sphx-glr-download-link-note
+.. only:: html
 
-    Click :ref:`here <sphx_glr_download_auto_examples_02_fit_predict_plot_employee_salaries.py>` to download the full example code
-.. rst-class:: sphx-glr-example-title
+    .. note::
+        :class: sphx-glr-download-link-note
 
-.. _sphx_glr_auto_examples_02_fit_predict_plot_employee_salaries.py:
+        Click :ref:`here <sphx_glr_download_auto_examples_02_fit_predict_plot_employee_salaries.py>`     to download the full example code
+    .. rst-class:: sphx-glr-example-title
+
+    .. _sphx_glr_auto_examples_02_fit_predict_plot_employee_salaries.py:
 
 
 Predicting the salary of employees
@@ -20,20 +22,18 @@ We choose to benchmark different categorical encodings for
 the dirty column *Employee Position Title*, that contains
 dirty categorical data.
 
-
-
 Data Importing and preprocessing
 --------------------------------
 
 We first download the dataset:
 
 
-
-.. code-block:: python
+.. code-block:: default
 
     from dirty_cat.datasets import fetch_employee_salaries
     employee_salaries = fetch_employee_salaries()
-    print(employee_salaries['description'])
+    print(employee_salaries['DESCR'])
+
 
 
 
@@ -45,18 +45,21 @@ We first download the dataset:
 
  .. code-block:: none
 
-    The downloaded data contains the employee_salaries dataset.
-    It can originally be found at: https://catalog.data.gov/dataset/ employee-salaries-2016
+    Annual salary information including gross pay and overtime pay for all active, permanent employees of Montgomery County, MD paid in calendar year 2016. This information will be published annually each year.
+
+    Downloaded from openml.org.
+
+
 
 
 Then we load it:
 
 
-
-.. code-block:: python
+.. code-block:: default
 
     import pandas as pd
-    df = pd.read_csv(employee_salaries['path']).astype(str)
+    df = employee_salaries['data']
+
 
 
 
@@ -67,16 +70,16 @@ Then we load it:
 Now, let's carry out some basic preprocessing:
 
 
+.. code-block:: default
 
-.. code-block:: python
-
-    df['Current Annual Salary'] = df['Current Annual Salary'].str.strip('$').astype(
-        float)
-    df['Date First Hired'] = pd.to_datetime(df['Date First Hired'])
+    df['Date First Hired'] = pd.to_datetime(df['date_first_hired'])
     df['Year First Hired'] = df['Date First Hired'].apply(lambda x: x.year)
+    # drop rows with NaN in gender
+    df.dropna(subset=['gender'], inplace=True)
 
     target_column = 'Current Annual Salary'
     y = df[target_column].values.ravel()
+
 
 
 
@@ -90,15 +93,15 @@ For categorical columns that are supposed to be clean, it is "safe" to
 use one hot encoding to transform them:
 
 
-
-.. code-block:: python
+.. code-block:: default
 
 
     clean_columns = {
-        'Gender': 'one-hot',
-        'Department Name': 'one-hot',
-        'Assignment Category': 'one-hot',
+        'gender': 'one-hot',
+        'department_name': 'one-hot',
+        'assignment_category': 'one-hot',
         'Year First Hired': 'numerical'}
+
 
 
 
@@ -110,12 +113,12 @@ We then choose the categorical encoding methods we want to benchmark
 and the dirty categorical variable:
 
 
-
-.. code-block:: python
+.. code-block:: default
 
 
     encoding_methods = ['one-hot', 'target', 'similarity']
-    dirty_column = 'Employee Position Title'
+    dirty_column = 'employee_position_title'
+
 
 
 
@@ -127,8 +130,7 @@ Creating a learning pipeline
 The encoders for both clean and dirty data are first imported:
 
 
-
-.. code-block:: python
+.. code-block:: default
 
 
     from sklearn.preprocessing import FunctionTransformer
@@ -173,6 +175,7 @@ The encoders for both clean and dirty data are first imported:
 
 
 
+
 Fitting each encoding methods with a RidgeCV
 --------------------------------------------
 Eventually, we loop over the different encoding methods,
@@ -180,8 +183,7 @@ instantiate each time a new pipeline, fit it
 and store the returned cross-validation score:
 
 
-
-.. code-block:: python
+.. code-block:: default
 
     from sklearn.preprocessing import StandardScaler
     from sklearn.linear_model import RidgeCV
@@ -211,13 +213,16 @@ and store the returned cross-validation score:
  .. code-block:: none
 
     one-hot encoding
-    r2 score:  mean: 0.856; std: 0.013
+    r2 score:  mean: 0.856; std: 0.034
 
     target encoding
-    r2 score:  mean: 0.773; std: 0.016
+    r2 score:  mean: 0.774; std: 0.033
 
     similarity encoding
-    r2 score:  mean: 0.913; std: 0.006
+    r2 score:  mean: 0.915; std: 0.012
+
+
+
 
 
 Plotting the results
@@ -225,8 +230,7 @@ Plotting the results
 Finally, we plot the scores on a boxplot:
 
 
-
-.. code-block:: python
+.. code-block:: default
 
     import seaborn
     import matplotlib.pyplot as plt
@@ -246,9 +250,21 @@ Finally, we plot the scores on a boxplot:
     :class: sphx-glr-single-img
 
 
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+    <frozen importlib._bootstrap>:219: RuntimeWarning: numpy.ufunc size changed, may indicate binary incompatibility. Expected 192 from C header, got 216 from PyObject
 
 
-**Total running time of the script:** ( 0 minutes  11.063 seconds)
+
+
+
+.. rst-class:: sphx-glr-timing
+
+   **Total running time of the script:** ( 0 minutes  15.481 seconds)
 
 
 .. _sphx_glr_download_auto_examples_02_fit_predict_plot_employee_salaries.py:
@@ -261,13 +277,13 @@ Finally, we plot the scores on a boxplot:
 
 
 
-  .. container:: sphx-glr-download
+  .. container:: sphx-glr-download sphx-glr-download-python
 
      :download:`Download Python source code: 02_fit_predict_plot_employee_salaries.py <02_fit_predict_plot_employee_salaries.py>`
 
 
 
-  .. container:: sphx-glr-download
+  .. container:: sphx-glr-download sphx-glr-download-jupyter
 
      :download:`Download Jupyter notebook: 02_fit_predict_plot_employee_salaries.ipynb <02_fit_predict_plot_employee_salaries.ipynb>`
 
@@ -276,4 +292,4 @@ Finally, we plot the scores on a boxplot:
 
  .. rst-class:: sphx-glr-signature
 
-    `Gallery generated by Sphinx-Gallery <https://sphinx-gallery.readthedocs.io>`_
+    `Gallery generated by Sphinx-Gallery <https://sphinx-gallery.github.io>`_

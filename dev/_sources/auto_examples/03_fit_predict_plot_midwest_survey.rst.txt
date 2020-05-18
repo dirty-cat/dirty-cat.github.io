@@ -1,10 +1,12 @@
-.. note::
-    :class: sphx-glr-download-link-note
+.. only:: html
 
-    Click :ref:`here <sphx_glr_download_auto_examples_03_fit_predict_plot_midwest_survey.py>` to download the full example code
-.. rst-class:: sphx-glr-example-title
+    .. note::
+        :class: sphx-glr-download-link-note
 
-.. _sphx_glr_auto_examples_03_fit_predict_plot_midwest_survey.py:
+        Click :ref:`here <sphx_glr_download_auto_examples_03_fit_predict_plot_midwest_survey.py>`     to download the full example code
+    .. rst-class:: sphx-glr-example-title
+
+    .. _sphx_glr_auto_examples_03_fit_predict_plot_midwest_survey.py:
 
 
 Semantic variation in the "Midwest"
@@ -17,14 +19,11 @@ variables.
 Let's see how different encoding for the dirty column impact on the
 score of a classification problem.
 
-
-
 Loading the data
 ----------------
 
 
-
-.. code-block:: python
+.. code-block:: default
 
     from dirty_cat.datasets import fetch_midwest_survey
     import pandas as pd
@@ -38,12 +37,12 @@ Loading the data
 
 
 
+
 The challenge with this data is that it contains a free-form input
 column, where people put whatever they want:
 
 
-
-.. code-block:: python
+.. code-block:: default
 
     dirty_column = 'In your own words, what would you call the part of the country you live in now?'
     print(df[dirty_column].value_counts()[-10:])
@@ -58,25 +57,26 @@ column, where people put whatever they want:
 
  .. code-block:: none
 
-    Washington, DC                                                                                                                 1
-    the midwest region.                                                                                                            1
-    Midwest rural area                                                                                                             1
-    Atlantic region                                                                                                                1
-    Nice place to raise a family. Not too much traffic. A little noisy at times. If you like diesel fumes, you'll love it hear.    1
-    mountains south west                                                                                                           1
-    fly over country!!                                                                                                             1
-    central part of US                                                                                                             1
-    Mountain states.                                                                                                               1
-    Good place to live .                                                                                                           1
+    The Great Plains     1
+    mid-east             1
+    Oklahoma             1
+    Ny tri state area    1
+    Frozen North         1
+    new york             1
+    Central Southern     1
+    Lost                 1
+    The West Coast       1
+    arizona              1
     Name: In your own words, what would you call the part of the country you live in now?, dtype: int64
+
+
 
 
 Separating clean, and dirty columns as well a a column we will try to predict
 ------------------------------------------------------------------------------
 
 
-
-.. code-block:: python
+.. code-block:: default
 
 
     target_column = 'Location (Census Region)'
@@ -114,13 +114,13 @@ Separating clean, and dirty columns as well a a column we will try to predict
 
 
 
+
 A pipeline for data fitting and prediction
 -------------------------------------------
 We first import the right encoders to transform our clean/dirty data:
 
 
-
-.. code-block:: python
+.. code-block:: default
 
     from sklearn.preprocessing import FunctionTransformer, OneHotEncoder
     from dirty_cat import SimilarityEncoder
@@ -136,14 +136,14 @@ We first import the right encoders to transform our clean/dirty data:
 
 
 
+
 All the clean columns are encoded once and for all, but since we
 benchmark different categorical encodings for the dirty variable,
 we create a function that takes an encoding as an input, and returns a \
 scikit-learn pipeline for our problem.
 
 
-
-.. code-block:: python
+.. code-block:: default
 
     from sklearn.pipeline import Pipeline
     from sklearn.compose import ColumnTransformer
@@ -175,14 +175,14 @@ scikit-learn pipeline for our problem.
 
 
 
+
 Evaluation of different encoding methods
 -----------------------------------------
 We then loop over encoding methods, scoring the different pipeline predictions
 using a cross validation score:
 
 
-
-.. code-block:: python
+.. code-block:: default
 
     from sklearn.model_selection import cross_val_score
     from sklearn.model_selection import StratifiedKFold
@@ -210,18 +210,20 @@ using a cross validation score:
  .. code-block:: none
 
     one-hot encoding
-    Accuracy score:  mean: 0.488; std: 0.013
+    Accuracy score:  mean: 0.523; std: 0.010
 
     similarity encoding
-    Accuracy score:  mean: 0.657; std: 0.010
+    Accuracy score:  mean: 0.674; std: 0.008
+
+
+
 
 
 Plot the results
 ------------------
 
 
-
-.. code-block:: python
+.. code-block:: default
 
     import seaborn
     import matplotlib.pyplot as plt
@@ -241,11 +243,14 @@ Plot the results
 
 
 
+
 We can see that encoding the data using a SimilarityEncoder instead of
 OneHotEncoder helps a lot in improving the cross validation score!
 
 
-**Total running time of the script:** ( 0 minutes  5.369 seconds)
+.. rst-class:: sphx-glr-timing
+
+   **Total running time of the script:** ( 0 minutes  10.628 seconds)
 
 
 .. _sphx_glr_download_auto_examples_03_fit_predict_plot_midwest_survey.py:
@@ -258,13 +263,13 @@ OneHotEncoder helps a lot in improving the cross validation score!
 
 
 
-  .. container:: sphx-glr-download
+  .. container:: sphx-glr-download sphx-glr-download-python
 
      :download:`Download Python source code: 03_fit_predict_plot_midwest_survey.py <03_fit_predict_plot_midwest_survey.py>`
 
 
 
-  .. container:: sphx-glr-download
+  .. container:: sphx-glr-download sphx-glr-download-jupyter
 
      :download:`Download Jupyter notebook: 03_fit_predict_plot_midwest_survey.ipynb <03_fit_predict_plot_midwest_survey.ipynb>`
 
@@ -273,4 +278,4 @@ OneHotEncoder helps a lot in improving the cross validation score!
 
  .. rst-class:: sphx-glr-signature
 
-    `Gallery generated by Sphinx-Gallery <https://sphinx-gallery.readthedocs.io>`_
+    `Gallery generated by Sphinx-Gallery <https://sphinx-gallery.github.io>`_

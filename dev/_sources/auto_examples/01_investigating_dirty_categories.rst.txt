@@ -1,10 +1,12 @@
-.. note::
-    :class: sphx-glr-download-link-note
+.. only:: html
 
-    Click :ref:`here <sphx_glr_download_auto_examples_01_investigating_dirty_categories.py>` to download the full example code
-.. rst-class:: sphx-glr-example-title
+    .. note::
+        :class: sphx-glr-download-link-note
 
-.. _sphx_glr_auto_examples_01_investigating_dirty_categories.py:
+        Click :ref:`here <sphx_glr_download_auto_examples_01_investigating_dirty_categories.py>`     to download the full example code
+    .. rst-class:: sphx-glr-example-title
+
+    .. _sphx_glr_auto_examples_01_investigating_dirty_categories.py:
 
 
 Investigating dirty categories
@@ -13,22 +15,20 @@ Investigating dirty categories
 What are dirty categorical variables and how can a good encoding help
 with statistical learning.
 
-
 What do we mean by dirty categories?
 -------------------------------------------------
 
 Let's look at a dataset called employee salaries:
 
 
-
-.. code-block:: python
+.. code-block:: default
 
     import pandas as pd
     from dirty_cat import datasets
 
     employee_salaries = datasets.fetch_employee_salaries()
-    print(employee_salaries['description'])
-    data = pd.read_csv(employee_salaries['path'])
+    print(employee_salaries['DESCR'])
+    data = employee_salaries['data']
     print(data.head(n=5))
 
 
@@ -41,23 +41,26 @@ Let's look at a dataset called employee salaries:
 
  .. code-block:: none
 
-    The downloaded data contains the employee_salaries dataset.
-    It can originally be found at: https://catalog.data.gov/dataset/ employee-salaries-2016
-                Full Name       ...        Date First Hired
-    0      Aarhus, Pam J.       ...              09/22/1986
-    1     Aaron, David J.       ...              09/12/1988
-    2    Aaron, Marsha M.       ...              11/19/1989
-    3  Ababio, Godfred A.       ...              05/05/2014
-    4      Ababu, Essayas       ...              03/05/2007
+    <frozen importlib._bootstrap>:219: RuntimeWarning: numpy.ufunc size changed, may indicate binary incompatibility. Expected 192 from C header, got 216 from PyObject
+    Annual salary information including gross pay and overtime pay for all active, permanent employees of Montgomery County, MD paid in calendar year 2016. This information will be published annually each year.
 
-    [5 rows x 12 columns]
+    Downloaded from openml.org.
+                full_name gender  ...  year_first_hired  Current Annual Salary
+    0      Aarhus, Pam J.      F  ...            1986.0               69222.18
+    1     Aaron, David J.      M  ...            1988.0               97392.47
+    2    Aaron, Marsha M.      F  ...            1989.0              104717.28
+    3  Ababio, Godfred A.      M  ...            2014.0               52734.57
+    4      Ababu, Essayas      M  ...            2007.0               93396.00
+
+    [5 rows x 13 columns]
+
+
 
 
 Here is how many unique entries there is per column
 
 
-
-.. code-block:: python
+.. code-block:: default
 
     print(data.nunique())
 
@@ -71,28 +74,30 @@ Here is how many unique entries there is per column
 
  .. code-block:: none
 
-    Full Name                  9222
-    Gender                        2
+    full_name                  9222
+    gender                        2
+    2016_gross_pay_received    8977
+    2016_overtime_pay          6176
+    department                   37
+    department_name              37
+    division                    694
+    assignment_category           2
+    employee_position_title     385
+    underfilled_job_title        84
+    date_first_hired           2264
+    year_first_hired             51
     Current Annual Salary      3403
-    2016 Gross Pay Received    8977
-    2016 Overtime Pay          6176
-    Department                   37
-    Department Name              37
-    Division                    694
-    Assignment Category           2
-    Employee Position Title     385
-    Underfilled Job Title        84
-    Date First Hired           2264
     dtype: int64
+
+
 
 
 As we can see, some entries have many different unique values:
 
 
+.. code-block:: default
 
-.. code-block:: python
-
-    print(data['Employee Position Title'].value_counts().sort_index())
+    print(data['employee_position_title'].value_counts().sort_index())
 
 
 
@@ -104,68 +109,20 @@ As we can see, some entries have many different unique values:
 
  .. code-block:: none
 
-    Abandoned Vehicle Code Enforcement Specialist                4
-    Accountant/Auditor I                                         3
-    Accountant/Auditor II                                        1
-    Accountant/Auditor III                                      35
-    Administrative Assistant to the County Executive             1
-    Administrative Hearing Examiner                              1
-    Administrative Specialist I                                 37
-    Administrative Specialist II                                70
-    Administrative Specialist III                               48
-    Alcohol Beverage Purchasing Specialist                      17
-    Alcohol/Tobacco Enforcement Specialist II                    6
-    Animal Care Attendant                                       11
-    Animal Care Attendant Supervisor                             1
-    Aquatic Programs Supervisor                                  1
-    Arborist                                                     5
-    Architect III                                                1
-    Assistant Chief Administrative Officer                       3
-    Assistant Chief of Police                                    4
-    Assistant County Attorney III                               38
-    Assistant Inspector General III                              4
-    Assistant Sheriff                                            2
-    Audiovisual Production Specialist                            3
-    Autobody Repairer                                            4
-    Background Screening Specialist                             10
-    Behavioral Health Associate Counselor                       13
-    Building Services Inspector                                  2
-    Building Services Supervisor                                 1
-    Building Services Worker II                                 22
-    Bus Operator                                               638
-    Business Development Specialist III                          2
-                                                              ... 
-    Telecommunications Technician                                2
-    Therapist II                                                93
-    Traffic Enforcement Field Service Technician II             12
-    Traffic Field Service Technician II                          1
-    Traffic Management Technician II                             7
-    Transit Analyst                                              4
-    Transit Communications Supervisor                           10
-    Transit Coordinator                                         34
-    Transit Information Systems Technician                       3
-    Transit Marketing Specialist                                 3
-    Transit Operations Supervisor                               18
-    Transit Services Supervisor                                  3
-    Transportation Systems Technician II                         3
-    Transportation Systems Technician III                       11
-    Truck Driver Helper/Warehouse Worker                        24
-    Truck Driver/Warehouse Worker                               41
-    Urban District Public Service Aide                          21
-    Urban District Public Service Team Supervisor                4
-    Urban District Public Service and Maintenance Team Supv      4
-    Veterinary Assistant                                         1
-    Visual Information Specialist                                6
-    Warehouse Assistant Supervisor                               3
-    Warehouse Equipment Operator                                13
-    Warehouse Worker                                             6
-    Water Quality Specialist II                                  6
-    Welder                                                       3
-    Work Force Leader I                                          1
-    Work Force Leader II                                        28
-    Work Force Leader III                                        2
-    Work Force Leader IV                                         9
-    Name: Employee Position Title, Length: 385, dtype: int64
+    Abandoned Vehicle Code Enforcement Specialist        4
+    Accountant/Auditor I                                 3
+    Accountant/Auditor II                                1
+    Accountant/Auditor III                              35
+    Administrative Assistant to the County Executive     1
+                                                        ..
+    Welder                                               3
+    Work Force Leader I                                  1
+    Work Force Leader II                                28
+    Work Force Leader III                                2
+    Work Force Leader IV                                 9
+    Name: employee_position_title, Length: 385, dtype: int64
+
+
 
 
 These different entries are often variations on the same entities:
@@ -189,10 +146,10 @@ employee's position title:
 data
 
 
+.. code-block:: default
 
-.. code-block:: python
+    values = data[['employee_position_title', 'gender', 'Current Annual Salary']]
 
-    values = data[['Employee Position Title', 'Gender', 'Current Annual Salary']]
 
 
 
@@ -208,16 +165,16 @@ embed dirty semantic data, the SimilarityEncoder creates a similarity
 matrix based on the 3-gram structure of the data.
 
 
+.. code-block:: default
 
-.. code-block:: python
-
-    sorted_values = values['Employee Position Title'].sort_values().unique()
+    sorted_values = values['employee_position_title'].sort_values().unique()
 
     from dirty_cat import SimilarityEncoder
 
     similarity_encoder = SimilarityEncoder(similarity='ngram')
     transformed_values = similarity_encoder.fit_transform(
         sorted_values.reshape(-1, 1))
+
 
 
 
@@ -232,8 +189,7 @@ Let's now plot a couple points at random using a low-dimensional representation
 to get an intuition of what the similarity encoder is doing:
 
 
-
-.. code-block:: python
+.. code-block:: default
 
     from sklearn.manifold import MDS
 
@@ -258,11 +214,12 @@ to get an intuition of what the similarity encoder is doing:
     (385,)
 
 
+
+
 We first quickly fit a KNN so that the plots does not get too busy:
 
 
-
-.. code-block:: python
+.. code-block:: default
 
     import numpy as np
 
@@ -282,11 +239,11 @@ We first quickly fit a KNN so that the plots does not get too busy:
 
 
 
+
 Then we plot it, adding the categories in the scatter plot:
 
 
-
-.. code-block:: python
+.. code-block:: default
 
 
     import matplotlib.pyplot as plt
@@ -307,6 +264,15 @@ Then we plot it, adding the categories in the scatter plot:
     :class: sphx-glr-single-img
 
 
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+
+    Text(0.5, 1.0, 'multi-dimensional-scaling representation using a 3gram similarity matrix')
+
 
 
 Heatmap of the similarity matrix
@@ -315,8 +281,7 @@ Heatmap of the similarity matrix
 We can also plot the distance matrix for those observations:
 
 
-
-.. code-block:: python
+.. code-block:: default
 
     f2, ax2 = plt.subplots(figsize=(6, 6))
     cax2 = ax2.matshow(transformed_values[indices, :][:, indices])
@@ -338,13 +303,13 @@ We can also plot the distance matrix for those observations:
 
 
 
+
 As shown in the previous plot, we see that the nearest neighbor of
 "Communication Equipment Technician"
 is "telecommunication technician", although it is also
 very close to senior "supply technician": therefore, we grasp the
 "communication" part (not initially present in the category as a unique word)
 as well as the technician part of this category.
-
 
 Encoding categorical data using SimilarityEncoder
 -------------------------------------------------
@@ -353,14 +318,13 @@ A typical data-science workflow uses one-hot encoding to represent
 categories.
 
 
-
-.. code-block:: python
+.. code-block:: default
 
     from sklearn.preprocessing import OneHotEncoder
 
     # encoding simply a subset of the observations
     n_obs = 20
-    employee_position_titles = values['Employee Position Title'].head(
+    employee_position_titles = values['employee_position_title'].head(
         n_obs).to_frame()
     categorical_encoder = OneHotEncoder(sparse=False)
     one_hot_encoded = categorical_encoder.fit_transform(employee_position_titles)
@@ -379,14 +343,14 @@ categories.
 
 
 
+
 The corresponding is very sparse
 
 SimilarityEncoder can be used to replace one-hot encoding capturing the
 similarities:
 
 
-
-.. code-block:: python
+.. code-block:: default
 
 
     f4, ax4 = plt.subplots(figsize=(6, 6))
@@ -405,11 +369,14 @@ similarities:
 
 
 
+
 Other examples in the dirty_cat documentation show how
 similarity encoding impacts prediction performance.
 
 
-**Total running time of the script:** ( 0 minutes  17.123 seconds)
+.. rst-class:: sphx-glr-timing
+
+   **Total running time of the script:** ( 0 minutes  23.344 seconds)
 
 
 .. _sphx_glr_download_auto_examples_01_investigating_dirty_categories.py:
@@ -422,13 +389,13 @@ similarity encoding impacts prediction performance.
 
 
 
-  .. container:: sphx-glr-download
+  .. container:: sphx-glr-download sphx-glr-download-python
 
      :download:`Download Python source code: 01_investigating_dirty_categories.py <01_investigating_dirty_categories.py>`
 
 
 
-  .. container:: sphx-glr-download
+  .. container:: sphx-glr-download sphx-glr-download-jupyter
 
      :download:`Download Jupyter notebook: 01_investigating_dirty_categories.ipynb <01_investigating_dirty_categories.ipynb>`
 
@@ -437,4 +404,4 @@ similarity encoding impacts prediction performance.
 
  .. rst-class:: sphx-glr-signature
 
-    `Gallery generated by Sphinx-Gallery <https://sphinx-gallery.readthedocs.io>`_
+    `Gallery generated by Sphinx-Gallery <https://sphinx-gallery.github.io>`_
