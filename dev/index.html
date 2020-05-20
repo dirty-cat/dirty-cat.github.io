@@ -94,9 +94,12 @@ non-curated categories. It provides <strong>encoders that are
 robust to morphological variants</strong>, such as typos, in the category strings.</p>
 <p>The <a class="reference internal" href="generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="dirty_cat.SimilarityEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimilarityEncoder</span></code></a> is a drop-in replacement for
 <a class="reference external" href="https://scikit-learn.org">scikit-learn</a>’s
-<a class="reference external" href="https://scikit-learn.org/0.20/modules/generated/sklearn.preprocessing.OneHotEncoder.html#sklearn.preprocessing.OneHotEncoder" title="(in scikit-learn v0.20.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">OneHotEncoder</span></code></a>.</p>
+<a class="reference external" href="https://scikit-learn.org/0.20/modules/generated/sklearn.preprocessing.OneHotEncoder.html#sklearn.preprocessing.OneHotEncoder" title="(in scikit-learn v0.20.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">OneHotEncoder</span></code></a>.
+If speed and scalability are an issue, the <a class="reference internal" href="generated/dirty_cat.MinHashEncoder.html#dirty_cat.MinHashEncoder" title="dirty_cat.MinHashEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">MinHashEncoder</span></code></a> provides
+a fast encoding method.</p>
 <p>For a detailed description of the problem of encoding dirty categorical data,
-see <a class="reference external" href="https://hal.inria.fr/hal-01806175">Similarity encoding for learning with dirty categorical variables</a> <a class="footnote-reference brackets" href="#id2" id="id1">1</a>.</p>
+see <a class="reference external" href="https://hal.inria.fr/hal-01806175">Similarity encoding for learning with dirty categorical variables</a> <a class="footnote-reference brackets" href="#id3" id="id1">1</a> and <a class="reference external" href="https://hal.inria.fr/hal-02171256v4">Encoding high-cardinality
+string categorical variables</a> <a class="footnote-reference brackets" href="#id4" id="id2">2</a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Installing</dt>
 <dd class="field-odd"><p><cite>$ pip install –user dirty_cat</cite></p>
@@ -107,33 +110,33 @@ see <a class="reference external" href="https://hal.inria.fr/hal-01806175">Simil
 <hr class="docutils" />
 <div class="section" id="using-dirty-cat">
 <span id="sphx-glr-auto-examples"></span><h2>Using dirty_cat<a class="headerlink" href="#using-dirty-cat" title="Permalink to this headline">¶</a></h2>
-<div class="sphx-glr-thumbcontainer" tooltip="What are dirty categorical variables and how can a good encoding help with statistical learning..."><div class="figure align-default" id="id3">
+<div class="sphx-glr-thumbcontainer" tooltip="What are dirty categorical variables and how can a good encoding help with statistical learning..."><div class="figure align-default" id="id5">
 <img alt="_images/sphx_glr_01_investigating_dirty_categories_thumb.png" src="_images/sphx_glr_01_investigating_dirty_categories_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="auto_examples/01_investigating_dirty_categories.html#sphx-glr-auto-examples-01-investigating-dirty-categories-py"><span class="std std-ref">Investigating dirty categories</span></a></span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="auto_examples/01_investigating_dirty_categories.html#sphx-glr-auto-examples-01-investigating-dirty-categories-py"><span class="std std-ref">Investigating dirty categories</span></a></span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
 </div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="The `employee salaries &lt;https://catalog.data.gov/dataset/employee-salaries-2016&gt;`_ dataset cont..."><div class="figure align-default" id="id4">
+<div class="sphx-glr-thumbcontainer" tooltip="The `employee salaries &lt;https://catalog.data.gov/dataset/employee-salaries-2016&gt;`_ dataset cont..."><div class="figure align-default" id="id6">
 <img alt="_images/sphx_glr_02_fit_predict_plot_employee_salaries_thumb.png" src="_images/sphx_glr_02_fit_predict_plot_employee_salaries_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="auto_examples/02_fit_predict_plot_employee_salaries.html#sphx-glr-auto-examples-02-fit-predict-plot-employee-salaries-py"><span class="std std-ref">Predicting the salary of employees</span></a></span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="auto_examples/02_fit_predict_plot_employee_salaries.html#sphx-glr-auto-examples-02-fit-predict-plot-employee-salaries-py"><span class="std std-ref">Predicting the salary of employees</span></a></span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
 </div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Let&#x27;s see how different encoding for the dirty column impact on the score of a classification p..."><div class="figure align-default" id="id5">
+<div class="sphx-glr-thumbcontainer" tooltip="Let&#x27;s see how different encoding for the dirty column impact on the score of a classification p..."><div class="figure align-default" id="id7">
 <img alt="_images/sphx_glr_03_fit_predict_plot_midwest_survey_thumb.png" src="_images/sphx_glr_03_fit_predict_plot_midwest_survey_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="auto_examples/03_fit_predict_plot_midwest_survey.html#sphx-glr-auto-examples-03-fit-predict-plot-midwest-survey-py"><span class="std std-ref">Semantic variation in the “Midwest”</span></a></span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="auto_examples/03_fit_predict_plot_midwest_survey.html#sphx-glr-auto-examples-03-fit-predict-plot-midwest-survey-py"><span class="std std-ref">Semantic variation in the “Midwest”</span></a></span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
 </div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Here we discuss how to apply efficiently SimilarityEncoder to larger datasets: reducing the num..."><div class="figure align-default" id="id6">
+<div class="sphx-glr-thumbcontainer" tooltip="Here we discuss how to apply efficiently SimilarityEncoder to larger datasets: reducing the num..."><div class="figure align-default" id="id8">
 <img alt="_images/sphx_glr_04_dimension_reduction_and_performance_thumb.png" src="_images/sphx_glr_04_dimension_reduction_and_performance_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="auto_examples/04_dimension_reduction_and_performance.html#sphx-glr-auto-examples-04-dimension-reduction-and-performance-py"><span class="std std-ref">Scalability considerations for similarity encoding</span></a></span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="auto_examples/04_dimension_reduction_and_performance.html#sphx-glr-auto-examples-04-dimension-reduction-and-performance-py"><span class="std std-ref">Scalability considerations for similarity encoding</span></a></span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
 </div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="A very classic dilemna when training a machine learning model consists in choosing between usin..."><div class="figure align-default" id="id7">
+<div class="sphx-glr-thumbcontainer" tooltip="A very classic dilemna when training a machine learning model consists in choosing between usin..."><div class="figure align-default" id="id9">
 <img alt="_images/sphx_glr_05_scaling_non_linear_models_thumb.png" src="_images/sphx_glr_05_scaling_non_linear_models_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="auto_examples/05_scaling_non_linear_models.html#sphx-glr-auto-examples-05-scaling-non-linear-models-py"><span class="std std-ref">Fitting scalable, non-linear models on data with dirty categories</span></a></span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="auto_examples/05_scaling_non_linear_models.html#sphx-glr-auto-examples-05-scaling-non-linear-models-py"><span class="std std-ref">Fitting scalable, non-linear models on data with dirty categories</span></a></span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
 </div>
 </div><div class="toctree-wrapper compound">
 </div>
@@ -148,10 +151,13 @@ see <a class="reference external" href="https://hal.inria.fr/hal-01806175">Simil
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="dirty_cat.SimilarityEncoder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SimilarityEncoder</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/dirty_cat.MinHashEncoder.html#dirty_cat.MinHashEncoder" title="dirty_cat.MinHashEncoder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MinHashEncoder</span></code></a></p></td>
+<td><p>Encode string categorical features as a numeric array, minhash method applied to ngram decomposition of strings based on ngram decomposition of the string.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="dirty_cat.SimilarityEncoder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SimilarityEncoder</span></code></a></p></td>
 <td><p>Encode string categorical features as a numeric array.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/dirty_cat.TargetEncoder.html#dirty_cat.TargetEncoder" title="dirty_cat.TargetEncoder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TargetEncoder</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/dirty_cat.TargetEncoder.html#dirty_cat.TargetEncoder" title="dirty_cat.TargetEncoder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TargetEncoder</span></code></a></p></td>
 <td><p>Encode categorical features as a numeric array given a target vector.</p></td>
 </tr>
 </tbody>
@@ -208,8 +214,11 @@ contributions in the scope of dirty categories.</p>
 <a class="reference external" href="https://github.com/rakutentech/spark-dirty-cat">https://github.com/rakutentech/spark-dirty-cat</a></p>
 </div>
 <dl class="footnote brackets">
-<dt class="label" id="id2"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dt class="label" id="id3"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
 <dd><p>Patricio Cerda, Gaël Varoquaux, Balázs Kégl. Similarity encoding for learning with dirty categorical variables. 2018. Machine Learning journal, Springer.</p>
+</dd>
+<dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p>Patricio Cerda, Gaël Varoquaux. Encoding high-cardinality string categorical variables, 2019.</p>
 </dd>
 </dl>
 </div>

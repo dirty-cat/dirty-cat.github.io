@@ -75,24 +75,26 @@
             
   <div class="section" id="release-0-0-7">
 <h1>Release 0.0.7<a class="headerlink" href="#release-0-0-7" title="Permalink to this headline">¶</a></h1>
-<ul>
-<li><p><strong>datasets.fetch_employee_salaries</strong>: change the origin of download for employee_salaries.
-- The function now return a bunch with a dataframe under the field “data”,</p>
-<blockquote>
-<div><p>and not the path to the csv file.</p>
-</div></blockquote>
 <ul class="simple">
+<li><p><strong>MinHashEncoder</strong>: Added <code class="docutils literal notranslate"><span class="pre">minhash_encoder.py</span></code> and <code class="docutils literal notranslate"><span class="pre">fast_hast.py</span></code> files
+that implement minhash encoding through the <code class="docutils literal notranslate"><span class="pre">MinHashEncoder</span></code> class.
+This method allows for fast and scalable encoding of string categorical
+variables.</p></li>
+<li><p><strong>datasets.fetch_employee_salaries</strong>: change the origin of download for employee_salaries.</p>
+<ul>
+<li><p>The function now return a bunch with a dataframe under the field “data”,
+and not the path to the csv file.</p></li>
 <li><p>The field “description” has been renamed to “DESCR”.</p></li>
 </ul>
 </li>
+<li><p><strong>SimilarityEncoder</strong>: Fixed a bug when using the Jaro-Winkler distance as a
+similarity metric. Our implementation now accurately reproduces the behaviour
+of the <code class="docutils literal notranslate"><span class="pre">python-Levenshtein</span></code> implementation.</p></li>
 </ul>
 </div>
 <div class="section" id="release-0-0-6">
 <h1>Release 0.0.6<a class="headerlink" href="#release-0-0-6" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
-<li><p><strong>SimilarityEncoder</strong>: Fixed a bug when using the Jaro-Winkler distance as a
-similarity metric. Our implementation now accurately reproduces the behaviour
-of the <code class="docutils literal notranslate"><span class="pre">python-Levenshtein</span></code> implementation.</p></li>
 <li><p><strong>SimilarityEncoder</strong>: Accelerate <code class="docutils literal notranslate"><span class="pre">SimilarityEncoder.transform</span></code>, by:</p>
 <ul>
 <li><p>computing the vocabulary count vectors in <code class="docutils literal notranslate"><span class="pre">fit</span></code> instead of <code class="docutils literal notranslate"><span class="pre">transform</span></code></p></li>

@@ -18,7 +18,7 @@
     <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="dirty_cat.SimilarityEncoder" href="../generated/dirty_cat.SimilarityEncoder.html" />
+    <link rel="next" title="dirty_cat.MinHashEncoder" href="../generated/dirty_cat.MinHashEncoder.html" />
     <link rel="prev" title="Scalability considerations for similarity encoding" href="04_dimension_reduction_and_performance.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
@@ -65,7 +65,7 @@
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
       <li>Previous: <a href="04_dimension_reduction_and_performance.html" title="previous chapter">Scalability considerations for similarity encoding</a></li>
-      <li>Next: <a href="../generated/dirty_cat.SimilarityEncoder.html" title="next chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat</span></code>.SimilarityEncoder</a></li>
+      <li>Next: <a href="../generated/dirty_cat.MinHashEncoder.html" title="next chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat</span></code>.MinHashEncoder</a></li>
   </ul></li>
 </ul>
 </div>
@@ -346,9 +346,9 @@ sample size varies.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>using   500 samples: model fitting took 0.2s, test accuracy of 0.505
-using  1666 samples: model fitting took 3.3s, test accuracy of 0.513
-using  5000 samples: model fitting took 52.5s, test accuracy of 0.603
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>using   500 samples: model fitting took 0.2s, test accuracy of 0.502
+using  1666 samples: model fitting took 4.1s, test accuracy of 0.511
+using  5000 samples: model fitting took 59.3s, test accuracy of 0.582
 </pre></div>
 </div>
 <p>Increasing training size cleary improves model accuracy. However, the
@@ -515,28 +515,28 @@ likely to be marginal.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>batch    0 train precision: 0.9067  val precision: 0.5034
-batch    5 train precision: 0.5193  val precision: 0.7071
-batch   10 train precision: 0.8025  val precision: 0.8364
-batch   15 train precision: 0.8042  val precision: 0.9012
-batch   20 train precision: 0.8226  val precision: 0.9025
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>batch    0 train precision: 0.9150  val precision: 0.5027
+batch    5 train precision: 0.5296  val precision: 0.6087
+batch   10 train precision: 0.7746  val precision: 0.8016
+batch   15 train precision: 0.7969  val precision: 0.8601
+batch   20 train precision: 0.7886  val precision: 0.9073
 /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/metrics/_ranking.py:681: RuntimeWarning: invalid value encountered in true_divide
   recall = tps / tps[-1]
-batch   25 train precision: nan  val precision: 0.9167
-batch   30 train precision: 0.8718  val precision: 0.9233
-batch   35 train precision: 0.9179  val precision: 0.9293
-batch   40 train precision: 0.8294  val precision: 0.9327
-batch   45 train precision: 0.8981  val precision: 0.9371
-batch   50 train precision: 0.9251  val precision: 0.9360
-batch   55 train precision: 0.9274  val precision: 0.9377
-batch   60 train precision: 0.9243  val precision: 0.9420
-batch   65 train precision: 0.9881  val precision: 0.9418
-batch   70 train precision: 0.9271  val precision: 0.9437
-batch   75 train precision: 0.7765  val precision: 0.9437
-batch   80 train precision: 0.9493  val precision: 0.9447
-batch   85 train precision: 0.9535  val precision: 0.9455
-batch   90 train precision: 0.9555  val precision: 0.9455
-batch   95 train precision: 0.9610  val precision: 0.9495
+batch   25 train precision: nan  val precision: 0.9396
+batch   30 train precision: 0.8986  val precision: 0.9440
+batch   35 train precision: 0.9202  val precision: 0.9508
+batch   40 train precision: 0.8259  val precision: 0.9537
+batch   45 train precision: 0.9151  val precision: 0.9539
+batch   50 train precision: 0.9022  val precision: 0.9517
+batch   55 train precision: 0.8685  val precision: 0.9537
+batch   60 train precision: 0.9068  val precision: 0.9568
+batch   65 train precision: 0.9882  val precision: 0.9578
+batch   70 train precision: 0.9413  val precision: 0.9588
+batch   75 train precision: 0.7796  val precision: 0.9610
+batch   80 train precision: 0.9633  val precision: 0.9620
+batch   85 train precision: 0.9258  val precision: 0.9640
+batch   90 train precision: 0.9722  val precision: 0.9640
+batch   95 train precision: 0.9473  val precision: 0.9660
 </pre></div>
 </div>
 <p>So far, we fitted two kinds of models: a exact kernel algorithm, and an
@@ -607,7 +607,7 @@ trivial task at the beginning of this example!</p>
 <dd><p><a class="reference external" href="https://pdfs.semanticscholar.org/0373/e7289a1978108d6455218160a529c85842c0.pdf">Introduction to duality</a></p>
 </dd>
 </dl>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 3 minutes  2.117 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 3 minutes  59.235 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-05-scaling-non-linear-models-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/b26bea2af540968a7bfefdf0b57e1577/05_scaling_non_linear_models.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">05_scaling_non_linear_models.py</span></code></a></p>
