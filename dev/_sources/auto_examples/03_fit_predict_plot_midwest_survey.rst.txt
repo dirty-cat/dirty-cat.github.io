@@ -57,16 +57,16 @@ column, where people put whatever they want:
 
  .. code-block:: none
 
-    Mojave Desert, California    1
-    Southern Plains              1
-    midewest                     1
-    South Carolina               1
-    Northern America             1
-    Hawaii :)                    1
-    Virginia Piedmont            1
-    Home                         1
-    Inland Northwest             1
-    ok                           1
+    Don't know                                                         1
+    Pacific Northwest, Cascadia                                        1
+    flat, cold, no trees, western people                               1
+    South-Central  (Oklahoma)/Midwest                                  1
+    Beautiful country, but can be extremely cold and extremely hot.    1
+    So far South you're starting to head North again.                  1
+    Western States                                                     1
+    The mid west, rust belt                                            1
+    A mix of urban and rural                                           1
+    A rural farming area                                               1
     Name: In your own words, what would you call the part of the country you live in now?, dtype: int64
 
 
@@ -243,6 +243,7 @@ Plot the results
 
 
 .. image:: /auto_examples/images/sphx_glr_03_fit_predict_plot_midwest_survey_001.png
+    :alt: 03 fit predict plot midwest survey
     :class: sphx-glr-single-img
 
 
@@ -255,7 +256,7 @@ OneHotEncoder helps a lot in improving the cross validation score!
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  13.230 seconds)
+   **Total running time of the script:** ( 0 minutes  18.746 seconds)
 
 
 .. _sphx_glr_download_auto_examples_03_fit_predict_plot_midwest_survey.py:

@@ -123,8 +123,8 @@ Then we load it:
 
  .. code-block:: none
 
-    /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sphinx_gallery/gen_rst.py:549: DtypeWarning: Columns (19,20,21,22,23,24,25,34) have mixed types.Specify dtype option on import or set low_memory=False.
-      _, mem_max = _memory_usage(
+    /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sphinx_gallery/gen_rst.py:553: DtypeWarning: Columns (19,20,21,22,23,24,25,34) have mixed types.Specify dtype option on import or set low_memory=False.
+      mem_max, _ = gallery_conf['call_memory'](
 
 
 
@@ -147,7 +147,7 @@ difficulty is that it has many different entries.
 
  .. code-block:: none
 
-    146
+    142
 
 
 
@@ -167,26 +167,26 @@ difficulty is that it has many different entries.
 
  .. code-block:: none
 
-    DRIVING VEH. WHILE IMPAIRED BY ALCOHOL                                                               72
-    DRIVING VEHICLE WHILE UNDER THE INFLUENCE OF ALCOHOL                                                 72
-    NEGLIGENT DRIVING VEHICLE IN CARELESS AND IMPRUDENT MANNER ENDANGERING PROPERTY, LIFE AND PERSON     51
-    DRIVING VEHICLE WHILE UNDER THE INFLUENCE OF ALCOHOL PER SE                                          46
+    DRIVING VEHICLE WHILE UNDER THE INFLUENCE OF ALCOHOL                                                 76
+    DRIVING VEH. WHILE IMPAIRED BY ALCOHOL                                                               76
+    NEGLIGENT DRIVING VEHICLE IN CARELESS AND IMPRUDENT MANNER ENDANGERING PROPERTY, LIFE AND PERSON     55
+    DRIVING VEHICLE WHILE UNDER THE INFLUENCE OF ALCOHOL PER SE                                          47
     DRIVER FAILURE TO OBEY PROPERLY PLACED TRAFFIC CONTROL DEVICE INSTRUCTIONS                           46
-    RECKLESS DRIVING VEHICLE IN WANTON AND WILLFUL DISREGARD FOR SAFETY OF PERSONS AND PROPERTY          36
-    FAILURE OF INDIVIDUAL DRIVING ON HIGHWAY TO DISPLAY LICENSE TO UNIFORMED POLICE ON DEMAND            22
-    FAILURE TO DISPLAY REGISTRATION CARD UPON DEMAND BY POLICE OFFICER                                   20
-    PERSON DRIVING MOTOR VEHICLE ON HIGHWAY OR PUBLIC USE PROPERTY ON SUSPENDED LICENSE AND PRIVILEGE    16
-    DRIVING MOTOR VEHICLE ON HIGHWAY WITHOUT REQUIRED LICENSE AND AUTHORIZATION                          16
-    FAILURE TO DRIVE VEHICLE ON RIGHT HALF OF ROADWAY WHEN REQUIRED                                      16
-    DRIVER FAILURE TO STOP AT STOP SIGN LINE                                                             13
-    DRIVING VEH. W/O ADEQUATE REAR REG. PLATE ILLUMINATION                                               13
-    DRIVING WHILE LIC. SUSP. UNDER 16-203, 16-206A2 FAIL TO ATTEND DIP, 17-106, 26-204/206, 27-103       11
-    FAILURE TO CONTROL VEHICLE SPEED ON HIGHWAY TO AVOID COLLISION                                        9
-    DRIVER FAILING TO GIVE TURN SIGNAL CONTINUOUSLY DURING LAST 100' OF TRAVEL BEFORE TURNING             8
-    DRIVING VEHICLE IN EXCESS OF REASONABLE AND PRUDENT SPEED ON HIGHWAY                                  8
-    FAILURE TO ATTACH VEHICLE REGISTRATION PLATES AT FRONT AND REAR                                       7
-    DRIVER OF MOTOR VEHICLE FOLLOWING VEHICLE CLOSER THAN REASONABLE AND PRUDENT                          7
-    OPERATING VEHICLE ON HIGHWAY WITH UNAUTHORIZED WINDOW TINTING MATERIAL                                7
+    RECKLESS DRIVING VEHICLE IN WANTON AND WILLFUL DISREGARD FOR SAFETY OF PERSONS AND PROPERTY          38
+    FAILURE OF INDIVIDUAL DRIVING ON HIGHWAY TO DISPLAY LICENSE TO UNIFORMED POLICE ON DEMAND            24
+    FAILURE TO DISPLAY REGISTRATION CARD UPON DEMAND BY POLICE OFFICER                                   18
+    DRIVING MOTOR VEHICLE ON HIGHWAY WITHOUT REQUIRED LICENSE AND AUTHORIZATION                          17
+    FAILURE TO DRIVE VEHICLE ON RIGHT HALF OF ROADWAY WHEN REQUIRED                                      17
+    PERSON DRIVING MOTOR VEHICLE ON HIGHWAY OR PUBLIC USE PROPERTY ON SUSPENDED LICENSE AND PRIVILEGE    15
+    DRIVER FAILURE TO STOP AT STOP SIGN LINE                                                             14
+    DRIVING VEH. W/O ADEQUATE REAR REG. PLATE ILLUMINATION                                               11
+    DRIVING WHILE LIC. SUSP. UNDER 16-203, 16-206A2 FAIL TO ATTEND DIP, 17-106, 26-204/206, 27-103       10
+    DRIVER CHANGING LANES WHEN UNSAFE                                                                    10
+    DRIVING VEHICLE IN EXCESS OF REASONABLE AND PRUDENT SPEED ON HIGHWAY                                 10
+    CAUSING STANDING VEH. TO OBSTRUCT FREE VEH. PASSAGE OF ROADWAY                                        9
+    FAILURE TO CONTROL VEHICLE SPEED ON HIGHWAY TO AVOID COLLISION                                        8
+    DRIVER FAIL TO STOP AT FLASHING RED TRAFFIC SIGNAL STOP LINE                                          8
+    KNOWINGLY DRIVING UNINSURED VEHICLE                                                                   7
     Name: Description, dtype: int64
 
 
@@ -247,7 +247,7 @@ one-hot encoding and similarity encoding
 
  .. code-block:: none
 
-    Time to vectorize: 0.11624836921691895
+    Time to vectorize: 0.207960844039917
 
 
 
@@ -315,8 +315,8 @@ We can run a cross-validation
     Please also refer to the documentation for alternative solver options:
         https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
       n_iter_i = _check_optimize_result(
-    Run time: 1s    Memory used: 862Mb
-    Cross-validation score: [0.91275168 0.85234899 0.90604027 0.91275168 0.87837838]
+    Run time: 4s    Memory used: 870Mb
+    Cross-validation score: [0.8974359  0.91025641 0.87179487 0.92258065 0.89032258]
 
 
 
@@ -414,8 +414,8 @@ Check now that prediction is still as good
     Please also refer to the documentation for alternative solver options:
         https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
       n_iter_i = _check_optimize_result(
-    Run time: 1s    Memory used: 862Mb
-    Cross-validation score: [0.91275168 0.85234899 0.90604027 0.90604027 0.87837838]
+    Run time: 4s    Memory used: 870Mb
+    Cross-validation score: [0.89102564 0.91025641 0.87820513 0.92258065 0.89032258]
 
 
 
@@ -511,8 +511,16 @@ Check now that prediction is still as good
     Please also refer to the documentation for alternative solver options:
         https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
       n_iter_i = _check_optimize_result(
-    Run time: 6s    Memory used: 863Mb
-    Cross-validation score: [0.90604027 0.85234899 0.90604027 0.91275168 0.87837838]
+    /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:762: ConvergenceWarning: lbfgs failed to converge (status=1):
+    STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+    Increase the number of iterations (max_iter) or scale the data as shown in:
+        https://scikit-learn.org/stable/modules/preprocessing.html
+    Please also refer to the documentation for alternative solver options:
+        https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+      n_iter_i = _check_optimize_result(
+    Run time: 10s    Memory used: 870Mb
+    Cross-validation score: [0.89102564 0.91025641 0.87820513 0.92258065 0.89032258]
 
 
 
@@ -555,6 +563,7 @@ Plot a summary figure
 
 
 .. image:: /auto_examples/images/sphx_glr_04_dimension_reduction_and_performance_001.png
+    :alt: 04 dimension reduction and performance
     :class: sphx-glr-single-img
 
 
@@ -616,7 +625,7 @@ algorithm). The memory savings will then happen during the encoding.
 
  .. code-block:: none
 
-    Time to vectorize: 0.1131887435913086
+    Time to vectorize: 0.19504332542419434
 
 
 
@@ -671,8 +680,16 @@ We can run a cross-validation to confirm the memory footprint reduction
     Please also refer to the documentation for alternative solver options:
         https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
       n_iter_i = _check_optimize_result(
-    Run time: 1s    Memory used: 863Mb
-    Cross-validation score: [0.91275168 0.85234899 0.90604027 0.90604027 0.87837838]
+    /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:762: ConvergenceWarning: lbfgs failed to converge (status=1):
+    STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+    Increase the number of iterations (max_iter) or scale the data as shown in:
+        https://scikit-learn.org/stable/modules/preprocessing.html
+    Please also refer to the documentation for alternative solver options:
+        https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+      n_iter_i = _check_optimize_result(
+    Run time: 4s    Memory used: 870Mb
+    Cross-validation score: [0.89102564 0.91025641 0.87820513 0.92258065 0.89032258]
 
 
 
@@ -680,7 +697,7 @@ We can run a cross-validation to confirm the memory footprint reduction
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 2 minutes  23.810 seconds)
+   **Total running time of the script:** ( 2 minutes  57.354 seconds)
 
 
 .. _sphx_glr_download_auto_examples_04_dimension_reduction_and_performance.py:

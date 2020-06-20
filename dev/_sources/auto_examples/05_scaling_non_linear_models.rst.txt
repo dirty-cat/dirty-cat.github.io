@@ -177,9 +177,9 @@ problem. You can have a glimpse of the values here:
       NONPROPRIETARYNAME          PRODUCTTYPENAME
     0            diluent           HUMAN OTC DRUG
     1   Florbetapir F 18  HUMAN PRESCRIPTION DRUG
-    2        Dulaglutide  HUMAN PRESCRIPTION DRUG
+    2  Flortaucipir F-18  HUMAN PRESCRIPTION DRUG
     3        Dulaglutide  HUMAN PRESCRIPTION DRUG
-    4       galcanezumab  HUMAN PRESCRIPTION DRUG
+    4        Dulaglutide  HUMAN PRESCRIPTION DRUG
 
 
 
@@ -423,9 +423,9 @@ sample size varies.
 
  .. code-block:: none
 
-    using   500 samples: model fitting took 0.2s, test accuracy of 0.502
-    using  1666 samples: model fitting took 4.1s, test accuracy of 0.511
-    using  5000 samples: model fitting took 59.3s, test accuracy of 0.582
+    using   500 samples: model fitting took 0.3s, test accuracy of 0.501
+    using  1666 samples: model fitting took 5.1s, test accuracy of 0.504
+    using  5000 samples: model fitting took 74.0s, test accuracy of 0.549
 
 
 
@@ -632,28 +632,26 @@ likely to be marginal.
 
  .. code-block:: none
 
-    batch    0 train precision: 0.9150  val precision: 0.5027  
-    batch    5 train precision: 0.5296  val precision: 0.6087  
-    batch   10 train precision: 0.7746  val precision: 0.8016  
-    batch   15 train precision: 0.7969  val precision: 0.8601  
-    batch   20 train precision: 0.7886  val precision: 0.9073  
-    /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/metrics/_ranking.py:681: RuntimeWarning: invalid value encountered in true_divide
-      recall = tps / tps[-1]
-    batch   25 train precision: nan  val precision: 0.9396  
-    batch   30 train precision: 0.8986  val precision: 0.9440  
-    batch   35 train precision: 0.9202  val precision: 0.9508  
-    batch   40 train precision: 0.8259  val precision: 0.9537  
-    batch   45 train precision: 0.9151  val precision: 0.9539  
-    batch   50 train precision: 0.9022  val precision: 0.9517  
-    batch   55 train precision: 0.8685  val precision: 0.9537  
-    batch   60 train precision: 0.9068  val precision: 0.9568  
-    batch   65 train precision: 0.9882  val precision: 0.9578  
-    batch   70 train precision: 0.9413  val precision: 0.9588  
-    batch   75 train precision: 0.7796  val precision: 0.9610  
-    batch   80 train precision: 0.9633  val precision: 0.9620  
-    batch   85 train precision: 0.9258  val precision: 0.9640  
-    batch   90 train precision: 0.9722  val precision: 0.9640  
-    batch   95 train precision: 0.9473  val precision: 0.9660  
+    batch    0 train precision: 0.8898  val precision: 0.5004  
+    batch    5 train precision: 0.5057  val precision: 0.6431  
+    batch   10 train precision: 0.7878  val precision: 0.7100  
+    batch   15 train precision: 0.7984  val precision: 0.7807  
+    batch   20 train precision: 0.8237  val precision: 0.8903  
+    batch   25 train precision: 0.7977  val precision: 0.8925  
+    batch   30 train precision: 0.9204  val precision: 0.9117  
+    batch   35 train precision: 0.9559  val precision: 0.9169  
+    batch   40 train precision: 0.8291  val precision: 0.9242  
+    batch   45 train precision: 0.8794  val precision: 0.9207  
+    batch   50 train precision: 0.9627  val precision: 0.9196  
+    batch   55 train precision: 0.8264  val precision: 0.9269  
+    batch   60 train precision: 0.9343  val precision: 0.9262  
+    batch   65 train precision: 0.9666  val precision: 0.9281  
+    batch   70 train precision: 0.9544  val precision: 0.9289  
+    batch   75 train precision: 0.9246  val precision: 0.9288  
+    batch   80 train precision: 0.9088  val precision: 0.9296  
+    batch   85 train precision: 0.8812  val precision: 0.9314  
+    batch   90 train precision: 0.9543  val precision: 0.9322  
+    batch   95 train precision: 0.9388  val precision: 0.9332  
 
 
 
@@ -698,6 +696,7 @@ visited samples for each model as we increase our time budget:
 
 
 .. image:: /auto_examples/images/sphx_glr_05_scaling_non_linear_models_001.png
+    :alt: Test set accuracy and number of samples visited samples seen by the SGDClassifier
     :class: sphx-glr-single-img
 
 
@@ -738,7 +737,7 @@ trivial task at the beginning of this example!
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 3 minutes  59.235 seconds)
+   **Total running time of the script:** ( 6 minutes  28.160 seconds)
 
 
 .. _sphx_glr_download_auto_examples_05_scaling_non_linear_models.py:
