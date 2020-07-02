@@ -4,6 +4,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Scalability considerations for similarity encoding &#8212; dirty_cat 0.0.5 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -15,7 +16,7 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/language_data.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Fitting scalable, non-linear models on data with dirty categories" href="05_scaling_non_linear_models.html" />
@@ -164,22 +165,22 @@ difficulty is that it has many different entries.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>DRIVING VEH. WHILE IMPAIRED BY ALCOHOL                                                               76
-DRIVING VEHICLE WHILE UNDER THE INFLUENCE OF ALCOHOL                                                 76
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>DRIVING VEHICLE WHILE UNDER THE INFLUENCE OF ALCOHOL                                                 76
+DRIVING VEH. WHILE IMPAIRED BY ALCOHOL                                                               76
 NEGLIGENT DRIVING VEHICLE IN CARELESS AND IMPRUDENT MANNER ENDANGERING PROPERTY, LIFE AND PERSON     55
 DRIVING VEHICLE WHILE UNDER THE INFLUENCE OF ALCOHOL PER SE                                          47
 DRIVER FAILURE TO OBEY PROPERLY PLACED TRAFFIC CONTROL DEVICE INSTRUCTIONS                           46
 RECKLESS DRIVING VEHICLE IN WANTON AND WILLFUL DISREGARD FOR SAFETY OF PERSONS AND PROPERTY          38
 FAILURE OF INDIVIDUAL DRIVING ON HIGHWAY TO DISPLAY LICENSE TO UNIFORMED POLICE ON DEMAND            24
 FAILURE TO DISPLAY REGISTRATION CARD UPON DEMAND BY POLICE OFFICER                                   18
-FAILURE TO DRIVE VEHICLE ON RIGHT HALF OF ROADWAY WHEN REQUIRED                                      17
 DRIVING MOTOR VEHICLE ON HIGHWAY WITHOUT REQUIRED LICENSE AND AUTHORIZATION                          17
+FAILURE TO DRIVE VEHICLE ON RIGHT HALF OF ROADWAY WHEN REQUIRED                                      17
 PERSON DRIVING MOTOR VEHICLE ON HIGHWAY OR PUBLIC USE PROPERTY ON SUSPENDED LICENSE AND PRIVILEGE    15
 DRIVER FAILURE TO STOP AT STOP SIGN LINE                                                             14
 DRIVING VEH. W/O ADEQUATE REAR REG. PLATE ILLUMINATION                                               11
+DRIVER CHANGING LANES WHEN UNSAFE                                                                    10
 DRIVING WHILE LIC. SUSP. UNDER 16-203, 16-206A2 FAIL TO ATTEND DIP, 17-106, 26-204/206, 27-103       10
 DRIVING VEHICLE IN EXCESS OF REASONABLE AND PRUDENT SPEED ON HIGHWAY                                 10
-DRIVER CHANGING LANES WHEN UNSAFE                                                                    10
 CAUSING STANDING VEH. TO OBSTRUCT FREE VEH. PASSAGE OF ROADWAY                                        9
 FAILURE TO CONTROL VEHICLE SPEED ON HIGHWAY TO AVOID COLLISION                                        8
 DRIVER FAIL TO STOP AT FLASHING RED TRAFFIC SIGNAL STOP LINE                                          8
@@ -229,7 +230,7 @@ one-hot encoding and similarity encoding</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Time to vectorize: 0.22262835502624512
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Time to vectorize: 0.13721680641174316
 </pre></div>
 </div>
 <p>We can run a cross-validation</p>
@@ -283,7 +284,7 @@ Increase the number of iterations (max_iter) or scale the data as shown in:
 Please also refer to the documentation for alternative solver options:
     https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
   n_iter_i = _check_optimize_result(
-Run time: 2s    Memory used: 820Mb
+Run time: 6s    Memory used: 871Mb
 Cross-validation score: [0.8974359  0.91025641 0.87179487 0.92258065 0.89032258]
 </pre></div>
 </div>
@@ -348,7 +349,7 @@ Increase the number of iterations (max_iter) or scale the data as shown in:
 Please also refer to the documentation for alternative solver options:
     https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
   n_iter_i = _check_optimize_result(
-Run time: 2s    Memory used: 820Mb
+Run time: 2s    Memory used: 870Mb
 Cross-validation score: [0.89102564 0.91025641 0.87820513 0.92258065 0.89032258]
 </pre></div>
 </div>
@@ -419,7 +420,7 @@ Increase the number of iterations (max_iter) or scale the data as shown in:
 Please also refer to the documentation for alternative solver options:
     https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
   n_iter_i = _check_optimize_result(
-Run time: 6s    Memory used: 821Mb
+Run time: 12s    Memory used: 870Mb
 Cross-validation score: [0.89102564 0.91025641 0.87820513 0.92258065 0.89032258]
 </pre></div>
 </div>
@@ -489,7 +490,7 @@ algorithm). The memory savings will then happen during the encoding.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Time to vectorize: 0.16920900344848633
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Time to vectorize: 0.1277146339416504
 </pre></div>
 </div>
 <p>We can run a cross-validation to confirm the memory footprint reduction</p>
@@ -539,11 +540,11 @@ Increase the number of iterations (max_iter) or scale the data as shown in:
 Please also refer to the documentation for alternative solver options:
     https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
   n_iter_i = _check_optimize_result(
-Run time: 2s    Memory used: 821Mb
+Run time: 4s    Memory used: 870Mb
 Cross-validation score: [0.89102564 0.91025641 0.87820513 0.92258065 0.89032258]
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 2 minutes  45.627 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 2 minutes  39.959 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-04-dimension-reduction-and-performance-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/fcd0b8f727cbdfdf25757b8e5283efee/04_dimension_reduction_and_performance.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">04_dimension_reduction_and_performance.py</span></code></a></p>

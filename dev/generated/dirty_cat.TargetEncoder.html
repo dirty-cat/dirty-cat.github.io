@@ -4,6 +4,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>dirty_cat.TargetEncoder &#8212; dirty_cat 0.0.5 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -15,7 +16,7 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/language_data.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="dirty_cat.datasets.fetch_employee_salaries" href="dirty_cat.datasets.fetch_employee_salaries.html" />
@@ -81,7 +82,7 @@
 <h1><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat</span></code>.TargetEncoder<a class="headerlink" href="#dirty-cat-targetencoder" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
 <dt id="dirty_cat.TargetEncoder">
-<em class="property">class </em><code class="sig-prename descclassname">dirty_cat.</code><code class="sig-name descname">TargetEncoder</code><span class="sig-paren">(</span><em class="sig-param">categories='auto'</em>, <em class="sig-param">clf_type='binary-clf'</em>, <em class="sig-param">dtype=&lt;class 'numpy.float64'&gt;</em>, <em class="sig-param">handle_unknown='error'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/target_encoder.html#TargetEncoder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirty_cat.TargetEncoder" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">dirty_cat.</code><code class="sig-name descname">TargetEncoder</code><span class="sig-paren">(</span><em class="sig-param">categories='auto'</em>, <em class="sig-param">clf_type='binary-clf'</em>, <em class="sig-param">dtype=&lt;class 'numpy.float64'&gt;</em>, <em class="sig-param">handle_unknown='error'</em>, <em class="sig-param">handle_missing=''</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/target_encoder.html#TargetEncoder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirty_cat.TargetEncoder" title="Permalink to this definition">¶</a></dt>
 <dd><p>Encode categorical features as a numeric array given a target vector.</p>
 <p>Each category is encoded given the effect that it has in the
 target variable y. The method considers that categorical
@@ -106,14 +107,18 @@ strings and numeric values.</p></li>
 present during transform (default is to raise). When this parameter
 is set to ‘ignore’ and an unknown category is encountered during
 transform, the resulting one-hot encoded columns for this feature
-will be all zeros. In the inverse transform, an unknown category
-will be denoted as None.</p></li>
+will be all zeros.</p></li>
+<li><p><strong>handle_missing</strong> (<em>'error'</em><em> or </em><em>''</em><em> (</em><em>default</em><em>)</em>) – Whether to raise an error or impute with blank string ‘’ if missing
+values (NaN) are present during fit (default is to impute).
+When this parameter is set to ‘’, and a missing value is encountered
+during fit_transform, the resulting encoded columns for this feature
+will be all zeros.</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py attribute">
-<dt>
-<code class="sig-name descname">categories\_</code></dt>
+<dt id="dirty_cat.TargetEncoder.categories_">
+<code class="sig-name descname">categories_</code><a class="headerlink" href="#dirty_cat.TargetEncoder.categories_" title="Permalink to this definition">¶</a></dt>
 <dd><p>The categories of each feature determined during fitting
 (in order corresponding with output of <code class="docutils literal notranslate"><span class="pre">transform</span></code>).</p>
 <dl class="field-list simple">
@@ -129,7 +134,7 @@ high-cardinality categorical attributes in classification and prediction
 problems.</p>
 <dl class="py method">
 <dt id="dirty_cat.TargetEncoder.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">categories='auto'</em>, <em class="sig-param">clf_type='binary-clf'</em>, <em class="sig-param">dtype=&lt;class 'numpy.float64'&gt;</em>, <em class="sig-param">handle_unknown='error'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/target_encoder.html#TargetEncoder.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirty_cat.TargetEncoder.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">categories='auto'</em>, <em class="sig-param">clf_type='binary-clf'</em>, <em class="sig-param">dtype=&lt;class 'numpy.float64'&gt;</em>, <em class="sig-param">handle_unknown='error'</em>, <em class="sig-param">handle_missing=''</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/target_encoder.html#TargetEncoder.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirty_cat.TargetEncoder.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 
