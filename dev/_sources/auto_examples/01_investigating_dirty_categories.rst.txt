@@ -41,7 +41,6 @@ Let's look at a dataset called employee salaries:
 
  .. code-block:: none
 
-    <frozen importlib._bootstrap>:219: RuntimeWarning: numpy.ufunc size changed, may indicate binary incompatibility. Expected 192 from C header, got 216 from PyObject
     Annual salary information including gross pay and overtime pay for all active, permanent employees of Montgomery County, MD paid in calendar year 2016. This information will be published annually each year.
 
     Downloaded from openml.org.
@@ -380,7 +379,7 @@ similarity encoding impacts prediction performance.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  54.245 seconds)
+   **Total running time of the script:** ( 0 minutes  19.463 seconds)
 
 
 .. _sphx_glr_download_auto_examples_01_investigating_dirty_categories.py:
