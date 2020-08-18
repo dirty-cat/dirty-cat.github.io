@@ -158,33 +158,33 @@ difficulty is that it has many different entries.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>174
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>142
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><a href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">df</span></a><span class="p">[</span><span class="s1">&#39;Description&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()[:</span><span class="mi">20</span><span class="p">])</span>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>DRIVING VEHICLE WHILE UNDER THE INFLUENCE OF ALCOHOL                                                 93
-DRIVING VEH. WHILE IMPAIRED BY ALCOHOL                                                               92
-NEGLIGENT DRIVING VEHICLE IN CARELESS AND IMPRUDENT MANNER ENDANGERING PROPERTY, LIFE AND PERSON     69
-DRIVER FAILURE TO OBEY PROPERLY PLACED TRAFFIC CONTROL DEVICE INSTRUCTIONS                           60
-DRIVING VEHICLE WHILE UNDER THE INFLUENCE OF ALCOHOL PER SE                                          55
-RECKLESS DRIVING VEHICLE IN WANTON AND WILLFUL DISREGARD FOR SAFETY OF PERSONS AND PROPERTY          52
-FAILURE TO DISPLAY REGISTRATION CARD UPON DEMAND BY POLICE OFFICER                                   24
-FAILURE OF INDIVIDUAL DRIVING ON HIGHWAY TO DISPLAY LICENSE TO UNIFORMED POLICE ON DEMAND            23
-PERSON DRIVING MOTOR VEHICLE ON HIGHWAY OR PUBLIC USE PROPERTY ON SUSPENDED LICENSE AND PRIVILEGE    22
-FAILURE TO DRIVE VEHICLE ON RIGHT HALF OF ROADWAY WHEN REQUIRED                                      22
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>DRIVING VEHICLE WHILE UNDER THE INFLUENCE OF ALCOHOL                                                 78
+DRIVING VEH. WHILE IMPAIRED BY ALCOHOL                                                               78
+NEGLIGENT DRIVING VEHICLE IN CARELESS AND IMPRUDENT MANNER ENDANGERING PROPERTY, LIFE AND PERSON     56
+DRIVING VEHICLE WHILE UNDER THE INFLUENCE OF ALCOHOL PER SE                                          48
+DRIVER FAILURE TO OBEY PROPERLY PLACED TRAFFIC CONTROL DEVICE INSTRUCTIONS                           48
+RECKLESS DRIVING VEHICLE IN WANTON AND WILLFUL DISREGARD FOR SAFETY OF PERSONS AND PROPERTY          39
+FAILURE OF INDIVIDUAL DRIVING ON HIGHWAY TO DISPLAY LICENSE TO UNIFORMED POLICE ON DEMAND            25
+FAILURE TO DISPLAY REGISTRATION CARD UPON DEMAND BY POLICE OFFICER                                   19
+FAILURE TO DRIVE VEHICLE ON RIGHT HALF OF ROADWAY WHEN REQUIRED                                      18
 DRIVING MOTOR VEHICLE ON HIGHWAY WITHOUT REQUIRED LICENSE AND AUTHORIZATION                          17
-DRIVER FAILURE TO STOP AT STOP SIGN LINE                                                             13
-DRIVING VEH. W/O ADEQUATE REAR REG. PLATE ILLUMINATION                                               13
-FAILURE TO CONTROL VEHICLE SPEED ON HIGHWAY TO AVOID COLLISION                                       13
-DRIVER CHANGING LANES WHEN UNSAFE                                                                    12
+PERSON DRIVING MOTOR VEHICLE ON HIGHWAY OR PUBLIC USE PROPERTY ON SUSPENDED LICENSE AND PRIVILEGE    16
+DRIVER FAILURE TO STOP AT STOP SIGN LINE                                                             14
 DRIVING WHILE LIC. SUSP. UNDER 16-203, 16-206A2 FAIL TO ATTEND DIP, 17-106, 26-204/206, 27-103       11
-DRIVER FAILURE TO STOP AT STEADY CIRCULAR RED SIGNAL                                                  9
-DRIVER FAILING TO GIVE TURN SIGNAL CONTINUOUSLY DURING LAST 100&#39; OF TRAVEL BEFORE TURNING             8
-CAUSING STANDING VEH. TO OBSTRUCT FREE VEH. PASSAGE OF ROADWAY                                        8
-KNOWINGLY DRIVING UNINSURED VEHICLE                                                                   8
+DRIVING VEH. W/O ADEQUATE REAR REG. PLATE ILLUMINATION                                               11
+DRIVER CHANGING LANES WHEN UNSAFE                                                                    10
+CAUSING STANDING VEH. TO OBSTRUCT FREE VEH. PASSAGE OF ROADWAY                                       10
+DRIVING VEHICLE IN EXCESS OF REASONABLE AND PRUDENT SPEED ON HIGHWAY                                 10
+FAILURE TO CONTROL VEHICLE SPEED ON HIGHWAY TO AVOID COLLISION                                        9
+DRIVER FAIL TO STOP AT FLASHING RED TRAFFIC SIGNAL STOP LINE                                          8
+KNOWINGLY DRIVING UNINSURED VEHICLE                                                                   7
 Name: Description, dtype: int64
 </pre></div>
 </div>
@@ -230,7 +230,7 @@ one-hot encoding and similarity encoding</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Time to vectorize: 0.15736627578735352
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Time to vectorize: 0.11892485618591309
 </pre></div>
 </div>
 <p>We can run a cross-validation</p>
@@ -268,8 +268,24 @@ Increase the number of iterations (max_iter) or scale the data as shown in:
 Please also refer to the documentation for alternative solver options:
     https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
   n_iter_i = _check_optimize_result(
-Run time: 1s    Memory used: 751Mb
-Cross-validation score: [0.93085106 0.93048128 0.92513369 0.94652406 0.89304813]
+/home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:762: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:762: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+Run time: 1s    Memory used: 750Mb
+Cross-validation score: [0.89375    0.91823899 0.88050314 0.91823899 0.89308176]
 </pre></div>
 </div>
 <p>Store results for later</p>
@@ -333,16 +349,8 @@ Increase the number of iterations (max_iter) or scale the data as shown in:
 Please also refer to the documentation for alternative solver options:
     https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
   n_iter_i = _check_optimize_result(
-/home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:762: ConvergenceWarning: lbfgs failed to converge (status=1):
-STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
-
-Increase the number of iterations (max_iter) or scale the data as shown in:
-    https://scikit-learn.org/stable/modules/preprocessing.html
-Please also refer to the documentation for alternative solver options:
-    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
-  n_iter_i = _check_optimize_result(
-Run time: 1s    Memory used: 354Mb
-Cross-validation score: [0.93085106 0.93048128 0.92513369 0.94117647 0.89839572]
+Run time: 1s    Memory used: 353Mb
+Cross-validation score: [0.89375    0.91823899 0.86792453 0.91823899 0.88679245]
 </pre></div>
 </div>
 <p>Store results for later</p>
@@ -413,7 +421,7 @@ Please also refer to the documentation for alternative solver options:
     https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
   n_iter_i = _check_optimize_result(
 Run time: 5s    Memory used: 354Mb
-Cross-validation score: [0.92553191 0.93048128 0.92513369 0.94117647 0.9144385 ]
+Cross-validation score: [0.9        0.91823899 0.88679245 0.91823899 0.88679245]
 </pre></div>
 </div>
 <p>Store results for later</p>
@@ -482,7 +490,7 @@ algorithm). The memory savings will then happen during the encoding.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Time to vectorize: 0.12685561180114746
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Time to vectorize: 0.1561129093170166
 </pre></div>
 </div>
 <p>We can run a cross-validation to confirm the memory footprint reduction</p>
@@ -533,10 +541,10 @@ Please also refer to the documentation for alternative solver options:
     https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
   n_iter_i = _check_optimize_result(
 Run time: 1s    Memory used: 354Mb
-Cross-validation score: [0.93085106 0.93048128 0.92513369 0.94117647 0.89839572]
+Cross-validation score: [0.9        0.91823899 0.86792453 0.91823899 0.88679245]
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 2 minutes  17.664 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 2 minutes  23.968 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-04-dimension-reduction-and-performance-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/fcd0b8f727cbdfdf25757b8e5283efee/04_dimension_reduction_and_performance.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">04_dimension_reduction_and_performance.py</span></code></a></p>
