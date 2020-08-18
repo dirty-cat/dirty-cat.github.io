@@ -57,16 +57,16 @@ column, where people put whatever they want:
 
  .. code-block:: none
 
-    TEXAS                                                                                                                       1
-    pacific west                                                                                                                1
-    jkjhj                                                                                                                       1
-    Plains                                                                                                                      1
-    South-Central Midwest                                                                                                       1
-    northeast (that's because I just moved to philadelphia, but I moved here from Cleveland, OH which is definitely Midwest)    1
-    The Great Plains                                                                                                            1
-    Ice tundra  actually Midwest                                                                                                1
-    Rural missouri                                                                                                              1
-    Midweat                                                                                                                     1
+    urban/suburban, mid-western city                                         1
+    Cold, but love the season, diversity and family-friendly environment.    1
+    North Carolina                                                           1
+    County                                                                   1
+    The dirty south                                                          1
+    The East Coast                                                           1
+    southern california                                                      1
+    Rural, city like                                                         1
+    Mid-Atlantic half the year, Texas the other half                         1
+    Hawaii :)                                                                1
     Name: In your own words, what would you call the part of the country you live in now?, dtype: int64
 
 
@@ -128,8 +128,7 @@ We first import the right encoders to transform our clean/dirty data:
     encoder_dict = {
         'one-hot': OneHotEncoder(handle_unknown='ignore', sparse=False),
         'similarity': SimilarityEncoder(similarity='ngram'),
-        'minhash': MinHashEncoder(n_components=10, ngram_range=(2, 4),
-                                  hashing='fast', minmax_hash=False),
+        'minhash': MinHashEncoder(),
         'num': FunctionTransformer(None)
     }
 
@@ -218,7 +217,7 @@ using a cross validation score:
     Accuracy score:  mean: 0.674; std: 0.008
 
     minhash encoding
-    Accuracy score:  mean: 0.643; std: 0.006
+    Accuracy score:  mean: 0.676; std: 0.001
 
 
 
@@ -250,13 +249,13 @@ Plot the results
 
 
 
-We can see that encoding the data using a SimilarityEncoder instead of
-OneHotEncoder helps a lot in improving the cross validation score!
+We can see that encoding the data using a SimilarityEncoder or MinhashEncoder
+instead of OneHotEncoder helps a lot in improving the cross validation score!
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  10.306 seconds)
+   **Total running time of the script:** ( 0 minutes  11.068 seconds)
 
 
 .. _sphx_glr_download_auto_examples_03_fit_predict_plot_midwest_survey.py:

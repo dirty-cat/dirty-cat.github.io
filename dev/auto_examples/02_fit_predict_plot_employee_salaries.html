@@ -152,8 +152,7 @@ and the dirty categorical variable:</p>
     <span class="s1">&#39;one-hot&#39;</span><span class="p">:</span> <a href="http://scikit-learn.org/0.20/modules/generated/sklearn.preprocessing.OneHotEncoder.html#sklearn.preprocessing.OneHotEncoder" title="sklearn.preprocessing.OneHotEncoder" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class"><span class="n">OneHotEncoder</span></a><span class="p">(</span><span class="n">handle_unknown</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
     <span class="s1">&#39;similarity&#39;</span><span class="p">:</span> <a href="../generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="dirty_cat.SimilarityEncoder" class="sphx-glr-backref-module-dirty_cat sphx-glr-backref-type-py-class"><span class="n">SimilarityEncoder</span></a><span class="p">(</span><span class="n">similarity</span><span class="o">=</span><span class="s1">&#39;ngram&#39;</span><span class="p">),</span>
     <span class="s1">&#39;target&#39;</span><span class="p">:</span> <a href="../generated/dirty_cat.TargetEncoder.html#dirty_cat.TargetEncoder" title="dirty_cat.TargetEncoder" class="sphx-glr-backref-module-dirty_cat sphx-glr-backref-type-py-class"><span class="n">TargetEncoder</span></a><span class="p">(</span><span class="n">handle_unknown</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">),</span>
-    <span class="s1">&#39;minhash&#39;</span><span class="p">:</span> <a href="../generated/dirty_cat.MinHashEncoder.html#dirty_cat.MinHashEncoder" title="dirty_cat.MinHashEncoder" class="sphx-glr-backref-module-dirty_cat sphx-glr-backref-type-py-class"><span class="n">MinHashEncoder</span></a><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">ngram_range</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
-                              <span class="n">hashing</span><span class="o">=</span><span class="s1">&#39;fast&#39;</span><span class="p">,</span> <span class="n">minmax_hash</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+    <span class="s1">&#39;minhash&#39;</span><span class="p">:</span> <a href="../generated/dirty_cat.MinHashEncoder.html#dirty_cat.MinHashEncoder" title="dirty_cat.MinHashEncoder" class="sphx-glr-backref-module-dirty_cat sphx-glr-backref-type-py-class"><span class="n">MinHashEncoder</span></a><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">100</span><span class="p">),</span>
     <span class="s1">&#39;numerical&#39;</span><span class="p">:</span> <a href="http://scikit-learn.org/0.20/modules/generated/sklearn.preprocessing.FunctionTransformer.html#sklearn.preprocessing.FunctionTransformer" title="sklearn.preprocessing.FunctionTransformer" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class"><span class="n">FunctionTransformer</span></a><span class="p">(</span><span class="kc">None</span><span class="p">)}</span>
 
 <span class="c1"># We then create a function that takes one key of our ``encoders_dict``,</span>
@@ -217,18 +216,22 @@ similarity encoding
 r2 score:  mean: 0.915; std: 0.012
 
 minhash encoding
-r2 score:  mean: 0.596; std: 0.036
+r2 score:  mean: 0.753; std: 0.025
 </pre></div>
 </div>
 </div>
 <div class="section" id="plotting-the-results">
 <h2>Plotting the results<a class="headerlink" href="#plotting-the-results" title="Permalink to this headline">¶</a></h2>
 <p>Finally, we plot the scores on a boxplot:
-We notice that the MinHashEncoder performs poorly compared to other encoding
-methods. There are two reasons for that: the MinHashEncoder performs better
-with tree-based models than linear models (see example 03), and the
-low-dimensionality of encodings (increasing n_components improves
-performances.</p>
+We notice that the MinHashEncoder does not performs as well compared to
+other encoding methods.
+There are two reasons for that: the MinHashEncoder performs better
+with tree-based models than linear models (
+<a class="reference internal" href="03_fit_predict_plot_midwest_survey.html#sphx-glr-auto-examples-03-fit-predict-plot-midwest-survey-py"><span class="std std-ref">see example 03</span></a>)
+, and also
+increasing <cite>n_components</cite> improves performances. <cite>n_components</cite> around 300
+tend to lead to good prediction performance, but with more computational
+cost.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.figure.html#matplotlib.pyplot.figure" title="matplotlib.pyplot.figure" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">figure</span></a><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
@@ -244,7 +247,7 @@ performances.</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;frozen importlib._bootstrap&gt;:219: RuntimeWarning: numpy.ufunc size changed, may indicate binary incompatibility. Expected 192 from C header, got 216 from PyObject
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  17.201 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  11.532 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-02-fit-predict-plot-employee-salaries-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/25df26a65e0de69d519ecc7f18145b51/02_fit_predict_plot_employee_salaries.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">02_fit_predict_plot_employee_salaries.py</span></code></a></p>

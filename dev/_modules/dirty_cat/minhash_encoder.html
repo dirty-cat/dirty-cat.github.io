@@ -116,8 +116,9 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    n_components : int</span>
-<span class="sd">        The number of dimension of encoded strings.</span>
+<span class="sd">    n_components : int, default=30</span>
+<span class="sd">        The number of dimension of encoded strings. Numbers around 300 tend to</span>
+<span class="sd">        lead to good prediction performance, but with more computational cost.</span>
 <span class="sd">    ngram_range : tuple (min_n, max_n), default=(2, 4)</span>
 <span class="sd">        The lower and upper boundary of the range of n-values for different</span>
 <span class="sd">        n-grams to be extracted. All values of n such that min_n &lt;= n &lt;= max_n.</span>
@@ -135,7 +136,7 @@
 <span class="sd">    </span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="MinHashEncoder.__init__"><a class="viewcode-back" href="../../generated/dirty_cat.MinHashEncoder.html#dirty_cat.MinHashEncoder.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_components</span><span class="p">,</span> <span class="n">ngram_range</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+<div class="viewcode-block" id="MinHashEncoder.__init__"><a class="viewcode-back" href="../../generated/dirty_cat.MinHashEncoder.html#dirty_cat.MinHashEncoder.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_components</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">ngram_range</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
                  <span class="n">hashing</span><span class="o">=</span><span class="s1">&#39;fast&#39;</span><span class="p">,</span> <span class="n">minmax_hash</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ngram_range</span> <span class="o">=</span> <span class="n">ngram_range</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">n_components</span> <span class="o">=</span> <span class="n">n_components</span>

@@ -167,11 +167,11 @@ difficulty is that it has many different entries.
 
  .. code-block:: none
 
-    DRIVING VEHICLE WHILE UNDER THE INFLUENCE OF ALCOHOL                                                 78
     DRIVING VEH. WHILE IMPAIRED BY ALCOHOL                                                               78
+    DRIVING VEHICLE WHILE UNDER THE INFLUENCE OF ALCOHOL                                                 78
     NEGLIGENT DRIVING VEHICLE IN CARELESS AND IMPRUDENT MANNER ENDANGERING PROPERTY, LIFE AND PERSON     56
-    DRIVING VEHICLE WHILE UNDER THE INFLUENCE OF ALCOHOL PER SE                                          48
     DRIVER FAILURE TO OBEY PROPERLY PLACED TRAFFIC CONTROL DEVICE INSTRUCTIONS                           48
+    DRIVING VEHICLE WHILE UNDER THE INFLUENCE OF ALCOHOL PER SE                                          48
     RECKLESS DRIVING VEHICLE IN WANTON AND WILLFUL DISREGARD FOR SAFETY OF PERSONS AND PROPERTY          39
     FAILURE OF INDIVIDUAL DRIVING ON HIGHWAY TO DISPLAY LICENSE TO UNIFORMED POLICE ON DEMAND            25
     FAILURE TO DISPLAY REGISTRATION CARD UPON DEMAND BY POLICE OFFICER                                   19
@@ -179,14 +179,14 @@ difficulty is that it has many different entries.
     DRIVING MOTOR VEHICLE ON HIGHWAY WITHOUT REQUIRED LICENSE AND AUTHORIZATION                          17
     PERSON DRIVING MOTOR VEHICLE ON HIGHWAY OR PUBLIC USE PROPERTY ON SUSPENDED LICENSE AND PRIVILEGE    16
     DRIVER FAILURE TO STOP AT STOP SIGN LINE                                                             14
-    DRIVING WHILE LIC. SUSP. UNDER 16-203, 16-206A2 FAIL TO ATTEND DIP, 17-106, 26-204/206, 27-103       11
     DRIVING VEH. W/O ADEQUATE REAR REG. PLATE ILLUMINATION                                               11
+    DRIVING WHILE LIC. SUSP. UNDER 16-203, 16-206A2 FAIL TO ATTEND DIP, 17-106, 26-204/206, 27-103       11
     DRIVER CHANGING LANES WHEN UNSAFE                                                                    10
     CAUSING STANDING VEH. TO OBSTRUCT FREE VEH. PASSAGE OF ROADWAY                                       10
     DRIVING VEHICLE IN EXCESS OF REASONABLE AND PRUDENT SPEED ON HIGHWAY                                 10
     FAILURE TO CONTROL VEHICLE SPEED ON HIGHWAY TO AVOID COLLISION                                        9
     DRIVER FAIL TO STOP AT FLASHING RED TRAFFIC SIGNAL STOP LINE                                          8
-    KNOWINGLY DRIVING UNINSURED VEHICLE                                                                   7
+    FAILURE TO ATTACH VEHICLE REGISTRATION PLATES AT FRONT AND REAR                                       7
     Name: Description, dtype: int64
 
 
@@ -247,7 +247,7 @@ one-hot encoding and similarity encoding
 
  .. code-block:: none
 
-    Time to vectorize: 0.11892485618591309
+    Time to vectorize: 0.11072492599487305
 
 
 
@@ -315,7 +315,7 @@ We can run a cross-validation
     Please also refer to the documentation for alternative solver options:
         https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
       n_iter_i = _check_optimize_result(
-    Run time: 1s    Memory used: 750Mb
+    Run time: 1s    Memory used: 748Mb
     Cross-validation score: [0.89375    0.91823899 0.88050314 0.91823899 0.89308176]
 
 
@@ -625,7 +625,7 @@ algorithm). The memory savings will then happen during the encoding.
 
  .. code-block:: none
 
-    Time to vectorize: 0.1561129093170166
+    Time to vectorize: 0.09511494636535645
 
 
 
@@ -697,7 +697,7 @@ We can run a cross-validation to confirm the memory footprint reduction
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 2 minutes  23.968 seconds)
+   **Total running time of the script:** ( 2 minutes  21.188 seconds)
 
 
 .. _sphx_glr_download_auto_examples_04_dimension_reduction_and_performance.py:

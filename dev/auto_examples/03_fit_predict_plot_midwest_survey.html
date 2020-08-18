@@ -106,16 +106,16 @@ column, where people put whatever they want:</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>TEXAS                                                                                                                       1
-pacific west                                                                                                                1
-jkjhj                                                                                                                       1
-Plains                                                                                                                      1
-South-Central Midwest                                                                                                       1
-northeast (that&#39;s because I just moved to philadelphia, but I moved here from Cleveland, OH which is definitely Midwest)    1
-The Great Plains                                                                                                            1
-Ice tundra  actually Midwest                                                                                                1
-Rural missouri                                                                                                              1
-Midweat                                                                                                                     1
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>urban/suburban, mid-western city                                         1
+Cold, but love the season, diversity and family-friendly environment.    1
+North Carolina                                                           1
+County                                                                   1
+The dirty south                                                          1
+The East Coast                                                           1
+southern california                                                      1
+Rural, city like                                                         1
+Mid-Atlantic half the year, Texas the other half                         1
+Hawaii :)                                                                1
 Name: In your own words, what would you call the part of the country you live in now?, dtype: int64
 </pre></div>
 </div>
@@ -162,8 +162,7 @@ Name: In your own words, what would you call the part of the country you live in
 <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">encoder_dict</span></a> <span class="o">=</span> <span class="p">{</span>
     <span class="s1">&#39;one-hot&#39;</span><span class="p">:</span> <a href="http://scikit-learn.org/0.20/modules/generated/sklearn.preprocessing.OneHotEncoder.html#sklearn.preprocessing.OneHotEncoder" title="sklearn.preprocessing.OneHotEncoder" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class"><span class="n">OneHotEncoder</span></a><span class="p">(</span><span class="n">handle_unknown</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
     <span class="s1">&#39;similarity&#39;</span><span class="p">:</span> <a href="../generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="dirty_cat.SimilarityEncoder" class="sphx-glr-backref-module-dirty_cat sphx-glr-backref-type-py-class"><span class="n">SimilarityEncoder</span></a><span class="p">(</span><span class="n">similarity</span><span class="o">=</span><span class="s1">&#39;ngram&#39;</span><span class="p">),</span>
-    <span class="s1">&#39;minhash&#39;</span><span class="p">:</span> <a href="../generated/dirty_cat.MinHashEncoder.html#dirty_cat.MinHashEncoder" title="dirty_cat.MinHashEncoder" class="sphx-glr-backref-module-dirty_cat sphx-glr-backref-type-py-class"><span class="n">MinHashEncoder</span></a><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">ngram_range</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
-                              <span class="n">hashing</span><span class="o">=</span><span class="s1">&#39;fast&#39;</span><span class="p">,</span> <span class="n">minmax_hash</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+    <span class="s1">&#39;minhash&#39;</span><span class="p">:</span> <a href="../generated/dirty_cat.MinHashEncoder.html#dirty_cat.MinHashEncoder" title="dirty_cat.MinHashEncoder" class="sphx-glr-backref-module-dirty_cat sphx-glr-backref-type-py-class"><span class="n">MinHashEncoder</span></a><span class="p">(),</span>
     <span class="s1">&#39;num&#39;</span><span class="p">:</span> <a href="http://scikit-learn.org/0.20/modules/generated/sklearn.preprocessing.FunctionTransformer.html#sklearn.preprocessing.FunctionTransformer" title="sklearn.preprocessing.FunctionTransformer" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class"><span class="n">FunctionTransformer</span></a><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
 <span class="p">}</span>
 </pre></div>
@@ -224,7 +223,7 @@ similarity encoding
 Accuracy score:  mean: 0.674; std: 0.008
 
 minhash encoding
-Accuracy score:  mean: 0.643; std: 0.006
+Accuracy score:  mean: 0.676; std: 0.001
 </pre></div>
 </div>
 </div>
@@ -241,9 +240,9 @@ Accuracy score:  mean: 0.643; std: 0.006
 </pre></div>
 </div>
 <img alt="03 fit predict plot midwest survey" class="sphx-glr-single-img" src="../_images/sphx_glr_03_fit_predict_plot_midwest_survey_001.png" />
-<p>We can see that encoding the data using a SimilarityEncoder instead of
-OneHotEncoder helps a lot in improving the cross validation score!</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  10.306 seconds)</p>
+<p>We can see that encoding the data using a SimilarityEncoder or MinhashEncoder
+instead of OneHotEncoder helps a lot in improving the cross validation score!</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  11.068 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-03-fit-predict-plot-midwest-survey-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/073d02765af9260c279b204e8f103b96/03_fit_predict_plot_midwest_survey.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">03_fit_predict_plot_midwest_survey.py</span></code></a></p>
