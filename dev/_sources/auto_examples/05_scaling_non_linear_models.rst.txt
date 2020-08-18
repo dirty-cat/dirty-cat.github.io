@@ -62,8 +62,8 @@ In this example, you will learn how to:
    This example assumes the reader to be familiar with similarity encoding and
    its use-cases.
 
-   * For an introduction to dirty categories, see :ref:`this example<sphx_glr_auto_examples_01_dirty_categories.py>`.
-   * To learn with dirty categories using the SimilarityEncoder, see :ref:`this example<sphx_glr_auto_examples_02_predict_employee_salaries.py>`.
+   * For an introduction to dirty categories, see :ref:`this example<sphx_glr_auto_examples_01_investigating_dirty_categories.py>`.
+   * To learn with dirty categories using the SimilarityEncoder, see :ref:`this example<sphx_glr_auto_examples_02_fit_predict_predict_employee_salaries.py>`.
 
 
 .. |NYS| replace:: :class:`Nystroem <sklearn.kernel_approximation.Nystroem>`
@@ -424,8 +424,8 @@ sample size varies.
  .. code-block:: none
 
     using   500 samples: model fitting took 0.2s, test accuracy of 0.500
-    using  1666 samples: model fitting took 3.6s, test accuracy of 0.503
-    using  5000 samples: model fitting took 49.6s, test accuracy of 0.540
+    using  1666 samples: model fitting took 3.2s, test accuracy of 0.503
+    using  5000 samples: model fitting took 53.3s, test accuracy of 0.540
 
 
 
@@ -737,7 +737,7 @@ trivial task at the beginning of this example!
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 5 minutes  48.635 seconds)
+   **Total running time of the script:** ( 5 minutes  14.961 seconds)
 
 
 .. _sphx_glr_download_auto_examples_05_scaling_non_linear_models.py:
