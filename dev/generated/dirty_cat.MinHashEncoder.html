@@ -82,7 +82,7 @@
 <h1><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat</span></code>.MinHashEncoder<a class="headerlink" href="#dirty-cat-minhashencoder" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
 <dt id="dirty_cat.MinHashEncoder">
-<em class="property">class </em><code class="sig-prename descclassname">dirty_cat.</code><code class="sig-name descname">MinHashEncoder</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n_components</span><span class="o">=</span><span class="default_value">30</span></em>, <em class="sig-param"><span class="n">ngram_range</span><span class="o">=</span><span class="default_value">2, 4</span></em>, <em class="sig-param"><span class="n">hashing</span><span class="o">=</span><span class="default_value">'fast'</span></em>, <em class="sig-param"><span class="n">minmax_hash</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/minhash_encoder.html#MinHashEncoder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirty_cat.MinHashEncoder" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">dirty_cat.</code><code class="sig-name descname">MinHashEncoder</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n_components</span><span class="o">=</span><span class="default_value">30</span></em>, <em class="sig-param"><span class="n">ngram_range</span><span class="o">=</span><span class="default_value">2, 4</span></em>, <em class="sig-param"><span class="n">hashing</span><span class="o">=</span><span class="default_value">'fast'</span></em>, <em class="sig-param"><span class="n">minmax_hash</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">handle_missing</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/minhash_encoder.html#MinHashEncoder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirty_cat.MinHashEncoder" title="Permalink to this definition">¶</a></dt>
 <dd><p>Encode string categorical features as a numeric array, minhash method
 applied to ngram decomposition of strings based on ngram decomposition
 of the string.</p>
@@ -97,6 +97,11 @@ will be used.</p></li>
 <li><p><strong>hashing</strong> (<em>str {'fast'</em><em>, </em><em>'murmur'}</em><em>, </em><em>default=fast</em>) – Hashing function. fast is faster but
 might have some concern with its entropy.</p></li>
 <li><p><strong>minmax_hash</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><em>default=False</em>) – if True, return min hash and max hash concatenated.</p></li>
+<li><p><strong>handle_missing</strong> (<em>'error'</em><em> or </em><em>''</em><em> (</em><em>default</em><em>)</em>) – Whether to raise an error or impute with blank string ‘’ if missing
+values (NaN) are present during fit (default is to impute).
+When this parameter is set to ‘’, and a missing value is encountered
+during fit_transform, the resulting encoded columns for this feature
+will be all zeros.</p></li>
 </ul>
 </dd>
 </dl>
@@ -105,7 +110,7 @@ might have some concern with its entropy.</p></li>
 <a class="reference external" href="https://hal.inria.fr/hal-02171256v4">Encoding high-cardinality string categorical variables</a> by Cerda, Varoquaux (2019).</p>
 <dl class="py method">
 <dt id="dirty_cat.MinHashEncoder.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n_components</span><span class="o">=</span><span class="default_value">30</span></em>, <em class="sig-param"><span class="n">ngram_range</span><span class="o">=</span><span class="default_value">2, 4</span></em>, <em class="sig-param"><span class="n">hashing</span><span class="o">=</span><span class="default_value">'fast'</span></em>, <em class="sig-param"><span class="n">minmax_hash</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/minhash_encoder.html#MinHashEncoder.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirty_cat.MinHashEncoder.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n_components</span><span class="o">=</span><span class="default_value">30</span></em>, <em class="sig-param"><span class="n">ngram_range</span><span class="o">=</span><span class="default_value">2, 4</span></em>, <em class="sig-param"><span class="n">hashing</span><span class="o">=</span><span class="default_value">'fast'</span></em>, <em class="sig-param"><span class="n">minmax_hash</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">handle_missing</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/minhash_encoder.html#MinHashEncoder.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirty_cat.MinHashEncoder.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 

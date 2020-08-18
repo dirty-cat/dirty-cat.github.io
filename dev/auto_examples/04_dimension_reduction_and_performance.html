@@ -165,8 +165,8 @@ difficulty is that it has many different entries.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>DRIVING VEHICLE WHILE UNDER THE INFLUENCE OF ALCOHOL                                                 78
-DRIVING VEH. WHILE IMPAIRED BY ALCOHOL                                                               78
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>DRIVING VEH. WHILE IMPAIRED BY ALCOHOL                                                               78
+DRIVING VEHICLE WHILE UNDER THE INFLUENCE OF ALCOHOL                                                 78
 NEGLIGENT DRIVING VEHICLE IN CARELESS AND IMPRUDENT MANNER ENDANGERING PROPERTY, LIFE AND PERSON     56
 DRIVER FAILURE TO OBEY PROPERLY PLACED TRAFFIC CONTROL DEVICE INSTRUCTIONS                           48
 DRIVING VEHICLE WHILE UNDER THE INFLUENCE OF ALCOHOL PER SE                                          48
@@ -177,14 +177,14 @@ FAILURE TO DRIVE VEHICLE ON RIGHT HALF OF ROADWAY WHEN REQUIRED                 
 DRIVING MOTOR VEHICLE ON HIGHWAY WITHOUT REQUIRED LICENSE AND AUTHORIZATION                          17
 PERSON DRIVING MOTOR VEHICLE ON HIGHWAY OR PUBLIC USE PROPERTY ON SUSPENDED LICENSE AND PRIVILEGE    16
 DRIVER FAILURE TO STOP AT STOP SIGN LINE                                                             14
-DRIVING WHILE LIC. SUSP. UNDER 16-203, 16-206A2 FAIL TO ATTEND DIP, 17-106, 26-204/206, 27-103       11
 DRIVING VEH. W/O ADEQUATE REAR REG. PLATE ILLUMINATION                                               11
-CAUSING STANDING VEH. TO OBSTRUCT FREE VEH. PASSAGE OF ROADWAY                                       10
-DRIVING VEHICLE IN EXCESS OF REASONABLE AND PRUDENT SPEED ON HIGHWAY                                 10
+DRIVING WHILE LIC. SUSP. UNDER 16-203, 16-206A2 FAIL TO ATTEND DIP, 17-106, 26-204/206, 27-103       11
 DRIVER CHANGING LANES WHEN UNSAFE                                                                    10
+DRIVING VEHICLE IN EXCESS OF REASONABLE AND PRUDENT SPEED ON HIGHWAY                                 10
+CAUSING STANDING VEH. TO OBSTRUCT FREE VEH. PASSAGE OF ROADWAY                                       10
 FAILURE TO CONTROL VEHICLE SPEED ON HIGHWAY TO AVOID COLLISION                                        9
 DRIVER FAIL TO STOP AT FLASHING RED TRAFFIC SIGNAL STOP LINE                                          8
-OPERATING VEHICLE ON HIGHWAY WITH UNAUTHORIZED WINDOW TINTING MATERIAL                                7
+DRIVER OF MOTOR VEHICLE FOLLOWING VEHICLE CLOSER THAN REASONABLE AND PRUDENT                          7
 Name: Description, dtype: int64
 </pre></div>
 </div>
@@ -230,7 +230,7 @@ one-hot encoding and similarity encoding</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Time to vectorize: 0.11875224113464355
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Time to vectorize: 0.11241674423217773
 </pre></div>
 </div>
 <p>We can run a cross-validation</p>
@@ -284,7 +284,7 @@ Increase the number of iterations (max_iter) or scale the data as shown in:
 Please also refer to the documentation for alternative solver options:
     https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
   n_iter_i = _check_optimize_result(
-Run time: 1s    Memory used: 750Mb
+Run time: 1s    Memory used: 865Mb
 Cross-validation score: [0.89375    0.91823899 0.88050314 0.91823899 0.89308176]
 </pre></div>
 </div>
@@ -349,7 +349,7 @@ Increase the number of iterations (max_iter) or scale the data as shown in:
 Please also refer to the documentation for alternative solver options:
     https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
   n_iter_i = _check_optimize_result(
-Run time: 1s    Memory used: 353Mb
+Run time: 1s    Memory used: 864Mb
 Cross-validation score: [0.89375    0.91823899 0.86792453 0.91823899 0.88679245]
 </pre></div>
 </div>
@@ -420,7 +420,7 @@ Increase the number of iterations (max_iter) or scale the data as shown in:
 Please also refer to the documentation for alternative solver options:
     https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
   n_iter_i = _check_optimize_result(
-Run time: 5s    Memory used: 354Mb
+Run time: 5s    Memory used: 865Mb
 Cross-validation score: [0.9        0.91823899 0.88679245 0.91823899 0.88679245]
 </pre></div>
 </div>
@@ -490,7 +490,7 @@ algorithm). The memory savings will then happen during the encoding.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Time to vectorize: 0.1298666000366211
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Time to vectorize: 0.09781479835510254
 </pre></div>
 </div>
 <p>We can run a cross-validation to confirm the memory footprint reduction</p>
@@ -540,11 +540,11 @@ Increase the number of iterations (max_iter) or scale the data as shown in:
 Please also refer to the documentation for alternative solver options:
     https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
   n_iter_i = _check_optimize_result(
-Run time: 1s    Memory used: 353Mb
+Run time: 1s    Memory used: 865Mb
 Cross-validation score: [0.9        0.91823899 0.86792453 0.91823899 0.88679245]
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 2 minutes  34.423 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 2 minutes  20.655 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-04-dimension-reduction-and-performance-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/fcd0b8f727cbdfdf25757b8e5283efee/04_dimension_reduction_and_performance.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">04_dimension_reduction_and_performance.py</span></code></a></p>
