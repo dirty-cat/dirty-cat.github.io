@@ -97,7 +97,7 @@ dirty categorical variables.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>similarity</strong> (<em>str {'ngram'</em><em>, </em><em>'levenshtein-ratio'</em><em>, </em><em>'jaro'</em><em>, </em><em>or'jaro-winkler'}</em>) – The type of pairwise string similarity to use.</p></li>
-<li><p><strong>ngram_range</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.8)"><em>tuple</em></a><em> (</em><em>min_n</em><em>, </em><em>max_n</em><em>)</em><em>, </em><em>default=</em><em>(</em><em>2</em><em>, </em><em>4</em><em>)</em>) – Only significant for <code class="docutils literal notranslate"><span class="pre">similarity='ngram'</span></code>. The range of
+<li><p><strong>ngram_range</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.9)"><em>tuple</em></a><em> (</em><em>min_n</em><em>, </em><em>max_n</em><em>)</em><em>, </em><em>default=</em><em>(</em><em>2</em><em>, </em><em>4</em><em>)</em>) – Only significant for <code class="docutils literal notranslate"><span class="pre">similarity='ngram'</span></code>. The range of
 values for the n_gram similarity.</p></li>
 <li><p><strong>categories</strong> (<em>'auto'</em><em>, </em><em>'k-means'</em><em>, </em><em>'most_frequent'</em><em> or </em><em>a list of lists/arrays</em>) – </p></li>
 <li><p><strong>values.</strong> (<em>of</em>) – <p>Categories (unique values) per feature:</p>
@@ -137,7 +137,7 @@ HashingVectorizer with a number of features equal to <cite>hashing_dim</cite>.</
 <li><p><strong>n_prototypes</strong> (<em>number of prototype we want to use.</em>) – Useful when <cite>most_frequent</cite> or <cite>k-means</cite> is used.
 Must be a positive non null integer.</p></li>
 <li><p><strong>random_state</strong> (<em>either an int used as a seed</em><em>, </em><em>a RandomState instance</em><em> or </em><em>None.</em>) – Useful when <cite>k-means</cite> strategy is used.</p></li>
-<li><p><strong>n_jobs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>, </em><em>optional</em>) – maximum number of processes used to compute similarity matrices. Used
+<li><p><strong>n_jobs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a><em>, </em><em>optional</em>) – maximum number of processes used to compute similarity matrices. Used
 only if <code class="docutils literal notranslate"><span class="pre">fast=True</span></code> in <code class="docutils literal notranslate"><span class="pre">SimilarityEncoder.transform</span></code></p></li>
 </ul>
 </dd>

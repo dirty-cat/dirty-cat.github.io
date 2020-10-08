@@ -57,16 +57,16 @@ column, where people put whatever they want:
 
  .. code-block:: none
 
-    The middle of the middle                                      1
-    Northern Virginia suburbs                                     1
-    Southern california                                           1
-    South Cental                                                  1
-    The north east                                                1
-    central us                                                    1
-    Mideastern, but that doesn't go over well. So, Midwestern.    1
-    East Central Pennsylvania                                     1
-    Mojave Desert, California                                     1
-    Limiting.                                                     1
+    Atlantic region                     1
+    Fly over                            1
+    The classiest part of the south.    1
+    western                             1
+    country                             1
+    Western PA                          1
+    Northwest country                   1
+    Rural, hickish crap.                1
+    Northern Mid West                   1
+    midewest                            1
     Name: In your own words, what would you call the part of the country you live in now?, dtype: int64
 
 
@@ -255,7 +255,7 @@ instead of OneHotEncoder helps a lot in improving the cross validation score!
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  14.890 seconds)
+   **Total running time of the script:** ( 0 minutes  13.064 seconds)
 
 
 .. _sphx_glr_download_auto_examples_03_fit_predict_plot_midwest_survey.py:

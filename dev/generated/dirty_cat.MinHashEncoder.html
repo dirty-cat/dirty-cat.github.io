@@ -89,14 +89,14 @@ of the string.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>n_components</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>, </em><em>default=30</em>) – The number of dimension of encoded strings. Numbers around 300 tend to
+<li><p><strong>n_components</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a><em>, </em><em>default=30</em>) – The number of dimension of encoded strings. Numbers around 300 tend to
 lead to good prediction performance, but with more computational cost.</p></li>
-<li><p><strong>ngram_range</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.8)"><em>tuple</em></a><em> (</em><em>min_n</em><em>, </em><em>max_n</em><em>)</em><em>, </em><em>default=</em><em>(</em><em>2</em><em>, </em><em>4</em><em>)</em>) – The lower and upper boundary of the range of n-values for different
+<li><p><strong>ngram_range</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.9)"><em>tuple</em></a><em> (</em><em>min_n</em><em>, </em><em>max_n</em><em>)</em><em>, </em><em>default=</em><em>(</em><em>2</em><em>, </em><em>4</em><em>)</em>) – The lower and upper boundary of the range of n-values for different
 n-grams to be extracted. All values of n such that min_n &lt;= n &lt;= max_n.
 will be used.</p></li>
 <li><p><strong>hashing</strong> (<em>str {'fast'</em><em>, </em><em>'murmur'}</em><em>, </em><em>default=fast</em>) – Hashing function. fast is faster but
 might have some concern with its entropy.</p></li>
-<li><p><strong>minmax_hash</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><em>default=False</em>) – if True, return min hash and max hash concatenated.</p></li>
+<li><p><strong>minmax_hash</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a><em>, </em><em>default=False</em>) – if True, return min hash and max hash concatenated.</p></li>
 <li><p><strong>handle_missing</strong> (<em>'error'</em><em> or </em><em>''</em><em> (</em><em>default</em><em>)</em>) – Whether to raise an error or impute with blank string ‘’ if missing
 values (NaN) are present during fit (default is to impute).
 When this parameter is set to ‘’, and a missing value is encountered
