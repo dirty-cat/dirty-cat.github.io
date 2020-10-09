@@ -176,15 +176,15 @@ FAILURE TO DRIVE VEHICLE ON RIGHT HALF OF ROADWAY WHEN REQUIRED                 
 FAILURE TO DISPLAY REGISTRATION CARD UPON DEMAND BY POLICE OFFICER                                    24
 PERSON DRIVING MOTOR VEHICLE ON HIGHWAY OR PUBLIC USE PROPERTY ON SUSPENDED LICENSE AND PRIVILEGE     23
 DRIVING MOTOR VEHICLE ON HIGHWAY WITHOUT REQUIRED LICENSE AND AUTHORIZATION                           22
-DRIVER CHANGING LANES WHEN UNSAFE                                                                     14
 DRIVING WHILE LIC. SUSP. UNDER 16-203, 16-206A2 FAIL TO ATTEND DIP, 17-106, 26-204/206, 27-103        14
+DRIVER CHANGING LANES WHEN UNSAFE                                                                     14
 FAILURE TO CONTROL VEHICLE SPEED ON HIGHWAY TO AVOID COLLISION                                        14
 DRIVER FAILURE TO STOP AT STOP SIGN LINE                                                              12
 DRIVING VEH. W/O ADEQUATE REAR REG. PLATE ILLUMINATION                                                11
 KNOWINGLY DRIVING UNINSURED VEHICLE                                                                   10
 DRIVER FAILURE TO STOP AT STEADY CIRCULAR RED SIGNAL                                                   9
-OPERATING UNREGISTERED MOTOR VEHICLE ON HIGHWAY                                                        9
 DRIVER FAILING TO GIVE TURN SIGNAL CONTINUOUSLY DURING LAST 100&#39; OF TRAVEL BEFORE TURNING              9
+OPERATING UNREGISTERED MOTOR VEHICLE ON HIGHWAY                                                        9
 Name: Description, dtype: int64
 </pre></div>
 </div>
@@ -230,7 +230,7 @@ one-hot encoding and similarity encoding</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Time to vectorize: 0.14222407341003418
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Time to vectorize: 0.14333081245422363
 </pre></div>
 </div>
 <p>We can run a cross-validation</p>
@@ -245,7 +245,7 @@ one-hot encoding and similarity encoding</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Run time: 2s    Memory used: 752Mb
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Run time: 2s    Memory used: 758Mb
 Cross-validation score: [0.9408867  0.93596059 0.93103448 0.94554455 0.93069307]
 </pre></div>
 </div>
@@ -278,7 +278,7 @@ speed things up. We select manually the number of prototypes we want to use.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Run time: 1s    Memory used: 359Mb
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Run time: 1s    Memory used: 360Mb
 Cross-validation score: [0.9408867  0.93596059 0.93103448 0.94554455 0.93069307]
 </pre></div>
 </div>
@@ -379,7 +379,7 @@ algorithm). The memory savings will then happen during the encoding.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Time to vectorize: 0.11108756065368652
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Time to vectorize: 0.10874438285827637
 </pre></div>
 </div>
 <p>We can run a cross-validation to confirm the memory footprint reduction</p>
@@ -393,7 +393,7 @@ algorithm). The memory savings will then happen during the encoding.</p>
 Cross-validation score: [0.9408867  0.93596059 0.93103448 0.94554455 0.93069307]
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 2 minutes  22.333 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 2 minutes  22.284 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-04-dimension-reduction-and-performance-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/fcd0b8f727cbdfdf25757b8e5283efee/04_dimension_reduction_and_performance.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">04_dimension_reduction_and_performance.py</span></code></a></p>
