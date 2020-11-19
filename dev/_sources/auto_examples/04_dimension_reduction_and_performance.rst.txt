@@ -170,8 +170,8 @@ difficulty is that it has many different entries.
     DRIVING VEH. WHILE IMPAIRED BY ALCOHOL                                                               89
     DRIVING VEHICLE WHILE UNDER THE INFLUENCE OF ALCOHOL                                                 88
     NEGLIGENT DRIVING VEHICLE IN CARELESS AND IMPRUDENT MANNER ENDANGERING PROPERTY, LIFE AND PERSON     66
-    DRIVER FAILURE TO OBEY PROPERLY PLACED TRAFFIC CONTROL DEVICE INSTRUCTIONS                           54
     DRIVING VEHICLE WHILE UNDER THE INFLUENCE OF ALCOHOL PER SE                                          54
+    DRIVER FAILURE TO OBEY PROPERLY PLACED TRAFFIC CONTROL DEVICE INSTRUCTIONS                           54
     RECKLESS DRIVING VEHICLE IN WANTON AND WILLFUL DISREGARD FOR SAFETY OF PERSONS AND PROPERTY          47
     FAILURE OF INDIVIDUAL DRIVING ON HIGHWAY TO DISPLAY LICENSE TO UNIFORMED POLICE ON DEMAND            31
     FAILURE TO DRIVE VEHICLE ON RIGHT HALF OF ROADWAY WHEN REQUIRED                                      26
@@ -182,11 +182,11 @@ difficulty is that it has many different entries.
     DRIVING WHILE LIC. SUSP. UNDER 16-203, 16-206A2 FAIL TO ATTEND DIP, 17-106, 26-204/206, 27-103       15
     FAILURE TO CONTROL VEHICLE SPEED ON HIGHWAY TO AVOID COLLISION                                       12
     DRIVER CHANGING LANES WHEN UNSAFE                                                                    11
-    DRIVING VEH. W/O ADEQUATE REAR REG. PLATE ILLUMINATION                                               11
     DRIVING VEHICLE IN EXCESS OF REASONABLE AND PRUDENT SPEED ON HIGHWAY                                 11
+    DRIVING VEH. W/O ADEQUATE REAR REG. PLATE ILLUMINATION                                               11
     KNOWINGLY DRIVING UNINSURED VEHICLE                                                                  10
     CAUSING STANDING VEH. TO OBSTRUCT FREE VEH. PASSAGE OF ROADWAY                                        9
-    UNAUTHORIZED DISPLAY AND USE OF REGISTRATION PLATE                                                    8
+    OPERATING UNREGISTERED MOTOR VEHICLE ON HIGHWAY                                                       8
     Name: Description, dtype: int64
 
 
@@ -245,7 +245,7 @@ one-hot encoding and similarity encoding
 
  .. code-block:: none
 
-    Time to vectorize: 0.12656617164611816
+    Time to vectorize: 0.15478801727294922
 
 
 
@@ -274,7 +274,7 @@ We can run a cross-validation
 
  .. code-block:: none
 
-    Run time: 3s    Memory used: 761Mb
+    Run time: 1s    Memory used: 754Mb
     Cross-validation score: [0.91351351 0.91351351 0.92972973 0.92972973 0.90810811]
 
 
@@ -341,7 +341,7 @@ Check now that prediction is still as good
 
  .. code-block:: none
 
-    Run time: 3s    Memory used: 361Mb
+    Run time: 2s    Memory used: 361Mb
     Cross-validation score: [0.91351351 0.91351351 0.91891892 0.92972973 0.90810811]
 
 
@@ -406,7 +406,7 @@ Check now that prediction is still as good
 
  .. code-block:: none
 
-    Run time: 6s    Memory used: 361Mb
+    Run time: 5s    Memory used: 362Mb
     Cross-validation score: [0.91351351 0.91351351 0.91891892 0.92972973 0.90810811]
 
 
@@ -510,7 +510,7 @@ algorithm). The memory savings will then happen during the encoding.
 
  .. code-block:: none
 
-    Time to vectorize: 0.12106013298034668
+    Time to vectorize: 0.10018610954284668
 
 
 
@@ -533,7 +533,7 @@ We can run a cross-validation to confirm the memory footprint reduction
 
  .. code-block:: none
 
-    Run time: 2s    Memory used: 361Mb
+    Run time: 1s    Memory used: 361Mb
     Cross-validation score: [0.91351351 0.91351351 0.91891892 0.92972973 0.90810811]
 
 
@@ -542,7 +542,7 @@ We can run a cross-validation to confirm the memory footprint reduction
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 2 minutes  32.296 seconds)
+   **Total running time of the script:** ( 2 minutes  23.610 seconds)
 
 
 .. _sphx_glr_download_auto_examples_04_dimension_reduction_and_performance.py:

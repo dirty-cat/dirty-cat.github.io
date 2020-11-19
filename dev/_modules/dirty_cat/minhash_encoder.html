@@ -151,7 +151,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">hashing</span> <span class="o">=</span> <span class="n">hashing</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">minmax_hash</span> <span class="o">=</span> <span class="n">minmax_hash</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">handle_missing</span> <span class="o">=</span> <span class="n">handle_missing</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">handle_missing</span> <span class="o">=</span> <span class="n">handle_missing</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_capacity</span> <span class="o">=</span> <span class="mi">2</span><span class="o">**</span><span class="mi">10</span></div>
 
     <span class="k">def</span> <span class="nf">get_unique_ngrams</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">string</span><span class="p">,</span> <span class="n">ngram_range</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Return the set of unique n-grams of a string.</span>
@@ -237,7 +238,7 @@
 <span class="sd">        self</span>
 <span class="sd">            The fitted MinHashEncoder instance.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">hash_dict</span> <span class="o">=</span> <span class="n">LRUDict</span><span class="p">(</span><span class="n">capacity</span><span class="o">=</span><span class="mi">2</span><span class="o">**</span><span class="mi">10</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hash_dict</span> <span class="o">=</span> <span class="n">LRUDict</span><span class="p">(</span><span class="n">capacity</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_capacity</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span>
 
     <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
