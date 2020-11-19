@@ -179,12 +179,12 @@ PERSON DRIVING MOTOR VEHICLE ON HIGHWAY OR PUBLIC USE PROPERTY ON SUSPENDED LICE
 DRIVER FAILURE TO STOP AT STOP SIGN LINE                                                             17
 DRIVING WHILE LIC. SUSP. UNDER 16-203, 16-206A2 FAIL TO ATTEND DIP, 17-106, 26-204/206, 27-103       15
 FAILURE TO CONTROL VEHICLE SPEED ON HIGHWAY TO AVOID COLLISION                                       12
-DRIVING VEHICLE IN EXCESS OF REASONABLE AND PRUDENT SPEED ON HIGHWAY                                 11
 DRIVER CHANGING LANES WHEN UNSAFE                                                                    11
 DRIVING VEH. W/O ADEQUATE REAR REG. PLATE ILLUMINATION                                               11
+DRIVING VEHICLE IN EXCESS OF REASONABLE AND PRUDENT SPEED ON HIGHWAY                                 11
 KNOWINGLY DRIVING UNINSURED VEHICLE                                                                  10
 CAUSING STANDING VEH. TO OBSTRUCT FREE VEH. PASSAGE OF ROADWAY                                        9
-DRIVER FAILING TO GIVE TURN SIGNAL CONTINUOUSLY DURING LAST 100&#39; OF TRAVEL BEFORE TURNING             8
+UNAUTHORIZED DISPLAY AND USE OF REGISTRATION PLATE                                                    8
 Name: Description, dtype: int64
 </pre></div>
 </div>
@@ -228,7 +228,7 @@ one-hot encoding and similarity encoding</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Time to vectorize: 0.13752150535583496
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Time to vectorize: 0.12656617164611816
 </pre></div>
 </div>
 <p>We can run a cross-validation</p>
@@ -243,7 +243,7 @@ one-hot encoding and similarity encoding</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Run time: 2s    Memory used: 759Mb
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Run time: 3s    Memory used: 761Mb
 Cross-validation score: [0.91351351 0.91351351 0.92972973 0.92972973 0.90810811]
 </pre></div>
 </div>
@@ -276,7 +276,7 @@ speed things up. We select manually the number of prototypes we want to use.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Run time: 2s    Memory used: 361Mb
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Run time: 3s    Memory used: 361Mb
 Cross-validation score: [0.91351351 0.91351351 0.91891892 0.92972973 0.90810811]
 </pre></div>
 </div>
@@ -307,7 +307,7 @@ to find the prototypes. The number of prototypes is set manually.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Run time: 7s    Memory used: 361Mb
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Run time: 6s    Memory used: 361Mb
 Cross-validation score: [0.91351351 0.91351351 0.91891892 0.92972973 0.90810811]
 </pre></div>
 </div>
@@ -375,7 +375,7 @@ algorithm). The memory savings will then happen during the encoding.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Time to vectorize: 0.1304776668548584
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Time to vectorize: 0.12106013298034668
 </pre></div>
 </div>
 <p>We can run a cross-validation to confirm the memory footprint reduction</p>
@@ -385,11 +385,11 @@ algorithm). The memory savings will then happen during the encoding.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Run time: 1s    Memory used: 361Mb
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Run time: 2s    Memory used: 361Mb
 Cross-validation score: [0.91351351 0.91351351 0.91891892 0.92972973 0.90810811]
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 2 minutes  18.797 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 2 minutes  32.296 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-04-dimension-reduction-and-performance-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/fcd0b8f727cbdfdf25757b8e5283efee/04_dimension_reduction_and_performance.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">04_dimension_reduction_and_performance.py</span></code></a></p>

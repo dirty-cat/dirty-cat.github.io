@@ -181,12 +181,12 @@ difficulty is that it has many different entries.
     DRIVER FAILURE TO STOP AT STOP SIGN LINE                                                             17
     DRIVING WHILE LIC. SUSP. UNDER 16-203, 16-206A2 FAIL TO ATTEND DIP, 17-106, 26-204/206, 27-103       15
     FAILURE TO CONTROL VEHICLE SPEED ON HIGHWAY TO AVOID COLLISION                                       12
-    DRIVING VEHICLE IN EXCESS OF REASONABLE AND PRUDENT SPEED ON HIGHWAY                                 11
     DRIVER CHANGING LANES WHEN UNSAFE                                                                    11
     DRIVING VEH. W/O ADEQUATE REAR REG. PLATE ILLUMINATION                                               11
+    DRIVING VEHICLE IN EXCESS OF REASONABLE AND PRUDENT SPEED ON HIGHWAY                                 11
     KNOWINGLY DRIVING UNINSURED VEHICLE                                                                  10
     CAUSING STANDING VEH. TO OBSTRUCT FREE VEH. PASSAGE OF ROADWAY                                        9
-    DRIVER FAILING TO GIVE TURN SIGNAL CONTINUOUSLY DURING LAST 100' OF TRAVEL BEFORE TURNING             8
+    UNAUTHORIZED DISPLAY AND USE OF REGISTRATION PLATE                                                    8
     Name: Description, dtype: int64
 
 
@@ -245,7 +245,7 @@ one-hot encoding and similarity encoding
 
  .. code-block:: none
 
-    Time to vectorize: 0.13752150535583496
+    Time to vectorize: 0.12656617164611816
 
 
 
@@ -274,7 +274,7 @@ We can run a cross-validation
 
  .. code-block:: none
 
-    Run time: 2s    Memory used: 759Mb
+    Run time: 3s    Memory used: 761Mb
     Cross-validation score: [0.91351351 0.91351351 0.92972973 0.92972973 0.90810811]
 
 
@@ -341,7 +341,7 @@ Check now that prediction is still as good
 
  .. code-block:: none
 
-    Run time: 2s    Memory used: 361Mb
+    Run time: 3s    Memory used: 361Mb
     Cross-validation score: [0.91351351 0.91351351 0.91891892 0.92972973 0.90810811]
 
 
@@ -406,7 +406,7 @@ Check now that prediction is still as good
 
  .. code-block:: none
 
-    Run time: 7s    Memory used: 361Mb
+    Run time: 6s    Memory used: 361Mb
     Cross-validation score: [0.91351351 0.91351351 0.91891892 0.92972973 0.90810811]
 
 
@@ -510,7 +510,7 @@ algorithm). The memory savings will then happen during the encoding.
 
  .. code-block:: none
 
-    Time to vectorize: 0.1304776668548584
+    Time to vectorize: 0.12106013298034668
 
 
 
@@ -533,7 +533,7 @@ We can run a cross-validation to confirm the memory footprint reduction
 
  .. code-block:: none
 
-    Run time: 1s    Memory used: 361Mb
+    Run time: 2s    Memory used: 361Mb
     Cross-validation score: [0.91351351 0.91351351 0.91891892 0.92972973 0.90810811]
 
 
@@ -542,7 +542,7 @@ We can run a cross-validation to confirm the memory footprint reduction
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 2 minutes  18.797 seconds)
+   **Total running time of the script:** ( 2 minutes  32.296 seconds)
 
 
 .. _sphx_glr_download_auto_examples_04_dimension_reduction_and_performance.py:
