@@ -5,22 +5,22 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>dirty_cat.MinHashEncoder &#8212; dirty_cat 0.0.5 documentation</title>
-    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <title>dirty_cat.MinHashEncoder &#8212; dirty_cat 0.0.7 documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery-binder.css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-rendered-html.css" />
     <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
     <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="dirty_cat.SimilarityEncoder" href="dirty_cat.SimilarityEncoder.html" />
-    <link rel="prev" title="Fitting scalable, non-linear models on data with dirty categories" href="../auto_examples/05_scaling_non_linear_models.html" />
+    <link rel="prev" title="dirty_cat.GapEncoder" href="dirty_cat.GapEncoder.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
@@ -65,7 +65,7 @@
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="../auto_examples/05_scaling_non_linear_models.html" title="previous chapter">Fitting scalable, non-linear models on data with dirty categories</a></li>
+      <li>Previous: <a href="dirty_cat.GapEncoder.html" title="previous chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat</span></code>.GapEncoder</a></li>
       <li>Next: <a href="dirty_cat.SimilarityEncoder.html" title="next chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat</span></code>.SimilarityEncoder</a></li>
   </ul></li>
 </ul>
@@ -82,7 +82,7 @@
 <h1><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat</span></code>.MinHashEncoder<a class="headerlink" href="#dirty-cat-minhashencoder" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
 <dt id="dirty_cat.MinHashEncoder">
-<em class="property">class </em><code class="sig-prename descclassname">dirty_cat.</code><code class="sig-name descname">MinHashEncoder</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n_components</span><span class="o">=</span><span class="default_value">30</span></em>, <em class="sig-param"><span class="n">ngram_range</span><span class="o">=</span><span class="default_value">2, 4</span></em>, <em class="sig-param"><span class="n">hashing</span><span class="o">=</span><span class="default_value">'fast'</span></em>, <em class="sig-param"><span class="n">minmax_hash</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">handle_missing</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/minhash_encoder.html#MinHashEncoder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirty_cat.MinHashEncoder" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">dirty_cat.</code><code class="sig-name descname">MinHashEncoder</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n_components</span><span class="o">=</span><span class="default_value">30</span></em>, <em class="sig-param"><span class="n">ngram_range</span><span class="o">=</span><span class="default_value">(2, 4)</span></em>, <em class="sig-param"><span class="n">hashing</span><span class="o">=</span><span class="default_value">'fast'</span></em>, <em class="sig-param"><span class="n">minmax_hash</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">handle_missing</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/minhash_encoder.html#MinHashEncoder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirty_cat.MinHashEncoder" title="Permalink to this definition">¶</a></dt>
 <dd><p>Encode string categorical features as a numeric array, minhash method
 applied to ngram decomposition of strings based on ngram decomposition
 of the string.</p>
@@ -110,7 +110,7 @@ will be all zeros.</p></li>
 <a class="reference external" href="https://hal.inria.fr/hal-02171256v4">Encoding high-cardinality string categorical variables</a> by Cerda, Varoquaux (2019).</p>
 <dl class="py method">
 <dt id="dirty_cat.MinHashEncoder.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n_components</span><span class="o">=</span><span class="default_value">30</span></em>, <em class="sig-param"><span class="n">ngram_range</span><span class="o">=</span><span class="default_value">2, 4</span></em>, <em class="sig-param"><span class="n">hashing</span><span class="o">=</span><span class="default_value">'fast'</span></em>, <em class="sig-param"><span class="n">minmax_hash</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">handle_missing</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/minhash_encoder.html#MinHashEncoder.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirty_cat.MinHashEncoder.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n_components</span><span class="o">=</span><span class="default_value">30</span></em>, <em class="sig-param"><span class="n">ngram_range</span><span class="o">=</span><span class="default_value">(2, 4)</span></em>, <em class="sig-param"><span class="n">hashing</span><span class="o">=</span><span class="default_value">'fast'</span></em>, <em class="sig-param"><span class="n">minmax_hash</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">handle_missing</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/minhash_encoder.html#MinHashEncoder.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirty_cat.MinHashEncoder.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 

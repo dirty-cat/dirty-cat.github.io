@@ -5,17 +5,17 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Release 0.0.7 &#8212; dirty_cat 0.0.5 documentation</title>
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <title>Release 0.0.7 &#8212; dirty_cat 0.0.7 documentation</title>
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/gallery.css" />
     <link rel="stylesheet" type="text/css" href="_static/gallery-binder.css" />
     <link rel="stylesheet" type="text/css" href="_static/gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/gallery-rendered-html.css" />
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/language_data.js"></script>
     <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -77,6 +77,10 @@
   <div class="section" id="release-0-0-7">
 <h1>Release 0.0.7<a class="headerlink" href="#release-0-0-7" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
+<li><p><strong>GapEncoder</strong>: Added online Gamma-Poisson factorization through the
+<code class="xref py py-class docutils literal notranslate"><span class="pre">GapEncoder</span></code> class. This method discovers latent categories formed
+via combinations of substrings, and encodes string data as combinations of
+these categories. To be used if interpretability is important.</p></li>
 <li><p><strong>MinHashEncoder</strong>: Added <code class="docutils literal notranslate"><span class="pre">minhash_encoder.py</span></code> and <code class="docutils literal notranslate"><span class="pre">fast_hast.py</span></code> files
 that implement minhash encoding through the <code class="docutils literal notranslate"><span class="pre">MinHashEncoder</span></code> class.
 This method allows for fast and scalable encoding of string categorical

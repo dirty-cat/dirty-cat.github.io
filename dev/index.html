@@ -5,17 +5,17 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>dirty_cat: machine learning on dirty categories &#8212; dirty_cat 0.0.5 documentation</title>
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <title>dirty_cat: machine learning on dirty categories &#8212; dirty_cat 0.0.7 documentation</title>
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/gallery.css" />
     <link rel="stylesheet" type="text/css" href="_static/gallery-binder.css" />
     <link rel="stylesheet" type="text/css" href="_static/gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/gallery-rendered-html.css" />
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/language_data.js"></script>
     <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -98,6 +98,9 @@ robust to morphological variants</strong>, such as typos, in the category string
 <a class="reference external" href="https://scikit-learn.org/0.20/modules/generated/sklearn.preprocessing.OneHotEncoder.html#sklearn.preprocessing.OneHotEncoder" title="(in scikit-learn v0.20.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">OneHotEncoder</span></code></a>.
 If speed and scalability are an issue, the <a class="reference internal" href="generated/dirty_cat.MinHashEncoder.html#dirty_cat.MinHashEncoder" title="dirty_cat.MinHashEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">MinHashEncoder</span></code></a> provides
 a fast encoding method.</p>
+<p>If interpretability is important,the <a class="reference internal" href="generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder" title="dirty_cat.GapEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">GapEncoder</span></code></a> is a good
+alternative, as it can be interpreted as one-hot encoding, where each encoding
+dimension corresponds to a topic that summarizes the substrings captured.</p>
 <p>For a detailed description of the problem of encoding dirty categorical data,
 see <a class="reference external" href="https://hal.inria.fr/hal-01806175">Similarity encoding for learning with dirty categorical variables</a> <a class="footnote-reference brackets" href="#id3" id="id1">1</a> and <a class="reference external" href="https://hal.inria.fr/hal-02171256v4">Encoding high-cardinality
 string categorical variables</a> <a class="footnote-reference brackets" href="#id4" id="id2">2</a>.</p>
@@ -129,15 +132,21 @@ string categorical variables</a> <a class="footnote-reference brackets" href="#i
 </div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Here we discuss how to apply efficiently SimilarityEncoder to larger datasets: reducing the num..."><div class="figure align-default" id="id8">
-<img alt="Scalability considerations for similarity encoding" src="_images/sphx_glr_04_dimension_reduction_and_performance_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="auto_examples/04_dimension_reduction_and_performance.html#sphx-glr-auto-examples-04-dimension-reduction-and-performance-py"><span class="std std-ref">Scalability considerations for similarity encoding</span></a></span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
+<div class="sphx-glr-thumbcontainer" tooltip="We illustrate here how categorical encodings obtained with the GapEncoder can be interpreted in..."><div class="figure align-default" id="id8">
+<img alt="Feature interpretation with the GapEncoder" src="_images/sphx_glr_04_feature_interpretation_gap_encoder_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="auto_examples/04_feature_interpretation_gap_encoder.html#sphx-glr-auto-examples-04-feature-interpretation-gap-encoder-py"><span class="std std-ref">Feature interpretation with the GapEncoder</span></a></span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
 </div>
 </div><div class="toctree-wrapper compound">
 </div>
 <div class="sphx-glr-thumbcontainer" tooltip="A very classic dilemna when training a machine learning model consists in choosing between usin..."><div class="figure align-default" id="id9">
 <img alt="Fitting scalable, non-linear models on data with dirty categories" src="_images/sphx_glr_05_scaling_non_linear_models_thumb.png" />
 <p class="caption"><span class="caption-text"><a class="reference internal" href="auto_examples/05_scaling_non_linear_models.html#sphx-glr-auto-examples-05-scaling-non-linear-models-py"><span class="std std-ref">Fitting scalable, non-linear models on data with dirty categories</span></a></span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="Here we discuss how to apply efficiently SimilarityEncoder to larger datasets: reducing the num..."><div class="figure align-default" id="id10">
+<img alt="Scalability considerations for similarity encoding" src="_images/sphx_glr_06_dimension_reduction_and_performance_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="auto_examples/06_dimension_reduction_and_performance.html#sphx-glr-auto-examples-06-dimension-reduction-and-performance-py"><span class="std std-ref">Scalability considerations for similarity encoding</span></a></span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
 </div>
 </div><div class="toctree-wrapper compound">
 </div>
@@ -152,13 +161,16 @@ string categorical variables</a> <a class="footnote-reference brackets" href="#i
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/dirty_cat.MinHashEncoder.html#dirty_cat.MinHashEncoder" title="dirty_cat.MinHashEncoder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MinHashEncoder</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder" title="dirty_cat.GapEncoder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GapEncoder</span></code></a></p></td>
+<td><p>This encoder can be understood as a continuous encoding on a set of latent categories estimated from the data.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/dirty_cat.MinHashEncoder.html#dirty_cat.MinHashEncoder" title="dirty_cat.MinHashEncoder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MinHashEncoder</span></code></a></p></td>
 <td><p>Encode string categorical features as a numeric array, minhash method applied to ngram decomposition of strings based on ngram decomposition of the string.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="dirty_cat.SimilarityEncoder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SimilarityEncoder</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="dirty_cat.SimilarityEncoder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SimilarityEncoder</span></code></a></p></td>
 <td><p>Encode string categorical features as a numeric array.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/dirty_cat.TargetEncoder.html#dirty_cat.TargetEncoder" title="dirty_cat.TargetEncoder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TargetEncoder</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/dirty_cat.TargetEncoder.html#dirty_cat.TargetEncoder" title="dirty_cat.TargetEncoder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TargetEncoder</span></code></a></p></td>
 <td><p>Encode categorical features as a numeric array given a target vector.</p></td>
 </tr>
 </tbody>

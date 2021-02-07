@@ -75,14 +75,14 @@ Using dirty_cat
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Here we discuss how to apply efficiently SimilarityEncoder to larger datasets: reducing the num...">
+    <div class="sphx-glr-thumbcontainer" tooltip="We illustrate here how categorical encodings obtained with the GapEncoder can be interpreted in...">
 
 .. only:: html
 
- .. figure:: /auto_examples/images/thumb/sphx_glr_04_dimension_reduction_and_performance_thumb.png
-     :alt: Scalability considerations for similarity encoding
+ .. figure:: /auto_examples/images/thumb/sphx_glr_04_feature_interpretation_gap_encoder_thumb.png
+     :alt: Feature interpretation with the GapEncoder
 
-     :ref:`sphx_glr_auto_examples_04_dimension_reduction_and_performance.py`
+     :ref:`sphx_glr_auto_examples_04_feature_interpretation_gap_encoder.py`
 
 .. raw:: html
 
@@ -92,7 +92,7 @@ Using dirty_cat
 .. toctree::
    :hidden:
 
-   /auto_examples/04_dimension_reduction_and_performance
+   /auto_examples/04_feature_interpretation_gap_encoder
 
 .. raw:: html
 
@@ -114,6 +114,27 @@ Using dirty_cat
    :hidden:
 
    /auto_examples/05_scaling_non_linear_models
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Here we discuss how to apply efficiently SimilarityEncoder to larger datasets: reducing the num...">
+
+.. only:: html
+
+ .. figure:: /auto_examples/images/thumb/sphx_glr_06_dimension_reduction_and_performance_thumb.png
+     :alt: Scalability considerations for similarity encoding
+
+     :ref:`sphx_glr_auto_examples_06_dimension_reduction_and_performance.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_examples/06_dimension_reduction_and_performance
 .. raw:: html
 
     <div class="sphx-glr-clear"></div>
