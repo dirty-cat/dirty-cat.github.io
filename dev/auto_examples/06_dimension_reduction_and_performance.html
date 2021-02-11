@@ -103,7 +103,7 @@ SimilarityEncoder, and should be prefered in large-scale settings.</p>
 usage and compute time of a function</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <a href="https://docs.python.org/3/library/time.html#time.time" title="time.time" class="sphx-glr-backref-module-time sphx-glr-backref-type-py-function"><span class="n">time</span></a>
 <span class="kn">import</span> <span class="nn">functools</span>
-<span class="kn">import</span> <span class="nn">memory_profiler</span>
+<span class="kn">import</span> <span class="nn">tracemalloc</span>
 
 
 <span class="k">def</span> <span class="nf">resource_used</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
@@ -113,11 +113,13 @@ usage and compute time of a function</p>
     <span class="nd">@functools</span><span class="o">.</span><span class="n">wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">wrapped_func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <a href="https://docs.python.org/3/library/functions.html#float" title="builtins.float" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">t0</span></a> <span class="o">=</span> <a href="https://docs.python.org/3/library/time.html#time.time" title="time.time" class="sphx-glr-backref-module-time sphx-glr-backref-type-py-function"><span class="n">time</span></a><span class="p">()</span>
-        <span class="n">mem</span><span class="p">,</span> <span class="n">out</span> <span class="o">=</span> <span class="n">memory_profiler</span><span class="o">.</span><span class="n">memory_usage</span><span class="p">((</span><span class="n">func</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">),</span>
-                                                <span class="n">max_usage</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                                                <span class="n">retval</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <a href="https://docs.python.org/3/library/tracemalloc.html#tracemalloc.start" title="tracemalloc.start" class="sphx-glr-backref-module-tracemalloc sphx-glr-backref-type-py-function"><span class="n">tracemalloc</span><span class="o">.</span><span class="n">start</span></a><span class="p">()</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">size</span><span class="p">,</span> <span class="n">peak</span> <span class="o">=</span> <a href="https://docs.python.org/3/library/tracemalloc.html#tracemalloc.get_traced_memory" title="tracemalloc.get_traced_memory" class="sphx-glr-backref-module-tracemalloc sphx-glr-backref-type-py-function"><span class="n">tracemalloc</span><span class="o">.</span><span class="n">get_traced_memory</span></a><span class="p">()</span>
+        <a href="https://docs.python.org/3/library/tracemalloc.html#tracemalloc.stop" title="tracemalloc.stop" class="sphx-glr-backref-module-tracemalloc sphx-glr-backref-type-py-function"><span class="n">tracemalloc</span><span class="o">.</span><span class="n">stop</span></a><span class="p">()</span>
+        <span class="n">peak</span> <span class="o">/=</span> <span class="p">(</span><span class="mi">1024</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># Convert to megabytes</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Run time: </span><span class="si">%.1i</span><span class="s2">s    Memory used: </span><span class="si">%i</span><span class="s2">Mb&quot;</span>
-              <span class="o">%</span> <span class="p">(</span><a href="https://docs.python.org/3/library/time.html#time.time" title="time.time" class="sphx-glr-backref-module-time sphx-glr-backref-type-py-function"><span class="n">time</span></a><span class="p">()</span> <span class="o">-</span> <a href="https://docs.python.org/3/library/functions.html#float" title="builtins.float" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">t0</span></a><span class="p">,</span> <span class="n">mem</span><span class="p">))</span>
+              <span class="o">%</span> <span class="p">(</span><a href="https://docs.python.org/3/library/time.html#time.time" title="time.time" class="sphx-glr-backref-module-time sphx-glr-backref-type-py-function"><span class="n">time</span></a><span class="p">()</span> <span class="o">-</span> <a href="https://docs.python.org/3/library/functions.html#float" title="builtins.float" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">t0</span></a><span class="p">,</span> <span class="n">peak</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">out</span>
 
     <span class="k">return</span> <span class="n">wrapped_func</span>
@@ -175,19 +177,19 @@ NEGLIGENT DRIVING VEHICLE IN CARELESS AND IMPRUDENT MANNER ENDANGERING PROPERTY,
 RECKLESS DRIVING VEHICLE IN WANTON AND WILLFUL DISREGARD FOR SAFETY OF PERSONS AND PROPERTY          106
 DRIVING VEHICLE WHILE UNDER THE INFLUENCE OF ALCOHOL PER SE                                          103
 DRIVER FAILURE TO OBEY PROPERLY PLACED TRAFFIC CONTROL DEVICE INSTRUCTIONS                            80
-FAILURE OF INDIVIDUAL DRIVING ON HIGHWAY TO DISPLAY LICENSE TO UNIFORMED POLICE ON DEMAND             48
 PERSON DRIVING MOTOR VEHICLE ON HIGHWAY OR PUBLIC USE PROPERTY ON SUSPENDED LICENSE AND PRIVILEGE     48
+FAILURE OF INDIVIDUAL DRIVING ON HIGHWAY TO DISPLAY LICENSE TO UNIFORMED POLICE ON DEMAND             48
 FAILURE TO DRIVE VEHICLE ON RIGHT HALF OF ROADWAY WHEN REQUIRED                                       42
 DRIVER CHANGING LANES WHEN UNSAFE                                                                     41
 DRIVING MOTOR VEHICLE ON HIGHWAY WITHOUT REQUIRED LICENSE AND AUTHORIZATION                           40
-FAILURE TO DISPLAY REGISTRATION CARD UPON DEMAND BY POLICE OFFICER                                    36
 FAILURE TO CONTROL VEHICLE SPEED ON HIGHWAY TO AVOID COLLISION                                        36
+FAILURE TO DISPLAY REGISTRATION CARD UPON DEMAND BY POLICE OFFICER                                    36
 DRIVING WHILE LIC. SUSP. UNDER 16-203, 16-206A2 FAIL TO ATTEND DIP, 17-106, 26-204/206, 27-103        28
 DRIVING VEH. WHILE IMPAIRED BY A CONTROLLED DANGEROUS SUBSTANCE                                       23
 DRIVING VEHICLE IN EXCESS OF REASONABLE AND PRUDENT SPEED ON HIGHWAY                                  21
 DRIVER FAILURE TO STOP AT STOP SIGN LINE                                                              20
-PERSON DRIVING MOTOR VEHICLE ON HIGHWAY OR PUBLIC USE PROPERTY ON REVOKED LICENSE AND PRIVILEGE       15
 DRIVING TO DRIVE MOTOR VEHICLE ON HIGHWAY WITHOUT REQUIRED LICENSE AND AUTHORIZATION                  15
+PERSON DRIVING MOTOR VEHICLE ON HIGHWAY OR PUBLIC USE PROPERTY ON REVOKED LICENSE AND PRIVILEGE       15
 OPERATING UNREGISTERED MOTOR VEHICLE ON HIGHWAY                                                       15
 Name: Description, dtype: int64
 </pre></div>
@@ -232,7 +234,7 @@ one-hot encoding and similarity encoding</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Time to vectorize: 0.9550423622131348
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Time to vectorize: 0.2236313819885254
 </pre></div>
 </div>
 <p>We can run a cross-validation</p>
@@ -247,7 +249,7 @@ one-hot encoding and similarity encoding</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Run time: 48s    Memory used: 805Mb
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Run time: 8s    Memory used: 9Mb
 Cross-validation score: [0.94397759 0.94117647 0.94101124 0.94662921 0.94101124]
 </pre></div>
 </div>
@@ -280,7 +282,7 @@ speed things up. We select manually the number of prototypes we want to use.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Run time: 32s    Memory used: 444Mb
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Run time: 6s    Memory used: 5Mb
 Cross-validation score: [0.94397759 0.94117647 0.94101124 0.94101124 0.94101124]
 </pre></div>
 </div>
@@ -311,7 +313,7 @@ to find the prototypes. The number of prototypes is set manually.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Run time: 99s    Memory used: 444Mb
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Run time: 40s    Memory used: 5Mb
 Cross-validation score: [0.93837535 0.93837535 0.93820225 0.94382022 0.93539326]
 </pre></div>
 </div>
@@ -379,7 +381,7 @@ algorithm). The memory savings will then happen during the encoding.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Time to vectorize: 0.4899325370788574
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Time to vectorize: 0.14604735374450684
 </pre></div>
 </div>
 <p>We can run a cross-validation to confirm the memory footprint reduction</p>
@@ -389,11 +391,11 @@ algorithm). The memory savings will then happen during the encoding.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Run time: 23s    Memory used: 444Mb
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Run time: 6s    Memory used: 3Mb
 Cross-validation score: [0.93837535 0.94117647 0.94101124 0.94101124 0.94101124]
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 6 minutes  21.964 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 4 minutes  39.206 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-06-dimension-reduction-and-performance-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/affdfa676c82de7bd5e64259b2cebdf1/06_dimension_reduction_and_performance.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">06_dimension_reduction_and_performance.py</span></code></a></p>

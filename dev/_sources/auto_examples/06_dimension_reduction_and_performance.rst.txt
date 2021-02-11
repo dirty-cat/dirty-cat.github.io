@@ -53,13 +53,13 @@ A tool to report memory usage and run time
 For this example, we build a small tool that reports memory
 usage and compute time of a function
 
-.. GENERATED FROM PYTHON SOURCE LINES 25-47
+.. GENERATED FROM PYTHON SOURCE LINES 25-49
 
 .. code-block:: default
 
     from time import time
     import functools
-    import memory_profiler
+    import tracemalloc
 
 
     def resource_used(func):
@@ -69,11 +69,13 @@ usage and compute time of a function
         @functools.wraps(func)
         def wrapped_func(*args, **kwargs):
             t0 = time()
-            mem, out = memory_profiler.memory_usage((func, args, kwargs),
-                                                    max_usage=True,
-                                                    retval=True)
+            tracemalloc.start()
+            out = func(*args, **kwargs)
+            size, peak = tracemalloc.get_traced_memory()
+            tracemalloc.stop()
+            peak /= (1024 ** 2)  # Convert to megabytes
             print("Run time: %.1is    Memory used: %iMb"
-                  % (time() - t0, mem))
+                  % (time() - t0, peak))
             return out
 
         return wrapped_func
@@ -86,14 +88,14 @@ usage and compute time of a function
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 48-52
+.. GENERATED FROM PYTHON SOURCE LINES 50-54
 
 Data Importing and preprocessing
 --------------------------------
 
 We first download the dataset:
 
-.. GENERATED FROM PYTHON SOURCE LINES 52-57
+.. GENERATED FROM PYTHON SOURCE LINES 54-59
 
 .. code-block:: default
 
@@ -120,11 +122,11 @@ We first download the dataset:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 58-59
+.. GENERATED FROM PYTHON SOURCE LINES 60-61
 
 Then we load it:
 
-.. GENERATED FROM PYTHON SOURCE LINES 59-67
+.. GENERATED FROM PYTHON SOURCE LINES 61-69
 
 .. code-block:: default
 
@@ -152,12 +154,12 @@ Then we load it:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 68-70
+.. GENERATED FROM PYTHON SOURCE LINES 70-72
 
 We will use SimilarityEncoder on the 'description' column. One
 difficulty is that it has many different entries.
 
-.. GENERATED FROM PYTHON SOURCE LINES 70-72
+.. GENERATED FROM PYTHON SOURCE LINES 72-74
 
 .. code-block:: default
 
@@ -178,7 +180,7 @@ difficulty is that it has many different entries.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 73-75
+.. GENERATED FROM PYTHON SOURCE LINES 75-77
 
 .. code-block:: default
 
@@ -200,30 +202,30 @@ difficulty is that it has many different entries.
     RECKLESS DRIVING VEHICLE IN WANTON AND WILLFUL DISREGARD FOR SAFETY OF PERSONS AND PROPERTY          106
     DRIVING VEHICLE WHILE UNDER THE INFLUENCE OF ALCOHOL PER SE                                          103
     DRIVER FAILURE TO OBEY PROPERLY PLACED TRAFFIC CONTROL DEVICE INSTRUCTIONS                            80
-    FAILURE OF INDIVIDUAL DRIVING ON HIGHWAY TO DISPLAY LICENSE TO UNIFORMED POLICE ON DEMAND             48
     PERSON DRIVING MOTOR VEHICLE ON HIGHWAY OR PUBLIC USE PROPERTY ON SUSPENDED LICENSE AND PRIVILEGE     48
+    FAILURE OF INDIVIDUAL DRIVING ON HIGHWAY TO DISPLAY LICENSE TO UNIFORMED POLICE ON DEMAND             48
     FAILURE TO DRIVE VEHICLE ON RIGHT HALF OF ROADWAY WHEN REQUIRED                                       42
     DRIVER CHANGING LANES WHEN UNSAFE                                                                     41
     DRIVING MOTOR VEHICLE ON HIGHWAY WITHOUT REQUIRED LICENSE AND AUTHORIZATION                           40
-    FAILURE TO DISPLAY REGISTRATION CARD UPON DEMAND BY POLICE OFFICER                                    36
     FAILURE TO CONTROL VEHICLE SPEED ON HIGHWAY TO AVOID COLLISION                                        36
+    FAILURE TO DISPLAY REGISTRATION CARD UPON DEMAND BY POLICE OFFICER                                    36
     DRIVING WHILE LIC. SUSP. UNDER 16-203, 16-206A2 FAIL TO ATTEND DIP, 17-106, 26-204/206, 27-103        28
     DRIVING VEH. WHILE IMPAIRED BY A CONTROLLED DANGEROUS SUBSTANCE                                       23
     DRIVING VEHICLE IN EXCESS OF REASONABLE AND PRUDENT SPEED ON HIGHWAY                                  21
     DRIVER FAILURE TO STOP AT STOP SIGN LINE                                                              20
-    PERSON DRIVING MOTOR VEHICLE ON HIGHWAY OR PUBLIC USE PROPERTY ON REVOKED LICENSE AND PRIVILEGE       15
     DRIVING TO DRIVE MOTOR VEHICLE ON HIGHWAY WITHOUT REQUIRED LICENSE AND AUTHORIZATION                  15
+    PERSON DRIVING MOTOR VEHICLE ON HIGHWAY OR PUBLIC USE PROPERTY ON REVOKED LICENSE AND PRIVILEGE       15
     OPERATING UNREGISTERED MOTOR VEHICLE ON HIGHWAY                                                       15
     Name: Description, dtype: int64
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 76-77
+.. GENERATED FROM PYTHON SOURCE LINES 78-79
 
 As we will see, SimilarityEncoder takes a while on such data.
 
-.. GENERATED FROM PYTHON SOURCE LINES 80-85
+.. GENERATED FROM PYTHON SOURCE LINES 82-87
 
 SimilarityEncoder with default options
 --------------------------------------
@@ -231,7 +233,7 @@ SimilarityEncoder with default options
 Let us build our vectorizer, using a ColumnTransformer to combine
 one-hot encoding and similarity encoding
 
-.. GENERATED FROM PYTHON SOURCE LINES 85-117
+.. GENERATED FROM PYTHON SOURCE LINES 87-119
 
 .. code-block:: default
 
@@ -277,16 +279,16 @@ one-hot encoding and similarity encoding
 
  .. code-block:: none
 
-    Time to vectorize: 0.9550423622131348
+    Time to vectorize: 0.2236313819885254
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 118-119
+.. GENERATED FROM PYTHON SOURCE LINES 120-121
 
 We can run a cross-validation
 
-.. GENERATED FROM PYTHON SOURCE LINES 119-128
+.. GENERATED FROM PYTHON SOURCE LINES 121-130
 
 .. code-block:: default
 
@@ -309,17 +311,17 @@ We can run a cross-validation
 
  .. code-block:: none
 
-    Run time: 48s    Memory used: 805Mb
+    Run time: 8s    Memory used: 9Mb
     Cross-validation score: [0.94397759 0.94117647 0.94101124 0.94662921 0.94101124]
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 129-130
+.. GENERATED FROM PYTHON SOURCE LINES 131-132
 
 Store results for later
 
-.. GENERATED FROM PYTHON SOURCE LINES 130-135
+.. GENERATED FROM PYTHON SOURCE LINES 132-137
 
 .. code-block:: default
 
@@ -335,7 +337,7 @@ Store results for later
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 136-142
+.. GENERATED FROM PYTHON SOURCE LINES 138-144
 
 Most frequent strategy to define prototypes
 ---------------------------------------------
@@ -344,7 +346,7 @@ The most frequent strategy selects the n most frequent values in a dirty
 categorical variable to reduce the dimensionality of the problem and thus
 speed things up. We select manually the number of prototypes we want to use.
 
-.. GENERATED FROM PYTHON SOURCE LINES 142-150
+.. GENERATED FROM PYTHON SOURCE LINES 144-152
 
 .. code-block:: default
 
@@ -363,11 +365,11 @@ speed things up. We select manually the number of prototypes we want to use.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 151-152
+.. GENERATED FROM PYTHON SOURCE LINES 153-154
 
 Check now that prediction is still as good
 
-.. GENERATED FROM PYTHON SOURCE LINES 152-156
+.. GENERATED FROM PYTHON SOURCE LINES 154-158
 
 .. code-block:: default
 
@@ -385,17 +387,17 @@ Check now that prediction is still as good
 
  .. code-block:: none
 
-    Run time: 32s    Memory used: 444Mb
+    Run time: 6s    Memory used: 5Mb
     Cross-validation score: [0.94397759 0.94117647 0.94101124 0.94101124 0.94101124]
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 157-158
+.. GENERATED FROM PYTHON SOURCE LINES 159-160
 
 Store results for later
 
-.. GENERATED FROM PYTHON SOURCE LINES 158-161
+.. GENERATED FROM PYTHON SOURCE LINES 160-163
 
 .. code-block:: default
 
@@ -409,7 +411,7 @@ Store results for later
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 162-168
+.. GENERATED FROM PYTHON SOURCE LINES 164-170
 
 KMeans strategy to define prototypes
 ---------------------------------------
@@ -418,7 +420,7 @@ K-means strategy is also a dimensionality reduction technique.
 SimilarityEncoder can apply a K-means and nearest neighbors algorithm
 to find the prototypes. The number of prototypes is set manually.
 
-.. GENERATED FROM PYTHON SOURCE LINES 168-176
+.. GENERATED FROM PYTHON SOURCE LINES 170-178
 
 .. code-block:: default
 
@@ -437,11 +439,11 @@ to find the prototypes. The number of prototypes is set manually.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 177-178
+.. GENERATED FROM PYTHON SOURCE LINES 179-180
 
 Check now that prediction is still as good
 
-.. GENERATED FROM PYTHON SOURCE LINES 178-182
+.. GENERATED FROM PYTHON SOURCE LINES 180-184
 
 .. code-block:: default
 
@@ -459,17 +461,17 @@ Check now that prediction is still as good
 
  .. code-block:: none
 
-    Run time: 99s    Memory used: 444Mb
+    Run time: 40s    Memory used: 5Mb
     Cross-validation score: [0.93837535 0.93837535 0.93820225 0.94382022 0.93539326]
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 183-184
+.. GENERATED FROM PYTHON SOURCE LINES 185-186
 
 Store results for later
 
-.. GENERATED FROM PYTHON SOURCE LINES 184-187
+.. GENERATED FROM PYTHON SOURCE LINES 186-189
 
 .. code-block:: default
 
@@ -483,12 +485,12 @@ Store results for later
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 188-190
+.. GENERATED FROM PYTHON SOURCE LINES 190-192
 
 Plot a summary figure
 ----------------------
 
-.. GENERATED FROM PYTHON SOURCE LINES 190-203
+.. GENERATED FROM PYTHON SOURCE LINES 192-205
 
 .. code-block:: default
 
@@ -516,7 +518,7 @@ Plot a summary figure
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 204-210
+.. GENERATED FROM PYTHON SOURCE LINES 206-212
 
 Reduce memory usage during encoding using float32
 ----------------------------------------------------------------
@@ -525,7 +527,7 @@ We use a float32 dtype in this example to show some speed and memory gains.
 The use of the scikit-learn model may upcast to float64 (depending on the used
 algorithm). The memory savings will then happen during the encoding.
 
-.. GENERATED FROM PYTHON SOURCE LINES 210-243
+.. GENERATED FROM PYTHON SOURCE LINES 212-245
 
 .. code-block:: default
 
@@ -572,16 +574,16 @@ algorithm). The memory savings will then happen during the encoding.
 
  .. code-block:: none
 
-    Time to vectorize: 0.4899325370788574
+    Time to vectorize: 0.14604735374450684
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 244-245
+.. GENERATED FROM PYTHON SOURCE LINES 246-247
 
 We can run a cross-validation to confirm the memory footprint reduction
 
-.. GENERATED FROM PYTHON SOURCE LINES 245-248
+.. GENERATED FROM PYTHON SOURCE LINES 247-250
 
 .. code-block:: default
 
@@ -598,7 +600,7 @@ We can run a cross-validation to confirm the memory footprint reduction
 
  .. code-block:: none
 
-    Run time: 23s    Memory used: 444Mb
+    Run time: 6s    Memory used: 3Mb
     Cross-validation score: [0.93837535 0.94117647 0.94101124 0.94101124 0.94101124]
 
 
@@ -607,7 +609,7 @@ We can run a cross-validation to confirm the memory footprint reduction
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 6 minutes  21.964 seconds)
+   **Total running time of the script:** ( 4 minutes  39.206 seconds)
 
 
 .. _sphx_glr_download_auto_examples_06_dimension_reduction_and_performance.py:
