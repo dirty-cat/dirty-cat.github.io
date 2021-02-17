@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Release 0.0.7 &#8212; dirty_cat 0.0.7 documentation</title>
+    <title>Release 0.1.0 &#8212; dirty_cat 0.1.0 documentation</title>
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/gallery.css" />
@@ -74,13 +74,27 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="release-0-0-7">
-<h1>Release 0.0.7<a class="headerlink" href="#release-0-0-7" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="release-0-1-0">
+<h1>Release 0.1.0<a class="headerlink" href="#release-0-1-0" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="major-changes">
+<h2>Major changes<a class="headerlink" href="#major-changes" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p><strong>GapEncoder</strong>: Added online Gamma-Poisson factorization through the
 <code class="xref py py-class docutils literal notranslate"><span class="pre">GapEncoder</span></code> class. This method discovers latent categories formed
 via combinations of substrings, and encodes string data as combinations of
 these categories. To be used if interpretability is important.</p></li>
+</ul>
+</div>
+<div class="section" id="bug-fixes">
+<h2>Bug-fixes<a class="headerlink" href="#bug-fixes" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Multiprocessing exception in notebook (#154)</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="release-0-0-7">
+<h1>Release 0.0.7<a class="headerlink" href="#release-0-0-7" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
 <li><p><strong>MinHashEncoder</strong>: Added <code class="docutils literal notranslate"><span class="pre">minhash_encoder.py</span></code> and <code class="docutils literal notranslate"><span class="pre">fast_hast.py</span></code> files
 that implement minhash encoding through the <code class="docutils literal notranslate"><span class="pre">MinHashEncoder</span></code> class.
 This method allows for fast and scalable encoding of string categorical
