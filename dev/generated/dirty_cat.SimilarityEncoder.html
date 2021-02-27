@@ -16,7 +16,6 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="dirty_cat.TargetEncoder" href="dirty_cat.TargetEncoder.html" />
@@ -82,7 +81,7 @@
 <h1><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat</span></code>.SimilarityEncoder<a class="headerlink" href="#dirty-cat-similarityencoder" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
 <dt id="dirty_cat.SimilarityEncoder">
-<em class="property">class </em><code class="sig-prename descclassname">dirty_cat.</code><code class="sig-name descname">SimilarityEncoder</code><span class="sig-paren">(</span><em class="sig-param">similarity='ngram'</em>, <em class="sig-param">ngram_range=(2</em>, <em class="sig-param">4)</em>, <em class="sig-param">categories='auto'</em>, <em class="sig-param">dtype=&lt;class 'numpy.float64'&gt;</em>, <em class="sig-param">handle_unknown='ignore'</em>, <em class="sig-param">handle_missing=''</em>, <em class="sig-param">hashing_dim=None</em>, <em class="sig-param">n_prototypes=None</em>, <em class="sig-param">random_state=None</em>, <em class="sig-param">n_jobs=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/similarity_encoder.html#SimilarityEncoder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirty_cat.SimilarityEncoder" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">dirty_cat.</span></code><code class="sig-name descname"><span class="pre">SimilarityEncoder</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">similarity='ngram'</span></em>, <em class="sig-param"><span class="pre">ngram_range=(2</span></em>, <em class="sig-param"><span class="pre">4)</span></em>, <em class="sig-param"><span class="pre">categories='auto'</span></em>, <em class="sig-param"><span class="pre">dtype=&lt;class</span> <span class="pre">'numpy.float64'&gt;</span></em>, <em class="sig-param"><span class="pre">handle_unknown='ignore'</span></em>, <em class="sig-param"><span class="pre">handle_missing=''</span></em>, <em class="sig-param"><span class="pre">hashing_dim=None</span></em>, <em class="sig-param"><span class="pre">n_prototypes=None</span></em>, <em class="sig-param"><span class="pre">random_state=None</span></em>, <em class="sig-param"><span class="pre">n_jobs=None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/similarity_encoder.html#SimilarityEncoder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.SimilarityEncoder" title="Permalink to this definition">¶</a></dt>
 <dd><p>Encode string categorical features as a numeric array.</p>
 <p>The input to this transformer should be an array-like of
 strings.
@@ -144,7 +143,7 @@ only if <code class="docutils literal notranslate"><span class="pre">fast=True</
 </dl>
 <dl class="py attribute">
 <dt id="dirty_cat.SimilarityEncoder.categories_">
-<code class="sig-name descname">categories_</code><a class="headerlink" href="#dirty_cat.SimilarityEncoder.categories_" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">categories_</span></code><a class="headerlink" href="#dirty_cat.SimilarityEncoder.categories_" title="Permalink to this definition">¶</a></dt>
 <dd><p>The categories of each feature determined during fitting
 (in order corresponding with output of <code class="docutils literal notranslate"><span class="pre">transform</span></code>).</p>
 <dl class="field-list simple">
@@ -160,7 +159,7 @@ only if <code class="docutils literal notranslate"><span class="pre">fast=True</
 (accepted for publication at: Machine Learning journal, Springer).</p>
 <dl class="py method">
 <dt id="dirty_cat.SimilarityEncoder.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">similarity='ngram'</em>, <em class="sig-param">ngram_range=(2</em>, <em class="sig-param">4)</em>, <em class="sig-param">categories='auto'</em>, <em class="sig-param">dtype=&lt;class 'numpy.float64'&gt;</em>, <em class="sig-param">handle_unknown='ignore'</em>, <em class="sig-param">handle_missing=''</em>, <em class="sig-param">hashing_dim=None</em>, <em class="sig-param">n_prototypes=None</em>, <em class="sig-param">random_state=None</em>, <em class="sig-param">n_jobs=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/similarity_encoder.html#SimilarityEncoder.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirty_cat.SimilarityEncoder.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">similarity='ngram'</span></em>, <em class="sig-param"><span class="pre">ngram_range=(2</span></em>, <em class="sig-param"><span class="pre">4)</span></em>, <em class="sig-param"><span class="pre">categories='auto'</span></em>, <em class="sig-param"><span class="pre">dtype=&lt;class</span> <span class="pre">'numpy.float64'&gt;</span></em>, <em class="sig-param"><span class="pre">handle_unknown='ignore'</span></em>, <em class="sig-param"><span class="pre">handle_missing=''</span></em>, <em class="sig-param"><span class="pre">hashing_dim=None</span></em>, <em class="sig-param"><span class="pre">n_prototypes=None</span></em>, <em class="sig-param"><span class="pre">random_state=None</span></em>, <em class="sig-param"><span class="pre">n_jobs=None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/similarity_encoder.html#SimilarityEncoder.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.SimilarityEncoder.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 

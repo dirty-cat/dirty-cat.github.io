@@ -72,16 +72,16 @@ column, where people put whatever they want:
 
  .. code-block:: none
 
-    the north east                         1
-    Midwest/Great Lakes                    1
-    Border state between N & S             1
-    something related to the North Pole    1
-    Upper MIdwest                          1
-    Sunshine State                         1
-    Midwest farm country                   1
-    The Midwest Region                     1
-    metropolitan area or city              1
-    Bucolic                                1
+    north america                                                                    1
+    nORTHERN mINNESOTA                                                               1
+    Texas where everything is bigger, better, and more friendly than most states.    1
+    The south.                                                                       1
+    Upper Penninsula, Yoopers                                                        1
+    Beautiful                                                                        1
+    midewest                                                                         1
+    South or Southeastern                                                            1
+    Mountain states.                                                                 1
+    North eastern US                                                                 1
     Name: In your own words, what would you call the part of the country you live in now?, dtype: int64
 
 
@@ -249,7 +249,7 @@ using a cross validation score:
     Accuracy score:  mean: 0.676; std: 0.001
 
     gap encoding
-    Accuracy score:  mean: 0.667; std: 0.014
+    Accuracy score:  mean: 0.667; std: 0.006
 
 
 
@@ -292,7 +292,7 @@ instead of OneHotEncoder helps a lot in improving the cross validation score!
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  46.174 seconds)
+   **Total running time of the script:** ( 0 minutes  51.865 seconds)
 
 
 .. _sphx_glr_download_auto_examples_03_fit_predict_plot_midwest_survey.py:

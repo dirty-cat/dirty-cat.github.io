@@ -16,7 +16,6 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Feature interpretation with the GapEncoder" href="04_feature_interpretation_gap_encoder.html" />
@@ -107,16 +106,16 @@ column, where people put whatever they want:</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>the north east                         1
-Midwest/Great Lakes                    1
-Border state between N &amp; S             1
-something related to the North Pole    1
-Upper MIdwest                          1
-Sunshine State                         1
-Midwest farm country                   1
-The Midwest Region                     1
-metropolitan area or city              1
-Bucolic                                1
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>north america                                                                    1
+nORTHERN mINNESOTA                                                               1
+Texas where everything is bigger, better, and more friendly than most states.    1
+The south.                                                                       1
+Upper Penninsula, Yoopers                                                        1
+Beautiful                                                                        1
+midewest                                                                         1
+South or Southeastern                                                            1
+Mountain states.                                                                 1
+North eastern US                                                                 1
 Name: In your own words, what would you call the part of the country you live in now?, dtype: int64
 </pre></div>
 </div>
@@ -229,7 +228,7 @@ minhash encoding
 Accuracy score:  mean: 0.676; std: 0.001
 
 gap encoding
-Accuracy score:  mean: 0.667; std: 0.014
+Accuracy score:  mean: 0.667; std: 0.006
 </pre></div>
 </div>
 </div>
@@ -248,7 +247,7 @@ Accuracy score:  mean: 0.667; std: 0.014
 <img alt="03 fit predict plot midwest survey" class="sphx-glr-single-img" src="../_images/sphx_glr_03_fit_predict_plot_midwest_survey_001.png" />
 <p>We can see that encoding the data using a SimilarityEncoder or MinhashEncoder
 instead of OneHotEncoder helps a lot in improving the cross validation score!</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  46.174 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  51.865 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-03-fit-predict-plot-midwest-survey-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/073d02765af9260c279b204e8f103b96/03_fit_predict_plot_midwest_survey.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">03_fit_predict_plot_midwest_survey.py</span></code></a></p>
