@@ -456,9 +456,9 @@ sample size varies.
 
  .. code-block:: none
 
-    using   500 samples: model fitting took 0.2s, test accuracy of 0.500
-    using  1666 samples: model fitting took 3.7s, test accuracy of 0.503
-    using  5000 samples: model fitting took 49.4s, test accuracy of 0.579
+    using   500 samples: model fitting took 0.2s, test accuracy of 0.502
+    using  1666 samples: model fitting took 3.9s, test accuracy of 0.506
+    using  5000 samples: model fitting took 56.1s, test accuracy of 0.602
 
 
 
@@ -680,26 +680,26 @@ likely to be marginal.
 
  .. code-block:: none
 
-    batch    0 train precision: 0.8413  val precision: 0.5002  
-    batch    5 train precision: 0.5451  val precision: 0.5880  
-    batch   10 train precision: 0.7072  val precision: 0.7029  
-    batch   15 train precision: 0.7158  val precision: 0.8076  
-    batch   20 train precision: 0.8215  val precision: 0.8544  
-    batch   25 train precision: 0.6733  val precision: 0.8759  
-    batch   30 train precision: 0.9501  val precision: 0.8914  
-    batch   35 train precision: 0.5000  val precision: 0.9053  
-    batch   40 train precision: 0.9122  val precision: 0.9076  
-    batch   45 train precision: 0.9573  val precision: 0.9125  
-    batch   50 train precision: 0.8808  val precision: 0.9169  
-    batch   55 train precision: 0.8872  val precision: 0.9172  
-    batch   60 train precision: 0.9078  val precision: 0.9206  
-    batch   65 train precision: 0.9653  val precision: 0.9256  
-    batch   70 train precision: 0.9052  val precision: 0.9298  
-    batch   75 train precision: 0.9539  val precision: 0.9298  
-    batch   80 train precision: 0.9170  val precision: 0.9303  
-    batch   85 train precision: 0.7683  val precision: 0.9328  
-    batch   90 train precision: 0.9542  val precision: 0.9340  
-    batch   95 train precision: 0.9635  val precision: 0.9348  
+    batch    0 train precision: 0.8261  val precision: 0.5008  
+    batch    5 train precision: 0.5444  val precision: 0.6218  
+    batch   10 train precision: 0.7605  val precision: 0.6854  
+    batch   15 train precision: 0.7108  val precision: 0.7679  
+    batch   20 train precision: 0.8404  val precision: 0.8329  
+    batch   25 train precision: 0.6567  val precision: 0.8482  
+    batch   30 train precision: 0.8974  val precision: 0.8631  
+    batch   35 train precision: 0.9627  val precision: 0.8796  
+    batch   40 train precision: 0.8057  val precision: 0.8827  
+    batch   45 train precision: 0.8994  val precision: 0.8868  
+    batch   50 train precision: 0.6601  val precision: 0.8889  
+    batch   55 train precision: 0.8933  val precision: 0.8925  
+    batch   60 train precision: 0.9386  val precision: 0.8946  
+    batch   65 train precision: 0.8530  val precision: 0.8996  
+    batch   70 train precision: 0.9225  val precision: 0.8982  
+    batch   75 train precision: 0.9224  val precision: 0.9073  
+    batch   80 train precision: 0.7879  val precision: 0.9096  
+    batch   85 train precision: 0.9526  val precision: 0.9105  
+    batch   90 train precision: 0.8392  val precision: 0.9120  
+    batch   95 train precision: 0.9577  val precision: 0.9131  
 
 
 
@@ -792,7 +792,7 @@ trivial task at the beginning of this example!
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 6 minutes  1.351 seconds)
+   **Total running time of the script:** ( 7 minutes  7.022 seconds)
 
 
 .. _sphx_glr_download_auto_examples_05_scaling_non_linear_models.py:

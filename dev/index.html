@@ -4,21 +4,22 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>dirty_cat: machine learning on dirty categories &#8212; dirty_cat 0.1.0 documentation</title>
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
     <link rel="stylesheet" type="text/css" href="_static/gallery.css" />
     <link rel="stylesheet" type="text/css" href="_static/gallery-binder.css" />
     <link rel="stylesheet" type="text/css" href="_static/gallery-dataframe.css" />
     <link rel="stylesheet" type="text/css" href="_static/gallery-rendered-html.css" />
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Investigating dirty categories" href="auto_examples/01_investigating_dirty_categories.html" />
+    <link rel="next" title="dirty_cat.GapEncoder" href="generated/dirty_cat.GapEncoder.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -57,9 +58,6 @@
   <h3><a href="#">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">dirty_cat: machine learning on dirty categories</a><ul>
-<li><a class="reference internal" href="#using-dirty-cat">Using dirty_cat</a><ul>
-</ul>
-</li>
 <li><a class="reference internal" href="#api-documentation">API documentation</a><ul>
 <li><a class="reference internal" href="#encoders">Encoders</a></li>
 <li><a class="reference internal" href="#data-download">Data download</a></li>
@@ -73,7 +71,7 @@
 <h3>Related Topics</h3>
 <ul>
   <li><a href="#">Documentation overview</a><ul>
-      <li>Next: <a href="auto_examples/01_investigating_dirty_categories.html" title="next chapter">Investigating dirty categories</a></li>
+      <li>Next: <a href="generated/dirty_cat.GapEncoder.html" title="next chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat</span></code>.GapEncoder</a></li>
   </ul></li>
 </ul>
 </div>
@@ -85,7 +83,7 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="dirty-cat-machine-learning-on-dirty-categories">
+  <section id="dirty-cat-machine-learning-on-dirty-categories">
 <h1>dirty_cat: machine learning on dirty categories<a class="headerlink" href="#dirty-cat-machine-learning-on-dirty-categories" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
 </div>
@@ -111,48 +109,9 @@ string categorical variables</a> <a class="footnote-reference brackets" href="#i
 <p class="right-align"><a class="reference external" href="CHANGES.html">Recent changes</a></p>
 <p><em>Requires Python 3</em></p>
 <hr class="docutils" />
-<div class="section" id="using-dirty-cat">
-<span id="sphx-glr-auto-examples"></span><h2>Using dirty_cat<a class="headerlink" href="#using-dirty-cat" title="Permalink to this headline">¶</a></h2>
-<div class="sphx-glr-thumbcontainer" tooltip="What are dirty categorical variables and how can a good encoding help with statistical learning..."><div class="figure align-default" id="id5">
-<img alt="Investigating dirty categories" src="_images/sphx_glr_01_investigating_dirty_categories_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="auto_examples/01_investigating_dirty_categories.html#sphx-glr-auto-examples-01-investigating-dirty-categories-py"><span class="std std-ref">Investigating dirty categories</span></a></span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
-</div>
-</div><div class="toctree-wrapper compound">
-</div>
-<div class="sphx-glr-thumbcontainer" tooltip="The `employee salaries &lt;https://catalog.data.gov/dataset/employee-salaries-2016&gt;`_ dataset cont..."><div class="figure align-default" id="id6">
-<img alt="Predicting the salary of employees" src="_images/sphx_glr_02_fit_predict_plot_employee_salaries_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="auto_examples/02_fit_predict_plot_employee_salaries.html#sphx-glr-auto-examples-02-fit-predict-plot-employee-salaries-py"><span class="std std-ref">Predicting the salary of employees</span></a></span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
-</div>
-</div><div class="toctree-wrapper compound">
-</div>
-<div class="sphx-glr-thumbcontainer" tooltip="Let&#x27;s see how different encoding for the dirty column impact on the score of a classification p..."><div class="figure align-default" id="id7">
-<img alt="Semantic variation in the &quot;Midwest&quot;" src="_images/sphx_glr_03_fit_predict_plot_midwest_survey_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="auto_examples/03_fit_predict_plot_midwest_survey.html#sphx-glr-auto-examples-03-fit-predict-plot-midwest-survey-py"><span class="std std-ref">Semantic variation in the “Midwest”</span></a></span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
-</div>
-</div><div class="toctree-wrapper compound">
-</div>
-<div class="sphx-glr-thumbcontainer" tooltip="We illustrate here how categorical encodings obtained with the GapEncoder can be interpreted in..."><div class="figure align-default" id="id8">
-<img alt="Feature interpretation with the GapEncoder" src="_images/sphx_glr_04_feature_interpretation_gap_encoder_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="auto_examples/04_feature_interpretation_gap_encoder.html#sphx-glr-auto-examples-04-feature-interpretation-gap-encoder-py"><span class="std std-ref">Feature interpretation with the GapEncoder</span></a></span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
-</div>
-</div><div class="toctree-wrapper compound">
-</div>
-<div class="sphx-glr-thumbcontainer" tooltip="A very classic dilemna when training a machine learning model consists in choosing between usin..."><div class="figure align-default" id="id9">
-<img alt="Fitting scalable, non-linear models on data with dirty categories" src="_images/sphx_glr_05_scaling_non_linear_models_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="auto_examples/05_scaling_non_linear_models.html#sphx-glr-auto-examples-05-scaling-non-linear-models-py"><span class="std std-ref">Fitting scalable, non-linear models on data with dirty categories</span></a></span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
-</div>
-</div><div class="toctree-wrapper compound">
-</div>
-<div class="sphx-glr-thumbcontainer" tooltip="Here we discuss how to apply efficiently SimilarityEncoder to larger datasets: reducing the num..."><div class="figure align-default" id="id10">
-<img alt="Scalability considerations for similarity encoding" src="_images/sphx_glr_06_dimension_reduction_and_performance_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="auto_examples/06_dimension_reduction_and_performance.html#sphx-glr-auto-examples-06-dimension-reduction-and-performance-py"><span class="std std-ref">Scalability considerations for similarity encoding</span></a></span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
-</div>
-</div><div class="toctree-wrapper compound">
-</div>
-<div class="sphx-glr-clear"></div></div>
-<div class="section" id="api-documentation">
+<section id="api-documentation">
 <h2>API documentation<a class="headerlink" href="#api-documentation" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="encoders">
+<section id="encoders">
 <h3>Encoders<a class="headerlink" href="#encoders" title="Permalink to this headline">¶</a></h3>
 <table class="longtable docutils align-default">
 <colgroup>
@@ -174,8 +133,8 @@ string categorical variables</a> <a class="footnote-reference brackets" href="#i
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="data-download">
+</section>
+<section id="data-download">
 <h3>Data download<a class="headerlink" href="#data-download" title="Permalink to this headline">¶</a></h3>
 <table class="longtable docutils align-default">
 <colgroup>
@@ -206,9 +165,9 @@ string categorical variables</a> <a class="footnote-reference brackets" href="#i
 </tr>
 </tbody>
 </table>
-</div>
-</div>
-<div class="section" id="about">
+</section>
+</section>
+<section id="about">
 <h2>About<a class="headerlink" href="#about" title="Permalink to this headline">¶</a></h2>
 <p>dirty_cat is for now a repository for developing ideas with high-quality
 implementations, a form of a research project: there is still
@@ -233,8 +192,8 @@ contributions in the scope of dirty categories.</p>
 <dd><p>Patricio Cerda, Gaël Varoquaux. Encoding high-cardinality string categorical variables. 2020. IEEE Transactions on Knowledge &amp; Data Engineering.</p>
 </dd>
 </dl>
-</div>
-</div>
+</section>
+</section>
 
 
           </div>
@@ -244,7 +203,7 @@ contributions in the scope of dirty categories.</p>
     <div class="clearer"></div>
   </div>
     <div class="footer">
-      &copy;2018, dirty_cat developers.
+      &copy;2018-2021, dirty_cat developers.
       
       |
       <a href="_sources/index.rst.txt"
