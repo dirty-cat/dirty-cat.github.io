@@ -72,16 +72,16 @@ column, where people put whatever they want:
 
  .. code-block:: none
 
-    Florida?                                        1
-    Southern Mid-West                               1
-    Southeasters United States or the Deep South    1
-    Northeast Ohio                                  1
-    Backwoods                                       1
-    MidAtlantic                                     1
-    Rural Midwest                                   1
-    in the East                                     1
-    Washington suburbs                              1
-    drab                                            1
+    Mid-west/Great Lakes     1
+    Southern Indiana         1
+    Rural, city like         1
+    Pittsburgh               1
+    A piece of Eden          1
+    north west               1
+    Bad                      1
+    The west coast           1
+    South or Southeastern    1
+    Mid-north                1
     Name: In your own words, what would you call the part of the country you live in now?, dtype: int64
 
 
@@ -292,7 +292,7 @@ instead of OneHotEncoder helps a lot in improving the cross validation score!
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 1 minutes  4.016 seconds)
+   **Total running time of the script:** ( 0 minutes  37.724 seconds)
 
 
 .. _sphx_glr_download_auto_examples_03_fit_predict_plot_midwest_survey.py:
