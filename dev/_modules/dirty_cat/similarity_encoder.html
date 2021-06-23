@@ -480,6 +480,9 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">vocabulary_count_matrices_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vocabulary_count_matrix</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">vocabulary_ngram_counts_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vocabulary_ngram_count</span><span class="p">)</span>
 
+        <span class="k">if</span> <span class="n">LooseVersion</span><span class="p">(</span><span class="n">sklearn</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">LooseVersion</span><span class="p">(</span><span class="s1">&#39;0.21&#39;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">drop_idx_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_drop_idx</span><span class="p">()</span>
+
         <span class="k">return</span> <span class="bp">self</span>
 
     <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">fast</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
