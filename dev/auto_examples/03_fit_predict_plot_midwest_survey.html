@@ -19,6 +19,8 @@
     <script src="../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Feature interpretation with the GapEncoder" href="04_feature_interpretation_gap_encoder.html" />
+    <link rel="prev" title="Predicting the salary of employees" href="02_fit_predict_plot_employee_salaries.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
@@ -63,6 +65,8 @@
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="02_fit_predict_plot_employee_salaries.html" title="previous chapter">Predicting the salary of employees</a></li>
+      <li>Next: <a href="04_feature_interpretation_gap_encoder.html" title="next chapter">Feature interpretation with the GapEncoder</a></li>
   </ul></li>
 </ul>
 </div>
@@ -103,16 +107,16 @@ column, where people put whatever they want:</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Midwest/Eastern.  Just East of the Mississippi should be  Mideastern.    1
-Northern climate, Alaska                                                 1
-southern plains                                                          1
-Beautiful                                                                1
-West Virginia                                                            1
-The North East                                                           1
-Appalacha                                                                1
-The Buckeye state                                                        1
-Indiana                                                                  1
-Southeast USA                                                            1
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Semi progressive. Safe. Artistic. Intelligent.              1
+southern peninsula                                          1
+Hype Park                                                   1
+chicagoland                                                 1
+Common sense people who live in reality and not fantasy!    1
+Texas  southeast                                            1
+Eastern U.S.                                                1
+SoCal                                                       1
+Northeast USA                                               1
+Promise Land                                                1
 Name: In your own words, what would you call the part of the country you live in now?, dtype: int64
 </pre></div>
 </div>
@@ -244,7 +248,7 @@ Accuracy score:  mean: 0.667; std: 0.006
 <img alt="03 fit predict plot midwest survey" class="sphx-glr-single-img" src="../_images/sphx_glr_03_fit_predict_plot_midwest_survey_001.png" />
 <p>We can see that encoding the data using a SimilarityEncoder or MinhashEncoder
 instead of OneHotEncoder helps a lot in improving the cross validation score!</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  46.636 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  45.830 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-03-fit-predict-plot-midwest-survey-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/073d02765af9260c279b204e8f103b96/03_fit_predict_plot_midwest_survey.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">03_fit_predict_plot_midwest_survey.py</span></code></a></p>
