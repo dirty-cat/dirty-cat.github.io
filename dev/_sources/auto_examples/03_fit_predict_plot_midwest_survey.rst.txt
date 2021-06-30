@@ -72,16 +72,16 @@ column, where people put whatever they want:
 
  .. code-block:: none
 
-    Beautiful, narrow-minded and disconnected    1
-    North Central/east                           1
-    Midwest/Northern Plains                      1
-    northern plains                              1
-    THE MIDWEST                                  1
-    middle America                               1
-    Silicon Valley                               1
-    Virginia                                     1
-    midewest                                     1
-    Midwest/Great Lakes                          1
+    mid-Atlantic state                                                     1
+    Cold small town                                                        1
+    The woods near the beach on the southeastern coach of Lake Michigan    1
+    cold, expensive and limiting.                                          1
+    western USA                                                            1
+    I live out in the west.                                                1
+    northeast PA. rural, on the edge of the appalachians                   1
+    The Diverse part                                                       1
+    Mountains, beautiful.                                                  1
+    The Eastern Alaska                                                     1
     Name: In your own words, what would you call the part of the country you live in now?, dtype: int64
 
 
@@ -292,7 +292,7 @@ instead of OneHotEncoder helps a lot in improving the cross validation score!
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  46.066 seconds)
+   **Total running time of the script:** ( 0 minutes  42.594 seconds)
 
 
 .. _sphx_glr_download_auto_examples_03_fit_predict_plot_midwest_survey.py:
