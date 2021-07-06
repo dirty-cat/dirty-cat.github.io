@@ -22,8 +22,10 @@ Automatic pre-processing with the SuperVectorizer
 =================================================
 
 In this notebook, we introduce the `SuperVectorizer`, which automatically
-applies transformers to the different columns of a dataset.
-We demonstrate that on the `employee salaries` dataset.
+turns a heterogeneous dataset into a numerical column, finding the right
+transformers to apply to the different columns.
+
+We demonstrate it on the `employee salaries` dataset.
 
 
 .. |OneHotEncoder| replace::
@@ -40,13 +42,13 @@ We demonstrate that on the `employee salaries` dataset.
 .. |permutation importances| replace::
     :func:`~sklearn.inspection.permutation_importance`
 
-.. GENERATED FROM PYTHON SOURCE LINES 27-30
+.. GENERATED FROM PYTHON SOURCE LINES 29-32
 
 Importing the data
 ------------------
 Let's fetch the dataset, and load X and y:
 
-.. GENERATED FROM PYTHON SOURCE LINES 30-62
+.. GENERATED FROM PYTHON SOURCE LINES 32-45
 
 .. code-block:: default
 
@@ -62,25 +64,6 @@ Let's fetch the dataset, and load X and y:
 
     employee_salaries = fetch_employee_salaries()
     print(employee_salaries['DESCR'])
-
-    X: pd.DataFrame = employee_salaries['data']
-    y = employee_salaries['target']
-    # We'll drop a few columns we don't want
-    X.drop(
-        [
-            'Current Annual Salary',  # Too linked with target
-            'full_name',  # Not relevant to the analysis
-            '2016_gross_pay_received',  # Too linked with target
-            '2016_overtime_pay',  # Too linked with target
-            'date_first_hired'  # Redundant with "year_first_hired"
-        ],
-        axis=1,
-        inplace=True
-    )
-
-    X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.15, random_state=42
-    )
 
 
 
@@ -99,20 +82,273 @@ Let's fetch the dataset, and load X and y:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 63-68
-
-Using the vectorizer
---------------------
-Here is a simple workflow with the `SuperVectorizer` using a `Pipeline`:
-
-It's the typical and recommended way of using it.
-
-.. GENERATED FROM PYTHON SOURCE LINES 68-85
+.. GENERATED FROM PYTHON SOURCE LINES 46-62
 
 .. code-block:: default
 
 
-    import numpy as np
+    X = employee_salaries['data']
+    y = employee_salaries['target']
+    # We'll drop a few columns we don't want
+    X.drop(
+        [
+            'Current Annual Salary',  # Too linked with target
+            'full_name',  # Not relevant to the analysis
+            '2016_gross_pay_received',  # Too linked with target
+            '2016_overtime_pay',  # Too linked with target
+            'date_first_hired'  # Redundant with "year_first_hired"
+        ],
+        axis=1,
+        inplace=True
+    )
+
+
+
+
+
+
+
+
+.. GENERATED FROM PYTHON SOURCE LINES 63-64
+
+The data are in a fairly complex and heterogeneous dataframe:
+
+.. GENERATED FROM PYTHON SOURCE LINES 64-66
+
+.. code-block:: default
+
+    X.head(n=15)
+
+
+
+
+
+
+.. raw:: html
+
+    <div class="output_subarea output_html rendered_html output_result">
+    <div>
+    <style scoped>
+        .dataframe tbody tr th:only-of-type {
+            vertical-align: middle;
+        }
+
+        .dataframe tbody tr th {
+            vertical-align: top;
+        }
+
+        .dataframe thead th {
+            text-align: right;
+        }
+    </style>
+    <table border="1" class="dataframe">
+      <thead>
+        <tr style="text-align: right;">
+          <th></th>
+          <th>gender</th>
+          <th>department</th>
+          <th>department_name</th>
+          <th>division</th>
+          <th>assignment_category</th>
+          <th>employee_position_title</th>
+          <th>underfilled_job_title</th>
+          <th>year_first_hired</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>0</th>
+          <td>F</td>
+          <td>POL</td>
+          <td>Department of Police</td>
+          <td>MSB Information Mgmt and Tech Division Records Management Section</td>
+          <td>Fulltime-Regular</td>
+          <td>Office Services Coordinator</td>
+          <td>None</td>
+          <td>1986.0</td>
+        </tr>
+        <tr>
+          <th>1</th>
+          <td>M</td>
+          <td>POL</td>
+          <td>Department of Police</td>
+          <td>ISB Major Crimes Division Fugitive Section</td>
+          <td>Fulltime-Regular</td>
+          <td>Master Police Officer</td>
+          <td>None</td>
+          <td>1988.0</td>
+        </tr>
+        <tr>
+          <th>2</th>
+          <td>F</td>
+          <td>HHS</td>
+          <td>Department of Health and Human Services</td>
+          <td>Adult Protective and Case Management Services</td>
+          <td>Fulltime-Regular</td>
+          <td>Social Worker IV</td>
+          <td>None</td>
+          <td>1989.0</td>
+        </tr>
+        <tr>
+          <th>3</th>
+          <td>M</td>
+          <td>COR</td>
+          <td>Correction and Rehabilitation</td>
+          <td>PRRS Facility and Security</td>
+          <td>Fulltime-Regular</td>
+          <td>Resident Supervisor II</td>
+          <td>None</td>
+          <td>2014.0</td>
+        </tr>
+        <tr>
+          <th>4</th>
+          <td>M</td>
+          <td>HCA</td>
+          <td>Department of Housing and Community Affairs</td>
+          <td>Affordable Housing Programs</td>
+          <td>Fulltime-Regular</td>
+          <td>Planning Specialist III</td>
+          <td>None</td>
+          <td>2007.0</td>
+        </tr>
+        <tr>
+          <th>5</th>
+          <td>M</td>
+          <td>POL</td>
+          <td>Department of Police</td>
+          <td>PSB 6th District Special Assignment Team</td>
+          <td>Fulltime-Regular</td>
+          <td>Police Officer III</td>
+          <td>None</td>
+          <td>2007.0</td>
+        </tr>
+        <tr>
+          <th>6</th>
+          <td>F</td>
+          <td>FRS</td>
+          <td>Fire and Rescue Services</td>
+          <td>EMS Billing</td>
+          <td>Fulltime-Regular</td>
+          <td>Accountant/Auditor II</td>
+          <td>None</td>
+          <td>2016.0</td>
+        </tr>
+        <tr>
+          <th>7</th>
+          <td>M</td>
+          <td>HHS</td>
+          <td>Department of Health and Human Services</td>
+          <td>Head Start</td>
+          <td>Fulltime-Regular</td>
+          <td>Administrative Specialist II</td>
+          <td>None</td>
+          <td>2014.0</td>
+        </tr>
+        <tr>
+          <th>8</th>
+          <td>M</td>
+          <td>FRS</td>
+          <td>Fire and Rescue Services</td>
+          <td>Recruit Training</td>
+          <td>Fulltime-Regular</td>
+          <td>Firefighter/Rescuer III</td>
+          <td>Firefighter/Rescuer I (Recruit)</td>
+          <td>2016.0</td>
+        </tr>
+        <tr>
+          <th>9</th>
+          <td>F</td>
+          <td>POL</td>
+          <td>Department of Police</td>
+          <td>FSB Traffic Division Automated Traffic Enforcement Section</td>
+          <td>Fulltime-Regular</td>
+          <td>Police Aide</td>
+          <td>None</td>
+          <td>2007.0</td>
+        </tr>
+        <tr>
+          <th>10</th>
+          <td>M</td>
+          <td>DGS</td>
+          <td>Department of General Services</td>
+          <td>Facilities Maintenance</td>
+          <td>Fulltime-Regular</td>
+          <td>Electrician I</td>
+          <td>None</td>
+          <td>2014.0</td>
+        </tr>
+        <tr>
+          <th>11</th>
+          <td>M</td>
+          <td>DOT</td>
+          <td>Department of Transportation</td>
+          <td>Transit Silver Spring Ride On</td>
+          <td>Fulltime-Regular</td>
+          <td>Bus Operator</td>
+          <td>None</td>
+          <td>2002.0</td>
+        </tr>
+        <tr>
+          <th>12</th>
+          <td>F</td>
+          <td>HHS</td>
+          <td>Department of Health and Human Services</td>
+          <td>STD and HIV Services</td>
+          <td>Parttime-Regular</td>
+          <td>Medical Doctor III - Physician</td>
+          <td>None</td>
+          <td>2003.0</td>
+        </tr>
+        <tr>
+          <th>13</th>
+          <td>M</td>
+          <td>DOT</td>
+          <td>Department of Transportation</td>
+          <td>Transit Nicholson Ride On</td>
+          <td>Fulltime-Regular</td>
+          <td>Bus Operator</td>
+          <td>None</td>
+          <td>2008.0</td>
+        </tr>
+        <tr>
+          <th>14</th>
+          <td>M</td>
+          <td>DOT</td>
+          <td>Department of Transportation</td>
+          <td>Transportation Management</td>
+          <td>Fulltime-Regular</td>
+          <td>Traffic Management Technician II</td>
+          <td>Traffic Management Technician I</td>
+          <td>2015.0</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    </div>
+    <br />
+    <br />
+
+.. GENERATED FROM PYTHON SOURCE LINES 67-69
+
+The challenge is to turn this dataframe into a form well suited for
+machine learning.
+
+.. GENERATED FROM PYTHON SOURCE LINES 71-79
+
+Using the SuperVectorizer in a supervised-learning pipeline
+------------------------------------------------------------
+
+Assembling the SuperVectorizer in a pipeline with a powerful learner,
+such as gradient boosted trees, gives **a machine-learning method that
+can be readily applied to the dataframe**.
+
+It's the typical and recommended way of using it.
+
+.. GENERATED FROM PYTHON SOURCE LINES 79-94
+
+.. code-block:: default
+
+
 
     # For scikit-learn 0.24, we need to require the experimental feature
     from sklearn.experimental import enable_hist_gradient_boosting
@@ -121,7 +357,6 @@ It's the typical and recommended way of using it.
     from sklearn.pipeline import Pipeline
 
     from dirty_cat import SuperVectorizer
-
 
     pipeline = Pipeline([
         ('vectorizer', SuperVectorizer(auto_cast=True)),
@@ -135,20 +370,20 @@ It's the typical and recommended way of using it.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 86-87
+.. GENERATED FROM PYTHON SOURCE LINES 95-96
 
-For reference, let's perform a cross-validation
+Let's perform a cross-validation to see how well this model predicts
 
-.. GENERATED FROM PYTHON SOURCE LINES 87-97
+.. GENERATED FROM PYTHON SOURCE LINES 96-106
 
 .. code-block:: default
 
 
     from sklearn.model_selection import cross_val_score
 
-
     scores = cross_val_score(pipeline, X, y, scoring='r2')
 
+    import numpy as np
     print(f'{scores=}')
     print(f'mean={np.mean(scores)}')
     print(f'std={np.std(scores)}')
@@ -170,27 +405,45 @@ For reference, let's perform a cross-validation
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 98-103
+.. GENERATED FROM PYTHON SOURCE LINES 107-111
 
-Compared to
-:ref:`example 02<sphx_glr_auto_examples_02_fit_predict_plot_employee_salaries.py>`,
-the mean score is a pretty much the same as the all-|SE|, and yet the
-code to build the pipeline is much simpler as it does not involve
-specifying the columns manually.
+The prediction perform here is pretty much as good as in :ref:`example
+02<sphx_glr_auto_examples_02_fit_predict_plot_employee_salaries.py>`,
+but the code here is much simpler as it does not involve specifying
+columns manually.
 
-.. GENERATED FROM PYTHON SOURCE LINES 105-109
+.. GENERATED FROM PYTHON SOURCE LINES 113-118
 
-Analyzing what it does
-----------------------
-Let's perform the same workflow, but without the `Pipeline`, so we can
+Analyzing the features created
+-------------------------------
+
+Let us perform the same workflow, but without the `Pipeline`, so we can
 analyze its mechanisms along the way.
 
-.. GENERATED FROM PYTHON SOURCE LINES 109-115
+.. GENERATED FROM PYTHON SOURCE LINES 118-120
 
 .. code-block:: default
 
-
     sup_vec = SuperVectorizer(auto_cast=True)
+
+
+
+
+
+
+
+
+.. GENERATED FROM PYTHON SOURCE LINES 121-122
+
+We split the data between train and test, and transform them:
+
+.. GENERATED FROM PYTHON SOURCE LINES 122-129
+
+.. code-block:: default
+
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.15, random_state=42
+    )
 
     X_train_enc = sup_vec.fit_transform(X_train, y_train)
     X_test_enc = sup_vec.transform(X_test)
@@ -202,14 +455,14 @@ analyze its mechanisms along the way.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 116-120
+.. GENERATED FROM PYTHON SOURCE LINES 130-134
 
 Inspecting the features created
--------------------------------
+.................................
 Once it has been trained on data,
 we can print the transformers and the columns assignment it creates:
 
-.. GENERATED FROM PYTHON SOURCE LINES 120-123
+.. GENERATED FROM PYTHON SOURCE LINES 134-137
 
 .. code-block:: default
 
@@ -231,7 +484,7 @@ we can print the transformers and the columns assignment it creates:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 124-135
+.. GENERATED FROM PYTHON SOURCE LINES 138-151
 
 This is what is being passed to the |ColumnTransformer| under the hood.
 If you're familiar with how the later works, it should be very intuitive.
@@ -245,17 +498,13 @@ The vectorizer actually makes the difference between string variables
 
 Next, we can have a look at the encoded feature names.
 
-.. GENERATED FROM PYTHON SOURCE LINES 135-143
+Before encoding:
+
+.. GENERATED FROM PYTHON SOURCE LINES 151-153
 
 .. code-block:: default
 
-
-    # Before:
     print(X.columns.to_list())
-    # After :
-    feature_names = sup_vec.get_feature_names()
-    print(feature_names[:8])
-    print(len(feature_names))
 
 
 
@@ -268,45 +517,89 @@ Next, we can have a look at the encoded feature names.
  .. code-block:: none
 
     ['gender', 'department', 'department_name', 'division', 'assignment_category', 'employee_position_title', 'underfilled_job_title', 'year_first_hired']
+
+
+
+
+.. GENERATED FROM PYTHON SOURCE LINES 154-155
+
+After encoding (we only plot the first 8 feature names):
+
+.. GENERATED FROM PYTHON SOURCE LINES 155-158
+
+.. code-block:: default
+
+    feature_names = sup_vec.get_feature_names()
+    print(feature_names[:8])
+
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
     ['division_24 Hours Crisis Center', 'division_ADA - HIPPA Compliance', 'division_ADA Compliance', 'division_Absentee Voting', 'division_Abused Persons Program', 'division_Access to Behavioral Health Services', 'division_Accounts Payable', 'division_Accounts Receivable']
-    1212
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 144-149
+.. GENERATED FROM PYTHON SOURCE LINES 159-165
 
 As we can see, it created a new column for each unique value.
 This is because we used |SE| on the column "division",
 which was classified as a high cardinality string variable.
 (default values, see `SuperVectorizer`'s docstring).
+
 In total, we have 1212 encoded columns.
 
-.. GENERATED FROM PYTHON SOURCE LINES 151-163
+.. GENERATED FROM PYTHON SOURCE LINES 165-168
+
+.. code-block:: default
+
+    print(len(feature_names))
+
+
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+    1212
+
+
+
+
+.. GENERATED FROM PYTHON SOURCE LINES 169-179
 
 Feature importance in the statistical model
--------------------------------------------
+............................................
 In this section, we will train a regressor, and plot the feature importances
 .. topic:: Note:
 
-   we will plot the feature importances computed by the
-   |RandomForestRegressor|, but you should use |permutation importances|
-   instead (which are much more accurate)
-
-   We chose the former over the later for the sake of performance.
+   To minimize compute time, use the feature importances computed by the
+   |RandomForestRegressor|, but you should prefer |permutation importances|
+   instead (which are not less subject to biases)
 
 First, let's train the |RandomForestRegressor|,
 
-.. GENERATED FROM PYTHON SOURCE LINES 163-170
+.. GENERATED FROM PYTHON SOURCE LINES 179-185
 
 .. code-block:: default
 
 
     from sklearn.ensemble import RandomForestRegressor
-
-
-    regressor = RandomForestRegressor(n_estimators=25, random_state=42)
+    regressor = RandomForestRegressor()
     regressor.fit(X_train_enc, y_train)
+
 
 
 
@@ -319,23 +612,18 @@ First, let's train the |RandomForestRegressor|,
  .. code-block:: none
 
 
-    RandomForestRegressor(n_estimators=25, random_state=42)
+    RandomForestRegressor()
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 171-172
+.. GENERATED FROM PYTHON SOURCE LINES 186-187
 
-And then plot the feature importances.
+Getting the feature importances
 
-.. GENERATED FROM PYTHON SOURCE LINES 172-199
+.. GENERATED FROM PYTHON SOURCE LINES 187-197
 
 .. code-block:: default
 
-
-    import matplotlib.pyplot as plt
-
-
-    # Getting feature importances
     importances = regressor.feature_importances_
     std = np.std(
         [
@@ -346,8 +634,23 @@ And then plot the feature importances.
     )
     indices = np.argsort(importances)[::-1]
 
-    # Plotting the results:
 
+
+
+
+
+
+
+.. GENERATED FROM PYTHON SOURCE LINES 198-199
+
+Plotting the results:
+
+.. GENERATED FROM PYTHON SOURCE LINES 199-211
+
+.. code-block:: default
+
+
+    import matplotlib.pyplot as plt
     plt.figure(figsize=(12, 9))
     plt.title("Feature importances")
     n = 20
@@ -369,16 +672,16 @@ And then plot the feature importances.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 200-203
+.. GENERATED FROM PYTHON SOURCE LINES 212-215
 
-We can deduce a few things from this data:
-the three factors that define the most the salary are: being a manager,
-being hired for a long time, and have a permanent, full-time job :).
+We can deduce from this data that the three factors that define the
+most the salary are: being a manager, being hired for a long time, and
+have a permanent, full-time job :).
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 3 minutes  9.128 seconds)
+   **Total running time of the script:** ( 5 minutes  42.784 seconds)
 
 
 .. _sphx_glr_download_auto_examples_03_automatic_preprocessing_with_the_supervectorizer.py:
