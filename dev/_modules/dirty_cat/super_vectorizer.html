@@ -130,9 +130,10 @@
 
 <div class="viewcode-block" id="SuperVectorizer"><a class="viewcode-back" href="../../generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer">[docs]</a><span class="k">class</span> <span class="nc">SuperVectorizer</span><span class="p">(</span><span class="n">ColumnTransformer</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Applies transformers to columns of an array depending</span>
-<span class="sd">    on the characteristics of each column.</span>
-<span class="sd">    Under the hood, it is an interface for scikit-learn&#39;s `ColumnTransformer`.</span>
+<span class="sd">    Easily transforms a heterogeneous data table (such as a dataframe) to</span>
+<span class="sd">    a numerical array for machine learning. For this it transforms each</span>
+<span class="sd">    column depending on its data type.</span>
+<span class="sd">    It provides a simplified interface for scikit-learn&#39;s `ColumnTransformer`.</span>
 
 <span class="sd">    .. versionadded:: 0.2.0</span>
 

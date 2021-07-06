@@ -27,7 +27,7 @@
     <script src="../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Automatic pre-processing with the SuperVectorizer" href="07_automatic_preprocessing_with_the_supervectorizer.html" />
+    <link rel="next" title="dirty_cat.GapEncoder" href="../generated/dirty_cat.GapEncoder.html" />
     <link rel="prev" title="Fitting scalable, non-linear models on data with dirty categories" href="05_scaling_non_linear_models.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
@@ -74,7 +74,7 @@
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
       <li>Previous: <a href="05_scaling_non_linear_models.html" title="previous chapter">Fitting scalable, non-linear models on data with dirty categories</a></li>
-      <li>Next: <a href="07_automatic_preprocessing_with_the_supervectorizer.html" title="next chapter">Automatic pre-processing with the SuperVectorizer</a></li>
+      <li>Next: <a href="../generated/dirty_cat.GapEncoder.html" title="next chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat</span></code>.GapEncoder</a></li>
   </ul></li>
 </ul>
 </div>
@@ -196,9 +196,9 @@ DRIVING WHILE LIC. SUSP. UNDER 16-203, 16-206A2 FAIL TO ATTEND DIP, 17-106, 26-2
 DRIVING VEH. WHILE IMPAIRED BY A CONTROLLED DANGEROUS SUBSTANCE                                       23
 DRIVING VEHICLE IN EXCESS OF REASONABLE AND PRUDENT SPEED ON HIGHWAY                                  21
 DRIVER FAILURE TO STOP AT STOP SIGN LINE                                                              20
-DRIVING TO DRIVE MOTOR VEHICLE ON HIGHWAY WITHOUT REQUIRED LICENSE AND AUTHORIZATION                  15
-PERSON DRIVING MOTOR VEHICLE ON HIGHWAY OR PUBLIC USE PROPERTY ON REVOKED LICENSE AND PRIVILEGE       15
 OPERATING UNREGISTERED MOTOR VEHICLE ON HIGHWAY                                                       15
+PERSON DRIVING MOTOR VEHICLE ON HIGHWAY OR PUBLIC USE PROPERTY ON REVOKED LICENSE AND PRIVILEGE       15
+DRIVING TO DRIVE MOTOR VEHICLE ON HIGHWAY WITHOUT REQUIRED LICENSE AND AUTHORIZATION                  15
 Name: Description, dtype: int64
 </pre></div>
 </div>
@@ -242,7 +242,7 @@ one-hot encoding and similarity encoding</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Time to vectorize: 0.29308009147644043
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Time to vectorize: 0.4696037769317627
 </pre></div>
 </div>
 <p>We can run a cross-validation</p>
@@ -257,7 +257,7 @@ one-hot encoding and similarity encoding</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Run time: 3s    Memory used: 9Mb
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Run time: 6s    Memory used: 9Mb
 Cross-validation score: [0.94397759 0.94397759 0.94101124 0.94662921 0.94101124]
 </pre></div>
 </div>
@@ -290,7 +290,7 @@ speed things up. We select manually the number of prototypes we want to use.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Run time: 2s    Memory used: 5Mb
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Run time: 3s    Memory used: 5Mb
 Cross-validation score: [0.94397759 0.94117647 0.94101124 0.94101124 0.94101124]
 </pre></div>
 </div>
@@ -321,7 +321,7 @@ to find the prototypes. The number of prototypes is set manually.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Run time: 5s    Memory used: 5Mb
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Run time: 9s    Memory used: 5Mb
 Cross-validation score: [0.93837535 0.93837535 0.93539326 0.93820225 0.93539326]
 </pre></div>
 </div>
@@ -389,7 +389,7 @@ algorithm). The memory savings will then happen during the encoding.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Time to vectorize: 0.19075369834899902
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Time to vectorize: 0.23824620246887207
 </pre></div>
 </div>
 <p>We can run a cross-validation to confirm the memory footprint reduction</p>
@@ -399,11 +399,11 @@ algorithm). The memory savings will then happen during the encoding.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Run time: 2s    Memory used: 3Mb
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Run time: 4s    Memory used: 3Mb
 Cross-validation score: [0.93837535 0.94117647 0.94101124 0.94101124 0.94101124]
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 2 minutes  30.393 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 3 minutes  3.316 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-06-dimension-reduction-and-performance-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/affdfa676c82de7bd5e64259b2cebdf1/06_dimension_reduction_and_performance.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">06_dimension_reduction_and_performance.py</span></code></a></p>

@@ -8,10 +8,10 @@
 
   <meta property="og:title" content="Automatic pre-processing with the SuperVectorizer" />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://dirty-cat.github.io/stable/auto_examples/07_automatic_preprocessing_with_the_supervectorizer.html" />
+  <meta property="og:url" content="https://dirty-cat.github.io/stable/auto_examples/03_automatic_preprocessing_with_the_supervectorizer.html" />
   <meta property="og:site_name" content="Dirty cat" />
   <meta property="og:description" content="In this notebook, we introduce the SuperVectorizer, which automatically applies transformers to the different columns of a dataset. We demonstrate that on the employee salaries dataset. Importing t..." />
-  <meta property="og:image" content="../_images/sphx_glr_07_automatic_preprocessing_with_the_supervectorizer_001.png" />
+  <meta property="og:image" content="../_images/sphx_glr_03_automatic_preprocessing_with_the_supervectorizer_001.png" />
   <meta property="og:image:alt" content="Feature importances" />
   
     <title>Automatic pre-processing with the SuperVectorizer &#8212; &amp;mdash; Dirty cat</title>
@@ -27,8 +27,8 @@
     <script src="../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="dirty_cat.GapEncoder" href="../generated/dirty_cat.GapEncoder.html" />
-    <link rel="prev" title="Scalability considerations for similarity encoding" href="06_dimension_reduction_and_performance.html" />
+    <link rel="next" title="Feature interpretation with the GapEncoder" href="04_feature_interpretation_gap_encoder.html" />
+    <link rel="prev" title="Comparing encoders of a dirty categorical columns" href="02_fit_predict_plot_employee_salaries.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
@@ -73,8 +73,8 @@
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="06_dimension_reduction_and_performance.html" title="previous chapter">Scalability considerations for similarity encoding</a></li>
-      <li>Next: <a href="../generated/dirty_cat.GapEncoder.html" title="next chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat</span></code>.GapEncoder</a></li>
+      <li>Previous: <a href="02_fit_predict_plot_employee_salaries.html" title="previous chapter">Comparing encoders of a dirty categorical columns</a></li>
+      <li>Next: <a href="04_feature_interpretation_gap_encoder.html" title="next chapter">Feature interpretation with the GapEncoder</a></li>
   </ul></li>
 </ul>
 </div>
@@ -88,11 +88,11 @@
             
   <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-07-automatic-preprocessing-with-the-supervectorizer-py"><span class="std std-ref">here</span></a>
+<p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-03-automatic-preprocessing-with-the-supervectorizer-py"><span class="std std-ref">here</span></a>
 to download the full example code</p>
 </div>
 <section class="sphx-glr-example-title" id="automatic-pre-processing-with-the-supervectorizer">
-<span id="sphx-glr-auto-examples-07-automatic-preprocessing-with-the-supervectorizer-py"></span><h1>Automatic pre-processing with the SuperVectorizer<a class="headerlink" href="#automatic-pre-processing-with-the-supervectorizer" title="Permalink to this headline">¶</a></h1>
+<span id="sphx-glr-auto-examples-03-automatic-preprocessing-with-the-supervectorizer-py"></span><h1>Automatic pre-processing with the SuperVectorizer<a class="headerlink" href="#automatic-pre-processing-with-the-supervectorizer" title="Permalink to this headline">¶</a></h1>
 <p>In this notebook, we introduce the <cite>SuperVectorizer</cite>, which automatically
 applies transformers to the different columns of a dataset.
 We demonstrate that on the <cite>employee salaries</cite> dataset.</p>
@@ -178,7 +178,9 @@ std=0.013997605094778466
 </div>
 <p>Compared to
 <a class="reference internal" href="02_fit_predict_plot_employee_salaries.html#sphx-glr-auto-examples-02-fit-predict-plot-employee-salaries-py"><span class="std std-ref">example 02</span></a>,
-the mean score is a pretty much the same as the all-<a class="reference internal" href="../generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="dirty_cat.SimilarityEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimilarityEncoder</span></code></a>.</p>
+the mean score is a pretty much the same as the all-<a class="reference internal" href="../generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="dirty_cat.SimilarityEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimilarityEncoder</span></code></a>, and yet the
+code to build the pipeline is much simpler as it does not involve
+specifying the columns manually.</p>
 </section>
 <section id="analyzing-what-it-does">
 <h2>Analyzing what it does<a class="headerlink" href="#analyzing-what-it-does" title="Permalink to this headline">¶</a></h2>
@@ -281,17 +283,17 @@ instead (which are much more accurate)</p>
 <a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.show.html#matplotlib.pyplot.show" title="matplotlib.pyplot.show" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img alt="Feature importances" class="sphx-glr-single-img" src="../_images/sphx_glr_07_automatic_preprocessing_with_the_supervectorizer_001.png" />
+<img alt="Feature importances" class="sphx-glr-single-img" src="../_images/sphx_glr_03_automatic_preprocessing_with_the_supervectorizer_001.png" />
 <p>We can deduce a few things from this data:
 the three factors that define the most the salary are: being a manager,
-being hired for a long time, and have a permanent, full-time job.</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 2 minutes  38.387 seconds)</p>
-<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-07-automatic-preprocessing-with-the-supervectorizer-py">
+being hired for a long time, and have a permanent, full-time job :).</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 4 minutes  22.363 seconds)</p>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-03-automatic-preprocessing-with-the-supervectorizer-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
-<p><a class="reference download internal" download="" href="../_downloads/192895c81e384255127587cf13e112d0/07_automatic_preprocessing_with_the_supervectorizer.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">07_automatic_preprocessing_with_the_supervectorizer.py</span></code></a></p>
+<p><a class="reference download internal" download="" href="../_downloads/35852095a7762d0ababfbb29a3c19391/03_automatic_preprocessing_with_the_supervectorizer.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">03_automatic_preprocessing_with_the_supervectorizer.py</span></code></a></p>
 </div>
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
-<p><a class="reference download internal" download="" href="../_downloads/f5524182545396daf897935bc89bd218/07_automatic_preprocessing_with_the_supervectorizer.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">07_automatic_preprocessing_with_the_supervectorizer.ipynb</span></code></a></p>
+<p><a class="reference download internal" download="" href="../_downloads/e4ea65df2f9423c1a3a5e3cfbadac049/03_automatic_preprocessing_with_the_supervectorizer.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">03_automatic_preprocessing_with_the_supervectorizer.ipynb</span></code></a></p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
@@ -309,7 +311,7 @@ being hired for a long time, and have a permanent, full-time job.</p>
       &copy;2018-2021, dirty_cat developers.
       
       |
-      <a href="../_sources/auto_examples/07_automatic_preprocessing_with_the_supervectorizer.rst.txt"
+      <a href="../_sources/auto_examples/03_automatic_preprocessing_with_the_supervectorizer.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 
