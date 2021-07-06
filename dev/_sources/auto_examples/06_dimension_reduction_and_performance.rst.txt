@@ -202,20 +202,20 @@ difficulty is that it has many different entries.
     RECKLESS DRIVING VEHICLE IN WANTON AND WILLFUL DISREGARD FOR SAFETY OF PERSONS AND PROPERTY          106
     DRIVING VEHICLE WHILE UNDER THE INFLUENCE OF ALCOHOL PER SE                                          103
     DRIVER FAILURE TO OBEY PROPERLY PLACED TRAFFIC CONTROL DEVICE INSTRUCTIONS                            80
-    PERSON DRIVING MOTOR VEHICLE ON HIGHWAY OR PUBLIC USE PROPERTY ON SUSPENDED LICENSE AND PRIVILEGE     48
     FAILURE OF INDIVIDUAL DRIVING ON HIGHWAY TO DISPLAY LICENSE TO UNIFORMED POLICE ON DEMAND             48
+    PERSON DRIVING MOTOR VEHICLE ON HIGHWAY OR PUBLIC USE PROPERTY ON SUSPENDED LICENSE AND PRIVILEGE     48
     FAILURE TO DRIVE VEHICLE ON RIGHT HALF OF ROADWAY WHEN REQUIRED                                       42
     DRIVER CHANGING LANES WHEN UNSAFE                                                                     41
     DRIVING MOTOR VEHICLE ON HIGHWAY WITHOUT REQUIRED LICENSE AND AUTHORIZATION                           40
-    FAILURE TO CONTROL VEHICLE SPEED ON HIGHWAY TO AVOID COLLISION                                        36
     FAILURE TO DISPLAY REGISTRATION CARD UPON DEMAND BY POLICE OFFICER                                    36
+    FAILURE TO CONTROL VEHICLE SPEED ON HIGHWAY TO AVOID COLLISION                                        36
     DRIVING WHILE LIC. SUSP. UNDER 16-203, 16-206A2 FAIL TO ATTEND DIP, 17-106, 26-204/206, 27-103        28
     DRIVING VEH. WHILE IMPAIRED BY A CONTROLLED DANGEROUS SUBSTANCE                                       23
     DRIVING VEHICLE IN EXCESS OF REASONABLE AND PRUDENT SPEED ON HIGHWAY                                  21
     DRIVER FAILURE TO STOP AT STOP SIGN LINE                                                              20
+    OPERATING UNREGISTERED MOTOR VEHICLE ON HIGHWAY                                                       15
     DRIVING TO DRIVE MOTOR VEHICLE ON HIGHWAY WITHOUT REQUIRED LICENSE AND AUTHORIZATION                  15
     PERSON DRIVING MOTOR VEHICLE ON HIGHWAY OR PUBLIC USE PROPERTY ON REVOKED LICENSE AND PRIVILEGE       15
-    OPERATING UNREGISTERED MOTOR VEHICLE ON HIGHWAY                                                       15
     Name: Description, dtype: int64
 
 
@@ -279,7 +279,7 @@ one-hot encoding and similarity encoding
 
  .. code-block:: none
 
-    Time to vectorize: 0.2730412483215332
+    Time to vectorize: 0.24233126640319824
 
 
 
@@ -311,7 +311,7 @@ We can run a cross-validation
 
  .. code-block:: none
 
-    Run time: 14s    Memory used: 9Mb
+    Run time: 3s    Memory used: 9Mb
     Cross-validation score: [0.94397759 0.94397759 0.94101124 0.94662921 0.94101124]
 
 
@@ -387,8 +387,8 @@ Check now that prediction is still as good
 
  .. code-block:: none
 
-    Run time: 10s    Memory used: 5Mb
-    Cross-validation score: [0.94397759 0.94117647 0.94101124 0.93539326 0.94101124]
+    Run time: 2s    Memory used: 5Mb
+    Cross-validation score: [0.94397759 0.94117647 0.94101124 0.94101124 0.94101124]
 
 
 
@@ -461,8 +461,8 @@ Check now that prediction is still as good
 
  .. code-block:: none
 
-    Run time: 62s    Memory used: 5Mb
-    Cross-validation score: [0.93837535 0.93557423 0.93820225 0.94382022 0.93539326]
+    Run time: 5s    Memory used: 5Mb
+    Cross-validation score: [0.93837535 0.93837535 0.93539326 0.93820225 0.93539326]
 
 
 
@@ -574,7 +574,7 @@ algorithm). The memory savings will then happen during the encoding.
 
  .. code-block:: none
 
-    Time to vectorize: 0.15575408935546875
+    Time to vectorize: 0.15998029708862305
 
 
 
@@ -600,8 +600,8 @@ We can run a cross-validation to confirm the memory footprint reduction
 
  .. code-block:: none
 
-    Run time: 7s    Memory used: 3Mb
-    Cross-validation score: [0.93837535 0.94117647 0.94101124 0.93539326 0.94101124]
+    Run time: 2s    Memory used: 3Mb
+    Cross-validation score: [0.93837535 0.94117647 0.94101124 0.94101124 0.94101124]
 
 
 
@@ -609,7 +609,7 @@ We can run a cross-validation to confirm the memory footprint reduction
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 4 minutes  6.047 seconds)
+   **Total running time of the script:** ( 2 minutes  22.230 seconds)
 
 
 .. _sphx_glr_download_auto_examples_06_dimension_reduction_and_performance.py:

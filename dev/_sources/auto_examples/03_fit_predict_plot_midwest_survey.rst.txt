@@ -72,16 +72,16 @@ column, where people put whatever they want:
 
  .. code-block:: none
 
-    mid-Atlantic state                                                     1
-    Cold small town                                                        1
-    The woods near the beach on the southeastern coach of Lake Michigan    1
-    cold, expensive and limiting.                                          1
-    western USA                                                            1
-    I live out in the west.                                                1
-    northeast PA. rural, on the edge of the appalachians                   1
-    The Diverse part                                                       1
-    Mountains, beautiful.                                                  1
-    The Eastern Alaska                                                     1
+    East coast with a mix of country side, suburban neighborhoods, and cities.  All of this can be found within a two hour radius of where I live.    1
+    Northeastern usa                                                                                                                                  1
+    Dallas, TX USA                                                                                                                                    1
+    The Buckeye state                                                                                                                                 1
+    metropolitan area or city                                                                                                                         1
+    tropical island                                                                                                                                   1
+    West, in southern Idaho                                                                                                                           1
+    Midwest/central                                                                                                                                   1
+    I guess Midwest.  Cant really think of any other name.                                                                                            1
+    Rural, Western Colorado                                                                                                                           1
     Name: In your own words, what would you call the part of the country you live in now?, dtype: int64
 
 
@@ -249,7 +249,7 @@ using a cross validation score:
     Accuracy score:  mean: 0.676; std: 0.001
 
     gap encoding
-    Accuracy score:  mean: 0.667; std: 0.006
+    Accuracy score:  mean: 0.669; std: 0.006
 
 
 
@@ -292,7 +292,7 @@ instead of OneHotEncoder helps a lot in improving the cross validation score!
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  42.594 seconds)
+   **Total running time of the script:** ( 0 minutes  21.535 seconds)
 
 
 .. _sphx_glr_download_auto_examples_03_fit_predict_plot_midwest_survey.py:

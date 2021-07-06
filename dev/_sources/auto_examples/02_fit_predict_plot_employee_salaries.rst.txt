@@ -18,27 +18,24 @@
 .. _sphx_glr_auto_examples_02_fit_predict_plot_employee_salaries.py:
 
 
-Predicting the salary of employees
-==================================
+Comparing encoders of a dirty categorical columns
+==================================================
 
-The `employee salaries <https://catalog.data.gov/dataset/employee-salaries-2016>`_
-dataset contains information
-about annual salaries (year 2016) for more than 9,000 employees of the 
-Montgomery County (Maryland, US). In this example, we are interested
-in predicting the column *Current Annual Salary*
-depending on a mix of clean columns and a dirty column.
-We choose to benchmark different categorical encodings for
-the dirty column *Employee Position Title*, that contains
-dirty categorical data.
+The column *Employee Position Title* of the dataset `employee salaries
+<https://catalog.data.gov/dataset/employee-salaries-2016>`_ contains dirty categorical
+data.
 
-.. GENERATED FROM PYTHON SOURCE LINES 18-22
+Here, we compare different categorical encodings for the dirty column to
+predict the *Current Annual Salary*, using gradient boosted trees.
+
+.. GENERATED FROM PYTHON SOURCE LINES 14-18
 
 Data Importing and preprocessing
 --------------------------------
 
 We first download the dataset:
 
-.. GENERATED FROM PYTHON SOURCE LINES 22-27
+.. GENERATED FROM PYTHON SOURCE LINES 18-23
 
 .. code-block:: default
 
@@ -64,11 +61,11 @@ We first download the dataset:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 28-29
+.. GENERATED FROM PYTHON SOURCE LINES 24-25
 
 Then we load it:
 
-.. GENERATED FROM PYTHON SOURCE LINES 29-32
+.. GENERATED FROM PYTHON SOURCE LINES 25-28
 
 .. code-block:: default
 
@@ -82,11 +79,11 @@ Then we load it:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 33-34
+.. GENERATED FROM PYTHON SOURCE LINES 29-30
 
 Now, let's carry out some basic preprocessing:
 
-.. GENERATED FROM PYTHON SOURCE LINES 34-42
+.. GENERATED FROM PYTHON SOURCE LINES 30-38
 
 .. code-block:: default
 
@@ -105,14 +102,14 @@ Now, let's carry out some basic preprocessing:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 43-47
+.. GENERATED FROM PYTHON SOURCE LINES 39-43
 
 Choosing columns
 -----------------
 For categorical columns that are supposed to be clean, it is "safe" to
 use one hot encoding to transform them:
 
-.. GENERATED FROM PYTHON SOURCE LINES 47-54
+.. GENERATED FROM PYTHON SOURCE LINES 43-50
 
 .. code-block:: default
 
@@ -130,12 +127,12 @@ use one hot encoding to transform them:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 55-57
+.. GENERATED FROM PYTHON SOURCE LINES 51-53
 
 We then choose the categorical encoding methods we want to benchmark
 and the dirty categorical variable:
 
-.. GENERATED FROM PYTHON SOURCE LINES 57-61
+.. GENERATED FROM PYTHON SOURCE LINES 53-57
 
 .. code-block:: default
 
@@ -150,13 +147,13 @@ and the dirty categorical variable:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 65-68
+.. GENERATED FROM PYTHON SOURCE LINES 61-64
 
 Creating a learning pipeline
 ----------------------------
 The encoders for both clean and dirty data are first imported:
 
-.. GENERATED FROM PYTHON SOURCE LINES 68-108
+.. GENERATED FROM PYTHON SOURCE LINES 64-108
 
 .. code-block:: default
 
@@ -165,6 +162,11 @@ The encoders for both clean and dirty data are first imported:
     from sklearn.preprocessing import OneHotEncoder
     from dirty_cat import SimilarityEncoder, TargetEncoder, MinHashEncoder,\
         GapEncoder
+
+    # for scikit-learn 0.24 we need to require the experimental feature
+    from sklearn.experimental import enable_hist_gradient_boosting  # noqa
+    # now you can import normally from ensemble
+    from sklearn.ensemble import HistGradientBoostingRegressor
 
     encoders_dict = {
         'one-hot': OneHotEncoder(handle_unknown='ignore', sparse=False),
@@ -176,13 +178,13 @@ The encoders for both clean and dirty data are first imported:
 
     # We then create a function that takes one key of our ``encoders_dict``,
     # returns a pipeline object with the associated encoder,
-    # as well as a Scaler and a RidgeCV regressor:
+    # as well as a gradient-boosting regressor
 
     from sklearn.compose import ColumnTransformer
     from sklearn.pipeline import Pipeline
 
 
-    def make_pipeline(encoding_method):
+    def assemble_pipeline(encoding_method):
         # static transformers from the other columns
         transformers = [(enc + '_' + col, encoders_dict[enc], [col])
                         for col, enc in clean_columns.items()]
@@ -194,8 +196,7 @@ The encoders for both clean and dirty data are first imported:
             ('union', ColumnTransformer(
                 transformers=transformers,
                 remainder='drop')),
-            ('scaler', StandardScaler(with_mean=False)),
-            ('clf', RidgeCV())
+            ('clf', HistGradientBoostingRegressor())
         ])
         return pipeline
 
@@ -209,31 +210,28 @@ The encoders for both clean and dirty data are first imported:
 
 .. GENERATED FROM PYTHON SOURCE LINES 109-114
 
-Fitting each encoding methods with a RidgeCV
+Using each encoding for supervised learning
 --------------------------------------------
 Eventually, we loop over the different encoding methods,
 instantiate each time a new pipeline, fit it
 and store the returned cross-validation score:
 
-.. GENERATED FROM PYTHON SOURCE LINES 114-131
+.. GENERATED FROM PYTHON SOURCE LINES 114-128
 
 .. code-block:: default
 
-    from sklearn.preprocessing import StandardScaler
-    from sklearn.linear_model import RidgeCV
-    from sklearn.model_selection import KFold, cross_val_score
+
+    from sklearn.model_selection import cross_val_score
     import numpy as np
 
     all_scores = dict()
 
-    cv = KFold(n_splits=5, random_state=12, shuffle=True)
-    scoring = 'r2'
     for method in encoding_methods:
-        pipeline = make_pipeline(method)
-        scores = cross_val_score(pipeline, df, y, cv=cv, scoring=scoring)
+        pipeline = assemble_pipeline(method)
+        scores = cross_val_score(pipeline, df, y)
         print('{} encoding'.format(method))
-        print('{} score:  mean: {:.3f}; std: {:.3f}\n'.format(
-            scoring, np.mean(scores), np.std(scores)))
+        print('r2 score:  mean: {:.3f}; std: {:.3f}\n'.format(
+            np.mean(scores), np.std(scores)))
         all_scores[method] = scores
 
 
@@ -247,40 +245,31 @@ and store the returned cross-validation score:
  .. code-block:: none
 
     one-hot encoding
-    r2 score:  mean: 0.856; std: 0.034
+    r2 score:  mean: 0.776; std: 0.028
 
     target encoding
-    r2 score:  mean: 0.774; std: 0.033
+    r2 score:  mean: 0.842; std: 0.030
 
     similarity encoding
-    r2 score:  mean: 0.915; std: 0.012
+    r2 score:  mean: 0.923; std: 0.014
 
     minhash encoding
-    r2 score:  mean: 0.753; std: 0.025
+    r2 score:  mean: 0.919; std: 0.012
 
     gap encoding
-    r2 score:  mean: 0.836; std: 0.013
+    r2 score:  mean: 0.908; std: 0.016
 
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 132-144
+.. GENERATED FROM PYTHON SOURCE LINES 129-132
 
 Plotting the results
 --------------------
 Finally, we plot the scores on a boxplot:
-We notice that the MinHashEncoder does not performs as well compared to 
-other encoding methods.
-There are two reasons for that: the MinHashEncoder performs better
-with tree-based models than linear models (
-:ref:`see example 03<sphx_glr_auto_examples_03_fit_predict_plot_midwest_survey.py>`)
-, and also
-increasing `n_components` improves performances. `n_components` around 300 
-tend to lead to good prediction performance, but with more computational
-cost.
 
-.. GENERATED FROM PYTHON SOURCE LINES 144-156
+.. GENERATED FROM PYTHON SOURCE LINES 132-142
 
 .. code-block:: default
 
@@ -297,8 +286,6 @@ cost.
 
 
 
-
-
 .. image:: /auto_examples/images/sphx_glr_02_fit_predict_plot_employee_salaries_001.png
     :alt: 02 fit predict plot employee salaries
     :class: sphx-glr-single-img
@@ -307,10 +294,21 @@ cost.
 
 
 
+.. GENERATED FROM PYTHON SOURCE LINES 143-151
+
+The clear trend is that encoders that use the string form
+of the category (similarity, minhash, and gap) perform better than
+those that discard it.
+
+SimilarityEncoder is the best performer, but it is less scalable on big
+data than MinHashEncoder and GapEncoder. The most scalable encoder is
+the MinHashEncoder. GapEncoder, on the other hand, has the benefit that
+it provides interpretable features (see :ref:`sphx_glr_auto_examples_04_feature_interpretation_gap_encoder.py`)
+
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 5 minutes  40.616 seconds)
+   **Total running time of the script:** ( 2 minutes  15.065 seconds)
 
 
 .. _sphx_glr_download_auto_examples_02_fit_predict_plot_employee_salaries.py:
