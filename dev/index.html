@@ -10,7 +10,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://dirty-cat.github.io/stable/index.html" />
   <meta property="og:site_name" content="Dirty cat" />
-  <meta property="og:description" content="dirty_cat helps with machine-learning on non-curated categories. It provides encoders that are robust to morphological variants, such as typos, in the category strings. The SimilarityEncoder is a d..." />
+  <meta property="og:description" content="dirty_cat helps with machine-learning on non-curated categories. It provides encoders that are robust to morphological variants, such as typos, in the category strings. The SuperVectorizer is a hig..." />
   <meta property="og:image" content="_images/sphx_glr_01_investigating_dirty_categories_thumb.png" />
   <meta property="og:image:alt" content="Investigating dirty categories" />
   
@@ -101,16 +101,18 @@
 <p><cite>dirty_cat</cite> helps with machine-learning on
 non-curated categories. It provides <strong>encoders that are
 robust to morphological variants</strong>, such as typos, in the category strings.</p>
-<p>The <a class="reference internal" href="generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="dirty_cat.SimilarityEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimilarityEncoder</span></code></a> is a drop-in replacement for
-<a class="reference external" href="https://scikit-learn.org">scikit-learn</a>’s
-<a class="reference external" href="https://scikit-learn.org/0.20/modules/generated/sklearn.preprocessing.OneHotEncoder.html#sklearn.preprocessing.OneHotEncoder" title="(in scikit-learn v0.20.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">OneHotEncoder</span></code></a>.
-If speed and scalability are an issue, the <a class="reference internal" href="generated/dirty_cat.MinHashEncoder.html#dirty_cat.MinHashEncoder" title="dirty_cat.MinHashEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">MinHashEncoder</span></code></a> provides
-a fast encoding method.</p>
-<p>If interpretability is important,the <a class="reference internal" href="generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder" title="dirty_cat.GapEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">GapEncoder</span></code></a> is a good
-alternative, as it can be interpreted as one-hot encoding, where each encoding
-dimension corresponds to a topic that summarizes the substrings captured.</p>
-<p>The <a class="reference internal" href="generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SuperVectorizer</span></code></a> provides an interface for automatic pre-processing
-of datasets.</p>
+<p>The <a class="reference internal" href="generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SuperVectorizer</span></code></a> is a high-level transformer that can easily
+turn a heterogeneous data table, as a pandas dataframe, to a numerical
+array, suitable for machin learning.</p>
+<p><strong>Dirty category encoder</strong>: <a class="reference external" href="https://scikit-learn.org">scikit-learn</a>’s
+<a class="reference external" href="https://scikit-learn.org/0.20/modules/generated/sklearn.preprocessing.OneHotEncoder.html#sklearn.preprocessing.OneHotEncoder" title="(in scikit-learn v0.20.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">OneHotEncoder</span></code></a> can be replaced by:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder" title="dirty_cat.GapEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">GapEncoder</span></code></a>, scalable and interpretable, where each encoding
+dimension corresponds to a topic that summarizes substrings captured.</p></li>
+<li><p><a class="reference internal" href="generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="dirty_cat.SimilarityEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimilarityEncoder</span></code></a>, a simple modification of one-hot encoding
+to capture the strings.</p></li>
+<li><p><a class="reference internal" href="generated/dirty_cat.MinHashEncoder.html#dirty_cat.MinHashEncoder" title="dirty_cat.MinHashEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">MinHashEncoder</span></code></a>, very scalable</p></li>
+</ul>
 <p>For a detailed description of the problem of encoding dirty categorical data,
 see <a class="reference external" href="https://hal.inria.fr/hal-01806175">Similarity encoding for learning with dirty categorical variables</a> <a class="footnote-reference brackets" href="#id3" id="id1">1</a> and <a class="reference external" href="https://hal.inria.fr/hal-02171256v4">Encoding high-cardinality
 string categorical variables</a> <a class="footnote-reference brackets" href="#id4" id="id2">2</a>.</p>
