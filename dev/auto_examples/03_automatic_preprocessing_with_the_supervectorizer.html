@@ -99,16 +99,9 @@ the right transformers to apply to the different columns.</p>
 <p>We demonstrate it on the <cite>employee salaries</cite> dataset.</p>
 <section id="importing-the-data">
 <h2>Importing the data<a class="headerlink" href="#importing-the-data" title="Permalink to this headline">¶</a></h2>
-<p>Let’s fetch the dataset, and load X and y:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <a href="http://scikit-learn.org/0.20/modules/generated/sklearn.model_selection.train_test_split.html#sklearn.model_selection.train_test_split" title="sklearn.model_selection.train_test_split" class="sphx-glr-backref-module-sklearn-model_selection sphx-glr-backref-type-py-function"><span class="n">train_test_split</span></a>
-<span class="kn">from</span> <span class="nn">dirty_cat.datasets</span> <span class="kn">import</span> <a href="../generated/dirty_cat.datasets.fetch_employee_salaries.html#dirty_cat.datasets.fetch_employee_salaries" title="dirty_cat.datasets.fetch_employee_salaries" class="sphx-glr-backref-module-dirty_cat-datasets sphx-glr-backref-type-py-function"><span class="n">fetch_employee_salaries</span></a>
-
-<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.set_option.html#pandas.set_option" title="pandas.set_option" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-data"><span class="n">pd</span><span class="o">.</span><span class="n">set_option</span></a><span class="p">(</span><span class="s1">&#39;display.max_rows&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.set_option.html#pandas.set_option" title="pandas.set_option" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-data"><span class="n">pd</span><span class="o">.</span><span class="n">set_option</span></a><span class="p">(</span><span class="s1">&#39;display.max_columns&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.set_option.html#pandas.set_option" title="pandas.set_option" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-data"><span class="n">pd</span><span class="o">.</span><span class="n">set_option</span></a><span class="p">(</span><span class="s1">&#39;display.width&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.set_option.html#pandas.set_option" title="pandas.set_option" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-data"><span class="n">pd</span><span class="o">.</span><span class="n">set_option</span></a><span class="p">(</span><span class="s1">&#39;display.max_colwidth&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-
+<p>Let’s fetch the dataset, and load X (the employees’ features) and y
+(the salary to predict):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dirty_cat.datasets</span> <span class="kn">import</span> <a href="../generated/dirty_cat.datasets.fetch_employee_salaries.html#dirty_cat.datasets.fetch_employee_salaries" title="dirty_cat.datasets.fetch_employee_salaries" class="sphx-glr-backref-module-dirty_cat-datasets sphx-glr-backref-type-py-function"><span class="n">fetch_employee_salaries</span></a>
 <span class="n">employee_salaries</span> <span class="o">=</span> <a href="../generated/dirty_cat.datasets.fetch_employee_salaries.html#dirty_cat.datasets.fetch_employee_salaries" title="dirty_cat.datasets.fetch_employee_salaries" class="sphx-glr-backref-module-dirty_cat-datasets sphx-glr-backref-type-py-function"><span class="n">fetch_employee_salaries</span></a><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">employee_salaries</span><span class="p">[</span><span class="s1">&#39;DESCR&#39;</span><span class="p">])</span>
 </pre></div>
@@ -136,7 +129,7 @@ Downloaded from openml.org.
 </pre></div>
 </div>
 <p>The data are in a fairly complex and heterogeneous dataframe:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.head.html#pandas.DataFrame.head" title="pandas.DataFrame.head" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-method"><span class="n">X</span><span class="o">.</span><span class="n">head</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">n</span></a><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X</span></a>
 </pre></div>
 </div>
 <div class="output_subarea output_html rendered_html output_result">
@@ -174,7 +167,7 @@ Downloaded from openml.org.
       <td>F</td>
       <td>POL</td>
       <td>Department of Police</td>
-      <td>MSB Information Mgmt and Tech Division Records Management Section</td>
+      <td>MSB Information Mgmt and Tech Division Records...</td>
       <td>Fulltime-Regular</td>
       <td>Office Services Coordinator</td>
       <td>None</td>
@@ -225,117 +218,74 @@ Downloaded from openml.org.
       <td>2007.0</td>
     </tr>
     <tr>
-      <th>5</th>
-      <td>M</td>
-      <td>POL</td>
-      <td>Department of Police</td>
-      <td>PSB 6th District Special Assignment Team</td>
-      <td>Fulltime-Regular</td>
-      <td>Police Officer III</td>
-      <td>None</td>
-      <td>2007.0</td>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
     </tr>
     <tr>
-      <th>6</th>
-      <td>F</td>
-      <td>FRS</td>
-      <td>Fire and Rescue Services</td>
-      <td>EMS Billing</td>
-      <td>Fulltime-Regular</td>
-      <td>Accountant/Auditor II</td>
-      <td>None</td>
-      <td>2016.0</td>
-    </tr>
-    <tr>
-      <th>7</th>
-      <td>M</td>
-      <td>HHS</td>
-      <td>Department of Health and Human Services</td>
-      <td>Head Start</td>
-      <td>Fulltime-Regular</td>
-      <td>Administrative Specialist II</td>
-      <td>None</td>
-      <td>2014.0</td>
-    </tr>
-    <tr>
-      <th>8</th>
-      <td>M</td>
-      <td>FRS</td>
-      <td>Fire and Rescue Services</td>
-      <td>Recruit Training</td>
-      <td>Fulltime-Regular</td>
-      <td>Firefighter/Rescuer III</td>
-      <td>Firefighter/Rescuer I (Recruit)</td>
-      <td>2016.0</td>
-    </tr>
-    <tr>
-      <th>9</th>
-      <td>F</td>
-      <td>POL</td>
-      <td>Department of Police</td>
-      <td>FSB Traffic Division Automated Traffic Enforcement Section</td>
-      <td>Fulltime-Regular</td>
-      <td>Police Aide</td>
-      <td>None</td>
-      <td>2007.0</td>
-    </tr>
-    <tr>
-      <th>10</th>
-      <td>M</td>
-      <td>DGS</td>
-      <td>Department of General Services</td>
-      <td>Facilities Maintenance</td>
-      <td>Fulltime-Regular</td>
-      <td>Electrician I</td>
-      <td>None</td>
-      <td>2014.0</td>
-    </tr>
-    <tr>
-      <th>11</th>
-      <td>M</td>
-      <td>DOT</td>
-      <td>Department of Transportation</td>
-      <td>Transit Silver Spring Ride On</td>
-      <td>Fulltime-Regular</td>
-      <td>Bus Operator</td>
-      <td>None</td>
-      <td>2002.0</td>
-    </tr>
-    <tr>
-      <th>12</th>
+      <th>9223</th>
       <td>F</td>
       <td>HHS</td>
       <td>Department of Health and Human Services</td>
-      <td>STD and HIV Services</td>
-      <td>Parttime-Regular</td>
-      <td>Medical Doctor III - Physician</td>
-      <td>None</td>
-      <td>2003.0</td>
-    </tr>
-    <tr>
-      <th>13</th>
-      <td>M</td>
-      <td>DOT</td>
-      <td>Department of Transportation</td>
-      <td>Transit Nicholson Ride On</td>
+      <td>School Based Health Centers</td>
       <td>Fulltime-Regular</td>
-      <td>Bus Operator</td>
+      <td>Community Health Nurse II</td>
       <td>None</td>
-      <td>2008.0</td>
-    </tr>
-    <tr>
-      <th>14</th>
-      <td>M</td>
-      <td>DOT</td>
-      <td>Department of Transportation</td>
-      <td>Transportation Management</td>
-      <td>Fulltime-Regular</td>
-      <td>Traffic Management Technician II</td>
-      <td>Traffic Management Technician I</td>
       <td>2015.0</td>
+    </tr>
+    <tr>
+      <th>9224</th>
+      <td>F</td>
+      <td>FRS</td>
+      <td>Fire and Rescue Services</td>
+      <td>Human Resources Division</td>
+      <td>Fulltime-Regular</td>
+      <td>Fire/Rescue Division Chief</td>
+      <td>None</td>
+      <td>1988.0</td>
+    </tr>
+    <tr>
+      <th>9225</th>
+      <td>M</td>
+      <td>HHS</td>
+      <td>Department of Health and Human Services</td>
+      <td>Child and Adolescent Mental Health Clinic Serv...</td>
+      <td>Parttime-Regular</td>
+      <td>Medical Doctor IV - Psychiatrist</td>
+      <td>None</td>
+      <td>2001.0</td>
+    </tr>
+    <tr>
+      <th>9226</th>
+      <td>M</td>
+      <td>CCL</td>
+      <td>County Council</td>
+      <td>Council Central Staff</td>
+      <td>Fulltime-Regular</td>
+      <td>Manager II</td>
+      <td>None</td>
+      <td>2006.0</td>
+    </tr>
+    <tr>
+      <th>9227</th>
+      <td>M</td>
+      <td>DLC</td>
+      <td>Department of Liquor Control</td>
+      <td>Licensure, Regulation and Education</td>
+      <td>Fulltime-Regular</td>
+      <td>Alcohol/Tobacco Enforcement Specialist II</td>
+      <td>None</td>
+      <td>2012.0</td>
     </tr>
   </tbody>
 </table>
+<p>9228 rows × 8 columns</p>
 </div>
 </div>
 <br />
@@ -392,7 +342,8 @@ analyze its mechanisms along the way.</p>
 </pre></div>
 </div>
 <p>We split the data between train and test, and transform them:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_train</span></a><span class="p">,</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_test</span></a><span class="p">,</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_train</span></a><span class="p">,</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_test</span></a> <span class="o">=</span> <a href="http://scikit-learn.org/0.20/modules/generated/sklearn.model_selection.train_test_split.html#sklearn.model_selection.train_test_split" title="sklearn.model_selection.train_test_split" class="sphx-glr-backref-module-sklearn-model_selection sphx-glr-backref-type-py-function"><span class="n">train_test_split</span></a><span class="p">(</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <a href="http://scikit-learn.org/0.20/modules/generated/sklearn.model_selection.train_test_split.html#sklearn.model_selection.train_test_split" title="sklearn.model_selection.train_test_split" class="sphx-glr-backref-module-sklearn-model_selection sphx-glr-backref-type-py-function"><span class="n">train_test_split</span></a>
+<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_train</span></a><span class="p">,</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_test</span></a><span class="p">,</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_train</span></a><span class="p">,</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_test</span></a> <span class="o">=</span> <a href="http://scikit-learn.org/0.20/modules/generated/sklearn.model_selection.train_test_split.html#sklearn.model_selection.train_test_split" title="sklearn.model_selection.train_test_split" class="sphx-glr-backref-module-sklearn-model_selection sphx-glr-backref-type-py-function"><span class="n">train_test_split</span></a><span class="p">(</span>
     <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X</span></a><span class="p">,</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span>
 <span class="p">)</span>
 
@@ -404,7 +355,7 @@ analyze its mechanisms along the way.</p>
 <h3>Inspecting the features created<a class="headerlink" href="#inspecting-the-features-created" title="Permalink to this headline">¶</a></h3>
 <p>Once it has been trained on data,
 we can print the transformers and the columns assignment it creates:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sup_vec</span><span class="o">.</span><span class="n">transformers_</span></a><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sup_vec</span><span class="o">.</span><span class="n">transformers_</span></a>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
@@ -421,7 +372,7 @@ A <a class="reference external" href="https://scikit-learn.org/0.20/modules/gene
 (data type <code class="docutils literal notranslate"><span class="pre">category</span></code>).</p>
 <p>Next, we can have a look at the encoded feature names.</p>
 <p>Before encoding:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Index.to_list.html#pandas.Index.to_list" title="pandas.Index.to_list" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-method"><span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">to_list</span></a><span class="p">())</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Index.to_list.html#pandas.Index.to_list" title="pandas.Index.to_list" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-method"><span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">to_list</span></a><span class="p">()</span>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
@@ -430,7 +381,7 @@ A <a class="reference external" href="https://scikit-learn.org/0.20/modules/gene
 </div>
 <p>After encoding (we only plot the first 8 feature names):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">feature_names</span></a> <span class="o">=</span> <a href="http://scikit-learn.org/0.20/modules/generated/sklearn.compose.ColumnTransformer.html#sklearn.compose.ColumnTransformer.get_feature_names" title="sklearn.compose.ColumnTransformer.get_feature_names" class="sphx-glr-backref-module-sklearn-compose sphx-glr-backref-type-py-method"><span class="n">sup_vec</span><span class="o">.</span><span class="n">get_feature_names</span></a><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">feature_names</span></a><span class="p">[:</span><span class="mi">8</span><span class="p">])</span>
+<a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">feature_names</span></a><span class="p">[:</span><span class="mi">8</span><span class="p">]</span>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
@@ -442,7 +393,7 @@ This is because we used <a class="reference internal" href="../generated/dirty_c
 which was classified as a high cardinality string variable.
 (default values, see <cite>SuperVectorizer</cite>’s docstring).</p>
 <p>In total, we have 1212 encoded columns.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">feature_names</span></a><span class="p">))</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">feature_names</span></a><span class="p">)</span>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
@@ -498,7 +449,7 @@ instead (which are not less subject to biases)</p>
 <p>We can deduce from this data that the three factors that define the
 most the salary are: being a manager, being hired for a long time, and
 have a permanent, full-time job :).</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 7 minutes  8.216 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 7 minutes  25.267 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-03-automatic-preprocessing-with-the-supervectorizer-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/35852095a7762d0ababfbb29a3c19391/03_automatic_preprocessing_with_the_supervectorizer.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">03_automatic_preprocessing_with_the_supervectorizer.py</span></code></a></p>
