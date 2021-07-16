@@ -21,11 +21,14 @@
 Automatic pre-processing with the SuperVectorizer
 =================================================
 
-In this notebook, we introduce the `SuperVectorizer`, which automatically
+In this notebook, we introduce the |SV|, which automatically
 turns a heterogeneous dataset into a numerical representation, finding
 the right transformers to apply to the different columns.
 
 We demonstrate it on the `employee salaries` dataset.
+
+.. |SV| replace::
+    :class:`~dirty_cat.SuperVectorizer`
 
 .. |OneHotEncoder| replace::
     :class:`~sklearn.preprocessing.OneHotEncoder`
@@ -41,14 +44,14 @@ We demonstrate it on the `employee salaries` dataset.
 .. |permutation importances| replace::
     :func:`~sklearn.inspection.permutation_importance`
 
-.. GENERATED FROM PYTHON SOURCE LINES 28-32
+.. GENERATED FROM PYTHON SOURCE LINES 31-35
 
 Importing the data
 ------------------
 Let's fetch the dataset, and load X (the employees' features) and y
 (the salary to predict):
 
-.. GENERATED FROM PYTHON SOURCE LINES 32-36
+.. GENERATED FROM PYTHON SOURCE LINES 35-39
 
 .. code-block:: default
 
@@ -73,7 +76,7 @@ Let's fetch the dataset, and load X (the employees' features) and y
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 37-53
+.. GENERATED FROM PYTHON SOURCE LINES 40-56
 
 .. code-block:: default
 
@@ -100,11 +103,11 @@ Let's fetch the dataset, and load X (the employees' features) and y
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 54-55
+.. GENERATED FROM PYTHON SOURCE LINES 57-58
 
 The data are in a fairly complex and heterogeneous dataframe:
 
-.. GENERATED FROM PYTHON SOURCE LINES 55-57
+.. GENERATED FROM PYTHON SOURCE LINES 58-60
 
 .. code-block:: default
 
@@ -276,23 +279,23 @@ The data are in a fairly complex and heterogeneous dataframe:
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 58-60
+.. GENERATED FROM PYTHON SOURCE LINES 61-63
 
-The challenge is to turn this dataframe into a form well suited for
+The challenge is to turn this dataframe into a form suited for
 machine learning.
 
-.. GENERATED FROM PYTHON SOURCE LINES 62-70
+.. GENERATED FROM PYTHON SOURCE LINES 65-73
 
 Using the SuperVectorizer in a supervised-learning pipeline
 ------------------------------------------------------------
 
-Assembling the SuperVectorizer in a pipeline with a powerful learner,
+Assembling the |SV| in a pipeline with a powerful learner,
 such as gradient boosted trees, gives **a machine-learning method that
 can be readily applied to the dataframe**.
 
 It's the typical and recommended way of using it.
 
-.. GENERATED FROM PYTHON SOURCE LINES 70-85
+.. GENERATED FROM PYTHON SOURCE LINES 73-88
 
 .. code-block:: default
 
@@ -318,11 +321,11 @@ It's the typical and recommended way of using it.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 86-87
+.. GENERATED FROM PYTHON SOURCE LINES 89-90
 
 Let's perform a cross-validation to see how well this model predicts
 
-.. GENERATED FROM PYTHON SOURCE LINES 87-97
+.. GENERATED FROM PYTHON SOURCE LINES 90-100
 
 .. code-block:: default
 
@@ -353,14 +356,14 @@ Let's perform a cross-validation to see how well this model predicts
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 98-102
+.. GENERATED FROM PYTHON SOURCE LINES 101-105
 
 The prediction perform here is pretty much as good as in :ref:`example
 02<sphx_glr_auto_examples_02_fit_predict_plot_employee_salaries.py>`,
 but the code here is much simpler as it does not involve specifying
 columns manually.
 
-.. GENERATED FROM PYTHON SOURCE LINES 104-109
+.. GENERATED FROM PYTHON SOURCE LINES 107-112
 
 Analyzing the features created
 -------------------------------
@@ -368,7 +371,7 @@ Analyzing the features created
 Let us perform the same workflow, but without the `Pipeline`, so we can
 analyze its mechanisms along the way.
 
-.. GENERATED FROM PYTHON SOURCE LINES 109-111
+.. GENERATED FROM PYTHON SOURCE LINES 112-114
 
 .. code-block:: default
 
@@ -381,11 +384,11 @@ analyze its mechanisms along the way.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 112-113
+.. GENERATED FROM PYTHON SOURCE LINES 115-116
 
 We split the data between train and test, and transform them:
 
-.. GENERATED FROM PYTHON SOURCE LINES 113-121
+.. GENERATED FROM PYTHON SOURCE LINES 116-124
 
 .. code-block:: default
 
@@ -404,14 +407,14 @@ We split the data between train and test, and transform them:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 122-126
+.. GENERATED FROM PYTHON SOURCE LINES 125-129
 
 Inspecting the features created
 .................................
 Once it has been trained on data,
 we can print the transformers and the columns assignment it creates:
 
-.. GENERATED FROM PYTHON SOURCE LINES 126-129
+.. GENERATED FROM PYTHON SOURCE LINES 129-132
 
 .. code-block:: default
 
@@ -433,7 +436,7 @@ we can print the transformers and the columns assignment it creates:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 130-143
+.. GENERATED FROM PYTHON SOURCE LINES 133-146
 
 This is what is being passed to the |ColumnTransformer| under the hood.
 If you're familiar with how the later works, it should be very intuitive.
@@ -449,7 +452,7 @@ Next, we can have a look at the encoded feature names.
 
 Before encoding:
 
-.. GENERATED FROM PYTHON SOURCE LINES 143-145
+.. GENERATED FROM PYTHON SOURCE LINES 146-148
 
 .. code-block:: default
 
@@ -470,11 +473,11 @@ Before encoding:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 146-147
+.. GENERATED FROM PYTHON SOURCE LINES 149-150
 
 After encoding (we only plot the first 8 feature names):
 
-.. GENERATED FROM PYTHON SOURCE LINES 147-150
+.. GENERATED FROM PYTHON SOURCE LINES 150-153
 
 .. code-block:: default
 
@@ -496,16 +499,16 @@ After encoding (we only plot the first 8 feature names):
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 151-157
+.. GENERATED FROM PYTHON SOURCE LINES 154-160
 
 As we can see, it created a new column for each unique value.
 This is because we used |SE| on the column "division",
 which was classified as a high cardinality string variable.
-(default values, see `SuperVectorizer`'s docstring).
+(default values, see |SV|'s docstring).
 
 In total, we have 1212 encoded columns.
 
-.. GENERATED FROM PYTHON SOURCE LINES 157-160
+.. GENERATED FROM PYTHON SOURCE LINES 160-163
 
 .. code-block:: default
 
@@ -527,7 +530,7 @@ In total, we have 1212 encoded columns.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 161-171
+.. GENERATED FROM PYTHON SOURCE LINES 164-174
 
 Feature importance in the statistical model
 ............................................
@@ -536,11 +539,11 @@ In this section, we will train a regressor, and plot the feature importances
 
    To minimize compute time, use the feature importances computed by the
    |RandomForestRegressor|, but you should prefer |permutation importances|
-   instead (which are not less subject to biases)
+   instead (which are less subject to biases)
 
 First, let's train the |RandomForestRegressor|,
 
-.. GENERATED FROM PYTHON SOURCE LINES 171-177
+.. GENERATED FROM PYTHON SOURCE LINES 174-180
 
 .. code-block:: default
 
@@ -565,11 +568,11 @@ First, let's train the |RandomForestRegressor|,
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 178-179
+.. GENERATED FROM PYTHON SOURCE LINES 181-182
 
 Getting the feature importances
 
-.. GENERATED FROM PYTHON SOURCE LINES 179-189
+.. GENERATED FROM PYTHON SOURCE LINES 182-192
 
 .. code-block:: default
 
@@ -590,11 +593,11 @@ Getting the feature importances
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 190-191
+.. GENERATED FROM PYTHON SOURCE LINES 193-194
 
 Plotting the results:
 
-.. GENERATED FROM PYTHON SOURCE LINES 191-203
+.. GENERATED FROM PYTHON SOURCE LINES 194-206
 
 .. code-block:: default
 
@@ -621,7 +624,7 @@ Plotting the results:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 204-207
+.. GENERATED FROM PYTHON SOURCE LINES 207-210
 
 We can deduce from this data that the three factors that define the
 most the salary are: being a manager, being hired for a long time, and
@@ -630,7 +633,7 @@ have a permanent, full-time job :).
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 7 minutes  25.267 seconds)
+   **Total running time of the script:** ( 10 minutes  37.503 seconds)
 
 
 .. _sphx_glr_download_auto_examples_03_automatic_preprocessing_with_the_supervectorizer.py:

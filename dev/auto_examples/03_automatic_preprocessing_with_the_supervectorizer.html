@@ -93,7 +93,7 @@ to download the full example code</p>
 </div>
 <section class="sphx-glr-example-title" id="automatic-pre-processing-with-the-supervectorizer">
 <span id="sphx-glr-auto-examples-03-automatic-preprocessing-with-the-supervectorizer-py"></span><h1>Automatic pre-processing with the SuperVectorizer<a class="headerlink" href="#automatic-pre-processing-with-the-supervectorizer" title="Permalink to this headline">¶</a></h1>
-<p>In this notebook, we introduce the <cite>SuperVectorizer</cite>, which automatically
+<p>In this notebook, we introduce the <a class="reference internal" href="../generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SuperVectorizer</span></code></a>, which automatically
 turns a heterogeneous dataset into a numerical representation, finding
 the right transformers to apply to the different columns.</p>
 <p>We demonstrate it on the <cite>employee salaries</cite> dataset.</p>
@@ -289,12 +289,12 @@ Downloaded from openml.org.
 </div>
 </div>
 <br />
-<br /><p>The challenge is to turn this dataframe into a form well suited for
+<br /><p>The challenge is to turn this dataframe into a form suited for
 machine learning.</p>
 </section>
 <section id="using-the-supervectorizer-in-a-supervised-learning-pipeline">
 <h2>Using the SuperVectorizer in a supervised-learning pipeline<a class="headerlink" href="#using-the-supervectorizer-in-a-supervised-learning-pipeline" title="Permalink to this headline">¶</a></h2>
-<p>Assembling the SuperVectorizer in a pipeline with a powerful learner,
+<p>Assembling the <a class="reference internal" href="../generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SuperVectorizer</span></code></a> in a pipeline with a powerful learner,
 such as gradient boosted trees, gives <strong>a machine-learning method that
 can be readily applied to the dataframe</strong>.</p>
 <p>It’s the typical and recommended way of using it.</p>
@@ -391,7 +391,7 @@ A <a class="reference external" href="https://scikit-learn.org/0.20/modules/gene
 <p>As we can see, it created a new column for each unique value.
 This is because we used <a class="reference internal" href="../generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="dirty_cat.SimilarityEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimilarityEncoder</span></code></a> on the column “division”,
 which was classified as a high cardinality string variable.
-(default values, see <cite>SuperVectorizer</cite>’s docstring).</p>
+(default values, see <a class="reference internal" href="../generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SuperVectorizer</span></code></a>’s docstring).</p>
 <p>In total, we have 1212 encoded columns.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">feature_names</span></a><span class="p">)</span>
 </pre></div>
@@ -408,7 +408,7 @@ which was classified as a high cardinality string variable.
 <blockquote>
 <div><p>To minimize compute time, use the feature importances computed by the
 <a class="reference external" href="https://scikit-learn.org/0.20/modules/generated/sklearn.ensemble.RandomForestRegressor.html#sklearn.ensemble.RandomForestRegressor" title="(in scikit-learn v0.20.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">RandomForestRegressor</span></code></a>, but you should prefer <code class="xref py py-func docutils literal notranslate"><span class="pre">permutation_importance()</span></code>
-instead (which are not less subject to biases)</p>
+instead (which are less subject to biases)</p>
 </div></blockquote>
 <p>First, let’s train the <a class="reference external" href="https://scikit-learn.org/0.20/modules/generated/sklearn.ensemble.RandomForestRegressor.html#sklearn.ensemble.RandomForestRegressor" title="(in scikit-learn v0.20.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">RandomForestRegressor</span></code></a>,</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <a href="http://scikit-learn.org/0.20/modules/generated/sklearn.ensemble.RandomForestRegressor.html#sklearn.ensemble.RandomForestRegressor" title="sklearn.ensemble.RandomForestRegressor" class="sphx-glr-backref-module-sklearn-ensemble sphx-glr-backref-type-py-class"><span class="n">RandomForestRegressor</span></a>
@@ -449,7 +449,7 @@ instead (which are not less subject to biases)</p>
 <p>We can deduce from this data that the three factors that define the
 most the salary are: being a manager, being hired for a long time, and
 have a permanent, full-time job :).</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 7 minutes  25.267 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 10 minutes  37.503 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-03-automatic-preprocessing-with-the-supervectorizer-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/35852095a7762d0ababfbb29a3c19391/03_automatic_preprocessing_with_the_supervectorizer.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">03_automatic_preprocessing_with_the_supervectorizer.py</span></code></a></p>
