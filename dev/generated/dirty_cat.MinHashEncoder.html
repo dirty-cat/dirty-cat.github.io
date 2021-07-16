@@ -10,7 +10,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://dirty-cat.github.io/stable/generated/dirty_cat.MinHashEncoder.html" />
   <meta property="og:site_name" content="Dirty cat" />
-  <meta property="og:description" content="Examples using dirty_cat.MinHashEncoder: Comparing encoders of a dirty categorical columns Comparing encoders of a dirty categorical columns," />
+  <meta property="og:description" content="Usage examples at the bottom of this page. Examples using dirty_cat.MinHashEncoder: Comparing encoders of a dirty categorical columns Comparing encoders of a dirty categorical columns," />
   <meta property="og:image" content="../_images/sphx_glr_02_fit_predict_plot_employee_salaries_thumb.png" />
   <meta property="og:image:alt" content="Comparing encoders of a dirty categorical columns" />
   
@@ -88,6 +88,7 @@
             
   <section id="dirty-cat-minhashencoder">
 <h1><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat</span></code>.MinHashEncoder<a class="headerlink" href="#dirty-cat-minhashencoder" title="Permalink to this headline">¶</a></h1>
+<p class="side-comment">Usage examples at the bottom of this page.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="dirty_cat.MinHashEncoder">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">dirty_cat.</span></span><span class="sig-name descname"><span class="pre">MinHashEncoder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_components</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">30</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ngram_range</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(2,</span> <span class="pre">4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hashing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'fast'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minmax_hash</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">handle_missing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/minhash_encoder.html#MinHashEncoder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.MinHashEncoder" title="Permalink to this definition">¶</a></dt>
@@ -117,9 +118,157 @@ will be all zeros.</p></li>
 <p>For a detailed description of the method, see
 <a class="reference external" href="https://hal.inria.fr/hal-02171256v4">Encoding high-cardinality string categorical variables</a> by Cerda, Varoquaux (2019).</p>
 <dl class="py method">
-<dt class="sig sig-object py" id="dirty_cat.MinHashEncoder.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_components</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">30</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ngram_range</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(2,</span> <span class="pre">4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hashing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'fast'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minmax_hash</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">handle_missing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/minhash_encoder.html#MinHashEncoder.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.MinHashEncoder.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+<dt class="sig sig-object py" id="dirty_cat.MinHashEncoder.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/minhash_encoder.html#MinHashEncoder.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.MinHashEncoder.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fit the MinHashEncoder to X. In practice, just initializes a dictionary
+to store encodings to speed up computation.
+:param X: The string data to encode.
+:type X: array-like, shape (n_samples, ) or (n_samples, 1)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The fitted MinHashEncoder instance.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>self</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dirty_cat.MinHashEncoder.fit_transform">
+<span class="sig-name descname"><span class="pre">fit_transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">fit_params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dirty_cat.MinHashEncoder.fit_transform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fit to data, then transform it.</p>
+<p>Fits transformer to <cite>X</cite> and <cite>y</cite> with optional parameters <cite>fit_params</cite>
+and returns a transformed version of <cite>X</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>array-like of shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Input samples.</p></li>
+<li><p><strong>y</strong> (<em>array-like of shape</em><em> (</em><em>n_samples</em><em>,</em><em>) or </em><em>(</em><em>n_samples</em><em>, </em><em>n_outputs</em><em>)</em><em>,                 </em><em>default=None</em>) – Target values (None for unsupervised transformations).</p></li>
+<li><p><strong>**fit_params</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – Additional fit parameters.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>X_new</strong> – Transformed array.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>ndarray array of shape (n_samples, n_features_new)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dirty_cat.MinHashEncoder.get_fast_hash">
+<span class="sig-name descname"><span class="pre">get_fast_hash</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/minhash_encoder.html#MinHashEncoder.get_fast_hash"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.MinHashEncoder.get_fast_hash" title="Permalink to this definition">¶</a></dt>
+<dd><p>Encode a string with fast hashing function.
+fast hashing supports both min_hash and minmax_hash encoding.
+:param string: The string to encode.
+:type string: str</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The encoded string, using specified encoding scheme.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>array, shape (n_components, )</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dirty_cat.MinHashEncoder.get_params">
+<span class="sig-name descname"><span class="pre">get_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">deep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dirty_cat.MinHashEncoder.get_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get parameters for this estimator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>deep</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a><em>, </em><em>default=True</em>) – If True, will return the parameters for this estimator and
+contained subobjects that are estimators.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>params</strong> – Parameter names mapped to their values.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dirty_cat.MinHashEncoder.get_unique_ngrams">
+<span class="sig-name descname"><span class="pre">get_unique_ngrams</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ngram_range</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/minhash_encoder.html#MinHashEncoder.get_unique_ngrams"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.MinHashEncoder.get_unique_ngrams" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the set of unique n-grams of a string.
+:param string: The string to split in n-grams.
+:type string: str
+:param ngram_range:
+:type ngram_range: tuple (min_n, max_n)
+:param The lower and upper boundary of the range of n-values for different:
+:param n-grams to be extracted. All values of n such that min_n &lt;= n &lt;= max_n.:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The set of unique n-grams of the string.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#set" title="(in Python v3.9)">set</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dirty_cat.MinHashEncoder.minhash">
+<span class="sig-name descname"><span class="pre">minhash</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_components</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ngram_range</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/minhash_encoder.html#MinHashEncoder.minhash"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.MinHashEncoder.minhash" title="Permalink to this definition">¶</a></dt>
+<dd><p>Encode a string using murmur hashing function.
+:param string: The string to encode.
+:type string: str
+:param n_components: The number of dimension of encoded string.
+:type n_components: int
+:param ngram_range:
+:type ngram_range: tuple (min_n, max_n)
+:param The lower and upper boundary of the range of n-values for different:
+:param n-grams to be extracted. All values of n such that min_n &lt;= n &lt;= max_n.:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The encoded string.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>array, shape (n_components, )</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dirty_cat.MinHashEncoder.set_params">
+<span class="sig-name descname"><span class="pre">set_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dirty_cat.MinHashEncoder.set_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the parameters of this estimator.</p>
+<p>The method works on simple estimators as well as on nested objects
+(such as <a class="reference external" href="https://scikit-learn.org/0.20/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="(in scikit-learn v0.20.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a>). The latter have
+parameters of the form <code class="docutils literal notranslate"><span class="pre">&lt;component&gt;__&lt;parameter&gt;</span></code> so that it’s
+possible to update each component of a nested object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>**params</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – Estimator parameters.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>self</strong> – Estimator instance.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>estimator instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dirty_cat.MinHashEncoder.transform">
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/minhash_encoder.html#MinHashEncoder.transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.MinHashEncoder.transform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transform X using specified encoding scheme.
+:param X: The string data to encode.
+:type X: array-like, shape (n_samples, ) or (n_samples, 1)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Transformed input.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>array, shape (n_samples, n_components)</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>

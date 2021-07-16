@@ -210,7 +210,7 @@
 <span class="sd">    &lt;https://hal.inria.fr/hal-02171256v4&gt;`_ by Cerda, Varoquaux (2019).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="GapEncoder.__init__"><a class="viewcode-back" href="../../generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_components</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">gamma_shape_prior</span><span class="o">=</span><span class="mf">1.1</span><span class="p">,</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_components</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">gamma_shape_prior</span><span class="o">=</span><span class="mf">1.1</span><span class="p">,</span>
                  <span class="n">gamma_scale_prior</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">rho</span><span class="o">=</span><span class="mf">.95</span><span class="p">,</span> <span class="n">rescale_rho</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                  <span class="n">hashing</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">hashing_n_features</span><span class="o">=</span><span class="mi">2</span><span class="o">**</span><span class="mi">12</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="s1">&#39;k-means++&#39;</span><span class="p">,</span>
                  <span class="n">tol</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">,</span> <span class="n">min_iter</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">ngram_range</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
@@ -235,7 +235,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">add_words</span> <span class="o">=</span> <span class="n">add_words</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">random_state</span> <span class="o">=</span> <span class="n">check_random_state</span><span class="p">(</span><span class="n">random_state</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rescale_W</span> <span class="o">=</span> <span class="n">rescale_W</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">max_iter_e_step</span> <span class="o">=</span> <span class="n">max_iter_e_step</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_iter_e_step</span> <span class="o">=</span> <span class="n">max_iter_e_step</span>
 
     <span class="k">def</span> <span class="nf">_init_vars</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -355,7 +355,7 @@
         <span class="n">B</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">W</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span>
 
-    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="GapEncoder.fit"><a class="viewcode-back" href="../../generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Fit the GapEncoder on batches of X.</span>
 
@@ -411,9 +411,9 @@
 
         <span class="c1"># Update self.H_dict_ with the learned encoded vectors (activations)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">H_dict_</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">unq_X</span><span class="p">,</span> <span class="n">unq_H</span><span class="p">))</span>
-        <span class="k">return</span> <span class="bp">self</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
 
-    <span class="k">def</span> <span class="nf">get_feature_names</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_labels</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+<div class="viewcode-block" id="GapEncoder.get_feature_names"><a class="viewcode-back" href="../../generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder.get_feature_names">[docs]</a>    <span class="k">def</span> <span class="nf">get_feature_names</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_labels</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
         
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the labels that best summarize the learned components/topics.</span>
@@ -446,9 +446,9 @@
             <span class="n">labels</span> <span class="o">=</span> <span class="n">vocabulary</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">)[:</span><span class="n">n_labels</span><span class="p">]]</span>
             <span class="n">topic_labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
         <span class="n">topic_labels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">label</span><span class="p">)</span> <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">topic_labels</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">topic_labels</span>
+        <span class="k">return</span> <span class="n">topic_labels</span></div>
 
-    <span class="k">def</span> <span class="nf">score</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+<div class="viewcode-block" id="GapEncoder.score"><a class="viewcode-back" href="../../generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder.score">[docs]</a>    <span class="k">def</span> <span class="nf">score</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the Kullback-Leibler divergence between the n-grams counts</span>
 <span class="sd">        matrix V of X, and its non-negative factorization HW.</span>
@@ -485,9 +485,9 @@
         <span class="n">kl_divergence</span> <span class="o">=</span> <span class="n">_beta_divergence</span><span class="p">(</span>
             <span class="n">unq_V</span><span class="p">[</span><span class="n">lookup</span><span class="p">],</span> <span class="n">unq_H</span><span class="p">[</span><span class="n">lookup</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">W_</span><span class="p">,</span>
             <span class="s1">&#39;kullback-leibler&#39;</span><span class="p">,</span> <span class="n">square_root</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">kl_divergence</span>
+        <span class="k">return</span> <span class="n">kl_divergence</span></div>
 
-    <span class="k">def</span> <span class="nf">partial_fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="GapEncoder.partial_fit"><a class="viewcode-back" href="../../generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder.partial_fit">[docs]</a>    <span class="k">def</span> <span class="nf">partial_fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Partial fit of the GapEncoder on X.</span>
@@ -554,7 +554,7 @@
             <span class="n">unq_H</span><span class="p">[</span><span class="n">lookup</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">rescale_W</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rho_</span><span class="p">)</span>
         <span class="c1"># Update self.H_dict_ with the learned encoded vectors (activations)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">H_dict_</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">unq_X</span><span class="p">,</span> <span class="n">unq_H</span><span class="p">))</span>
-        <span class="k">return</span> <span class="bp">self</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
 
     <span class="k">def</span> <span class="nf">_add_unseen_keys_to_H_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -571,7 +571,7 @@
                 <span class="n">unseen_V</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">unseen_V</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_components</span><span class="p">)))</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">H_dict_</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">unseen_X</span><span class="p">,</span> <span class="n">unseen_H</span><span class="p">))</span>
 
-    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+<div class="viewcode-block" id="GapEncoder.transform"><a class="viewcode-back" href="../../generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder.transform">[docs]</a>    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return the encoded vectors (activations) H of input strings in X.</span>
 <span class="sd">        Given the learnt topics W, the activations H are tuned to fit V = HW.</span>
@@ -615,7 +615,7 @@
                 <span class="n">gamma_scale_prior</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">gamma_scale_prior</span><span class="p">)</span>
         <span class="c1"># Store and return the encoded vectors of X</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">H_dict_</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">unq_X</span><span class="p">,</span> <span class="n">unq_H</span><span class="p">))</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_H</span><span class="p">(</span><span class="n">X</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_H</span><span class="p">(</span><span class="n">X</span><span class="p">)</span></div></div>
 
 
 <span class="k">def</span> <span class="nf">_rescale_W</span><span class="p">(</span><span class="n">W</span><span class="p">,</span> <span class="n">A</span><span class="p">):</span>

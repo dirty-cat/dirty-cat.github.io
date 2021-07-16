@@ -142,7 +142,7 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="MinHashEncoder.__init__"><a class="viewcode-back" href="../../generated/dirty_cat.MinHashEncoder.html#dirty_cat.MinHashEncoder.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_components</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">ngram_range</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_components</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">ngram_range</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
                  <span class="n">hashing</span><span class="o">=</span><span class="s1">&#39;fast&#39;</span><span class="p">,</span> <span class="n">minmax_hash</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                  <span class="n">handle_missing</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ngram_range</span> <span class="o">=</span> <span class="n">ngram_range</span>
@@ -151,9 +151,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">minmax_hash</span> <span class="o">=</span> <span class="n">minmax_hash</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">handle_missing</span> <span class="o">=</span> <span class="n">handle_missing</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_capacity</span> <span class="o">=</span> <span class="mi">2</span><span class="o">**</span><span class="mi">10</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_capacity</span> <span class="o">=</span> <span class="mi">2</span><span class="o">**</span><span class="mi">10</span>
 
-    <span class="k">def</span> <span class="nf">get_unique_ngrams</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">string</span><span class="p">,</span> <span class="n">ngram_range</span><span class="p">):</span>
+<div class="viewcode-block" id="MinHashEncoder.get_unique_ngrams"><a class="viewcode-back" href="../../generated/dirty_cat.MinHashEncoder.html#dirty_cat.MinHashEncoder.get_unique_ngrams">[docs]</a>    <span class="k">def</span> <span class="nf">get_unique_ngrams</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">string</span><span class="p">,</span> <span class="n">ngram_range</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Return the set of unique n-grams of a string.</span>
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -173,9 +173,9 @@
         <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ngram_range</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ngram_range</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
             <span class="n">string_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">string</span><span class="p">[</span><span class="n">i</span><span class="p">:]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
             <span class="n">ngram_set</span> <span class="o">|=</span> <span class="nb">set</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">string_list</span><span class="p">))</span>
-        <span class="k">return</span> <span class="n">ngram_set</span>
+        <span class="k">return</span> <span class="n">ngram_set</span></div>
 
-    <span class="k">def</span> <span class="nf">minhash</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">string</span><span class="p">,</span> <span class="n">n_components</span><span class="p">,</span> <span class="n">ngram_range</span><span class="p">):</span>
+<div class="viewcode-block" id="MinHashEncoder.minhash"><a class="viewcode-back" href="../../generated/dirty_cat.MinHashEncoder.html#dirty_cat.MinHashEncoder.minhash">[docs]</a>    <span class="k">def</span> <span class="nf">minhash</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">string</span><span class="p">,</span> <span class="n">n_components</span><span class="p">,</span> <span class="n">ngram_range</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Encode a string using murmur hashing function.</span>
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -200,9 +200,9 @@
                 <span class="n">murmurhash3_32</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">gram</span><span class="p">),</span> <span class="n">seed</span><span class="o">=</span><span class="n">d</span><span class="p">,</span> <span class="n">positive</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
                 <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_components</span><span class="p">)])</span>
             <span class="n">min_hashes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span><span class="n">min_hashes</span><span class="p">,</span> <span class="n">hash_array</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">min_hashes</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="mi">32</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">min_hashes</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="mi">32</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">get_fast_hash</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">string</span><span class="p">):</span>
+<div class="viewcode-block" id="MinHashEncoder.get_fast_hash"><a class="viewcode-back" href="../../generated/dirty_cat.MinHashEncoder.html#dirty_cat.MinHashEncoder.get_fast_hash">[docs]</a>    <span class="k">def</span> <span class="nf">get_fast_hash</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">string</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Encode a string with fast hashing function.</span>
 <span class="sd">        fast hashing supports both min_hash and minmax_hash encoding.</span>
@@ -221,9 +221,9 @@
                                    <span class="k">for</span> <span class="n">seed</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_components</span><span class="o">//</span><span class="mi">2</span><span class="p">)])</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">ngram_min_hash</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ngram_range</span><span class="p">,</span> <span class="n">seed</span><span class="p">)</span>
-                            <span class="k">for</span> <span class="n">seed</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_components</span><span class="p">)])</span>
+                            <span class="k">for</span> <span class="n">seed</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_components</span><span class="p">)])</span></div>
 
-    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="MinHashEncoder.fit"><a class="viewcode-back" href="../../generated/dirty_cat.MinHashEncoder.html#dirty_cat.MinHashEncoder.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Fit the MinHashEncoder to X. In practice, just initializes a dictionary</span>
 <span class="sd">        to store encodings to speed up computation.</span>
@@ -238,9 +238,9 @@
 <span class="sd">            The fitted MinHashEncoder instance.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">hash_dict</span> <span class="o">=</span> <span class="n">LRUDict</span><span class="p">(</span><span class="n">capacity</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_capacity</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
 
-    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+<div class="viewcode-block" id="MinHashEncoder.transform"><a class="viewcode-back" href="../../generated/dirty_cat.MinHashEncoder.html#dirty_cat.MinHashEncoder.transform">[docs]</a>    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Transform X using specified encoding scheme.</span>
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -305,7 +305,7 @@
                    <span class="s2">&quot;handle_missing=&#39;&#39; to encode with missing values&quot;</span><span class="p">)</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">X_out</span></div>
+        <span class="k">return</span> <span class="n">X_out</span></div></div>
 </pre></div>
 
           </div>

@@ -10,7 +10,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://dirty-cat.github.io/stable/generated/dirty_cat.SuperVectorizer.html" />
   <meta property="og:site_name" content="Dirty cat" />
-  <meta property="og:description" content="Examples using dirty_cat.SuperVectorizer: Automatic pre-processing with the SuperVectorizer Automatic pre-processing with the SuperVectorizer," />
+  <meta property="og:description" content="Usage examples at the bottom of this page. Examples using dirty_cat.SuperVectorizer: Automatic pre-processing with the SuperVectorizer Automatic pre-processing with the SuperVectorizer," />
   <meta property="og:image" content="../_images/sphx_glr_03_automatic_preprocessing_with_the_supervectorizer_thumb.png" />
   <meta property="og:image:alt" content="Automatic pre-processing with the SuperVectorizer" />
   
@@ -88,6 +88,7 @@
             
   <section id="dirty-cat-supervectorizer">
 <h1><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat</span></code>.SuperVectorizer<a class="headerlink" href="#dirty-cat-supervectorizer" title="Permalink to this headline">¶</a></h1>
+<p class="side-comment">Usage examples at the bottom of this page.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="dirty_cat.SuperVectorizer">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">dirty_cat.</span></span><span class="sig-name descname"><span class="pre">SuperVectorizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cardinality_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">low_card_str_transformer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">OneHotEncoder()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">high_card_str_transformer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">SimilarityEncoder()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">low_card_cat_transformer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">OneHotEncoder()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">high_card_cat_transformer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">SimilarityEncoder()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numerical_transformer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">datetime_transformer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto_cast</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">handle_missing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remainder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'passthrough'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_jobs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transformer_weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/super_vectorizer.html#SuperVectorizer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.SuperVectorizer" title="Permalink to this definition">¶</a></dt>
@@ -169,9 +170,134 @@ or “passthrough” or “drop”
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="dirty_cat.SuperVectorizer.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cardinality_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">low_card_str_transformer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">OneHotEncoder()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">high_card_str_transformer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">SimilarityEncoder()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">low_card_cat_transformer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">OneHotEncoder()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">high_card_cat_transformer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">SimilarityEncoder()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numerical_transformer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">datetime_transformer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto_cast</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">handle_missing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remainder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'passthrough'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_jobs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transformer_weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/super_vectorizer.html#SuperVectorizer.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.SuperVectorizer.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+<dt class="sig sig-object py" id="dirty_cat.SuperVectorizer.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dirty_cat.SuperVectorizer.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fit all transformers using X.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>{array-like</em><em>, </em><em>dataframe} of shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Input data, of which specified subsets are used to fit the
+transformers.</p></li>
+<li><p><strong>y</strong> (<em>array-like of shape</em><em> (</em><em>n_samples</em><em>,</em><em>...</em><em>)</em><em>, </em><em>default=None</em>) – Targets for supervised learning.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>self</strong> – This estimator</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>ColumnTransformer</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dirty_cat.SuperVectorizer.fit_transform">
+<span class="sig-name descname"><span class="pre">fit_transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/super_vectorizer.html#SuperVectorizer.fit_transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.SuperVectorizer.fit_transform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fit all transformers, transform the data, and concatenate results.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>{array-like</em><em>, </em><em>dataframe} of shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Input data, of which specified subsets are used to fit the
+transformers.</p></li>
+<li><p><strong>y</strong> (<em>array-like of shape</em><em> (</em><em>n_samples</em><em>,</em><em>)</em><em>, </em><em>default=None</em>) – Targets for supervised learning.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>X_t</strong> – hstack of results of transformers. sum_n_components is the
+sum of n_components (output dimension) over transformers. If
+any result is a sparse matrix, everything will be converted to
+sparse matrices.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>{array-like, sparse matrix} of                 shape (n_samples, sum_n_components)</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#RuntimeError" title="(in Python v3.9)"><strong>RuntimeError</strong></a> – If no transformers could be constructed,
+    usually because transformers passed do not match any column.
+    To fix the issue, try passing the least amount of None as encoders.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dirty_cat.SuperVectorizer.get_feature_names">
+<span class="sig-name descname"><span class="pre">get_feature_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/super_vectorizer.html#SuperVectorizer.get_feature_names"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.SuperVectorizer.get_feature_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns clean feature names with format
+“&lt;column_name&gt;_&lt;value&gt;” if encoded by OneHotEncoder or alike,
+e.g. “job_title_Police officer”,
+or “&lt;column_name&gt;” if not encoded.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dirty_cat.SuperVectorizer.get_params">
+<span class="sig-name descname"><span class="pre">get_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">deep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dirty_cat.SuperVectorizer.get_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get parameters for this estimator.</p>
+<p>Returns the parameters given in the constructor as well as the
+estimators contained within the <cite>transformers</cite> of the
+<cite>ColumnTransformer</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>deep</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a><em>, </em><em>default=True</em>) – If True, will return the parameters for this estimator and
+contained subobjects that are estimators.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>params</strong> – Parameter names mapped to their values.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="dirty_cat.SuperVectorizer.named_transformers_">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">named_transformers_</span></span><a class="headerlink" href="#dirty_cat.SuperVectorizer.named_transformers_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Access the fitted transformer by name.</p>
+<p>Read-only attribute to access any transformer by given name.
+Keys are transformer names and values are the fitted transformer
+objects.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dirty_cat.SuperVectorizer.set_params">
+<span class="sig-name descname"><span class="pre">set_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dirty_cat.SuperVectorizer.set_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the parameters of this estimator.</p>
+<p>Valid parameter keys can be listed with <code class="docutils literal notranslate"><span class="pre">get_params()</span></code>. Note that you
+can directly set the parameters of the estimators contained in
+<cite>transformers</cite> of <cite>ColumnTransformer</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>self</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dirty_cat.SuperVectorizer.steps">
+<span class="sig-name descname"><span class="pre">steps</span></span><em class="property"><span class="pre">:</span> <span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#dirty_cat.SuperVectorizer.steps" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dirty_cat.SuperVectorizer.transform">
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dirty_cat.SuperVectorizer.transform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transform X separately by each transformer, concatenate results.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>X</strong> (<em>{array-like</em><em>, </em><em>dataframe} of shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – The data to be transformed by subset.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>X_t</strong> – hstack of results of transformers. sum_n_components is the
+sum of n_components (output dimension) over transformers. If
+any result is a sparse matrix, everything will be converted to
+sparse matrices.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>{array-like, sparse matrix} of                 shape (n_samples, sum_n_components)</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>

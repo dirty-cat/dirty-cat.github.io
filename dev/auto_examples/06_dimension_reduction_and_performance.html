@@ -185,8 +185,8 @@ NEGLIGENT DRIVING VEHICLE IN CARELESS AND IMPRUDENT MANNER ENDANGERING PROPERTY,
 RECKLESS DRIVING VEHICLE IN WANTON AND WILLFUL DISREGARD FOR SAFETY OF PERSONS AND PROPERTY          106
 DRIVING VEHICLE WHILE UNDER THE INFLUENCE OF ALCOHOL PER SE                                          103
 DRIVER FAILURE TO OBEY PROPERLY PLACED TRAFFIC CONTROL DEVICE INSTRUCTIONS                            80
-PERSON DRIVING MOTOR VEHICLE ON HIGHWAY OR PUBLIC USE PROPERTY ON SUSPENDED LICENSE AND PRIVILEGE     48
 FAILURE OF INDIVIDUAL DRIVING ON HIGHWAY TO DISPLAY LICENSE TO UNIFORMED POLICE ON DEMAND             48
+PERSON DRIVING MOTOR VEHICLE ON HIGHWAY OR PUBLIC USE PROPERTY ON SUSPENDED LICENSE AND PRIVILEGE     48
 FAILURE TO DRIVE VEHICLE ON RIGHT HALF OF ROADWAY WHEN REQUIRED                                       42
 DRIVER CHANGING LANES WHEN UNSAFE                                                                     41
 DRIVING MOTOR VEHICLE ON HIGHWAY WITHOUT REQUIRED LICENSE AND AUTHORIZATION                           40
@@ -196,9 +196,9 @@ DRIVING WHILE LIC. SUSP. UNDER 16-203, 16-206A2 FAIL TO ATTEND DIP, 17-106, 26-2
 DRIVING VEH. WHILE IMPAIRED BY A CONTROLLED DANGEROUS SUBSTANCE                                       23
 DRIVING VEHICLE IN EXCESS OF REASONABLE AND PRUDENT SPEED ON HIGHWAY                                  21
 DRIVER FAILURE TO STOP AT STOP SIGN LINE                                                              20
-OPERATING UNREGISTERED MOTOR VEHICLE ON HIGHWAY                                                       15
 DRIVING TO DRIVE MOTOR VEHICLE ON HIGHWAY WITHOUT REQUIRED LICENSE AND AUTHORIZATION                  15
 PERSON DRIVING MOTOR VEHICLE ON HIGHWAY OR PUBLIC USE PROPERTY ON REVOKED LICENSE AND PRIVILEGE       15
+OPERATING UNREGISTERED MOTOR VEHICLE ON HIGHWAY                                                       15
 Name: Description, dtype: int64
 </pre></div>
 </div>
@@ -242,7 +242,7 @@ one-hot encoding and similarity encoding</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Time to vectorize: 0.5134572982788086
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Time to vectorize: 0.22475647926330566
 </pre></div>
 </div>
 <p>We can run a cross-validation</p>
@@ -257,7 +257,7 @@ one-hot encoding and similarity encoding</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Run time: 6s    Memory used: 9Mb
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Run time: 2s    Memory used: 9Mb
 Cross-validation score: [0.94397759 0.94397759 0.94101124 0.94662921 0.94101124]
 </pre></div>
 </div>
@@ -290,7 +290,7 @@ speed things up. We select manually the number of prototypes we want to use.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Run time: 4s    Memory used: 5Mb
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Run time: 1s    Memory used: 5Mb
 Cross-validation score: [0.94397759 0.94117647 0.94101124 0.94101124 0.94101124]
 </pre></div>
 </div>
@@ -321,7 +321,7 @@ to find the prototypes. The number of prototypes is set manually.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Run time: 11s    Memory used: 5Mb
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Run time: 4s    Memory used: 5Mb
 Cross-validation score: [0.94117647 0.93837535 0.93820225 0.93820225 0.93539326]
 </pre></div>
 </div>
@@ -389,7 +389,7 @@ algorithm). The memory savings will then happen during the encoding.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Time to vectorize: 0.30594468116760254
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Time to vectorize: 0.14662814140319824
 </pre></div>
 </div>
 <p>We can run a cross-validation to confirm the memory footprint reduction</p>
@@ -399,11 +399,11 @@ algorithm). The memory savings will then happen during the encoding.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Run time: 4s    Memory used: 3Mb
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Run time: 1s    Memory used: 3Mb
 Cross-validation score: [0.93837535 0.94117647 0.94101124 0.94101124 0.94101124]
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 9 minutes  33.215 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 2 minutes  17.977 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-06-dimension-reduction-and-performance-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/affdfa676c82de7bd5e64259b2cebdf1/06_dimension_reduction_and_performance.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">06_dimension_reduction_and_performance.py</span></code></a></p>
