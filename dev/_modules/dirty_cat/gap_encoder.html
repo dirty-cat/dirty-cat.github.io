@@ -102,6 +102,8 @@
 <span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">CountVectorizer</span><span class="p">,</span> <span class="n">HashingVectorizer</span>
 <span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">KMeans</span>
 <span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">NearestNeighbors</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">check_input</span>
 
 <span class="k">if</span> <span class="n">LooseVersion</span><span class="p">(</span><span class="n">sklearn_version</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">LooseVersion</span><span class="p">(</span><span class="s1">&#39;0.22&#39;</span><span class="p">):</span>
     <span class="kn">from</span> <span class="nn">sklearn.cluster.k_means_</span> <span class="kn">import</span> <span class="n">_k_init</span>
@@ -116,99 +118,9 @@
     <span class="kn">from</span> <span class="nn">sklearn.decomposition._nmf</span> <span class="kn">import</span> <span class="n">_beta_divergence</span>
 
 
-<div class="viewcode-block" id="GapEncoder"><a class="viewcode-back" href="../../generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder">[docs]</a><span class="k">class</span> <span class="nc">GapEncoder</span><span class="p">(</span><span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">TransformerMixin</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    This encoder can be understood as a continuous encoding on a set of latent</span>
-<span class="sd">    categories estimated from the data. The latent categories are built by</span>
-<span class="sd">    capturing combinations of substrings that frequently co-occur.</span>
-<span class="sd">    </span>
-<span class="sd">    The GapEncoder supports online learning on batches of data for</span>
-<span class="sd">    scalability through the partial_fit method.</span>
+<span class="k">class</span> <span class="nc">GapEncoderColumn</span><span class="p">(</span><span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">TransformerMixin</span><span class="p">):</span>
 
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-
-<span class="sd">    n_components : int, default=10</span>
-<span class="sd">        Number of latent categories used to model string data.</span>
-
-<span class="sd">    batch_size : int, default=128</span>
-<span class="sd">        Number of samples per batch.</span>
-
-<span class="sd">    gamma_shape_prior : float, default=1.1</span>
-<span class="sd">        Shape parameter for the Gamma prior distribution.</span>
-
-<span class="sd">    gamma_scale_prior : float, default=1.0</span>
-<span class="sd">        Scale parameter for the Gamma prior distribution.</span>
-
-<span class="sd">    rho : float, default=0.95</span>
-<span class="sd">        Weight parameter for the update of the W matrix.</span>
-<span class="sd">    </span>
-<span class="sd">    rescale_rho : bool, default=False</span>
-<span class="sd">        If true, use rho ** (batch_size / len(X)) instead of rho to obtain an</span>
-<span class="sd">        update rate per iteration that is independent of the batch size.</span>
-
-<span class="sd">    hashing : bool, default=False</span>
-<span class="sd">        If true, HashingVectorizer is used instead of CountVectorizer.</span>
-<span class="sd">        It has the advantage of being very low memory scalable to large</span>
-<span class="sd">        datasets as there is no need to store a vocabulary dictionary in</span>
-<span class="sd">        memory.</span>
-
-<span class="sd">    hashing_n_features : int, default=2**12</span>
-<span class="sd">        Number of features for the HashingVectorizer. Only relevant if</span>
-<span class="sd">        hashing=True.</span>
-
-<span class="sd">    init : str, default=&#39;k-means++&#39;</span>
-<span class="sd">        Initialization method of the W matrix.</span>
-<span class="sd">        Options: {&#39;k-means++&#39;, &#39;random&#39;, &#39;k-means&#39;}.</span>
-<span class="sd">        If init=&#39;k-means++&#39;, we use the init method of sklearn.cluster.KMeans.</span>
-<span class="sd">        If init=&#39;random&#39;, topics are initialized with a Gamma distribution.</span>
-<span class="sd">        If init=&#39;k-means&#39;, topics are initialized with a KMeans on the n-grams</span>
-<span class="sd">        counts. This usually makes convergence faster but is a bit slower.</span>
-
-<span class="sd">    tol : float, default=1e-4</span>
-<span class="sd">        Tolerance for the convergence of the matrix W.</span>
-
-<span class="sd">    min_iter : int, default=2</span>
-<span class="sd">        Minimum number of iterations on the input data.</span>
-
-<span class="sd">    max_iter : int, default=5</span>
-<span class="sd">        Maximum number of iterations on the input data.</span>
-
-<span class="sd">    ngram_range : tuple, default=(2, 4)</span>
-<span class="sd">        The range of ngram length that will be used to build the</span>
-<span class="sd">        bag-of-n-grams representation of the input data.</span>
-
-<span class="sd">    analyzer : str, default=&#39;char&#39;.</span>
-<span class="sd">        Analyzer parameter for the CountVectorizer/HashingVectorizer.</span>
-<span class="sd">        Options: {‘word’, ‘char’, ‘char_wb’}, describing whether the matrix V</span>
-<span class="sd">        to factorize should be made of word counts or character n-gram counts.</span>
-<span class="sd">        Option ‘char_wb’ creates character n-grams only from text inside word</span>
-<span class="sd">        boundaries; n-grams at the edges of words are padded with space.</span>
-
-<span class="sd">    add_words : bool, default=False</span>
-<span class="sd">        If true, add the words counts to the bag-of-n-grams representation</span>
-<span class="sd">        of the input data.</span>
-
-<span class="sd">    random_state : int or None, default=None</span>
-<span class="sd">        Pass an int for reproducible output across multiple function calls.</span>
-
-<span class="sd">    rescale_W : bool, default=True</span>
-<span class="sd">        If true, the weight matrix W is rescaled at each iteration</span>
-<span class="sd">        to have an l1 norm equal to 1 for each row.</span>
-<span class="sd">    </span>
-<span class="sd">    max_iter_e_step : int, default=20</span>
-<span class="sd">        Maximum number of iterations to adjust the activations h at each step.</span>
-
-
-<span class="sd">    Attributes</span>
-<span class="sd">    ----------</span>
-
-<span class="sd">    References</span>
-<span class="sd">    ----------</span>
-<span class="sd">    For a detailed description of the method, see</span>
-<span class="sd">    `Encoding high-cardinality string categorical variables</span>
-<span class="sd">    &lt;https://hal.inria.fr/hal-02171256v4&gt;`_ by Cerda, Varoquaux (2019).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;See GapEncoder&#39;s docstring.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_components</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">gamma_shape_prior</span><span class="o">=</span><span class="mf">1.1</span><span class="p">,</span>
                  <span class="n">gamma_scale_prior</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">rho</span><span class="o">=</span><span class="mf">.95</span><span class="p">,</span> <span class="n">rescale_rho</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
@@ -355,25 +267,19 @@
         <span class="n">B</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">W</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span>
 
-<div class="viewcode-block" id="GapEncoder.fit"><a class="viewcode-back" href="../../generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Fit the GapEncoder on batches of X.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        X : array-like, shape (n_samples, ) or (n_samples, 1)</span>
+<span class="sd">        X : array-like, shape (n_samples, )</span>
 <span class="sd">            The string data to fit the model on.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        self</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># Check input data shape</span>
-        <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-        <span class="k">assert</span> <span class="n">X</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">or</span> <span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;ERROR:</span><span class="se">\</span>
-<span class="s2">        shape </span><span class="si">{</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2"> of input array is not supported.&quot;</span>
-        <span class="k">if</span> <span class="n">X</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
-            <span class="n">X</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
         <span class="c1"># Check if first item has str or np.str_ type</span>
         <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">str</span><span class="p">),</span> <span class="s2">&quot;ERROR: Input data is not string.&quot;</span>
         <span class="c1"># Make n-grams counts matrix unq_V</span>
@@ -411,10 +317,9 @@
 
         <span class="c1"># Update self.H_dict_ with the learned encoded vectors (activations)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">H_dict_</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">unq_X</span><span class="p">,</span> <span class="n">unq_H</span><span class="p">))</span>
-        <span class="k">return</span> <span class="bp">self</span></div>
+        <span class="k">return</span> <span class="bp">self</span>
 
-<div class="viewcode-block" id="GapEncoder.get_feature_names"><a class="viewcode-back" href="../../generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder.get_feature_names">[docs]</a>    <span class="k">def</span> <span class="nf">get_feature_names</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_labels</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
-        
+    <span class="k">def</span> <span class="nf">get_feature_names</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_labels</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the labels that best summarize the learned components/topics.</span>
 <span class="sd">        For each topic, labels with highest activations are selected.</span>
@@ -432,7 +337,6 @@
 <span class="sd">            The labels that best describe each topic.</span>
 <span class="sd">        </span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        
         <span class="n">vectorizer</span> <span class="o">=</span> <span class="n">CountVectorizer</span><span class="p">()</span>
         <span class="n">vectorizer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">H_dict_</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
         <span class="n">vocabulary</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">vectorizer</span><span class="o">.</span><span class="n">get_feature_names</span><span class="p">())</span>
@@ -445,10 +349,10 @@
             <span class="n">x</span> <span class="o">=</span> <span class="n">encoding</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span>
             <span class="n">labels</span> <span class="o">=</span> <span class="n">vocabulary</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">)[:</span><span class="n">n_labels</span><span class="p">]]</span>
             <span class="n">topic_labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
-        <span class="n">topic_labels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">label</span><span class="p">)</span> <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">topic_labels</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">topic_labels</span></div>
+        <span class="n">topic_labels</span> <span class="o">=</span> <span class="p">[</span><span class="n">prefix</span> <span class="o">+</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">label</span><span class="p">)</span> <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">topic_labels</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">topic_labels</span>
 
-<div class="viewcode-block" id="GapEncoder.score"><a class="viewcode-back" href="../../generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder.score">[docs]</a>    <span class="k">def</span> <span class="nf">score</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">score</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the Kullback-Leibler divergence between the n-grams counts</span>
 <span class="sd">        matrix V of X, and its non-negative factorization HW.</span>
@@ -485,10 +389,9 @@
         <span class="n">kl_divergence</span> <span class="o">=</span> <span class="n">_beta_divergence</span><span class="p">(</span>
             <span class="n">unq_V</span><span class="p">[</span><span class="n">lookup</span><span class="p">],</span> <span class="n">unq_H</span><span class="p">[</span><span class="n">lookup</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">W_</span><span class="p">,</span>
             <span class="s1">&#39;kullback-leibler&#39;</span><span class="p">,</span> <span class="n">square_root</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">kl_divergence</span></div>
+        <span class="k">return</span> <span class="n">kl_divergence</span>
 
-<div class="viewcode-block" id="GapEncoder.partial_fit"><a class="viewcode-back" href="../../generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder.partial_fit">[docs]</a>    <span class="k">def</span> <span class="nf">partial_fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        
+    <span class="k">def</span> <span class="nf">partial_fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Partial fit of the GapEncoder on X.</span>
 <span class="sd">        To be used in a online learning procedure where batches of data are</span>
@@ -496,7 +399,7 @@
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        X : array-like, shape (n_samples, ) or (n_samples, 1)</span>
+<span class="sd">        X : array-like, shape (n_samples, )</span>
 <span class="sd">            The string data to fit the model on.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns</span>
@@ -508,12 +411,6 @@
         <span class="c1"># Init H_dict_ with empty dict if it&#39;s the first call of partial_fit</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;H_dict_&#39;</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">H_dict_</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
-        <span class="c1"># Check input data shape</span>
-        <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-        <span class="k">assert</span> <span class="n">X</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">or</span> <span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;ERROR:</span><span class="se">\</span>
-<span class="s2">        shape </span><span class="si">{</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2"> of input array is not supported.&quot;</span>
-        <span class="k">if</span> <span class="n">X</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
-            <span class="n">X</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
         <span class="c1"># Check if first item has str or np.str_ type</span>
         <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">str</span><span class="p">),</span> <span class="s2">&quot;ERROR: Input data is not string.&quot;</span>
         <span class="c1"># Check if it is not the first batch</span>
@@ -554,7 +451,7 @@
             <span class="n">unq_H</span><span class="p">[</span><span class="n">lookup</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">rescale_W</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rho_</span><span class="p">)</span>
         <span class="c1"># Update self.H_dict_ with the learned encoded vectors (activations)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">H_dict_</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">unq_X</span><span class="p">,</span> <span class="n">unq_H</span><span class="p">))</span>
-        <span class="k">return</span> <span class="bp">self</span></div>
+        <span class="k">return</span> <span class="bp">self</span>
 
     <span class="k">def</span> <span class="nf">_add_unseen_keys_to_H_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -571,14 +468,14 @@
                 <span class="n">unseen_V</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">unseen_V</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_components</span><span class="p">)))</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">H_dict_</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">unseen_X</span><span class="p">,</span> <span class="n">unseen_H</span><span class="p">))</span>
 
-<div class="viewcode-block" id="GapEncoder.transform"><a class="viewcode-back" href="../../generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder.transform">[docs]</a>    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return the encoded vectors (activations) H of input strings in X.</span>
 <span class="sd">        Given the learnt topics W, the activations H are tuned to fit V = HW.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        X : array-like, shape (n_samples, ) or (n_samples, 1)</span>
+<span class="sd">        X : array-like, shape (n_samples)</span>
 <span class="sd">            The string data to encode.</span>
 
 <span class="sd">        Returns</span>
@@ -586,12 +483,6 @@
 <span class="sd">        H : 2-d array, shape (n_samples, n_topics)</span>
 <span class="sd">            Transformed input.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># Check input data shape</span>
-        <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-        <span class="k">assert</span> <span class="n">X</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">or</span> <span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;ERROR:</span><span class="se">\</span>
-<span class="s2">        shape </span><span class="si">{</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2"> of input array is not supported.&quot;</span>
-        <span class="k">if</span> <span class="n">X</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
-            <span class="n">X</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
         <span class="c1"># Check if first item has str or np.str_ type</span>
         <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">str</span><span class="p">),</span> <span class="s2">&quot;ERROR: Input data is not string.&quot;</span>
         <span class="n">unq_X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
@@ -615,9 +506,302 @@
                 <span class="n">gamma_scale_prior</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">gamma_scale_prior</span><span class="p">)</span>
         <span class="c1"># Store and return the encoded vectors of X</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">H_dict_</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">unq_X</span><span class="p">,</span> <span class="n">unq_H</span><span class="p">))</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_H</span><span class="p">(</span><span class="n">X</span><span class="p">)</span></div></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_H</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 
 
+<div class="viewcode-block" id="GapEncoder"><a class="viewcode-back" href="../../generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder">[docs]</a><span class="k">class</span> <span class="nc">GapEncoder</span><span class="p">(</span><span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">TransformerMixin</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This encoder can be understood as a continuous encoding on a set of latent</span>
+<span class="sd">    categories estimated from the data. The latent categories are built by</span>
+<span class="sd">    capturing combinations of substrings that frequently co-occur.</span>
+
+<span class="sd">    The GapEncoder supports online learning on batches of data for</span>
+<span class="sd">    scalability through the partial_fit method.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+
+<span class="sd">    n_components : int, default=10</span>
+<span class="sd">        Number of latent categories used to model string data.</span>
+
+<span class="sd">    batch_size : int, default=128</span>
+<span class="sd">        Number of samples per batch.</span>
+
+<span class="sd">    gamma_shape_prior : float, default=1.1</span>
+<span class="sd">        Shape parameter for the Gamma prior distribution.</span>
+
+<span class="sd">    gamma_scale_prior : float, default=1.0</span>
+<span class="sd">        Scale parameter for the Gamma prior distribution.</span>
+
+<span class="sd">    rho : float, default=0.95</span>
+<span class="sd">        Weight parameter for the update of the W matrix.</span>
+
+<span class="sd">    rescale_rho : bool, default=False</span>
+<span class="sd">        If true, use rho ** (batch_size / len(X)) instead of rho to obtain an</span>
+<span class="sd">        update rate per iteration that is independent of the batch size.</span>
+
+<span class="sd">    hashing : bool, default=False</span>
+<span class="sd">        If true, HashingVectorizer is used instead of CountVectorizer.</span>
+<span class="sd">        It has the advantage of being very low memory scalable to large</span>
+<span class="sd">        datasets as there is no need to store a vocabulary dictionary in</span>
+<span class="sd">        memory.</span>
+
+<span class="sd">    hashing_n_features : int, default=2**12</span>
+<span class="sd">        Number of features for the HashingVectorizer. Only relevant if</span>
+<span class="sd">        hashing=True.</span>
+
+<span class="sd">    init : str, default=&#39;k-means++&#39;</span>
+<span class="sd">        Initialization method of the W matrix.</span>
+<span class="sd">        Options: {&#39;k-means++&#39;, &#39;random&#39;, &#39;k-means&#39;}.</span>
+<span class="sd">        If init=&#39;k-means++&#39;, we use the init method of sklearn.cluster.KMeans.</span>
+<span class="sd">        If init=&#39;random&#39;, topics are initialized with a Gamma distribution.</span>
+<span class="sd">        If init=&#39;k-means&#39;, topics are initialized with a KMeans on the n-grams</span>
+<span class="sd">        counts. This usually makes convergence faster but is a bit slower.</span>
+
+<span class="sd">    tol : float, default=1e-4</span>
+<span class="sd">        Tolerance for the convergence of the matrix W.</span>
+
+<span class="sd">    min_iter : int, default=2</span>
+<span class="sd">        Minimum number of iterations on the input data.</span>
+
+<span class="sd">    max_iter : int, default=5</span>
+<span class="sd">        Maximum number of iterations on the input data.</span>
+
+<span class="sd">    ngram_range : tuple, default=(2, 4)</span>
+<span class="sd">        The range of ngram length that will be used to build the</span>
+<span class="sd">        bag-of-n-grams representation of the input data.</span>
+
+<span class="sd">    analyzer : str, default=&#39;char&#39;.</span>
+<span class="sd">        Analyzer parameter for the CountVectorizer/HashingVectorizer.</span>
+<span class="sd">        Options: {‘word’, ‘char’, ‘char_wb’}, describing whether the matrix V</span>
+<span class="sd">        to factorize should be made of word counts or character n-gram counts.</span>
+<span class="sd">        Option ‘char_wb’ creates character n-grams only from text inside word</span>
+<span class="sd">        boundaries; n-grams at the edges of words are padded with space.</span>
+
+<span class="sd">    add_words : bool, default=False</span>
+<span class="sd">        If true, add the words counts to the bag-of-n-grams representation</span>
+<span class="sd">        of the input data.</span>
+
+<span class="sd">    random_state : int or None, default=None</span>
+<span class="sd">        Pass an int for reproducible output across multiple function calls.</span>
+
+<span class="sd">    rescale_W : bool, default=True</span>
+<span class="sd">        If true, the weight matrix W is rescaled at each iteration</span>
+<span class="sd">        to have an l1 norm equal to 1 for each row.</span>
+
+<span class="sd">    max_iter_e_step : int, default=20</span>
+<span class="sd">        Maximum number of iterations to adjust the activations h at each step.</span>
+
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    For a detailed description of the method, see</span>
+<span class="sd">    `Encoding high-cardinality string categorical variables</span>
+<span class="sd">    &lt;https://hal.inria.fr/hal-02171256v4&gt;`_ by Cerda, Varoquaux (2019).</span>
+<span class="sd">    </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_components</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">gamma_shape_prior</span><span class="o">=</span><span class="mf">1.1</span><span class="p">,</span>
+                 <span class="n">gamma_scale_prior</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">rho</span><span class="o">=</span><span class="mf">.95</span><span class="p">,</span> <span class="n">rescale_rho</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                 <span class="n">hashing</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">hashing_n_features</span><span class="o">=</span><span class="mi">2</span><span class="o">**</span><span class="mi">12</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="s1">&#39;k-means++&#39;</span><span class="p">,</span>
+                 <span class="n">tol</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">,</span> <span class="n">min_iter</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">ngram_range</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+                 <span class="n">analyzer</span><span class="o">=</span><span class="s1">&#39;char&#39;</span><span class="p">,</span> <span class="n">add_words</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">rescale_W</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">max_iter_e_step</span><span class="o">=</span><span class="mi">20</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">ngram_range</span> <span class="o">=</span> <span class="n">ngram_range</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_components</span> <span class="o">=</span> <span class="n">n_components</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gamma_shape_prior</span> <span class="o">=</span> <span class="n">gamma_shape_prior</span>  <span class="c1"># &#39;a&#39; parameter</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gamma_scale_prior</span> <span class="o">=</span> <span class="n">gamma_scale_prior</span>  <span class="c1"># &#39;b&#39; parameter</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rho</span> <span class="o">=</span> <span class="n">rho</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rho_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rho</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rescale_rho</span> <span class="o">=</span> <span class="n">rescale_rho</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span> <span class="o">=</span> <span class="n">batch_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tol</span> <span class="o">=</span> <span class="n">tol</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hashing</span> <span class="o">=</span> <span class="n">hashing</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hashing_n_features</span> <span class="o">=</span> <span class="n">hashing_n_features</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_iter</span> <span class="o">=</span> <span class="n">max_iter</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">min_iter</span> <span class="o">=</span> <span class="n">min_iter</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">init</span> <span class="o">=</span> <span class="n">init</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">analyzer</span> <span class="o">=</span> <span class="n">analyzer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_words</span> <span class="o">=</span> <span class="n">add_words</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">random_state</span> <span class="o">=</span> <span class="n">random_state</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rescale_W</span> <span class="o">=</span> <span class="n">rescale_W</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_iter_e_step</span> <span class="o">=</span> <span class="n">max_iter_e_step</span>
+
+    <span class="k">def</span> <span class="nf">_create_column_gap_encoder</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">GapEncoderColumn</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">GapEncoderColumn</span><span class="p">(</span>
+            <span class="n">ngram_range</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ngram_range</span><span class="p">,</span>
+            <span class="n">n_components</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_components</span><span class="p">,</span>
+            <span class="n">gamma_shape_prior</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">gamma_shape_prior</span><span class="p">,</span>
+            <span class="n">gamma_scale_prior</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">gamma_scale_prior</span><span class="p">,</span>
+            <span class="n">rho</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rho</span><span class="p">,</span>
+            <span class="n">rescale_rho</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rescale_rho</span><span class="p">,</span>
+            <span class="n">batch_size</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span><span class="p">,</span>
+            <span class="n">tol</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tol</span><span class="p">,</span>
+            <span class="n">hashing</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">hashing</span><span class="p">,</span>
+            <span class="n">hashing_n_features</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">hashing_n_features</span><span class="p">,</span>
+            <span class="n">max_iter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">max_iter</span><span class="p">,</span>
+            <span class="n">init</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">init</span><span class="p">,</span>
+            <span class="n">add_words</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">add_words</span><span class="p">,</span>
+            <span class="n">random_state</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">random_state</span><span class="p">,</span>
+            <span class="n">rescale_W</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rescale_W</span><span class="p">,</span>
+            <span class="n">max_iter_e_step</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">max_iter_e_step</span><span class="p">,</span>
+        <span class="p">)</span>
+            
+<div class="viewcode-block" id="GapEncoder.fit"><a class="viewcode-back" href="../../generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Fit the GapEncoder on batches of X.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        X : array-like, shape (n_samples, n_features)</span>
+<span class="sd">            The string data to fit the model on.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        self</span>
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># If X is a dataframe, store its column names</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">column_names_</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+        <span class="c1"># Check input data shape</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="n">check_input</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fitted_models_</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+            <span class="n">col_enc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_column_gap_encoder</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fitted_models_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">col_enc</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="n">k</span><span class="p">]))</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+<div class="viewcode-block" id="GapEncoder.transform"><a class="viewcode-back" href="../../generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder.transform">[docs]</a>    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the encoded vectors (activations) H of input strings in X.</span>
+<span class="sd">        Given the learnt topics W, the activations H are tuned to fit V = HW.</span>
+<span class="sd">        When X has several columns, they are encoded separately and</span>
+<span class="sd">        then concatenated.</span>
+<span class="sd">        </span>
+<span class="sd">        Remark: calling transform mutliple times in a row on the same</span>
+<span class="sd">        input X can give slightly different encodings. This is expected</span>
+<span class="sd">        due to a caching mechanism to speed things up.        </span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        X : array-like, shape (n_samples, n_features)</span>
+<span class="sd">            The string data to encode.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        H : 2-d array, shape (n_samples, n_topics * n_features)</span>
+<span class="sd">            Transformed input.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Check input data shape</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="n">check_input</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+        <span class="n">X_enc</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+            <span class="n">X_enc</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fitted_models_</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="n">k</span><span class="p">]))</span>
+        <span class="n">X_enc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">(</span><span class="n">X_enc</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">X_enc</span></div>
+
+<div class="viewcode-block" id="GapEncoder.partial_fit"><a class="viewcode-back" href="../../generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder.partial_fit">[docs]</a>    <span class="k">def</span> <span class="nf">partial_fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Partial fit of the GapEncoder on X.</span>
+<span class="sd">        To be used in a online learning procedure where batches of data are</span>
+<span class="sd">        coming one by one.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        X : array-like, shape (n_samples, n_features)</span>
+<span class="sd">            The string data to fit the model on.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        self</span>
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># If X is a dataframe, store its column names</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">column_names_</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+        <span class="c1"># Check input data shape</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="n">check_input</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+        <span class="c1"># Init the `GapEncoderColumn` instances if the model was</span>
+        <span class="c1"># not fitted already.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;fitted_models_&#39;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fitted_models_</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_create_column_gap_encoder</span><span class="p">()</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="p">]</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fitted_models_</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">partial_fit</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="n">k</span><span class="p">])</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+<div class="viewcode-block" id="GapEncoder.get_feature_names"><a class="viewcode-back" href="../../generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder.get_feature_names">[docs]</a>    <span class="k">def</span> <span class="nf">get_feature_names</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">col_names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">n_labels</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the labels that best summarize the learned components/topics.</span>
+<span class="sd">        For each topic, labels with highest activations are selected.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        </span>
+<span class="sd">        col_names : {None, list or str}, default=None</span>
+<span class="sd">            The column names to be added as prefixes before the labels.</span>
+<span class="sd">            If col_names == None, no prefixes are used.</span>
+<span class="sd">            If col_names == &#39;auto&#39;, column names are automatically defined:</span>
+<span class="sd">                - if the input data was a dataframe, its column names are used</span>
+<span class="sd">                - otherwise, &#39;col1&#39;, ..., &#39;colN&#39; are used as prefixes</span>
+<span class="sd">            Prefixes can be manually set by passing a list  for col_names.</span>
+<span class="sd">            </span>
+<span class="sd">        n_labels : int, default=3</span>
+<span class="sd">            The number of labels used to describe each topic.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        </span>
+<span class="sd">        topic_labels : list of strings</span>
+<span class="sd">            The labels that best describe each topic.</span>
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;fitted_models_&#39;</span><span class="p">),</span> <span class="p">(</span>
+            <span class="s1">&#39;ERROR: GapEncoder must be fitted first.&#39;</span><span class="p">)</span>
+        <span class="c1"># Generate prefixes</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">col_names</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">prefixes</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span> <span class="o">+</span> <span class="s1">&#39;: &#39;</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">col_names</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">col_names</span> <span class="o">==</span> <span class="s1">&#39;auto&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;column_names_&#39;</span><span class="p">):</span> <span class="c1"># Use column names</span>
+                <span class="n">prefixes</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span> <span class="o">+</span> <span class="s1">&#39;: &#39;</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">column_names_</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span> <span class="c1"># Use &#39;col1: &#39;, ... &#39;colN: &#39; as prefixes</span>
+                <span class="n">prefixes</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;col</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">: &#39;</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fitted_models_</span><span class="p">))]</span>
+        <span class="k">else</span><span class="p">:</span> <span class="c1"># Empty prefixes</span>
+            <span class="n">prefixes</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fitted_models_</span><span class="p">)</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">enc</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fitted_models_</span><span class="p">):</span>
+            <span class="n">col_labels</span> <span class="o">=</span> <span class="n">enc</span><span class="o">.</span><span class="n">get_feature_names</span><span class="p">(</span><span class="n">n_labels</span><span class="p">,</span> <span class="n">prefixes</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
+            <span class="n">labels</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">col_labels</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">labels</span></div>
+
+<div class="viewcode-block" id="GapEncoder.score"><a class="viewcode-back" href="../../generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder.score">[docs]</a>    <span class="k">def</span> <span class="nf">score</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the sum over the columns of X of the Kullback-Leibler</span>
+<span class="sd">        divergence between the n-grams counts matrix V of X, and its</span>
+<span class="sd">        non-negative factorization HW.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        X : array-like (str), shape (n_samples, n_features)</span>
+<span class="sd">            The data to encode.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        kl_divergence : float.</span>
+<span class="sd">            The Kullback-Leibler divergence.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="n">check_input</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+        <span class="n">kl_divergence</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+            <span class="n">kl_divergence</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fitted_models_</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span><span class="n">k</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">kl_divergence</span></div></div>
+        
 <span class="k">def</span> <span class="nf">_rescale_W</span><span class="p">(</span><span class="n">W</span><span class="p">,</span> <span class="n">A</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Rescale the topics W to have a L1-norm equal to 1.</span>

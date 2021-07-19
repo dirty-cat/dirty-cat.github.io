@@ -51,10 +51,11 @@ Importing the data
 Let's fetch the dataset, and load X (the employees' features) and y
 (the salary to predict):
 
-.. GENERATED FROM PYTHON SOURCE LINES 35-39
+.. GENERATED FROM PYTHON SOURCE LINES 35-40
 
 .. code-block:: default
 
+    from dirty_cat.gap_encoder import GapEncoder
     from dirty_cat.datasets import fetch_employee_salaries
     employee_salaries = fetch_employee_salaries()
     print(employee_salaries['DESCR'])
@@ -76,7 +77,7 @@ Let's fetch the dataset, and load X (the employees' features) and y
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 40-56
+.. GENERATED FROM PYTHON SOURCE LINES 41-57
 
 .. code-block:: default
 
@@ -103,11 +104,11 @@ Let's fetch the dataset, and load X (the employees' features) and y
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 57-58
+.. GENERATED FROM PYTHON SOURCE LINES 58-59
 
 The data are in a fairly complex and heterogeneous dataframe:
 
-.. GENERATED FROM PYTHON SOURCE LINES 58-60
+.. GENERATED FROM PYTHON SOURCE LINES 59-61
 
 .. code-block:: default
 
@@ -279,12 +280,12 @@ The data are in a fairly complex and heterogeneous dataframe:
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 61-63
+.. GENERATED FROM PYTHON SOURCE LINES 62-64
 
 The challenge is to turn this dataframe into a form suited for
 machine learning.
 
-.. GENERATED FROM PYTHON SOURCE LINES 65-73
+.. GENERATED FROM PYTHON SOURCE LINES 66-74
 
 Using the SuperVectorizer in a supervised-learning pipeline
 ------------------------------------------------------------
@@ -295,7 +296,7 @@ can be readily applied to the dataframe**.
 
 It's the typical and recommended way of using it.
 
-.. GENERATED FROM PYTHON SOURCE LINES 73-88
+.. GENERATED FROM PYTHON SOURCE LINES 74-89
 
 .. code-block:: default
 
@@ -321,11 +322,11 @@ It's the typical and recommended way of using it.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 89-90
+.. GENERATED FROM PYTHON SOURCE LINES 90-91
 
 Let's perform a cross-validation to see how well this model predicts
 
-.. GENERATED FROM PYTHON SOURCE LINES 90-100
+.. GENERATED FROM PYTHON SOURCE LINES 91-101
 
 .. code-block:: default
 
@@ -349,21 +350,21 @@ Let's perform a cross-validation to see how well this model predicts
 
  .. code-block:: none
 
-    scores=array([0.93084591, 0.90350098, 0.93961664, 0.94141539, 0.93745424])
-    mean=0.9305666336688534
-    std=0.013997605094778466
+    scores=array([0.90436579, 0.85940967, 0.88976568, 0.88293046, 0.91330898])
+    mean=0.889956116376877
+    std=0.018630494144431086
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 101-105
+.. GENERATED FROM PYTHON SOURCE LINES 102-106
 
 The prediction perform here is pretty much as good as in :ref:`example
 02<sphx_glr_auto_examples_02_fit_predict_plot_employee_salaries.py>`,
 but the code here is much simpler as it does not involve specifying
 columns manually.
 
-.. GENERATED FROM PYTHON SOURCE LINES 107-112
+.. GENERATED FROM PYTHON SOURCE LINES 108-113
 
 Analyzing the features created
 -------------------------------
@@ -371,11 +372,15 @@ Analyzing the features created
 Let us perform the same workflow, but without the `Pipeline`, so we can
 analyze its mechanisms along the way.
 
-.. GENERATED FROM PYTHON SOURCE LINES 112-114
+.. GENERATED FROM PYTHON SOURCE LINES 113-119
 
 .. code-block:: default
 
-    sup_vec = SuperVectorizer(auto_cast=True)
+    sup_vec = SuperVectorizer(
+        auto_cast=True,
+        high_card_str_transformer=GapEncoder(n_components=50),
+        high_card_cat_transformer=GapEncoder(n_components=50)
+    )
 
 
 
@@ -384,11 +389,11 @@ analyze its mechanisms along the way.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 115-116
+.. GENERATED FROM PYTHON SOURCE LINES 120-121
 
 We split the data between train and test, and transform them:
 
-.. GENERATED FROM PYTHON SOURCE LINES 116-124
+.. GENERATED FROM PYTHON SOURCE LINES 121-129
 
 .. code-block:: default
 
@@ -407,14 +412,14 @@ We split the data between train and test, and transform them:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 125-129
+.. GENERATED FROM PYTHON SOURCE LINES 130-134
 
 Inspecting the features created
 .................................
 Once it has been trained on data,
 we can print the transformers and the columns assignment it creates:
 
-.. GENERATED FROM PYTHON SOURCE LINES 129-132
+.. GENERATED FROM PYTHON SOURCE LINES 134-137
 
 .. code-block:: default
 
@@ -432,11 +437,11 @@ we can print the transformers and the columns assignment it creates:
  .. code-block:: none
 
 
-    [('high_card_str', SimilarityEncoder(), ['division', 'employee_position_title', 'underfilled_job_title']), ('low_card_cat', OneHotEncoder(), ['gender', 'assignment_category']), ('high_card_cat', SimilarityEncoder(), ['department', 'department_name']), ('remainder', 'passthrough', [7])]
+    [('high_card_str', GapEncoder(n_components=50), ['division', 'employee_position_title', 'underfilled_job_title']), ('low_card_cat', OneHotEncoder(), ['gender', 'assignment_category']), ('high_card_cat', GapEncoder(n_components=50), ['department', 'department_name']), ('remainder', 'passthrough', [7])]
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 133-146
+.. GENERATED FROM PYTHON SOURCE LINES 138-151
 
 This is what is being passed to the |ColumnTransformer| under the hood.
 If you're familiar with how the later works, it should be very intuitive.
@@ -452,7 +457,7 @@ Next, we can have a look at the encoded feature names.
 
 Before encoding:
 
-.. GENERATED FROM PYTHON SOURCE LINES 146-148
+.. GENERATED FROM PYTHON SOURCE LINES 151-153
 
 .. code-block:: default
 
@@ -473,11 +478,11 @@ Before encoding:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 149-150
+.. GENERATED FROM PYTHON SOURCE LINES 154-155
 
 After encoding (we only plot the first 8 feature names):
 
-.. GENERATED FROM PYTHON SOURCE LINES 150-153
+.. GENERATED FROM PYTHON SOURCE LINES 155-158
 
 .. code-block:: default
 
@@ -495,20 +500,20 @@ After encoding (we only plot the first 8 feature names):
  .. code-block:: none
 
 
-    ['division_24 Hours Crisis Center', 'division_ADA - HIPPA Compliance', 'division_ADA Compliance', 'division_Absentee Voting', 'division_Abused Persons Program', 'division_Access to Behavioral Health Services', 'division_Accounts Payable', 'division_Accounts Receivable']
+    ['division: compliance, employee, explosive', 'division: school, health, head', 'division: station, state, estate', 'division: engineering, parking, marking', 'division: patrol, 3rd, 2nd', 'division: security, mccf, minority', 'division: silver, spring, ride', 'division: safety, traffic, life']
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 154-160
+.. GENERATED FROM PYTHON SOURCE LINES 159-165
 
 As we can see, it created a new column for each unique value.
 This is because we used |SE| on the column "division",
 which was classified as a high cardinality string variable.
 (default values, see |SV|'s docstring).
 
-In total, we have 1212 encoded columns.
+In total, we have 256 encoded columns.
 
-.. GENERATED FROM PYTHON SOURCE LINES 160-163
+.. GENERATED FROM PYTHON SOURCE LINES 165-168
 
 .. code-block:: default
 
@@ -526,11 +531,11 @@ In total, we have 1212 encoded columns.
  .. code-block:: none
 
 
-    1212
+    256
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 164-174
+.. GENERATED FROM PYTHON SOURCE LINES 169-179
 
 Feature importance in the statistical model
 ............................................
@@ -543,7 +548,7 @@ In this section, we will train a regressor, and plot the feature importances
 
 First, let's train the |RandomForestRegressor|,
 
-.. GENERATED FROM PYTHON SOURCE LINES 174-180
+.. GENERATED FROM PYTHON SOURCE LINES 179-185
 
 .. code-block:: default
 
@@ -568,11 +573,11 @@ First, let's train the |RandomForestRegressor|,
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 181-182
+.. GENERATED FROM PYTHON SOURCE LINES 186-187
 
 Getting the feature importances
 
-.. GENERATED FROM PYTHON SOURCE LINES 182-192
+.. GENERATED FROM PYTHON SOURCE LINES 187-197
 
 .. code-block:: default
 
@@ -593,11 +598,11 @@ Getting the feature importances
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 193-194
+.. GENERATED FROM PYTHON SOURCE LINES 198-199
 
 Plotting the results:
 
-.. GENERATED FROM PYTHON SOURCE LINES 194-206
+.. GENERATED FROM PYTHON SOURCE LINES 199-211
 
 .. code-block:: default
 
@@ -624,16 +629,16 @@ Plotting the results:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 207-210
+.. GENERATED FROM PYTHON SOURCE LINES 212-215
 
 We can deduce from this data that the three factors that define the
-most the salary are: being a manager, being hired for a long time, and
-have a permanent, full-time job :).
+most the salary are: being hired for a long time, being a manager, and
+having a permanent, full-time job :).
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 5 minutes  49.294 seconds)
+   **Total running time of the script:** ( 2 minutes  16.229 seconds)
 
 
 .. _sphx_glr_download_auto_examples_03_automatic_preprocessing_with_the_supervectorizer.py:

@@ -101,7 +101,8 @@ the right transformers to apply to the different columns.</p>
 <h2>Importing the data<a class="headerlink" href="#importing-the-data" title="Permalink to this headline">¶</a></h2>
 <p>Let’s fetch the dataset, and load X (the employees’ features) and y
 (the salary to predict):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dirty_cat.datasets</span> <span class="kn">import</span> <a href="../generated/dirty_cat.datasets.fetch_employee_salaries.html#dirty_cat.datasets.fetch_employee_salaries" title="dirty_cat.datasets.fetch_employee_salaries" class="sphx-glr-backref-module-dirty_cat-datasets sphx-glr-backref-type-py-function"><span class="n">fetch_employee_salaries</span></a>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dirty_cat.gap_encoder</span> <span class="kn">import</span> <a href="../generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder" title="dirty_cat.GapEncoder" class="sphx-glr-backref-module-dirty_cat sphx-glr-backref-type-py-class"><span class="n">GapEncoder</span></a>
+<span class="kn">from</span> <span class="nn">dirty_cat.datasets</span> <span class="kn">import</span> <a href="../generated/dirty_cat.datasets.fetch_employee_salaries.html#dirty_cat.datasets.fetch_employee_salaries" title="dirty_cat.datasets.fetch_employee_salaries" class="sphx-glr-backref-module-dirty_cat-datasets sphx-glr-backref-type-py-function"><span class="n">fetch_employee_salaries</span></a>
 <span class="n">employee_salaries</span> <span class="o">=</span> <a href="../generated/dirty_cat.datasets.fetch_employee_salaries.html#dirty_cat.datasets.fetch_employee_salaries" title="dirty_cat.datasets.fetch_employee_salaries" class="sphx-glr-backref-module-dirty_cat-datasets sphx-glr-backref-type-py-function"><span class="n">fetch_employee_salaries</span></a><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">employee_salaries</span><span class="p">[</span><span class="s1">&#39;DESCR&#39;</span><span class="p">])</span>
 </pre></div>
@@ -324,9 +325,9 @@ can be readily applied to the dataframe</strong>.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>scores=array([0.93084591, 0.90350098, 0.93961664, 0.94141539, 0.93745424])
-mean=0.9305666336688534
-std=0.013997605094778466
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>scores=array([0.90436579, 0.85940967, 0.88976568, 0.88293046, 0.91330898])
+mean=0.889956116376877
+std=0.018630494144431086
 </pre></div>
 </div>
 <p>The prediction perform here is pretty much as good as in <a class="reference internal" href="02_fit_predict_plot_employee_salaries.html#sphx-glr-auto-examples-02-fit-predict-plot-employee-salaries-py"><span class="std std-ref">example
@@ -338,7 +339,11 @@ columns manually.</p>
 <h2>Analyzing the features created<a class="headerlink" href="#analyzing-the-features-created" title="Permalink to this headline">¶</a></h2>
 <p>Let us perform the same workflow, but without the <cite>Pipeline</cite>, so we can
 analyze its mechanisms along the way.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer" class="sphx-glr-backref-module-dirty_cat sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sup_vec</span></a> <span class="o">=</span> <a href="../generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer" class="sphx-glr-backref-module-dirty_cat sphx-glr-backref-type-py-class"><span class="n">SuperVectorizer</span></a><span class="p">(</span><span class="n">auto_cast</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer" class="sphx-glr-backref-module-dirty_cat sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sup_vec</span></a> <span class="o">=</span> <a href="../generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer" class="sphx-glr-backref-module-dirty_cat sphx-glr-backref-type-py-class"><span class="n">SuperVectorizer</span></a><span class="p">(</span>
+    <span class="n">auto_cast</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">high_card_str_transformer</span><span class="o">=</span><a href="../generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder" title="dirty_cat.GapEncoder" class="sphx-glr-backref-module-dirty_cat sphx-glr-backref-type-py-class"><span class="n">GapEncoder</span></a><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">50</span><span class="p">),</span>
+    <span class="n">high_card_cat_transformer</span><span class="o">=</span><a href="../generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder" title="dirty_cat.GapEncoder" class="sphx-glr-backref-module-dirty_cat sphx-glr-backref-type-py-class"><span class="n">GapEncoder</span></a><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 <p>We split the data between train and test, and transform them:</p>
@@ -359,7 +364,7 @@ we can print the transformers and the columns assignment it creates:</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[(&#39;high_card_str&#39;, SimilarityEncoder(), [&#39;division&#39;, &#39;employee_position_title&#39;, &#39;underfilled_job_title&#39;]), (&#39;low_card_cat&#39;, OneHotEncoder(), [&#39;gender&#39;, &#39;assignment_category&#39;]), (&#39;high_card_cat&#39;, SimilarityEncoder(), [&#39;department&#39;, &#39;department_name&#39;]), (&#39;remainder&#39;, &#39;passthrough&#39;, [7])]
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[(&#39;high_card_str&#39;, GapEncoder(n_components=50), [&#39;division&#39;, &#39;employee_position_title&#39;, &#39;underfilled_job_title&#39;]), (&#39;low_card_cat&#39;, OneHotEncoder(), [&#39;gender&#39;, &#39;assignment_category&#39;]), (&#39;high_card_cat&#39;, GapEncoder(n_components=50), [&#39;department&#39;, &#39;department_name&#39;]), (&#39;remainder&#39;, &#39;passthrough&#39;, [7])]
 </pre></div>
 </div>
 <p>This is what is being passed to the <a class="reference external" href="https://scikit-learn.org/0.20/modules/generated/sklearn.compose.ColumnTransformer.html#sklearn.compose.ColumnTransformer" title="(in scikit-learn v0.20.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ColumnTransformer</span></code></a> under the hood.
@@ -385,19 +390,19 @@ A <a class="reference external" href="https://scikit-learn.org/0.20/modules/gene
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[&#39;division_24 Hours Crisis Center&#39;, &#39;division_ADA - HIPPA Compliance&#39;, &#39;division_ADA Compliance&#39;, &#39;division_Absentee Voting&#39;, &#39;division_Abused Persons Program&#39;, &#39;division_Access to Behavioral Health Services&#39;, &#39;division_Accounts Payable&#39;, &#39;division_Accounts Receivable&#39;]
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[&#39;division: compliance, employee, explosive&#39;, &#39;division: school, health, head&#39;, &#39;division: station, state, estate&#39;, &#39;division: engineering, parking, marking&#39;, &#39;division: patrol, 3rd, 2nd&#39;, &#39;division: security, mccf, minority&#39;, &#39;division: silver, spring, ride&#39;, &#39;division: safety, traffic, life&#39;]
 </pre></div>
 </div>
 <p>As we can see, it created a new column for each unique value.
 This is because we used <a class="reference internal" href="../generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="dirty_cat.SimilarityEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimilarityEncoder</span></code></a> on the column “division”,
 which was classified as a high cardinality string variable.
 (default values, see <a class="reference internal" href="../generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SuperVectorizer</span></code></a>’s docstring).</p>
-<p>In total, we have 1212 encoded columns.</p>
+<p>In total, we have 256 encoded columns.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">feature_names</span></a><span class="p">)</span>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>1212
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>256
 </pre></div>
 </div>
 </section>
@@ -447,9 +452,9 @@ instead (which are less subject to biases)</p>
 </div>
 <img alt="Feature importances" class="sphx-glr-single-img" src="../_images/sphx_glr_03_automatic_preprocessing_with_the_supervectorizer_001.png" />
 <p>We can deduce from this data that the three factors that define the
-most the salary are: being a manager, being hired for a long time, and
-have a permanent, full-time job :).</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 5 minutes  49.294 seconds)</p>
+most the salary are: being hired for a long time, being a manager, and
+having a permanent, full-time job :).</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 2 minutes  16.229 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-03-automatic-preprocessing-with-the-supervectorizer-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/35852095a7762d0ababfbb29a3c19391/03_automatic_preprocessing_with_the_supervectorizer.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">03_automatic_preprocessing_with_the_supervectorizer.py</span></code></a></p>

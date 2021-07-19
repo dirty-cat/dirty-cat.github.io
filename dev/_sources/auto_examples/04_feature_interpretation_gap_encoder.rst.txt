@@ -87,7 +87,7 @@ Now, we retrieve the dirty column to encode:
 .. code-block:: default
 
     dirty_column = 'employee_position_title'
-    X_dirty = df[dirty_column]
+    X_dirty = df[[dirty_column]]
     print(X_dirty.head(), end='\n\n')
     print(f'Number of dirty entries = {len(X_dirty)}')
 
@@ -101,12 +101,12 @@ Now, we retrieve the dirty column to encode:
 
  .. code-block:: none
 
-    0    Office Services Coordinator
-    1          Master Police Officer
-    2               Social Worker IV
-    3         Resident Supervisor II
-    4        Planning Specialist III
-    Name: employee_position_title, dtype: object
+           employee_position_title
+    0  Office Services Coordinator
+    1        Master Police Officer
+    2             Social Worker IV
+    3       Resident Supervisor II
+    4      Planning Specialist III
 
     Number of dirty entries = 9228
 
@@ -228,7 +228,7 @@ This enables us to understand the encoding of different samples
     plt.xlabel('Latent topics', size=12)
     plt.xticks(range(0, 10), labels=topic_labels, rotation=50, ha='right')
     plt.ylabel('Data entries', size=12)
-    plt.yticks(range(0, 20), labels=X_dirty[:20])
+    plt.yticks(range(0, 20), labels=X_dirty[:20].to_numpy().flatten())
     plt.colorbar().set_label(label='Topic activations', size=12)
     plt.tight_layout()
     plt.show()
@@ -253,7 +253,7 @@ effect latent categories captured from the data.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  4.079 seconds)
+   **Total running time of the script:** ( 0 minutes  5.080 seconds)
 
 
 .. _sphx_glr_download_auto_examples_04_feature_interpretation_gap_encoder.py:

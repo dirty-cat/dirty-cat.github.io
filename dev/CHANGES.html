@@ -104,6 +104,10 @@
 columns automatically based on their type. It provides a replacement
 for scikit-learn’s <cite>ColumnTransformer</cite> simpler to use on heterogeneous
 panda dataframes.</p></li>
+<li><p><strong>Backward incompatible change to GapEncoder</strong>: The GapEncoder now only
+supports two-dimensional inputs of shape (n_samples, n_features).
+Internally, features are encoded by independent GapEncoder models,
+and are then concatenated into a single matrix.</p></li>
 </ul>
 </section>
 <section id="bug-fixes">
