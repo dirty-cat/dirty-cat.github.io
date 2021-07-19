@@ -213,9 +213,9 @@ difficulty is that it has many different entries.
     DRIVING VEH. WHILE IMPAIRED BY A CONTROLLED DANGEROUS SUBSTANCE                                       23
     DRIVING VEHICLE IN EXCESS OF REASONABLE AND PRUDENT SPEED ON HIGHWAY                                  21
     DRIVER FAILURE TO STOP AT STOP SIGN LINE                                                              20
-    DRIVING TO DRIVE MOTOR VEHICLE ON HIGHWAY WITHOUT REQUIRED LICENSE AND AUTHORIZATION                  15
-    PERSON DRIVING MOTOR VEHICLE ON HIGHWAY OR PUBLIC USE PROPERTY ON REVOKED LICENSE AND PRIVILEGE       15
     OPERATING UNREGISTERED MOTOR VEHICLE ON HIGHWAY                                                       15
+    PERSON DRIVING MOTOR VEHICLE ON HIGHWAY OR PUBLIC USE PROPERTY ON REVOKED LICENSE AND PRIVILEGE       15
+    DRIVING TO DRIVE MOTOR VEHICLE ON HIGHWAY WITHOUT REQUIRED LICENSE AND AUTHORIZATION                  15
     Name: Description, dtype: int64
 
 
@@ -279,7 +279,7 @@ one-hot encoding and similarity encoding
 
  .. code-block:: none
 
-    Time to vectorize: 0.22475647926330566
+    Time to vectorize: 0.23932170867919922
 
 
 
@@ -387,7 +387,7 @@ Check now that prediction is still as good
 
  .. code-block:: none
 
-    Run time: 1s    Memory used: 5Mb
+    Run time: 2s    Memory used: 5Mb
     Cross-validation score: [0.94397759 0.94117647 0.94101124 0.94101124 0.94101124]
 
 
@@ -461,7 +461,7 @@ Check now that prediction is still as good
 
  .. code-block:: none
 
-    Run time: 4s    Memory used: 5Mb
+    Run time: 5s    Memory used: 5Mb
     Cross-validation score: [0.94117647 0.93837535 0.93820225 0.93820225 0.93539326]
 
 
@@ -574,7 +574,7 @@ algorithm). The memory savings will then happen during the encoding.
 
  .. code-block:: none
 
-    Time to vectorize: 0.14662814140319824
+    Time to vectorize: 0.15682315826416016
 
 
 
@@ -600,7 +600,7 @@ We can run a cross-validation to confirm the memory footprint reduction
 
  .. code-block:: none
 
-    Run time: 1s    Memory used: 3Mb
+    Run time: 2s    Memory used: 3Mb
     Cross-validation score: [0.93837535 0.94117647 0.94101124 0.94101124 0.94101124]
 
 
@@ -609,7 +609,7 @@ We can run a cross-validation to confirm the memory footprint reduction
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 2 minutes  17.977 seconds)
+   **Total running time of the script:** ( 5 minutes  28.338 seconds)
 
 
 .. _sphx_glr_download_auto_examples_06_dimension_reduction_and_performance.py:
