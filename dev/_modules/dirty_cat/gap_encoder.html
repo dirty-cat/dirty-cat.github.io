@@ -392,6 +392,7 @@
         <span class="k">return</span> <span class="n">kl_divergence</span>
 
     <span class="k">def</span> <span class="nf">partial_fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Partial fit of the GapEncoder on X.</span>
 <span class="sd">        To be used in a online learning procedure where batches of data are</span>
@@ -475,7 +476,7 @@
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        X : array-like, shape (n_samples)</span>
+<span class="sd">        X : array-like, shape (n_samples, n_features)</span>
 <span class="sd">            The string data to encode.</span>
 
 <span class="sd">        Returns</span>
