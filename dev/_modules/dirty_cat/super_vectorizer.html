@@ -184,10 +184,9 @@
 <span class="sd">        None to apply `remainder`, &#39;drop&#39; for dropping the columns,</span>
 <span class="sd">        or &#39;passthrough&#39; to return the unencoded columns.</span>
 
-<span class="sd">    auto_cast: bool, default=False</span>
+<span class="sd">    auto_cast: bool, default=True</span>
 <span class="sd">        If set to `True`, will try to convert each column to the best possible</span>
 <span class="sd">        data type (dtype).</span>
-<span class="sd">        Experimental. It is advised to cast them beforehand, and leave this false.</span>
 
 <span class="sd">    handle_missing: str, default=&#39;&#39;</span>
 <span class="sd">        One of the following values: &#39;error&#39; or &#39;&#39; (empty).</span>
@@ -222,7 +221,7 @@
                  <span class="n">high_card_cat_transformer</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">BaseEstimator</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="n">GapEncoder</span><span class="p">(),</span>
                  <span class="n">numerical_transformer</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">BaseEstimator</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                  <span class="n">datetime_transformer</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">BaseEstimator</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-                 <span class="n">auto_cast</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+                 <span class="n">auto_cast</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
                  <span class="c1"># Following parameters are inherited from ColumnTransformer</span>
                  <span class="n">handle_missing</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
                  <span class="n">remainder</span><span class="o">=</span><span class="s1">&#39;passthrough&#39;</span><span class="p">,</span>

@@ -308,7 +308,7 @@ can be readily applied to the dataframe</strong>.</p>
 <span class="kn">from</span> <span class="nn">dirty_cat</span> <span class="kn">import</span> <a href="../generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer" class="sphx-glr-backref-module-dirty_cat sphx-glr-backref-type-py-class"><span class="n">SuperVectorizer</span></a>
 
 <a href="http://scikit-learn.org/0.20/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">pipeline</span></a> <span class="o">=</span> <a href="http://scikit-learn.org/0.20/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-class"><span class="n">Pipeline</span></a><span class="p">([</span>
-    <span class="p">(</span><span class="s1">&#39;vectorizer&#39;</span><span class="p">,</span> <a href="../generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer" class="sphx-glr-backref-module-dirty_cat sphx-glr-backref-type-py-class"><span class="n">SuperVectorizer</span></a><span class="p">(</span><span class="n">auto_cast</span><span class="o">=</span><span class="kc">True</span><span class="p">)),</span>
+    <span class="p">(</span><span class="s1">&#39;vectorizer&#39;</span><span class="p">,</span> <a href="../generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer" class="sphx-glr-backref-module-dirty_cat sphx-glr-backref-type-py-class"><span class="n">SuperVectorizer</span></a><span class="p">()),</span>
     <span class="p">(</span><span class="s1">&#39;clf&#39;</span><span class="p">,</span> <a href="http://scikit-learn.org/0.20/modules/generated/sklearn.base.RegressorMixin.html#sklearn.base.RegressorMixin" title="sklearn.base.RegressorMixin" class="sphx-glr-backref-module-sklearn-base sphx-glr-backref-type-py-class"><span class="n">HistGradientBoostingRegressor</span></a><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">))</span>
 <span class="p">])</span>
 </pre></div>
@@ -340,7 +340,6 @@ columns manually.</p>
 <p>Let us perform the same workflow, but without the <cite>Pipeline</cite>, so we can
 analyze its mechanisms along the way.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer" class="sphx-glr-backref-module-dirty_cat sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sup_vec</span></a> <span class="o">=</span> <a href="../generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer" class="sphx-glr-backref-module-dirty_cat sphx-glr-backref-type-py-class"><span class="n">SuperVectorizer</span></a><span class="p">(</span>
-    <span class="n">auto_cast</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">high_card_str_transformer</span><span class="o">=</span><a href="../generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder" title="dirty_cat.GapEncoder" class="sphx-glr-backref-module-dirty_cat sphx-glr-backref-type-py-class"><span class="n">GapEncoder</span></a><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">50</span><span class="p">),</span>
     <span class="n">high_card_cat_transformer</span><span class="o">=</span><a href="../generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder" title="dirty_cat.GapEncoder" class="sphx-glr-backref-module-dirty_cat sphx-glr-backref-type-py-class"><span class="n">GapEncoder</span></a><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
 <span class="p">)</span>
@@ -454,7 +453,7 @@ instead (which are less subject to biases)</p>
 <p>We can deduce from this data that the three factors that define the
 most the salary are: being hired for a long time, being a manager, and
 having a permanent, full-time job :).</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 4 minutes  38.563 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 1 minutes  49.586 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-03-automatic-preprocessing-with-the-supervectorizer-py">
 <div class="binder-badge docutils container">
 <a class="reference external image-reference" href="https://mybinder.org/v2/gh/dirty-cat/dirty-cat.github.io/master?filepath=dev/auto_examples/03_automatic_preprocessing_with_the_supervectorizer.ipynb"><img alt="Launch binder" src="../_images/binder_badge_logo.svg" width="150px" /></a>

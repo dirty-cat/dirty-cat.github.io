@@ -148,8 +148,8 @@ Then we load it:
 
  .. code-block:: none
 
-    /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sphinx_gallery/gen_rst.py:608: DtypeWarning: Columns (19,20,21,22,23,24,25,34) have mixed types.Specify dtype option on import or set low_memory=False.
-      mem_max, _ = gallery_conf['call_memory'](
+    /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sphinx_gallery/gen_rst.py:516: DtypeWarning: Columns (19,20,21,22,23,24,25,34) have mixed types.Specify dtype option on import or set low_memory=False.
+      exec(self.code, self.fake_main.__dict__)
 
 
 
@@ -202,8 +202,8 @@ difficulty is that it has many different entries.
     RECKLESS DRIVING VEHICLE IN WANTON AND WILLFUL DISREGARD FOR SAFETY OF PERSONS AND PROPERTY          106
     DRIVING VEHICLE WHILE UNDER THE INFLUENCE OF ALCOHOL PER SE                                          103
     DRIVER FAILURE TO OBEY PROPERLY PLACED TRAFFIC CONTROL DEVICE INSTRUCTIONS                            80
-    FAILURE OF INDIVIDUAL DRIVING ON HIGHWAY TO DISPLAY LICENSE TO UNIFORMED POLICE ON DEMAND             48
     PERSON DRIVING MOTOR VEHICLE ON HIGHWAY OR PUBLIC USE PROPERTY ON SUSPENDED LICENSE AND PRIVILEGE     48
+    FAILURE OF INDIVIDUAL DRIVING ON HIGHWAY TO DISPLAY LICENSE TO UNIFORMED POLICE ON DEMAND             48
     FAILURE TO DRIVE VEHICLE ON RIGHT HALF OF ROADWAY WHEN REQUIRED                                       42
     DRIVER CHANGING LANES WHEN UNSAFE                                                                     41
     DRIVING MOTOR VEHICLE ON HIGHWAY WITHOUT REQUIRED LICENSE AND AUTHORIZATION                           40
@@ -279,7 +279,7 @@ one-hot encoding and similarity encoding
 
  .. code-block:: none
 
-    Time to vectorize: 0.8082461357116699
+    Time to vectorize: 0.304293155670166
 
 
 
@@ -311,7 +311,7 @@ We can run a cross-validation
 
  .. code-block:: none
 
-    Run time: 10s    Memory used: 9Mb
+    Run time: 3s    Memory used: 9Mb
     Cross-validation score: [0.94397759 0.94397759 0.94101124 0.94662921 0.94101124]
 
 
@@ -387,7 +387,7 @@ Check now that prediction is still as good
 
  .. code-block:: none
 
-    Run time: 7s    Memory used: 5Mb
+    Run time: 2s    Memory used: 5Mb
     Cross-validation score: [0.94397759 0.94117647 0.94101124 0.94101124 0.94101124]
 
 
@@ -461,7 +461,7 @@ Check now that prediction is still as good
 
  .. code-block:: none
 
-    Run time: 16s    Memory used: 5Mb
+    Run time: 6s    Memory used: 5Mb
     Cross-validation score: [0.93837535 0.93837535 0.93539326 0.94382022 0.93539326]
 
 
@@ -574,7 +574,7 @@ algorithm). The memory savings will then happen during the encoding.
 
  .. code-block:: none
 
-    Time to vectorize: 0.41590166091918945
+    Time to vectorize: 0.18523788452148438
 
 
 
@@ -600,7 +600,7 @@ We can run a cross-validation to confirm the memory footprint reduction
 
  .. code-block:: none
 
-    Run time: 6s    Memory used: 3Mb
+    Run time: 2s    Memory used: 3Mb
     Cross-validation score: [0.93837535 0.94117647 0.94101124 0.94101124 0.94101124]
 
 
@@ -609,7 +609,7 @@ We can run a cross-validation to confirm the memory footprint reduction
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 3 minutes  39.284 seconds)
+   **Total running time of the script:** ( 2 minutes  36.458 seconds)
 
 
 .. _sphx_glr_download_auto_examples_06_dimension_reduction_and_performance.py:
