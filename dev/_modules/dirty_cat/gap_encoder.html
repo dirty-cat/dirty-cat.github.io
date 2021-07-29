@@ -102,6 +102,7 @@
 <span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">CountVectorizer</span><span class="p">,</span> <span class="n">HashingVectorizer</span>
 <span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">KMeans</span>
 <span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">NearestNeighbors</span>
+<span class="kn">from</span> <span class="nn">sklearn.utils.fixes</span> <span class="kn">import</span> <span class="n">_object_dtype_isnan</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">check_input</span>
 
@@ -592,6 +593,14 @@
 <span class="sd">    max_iter_e_step : int, default=20</span>
 <span class="sd">        Maximum number of iterations to adjust the activations h at each step.</span>
 
+<span class="sd">    handle_missing : &#39;error&#39; or &#39;&#39; (default)</span>
+<span class="sd">        Whether to raise an error or impute with blank string &#39;&#39; if missing</span>
+<span class="sd">        values (NaN) are present during fit (default is to impute).</span>
+<span class="sd">        When this parameter is set to &#39;&#39;, and a missing value is encountered</span>
+<span class="sd">        during fit_transform, the resulting encoded columns for this feature</span>
+<span class="sd">        will be all zeros. In the inverse transform, the missing category</span>
+<span class="sd">        will be denoted as None.</span>
+
 
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
@@ -609,7 +618,7 @@
                  <span class="n">hashing</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">hashing_n_features</span><span class="o">=</span><span class="mi">2</span><span class="o">**</span><span class="mi">12</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="s1">&#39;k-means++&#39;</span><span class="p">,</span>
                  <span class="n">tol</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">,</span> <span class="n">min_iter</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">ngram_range</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
                  <span class="n">analyzer</span><span class="o">=</span><span class="s1">&#39;char&#39;</span><span class="p">,</span> <span class="n">add_words</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                 <span class="n">rescale_W</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">max_iter_e_step</span><span class="o">=</span><span class="mi">20</span><span class="p">):</span>
+                 <span class="n">rescale_W</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">max_iter_e_step</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">handle_missing</span><span class="o">=</span><span class="s1">&#39;zero_impute&#39;</span><span class="p">):</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">ngram_range</span> <span class="o">=</span> <span class="n">ngram_range</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">n_components</span> <span class="o">=</span> <span class="n">n_components</span>
@@ -630,6 +639,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">random_state</span> <span class="o">=</span> <span class="n">random_state</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rescale_W</span> <span class="o">=</span> <span class="n">rescale_W</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">max_iter_e_step</span> <span class="o">=</span> <span class="n">max_iter_e_step</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">handle_missing</span> <span class="o">=</span> <span class="n">handle_missing</span>
 
     <span class="k">def</span> <span class="nf">_create_column_gap_encoder</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">GapEncoderColumn</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">GapEncoderColumn</span><span class="p">(</span>
@@ -650,6 +660,27 @@
             <span class="n">rescale_W</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rescale_W</span><span class="p">,</span>
             <span class="n">max_iter_e_step</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">max_iter_e_step</span><span class="p">,</span>
         <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_handle_missing</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Imputes missing values with `` or raises an error</span>
+<span class="sd">        Note: modifies the array in-place.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_missing</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="s1">&#39;zero_impute&#39;</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;handle_missing should be either &#39;error&#39; or &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;&#39;zero_impute&#39;, got </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">handle_missing</span><span class="si">!r}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+
+        <span class="n">missing_mask</span> <span class="o">=</span> <span class="n">_object_dtype_isnan</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">missing_mask</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_missing</span> <span class="o">==</span> <span class="s1">&#39;error&#39;</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Input data contains missing values.&#39;</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_missing</span> <span class="o">==</span> <span class="s1">&#39;zero_impute&#39;</span><span class="p">:</span>
+                <span class="n">X</span><span class="p">[</span><span class="n">missing_mask</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+
+        <span class="k">return</span> <span class="n">X</span>
             
 <div class="viewcode-block" id="GapEncoder.fit"><a class="viewcode-back" href="../../generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -670,6 +701,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">column_names_</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
         <span class="c1"># Check input data shape</span>
         <span class="n">X</span> <span class="o">=</span> <span class="n">check_input</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handle_missing</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fitted_models_</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
             <span class="n">col_enc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_column_gap_encoder</span><span class="p">()</span>
@@ -699,6 +731,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Check input data shape</span>
         <span class="n">X</span> <span class="o">=</span> <span class="n">check_input</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handle_missing</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
         <span class="n">X_enc</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
             <span class="n">X_enc</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fitted_models_</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="n">k</span><span class="p">]))</span>
@@ -726,6 +759,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">column_names_</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
         <span class="c1"># Check input data shape</span>
         <span class="n">X</span> <span class="o">=</span> <span class="n">check_input</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handle_missing</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
         <span class="c1"># Init the `GapEncoderColumn` instances if the model was</span>
         <span class="c1"># not fitted already.</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;fitted_models_&#39;</span><span class="p">):</span>
