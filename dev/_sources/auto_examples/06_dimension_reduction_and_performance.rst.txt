@@ -277,7 +277,7 @@ one-hot encoding and similarity encoding
 
  .. code-block:: none
 
-    Time to vectorize: 0.32247161865234375
+    Time to vectorize: 0.22117948532104492
 
 
 
@@ -309,7 +309,7 @@ We can run a cross-validation
 
  .. code-block:: none
 
-    Run time: 4s    Memory used: 9Mb
+    Run time: 2s    Memory used: 9Mb
     Cross-validation score: [0.94397759 0.94397759 0.94101124 0.94662921 0.94101124]
 
 
@@ -385,7 +385,7 @@ Check now that prediction is still as good
 
  .. code-block:: none
 
-    Run time: 3s    Memory used: 5Mb
+    Run time: 1s    Memory used: 5Mb
     Cross-validation score: [0.94397759 0.94117647 0.94101124 0.94101124 0.94101124]
 
 
@@ -459,7 +459,7 @@ Check now that prediction is still as good
 
  .. code-block:: none
 
-    Run time: 8s    Memory used: 5Mb
+    Run time: 4s    Memory used: 5Mb
     Cross-validation score: [0.93837535 0.93837535 0.93539326 0.94382022 0.93539326]
 
 
@@ -512,6 +512,37 @@ Plot a summary figure
     :alt: 06 dimension reduction and performance
     :class: sphx-glr-single-img
 
+
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+    /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/seaborn/cm.py:1582: UserWarning: Trying to register the cmap 'rocket' which already exists.
+      mpl_cm.register_cmap(_name, _cmap)
+    /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/seaborn/cm.py:1583: UserWarning: Trying to register the cmap 'rocket_r' which already exists.
+      mpl_cm.register_cmap(_name + "_r", _cmap_r)
+    /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/seaborn/cm.py:1582: UserWarning: Trying to register the cmap 'mako' which already exists.
+      mpl_cm.register_cmap(_name, _cmap)
+    /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/seaborn/cm.py:1583: UserWarning: Trying to register the cmap 'mako_r' which already exists.
+      mpl_cm.register_cmap(_name + "_r", _cmap_r)
+    /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/seaborn/cm.py:1582: UserWarning: Trying to register the cmap 'icefire' which already exists.
+      mpl_cm.register_cmap(_name, _cmap)
+    /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/seaborn/cm.py:1583: UserWarning: Trying to register the cmap 'icefire_r' which already exists.
+      mpl_cm.register_cmap(_name + "_r", _cmap_r)
+    /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/seaborn/cm.py:1582: UserWarning: Trying to register the cmap 'vlag' which already exists.
+      mpl_cm.register_cmap(_name, _cmap)
+    /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/seaborn/cm.py:1583: UserWarning: Trying to register the cmap 'vlag_r' which already exists.
+      mpl_cm.register_cmap(_name + "_r", _cmap_r)
+    /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/seaborn/cm.py:1582: UserWarning: Trying to register the cmap 'flare' which already exists.
+      mpl_cm.register_cmap(_name, _cmap)
+    /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/seaborn/cm.py:1583: UserWarning: Trying to register the cmap 'flare_r' which already exists.
+      mpl_cm.register_cmap(_name + "_r", _cmap_r)
+    /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/seaborn/cm.py:1582: UserWarning: Trying to register the cmap 'crest' which already exists.
+      mpl_cm.register_cmap(_name, _cmap)
+    /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/seaborn/cm.py:1583: UserWarning: Trying to register the cmap 'crest_r' which already exists.
+      mpl_cm.register_cmap(_name + "_r", _cmap_r)
 
 
 
@@ -572,7 +603,7 @@ algorithm). The memory savings will then happen during the encoding.
 
  .. code-block:: none
 
-    Time to vectorize: 0.20979666709899902
+    Time to vectorize: 0.16390013694763184
 
 
 
@@ -598,7 +629,7 @@ We can run a cross-validation to confirm the memory footprint reduction
 
  .. code-block:: none
 
-    Run time: 3s    Memory used: 3Mb
+    Run time: 1s    Memory used: 3Mb
     Cross-validation score: [0.93837535 0.94117647 0.94101124 0.94101124 0.94101124]
 
 
@@ -607,7 +638,7 @@ We can run a cross-validation to confirm the memory footprint reduction
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 2 minutes  28.019 seconds)
+   **Total running time of the script:** ( 4 minutes  7.189 seconds)
 
 
 .. _sphx_glr_download_auto_examples_06_dimension_reduction_and_performance.py:

@@ -230,7 +230,7 @@ exclusive parts:</p>
 <li><p>One for model training.</p></li>
 <li><p>One for model testing.</p></li>
 </ul>
-<p>For this reason, we create a simple wrapper around <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html#pandas.read_csv" title="(in pandas v1.3.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">pandas.read_csv()</span></code></a>, that
+<p>For this reason, we create a simple wrapper around <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html#pandas.read_csv" title="(in pandas v1.3.2)"><code class="xref py py-func docutils literal notranslate"><span class="pre">pandas.read_csv()</span></code></a>, that
 extracts the <code class="code docutils literal notranslate"><span class="pre">X</span></code>, and <code class="code docutils literal notranslate"><span class="pre">y</span></code> from the dataset.</p>
 <div class="topic">
 <p class="topic-title">Note about class imbalance:</p>
@@ -358,8 +358,8 @@ sample size varies.</p>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>using   500 samples: model fitting took 0.2s, test accuracy of 0.500
-using  1666 samples: model fitting took 3.7s, test accuracy of 0.504
-using  5000 samples: model fitting took 56.3s, test accuracy of 0.592
+using  1666 samples: model fitting took 3.1s, test accuracy of 0.505
+using  5000 samples: model fitting took 48.1s, test accuracy of 0.602
 </pre></div>
 </div>
 <p>Increasing training size cleary improves model accuracy. However, the
@@ -526,26 +526,26 @@ likely to be marginal.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>batch    0 train precision: 0.9067  val precision: 0.5005
-batch    5 train precision: 0.5799  val precision: 0.5603
-batch   10 train precision: 0.7599  val precision: 0.7024
-batch   15 train precision: 0.6880  val precision: 0.8003
-batch   20 train precision: 0.8088  val precision: 0.8250
-batch   25 train precision: 0.6826  val precision: 0.8531
-batch   30 train precision: 0.9422  val precision: 0.8639
-batch   35 train precision: 0.9630  val precision: 0.8767
-batch   40 train precision: 0.8348  val precision: 0.8913
-batch   45 train precision: 0.8703  val precision: 0.8934
-batch   50 train precision: 0.7817  val precision: 0.9013
-batch   55 train precision: 0.8868  val precision: 0.9039
-batch   60 train precision: 0.9631  val precision: 0.9041
-batch   65 train precision: 0.8849  val precision: 0.9053
-batch   70 train precision: 0.8266  val precision: 0.9053
-batch   75 train precision: 0.9063  val precision: 0.9059
-batch   80 train precision: 0.8033  val precision: 0.9062
-batch   85 train precision: 0.9602  val precision: 0.9060
-batch   90 train precision: 0.9227  val precision: 0.9063
-batch   95 train precision: 0.9619  val precision: 0.9051
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>batch    0 train precision: 0.8923  val precision: 0.5011
+batch    5 train precision: 0.5270  val precision: 0.6020
+batch   10 train precision: 0.7599  val precision: 0.6762
+batch   15 train precision: 0.6627  val precision: 0.7886
+batch   20 train precision: 0.8086  val precision: 0.8268
+batch   25 train precision: 0.6859  val precision: 0.8533
+batch   30 train precision: 0.9279  val precision: 0.8684
+batch   35 train precision: 0.9518  val precision: 0.8811
+batch   40 train precision: 0.8327  val precision: 0.8949
+batch   45 train precision: 0.8877  val precision: 0.8994
+batch   50 train precision: 0.7794  val precision: 0.9056
+batch   55 train precision: 0.8787  val precision: 0.9096
+batch   60 train precision: 0.9262  val precision: 0.9103
+batch   65 train precision: 0.8876  val precision: 0.9132
+batch   70 train precision: 0.8575  val precision: 0.9119
+batch   75 train precision: 0.9132  val precision: 0.9123
+batch   80 train precision: 0.7995  val precision: 0.9127
+batch   85 train precision: 0.9461  val precision: 0.9139
+batch   90 train precision: 0.9266  val precision: 0.9147
+batch   95 train precision: 0.9503  val precision: 0.9129
 </pre></div>
 </div>
 <p>So far, we fitted two kinds of models: a exact kernel algorithm, and an
@@ -616,7 +616,7 @@ trivial task at the beginning of this example!</p>
 <dd><p><a class="reference external" href="https://pdfs.semanticscholar.org/0373/e7289a1978108d6455218160a529c85842c0.pdf">Introduction to duality</a></p>
 </dd>
 </dl>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 5 minutes  45.388 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 5 minutes  5.585 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-05-scaling-non-linear-models-py">
 <div class="binder-badge docutils container">
 <a class="reference external image-reference" href="https://mybinder.org/v2/gh/dirty-cat/dirty-cat.github.io/master?filepath=dev/auto_examples/05_scaling_non_linear_models.ipynb"><img alt="Launch binder" src="../_images/binder_badge_logo.svg" width="150px" /></a>
