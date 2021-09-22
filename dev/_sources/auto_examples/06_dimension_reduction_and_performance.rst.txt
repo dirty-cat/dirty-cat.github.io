@@ -277,7 +277,7 @@ one-hot encoding and similarity encoding
 
  .. code-block:: none
 
-    Time to vectorize: 0.22117948532104492
+    Time to vectorize: 0.594057559967041
 
 
 
@@ -309,7 +309,7 @@ We can run a cross-validation
 
  .. code-block:: none
 
-    Run time: 2s    Memory used: 9Mb
+    Run time: 8s    Memory used: 9Mb
     Cross-validation score: [0.94397759 0.94397759 0.94101124 0.94662921 0.94101124]
 
 
@@ -385,7 +385,7 @@ Check now that prediction is still as good
 
  .. code-block:: none
 
-    Run time: 1s    Memory used: 5Mb
+    Run time: 5s    Memory used: 5Mb
     Cross-validation score: [0.94397759 0.94117647 0.94101124 0.94101124 0.94101124]
 
 
@@ -459,7 +459,7 @@ Check now that prediction is still as good
 
  .. code-block:: none
 
-    Run time: 4s    Memory used: 5Mb
+    Run time: 13s    Memory used: 5Mb
     Cross-validation score: [0.93837535 0.93837535 0.93539326 0.94382022 0.93539326]
 
 
@@ -603,7 +603,7 @@ algorithm). The memory savings will then happen during the encoding.
 
  .. code-block:: none
 
-    Time to vectorize: 0.16390013694763184
+    Time to vectorize: 0.39519357681274414
 
 
 
@@ -629,7 +629,7 @@ We can run a cross-validation to confirm the memory footprint reduction
 
  .. code-block:: none
 
-    Run time: 1s    Memory used: 3Mb
+    Run time: 5s    Memory used: 3Mb
     Cross-validation score: [0.93837535 0.94117647 0.94101124 0.94101124 0.94101124]
 
 
@@ -638,7 +638,7 @@ We can run a cross-validation to confirm the memory footprint reduction
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 4 minutes  7.189 seconds)
+   **Total running time of the script:** ( 2 minutes  53.816 seconds)
 
 
 .. _sphx_glr_download_auto_examples_06_dimension_reduction_and_performance.py:
