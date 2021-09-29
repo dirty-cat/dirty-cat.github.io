@@ -11,16 +11,16 @@
   <meta property="og:url" content="https://dirty-cat.github.io/stable/auto_examples/05_scaling_non_linear_models.html" />
   <meta property="og:site_name" content="Dirty cat" />
   <meta property="og:description" content="A very classic dilemna when training a machine learning model consists in choosing between using a linear model or a non-linear one. Linear models are very well studied and understood. They are gen..." />
-  <meta property="og:image" content="../_images/sphx_glr_05_scaling_non_linear_models_001.png" />
-  <meta property="og:image:alt" content="Test set accuracy and number of samples visited samples seen by the SGDClassifier" />
+  <meta property="og:image" content="https://dirty-cat.github.io/stable/_static/dirty_cat.svg" />
+  <meta property="og:image:alt" content="Dirty cat" />
   
     <title>Fitting scalable, non-linear models on data with dirty categories &#8212; &amp;mdash; Dirty cat</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/gallery-binder.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/gallery-dataframe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/gallery-rendered-html.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css" />
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
@@ -357,9 +357,9 @@ sample size varies.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>using   500 samples: model fitting took 0.4s, test accuracy of 0.500
-using  1666 samples: model fitting took 5.5s, test accuracy of 0.505
-using  5000 samples: model fitting took 70.8s, test accuracy of 0.610
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>using   500 samples: model fitting took 0.3s, test accuracy of 0.500
+using  1666 samples: model fitting took 4.6s, test accuracy of 0.506
+using  5000 samples: model fitting took 62.0s, test accuracy of 0.615
 </pre></div>
 </div>
 <p>Increasing training size cleary improves model accuracy. However, the
@@ -526,26 +526,26 @@ likely to be marginal.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>batch    0 train precision: 0.9067  val precision: 0.5008
-batch    5 train precision: 0.5040  val precision: 0.6022
-batch   10 train precision: 0.7578  val precision: 0.7315
-batch   15 train precision: 0.6287  val precision: 0.8067
-batch   20 train precision: 0.7383  val precision: 0.8480
-batch   25 train precision: 0.7025  val precision: 0.8667
-batch   30 train precision: 0.9478  val precision: 0.8813
-batch   35 train precision: 0.9572  val precision: 0.8924
-batch   40 train precision: 0.8077  val precision: 0.9055
-batch   45 train precision: 0.8759  val precision: 0.9058
-batch   50 train precision: 0.7032  val precision: 0.9071
-batch   55 train precision: 0.8919  val precision: 0.9141
-batch   60 train precision: 0.9354  val precision: 0.9172
-batch   65 train precision: 0.8660  val precision: 0.9198
-batch   70 train precision: 0.8555  val precision: 0.9179
-batch   75 train precision: 0.9525  val precision: 0.9202
-batch   80 train precision: 0.8238  val precision: 0.9200
-batch   85 train precision: 0.8990  val precision: 0.9204
-batch   90 train precision: 0.8519  val precision: 0.9213
-batch   95 train precision: 0.9455  val precision: 0.9220
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>batch    0 train precision: 0.9497  val precision: 0.5016
+batch    5 train precision: 0.5680  val precision: 0.6366
+batch   10 train precision: 0.8071  val precision: 0.7740
+batch   15 train precision: 0.6757  val precision: 0.8411
+batch   20 train precision: 0.8076  val precision: 0.8641
+batch   25 train precision: 0.6922  val precision: 0.8760
+batch   30 train precision: 0.9345  val precision: 0.8949
+batch   35 train precision: 0.9618  val precision: 0.8996
+batch   40 train precision: 0.8184  val precision: 0.9048
+batch   45 train precision: 0.9058  val precision: 0.9063
+batch   50 train precision: 0.7236  val precision: 0.9077
+batch   55 train precision: 0.8967  val precision: 0.9154
+batch   60 train precision: 0.8819  val precision: 0.9165
+batch   65 train precision: 0.8740  val precision: 0.9184
+batch   70 train precision: 0.8438  val precision: 0.9188
+batch   75 train precision: 0.9435  val precision: 0.9192
+batch   80 train precision: 0.8196  val precision: 0.9210
+batch   85 train precision: 0.8917  val precision: 0.9217
+batch   90 train precision: 0.8859  val precision: 0.9239
+batch   95 train precision: 0.9564  val precision: 0.9230
 </pre></div>
 </div>
 <p>So far, we fitted two kinds of models: a exact kernel algorithm, and an
@@ -580,8 +580,7 @@ visited samples for each model as we increase our time budget:</p>
 <a href="https://matplotlib.org/api/figure_api.html#matplotlib.figure.Figure.suptitle" title="matplotlib.figure.Figure.suptitle" class="sphx-glr-backref-module-matplotlib-figure sphx-glr-backref-type-py-method"><span class="n">f</span><span class="o">.</span><span class="n">suptitle</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">title</span></a><span class="p">)</span>
 </pre></div>
 </div>
-<img alt="Test set accuracy and number of samples visited samples seen by the SGDClassifier" class="sphx-glr-single-img" src="../_images/sphx_glr_05_scaling_non_linear_models_001.png" />
-<p class="sphx-glr-script-out">Out:</p>
+<img src="../_images/sphx_glr_05_scaling_non_linear_models_001.png" srcset="../_images/sphx_glr_05_scaling_non_linear_models_001.png" alt="Test set accuracy and number of samples visited samples seen by the SGDClassifier" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Text(0.5, 0.98, &#39;Test set accuracy and number of samples visited\nsamples seen by the SGDClassifier&#39;)
 </pre></div>
 </div>
@@ -616,7 +615,7 @@ trivial task at the beginning of this example!</p>
 <dd><p><a class="reference external" href="https://pdfs.semanticscholar.org/0373/e7289a1978108d6455218160a529c85842c0.pdf">Introduction to duality</a></p>
 </dd>
 </dl>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 8 minutes  5.160 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 6 minutes  53.208 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-05-scaling-non-linear-models-py">
 <div class="binder-badge docutils container">
 <a class="reference external image-reference" href="https://mybinder.org/v2/gh/dirty-cat/dirty-cat.github.io/master?filepath=dev/auto_examples/05_scaling_non_linear_models.ipynb"><img alt="Launch binder" src="../_images/binder_badge_logo.svg" width="150px" /></a>

@@ -277,7 +277,7 @@ one-hot encoding and similarity encoding
 
  .. code-block:: none
 
-    Time to vectorize: 0.594057559967041
+    Time to vectorize: 0.41253662109375
 
 
 
@@ -309,7 +309,7 @@ We can run a cross-validation
 
  .. code-block:: none
 
-    Run time: 8s    Memory used: 9Mb
+    Run time: 5s    Memory used: 9Mb
     Cross-validation score: [0.94397759 0.94397759 0.94101124 0.94662921 0.94101124]
 
 
@@ -385,7 +385,7 @@ Check now that prediction is still as good
 
  .. code-block:: none
 
-    Run time: 5s    Memory used: 5Mb
+    Run time: 4s    Memory used: 5Mb
     Cross-validation score: [0.94397759 0.94117647 0.94101124 0.94101124 0.94101124]
 
 
@@ -459,8 +459,8 @@ Check now that prediction is still as good
 
  .. code-block:: none
 
-    Run time: 13s    Memory used: 5Mb
-    Cross-validation score: [0.93837535 0.93837535 0.93539326 0.94382022 0.93539326]
+    Run time: 7s    Memory used: 5Mb
+    Cross-validation score: [0.93837535 0.93277311 0.93539326 0.93539326 0.93539326]
 
 
 
@@ -508,9 +508,10 @@ Plot a summary figure
 
 
 
-.. image:: /auto_examples/images/sphx_glr_06_dimension_reduction_and_performance_001.png
-    :alt: 06 dimension reduction and performance
-    :class: sphx-glr-single-img
+.. image-sg:: /auto_examples/images/sphx_glr_06_dimension_reduction_and_performance_001.png
+   :alt: 06 dimension reduction and performance
+   :srcset: /auto_examples/images/sphx_glr_06_dimension_reduction_and_performance_001.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -603,7 +604,7 @@ algorithm). The memory savings will then happen during the encoding.
 
  .. code-block:: none
 
-    Time to vectorize: 0.39519357681274414
+    Time to vectorize: 0.2935492992401123
 
 
 
@@ -629,7 +630,7 @@ We can run a cross-validation to confirm the memory footprint reduction
 
  .. code-block:: none
 
-    Run time: 5s    Memory used: 3Mb
+    Run time: 3s    Memory used: 3Mb
     Cross-validation score: [0.93837535 0.94117647 0.94101124 0.94101124 0.94101124]
 
 
@@ -638,7 +639,7 @@ We can run a cross-validation to confirm the memory footprint reduction
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 2 minutes  53.816 seconds)
+   **Total running time of the script:** ( 2 minutes  30.327 seconds)
 
 
 .. _sphx_glr_download_auto_examples_06_dimension_reduction_and_performance.py:

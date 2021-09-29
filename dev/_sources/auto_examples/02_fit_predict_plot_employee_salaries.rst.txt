@@ -205,6 +205,15 @@ The encoders for both clean and dirty data are first imported:
 
 
 
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+    /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/experimental/enable_hist_gradient_boosting.py:16: UserWarning: Since version 1.0, it is not needed to import enable_hist_gradient_boosting anymore. HistGradientBoostingClassifier and HistGradientBoostingRegressor are now stable and can be normally imported from sklearn.ensemble.
+      warnings.warn(
+
 
 
 
@@ -256,6 +265,16 @@ and store the returned cross-validation score:
     minhash encoding
     r2 score:  mean: 0.919; std: 0.012
 
+    /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/utils/deprecation.py:87: FutureWarning: Function get_feature_names is deprecated; get_feature_names is deprecated in 1.0 and will be removed in 1.2. Please use get_feature_names_out instead.
+      warnings.warn(msg, category=FutureWarning)
+    /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/utils/deprecation.py:87: FutureWarning: Function get_feature_names is deprecated; get_feature_names is deprecated in 1.0 and will be removed in 1.2. Please use get_feature_names_out instead.
+      warnings.warn(msg, category=FutureWarning)
+    /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/utils/deprecation.py:87: FutureWarning: Function get_feature_names is deprecated; get_feature_names is deprecated in 1.0 and will be removed in 1.2. Please use get_feature_names_out instead.
+      warnings.warn(msg, category=FutureWarning)
+    /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/utils/deprecation.py:87: FutureWarning: Function get_feature_names is deprecated; get_feature_names is deprecated in 1.0 and will be removed in 1.2. Please use get_feature_names_out instead.
+      warnings.warn(msg, category=FutureWarning)
+    /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/utils/deprecation.py:87: FutureWarning: Function get_feature_names is deprecated; get_feature_names is deprecated in 1.0 and will be removed in 1.2. Please use get_feature_names_out instead.
+      warnings.warn(msg, category=FutureWarning)
     gap encoding
     r2 score:  mean: 0.912; std: 0.013
 
@@ -286,9 +305,10 @@ Finally, we plot the scores on a boxplot:
 
 
 
-.. image:: /auto_examples/images/sphx_glr_02_fit_predict_plot_employee_salaries_001.png
-    :alt: 02 fit predict plot employee salaries
-    :class: sphx-glr-single-img
+.. image-sg:: /auto_examples/images/sphx_glr_02_fit_predict_plot_employee_salaries_001.png
+   :alt: 02 fit predict plot employee salaries
+   :srcset: /auto_examples/images/sphx_glr_02_fit_predict_plot_employee_salaries_001.png
+   :class: sphx-glr-single-img
 
 
 
@@ -308,7 +328,7 @@ it provides interpretable features (see :ref:`sphx_glr_auto_examples_04_feature_
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 3 minutes  44.274 seconds)
+   **Total running time of the script:** ( 2 minutes  41.278 seconds)
 
 
 .. _sphx_glr_download_auto_examples_02_fit_predict_plot_employee_salaries.py:

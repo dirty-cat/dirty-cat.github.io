@@ -350,9 +350,39 @@ Let's perform a cross-validation to see how well this model predicts
 
  .. code-block:: none
 
-    scores=array([0.90436579, 0.85940967, 0.88976568, 0.88293046, 0.91330898])
-    mean=0.889956116376877
-    std=0.018630494144431086
+    /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/utils/deprecation.py:87: FutureWarning: Function get_feature_names is deprecated; get_feature_names is deprecated in 1.0 and will be removed in 1.2. Please use get_feature_names_out instead.
+      warnings.warn(msg, category=FutureWarning)
+    /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/utils/deprecation.py:87: FutureWarning: Function get_feature_names is deprecated; get_feature_names is deprecated in 1.0 and will be removed in 1.2. Please use get_feature_names_out instead.
+      warnings.warn(msg, category=FutureWarning)
+    /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/utils/deprecation.py:87: FutureWarning: Function get_feature_names is deprecated; get_feature_names is deprecated in 1.0 and will be removed in 1.2. Please use get_feature_names_out instead.
+      warnings.warn(msg, category=FutureWarning)
+    /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/utils/deprecation.py:87: FutureWarning: Function get_feature_names is deprecated; get_feature_names is deprecated in 1.0 and will be removed in 1.2. Please use get_feature_names_out instead.
+      warnings.warn(msg, category=FutureWarning)
+    /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/utils/deprecation.py:87: FutureWarning: Function get_feature_names is deprecated; get_feature_names is deprecated in 1.0 and will be removed in 1.2. Please use get_feature_names_out instead.
+      warnings.warn(msg, category=FutureWarning)
+    /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/utils/deprecation.py:87: FutureWarning: Function get_feature_names is deprecated; get_feature_names is deprecated in 1.0 and will be removed in 1.2. Please use get_feature_names_out instead.
+      warnings.warn(msg, category=FutureWarning)
+    /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/utils/deprecation.py:87: FutureWarning: Function get_feature_names is deprecated; get_feature_names is deprecated in 1.0 and will be removed in 1.2. Please use get_feature_names_out instead.
+      warnings.warn(msg, category=FutureWarning)
+    /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/utils/deprecation.py:87: FutureWarning: Function get_feature_names is deprecated; get_feature_names is deprecated in 1.0 and will be removed in 1.2. Please use get_feature_names_out instead.
+      warnings.warn(msg, category=FutureWarning)
+    /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/utils/deprecation.py:87: FutureWarning: Function get_feature_names is deprecated; get_feature_names is deprecated in 1.0 and will be removed in 1.2. Please use get_feature_names_out instead.
+      warnings.warn(msg, category=FutureWarning)
+    /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/utils/deprecation.py:87: FutureWarning: Function get_feature_names is deprecated; get_feature_names is deprecated in 1.0 and will be removed in 1.2. Please use get_feature_names_out instead.
+      warnings.warn(msg, category=FutureWarning)
+    /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/utils/deprecation.py:87: FutureWarning: Function get_feature_names is deprecated; get_feature_names is deprecated in 1.0 and will be removed in 1.2. Please use get_feature_names_out instead.
+      warnings.warn(msg, category=FutureWarning)
+    /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/utils/deprecation.py:87: FutureWarning: Function get_feature_names is deprecated; get_feature_names is deprecated in 1.0 and will be removed in 1.2. Please use get_feature_names_out instead.
+      warnings.warn(msg, category=FutureWarning)
+    /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/utils/deprecation.py:87: FutureWarning: Function get_feature_names is deprecated; get_feature_names is deprecated in 1.0 and will be removed in 1.2. Please use get_feature_names_out instead.
+      warnings.warn(msg, category=FutureWarning)
+    /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/utils/deprecation.py:87: FutureWarning: Function get_feature_names is deprecated; get_feature_names is deprecated in 1.0 and will be removed in 1.2. Please use get_feature_names_out instead.
+      warnings.warn(msg, category=FutureWarning)
+    /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/utils/deprecation.py:87: FutureWarning: Function get_feature_names is deprecated; get_feature_names is deprecated in 1.0 and will be removed in 1.2. Please use get_feature_names_out instead.
+      warnings.warn(msg, category=FutureWarning)
+    scores=array([0.89028063, 0.87979709, 0.92110538, 0.92628107, 0.91628247])
+    mean=0.9067493278927353
+    std=0.018309052713682196
 
 
 
@@ -408,6 +438,19 @@ We split the data between train and test, and transform them:
 
 
 
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+    /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/utils/deprecation.py:87: FutureWarning: Function get_feature_names is deprecated; get_feature_names is deprecated in 1.0 and will be removed in 1.2. Please use get_feature_names_out instead.
+      warnings.warn(msg, category=FutureWarning)
+    /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/utils/deprecation.py:87: FutureWarning: Function get_feature_names is deprecated; get_feature_names is deprecated in 1.0 and will be removed in 1.2. Please use get_feature_names_out instead.
+      warnings.warn(msg, category=FutureWarning)
+    /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/utils/deprecation.py:87: FutureWarning: Function get_feature_names is deprecated; get_feature_names is deprecated in 1.0 and will be removed in 1.2. Please use get_feature_names_out instead.
+      warnings.warn(msg, category=FutureWarning)
+
 
 
 
@@ -436,7 +479,7 @@ we can print the transformers and the columns assignment it creates:
  .. code-block:: none
 
 
-    [('high_card_str', GapEncoder(n_components=50), ['division', 'employee_position_title', 'underfilled_job_title']), ('low_card_cat', OneHotEncoder(), ['gender', 'assignment_category']), ('high_card_cat', GapEncoder(n_components=50), ['department', 'department_name']), ('remainder', 'passthrough', [7])]
+    [('high_card_str', GapEncoder(n_components=50), ['division', 'employee_position_title', 'underfilled_job_title']), ('low_card_cat', OneHotEncoder(), ['gender', 'department', 'department_name', 'assignment_category']), ('remainder', 'passthrough', [7])]
 
 
 
@@ -498,8 +541,10 @@ After encoding (we only plot the first 8 feature names):
 
  .. code-block:: none
 
+    /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/utils/deprecation.py:87: FutureWarning: Function get_feature_names is deprecated; get_feature_names is deprecated in 1.0 and will be removed in 1.2. Please use get_feature_names_out instead.
+      warnings.warn(msg, category=FutureWarning)
 
-    ['division: compliance, employee, explosive', 'division: school, health, head', 'division: station, state, estate', 'division: engineering, parking, marking', 'division: patrol, 3rd, 2nd', 'division: security, mccf, minority', 'division: silver, spring, ride', 'division: safety, traffic, life']
+    ['division: patrol, 4th, 6th', 'division: personnel, fallsgrove, wheaton', 'division: communications, communication, community', 'division: station, mediation, recreation', 'division: silver, spring, ride', 'division: behavioral, school, health', 'division: safety, alcohol, life', 'division: security, mccf, unit']
 
 
 
@@ -530,7 +575,7 @@ In total, we have 256 encoded columns.
  .. code-block:: none
 
 
-    256
+    230
 
 
 
@@ -620,9 +665,10 @@ Plotting the results:
 
 
 
-.. image:: /auto_examples/images/sphx_glr_03_automatic_preprocessing_with_the_supervectorizer_001.png
-    :alt: Feature importances
-    :class: sphx-glr-single-img
+.. image-sg:: /auto_examples/images/sphx_glr_03_automatic_preprocessing_with_the_supervectorizer_001.png
+   :alt: Feature importances
+   :srcset: /auto_examples/images/sphx_glr_03_automatic_preprocessing_with_the_supervectorizer_001.png
+   :class: sphx-glr-single-img
 
 
 
@@ -637,7 +683,7 @@ having a permanent, full-time job :).
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 4 minutes  11.350 seconds)
+   **Total running time of the script:** ( 3 minutes  16.287 seconds)
 
 
 .. _sphx_glr_download_auto_examples_03_automatic_preprocessing_with_the_supervectorizer.py:
