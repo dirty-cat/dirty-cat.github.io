@@ -31,16 +31,15 @@ What do we mean by dirty categories?
 
 Let's look at a dataset called employee salaries:
 
-.. GENERATED FROM PYTHON SOURCE LINES 14-22
+.. GENERATED FROM PYTHON SOURCE LINES 14-21
 
 .. code-block:: default
 
-    import pandas as pd
     from dirty_cat import datasets
 
     employee_salaries = datasets.fetch_employee_salaries()
-    print(employee_salaries['DESCR'])
-    data = employee_salaries['data']
+    print(employee_salaries.description)
+    data = employee_salaries.X
     print(data.head(n=5))
 
 
@@ -53,26 +52,26 @@ Let's look at a dataset called employee salaries:
 
  .. code-block:: none
 
+    /home/circleci/project/dirty_cat/datasets/fetching.py:113: UserWarning: Could not find the dataset 42125 locally. Downloading it from OpenML; this might take a while... If it is interrupted, some files might be invalid/incomplete: if on the following run, the fetching raises errors, you can try fixing this issue by deleting the directory PosixPath('/home/circleci/project/dirty_cat/datasets/data').
+      warnings.warn(
     Annual salary information including gross pay and overtime pay for all active, permanent employees of Montgomery County, MD paid in calendar year 2016. This information will be published annually each year.
+      gender department  ... date_first_hired year_first_hired
+    0      F        POL  ...       09/22/1986             1986
+    1      M        POL  ...       09/12/1988             1988
+    2      F        HHS  ...       11/19/1989             1989
+    3      M        COR  ...       05/05/2014             2014
+    4      M        HCA  ...       03/05/2007             2007
 
-    Downloaded from openml.org.
-                full_name gender  ...  year_first_hired  Current Annual Salary
-    0      Aarhus, Pam J.      F  ...            1986.0               69222.18
-    1     Aaron, David J.      M  ...            1988.0               97392.47
-    2    Aaron, Marsha M.      F  ...            1989.0              104717.28
-    3  Ababio, Godfred A.      M  ...            2014.0               52734.57
-    4      Ababu, Essayas      M  ...            2007.0               93396.00
-
-    [5 rows x 13 columns]
+    [5 rows x 9 columns]
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 23-24
+.. GENERATED FROM PYTHON SOURCE LINES 22-23
 
 Here is how many unique entries there is per column
 
-.. GENERATED FROM PYTHON SOURCE LINES 24-26
+.. GENERATED FROM PYTHON SOURCE LINES 23-25
 
 .. code-block:: default
 
@@ -88,10 +87,7 @@ Here is how many unique entries there is per column
 
  .. code-block:: none
 
-    full_name                  9222
     gender                        2
-    2016_gross_pay_received    8977
-    2016_overtime_pay          6176
     department                   37
     department_name              37
     division                    694
@@ -100,17 +96,16 @@ Here is how many unique entries there is per column
     underfilled_job_title        84
     date_first_hired           2264
     year_first_hired             51
-    Current Annual Salary      3403
     dtype: int64
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 27-28
+.. GENERATED FROM PYTHON SOURCE LINES 26-27
 
 As we can see, some entries have many different unique values:
 
-.. GENERATED FROM PYTHON SOURCE LINES 28-30
+.. GENERATED FROM PYTHON SOURCE LINES 27-29
 
 .. code-block:: default
 
@@ -142,7 +137,7 @@ As we can see, some entries have many different unique values:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 31-50
+.. GENERATED FROM PYTHON SOURCE LINES 30-50
 
 These different entries are often variations on the same entities:
 there are 3 kinds of Accountant/Auditor.
@@ -163,12 +158,15 @@ entries.
 To simplify understanding, we will focus on the column describing the
 employee's position title:
 data
+values = data[['employee_position_title', 'gender']] + employee_salaries.y
 
-.. GENERATED FROM PYTHON SOURCE LINES 50-52
+.. GENERATED FROM PYTHON SOURCE LINES 50-54
 
 .. code-block:: default
 
-    values = data[['employee_position_title', 'gender', 'Current Annual Salary']]
+
+    values = data[['employee_position_title', 'gender']]
+    values.insert(0, 'current_annual_salary', employee_salaries.y)
 
 
 
@@ -177,7 +175,7 @@ data
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 53-59
+.. GENERATED FROM PYTHON SOURCE LINES 55-61
 
 String similarity between entries
 -------------------------------------------------
@@ -186,7 +184,7 @@ That's where our encoders get into play. In order to robustly
 embed dirty semantic data, the SimilarityEncoder creates a similarity
 matrix based on the 3-gram structure of the data.
 
-.. GENERATED FROM PYTHON SOURCE LINES 59-67
+.. GENERATED FROM PYTHON SOURCE LINES 61-69
 
 .. code-block:: default
 
@@ -205,7 +203,7 @@ matrix based on the 3-gram structure of the data.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 68-73
+.. GENERATED FROM PYTHON SOURCE LINES 70-75
 
 Plotting the new representation using multi-dimensional scaling
 ................................................................
@@ -213,7 +211,7 @@ Plotting the new representation using multi-dimensional scaling
 Let's now plot a couple points at random using a low-dimensional representation
 to get an intuition of what the similarity encoder is doing:
 
-.. GENERATED FROM PYTHON SOURCE LINES 73-82
+.. GENERATED FROM PYTHON SOURCE LINES 75-84
 
 .. code-block:: default
 
@@ -242,11 +240,11 @@ to get an intuition of what the similarity encoder is doing:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 83-84
+.. GENERATED FROM PYTHON SOURCE LINES 85-86
 
 We first quickly fit a KNN so that the plots does not get too busy:
 
-.. GENERATED FROM PYTHON SOURCE LINES 84-96
+.. GENERATED FROM PYTHON SOURCE LINES 86-98
 
 .. code-block:: default
 
@@ -269,11 +267,11 @@ We first quickly fit a KNN so that the plots does not get too busy:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 97-98
+.. GENERATED FROM PYTHON SOURCE LINES 99-100
 
 Then we plot it, adding the categories in the scatter plot:
 
-.. GENERATED FROM PYTHON SOURCE LINES 98-110
+.. GENERATED FROM PYTHON SOURCE LINES 100-112
 
 .. code-block:: default
 
@@ -309,14 +307,14 @@ Then we plot it, adding the categories in the scatter plot:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 111-115
+.. GENERATED FROM PYTHON SOURCE LINES 113-117
 
 Heatmap of the similarity matrix
 ................................
 
 We can also plot the distance matrix for those observations:
 
-.. GENERATED FROM PYTHON SOURCE LINES 115-126
+.. GENERATED FROM PYTHON SOURCE LINES 117-128
 
 .. code-block:: default
 
@@ -343,7 +341,7 @@ We can also plot the distance matrix for those observations:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 127-133
+.. GENERATED FROM PYTHON SOURCE LINES 129-135
 
 As shown in the previous plot, we see that the nearest neighbor of
 "Communication Equipment Technician"
@@ -352,7 +350,7 @@ very close to senior "supply technician": therefore, we grasp the
 "communication" part (not initially present in the category as a unique word)
 as well as the technician part of this category.
 
-.. GENERATED FROM PYTHON SOURCE LINES 136-141
+.. GENERATED FROM PYTHON SOURCE LINES 138-143
 
 Encoding categorical data using SimilarityEncoder
 -------------------------------------------------
@@ -360,7 +358,7 @@ Encoding categorical data using SimilarityEncoder
 A typical data-science workflow uses one-hot encoding to represent
 categories.
 
-.. GENERATED FROM PYTHON SOURCE LINES 141-155
+.. GENERATED FROM PYTHON SOURCE LINES 143-157
 
 .. code-block:: default
 
@@ -390,14 +388,14 @@ categories.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 156-160
+.. GENERATED FROM PYTHON SOURCE LINES 158-162
 
 The corresponding is very sparse
 
 SimilarityEncoder can be used to replace one-hot encoding capturing the
 similarities:
 
-.. GENERATED FROM PYTHON SOURCE LINES 160-168
+.. GENERATED FROM PYTHON SOURCE LINES 162-170
 
 .. code-block:: default
 
@@ -421,7 +419,7 @@ similarities:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 169-171
+.. GENERATED FROM PYTHON SOURCE LINES 171-173
 
 Other examples in the dirty_cat documentation show how
 similarity encoding impacts prediction performance.
@@ -429,7 +427,7 @@ similarity encoding impacts prediction performance.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  15.124 seconds)
+   **Total running time of the script:** ( 0 minutes  15.454 seconds)
 
 
 .. _sphx_glr_download_auto_examples_01_investigating_dirty_categories.py:

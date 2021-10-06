@@ -21,14 +21,14 @@
 Fitting scalable, non-linear models on data with dirty categories
 =================================================================
 
-A very classic dilemna when training a machine learning model consists in
+A very classic dilemma when training a machine learning model consists in
 choosing between using a linear model or a non-linear one.
 
 Linear models are very well studied and understood. They are generally fast
 and easy to optimize, and generate interpretable results. However, for some
 problems with a complex relationship between the input and the output, linear
 models reach their expressivity limit: whatever the number of samples the
-training set may have, past some point, it's precision won't get any better.
+training set may have, past some point, its precision won't get any better.
 
 Non-linear models, however, tend to *scale* better with sample size: they are
 able to digest the information in the additional samples to get a better
@@ -42,24 +42,24 @@ includes:
   Boosting Machines [#xgboost]_
 * Kernel Methods.
 
-However, reaching the phase where the non-linear model outpeforms the linear
-one can be complicated. Indeed, a more complex models means often a longer
+However, reaching the phase where the non-linear model outperforms the linear
+one can be complicated. Indeed, a more complex models often means a longer
 fitting/tuning process:
 
-* Neural networks often necessitate extended model tuning time, in order to
+* Neural networks often need extended model tuning time, in order to
   achieve good optimization and network architecture.
 * Gradient Boosting Machines do not tend to scale extremely well with
   increasing sample size, as all the data needs to be loaded into the main
   memory.
 * For kernel methods, parameter fitting requires the inversion of a gram matrix
-  of size :math:`n \times n` (:math:`n` being the number of samples), yiedling
-  a quadratic dependency (with n) in the final compmutation time.
+  of size :math:`n \times n` (:math:`n` being the number of samples), yielding
+  a quadratic dependency (with :math:`n`) in the final computation time.
 
 
-In order to make the best out of a non-linear model, one has to **make it
-scalable**. For kernel methods, there exist approximation algorithms that
-drop the quadratic dependency with the sample size while ensuring almost the
-same model capacity.
+In order to get the best out of a non-linear model, one has to **make it
+scalable**. For kernel methods, approximation algorithms that drop the
+quadratic dependency with the sample size while ensuring almost the
+same model capacity exist.
 
 In this example, you will learn how to:
     1. Build a ML pipeline that uses a kernel method.
@@ -68,7 +68,7 @@ In this example, you will learn how to:
 
 
 .. note::
-   This example assumes the reader to be familiar with similarity encoding and
+   This example assumes the reader is familiar with similarity encoding and
    its use-cases.
 
    * For an introduction to dirty categories, see :ref:`this example<sphx_glr_auto_examples_01_investigating_dirty_categories.py>`.
@@ -123,18 +123,19 @@ In this example, you will learn how to:
 
 .. GENERATED FROM PYTHON SOURCE LINES 107-110
 
-Training a first simple pipeline
---------------------------------
+Training a simple pipeline
+--------------------------
 The data that the model will fit is the :code:`drug_directory` dataset.
 
-.. GENERATED FROM PYTHON SOURCE LINES 110-115
+.. GENERATED FROM PYTHON SOURCE LINES 110-116
 
 .. code-block:: default
 
     from dirty_cat.datasets import fetch_drug_directory
 
-    info = fetch_drug_directory()
-    print(info['description'])
+    # We'll only gather the information, and not load the dataset in memory for now
+    drug_directory = fetch_drug_directory(load_dataframe=False)
+    print(drug_directory.description)
 
 
 
@@ -146,14 +147,14 @@ The data that the model will fit is the :code:`drug_directory` dataset.
 
  .. code-block:: none
 
-    Extracting data from /home/circleci/project/dirty_cat/data/drug_directory/ndctext.zip..... done.
-    The downloaded data contains the drug_directory dataset.
-    It can originally be found at: https://www.fda.gov/Drugs/InformationOnDrugs/ucm142438.htm
+    /home/circleci/project/dirty_cat/datasets/fetching.py:113: UserWarning: Could not find the dataset 43044 locally. Downloading it from OpenML; this might take a while... If it is interrupted, some files might be invalid/incomplete: if on the following run, the fetching raises errors, you can try fixing this issue by deleting the directory PosixPath('/home/circleci/project/dirty_cat/datasets/data').
+      warnings.warn(
+    Product listing data submitted to the U.S. FDA for all unfinished, unapproved drugs.
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 116-128
+.. GENERATED FROM PYTHON SOURCE LINES 117-129
 
 .. topic:: Problem Setting
 
@@ -165,16 +166,23 @@ The data that the model will fit is the :code:`drug_directory` dataset.
 
 The :code:`NONPROPRIETARYNAME` column, is composed of text observations with
 describing each drug's composition. The :code:`PRODUCTTYPENAME` column
-consists of categorial values: therefore, our problem is a classification
+consists of categorical values: therefore, our problem is a classification
 problem. You can have a glimpse of the values here:
 
-.. GENERATED FROM PYTHON SOURCE LINES 128-135
+.. GENERATED FROM PYTHON SOURCE LINES 129-143
 
 .. code-block:: default
 
     import pandas as pd
 
-    df = pd.read_csv(info['path'], nrows=10, sep='\t').astype(str)
+    df = pd.read_csv(
+        drug_directory.path,
+        quotechar="'",
+        escapechar='\\',
+        nrows=10,
+    ).astype(str)
+    # A simpler syntax we could use:
+    # df = pd.read_csv(drug_directory.path, **drug_directory.read_csv_kwargs, nrows=10).astype(str)
     print(df[['NONPROPRIETARYNAME', 'PRODUCTTYPENAME']].head())
     # This will be useful further down in the example.
     columns_names = df.columns
@@ -199,7 +207,7 @@ problem. You can have a glimpse of the values here:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 136-144
+.. GENERATED FROM PYTHON SOURCE LINES 144-152
 
 Estimators construction
 -----------------------
@@ -210,7 +218,7 @@ consist in variations around a few concepts (for instance,
 have one ingredient in common), we need an encoding able to
 capture similarities between observations.
 
-.. GENERATED FROM PYTHON SOURCE LINES 144-150
+.. GENERATED FROM PYTHON SOURCE LINES 152-158
 
 .. code-block:: default
 
@@ -227,7 +235,7 @@ capture similarities between observations.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 151-156
+.. GENERATED FROM PYTHON SOURCE LINES 159-164
 
 Two other columns are used to predict the output: ``DOSAGEFORMNAME`` and
 ``ROUTENAME``. They are both categorical and can be encoded with a
@@ -235,7 +243,7 @@ Two other columns are used to predict the output: ``DOSAGEFORMNAME`` and
 and the |SE|.  We can now choose a kernel method, for instance a |SVC|, to
 fit the encoded inputs.
 
-.. GENERATED FROM PYTHON SOURCE LINES 156-169
+.. GENERATED FROM PYTHON SOURCE LINES 164-177
 
 .. code-block:: default
 
@@ -259,11 +267,11 @@ fit the encoded inputs.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 170-188
+.. GENERATED FROM PYTHON SOURCE LINES 178-196
 
 Data Loading and Preprocessing
 ------------------------------
-Like in most machine learning setups, the data has to be splitted into 2
+Like in most machine learning setups, the data has to be split into 2
 exclusive parts:
 
 * One for model training.
@@ -280,7 +288,7 @@ extracts the :code:`X`, and :code:`y` from the dataset.
    Dealing with class imbalance is out of the scope of this example, so the
    models will be trained on the first two classes only.
 
-.. GENERATED FROM PYTHON SOURCE LINES 188-215
+.. GENERATED FROM PYTHON SOURCE LINES 196-223
 
 .. code-block:: default
 
@@ -308,7 +316,7 @@ extracts the :code:`X`, and :code:`y` from the dataset.
         transformation repeatedly in the code.
         """
         global label_encoder
-        df = pd.read_csv(info['path'], sep='\t', **kwargs)
+        df = pd.read_csv(drug_directory.path, **drug_directory.read_csv_kwargs, **kwargs)
         return preprocess(df, label_encoder)
 
 
@@ -318,7 +326,7 @@ extracts the :code:`X`, and :code:`y` from the dataset.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 216-224
+.. GENERATED FROM PYTHON SOURCE LINES 224-232
 
 Classifier objects in |sklearn| often require :code:`y` to be integer labels.
 Additionally, |APS| requires a binary version of the labels.  For these two
@@ -327,9 +335,9 @@ purposes, we create:
 * a |LabelEncoder|, that we pre-fitted on the known :code:`y` classes
 * a |OneHotEncoder|, pre-fitted on the resulting integer labels.
 
-Their |transform| methods can the be called at appopriate times.
+Their |transform| methods can the be called at appropriate times.
 
-.. GENERATED FROM PYTHON SOURCE LINES 224-233
+.. GENERATED FROM PYTHON SOURCE LINES 232-241
 
 .. code-block:: default
 
@@ -357,7 +365,7 @@ Their |transform| methods can the be called at appopriate times.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 234-255
+.. GENERATED FROM PYTHON SOURCE LINES 242-263
 
 .. warning::
 
@@ -381,7 +389,7 @@ Finally, the :code:`X` and :code:`y` are loaded.
    first 100000 rows for the training phase. The rest is made available to
    the test set.
 
-.. GENERATED FROM PYTHON SOURCE LINES 255-265
+.. GENERATED FROM PYTHON SOURCE LINES 263-273
 
 .. code-block:: default
 
@@ -402,7 +410,7 @@ Finally, the :code:`X` and :code:`y` are loaded.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 266-274
+.. GENERATED FROM PYTHON SOURCE LINES 274-282
 
 Evaluating time and sample complexity
 -------------------------------------
@@ -413,7 +421,7 @@ The |Pipeline| is trained over different training set sizes. For this,
 size, while :code:`X_test` and :code:`y_test` do not change when the
 sample size varies.
 
-.. GENERATED FROM PYTHON SOURCE LINES 274-303
+.. GENERATED FROM PYTHON SOURCE LINES 282-311
 
 .. code-block:: default
 
@@ -456,16 +464,16 @@ sample size varies.
 
  .. code-block:: none
 
-    using   500 samples: model fitting took 0.3s, test accuracy of 0.500
-    using  1666 samples: model fitting took 4.6s, test accuracy of 0.506
-    using  5000 samples: model fitting took 62.0s, test accuracy of 0.615
+    using   500 samples: model fitting took 0.3s, test accuracy of 0.501
+    using  1666 samples: model fitting took 4.6s, test accuracy of 0.505
+    using  5000 samples: model fitting took 73.7s, test accuracy of 0.563
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 304-311
+.. GENERATED FROM PYTHON SOURCE LINES 312-319
 
-Increasing training size cleary improves model accuracy. However, the
+Increasing training size clearly improves model accuracy. However, the
 training time and the input size increase quadratically with the training set
 size.  Indeed, kernel methods need to process an entire :math:`n \times n`
 matrix at once. In order for this matrix to be loaded into memory, :math:`n`
@@ -473,7 +481,7 @@ has to remain low: Using 30000 observations, the input is a :math:`30000
 \times 30000` matrix.  If composed of 32-bit floats, its total size is around
 :math:`30000^2 \times 32 = 2.8 \times 10^{10} \text{bits} = 4\text{GB}`
 
-.. GENERATED FROM PYTHON SOURCE LINES 313-327
+.. GENERATED FROM PYTHON SOURCE LINES 321-335
 
 Reducing input dimension using kernel approximation methods.
 ------------------------------------------------------------
@@ -490,11 +498,11 @@ little bit deeper these methods internals.
    the data.  But it requires inverting this matrix, which can be a
    computational burden when the sample sizes increases.
 
-.. GENERATED FROM PYTHON SOURCE LINES 330-355
+.. GENERATED FROM PYTHON SOURCE LINES 338-363
 
 Kernel approximation methods
 ----------------------------
-From what was said below, two criterions are limiting a kernel algorithm to
+From what was said below, two criteria are limiting a kernel algorithm to
 scale:
 
 * It processes a matrix, whose size increases quadratically with the number
@@ -518,7 +526,7 @@ instead use an online optimization that will process the input by batch.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 357-365
+.. GENERATED FROM PYTHON SOURCE LINES 365-373
 
 Reducing the transformers dimensionality
 ----------------------------------------
@@ -529,7 +537,7 @@ setting, where the data is never loaded as a whole?
 A simple solution is to partially fit the |SE| and the |RBF| on a subset of
 the data, prior to the online fitting step.
 
-.. GENERATED FROM PYTHON SOURCE LINES 365-410
+.. GENERATED FROM PYTHON SOURCE LINES 373-418
 
 .. code-block:: default
 
@@ -585,14 +593,14 @@ the data, prior to the online fitting step.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 411-415
+.. GENERATED FROM PYTHON SOURCE LINES 419-423
 
 Online training for out-of-memory data
 --------------------------------------
 We now have all the theoretical elements to create an non-linear, online
 kernel method.
 
-.. GENERATED FROM PYTHON SOURCE LINES 415-425
+.. GENERATED FROM PYTHON SOURCE LINES 423-433
 
 .. code-block:: default
 
@@ -613,14 +621,14 @@ kernel method.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 426-430
+.. GENERATED FROM PYTHON SOURCE LINES 434-438
 
 We can now start the training, by looping over batches one by one. Note that
 only one pass over the whole dataset is done. It may be worth doing several
 passes, but for very large sample sizes, the increase in test accuracy is
 likely to be marginal.
 
-.. GENERATED FROM PYTHON SOURCE LINES 430-476
+.. GENERATED FROM PYTHON SOURCE LINES 438-484
 
 .. code-block:: default
 
@@ -631,8 +639,8 @@ likely to be marginal.
     t0 = time.perf_counter()
 
     iter_csv = pd.read_csv(
-        info['path'], nrows=online_train_set_size, chunksize=batchsize,
-        skiprows=1, names=columns_names, sep='\t')
+        drug_directory.path, nrows=online_train_set_size, chunksize=batchsize,
+        skiprows=1, names=columns_names, **drug_directory.read_csv_kwargs)
 
     for batch_no, batch in enumerate(iter_csv):
         X_batch, y_batch = preprocess(batch, label_encoder)
@@ -680,37 +688,37 @@ likely to be marginal.
 
  .. code-block:: none
 
-    batch    0 train precision: 0.9497  val precision: 0.5016  
-    batch    5 train precision: 0.5680  val precision: 0.6366  
-    batch   10 train precision: 0.8071  val precision: 0.7740  
-    batch   15 train precision: 0.6757  val precision: 0.8411  
-    batch   20 train precision: 0.8076  val precision: 0.8641  
-    batch   25 train precision: 0.6922  val precision: 0.8760  
-    batch   30 train precision: 0.9345  val precision: 0.8949  
-    batch   35 train precision: 0.9618  val precision: 0.8996  
-    batch   40 train precision: 0.8184  val precision: 0.9048  
-    batch   45 train precision: 0.9058  val precision: 0.9063  
-    batch   50 train precision: 0.7236  val precision: 0.9077  
-    batch   55 train precision: 0.8967  val precision: 0.9154  
-    batch   60 train precision: 0.8819  val precision: 0.9165  
-    batch   65 train precision: 0.8740  val precision: 0.9184  
-    batch   70 train precision: 0.8438  val precision: 0.9188  
-    batch   75 train precision: 0.9435  val precision: 0.9192  
-    batch   80 train precision: 0.8196  val precision: 0.9210  
-    batch   85 train precision: 0.8917  val precision: 0.9217  
-    batch   90 train precision: 0.8859  val precision: 0.9239  
-    batch   95 train precision: 0.9564  val precision: 0.9230  
+    batch    0 train precision: 0.8728  val precision: 0.5003  
+    batch    5 train precision: 0.5139  val precision: 0.5592  
+    batch   10 train precision: 0.5559  val precision: 0.6715  
+    batch   15 train precision: 0.7414  val precision: 0.7931  
+    batch   20 train precision: 0.8488  val precision: 0.8054  
+    batch   25 train precision: 0.6988  val precision: 0.8200  
+    batch   30 train precision: 0.8881  val precision: 0.8281  
+    batch   35 train precision: 0.9507  val precision: 0.8411  
+    batch   40 train precision: 0.9227  val precision: 0.8471  
+    batch   45 train precision: 0.9041  val precision: 0.8508  
+    batch   50 train precision: 0.7899  val precision: 0.8534  
+    batch   55 train precision: 0.8975  val precision: 0.8555  
+    batch   60 train precision: 0.9122  val precision: 0.8575  
+    batch   65 train precision: 0.8437  val precision: 0.8599  
+    batch   70 train precision: 0.6775  val precision: 0.8644  
+    batch   75 train precision: 0.9011  val precision: 0.8653  
+    batch   80 train precision: 0.9120  val precision: 0.8658  
+    batch   85 train precision: 0.9219  val precision: 0.8645  
+    batch   90 train precision: 0.9446  val precision: 0.8647  
+    batch   95 train precision: 0.9473  val precision: 0.8661  
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 477-480
+.. GENERATED FROM PYTHON SOURCE LINES 485-488
 
 So far, we fitted two kinds of models: a exact kernel algorithm, and an
 approximate, online one. Lets compare both the accuracies and the number of
 visited samples for each model as we increase our time budget:
 
-.. GENERATED FROM PYTHON SOURCE LINES 480-509
+.. GENERATED FROM PYTHON SOURCE LINES 488-517
 
 .. code-block:: default
 
@@ -763,7 +771,7 @@ visited samples for each model as we increase our time budget:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 510-525
+.. GENERATED FROM PYTHON SOURCE LINES 518-533
 
 This plot shows us that for the time budget, the online model will eventually
 process more samples, be faster and reach a far higher test accuracy that the
@@ -776,12 +784,12 @@ encode :code:`X_highdim = rbf_sampler.transform(X_sim_encoded.toarray())` and
 change it for example with :code:`X_highdim = X_sim_encoded`.
 
 In particular, this hierarchy between the linear model and the non-linear
-one shows that there were some significant non-linear relashionships
-between the input and the output. By scaling a kernel method, we succesfully
+one shows that there were some significant non-linear relationships
+between the input and the output. By scaling a kernel method, we successfully
 took this non-linearity into account in our model, which was a far from
 trivial task at the beginning of this example!
 
-.. GENERATED FROM PYTHON SOURCE LINES 527-533
+.. GENERATED FROM PYTHON SOURCE LINES 535-541
 
 .. rubric:: Footnotes
 .. [#xgboost] `Slides on gradient boosting by Tianqi Chen, the founder of XGBoost <https://homes.cs.washington.edu/~tqchen/pdf/BoostedTree.pdf>`_
@@ -793,7 +801,7 @@ trivial task at the beginning of this example!
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 6 minutes  53.208 seconds)
+   **Total running time of the script:** ( 7 minutes  39.853 seconds)
 
 
 .. _sphx_glr_download_auto_examples_05_scaling_non_linear_models.py:

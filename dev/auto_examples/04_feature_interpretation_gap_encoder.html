@@ -100,26 +100,19 @@ dataset, and encode the column <em>Employee Position Title</em>, that contains d
 categorical data.</p>
 <section id="data-importing">
 <h2>Data Importing<a class="headerlink" href="#data-importing" title="Permalink to this headline">¶</a></h2>
-<p>We first download the dataset:</p>
+<p>We first get the dataset:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dirty_cat.datasets</span> <span class="kn">import</span> <a href="../generated/dirty_cat.datasets.fetch_employee_salaries.html#dirty_cat.datasets.fetch_employee_salaries" title="dirty_cat.datasets.fetch_employee_salaries" class="sphx-glr-backref-module-dirty_cat-datasets sphx-glr-backref-type-py-function"><span class="n">fetch_employee_salaries</span></a>
 <span class="n">employee_salaries</span> <span class="o">=</span> <a href="../generated/dirty_cat.datasets.fetch_employee_salaries.html#dirty_cat.datasets.fetch_employee_salaries" title="dirty_cat.datasets.fetch_employee_salaries" class="sphx-glr-backref-module-dirty_cat-datasets sphx-glr-backref-type-py-function"><span class="n">fetch_employee_salaries</span></a><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">employee_salaries</span><span class="p">[</span><span class="s1">&#39;DESCR&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">employee_salaries</span><span class="o">.</span><span class="n">description</span></a><span class="p">)</span>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Annual salary information including gross pay and overtime pay for all active, permanent employees of Montgomery County, MD paid in calendar year 2016. This information will be published annually each year.
-
-Downloaded from openml.org.
-</pre></div>
-</div>
-<p>Then we load it:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">df</span></a> <span class="o">=</span> <span class="n">employee_salaries</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>Now, we retrieve the dirty column to encode:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">dirty_column</span></a> <span class="o">=</span> <span class="s1">&#39;employee_position_title&#39;</span>
-<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_dirty</span></a> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">df</span></a><span class="p">[[</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">dirty_column</span></a><span class="p">]]</span>
+<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_dirty</span></a> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">employee_salaries</span><span class="o">.</span><span class="n">X</span></a><span class="p">[[</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">dirty_column</span></a><span class="p">]]</span>
 <span class="nb">print</span><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.head.html#pandas.DataFrame.head" title="pandas.DataFrame.head" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-method"><span class="n">X_dirty</span><span class="o">.</span><span class="n">head</span></a><span class="p">(),</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Number of dirty entries = </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_dirty</span></a><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
@@ -206,7 +199,7 @@ the labels <em>firefighter</em>, <em>rescuer</em>, <em>rescue</em> appear togeth
 <img src="../_images/sphx_glr_04_feature_interpretation_gap_encoder_001.png" srcset="../_images/sphx_glr_04_feature_interpretation_gap_encoder_001.png" alt="04 feature interpretation gap encoder" class = "sphx-glr-single-img"/><p>As we can see, each dirty category encodes on a small number of topics,
 These can thus be reliably used to summarize each topic, which are in
 effect latent categories captured from the data.</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  7.894 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  7.188 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-04-feature-interpretation-gap-encoder-py">
 <div class="binder-badge docutils container">
 <a class="reference external image-reference" href="https://mybinder.org/v2/gh/dirty-cat/dirty-cat.github.io/master?filepath=dev/auto_examples/04_feature_interpretation_gap_encoder.ipynb"><img alt="Launch binder" src="../_images/binder_badge_logo.svg" width="150px" /></a>

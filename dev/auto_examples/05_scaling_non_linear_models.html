@@ -10,7 +10,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://dirty-cat.github.io/stable/auto_examples/05_scaling_non_linear_models.html" />
   <meta property="og:site_name" content="Dirty cat" />
-  <meta property="og:description" content="A very classic dilemna when training a machine learning model consists in choosing between using a linear model or a non-linear one. Linear models are very well studied and understood. They are gen..." />
+  <meta property="og:description" content="A very classic dilemma when training a machine learning model consists in choosing between using a linear model or a non-linear one. Linear models are very well studied and understood. They are gen..." />
   <meta property="og:image" content="https://dirty-cat.github.io/stable/_static/dirty_cat.svg" />
   <meta property="og:image:alt" content="Dirty cat" />
   
@@ -94,13 +94,13 @@ to download the full example code or to run this example in your browser via Bin
 </div>
 <section class="sphx-glr-example-title" id="fitting-scalable-non-linear-models-on-data-with-dirty-categories">
 <span id="sphx-glr-auto-examples-05-scaling-non-linear-models-py"></span><h1>Fitting scalable, non-linear models on data with dirty categories<a class="headerlink" href="#fitting-scalable-non-linear-models-on-data-with-dirty-categories" title="Permalink to this headline">¶</a></h1>
-<p>A very classic dilemna when training a machine learning model consists in
+<p>A very classic dilemma when training a machine learning model consists in
 choosing between using a linear model or a non-linear one.</p>
 <p>Linear models are very well studied and understood. They are generally fast
 and easy to optimize, and generate interpretable results. However, for some
 problems with a complex relationship between the input and the output, linear
 models reach their expressivity limit: whatever the number of samples the
-training set may have, past some point, it’s precision won’t get any better.</p>
+training set may have, past some point, its precision won’t get any better.</p>
 <p>Non-linear models, however, tend to <em>scale</em> better with sample size: they are
 able to digest the information in the additional samples to get a better
 estimate of the link between the input and the output.</p>
@@ -112,23 +112,23 @@ includes:</p>
 Boosting Machines <a class="footnote-reference brackets" href="#xgboost" id="id1">1</a></p></li>
 <li><p>Kernel Methods.</p></li>
 </ul>
-<p>However, reaching the phase where the non-linear model outpeforms the linear
-one can be complicated. Indeed, a more complex models means often a longer
+<p>However, reaching the phase where the non-linear model outperforms the linear
+one can be complicated. Indeed, a more complex models often means a longer
 fitting/tuning process:</p>
 <ul class="simple">
-<li><p>Neural networks often necessitate extended model tuning time, in order to
+<li><p>Neural networks often need extended model tuning time, in order to
 achieve good optimization and network architecture.</p></li>
 <li><p>Gradient Boosting Machines do not tend to scale extremely well with
 increasing sample size, as all the data needs to be loaded into the main
 memory.</p></li>
 <li><p>For kernel methods, parameter fitting requires the inversion of a gram matrix
-of size <span class="math notranslate nohighlight">\(n \times n\)</span> (<span class="math notranslate nohighlight">\(n\)</span> being the number of samples), yiedling
-a quadratic dependency (with n) in the final compmutation time.</p></li>
+of size <span class="math notranslate nohighlight">\(n \times n\)</span> (<span class="math notranslate nohighlight">\(n\)</span> being the number of samples), yielding
+a quadratic dependency (with <span class="math notranslate nohighlight">\(n\)</span>) in the final computation time.</p></li>
 </ul>
-<p>In order to make the best out of a non-linear model, one has to <strong>make it
-scalable</strong>. For kernel methods, there exist approximation algorithms that
-drop the quadratic dependency with the sample size while ensuring almost the
-same model capacity.</p>
+<p>In order to get the best out of a non-linear model, one has to <strong>make it
+scalable</strong>. For kernel methods, approximation algorithms that drop the
+quadratic dependency with the sample size while ensuring almost the
+same model capacity exist.</p>
 <dl class="simple">
 <dt>In this example, you will learn how to:</dt><dd><ol class="arabic simple">
 <li><p>Build a ML pipeline that uses a kernel method.</p></li>
@@ -139,26 +139,27 @@ reduction methods.</p></li>
 </dl>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>This example assumes the reader to be familiar with similarity encoding and
+<p>This example assumes the reader is familiar with similarity encoding and
 its use-cases.</p>
 <ul class="simple">
 <li><p>For an introduction to dirty categories, see <a class="reference internal" href="01_investigating_dirty_categories.html#sphx-glr-auto-examples-01-investigating-dirty-categories-py"><span class="std std-ref">this example</span></a>.</p></li>
 <li><p>To learn with dirty categories using the SimilarityEncoder, see <span class="xref std std-ref">this example</span>.</p></li>
 </ul>
 </div>
-<section id="training-a-first-simple-pipeline">
-<h2>Training a first simple pipeline<a class="headerlink" href="#training-a-first-simple-pipeline" title="Permalink to this headline">¶</a></h2>
+<section id="training-a-simple-pipeline">
+<h2>Training a simple pipeline<a class="headerlink" href="#training-a-simple-pipeline" title="Permalink to this headline">¶</a></h2>
 <p>The data that the model will fit is the <code class="code docutils literal notranslate"><span class="pre">drug_directory</span></code> dataset.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dirty_cat.datasets</span> <span class="kn">import</span> <span class="n">fetch_drug_directory</span>
 
-<a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">info</span></a> <span class="o">=</span> <span class="n">fetch_drug_directory</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">info</span></a><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">])</span>
+<span class="c1"># We&#39;ll only gather the information, and not load the dataset in memory for now</span>
+<span class="n">drug_directory</span> <span class="o">=</span> <span class="n">fetch_drug_directory</span><span class="p">(</span><span class="n">load_dataframe</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">drug_directory</span><span class="o">.</span><span class="n">description</span></a><span class="p">)</span>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Extracting data from /home/circleci/project/dirty_cat/data/drug_directory/ndctext.zip..... done.
-The downloaded data contains the drug_directory dataset.
-It can originally be found at: https://www.fda.gov/Drugs/InformationOnDrugs/ucm142438.htm
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/circleci/project/dirty_cat/datasets/fetching.py:113: UserWarning: Could not find the dataset 43044 locally. Downloading it from OpenML; this might take a while... If it is interrupted, some files might be invalid/incomplete: if on the following run, the fetching raises errors, you can try fixing this issue by deleting the directory PosixPath(&#39;/home/circleci/project/dirty_cat/datasets/data&#39;).
+  warnings.warn(
+Product listing data submitted to the U.S. FDA for all unfinished, unapproved drugs.
 </pre></div>
 </div>
 <div class="topic">
@@ -168,11 +169,18 @@ It can originally be found at: https://www.fda.gov/Drugs/InformationOnDrugs/ucm1
 <strong><strong>predict the type of a drug given its composition.</strong></strong></p></div>
 <p>The <code class="code docutils literal notranslate"><span class="pre">NONPROPRIETARYNAME</span></code> column, is composed of text observations with
 describing each drug’s composition. The <code class="code docutils literal notranslate"><span class="pre">PRODUCTTYPENAME</span></code> column
-consists of categorial values: therefore, our problem is a classification
+consists of categorical values: therefore, our problem is a classification
 problem. You can have a glimpse of the values here:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
-<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">df</span></a> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html#pandas.read_csv" title="pandas.read_csv" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-function"><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">info</span></a><span class="p">[</span><span class="s1">&#39;path&#39;</span><span class="p">],</span> <span class="n">nrows</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">df</span></a> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html#pandas.read_csv" title="pandas.read_csv" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-function"><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span></a><span class="p">(</span>
+    <a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">drug_directory</span><span class="o">.</span><span class="n">path</span></a><span class="p">,</span>
+    <span class="n">quotechar</span><span class="o">=</span><span class="s2">&quot;&#39;&quot;</span><span class="p">,</span>
+    <span class="n">escapechar</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">,</span>
+    <span class="n">nrows</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+<span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+<span class="c1"># A simpler syntax we could use:</span>
+<span class="c1"># df = pd.read_csv(drug_directory.path, **drug_directory.read_csv_kwargs, nrows=10).astype(str)</span>
 <span class="nb">print</span><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">df</span></a><span class="p">[[</span><span class="s1">&#39;NONPROPRIETARYNAME&#39;</span><span class="p">,</span> <span class="s1">&#39;PRODUCTTYPENAME&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
 <span class="c1"># This will be useful further down in the example.</span>
 <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Index.html#pandas.Index" title="pandas.core.indexes.base.Index" class="sphx-glr-backref-module-pandas-core-indexes-base sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">columns_names</span></a> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Index.html#pandas.Index" title="pandas.core.indexes.base.Index" class="sphx-glr-backref-module-pandas-core-indexes-base sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">df</span><span class="o">.</span><span class="n">columns</span></a>
@@ -224,7 +232,7 @@ fit the encoded inputs.</p>
 </section>
 <section id="data-loading-and-preprocessing">
 <h2>Data Loading and Preprocessing<a class="headerlink" href="#data-loading-and-preprocessing" title="Permalink to this headline">¶</a></h2>
-<p>Like in most machine learning setups, the data has to be splitted into 2
+<p>Like in most machine learning setups, the data has to be split into 2
 exclusive parts:</p>
 <ul class="simple">
 <li><p>One for model training.</p></li>
@@ -262,7 +270,7 @@ models will be trained on the first two classes only.</p>
 <span class="sd">    transformation repeatedly in the code.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">global</span> <a href="http://scikit-learn.org/0.20/modules/generated/sklearn.preprocessing.LabelEncoder.html#sklearn.preprocessing.LabelEncoder" title="sklearn.preprocessing.LabelEncoder" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">label_encoder</span></a>
-    <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">df</span></a> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html#pandas.read_csv" title="pandas.read_csv" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-function"><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">info</span></a><span class="p">[</span><span class="s1">&#39;path&#39;</span><span class="p">],</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">df</span></a> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html#pandas.read_csv" title="pandas.read_csv" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-function"><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">drug_directory</span><span class="o">.</span><span class="n">path</span></a><span class="p">,</span> <span class="o">**</span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">drug_directory</span><span class="o">.</span><span class="n">read_csv_kwargs</span></a><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">preprocess</span><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">df</span></a><span class="p">,</span> <a href="http://scikit-learn.org/0.20/modules/generated/sklearn.preprocessing.LabelEncoder.html#sklearn.preprocessing.LabelEncoder" title="sklearn.preprocessing.LabelEncoder" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">label_encoder</span></a><span class="p">)</span>
 </pre></div>
 </div>
@@ -273,7 +281,7 @@ purposes, we create:</p>
 <li><p>a <a class="reference external" href="https://scikit-learn.org/0.20/modules/generated/sklearn.preprocessing.LabelEncoder.html#sklearn.preprocessing.LabelEncoder" title="(in scikit-learn v0.20.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">LabelEncoder</span></code></a>, that we pre-fitted on the known <code class="code docutils literal notranslate"><span class="pre">y</span></code> classes</p></li>
 <li><p>a <a class="reference external" href="https://scikit-learn.org/0.20/modules/generated/sklearn.preprocessing.OneHotEncoder.html#sklearn.preprocessing.OneHotEncoder" title="(in scikit-learn v0.20.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">OneHotEncoder</span></code></a>, pre-fitted on the resulting integer labels.</p></li>
 </ul>
-<p>Their <a class="reference external" href="https://scikit-learn.org/0.20/glossary.html#term-transform" title="(in scikit-learn v0.20.4)"><span class="xref std std-term">transform</span></a> methods can the be called at appopriate times.</p>
+<p>Their <a class="reference external" href="https://scikit-learn.org/0.20/glossary.html#term-transform" title="(in scikit-learn v0.20.4)"><span class="xref std std-term">transform</span></a> methods can the be called at appropriate times.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <a href="http://scikit-learn.org/0.20/modules/generated/sklearn.preprocessing.LabelEncoder.html#sklearn.preprocessing.LabelEncoder" title="sklearn.preprocessing.LabelEncoder" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class"><span class="n">LabelEncoder</span></a><span class="p">,</span> <a href="http://scikit-learn.org/0.20/modules/generated/sklearn.preprocessing.OneHotEncoder.html#sklearn.preprocessing.OneHotEncoder" title="sklearn.preprocessing.OneHotEncoder" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class"><span class="n">OneHotEncoder</span></a>
 
@@ -357,12 +365,12 @@ sample size varies.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>using   500 samples: model fitting took 0.3s, test accuracy of 0.500
-using  1666 samples: model fitting took 4.6s, test accuracy of 0.506
-using  5000 samples: model fitting took 62.0s, test accuracy of 0.615
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>using   500 samples: model fitting took 0.3s, test accuracy of 0.501
+using  1666 samples: model fitting took 4.6s, test accuracy of 0.505
+using  5000 samples: model fitting took 73.7s, test accuracy of 0.563
 </pre></div>
 </div>
-<p>Increasing training size cleary improves model accuracy. However, the
+<p>Increasing training size clearly improves model accuracy. However, the
 training time and the input size increase quadratically with the training set
 size.  Indeed, kernel methods need to process an entire <span class="math notranslate nohighlight">\(n \times n\)</span>
 matrix at once. In order for this matrix to be loaded into memory, <span class="math notranslate nohighlight">\(n\)</span>
@@ -386,7 +394,7 @@ computational burden when the sample sizes increases.</p>
 </section>
 <section id="kernel-approximation-methods">
 <h2>Kernel approximation methods<a class="headerlink" href="#kernel-approximation-methods" title="Permalink to this headline">¶</a></h2>
-<p>From what was said below, two criterions are limiting a kernel algorithm to
+<p>From what was said below, two criteria are limiting a kernel algorithm to
 scale:</p>
 <ul class="simple">
 <li><p>It processes a matrix, whose size increases quadratically with the number
@@ -485,8 +493,8 @@ likely to be marginal.</p>
 <a href="https://docs.python.org/3/library/functions.html#float" title="builtins.float" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">t0</span></a> <span class="o">=</span> <a href="https://docs.python.org/3/library/time.html#time.perf_counter" title="time.perf_counter" class="sphx-glr-backref-module-time sphx-glr-backref-type-py-function"><span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span></a><span class="p">()</span>
 
 <span class="n">iter_csv</span> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html#pandas.read_csv" title="pandas.read_csv" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-function"><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span></a><span class="p">(</span>
-    <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">info</span></a><span class="p">[</span><span class="s1">&#39;path&#39;</span><span class="p">],</span> <span class="n">nrows</span><span class="o">=</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">online_train_set_size</span></a><span class="p">,</span> <span class="n">chunksize</span><span class="o">=</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">batchsize</span></a><span class="p">,</span>
-    <span class="n">skiprows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Index.html#pandas.Index" title="pandas.core.indexes.base.Index" class="sphx-glr-backref-module-pandas-core-indexes-base sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">columns_names</span></a><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
+    <a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">drug_directory</span><span class="o">.</span><span class="n">path</span></a><span class="p">,</span> <span class="n">nrows</span><span class="o">=</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">online_train_set_size</span></a><span class="p">,</span> <span class="n">chunksize</span><span class="o">=</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">batchsize</span></a><span class="p">,</span>
+    <span class="n">skiprows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Index.html#pandas.Index" title="pandas.core.indexes.base.Index" class="sphx-glr-backref-module-pandas-core-indexes-base sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">columns_names</span></a><span class="p">,</span> <span class="o">**</span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">drug_directory</span><span class="o">.</span><span class="n">read_csv_kwargs</span></a><span class="p">)</span>
 
 <span class="k">for</span> <a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">batch_no</span></a><span class="p">,</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">batch</span></a> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">iter_csv</span><span class="p">):</span>
     <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_batch</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_batch</span></a> <span class="o">=</span> <span class="n">preprocess</span><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">batch</span></a><span class="p">,</span> <a href="http://scikit-learn.org/0.20/modules/generated/sklearn.preprocessing.LabelEncoder.html#sklearn.preprocessing.LabelEncoder" title="sklearn.preprocessing.LabelEncoder" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">label_encoder</span></a><span class="p">)</span>
@@ -526,26 +534,26 @@ likely to be marginal.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>batch    0 train precision: 0.9497  val precision: 0.5016
-batch    5 train precision: 0.5680  val precision: 0.6366
-batch   10 train precision: 0.8071  val precision: 0.7740
-batch   15 train precision: 0.6757  val precision: 0.8411
-batch   20 train precision: 0.8076  val precision: 0.8641
-batch   25 train precision: 0.6922  val precision: 0.8760
-batch   30 train precision: 0.9345  val precision: 0.8949
-batch   35 train precision: 0.9618  val precision: 0.8996
-batch   40 train precision: 0.8184  val precision: 0.9048
-batch   45 train precision: 0.9058  val precision: 0.9063
-batch   50 train precision: 0.7236  val precision: 0.9077
-batch   55 train precision: 0.8967  val precision: 0.9154
-batch   60 train precision: 0.8819  val precision: 0.9165
-batch   65 train precision: 0.8740  val precision: 0.9184
-batch   70 train precision: 0.8438  val precision: 0.9188
-batch   75 train precision: 0.9435  val precision: 0.9192
-batch   80 train precision: 0.8196  val precision: 0.9210
-batch   85 train precision: 0.8917  val precision: 0.9217
-batch   90 train precision: 0.8859  val precision: 0.9239
-batch   95 train precision: 0.9564  val precision: 0.9230
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>batch    0 train precision: 0.8728  val precision: 0.5003
+batch    5 train precision: 0.5139  val precision: 0.5592
+batch   10 train precision: 0.5559  val precision: 0.6715
+batch   15 train precision: 0.7414  val precision: 0.7931
+batch   20 train precision: 0.8488  val precision: 0.8054
+batch   25 train precision: 0.6988  val precision: 0.8200
+batch   30 train precision: 0.8881  val precision: 0.8281
+batch   35 train precision: 0.9507  val precision: 0.8411
+batch   40 train precision: 0.9227  val precision: 0.8471
+batch   45 train precision: 0.9041  val precision: 0.8508
+batch   50 train precision: 0.7899  val precision: 0.8534
+batch   55 train precision: 0.8975  val precision: 0.8555
+batch   60 train precision: 0.9122  val precision: 0.8575
+batch   65 train precision: 0.8437  val precision: 0.8599
+batch   70 train precision: 0.6775  val precision: 0.8644
+batch   75 train precision: 0.9011  val precision: 0.8653
+batch   80 train precision: 0.9120  val precision: 0.8658
+batch   85 train precision: 0.9219  val precision: 0.8645
+batch   90 train precision: 0.9446  val precision: 0.8647
+batch   95 train precision: 0.9473  val precision: 0.8661
 </pre></div>
 </div>
 <p>So far, we fitted two kinds of models: a exact kernel algorithm, and an
@@ -593,8 +601,8 @@ purposes, but to train an online linear model, simply comment out the line in
 encode <code class="code docutils literal notranslate"><span class="pre">X_highdim</span> <span class="pre">=</span> <span class="pre">rbf_sampler.transform(X_sim_encoded.toarray())</span></code> and
 change it for example with <code class="code docutils literal notranslate"><span class="pre">X_highdim</span> <span class="pre">=</span> <span class="pre">X_sim_encoded</span></code>.</p>
 <p>In particular, this hierarchy between the linear model and the non-linear
-one shows that there were some significant non-linear relashionships
-between the input and the output. By scaling a kernel method, we succesfully
+one shows that there were some significant non-linear relationships
+between the input and the output. By scaling a kernel method, we successfully
 took this non-linearity into account in our model, which was a far from
 trivial task at the beginning of this example!</p>
 <p class="rubric">Footnotes</p>
@@ -615,7 +623,7 @@ trivial task at the beginning of this example!</p>
 <dd><p><a class="reference external" href="https://pdfs.semanticscholar.org/0373/e7289a1978108d6455218160a529c85842c0.pdf">Introduction to duality</a></p>
 </dd>
 </dl>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 6 minutes  53.208 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 7 minutes  39.853 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-05-scaling-non-linear-models-py">
 <div class="binder-badge docutils container">
 <a class="reference external image-reference" href="https://mybinder.org/v2/gh/dirty-cat/dirty-cat.github.io/master?filepath=dev/auto_examples/05_scaling_non_linear_models.ipynb"><img alt="Launch binder" src="../_images/binder_badge_logo.svg" width="150px" /></a>

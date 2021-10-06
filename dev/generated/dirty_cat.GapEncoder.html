@@ -100,41 +100,41 @@ scalability through the partial_fit method.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>n_components</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a><em>, </em><em>default=10</em>) – Number of latent categories used to model string data.</p></li>
-<li><p><strong>batch_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a><em>, </em><em>default=128</em>) – Number of samples per batch.</p></li>
-<li><p><strong>gamma_shape_prior</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a><em>, </em><em>default=1.1</em>) – Shape parameter for the Gamma prior distribution.</p></li>
-<li><p><strong>gamma_scale_prior</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a><em>, </em><em>default=1.0</em>) – Scale parameter for the Gamma prior distribution.</p></li>
-<li><p><strong>rho</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a><em>, </em><em>default=0.95</em>) – Weight parameter for the update of the W matrix.</p></li>
-<li><p><strong>rescale_rho</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a><em>, </em><em>default=False</em>) – If true, use rho ** (batch_size / len(X)) instead of rho to obtain an
+<li><p><strong>n_components</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><em>default=10</em>) – Number of latent categories used to model string data.</p></li>
+<li><p><strong>batch_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><em>default=128</em>) – Number of samples per batch.</p></li>
+<li><p><strong>gamma_shape_prior</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>, </em><em>default=1.1</em>) – Shape parameter for the Gamma prior distribution.</p></li>
+<li><p><strong>gamma_scale_prior</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>, </em><em>default=1.0</em>) – Scale parameter for the Gamma prior distribution.</p></li>
+<li><p><strong>rho</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>, </em><em>default=0.95</em>) – Weight parameter for the update of the W matrix.</p></li>
+<li><p><strong>rescale_rho</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>default=False</em>) – If true, use rho ** (batch_size / len(X)) instead of rho to obtain an
 update rate per iteration that is independent of the batch size.</p></li>
-<li><p><strong>hashing</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a><em>, </em><em>default=False</em>) – If true, HashingVectorizer is used instead of CountVectorizer.
+<li><p><strong>hashing</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>default=False</em>) – If true, HashingVectorizer is used instead of CountVectorizer.
 It has the advantage of being very low memory scalable to large
 datasets as there is no need to store a vocabulary dictionary in
 memory.</p></li>
-<li><p><strong>hashing_n_features</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a><em>, </em><em>default=2**12</em>) – Number of features for the HashingVectorizer. Only relevant if
+<li><p><strong>hashing_n_features</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><em>default=2**12</em>) – Number of features for the HashingVectorizer. Only relevant if
 hashing=True.</p></li>
-<li><p><strong>init</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>, </em><em>default='k-means++'</em>) – Initialization method of the W matrix.
+<li><p><strong>init</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>default='k-means++'</em>) – Initialization method of the W matrix.
 Options: {‘k-means++’, ‘random’, ‘k-means’}.
 If init=’k-means++’, we use the init method of sklearn.cluster.KMeans.
 If init=’random’, topics are initialized with a Gamma distribution.
 If init=’k-means’, topics are initialized with a KMeans on the n-grams
 counts. This usually makes convergence faster but is a bit slower.</p></li>
-<li><p><strong>tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a><em>, </em><em>default=1e-4</em>) – Tolerance for the convergence of the matrix W.</p></li>
-<li><p><strong>min_iter</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a><em>, </em><em>default=2</em>) – Minimum number of iterations on the input data.</p></li>
-<li><p><strong>max_iter</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a><em>, </em><em>default=5</em>) – Maximum number of iterations on the input data.</p></li>
-<li><p><strong>ngram_range</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.9)"><em>tuple</em></a><em>, </em><em>default=</em><em>(</em><em>2</em><em>, </em><em>4</em><em>)</em>) – The range of ngram length that will be used to build the
+<li><p><strong>tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>, </em><em>default=1e-4</em>) – Tolerance for the convergence of the matrix W.</p></li>
+<li><p><strong>min_iter</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><em>default=2</em>) – Minimum number of iterations on the input data.</p></li>
+<li><p><strong>max_iter</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><em>default=5</em>) – Maximum number of iterations on the input data.</p></li>
+<li><p><strong>ngram_range</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.10)"><em>tuple</em></a><em>, </em><em>default=</em><em>(</em><em>2</em><em>, </em><em>4</em><em>)</em>) – The range of ngram length that will be used to build the
 bag-of-n-grams representation of the input data.</p></li>
-<li><p><strong>analyzer</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>, </em><em>default='char'.</em>) – Analyzer parameter for the CountVectorizer/HashingVectorizer.
+<li><p><strong>analyzer</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>default='char'.</em>) – Analyzer parameter for the CountVectorizer/HashingVectorizer.
 Options: {‘word’, ‘char’, ‘char_wb’}, describing whether the matrix V
 to factorize should be made of word counts or character n-gram counts.
 Option ‘char_wb’ creates character n-grams only from text inside word
 boundaries; n-grams at the edges of words are padded with space.</p></li>
-<li><p><strong>add_words</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a><em>, </em><em>default=False</em>) – If true, add the words counts to the bag-of-n-grams representation
+<li><p><strong>add_words</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>default=False</em>) – If true, add the words counts to the bag-of-n-grams representation
 of the input data.</p></li>
-<li><p><strong>random_state</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)"><em>None</em></a><em>, </em><em>default=None</em>) – Pass an int for reproducible output across multiple function calls.</p></li>
-<li><p><strong>rescale_W</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a><em>, </em><em>default=True</em>) – If true, the weight matrix W is rescaled at each iteration
+<li><p><strong>random_state</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><em>None</em></a><em>, </em><em>default=None</em>) – Pass an int for reproducible output across multiple function calls.</p></li>
+<li><p><strong>rescale_W</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>default=True</em>) – If true, the weight matrix W is rescaled at each iteration
 to have an l1 norm equal to 1 for each row.</p></li>
-<li><p><strong>max_iter_e_step</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a><em>, </em><em>default=20</em>) – Maximum number of iterations to adjust the activations h at each step.</p></li>
+<li><p><strong>max_iter_e_step</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><em>default=20</em>) – Maximum number of iterations to adjust the activations h at each step.</p></li>
 <li><p><strong>handle_missing</strong> (<em>'error'</em><em> or </em><em>''</em><em> (</em><em>default</em><em>)</em>) – Whether to raise an error or impute with blank string ‘’ if missing
 values (NaN) are present during fit (default is to impute).
 When this parameter is set to ‘’, and a missing value is encountered
@@ -175,7 +175,7 @@ and returns a transformed version of <cite>X</cite>.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>X</strong> (<em>array-like of shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Input samples.</p></li>
 <li><p><strong>y</strong> (<em>array-like of shape</em><em> (</em><em>n_samples</em><em>,</em><em>) or </em><em>(</em><em>n_samples</em><em>, </em><em>n_outputs</em><em>)</em><em>,                 </em><em>default=None</em>) – Target values (None for unsupervised transformations).</p></li>
-<li><p><strong>**fit_params</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – Additional fit parameters.</p></li>
+<li><p><strong>**fit_params</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Additional fit parameters.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -195,7 +195,7 @@ For each topic, labels with highest activations are selected.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>col_names</strong> (<em>{None</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em> or </em><em>str}</em><em>, </em><em>default=None</em>) – <p>The column names to be added as prefixes before the labels.
+<li><p><strong>col_names</strong> (<em>{None</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a><em> or </em><em>str}</em><em>, </em><em>default=None</em>) – <p>The column names to be added as prefixes before the labels.
 If col_names == None, no prefixes are used.
 If col_names == ‘auto’, column names are automatically defined:</p>
 <blockquote>
@@ -206,7 +206,7 @@ If col_names == ‘auto’, column names are automatically defined:</p>
 </div></blockquote>
 <p>Prefixes can be manually set by passing a list  for col_names.</p>
 </p></li>
-<li><p><strong>n_labels</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a><em>, </em><em>default=3</em>) – The number of labels used to describe each topic.</p></li>
+<li><p><strong>n_labels</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><em>default=3</em>) – The number of labels used to describe each topic.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -224,14 +224,14 @@ If col_names == ‘auto’, column names are automatically defined:</p>
 <dd><p>Get parameters for this estimator.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>deep</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a><em>, </em><em>default=True</em>) – If True, will return the parameters for this estimator and
+<dd class="field-odd"><p><strong>deep</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>default=True</em>) – If True, will return the parameters for this estimator and
 contained subobjects that are estimators.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><strong>params</strong> – Parameter names mapped to their values.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)">dict</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -263,7 +263,7 @@ divergence between the n-grams counts matrix V of X, and its
 non-negative factorization HW.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>X</strong> (<em>array-like</em><em> (</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>)</em><em>, </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – The data to encode.</p>
+<dd class="field-odd"><p><strong>X</strong> (<em>array-like</em><em> (</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>)</em><em>, </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – The data to encode.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><strong>kl_divergence</strong> – The Kullback-Leibler divergence.</p>
@@ -284,7 +284,7 @@ parameters of the form <code class="docutils literal notranslate"><span class="p
 possible to update each component of a nested object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>**params</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – Estimator parameters.</p>
+<dd class="field-odd"><p><strong>**params</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Estimator parameters.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><strong>self</strong> – Estimator instance.</p>

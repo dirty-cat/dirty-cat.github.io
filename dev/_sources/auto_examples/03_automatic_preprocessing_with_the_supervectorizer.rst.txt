@@ -58,7 +58,7 @@ Let's fetch the dataset, and load X (the employees' features) and y
     from dirty_cat.gap_encoder import GapEncoder
     from dirty_cat.datasets import fetch_employee_salaries
     employee_salaries = fetch_employee_salaries()
-    print(employee_salaries['DESCR'])
+    print(employee_salaries.description)
 
 
 
@@ -72,30 +72,19 @@ Let's fetch the dataset, and load X (the employees' features) and y
 
     Annual salary information including gross pay and overtime pay for all active, permanent employees of Montgomery County, MD paid in calendar year 2016. This information will be published annually each year.
 
-    Downloaded from openml.org.
 
 
 
-
-.. GENERATED FROM PYTHON SOURCE LINES 41-57
+.. GENERATED FROM PYTHON SOURCE LINES 41-48
 
 .. code-block:: default
 
 
-    X = employee_salaries['data']
-    y = employee_salaries['target']
-    # We'll drop a few columns we don't want
-    X.drop(
-        [
-            'Current Annual Salary',  # Too linked with target
-            'full_name',  # Not relevant to the analysis
-            '2016_gross_pay_received',  # Too linked with target
-            '2016_overtime_pay',  # Too linked with target
-            'date_first_hired'  # Redundant with "year_first_hired"
-        ],
-        axis=1,
-        inplace=True
-    )
+    X = employee_salaries.X
+    y = employee_salaries.y
+    # We'll drop the column "date first hired" as
+    # it is redundant with "year first hired"
+    X.drop(['date_first_hired'], axis=1, inplace=True)
 
 
 
@@ -104,11 +93,11 @@ Let's fetch the dataset, and load X (the employees' features) and y
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 58-59
+.. GENERATED FROM PYTHON SOURCE LINES 49-50
 
 The data are in a fairly complex and heterogeneous dataframe:
 
-.. GENERATED FROM PYTHON SOURCE LINES 59-61
+.. GENERATED FROM PYTHON SOURCE LINES 50-52
 
 .. code-block:: default
 
@@ -159,8 +148,8 @@ The data are in a fairly complex and heterogeneous dataframe:
           <td>MSB Information Mgmt and Tech Division Records...</td>
           <td>Fulltime-Regular</td>
           <td>Office Services Coordinator</td>
-          <td>None</td>
-          <td>1986.0</td>
+          <td>NaN</td>
+          <td>1986</td>
         </tr>
         <tr>
           <th>1</th>
@@ -170,8 +159,8 @@ The data are in a fairly complex and heterogeneous dataframe:
           <td>ISB Major Crimes Division Fugitive Section</td>
           <td>Fulltime-Regular</td>
           <td>Master Police Officer</td>
-          <td>None</td>
-          <td>1988.0</td>
+          <td>NaN</td>
+          <td>1988</td>
         </tr>
         <tr>
           <th>2</th>
@@ -181,8 +170,8 @@ The data are in a fairly complex and heterogeneous dataframe:
           <td>Adult Protective and Case Management Services</td>
           <td>Fulltime-Regular</td>
           <td>Social Worker IV</td>
-          <td>None</td>
-          <td>1989.0</td>
+          <td>NaN</td>
+          <td>1989</td>
         </tr>
         <tr>
           <th>3</th>
@@ -192,8 +181,8 @@ The data are in a fairly complex and heterogeneous dataframe:
           <td>PRRS Facility and Security</td>
           <td>Fulltime-Regular</td>
           <td>Resident Supervisor II</td>
-          <td>None</td>
-          <td>2014.0</td>
+          <td>NaN</td>
+          <td>2014</td>
         </tr>
         <tr>
           <th>4</th>
@@ -203,8 +192,8 @@ The data are in a fairly complex and heterogeneous dataframe:
           <td>Affordable Housing Programs</td>
           <td>Fulltime-Regular</td>
           <td>Planning Specialist III</td>
-          <td>None</td>
-          <td>2007.0</td>
+          <td>NaN</td>
+          <td>2007</td>
         </tr>
         <tr>
           <th>...</th>
@@ -225,8 +214,8 @@ The data are in a fairly complex and heterogeneous dataframe:
           <td>School Based Health Centers</td>
           <td>Fulltime-Regular</td>
           <td>Community Health Nurse II</td>
-          <td>None</td>
-          <td>2015.0</td>
+          <td>NaN</td>
+          <td>2015</td>
         </tr>
         <tr>
           <th>9224</th>
@@ -236,8 +225,8 @@ The data are in a fairly complex and heterogeneous dataframe:
           <td>Human Resources Division</td>
           <td>Fulltime-Regular</td>
           <td>Fire/Rescue Division Chief</td>
-          <td>None</td>
-          <td>1988.0</td>
+          <td>NaN</td>
+          <td>1988</td>
         </tr>
         <tr>
           <th>9225</th>
@@ -247,8 +236,8 @@ The data are in a fairly complex and heterogeneous dataframe:
           <td>Child and Adolescent Mental Health Clinic Serv...</td>
           <td>Parttime-Regular</td>
           <td>Medical Doctor IV - Psychiatrist</td>
-          <td>None</td>
-          <td>2001.0</td>
+          <td>NaN</td>
+          <td>2001</td>
         </tr>
         <tr>
           <th>9226</th>
@@ -258,8 +247,8 @@ The data are in a fairly complex and heterogeneous dataframe:
           <td>Council Central Staff</td>
           <td>Fulltime-Regular</td>
           <td>Manager II</td>
-          <td>None</td>
-          <td>2006.0</td>
+          <td>NaN</td>
+          <td>2006</td>
         </tr>
         <tr>
           <th>9227</th>
@@ -269,8 +258,8 @@ The data are in a fairly complex and heterogeneous dataframe:
           <td>Licensure, Regulation and Education</td>
           <td>Fulltime-Regular</td>
           <td>Alcohol/Tobacco Enforcement Specialist II</td>
-          <td>None</td>
-          <td>2012.0</td>
+          <td>NaN</td>
+          <td>2012</td>
         </tr>
       </tbody>
     </table>
@@ -280,12 +269,12 @@ The data are in a fairly complex and heterogeneous dataframe:
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 62-64
+.. GENERATED FROM PYTHON SOURCE LINES 53-55
 
 The challenge is to turn this dataframe into a form suited for
 machine learning.
 
-.. GENERATED FROM PYTHON SOURCE LINES 66-74
+.. GENERATED FROM PYTHON SOURCE LINES 57-65
 
 Using the SuperVectorizer in a supervised-learning pipeline
 ------------------------------------------------------------
@@ -296,7 +285,7 @@ can be readily applied to the dataframe**.
 
 It's the typical and recommended way of using it.
 
-.. GENERATED FROM PYTHON SOURCE LINES 74-89
+.. GENERATED FROM PYTHON SOURCE LINES 65-80
 
 .. code-block:: default
 
@@ -322,11 +311,11 @@ It's the typical and recommended way of using it.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 90-91
+.. GENERATED FROM PYTHON SOURCE LINES 81-82
 
 Let's perform a cross-validation to see how well this model predicts
 
-.. GENERATED FROM PYTHON SOURCE LINES 91-101
+.. GENERATED FROM PYTHON SOURCE LINES 82-92
 
 .. code-block:: default
 
@@ -336,7 +325,7 @@ Let's perform a cross-validation to see how well this model predicts
     scores = cross_val_score(pipeline, X, y, scoring='r2')
 
     import numpy as np
-    print(f'{scores=}')
+    print(f'scores={scores}')
     print(f'mean={np.mean(scores)}')
     print(f'std={np.std(scores)}')
 
@@ -380,21 +369,21 @@ Let's perform a cross-validation to see how well this model predicts
       warnings.warn(msg, category=FutureWarning)
     /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/utils/deprecation.py:87: FutureWarning: Function get_feature_names is deprecated; get_feature_names is deprecated in 1.0 and will be removed in 1.2. Please use get_feature_names_out instead.
       warnings.warn(msg, category=FutureWarning)
-    scores=array([0.89028063, 0.87979709, 0.92110538, 0.92628107, 0.91628247])
-    mean=0.9067493278927353
-    std=0.018309052713682196
+    scores=[0.89028063 0.87979709 0.92108177 0.92639466 0.91628247]
+    mean=0.9067673236552098
+    std=0.018329638398579668
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 102-106
+.. GENERATED FROM PYTHON SOURCE LINES 93-97
 
 The prediction perform here is pretty much as good as in :ref:`example
 02<sphx_glr_auto_examples_02_fit_predict_plot_employee_salaries.py>`,
 but the code here is much simpler as it does not involve specifying
 columns manually.
 
-.. GENERATED FROM PYTHON SOURCE LINES 108-113
+.. GENERATED FROM PYTHON SOURCE LINES 99-104
 
 Analyzing the features created
 -------------------------------
@@ -402,7 +391,7 @@ Analyzing the features created
 Let us perform the same workflow, but without the `Pipeline`, so we can
 analyze its mechanisms along the way.
 
-.. GENERATED FROM PYTHON SOURCE LINES 113-118
+.. GENERATED FROM PYTHON SOURCE LINES 104-109
 
 .. code-block:: default
 
@@ -418,11 +407,11 @@ analyze its mechanisms along the way.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 119-120
+.. GENERATED FROM PYTHON SOURCE LINES 110-111
 
 We split the data between train and test, and transform them:
 
-.. GENERATED FROM PYTHON SOURCE LINES 120-128
+.. GENERATED FROM PYTHON SOURCE LINES 111-119
 
 .. code-block:: default
 
@@ -454,14 +443,14 @@ We split the data between train and test, and transform them:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 129-133
+.. GENERATED FROM PYTHON SOURCE LINES 120-124
 
 Inspecting the features created
 .................................
 Once it has been trained on data,
 we can print the transformers and the columns assignment it creates:
 
-.. GENERATED FROM PYTHON SOURCE LINES 133-136
+.. GENERATED FROM PYTHON SOURCE LINES 124-127
 
 .. code-block:: default
 
@@ -479,11 +468,11 @@ we can print the transformers and the columns assignment it creates:
  .. code-block:: none
 
 
-    [('high_card_str', GapEncoder(n_components=50), ['division', 'employee_position_title', 'underfilled_job_title']), ('low_card_cat', OneHotEncoder(), ['gender', 'department', 'department_name', 'assignment_category']), ('remainder', 'passthrough', [7])]
+    [('low_card_str', OneHotEncoder(), ['gender', 'department', 'department_name', 'assignment_category']), ('high_card_str', GapEncoder(n_components=50), ['division', 'employee_position_title', 'underfilled_job_title']), ('remainder', 'passthrough', [7])]
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 137-150
+.. GENERATED FROM PYTHON SOURCE LINES 128-141
 
 This is what is being passed to the |ColumnTransformer| under the hood.
 If you're familiar with how the later works, it should be very intuitive.
@@ -499,7 +488,7 @@ Next, we can have a look at the encoded feature names.
 
 Before encoding:
 
-.. GENERATED FROM PYTHON SOURCE LINES 150-152
+.. GENERATED FROM PYTHON SOURCE LINES 141-143
 
 .. code-block:: default
 
@@ -520,11 +509,11 @@ Before encoding:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 153-154
+.. GENERATED FROM PYTHON SOURCE LINES 144-145
 
 After encoding (we only plot the first 8 feature names):
 
-.. GENERATED FROM PYTHON SOURCE LINES 154-157
+.. GENERATED FROM PYTHON SOURCE LINES 145-148
 
 .. code-block:: default
 
@@ -544,11 +533,11 @@ After encoding (we only plot the first 8 feature names):
     /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/utils/deprecation.py:87: FutureWarning: Function get_feature_names is deprecated; get_feature_names is deprecated in 1.0 and will be removed in 1.2. Please use get_feature_names_out instead.
       warnings.warn(msg, category=FutureWarning)
 
-    ['division: patrol, 4th, 6th', 'division: personnel, fallsgrove, wheaton', 'division: communications, communication, community', 'division: station, mediation, recreation', 'division: silver, spring, ride', 'division: behavioral, school, health', 'division: safety, alcohol, life', 'division: security, mccf, unit']
+    ['gender_', 'gender_F', 'gender_M', 'department_BOA', 'department_BOE', 'department_CAT', 'department_CCL', 'department_CEC']
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 158-164
+.. GENERATED FROM PYTHON SOURCE LINES 149-155
 
 As we can see, it created a new column for each unique value.
 This is because we used |SE| on the column "division",
@@ -557,7 +546,7 @@ which was classified as a high cardinality string variable.
 
 In total, we have 256 encoded columns.
 
-.. GENERATED FROM PYTHON SOURCE LINES 164-167
+.. GENERATED FROM PYTHON SOURCE LINES 155-158
 
 .. code-block:: default
 
@@ -579,7 +568,7 @@ In total, we have 256 encoded columns.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 168-178
+.. GENERATED FROM PYTHON SOURCE LINES 159-169
 
 Feature importance in the statistical model
 ............................................
@@ -592,7 +581,7 @@ In this section, we will train a regressor, and plot the feature importances
 
 First, let's train the |RandomForestRegressor|,
 
-.. GENERATED FROM PYTHON SOURCE LINES 178-184
+.. GENERATED FROM PYTHON SOURCE LINES 169-175
 
 .. code-block:: default
 
@@ -617,11 +606,11 @@ First, let's train the |RandomForestRegressor|,
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 185-186
+.. GENERATED FROM PYTHON SOURCE LINES 176-177
 
 Getting the feature importances
 
-.. GENERATED FROM PYTHON SOURCE LINES 186-196
+.. GENERATED FROM PYTHON SOURCE LINES 177-187
 
 .. code-block:: default
 
@@ -642,11 +631,11 @@ Getting the feature importances
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 197-198
+.. GENERATED FROM PYTHON SOURCE LINES 188-189
 
 Plotting the results:
 
-.. GENERATED FROM PYTHON SOURCE LINES 198-210
+.. GENERATED FROM PYTHON SOURCE LINES 189-201
 
 .. code-block:: default
 
@@ -674,7 +663,7 @@ Plotting the results:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 211-214
+.. GENERATED FROM PYTHON SOURCE LINES 202-205
 
 We can deduce from this data that the three factors that define the
 most the salary are: being hired for a long time, being a manager, and
@@ -683,7 +672,7 @@ having a permanent, full-time job :).
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 3 minutes  16.287 seconds)
+   **Total running time of the script:** ( 3 minutes  24.925 seconds)
 
 
 .. _sphx_glr_download_auto_examples_03_automatic_preprocessing_with_the_supervectorizer.py:

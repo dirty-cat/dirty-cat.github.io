@@ -27,7 +27,7 @@ either chosen as the most frequent categories, or with kmeans clustering.
 
 Note that the :class:`GapEncoder` naturally does data reduction and comes
 with online estimation. As a result is it more scalable than the
-SimilarityEncoder, and should be prefered in large-scale settings.
+SimilarityEncoder, and should be preferred in large-scale settings.
 
 .. GENERATED FROM PYTHON SOURCE LINES 14-19
 
@@ -48,7 +48,7 @@ SimilarityEncoder, and should be prefered in large-scale settings.
 .. GENERATED FROM PYTHON SOURCE LINES 20-25
 
 A tool to report memory usage and run time
--------------------------------------------
+------------------------------------------
 
 For this example, we build a small tool that reports memory
 usage and compute time of a function
@@ -93,50 +93,45 @@ usage and compute time of a function
 Data Importing and preprocessing
 --------------------------------
 
-We first download the dataset:
+We first get the dataset:
 
-.. GENERATED FROM PYTHON SOURCE LINES 54-59
-
-.. code-block:: default
-
-    from dirty_cat.datasets import fetch_traffic_violations
-
-    data = fetch_traffic_violations()
-    print(data['description'])
-
-
-
-
-
-.. rst-class:: sphx-glr-script-out
-
- Out:
-
- .. code-block:: none
-
-    /home/circleci/project/dirty_cat/datasets/fetching.py:207: UserWarning: content size cannot be found, downloading file from https://data.montgomerycountymd.gov/api/views/4mse-ku6q/rows.csv?accessType=DOWNLOAD as a whole
-      warnings.warn('content size cannot be found, '
-    The downloaded data contains the traffic_violations dataset.
-    It can originally be found at: https://catalog.data.gov/dataset/ traffic-violations-56dda
-
-
-
-
-.. GENERATED FROM PYTHON SOURCE LINES 60-61
-
-Then we load it:
-
-.. GENERATED FROM PYTHON SOURCE LINES 61-67
+.. GENERATED FROM PYTHON SOURCE LINES 54-86
 
 .. code-block:: default
 
     import pandas as pd
+    from dirty_cat.datasets import fetch_open_payments
 
-    # Limit to 50 000 rows, for a faster example
-    df = pd.read_csv(data['path'], nrows=50000)
+    open_payments = fetch_open_payments()
+    print(open_payments.description)
+
+    df = open_payments.X
+
+    na_mask: pd.DataFrame = df.isna()
     df = df.dropna(axis=0)
     df = df.reset_index()
 
+    from functools import reduce
+
+    y = open_payments.y
+    # Combine boolean masks
+    na_mask = reduce(lambda acc, col: acc | na_mask[col],
+                     na_mask.columns, na_mask[na_mask.columns[0]])
+    # Drop the lines that contained missing values in X
+    y = y[~na_mask]
+    y.reset_index()
+
+    clean_columns = [
+        'Applicable_Manufacturer_or_Applicable_GPO_Making_Payment_Name',
+        'Dispute_Status_for_Publication',
+        'Physician_Specialty',
+    ]
+    dirty_columns = [
+        'Name_of_Associated_Covered_Device_or_Medical_Supply1',
+        'Name_of_Associated_Covered_Drug_or_Biological1',
+    ]
+
+
 
 
 
@@ -146,22 +141,23 @@ Then we load it:
 
  .. code-block:: none
 
-    /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sphinx_gallery/gen_rst.py:516: DtypeWarning: Columns (20,22,24,25) have mixed types.Specify dtype option on import or set low_memory=False.
-      exec(self.code, self.fake_main.__dict__)
+    /home/circleci/project/dirty_cat/datasets/fetching.py:113: UserWarning: Could not find the dataset 42738 locally. Downloading it from OpenML; this might take a while... If it is interrupted, some files might be invalid/incomplete: if on the following run, the fetching raises errors, you can try fixing this issue by deleting the directory PosixPath('/home/circleci/project/dirty_cat/datasets/data').
+      warnings.warn(
+    Payments given by healthcare manufacturing companies to medical doctors or hospitals
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 68-70
+.. GENERATED FROM PYTHON SOURCE LINES 87-89
 
-We will use SimilarityEncoder on the 'description' column. One
-difficulty is that it has many different entries.
+We will use SimilarityEncoder on the the two dirty columns defined above.
+One difficulty is that they have many different entries.
 
-.. GENERATED FROM PYTHON SOURCE LINES 70-72
+.. GENERATED FROM PYTHON SOURCE LINES 89-91
 
 .. code-block:: default
 
-    print(df['Description'].nunique())
+    print(df[dirty_columns].nunique())
 
 
 
@@ -173,16 +169,18 @@ difficulty is that it has many different entries.
 
  .. code-block:: none
 
-    263
+    Name_of_Associated_Covered_Device_or_Medical_Supply1    223
+    Name_of_Associated_Covered_Drug_or_Biological1          210
+    dtype: int64
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 73-75
+.. GENERATED FROM PYTHON SOURCE LINES 92-94
 
 .. code-block:: default
 
-    print(df['Description'].value_counts()[:20])
+    print(df[dirty_columns].value_counts()[:20])
 
 
 
@@ -194,36 +192,37 @@ difficulty is that it has many different entries.
 
  .. code-block:: none
 
-    DRIVING VEH. WHILE IMPAIRED BY ALCOHOL                                                               171
-    DRIVING VEHICLE WHILE UNDER THE INFLUENCE OF ALCOHOL                                                 169
-    NEGLIGENT DRIVING VEHICLE IN CARELESS AND IMPRUDENT MANNER ENDANGERING PROPERTY, LIFE AND PERSON     139
-    RECKLESS DRIVING VEHICLE IN WANTON AND WILLFUL DISREGARD FOR SAFETY OF PERSONS AND PROPERTY          106
-    DRIVING VEHICLE WHILE UNDER THE INFLUENCE OF ALCOHOL PER SE                                          103
-    DRIVER FAILURE TO OBEY PROPERLY PLACED TRAFFIC CONTROL DEVICE INSTRUCTIONS                            80
-    PERSON DRIVING MOTOR VEHICLE ON HIGHWAY OR PUBLIC USE PROPERTY ON SUSPENDED LICENSE AND PRIVILEGE     48
-    FAILURE OF INDIVIDUAL DRIVING ON HIGHWAY TO DISPLAY LICENSE TO UNIFORMED POLICE ON DEMAND             48
-    FAILURE TO DRIVE VEHICLE ON RIGHT HALF OF ROADWAY WHEN REQUIRED                                       42
-    DRIVER CHANGING LANES WHEN UNSAFE                                                                     41
-    DRIVING MOTOR VEHICLE ON HIGHWAY WITHOUT REQUIRED LICENSE AND AUTHORIZATION                           40
-    FAILURE TO CONTROL VEHICLE SPEED ON HIGHWAY TO AVOID COLLISION                                        36
-    FAILURE TO DISPLAY REGISTRATION CARD UPON DEMAND BY POLICE OFFICER                                    36
-    DRIVING WHILE LIC. SUSP. UNDER 16-203, 16-206A2 FAIL TO ATTEND DIP, 17-106, 26-204/206, 27-103        28
-    DRIVING VEH. WHILE IMPAIRED BY A CONTROLLED DANGEROUS SUBSTANCE                                       23
-    DRIVING VEHICLE IN EXCESS OF REASONABLE AND PRUDENT SPEED ON HIGHWAY                                  21
-    DRIVER FAILURE TO STOP AT STOP SIGN LINE                                                              20
-    OPERATING UNREGISTERED MOTOR VEHICLE ON HIGHWAY                                                       15
-    PERSON DRIVING MOTOR VEHICLE ON HIGHWAY OR PUBLIC USE PROPERTY ON REVOKED LICENSE AND PRIVILEGE       15
-    DRIVING TO DRIVE MOTOR VEHICLE ON HIGHWAY WITHOUT REQUIRED LICENSE AND AUTHORIZATION                  15
-    Name: Description, dtype: int64
+    Name_of_Associated_Covered_Device_or_Medical_Supply1  Name_of_Associated_Covered_Drug_or_Biological1
+    Sprix                                                 Sprix                                             95
+    PriMatrix                                             PriMatrix                                         61
+    Radiesse                                              Xeomin                                            53
+    Injectafer                                            Injectafer                                        52
+    SurgiMend                                             SurgiMend                                         50
+    Biosurgicals                                          Evicel                                            44
+    Meters                                                Invokana                                          44
+    Belotero                                              Xeomin                                            40
+    Essure                                                Mirena                                            39
+    SIR-Spheres microspheres                              SIR-Spheres microspheres                          37
+    HFCWO                                                 HFCWO                                             33
+    BETAMETHASONE SOD PHOS                                BETAMETHASONE SOD PHOS                            32
+    MIST Therapy                                          MIST Therapy                                      29
+    One Touch Ping                                        Invokana                                          27
+    Equinoxe                                              Equinoxe                                          26
+    Air-Seal                                              Air-Seal                                          23
+    Clarix                                                Neox                                              23
+    Optetrak                                              Optetrak                                          18
+    OsteoSelect DBM Putty                                 Osteosponge                                       17
+    Novation                                              Novation                                          15
+    dtype: int64
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 76-77
+.. GENERATED FROM PYTHON SOURCE LINES 95-96
 
 As we will see, SimilarityEncoder takes a while on such data.
 
-.. GENERATED FROM PYTHON SOURCE LINES 80-85
+.. GENERATED FROM PYTHON SOURCE LINES 99-104
 
 SimilarityEncoder with default options
 --------------------------------------
@@ -231,7 +230,7 @@ SimilarityEncoder with default options
 Let us build our vectorizer, using a ColumnTransformer to combine
 one-hot encoding and similarity encoding
 
-.. GENERATED FROM PYTHON SOURCE LINES 85-117
+.. GENERATED FROM PYTHON SOURCE LINES 104-123
 
 .. code-block:: default
 
@@ -241,25 +240,12 @@ one-hot encoding and similarity encoding
 
     sim_enc = SimilarityEncoder(similarity='ngram')
 
-    y = df['Violation Type']
-
-    # clean columns
-    transformers = [('one_hot', OneHotEncoder(sparse=False, handle_unknown='ignore'),
-                     ['Alcohol',
-                      'Arrest Type',
-                      'Belts',
-                      'Commercial License',
-                      'Commercial Vehicle',
-                      'Fatal',
-                      'HAZMAT',
-                      'Property Damage',
-                      'Work Zone']),
-                    ('pass', 'passthrough', ['Year']),
-                    ]
+    transformers = [
+        ('one_hot', OneHotEncoder(sparse=False, handle_unknown='ignore'), clean_columns),
+    ]
 
     column_trans = ColumnTransformer(
-        # adding the dirty column
-        transformers=transformers + [('sim_enc', sim_enc, ['Description'])],
+        transformers=transformers + [('sim_enc', sim_enc, dirty_columns)],
         remainder='drop')
 
     t0 = time()
@@ -277,16 +263,16 @@ one-hot encoding and similarity encoding
 
  .. code-block:: none
 
-    Time to vectorize: 0.41253662109375
+    Time to vectorize: 0.5886414051055908
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 118-119
+.. GENERATED FROM PYTHON SOURCE LINES 124-125
 
 We can run a cross-validation
 
-.. GENERATED FROM PYTHON SOURCE LINES 119-128
+.. GENERATED FROM PYTHON SOURCE LINES 125-134
 
 .. code-block:: default
 
@@ -296,7 +282,7 @@ We can run a cross-validation
     log_reg = linear_model.LogisticRegression(max_iter=10000)
 
     model = pipeline.make_pipeline(column_trans, log_reg)
-    results = resource_used(model_selection.cross_validate)(model, df, y, )
+    results = resource_used(model_selection.cross_validate)(model, df, y)
     print("Cross-validation score: %s" % results['test_score'])
 
 
@@ -309,17 +295,17 @@ We can run a cross-validation
 
  .. code-block:: none
 
-    Run time: 5s    Memory used: 9Mb
-    Cross-validation score: [0.94397759 0.94397759 0.94101124 0.94662921 0.94101124]
+    Run time: 4s    Memory used: 12Mb
+    Cross-validation score: [0.98513011 0.98884758 0.96641791 0.98134328 0.98880597]
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 129-130
+.. GENERATED FROM PYTHON SOURCE LINES 135-136
 
 Store results for later
 
-.. GENERATED FROM PYTHON SOURCE LINES 130-135
+.. GENERATED FROM PYTHON SOURCE LINES 136-141
 
 .. code-block:: default
 
@@ -335,16 +321,16 @@ Store results for later
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 136-142
+.. GENERATED FROM PYTHON SOURCE LINES 142-148
 
 Most frequent strategy to define prototypes
----------------------------------------------
+-------------------------------------------
 
 The most frequent strategy selects the n most frequent values in a dirty
 categorical variable to reduce the dimensionality of the problem and thus
 speed things up. We select manually the number of prototypes we want to use.
 
-.. GENERATED FROM PYTHON SOURCE LINES 142-150
+.. GENERATED FROM PYTHON SOURCE LINES 148-155
 
 .. code-block:: default
 
@@ -352,8 +338,7 @@ speed things up. We select manually the number of prototypes we want to use.
                                 n_prototypes=100)
 
     column_trans = ColumnTransformer(
-        # adding the dirty column
-        transformers=transformers + [('sim_enc', sim_enc, ['Description'])],
+        transformers=transformers + [('sim_enc', sim_enc, dirty_columns)],
         remainder='drop')
 
 
@@ -363,11 +348,11 @@ speed things up. We select manually the number of prototypes we want to use.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 151-152
+.. GENERATED FROM PYTHON SOURCE LINES 156-157
 
 Check now that prediction is still as good
 
-.. GENERATED FROM PYTHON SOURCE LINES 152-156
+.. GENERATED FROM PYTHON SOURCE LINES 157-161
 
 .. code-block:: default
 
@@ -385,17 +370,17 @@ Check now that prediction is still as good
 
  .. code-block:: none
 
-    Run time: 4s    Memory used: 5Mb
-    Cross-validation score: [0.94397759 0.94117647 0.94101124 0.94101124 0.94101124]
+    Run time: 4s    Memory used: 9Mb
+    Cross-validation score: [0.98513011 0.99256506 0.97014925 0.98507463 0.98880597]
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 157-158
+.. GENERATED FROM PYTHON SOURCE LINES 162-163
 
 Store results for later
 
-.. GENERATED FROM PYTHON SOURCE LINES 158-161
+.. GENERATED FROM PYTHON SOURCE LINES 163-166
 
 .. code-block:: default
 
@@ -409,16 +394,16 @@ Store results for later
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 162-168
+.. GENERATED FROM PYTHON SOURCE LINES 167-173
 
 KMeans strategy to define prototypes
----------------------------------------
+------------------------------------
 
 K-means strategy is also a dimensionality reduction technique.
 SimilarityEncoder can apply a K-means and nearest neighbors algorithm
 to find the prototypes. The number of prototypes is set manually.
 
-.. GENERATED FROM PYTHON SOURCE LINES 168-176
+.. GENERATED FROM PYTHON SOURCE LINES 173-180
 
 .. code-block:: default
 
@@ -426,8 +411,7 @@ to find the prototypes. The number of prototypes is set manually.
                                 n_prototypes=100)
 
     column_trans = ColumnTransformer(
-        # adding the dirty column
-        transformers=transformers + [('sim_enc', sim_enc, ['Description'])],
+        transformers=transformers + [('sim_enc', sim_enc, dirty_columns)],
         remainder='drop')
 
 
@@ -437,11 +421,11 @@ to find the prototypes. The number of prototypes is set manually.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 177-178
+.. GENERATED FROM PYTHON SOURCE LINES 181-182
 
 Check now that prediction is still as good
 
-.. GENERATED FROM PYTHON SOURCE LINES 178-182
+.. GENERATED FROM PYTHON SOURCE LINES 182-186
 
 .. code-block:: default
 
@@ -459,17 +443,17 @@ Check now that prediction is still as good
 
  .. code-block:: none
 
-    Run time: 7s    Memory used: 5Mb
-    Cross-validation score: [0.93837535 0.93277311 0.93539326 0.93539326 0.93539326]
+    Run time: 12s    Memory used: 8Mb
+    Cross-validation score: [0.98884758 0.99256506 0.97014925 0.98507463 0.98880597]
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 183-184
+.. GENERATED FROM PYTHON SOURCE LINES 187-188
 
 Store results for later
 
-.. GENERATED FROM PYTHON SOURCE LINES 184-187
+.. GENERATED FROM PYTHON SOURCE LINES 188-191
 
 .. code-block:: default
 
@@ -483,12 +467,12 @@ Store results for later
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 188-190
+.. GENERATED FROM PYTHON SOURCE LINES 192-194
 
 Plot a summary figure
-----------------------
+---------------------
 
-.. GENERATED FROM PYTHON SOURCE LINES 190-203
+.. GENERATED FROM PYTHON SOURCE LINES 194-206
 
 .. code-block:: default
 
@@ -504,7 +488,6 @@ Plot a summary figure
     ax2.set_xlabel('Computation time', size=16)
     [t.set(size=16) for t in ax2.get_yticklabels()]
     plt.tight_layout()
-
 
 
 
@@ -548,98 +531,10 @@ Plot a summary figure
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 204-210
-
-Reduce memory usage during encoding using float32
-----------------------------------------------------------------
-
-We use a float32 dtype in this example to show some speed and memory gains.
-The use of the scikit-learn model may upcast to float64 (depending on the used
-algorithm). The memory savings will then happen during the encoding.
-
-.. GENERATED FROM PYTHON SOURCE LINES 210-243
-
-.. code-block:: default
-
-    import numpy as np
-
-    sim_enc = SimilarityEncoder(similarity='ngram', dtype=np.float32,
-                                categories='most_frequent', n_prototypes=100)
-
-    y = df['Violation Type']
-    # cast the year column to float32
-    df['Year'] = df['Year'].astype(np.float32)
-    # clean columns
-    transformers = [('one_hot', OneHotEncoder(sparse=False, dtype=np.float32,
-                                              handle_unknown='ignore'),
-                     ['Alcohol',
-                      'Arrest Type',
-                      'Belts',
-                      'Commercial License',
-                      'Commercial Vehicle',
-                      'Fatal',
-                      'HAZMAT',
-                      'Property Damage',
-                      'Work Zone']),
-                    ('pass', 'passthrough', ['Year']),
-                    ]
-
-    column_trans = ColumnTransformer(
-        # adding the dirty column
-        transformers=transformers + [('sim_enc', sim_enc, ['Description'])],
-        remainder='drop')
-
-    t0 = time()
-    X = column_trans.fit_transform(df)
-    t1 = time()
-    print('Time to vectorize: %s' % (t1 - t0))
-
-
-
-
-
-.. rst-class:: sphx-glr-script-out
-
- Out:
-
- .. code-block:: none
-
-    Time to vectorize: 0.2935492992401123
-
-
-
-
-.. GENERATED FROM PYTHON SOURCE LINES 244-245
-
-We can run a cross-validation to confirm the memory footprint reduction
-
-.. GENERATED FROM PYTHON SOURCE LINES 245-248
-
-.. code-block:: default
-
-    model = pipeline.make_pipeline(column_trans, log_reg)
-    results = resource_used(model_selection.cross_validate)(model, df, y, )
-    print("Cross-validation score: %s" % results['test_score'])
-
-
-
-
-.. rst-class:: sphx-glr-script-out
-
- Out:
-
- .. code-block:: none
-
-    Run time: 3s    Memory used: 3Mb
-    Cross-validation score: [0.93837535 0.94117647 0.94101124 0.94101124 0.94101124]
-
-
-
-
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 2 minutes  30.327 seconds)
+   **Total running time of the script:** ( 0 minutes  28.902 seconds)
 
 
 .. _sphx_glr_download_auto_examples_06_dimension_reduction_and_performance.py:

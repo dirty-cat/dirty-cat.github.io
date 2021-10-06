@@ -19,11 +19,11 @@
 
 
 Comparing encoders of a dirty categorical columns
-==================================================
+=================================================
 
 The column *Employee Position Title* of the dataset `employee salaries
-<https://catalog.data.gov/dataset/employee-salaries-2016>`_ contains dirty categorical
-data.
+<https://catalog.data.gov/dataset/employee-salaries-2016>`_ contains dirty
+categorical data.
 
 Here, we compare different categorical encodings for the dirty column to
 predict the *Current Annual Salary*, using gradient boosted trees.
@@ -33,16 +33,18 @@ predict the *Current Annual Salary*, using gradient boosted trees.
 Data Importing and preprocessing
 --------------------------------
 
-We first download the dataset:
+We first get the dataset:
 
-.. GENERATED FROM PYTHON SOURCE LINES 18-23
+.. GENERATED FROM PYTHON SOURCE LINES 18-25
 
 .. code-block:: default
 
     from dirty_cat.datasets import fetch_employee_salaries
-    employee_salaries = fetch_employee_salaries()
-    print(employee_salaries['DESCR'])
 
+    employee_salaries = fetch_employee_salaries()
+    print(employee_salaries.description)
+
+    df = employee_salaries.X
 
 
 
@@ -56,44 +58,27 @@ We first download the dataset:
 
     Annual salary information including gross pay and overtime pay for all active, permanent employees of Montgomery County, MD paid in calendar year 2016. This information will be published annually each year.
 
-    Downloaded from openml.org.
 
 
 
+.. GENERATED FROM PYTHON SOURCE LINES 26-27
 
-.. GENERATED FROM PYTHON SOURCE LINES 24-25
+Now, let's carry out some basic preprocessing:
 
-Then we load it:
-
-.. GENERATED FROM PYTHON SOURCE LINES 25-28
+.. GENERATED FROM PYTHON SOURCE LINES 27-38
 
 .. code-block:: default
 
     import pandas as pd
-    df = employee_salaries['data']
-
-
-
-
-
-
-
-
-.. GENERATED FROM PYTHON SOURCE LINES 29-30
-
-Now, let's carry out some basic preprocessing:
-
-.. GENERATED FROM PYTHON SOURCE LINES 30-38
-
-.. code-block:: default
-
-    df['Date First Hired'] = pd.to_datetime(df['date_first_hired'])
-    df['Year First Hired'] = df['Date First Hired'].apply(lambda x: x.year)
+    df['date_first_hired'] = pd.to_datetime(df['date_first_hired'])
+    df['year_first_hired'] = df['date_first_hired'].apply(lambda x: x.year)
     # drop rows with NaN in gender
+    na_mask = df.isna()  # Get boolean mask of missing values
     df.dropna(subset=['gender'], inplace=True)
 
-    target_column = 'Current Annual Salary'
-    y = df[target_column].values.ravel()
+    y = employee_salaries.y
+    # Drop lines from y where there was missing values in X
+    y = y[~na_mask['gender']]
 
 
 
@@ -105,7 +90,7 @@ Now, let's carry out some basic preprocessing:
 .. GENERATED FROM PYTHON SOURCE LINES 39-43
 
 Choosing columns
------------------
+----------------
 For categorical columns that are supposed to be clean, it is "safe" to
 use one hot encoding to transform them:
 
@@ -118,7 +103,7 @@ use one hot encoding to transform them:
         'gender': 'one-hot',
         'department_name': 'one-hot',
         'assignment_category': 'one-hot',
-        'Year First Hired': 'numerical'}
+        'year_first_hired': 'numerical'}
 
 
 
@@ -220,7 +205,7 @@ The encoders for both clean and dirty data are first imported:
 .. GENERATED FROM PYTHON SOURCE LINES 109-114
 
 Using each encoding for supervised learning
---------------------------------------------
+-------------------------------------------
 Eventually, we loop over the different encoding methods,
 instantiate each time a new pipeline, fit it
 and store the returned cross-validation score:
@@ -328,7 +313,7 @@ it provides interpretable features (see :ref:`sphx_glr_auto_examples_04_feature_
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 2 minutes  41.278 seconds)
+   **Total running time of the script:** ( 2 minutes  46.685 seconds)
 
 
 .. _sphx_glr_download_auto_examples_02_fit_predict_plot_employee_salaries.py:

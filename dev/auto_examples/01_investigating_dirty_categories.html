@@ -10,7 +10,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://dirty-cat.github.io/stable/auto_examples/01_investigating_dirty_categories.html" />
   <meta property="og:site_name" content="Dirty cat" />
-  <meta property="og:description" content="What are dirty categorical variables and how can a good encoding help with statistical learning. What do we mean by dirty categories?: Let’s look at a dataset called employee salaries: import panda..." />
+  <meta property="og:description" content="What are dirty categorical variables and how can a good encoding help with statistical learning. What do we mean by dirty categories?: Let’s look at a dataset called employee salaries: from dirty_c..." />
   <meta property="og:image" content="https://dirty-cat.github.io/stable/_static/dirty_cat.svg" />
   <meta property="og:image:alt" content="Dirty cat" />
   
@@ -98,27 +98,26 @@ with statistical learning.</p>
 <section id="what-do-we-mean-by-dirty-categories">
 <h2>What do we mean by dirty categories?<a class="headerlink" href="#what-do-we-mean-by-dirty-categories" title="Permalink to this headline">¶</a></h2>
 <p>Let’s look at a dataset called employee salaries:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">dirty_cat</span> <span class="kn">import</span> <span class="n">datasets</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dirty_cat</span> <span class="kn">import</span> <span class="n">datasets</span>
 
 <span class="n">employee_salaries</span> <span class="o">=</span> <a href="../generated/dirty_cat.datasets.fetch_employee_salaries.html#dirty_cat.datasets.fetch_employee_salaries" title="dirty_cat.datasets.fetch_employee_salaries" class="sphx-glr-backref-module-dirty_cat-datasets sphx-glr-backref-type-py-function"><span class="n">datasets</span><span class="o">.</span><span class="n">fetch_employee_salaries</span></a><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">employee_salaries</span><span class="p">[</span><span class="s1">&#39;DESCR&#39;</span><span class="p">])</span>
-<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data</span></a> <span class="o">=</span> <span class="n">employee_salaries</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">employee_salaries</span><span class="o">.</span><span class="n">description</span></a><span class="p">)</span>
+<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data</span></a> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">employee_salaries</span><span class="o">.</span><span class="n">X</span></a>
 <span class="nb">print</span><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.head.html#pandas.DataFrame.head" title="pandas.DataFrame.head" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-method"><span class="n">data</span><span class="o">.</span><span class="n">head</span></a><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">5</span><span class="p">))</span>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Annual salary information including gross pay and overtime pay for all active, permanent employees of Montgomery County, MD paid in calendar year 2016. This information will be published annually each year.
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/circleci/project/dirty_cat/datasets/fetching.py:113: UserWarning: Could not find the dataset 42125 locally. Downloading it from OpenML; this might take a while... If it is interrupted, some files might be invalid/incomplete: if on the following run, the fetching raises errors, you can try fixing this issue by deleting the directory PosixPath(&#39;/home/circleci/project/dirty_cat/datasets/data&#39;).
+  warnings.warn(
+Annual salary information including gross pay and overtime pay for all active, permanent employees of Montgomery County, MD paid in calendar year 2016. This information will be published annually each year.
+  gender department  ... date_first_hired year_first_hired
+0      F        POL  ...       09/22/1986             1986
+1      M        POL  ...       09/12/1988             1988
+2      F        HHS  ...       11/19/1989             1989
+3      M        COR  ...       05/05/2014             2014
+4      M        HCA  ...       03/05/2007             2007
 
-Downloaded from openml.org.
-            full_name gender  ...  year_first_hired  Current Annual Salary
-0      Aarhus, Pam J.      F  ...            1986.0               69222.18
-1     Aaron, David J.      M  ...            1988.0               97392.47
-2    Aaron, Marsha M.      F  ...            1989.0              104717.28
-3  Ababio, Godfred A.      M  ...            2014.0               52734.57
-4      Ababu, Essayas      M  ...            2007.0               93396.00
-
-[5 rows x 13 columns]
+[5 rows x 9 columns]
 </pre></div>
 </div>
 <p>Here is how many unique entries there is per column</p>
@@ -126,10 +125,7 @@ Downloaded from openml.org.
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>full_name                  9222
-gender                        2
-2016_gross_pay_received    8977
-2016_overtime_pay          6176
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>gender                        2
 department                   37
 department_name              37
 division                    694
@@ -138,7 +134,6 @@ employee_position_title     385
 underfilled_job_title        84
 date_first_hired           2264
 year_first_hired             51
-Current Annual Salary      3403
 dtype: int64
 </pre></div>
 </div>
@@ -176,8 +171,10 @@ However, this can be error prone and time consuming.</p></li>
 entries.</p>
 <p>To simplify understanding, we will focus on the column describing the
 employee’s position title:
-data</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">values</span></a> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data</span></a><span class="p">[[</span><span class="s1">&#39;employee_position_title&#39;</span><span class="p">,</span> <span class="s1">&#39;gender&#39;</span><span class="p">,</span> <span class="s1">&#39;Current Annual Salary&#39;</span><span class="p">]]</span>
+data
+values = data[[‘employee_position_title’, ‘gender’]] + employee_salaries.y</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">values</span></a> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data</span></a><span class="p">[[</span><span class="s1">&#39;employee_position_title&#39;</span><span class="p">,</span> <span class="s1">&#39;gender&#39;</span><span class="p">]]</span>
+<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.insert.html#pandas.DataFrame.insert" title="pandas.DataFrame.insert" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-method"><span class="n">values</span><span class="o">.</span><span class="n">insert</span></a><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;current_annual_salary&#39;</span><span class="p">,</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">employee_salaries</span><span class="o">.</span><span class="n">y</span></a><span class="p">)</span>
 </pre></div>
 </div>
 </section>
@@ -301,7 +298,7 @@ similarities:</p>
 </div>
 <img src="../_images/sphx_glr_01_investigating_dirty_categories_004.png" srcset="../_images/sphx_glr_01_investigating_dirty_categories_004.png" alt="Employee Position Title values, similarity encoded" class = "sphx-glr-single-img"/><p>Other examples in the dirty_cat documentation show how
 similarity encoding impacts prediction performance.</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  15.124 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  15.454 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-01-investigating-dirty-categories-py">
 <div class="binder-badge docutils container">
 <a class="reference external image-reference" href="https://mybinder.org/v2/gh/dirty-cat/dirty-cat.github.io/master?filepath=dev/auto_examples/01_investigating_dirty_categories.ipynb"><img alt="Launch binder" src="../_images/binder_badge_logo.svg" width="150px" /></a>

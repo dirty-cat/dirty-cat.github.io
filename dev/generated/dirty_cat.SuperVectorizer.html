@@ -102,39 +102,39 @@ It provides a simplified interface for scikit-learn’s <cite>ColumnTransformer<
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>cardinality_threshold</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a><em>, </em><em>default=20</em>) – Two lists of features will be created depending on this value: strictly
+<li><p><strong>cardinality_threshold</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><em>default=20</em>) – Two lists of features will be created depending on this value: strictly
 under this value, the low cardinality categorical values, and above or
 equal, the high cardinality categorical values.
 Different encoders will be applied to these two groups, defined by
 the parameters <cite>low_card_str_transformer</cite>/<cite>low_card_cat_transformer</cite> and
 <cite>high_card_str_transformer</cite>/<cite>high_card_cat_transformer</cite> respectively.</p></li>
-<li><p><strong>low_card_str_transformer</strong> (<em>Transformer</em><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)"><em>None</em></a><em>, </em><em>default=OneHotEncoder</em><em>(</em><em>)</em>) – Transformer used on features with low cardinality (threshold is
+<li><p><strong>low_card_str_transformer</strong> (<em>Transformer</em><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><em>None</em></a><em>, </em><em>default=OneHotEncoder</em><em>(</em><em>)</em>) – Transformer used on features with low cardinality (threshold is
 defined by <cite>cardinality_threshold</cite>).
 Can either be a transformer object instance (e.g. <cite>OneHotEncoder()</cite>),
 a <cite>Pipeline</cite> containing the preprocessing steps,
 None to apply <cite>remainder</cite>, ‘drop’ for dropping the columns,
 or ‘passthrough’ to return the unencoded columns.</p></li>
-<li><p><strong>high_card_str_transformer</strong> (<em>Transformer</em><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)"><em>None</em></a><em>, </em><em>default=GapEncoder</em><em>(</em><em>)</em>) – Transformer used on features with high cardinality (threshold is
+<li><p><strong>high_card_str_transformer</strong> (<em>Transformer</em><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><em>None</em></a><em>, </em><em>default=GapEncoder</em><em>(</em><em>)</em>) – Transformer used on features with high cardinality (threshold is
 defined by <cite>cardinality_threshold</cite>).
 Can either be a transformer object instance (e.g. <cite>GapEncoder()</cite>),
 a <cite>Pipeline</cite> containing the preprocessing steps,
 None to apply <cite>remainder</cite>, ‘drop’ for dropping the columns,
 or ‘passthrough’ to return the unencoded columns.</p></li>
-<li><p><strong>low_card_cat_transformer</strong> (<em>Transformer</em><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)"><em>None</em></a><em>, </em><em>default=OneHotEncoder</em><em>(</em><em>)</em>) – Same as <cite>low_card_str_transformer</cite>.</p></li>
-<li><p><strong>high_card_cat_transformer</strong> (<em>Transformer</em><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)"><em>None</em></a><em>, </em><em>default=GapEncoder</em><em>(</em><em>)</em>) – Same as <cite>high_card_str_transformer</cite>.</p></li>
-<li><p><strong>numerical_transformer</strong> (<em>Transformer</em><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)"><em>None</em></a><em>, </em><em>default=None</em>) – Transformer used on numerical features.
+<li><p><strong>low_card_cat_transformer</strong> (<em>Transformer</em><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><em>None</em></a><em>, </em><em>default=OneHotEncoder</em><em>(</em><em>)</em>) – Same as <cite>low_card_str_transformer</cite>.</p></li>
+<li><p><strong>high_card_cat_transformer</strong> (<em>Transformer</em><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><em>None</em></a><em>, </em><em>default=GapEncoder</em><em>(</em><em>)</em>) – Same as <cite>high_card_str_transformer</cite>.</p></li>
+<li><p><strong>numerical_transformer</strong> (<em>Transformer</em><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><em>None</em></a><em>, </em><em>default=None</em>) – Transformer used on numerical features.
 Can either be a transformer object instance (e.g. <cite>StandardScaler()</cite>),
 a <cite>Pipeline</cite> containing the preprocessing steps,
 None to apply <cite>remainder</cite>, ‘drop’ for dropping the columns,
 or ‘passthrough’ to return the unencoded columns.</p></li>
-<li><p><strong>datetime_transformer</strong> (<em>Transformer</em><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)"><em>None</em></a><em>, </em><em>default=None</em>) – Transformer used on datetime features.
+<li><p><strong>datetime_transformer</strong> (<em>Transformer</em><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><em>None</em></a><em>, </em><em>default=None</em>) – Transformer used on datetime features.
 Can either be a transformer object instance,
 a <cite>Pipeline</cite> containing the preprocessing steps,
 None to apply <cite>remainder</cite>, ‘drop’ for dropping the columns,
 or ‘passthrough’ to return the unencoded columns.</p></li>
-<li><p><strong>auto_cast</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a><em>, </em><em>default=True</em>) – If set to <cite>True</cite>, will try to convert each column to the best possible
+<li><p><strong>auto_cast</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>default=True</em>) – If set to <cite>True</cite>, will try to convert each column to the best possible
 data type (dtype).</p></li>
-<li><p><strong>handle_missing</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>, </em><em>default=''</em>) – One of the following values: ‘error’ or ‘’ (empty).
+<li><p><strong>handle_missing</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>default=''</em>) – One of the following values: ‘error’ or ‘’ (empty).
 Defines how the encoder will handle missing values.
 If set to ‘error’, will raise ValueError.
 If set to ‘’, will impute the missing values (pd.NA) with blank strings.</p></li>
@@ -152,7 +152,7 @@ or “passthrough” or “drop”
 (3) the list of column names or index</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>List[Tuple[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a>, Union[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a>, BaseEstimator], Union[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a>]]]</p>
+<dd class="field-odd"><p>List[Tuple[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a>, Union[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a>, BaseEstimator], Union[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)">int</a>]]]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -163,7 +163,7 @@ or “passthrough” or “drop”
 <dd><p>The column names of fitted array.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>List[Union[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a>]]</p>
+<dd class="field-odd"><p>List[Union[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)">int</a>]]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -211,7 +211,7 @@ sparse matrices.</p>
 <dd class="field-odd"><p>{array-like, sparse matrix} of                 shape (n_samples, sum_n_components)</p>
 </dd>
 <dt class="field-even">Raises</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#RuntimeError" title="(in Python v3.9)"><strong>RuntimeError</strong></a> – If no transformers could be constructed,
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#RuntimeError" title="(in Python v3.10)"><strong>RuntimeError</strong></a> – If no transformers could be constructed,
     usually because transformers passed do not match any column.
     To fix the issue, try passing the least amount of None as encoders.</p>
 </dd>
@@ -233,7 +233,7 @@ or “&lt;column_name&gt;” if not encoded.</p>
 <dd><p>Get output feature names for transformation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>input_features</strong> (<em>array-like of str</em><em> or </em><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)"><em>None</em></a><em>, </em><em>default=None</em>) – <p>Input features.</p>
+<dd class="field-odd"><p><strong>input_features</strong> (<em>array-like of str</em><em> or </em><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><em>None</em></a><em>, </em><em>default=None</em>) – <p>Input features.</p>
 <ul class="simple">
 <li><p>If <cite>input_features</cite> is <cite>None</cite>, then <cite>feature_names_in_</cite> is
 used as feature names in. If <cite>feature_names_in_</cite> is not defined,
@@ -261,14 +261,14 @@ estimators contained within the <cite>transformers</cite> of the
 <cite>ColumnTransformer</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>deep</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a><em>, </em><em>default=True</em>) – If True, will return the parameters for this estimator and
+<dd class="field-odd"><p><strong>deep</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>default=True</em>) – If True, will return the parameters for this estimator and
 contained subobjects that are estimators.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><strong>params</strong> – Parameter names mapped to their values.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)">dict</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -291,7 +291,7 @@ can directly set the parameters of the estimators contained in
 <cite>transformers</cite> of <cite>ColumnTransformer</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – Estimator parameters.</p>
+<dd class="field-odd"><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Estimator parameters.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><strong>self</strong> – This estimator.</p>

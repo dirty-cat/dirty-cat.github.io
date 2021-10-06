@@ -32,16 +32,15 @@ categorical data.
 Data Importing
 --------------
 
-We first download the dataset:
+We first get the dataset:
 
-.. GENERATED FROM PYTHON SOURCE LINES 18-23
+.. GENERATED FROM PYTHON SOURCE LINES 18-22
 
 .. code-block:: default
 
     from dirty_cat.datasets import fetch_employee_salaries
     employee_salaries = fetch_employee_salaries()
-    print(employee_salaries['DESCR'])
-
+    print(employee_salaries.description)
 
 
 
@@ -55,39 +54,19 @@ We first download the dataset:
 
     Annual salary information including gross pay and overtime pay for all active, permanent employees of Montgomery County, MD paid in calendar year 2016. This information will be published annually each year.
 
-    Downloaded from openml.org.
 
 
 
-
-.. GENERATED FROM PYTHON SOURCE LINES 24-25
-
-Then we load it:
-
-.. GENERATED FROM PYTHON SOURCE LINES 25-28
-
-.. code-block:: default
-
-    import pandas as pd
-    df = employee_salaries['data']
-
-
-
-
-
-
-
-
-.. GENERATED FROM PYTHON SOURCE LINES 29-30
+.. GENERATED FROM PYTHON SOURCE LINES 23-24
 
 Now, we retrieve the dirty column to encode:
 
-.. GENERATED FROM PYTHON SOURCE LINES 30-35
+.. GENERATED FROM PYTHON SOURCE LINES 24-29
 
 .. code-block:: default
 
     dirty_column = 'employee_position_title'
-    X_dirty = df[[dirty_column]]
+    X_dirty = employee_salaries.X[[dirty_column]]
     print(X_dirty.head(), end='\n\n')
     print(f'Number of dirty entries = {len(X_dirty)}')
 
@@ -113,14 +92,14 @@ Now, we retrieve the dirty column to encode:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 36-40
+.. GENERATED FROM PYTHON SOURCE LINES 30-34
 
 Encoding dirty job titles
 -------------------------
 
 We first create an instance of the GapEncoder with n_components=10:
 
-.. GENERATED FROM PYTHON SOURCE LINES 40-43
+.. GENERATED FROM PYTHON SOURCE LINES 34-37
 
 .. code-block:: default
 
@@ -134,12 +113,12 @@ We first create an instance of the GapEncoder with n_components=10:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 44-46
+.. GENERATED FROM PYTHON SOURCE LINES 38-40
 
 Then we fit the model on the dirty categorical data and transform it to
 obtain encoded vectors of size 10:
 
-.. GENERATED FROM PYTHON SOURCE LINES 46-49
+.. GENERATED FROM PYTHON SOURCE LINES 40-43
 
 .. code-block:: default
 
@@ -163,7 +142,7 @@ obtain encoded vectors of size 10:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 50-60
+.. GENERATED FROM PYTHON SOURCE LINES 44-54
 
 Interpreting encoded vectors
 ----------------------------
@@ -176,7 +155,7 @@ To interpret these latent topics, we select for each of them a few labels
 from the input data with the highest activations.
 In the example below we select 3 labels to summarize each topic.
 
-.. GENERATED FROM PYTHON SOURCE LINES 60-66
+.. GENERATED FROM PYTHON SOURCE LINES 54-60
 
 .. code-block:: default
 
@@ -212,7 +191,7 @@ In the example below we select 3 labels to summarize each topic.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 67-72
+.. GENERATED FROM PYTHON SOURCE LINES 61-66
 
 As expected, topics capture labels that frequently co-occur. For instance,
 the labels *firefighter*, *rescuer*, *rescue* appear together in
@@ -220,7 +199,7 @@ the labels *firefighter*, *rescuer*, *rescue* appear together in
 
 This enables us to understand the encoding of different samples
 
-.. GENERATED FROM PYTHON SOURCE LINES 72-85
+.. GENERATED FROM PYTHON SOURCE LINES 66-79
 
 .. code-block:: default
 
@@ -249,7 +228,7 @@ This enables us to understand the encoding of different samples
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 86-89
+.. GENERATED FROM PYTHON SOURCE LINES 80-83
 
 As we can see, each dirty category encodes on a small number of topics,
 These can thus be reliably used to summarize each topic, which are in
@@ -258,7 +237,7 @@ effect latent categories captured from the data.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  7.894 seconds)
+   **Total running time of the script:** ( 0 minutes  7.188 seconds)
 
 
 .. _sphx_glr_download_auto_examples_04_feature_interpretation_gap_encoder.py:
