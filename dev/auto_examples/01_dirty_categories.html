@@ -468,7 +468,7 @@ r2 score:  mean: 0.919; std: 0.012
 /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/utils/deprecation.py:87: FutureWarning: Function get_feature_names is deprecated; get_feature_names is deprecated in 1.0 and will be removed in 1.2. Please use get_feature_names_out instead.
   warnings.warn(msg, category=FutureWarning)
 gap encoding
-r2 score:  mean: 0.910; std: 0.017
+r2 score:  mean: 0.906; std: 0.015
 </pre></div>
 </div>
 <section id="plotting-the-results">
@@ -730,9 +730,9 @@ can be readily applied to the dataframe</strong>.</p>
   warnings.warn(msg, category=FutureWarning)
 /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/utils/deprecation.py:87: FutureWarning: Function get_feature_names is deprecated; get_feature_names is deprecated in 1.0 and will be removed in 1.2. Please use get_feature_names_out instead.
   warnings.warn(msg, category=FutureWarning)
-scores=[0.91956862 0.8772633  0.9072286  0.91848947 0.91414106]
-mean=0.907338207321833
-std=0.0156507152628403
+scores=[0.92381462 0.89461412 0.91462084 0.92737455 0.91189226]
+mean=0.914463279230576
+std=0.011443535871318232
 </pre></div>
 </div>
 <p>The prediction performed here is pretty much as good as above
@@ -770,18 +770,18 @@ analyze its mechanisms along the way.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>array([[0.0, 0.0, 1.0, ..., 0.0752907060610764, 0.09671981866046601,
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>array([[0.0, 1.0, 0.0, ..., 0.05627350006549452, 0.05489886309661414,
         2007],
-       [0.0, 1.0, 0.0, ..., 0.050000000000000044, 0.050000000000000044,
+       [1.0, 0.0, 0.0, ..., 0.050000000000000044, 0.050000000000000044,
         2005],
-       [0.0, 1.0, 0.0, ..., 0.050000000000000044, 0.050000000000000044,
+       [1.0, 0.0, 0.0, ..., 0.050000000000000044, 0.050000000000000044,
         2009],
        ...,
-       [0.0, 1.0, 0.0, ..., 0.050000000000000044, 0.050000000000000044,
+       [1.0, 0.0, 0.0, ..., 0.050000000000000044, 0.050000000000000044,
         1990],
-       [0.0, 0.0, 1.0, ..., 0.050000000000000044, 0.050000000000000044,
-        2012],
        [0.0, 1.0, 0.0, ..., 0.050000000000000044, 0.050000000000000044,
+        2012],
+       [1.0, 0.0, 0.0, ..., 0.050000000000000044, 0.050000000000000044,
         2014]], dtype=object)
 </pre></div>
 </div>
@@ -801,7 +801,7 @@ choice:</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[(&#39;low_card_str&#39;, OneHotEncoder(), [&#39;gender&#39;, &#39;department&#39;, &#39;department_name&#39;, &#39;assignment_category&#39;]), (&#39;high_card_str&#39;, GapEncoder(n_components=30), [&#39;division&#39;, &#39;employee_position_title&#39;, &#39;underfilled_job_title&#39;]), (&#39;remainder&#39;, &#39;passthrough&#39;, [7])]
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[(&#39;low_card_cat&#39;, OneHotEncoder(), [&#39;gender&#39;, &#39;department&#39;, &#39;department_name&#39;, &#39;assignment_category&#39;]), (&#39;high_card_cat&#39;, GapEncoder(n_components=30), [&#39;division&#39;, &#39;employee_position_title&#39;, &#39;underfilled_job_title&#39;]), (&#39;remainder&#39;, &#39;passthrough&#39;, [7])]
 </pre></div>
 </div>
 <p>This is what is being passed to the <a class="reference external" href="https://scikit-learn.org/0.20/modules/generated/sklearn.compose.ColumnTransformer.html#sklearn.compose.ColumnTransformer" title="(in scikit-learn v0.20.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ColumnTransformer</span></code></a> under the hood.
@@ -830,7 +830,7 @@ A <a class="reference external" href="https://scikit-learn.org/0.20/modules/gene
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/utils/deprecation.py:87: FutureWarning: Function get_feature_names is deprecated; get_feature_names is deprecated in 1.0 and will be removed in 1.2. Please use get_feature_names_out instead.
   warnings.warn(msg, category=FutureWarning)
 
-[&#39;gender_&#39;, &#39;gender_F&#39;, &#39;gender_M&#39;, &#39;department_BOA&#39;, &#39;department_BOE&#39;, &#39;department_CAT&#39;, &#39;department_CCL&#39;, &#39;department_CEC&#39;]
+[&#39;gender_F&#39;, &#39;gender_M&#39;, &#39;gender_nan&#39;, &#39;department_BOA&#39;, &#39;department_BOE&#39;, &#39;department_CAT&#39;, &#39;department_CCL&#39;, &#39;department_CEC&#39;]
 </pre></div>
 </div>
 <p>As we can see, it gave us interpretable columns.
@@ -902,7 +902,7 @@ having a permanent, full-time job :)</p>
 automated by the <a class="reference internal" href="../generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SuperVectorizer</span></code></a>, and the resulting pipeline can still be
 inspected, even with non-normalized entries.</p>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 5 minutes  40.666 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 2 minutes  26.055 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-01-dirty-categories-py">
 <div class="binder-badge docutils container">
 <a class="reference external image-reference" href="https://mybinder.org/v2/gh/dirty-cat/dirty-cat.github.io/master?filepath=dev/auto_examples/01_dirty_categories.ipynb"><img alt="Launch binder" src="../_images/binder_badge_logo.svg" width="150px" /></a>

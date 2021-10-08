@@ -91,7 +91,7 @@
 <p class="side-comment">Usage examples at the bottom of this page.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="dirty_cat.SuperVectorizer">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">dirty_cat.</span></span><span class="sig-name descname"><span class="pre">SuperVectorizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cardinality_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">40</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">low_card_str_transformer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">OneHotEncoder()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">high_card_str_transformer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">GapEncoder(n_components=30)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">low_card_cat_transformer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">OneHotEncoder()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">high_card_cat_transformer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">GapEncoder(n_components=30)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numerical_transformer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">datetime_transformer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto_cast</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">handle_missing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remainder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'passthrough'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_jobs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transformer_weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/super_vectorizer.html#SuperVectorizer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.SuperVectorizer" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">dirty_cat.</span></span><span class="sig-name descname"><span class="pre">SuperVectorizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cardinality_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">40</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">low_card_cat_transformer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">OneHotEncoder()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">high_card_cat_transformer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">GapEncoder(n_components=30)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numerical_transformer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">datetime_transformer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto_cast</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">impute_missing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remainder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'passthrough'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_jobs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transformer_weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/super_vectorizer.html#SuperVectorizer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.SuperVectorizer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Easily transforms a heterogeneous data table (such as a dataframe) to
 a numerical array for machine learning. For this it transforms each
 column depending on its data type.
@@ -102,26 +102,24 @@ It provides a simplified interface for scikit-learn’s <cite>ColumnTransformer<
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>cardinality_threshold</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><em>default=20</em>) – Two lists of features will be created depending on this value: strictly
+<li><p><strong>cardinality_threshold</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><em>default=40</em>) – Two lists of features will be created depending on this value: strictly
 under this value, the low cardinality categorical values, and above or
 equal, the high cardinality categorical values.
 Different encoders will be applied to these two groups, defined by
 the parameters <cite>low_card_str_transformer</cite>/<cite>low_card_cat_transformer</cite> and
 <cite>high_card_str_transformer</cite>/<cite>high_card_cat_transformer</cite> respectively.</p></li>
-<li><p><strong>low_card_str_transformer</strong> (<em>Transformer</em><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><em>None</em></a><em>, </em><em>default=OneHotEncoder</em><em>(</em><em>)</em>) – Transformer used on features with low cardinality (threshold is
-defined by <cite>cardinality_threshold</cite>).
+<li><p><strong>low_card_cat_transformer</strong> (<em>Transformer</em><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><em>None</em></a><em>, </em><em>default=OneHotEncoder</em><em>(</em><em>)</em>) – Transformer used on categorical/string features with low cardinality
+(threshold is defined by <cite>cardinality_threshold</cite>).
 Can either be a transformer object instance (e.g. <cite>OneHotEncoder()</cite>),
 a <cite>Pipeline</cite> containing the preprocessing steps,
 None to apply <cite>remainder</cite>, ‘drop’ for dropping the columns,
 or ‘passthrough’ to return the unencoded columns.</p></li>
-<li><p><strong>high_card_str_transformer</strong> (<em>Transformer</em><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><em>None</em></a><em>, </em><em>default=GapEncoder</em><em>(</em><em>)</em>) – Transformer used on features with high cardinality (threshold is
-defined by <cite>cardinality_threshold</cite>).
+<li><p><strong>high_card_cat_transformer</strong> (<em>Transformer</em><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><em>None</em></a><em>, </em><em>default=GapEncoder</em><em>(</em><em>n_components=30</em><em>)</em>) – Transformer used on categorical/string features with high cardinality
+(threshold is defined by <cite>cardinality_threshold</cite>).
 Can either be a transformer object instance (e.g. <cite>GapEncoder()</cite>),
 a <cite>Pipeline</cite> containing the preprocessing steps,
 None to apply <cite>remainder</cite>, ‘drop’ for dropping the columns,
 or ‘passthrough’ to return the unencoded columns.</p></li>
-<li><p><strong>low_card_cat_transformer</strong> (<em>Transformer</em><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><em>None</em></a><em>, </em><em>default=OneHotEncoder</em><em>(</em><em>)</em>) – Same as <cite>low_card_str_transformer</cite>.</p></li>
-<li><p><strong>high_card_cat_transformer</strong> (<em>Transformer</em><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><em>None</em></a><em>, </em><em>default=GapEncoder</em><em>(</em><em>)</em>) – Same as <cite>high_card_str_transformer</cite>.</p></li>
 <li><p><strong>numerical_transformer</strong> (<em>Transformer</em><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><em>None</em></a><em>, </em><em>default=None</em>) – Transformer used on numerical features.
 Can either be a transformer object instance (e.g. <cite>StandardScaler()</cite>),
 a <cite>Pipeline</cite> containing the preprocessing steps,
@@ -134,10 +132,14 @@ None to apply <cite>remainder</cite>, ‘drop’ for dropping the columns,
 or ‘passthrough’ to return the unencoded columns.</p></li>
 <li><p><strong>auto_cast</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>default=True</em>) – If set to <cite>True</cite>, will try to convert each column to the best possible
 data type (dtype).</p></li>
-<li><p><strong>handle_missing</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>default=''</em>) – One of the following values: ‘error’ or ‘’ (empty).
-Defines how the encoder will handle missing values.
-If set to ‘error’, will raise ValueError.
-If set to ‘’, will impute the missing values (pd.NA) with blank strings.</p></li>
+<li><p><strong>impute_missing</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>default='auto'</em>) – When to impute missing values in string columns.
+‘auto’ will impute missing values if it’s considered appropriate
+(we are using an encoder that does not support missing values and/or
+specific versions of pandas, numpy and scikit-learn).
+‘force’ will impute all missing values.
+‘skip’ will not impute at all.
+When imputed, missing values are replaced by the string ‘missing’.
+See also attribute <cite>imputed_columns_</cite>.</p></li>
 </ul>
 </dd>
 </dl>
@@ -166,6 +168,35 @@ or “passthrough” or “drop”
 <dd class="field-odd"><p>List[Union[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)">int</a>]]</p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dirty_cat.SuperVectorizer.types_">
+<span class="sig-name descname"><span class="pre">types_</span></span><a class="headerlink" href="#dirty_cat.SuperVectorizer.types_" title="Permalink to this definition">¶</a></dt>
+<dd><p>A mapping of inferred types per column.
+Key is the column name, value is the inferred dtype.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>Dict[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#type" title="(in Python v3.10)">type</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dirty_cat.SuperVectorizer.imputed_columns_">
+<span class="sig-name descname"><span class="pre">imputed_columns_</span></span><a class="headerlink" href="#dirty_cat.SuperVectorizer.imputed_columns_" title="Permalink to this definition">¶</a></dt>
+<dd><p>The list of columns in which we imputed the missing values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>List[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dirty_cat.SuperVectorizer.OptionalEstimator">
+<span class="sig-name descname"><span class="pre">OptionalEstimator</span></span><a class="headerlink" href="#dirty_cat.SuperVectorizer.OptionalEstimator" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Union</span></code></a>[<a class="reference external" href="https://scikit-learn.org/0.20/modules/generated/sklearn.base.BaseEstimator.html#sklearn.base.BaseEstimator" title="(in scikit-learn v0.20.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.base.BaseEstimator</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]]</p>
 </dd></dl>
 
 <dl class="py method">
@@ -208,7 +239,7 @@ any result is a sparse matrix, everything will be converted to
 sparse matrices.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>{array-like, sparse matrix} of                 shape (n_samples, sum_n_components)</p>
+<dd class="field-odd"><p>{array-like, sparse matrix} of shape (n_samples, sum_n_components)</p>
 </dd>
 <dt class="field-even">Raises</dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#RuntimeError" title="(in Python v3.10)"><strong>RuntimeError</strong></a> – If no transformers could be constructed,
@@ -309,14 +340,14 @@ can directly set the parameters of the estimators contained in
 
 <dl class="py method">
 <dt class="sig sig-object py" id="dirty_cat.SuperVectorizer.transform">
-<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dirty_cat.SuperVectorizer.transform" title="Permalink to this definition">¶</a></dt>
-<dd><p>Transform X separately by each transformer, concatenate results.</p>
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/super_vectorizer.html#SuperVectorizer.transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.SuperVectorizer.transform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transform X by applying transformers on each column, then concatenate results.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>X</strong> (<em>{array-like</em><em>, </em><em>dataframe} of shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – The data to be transformed by subset.</p>
+<dd class="field-odd"><p><strong>X</strong> (<em>{array-like</em><em>, </em><em>dataframe} of shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – The data to be transformed.</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>X_t</strong> – Horizontally stacked results of transformers. sum_n_components is the
+<dd class="field-even"><p><strong>X_t</strong> – hstack of results of transformers. sum_n_components is the
 sum of n_components (output dimension) over transformers. If
 any result is a sparse matrix, everything will be converted to
 sparse matrices.</p>
