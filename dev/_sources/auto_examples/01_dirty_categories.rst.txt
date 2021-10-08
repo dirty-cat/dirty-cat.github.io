@@ -593,7 +593,7 @@ and store the returned cross-validation score:
     /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/utils/deprecation.py:87: FutureWarning: Function get_feature_names is deprecated; get_feature_names is deprecated in 1.0 and will be removed in 1.2. Please use get_feature_names_out instead.
       warnings.warn(msg, category=FutureWarning)
     gap encoding
-    r2 score:  mean: 0.906; std: 0.015
+    r2 score:  mean: 0.908; std: 0.010
 
 
 
@@ -956,9 +956,9 @@ Let's perform a cross-validation to see how well this model predicts
       warnings.warn(msg, category=FutureWarning)
     /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/utils/deprecation.py:87: FutureWarning: Function get_feature_names is deprecated; get_feature_names is deprecated in 1.0 and will be removed in 1.2. Please use get_feature_names_out instead.
       warnings.warn(msg, category=FutureWarning)
-    scores=[0.92381462 0.89461412 0.91462084 0.92737455 0.91189226]
-    mean=0.914463279230576
-    std=0.011443535871318232
+    scores=[0.91750907 0.88081091 0.92068423 0.9258422  0.9201525 ]
+    mean=0.9129997841333196
+    std=0.016319294679867053
 
 
 
@@ -1047,7 +1047,7 @@ The encoded data, X_train_enc and X_test_enc are numerical arrays:
  .. code-block:: none
 
 
-    array([[0.0, 1.0, 0.0, ..., 0.05627350006549452, 0.05489886309661414,
+    array([[0.0, 1.0, 0.0, ..., 0.07321433586581151, 0.4043171834175254,
             2007],
            [1.0, 0.0, 0.0, ..., 0.050000000000000044, 0.050000000000000044,
             2005],
@@ -1327,7 +1327,7 @@ having a permanent, full-time job :)
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 2 minutes  26.055 seconds)
+   **Total running time of the script:** ( 3 minutes  47.359 seconds)
 
 
 .. _sphx_glr_download_auto_examples_01_dirty_categories.py:
