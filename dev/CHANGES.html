@@ -106,6 +106,11 @@ for more information.</p></li>
 <li><p>The example notebooks were updated to reflect these changes.</p></li>
 </ul>
 </li>
+<li><p><strong>Backward incompatible change to MinHashEncoder</strong>: The MinHashEncoder now
+only supports two dimensional inputs of shape (N_samples, 1).</p></li>
+<li><p>Update <cite>handle_missing</cite> parameters:
+- <strong>GapEncoder</strong>: the default value “zero_impute” becomes “empty_impute” (see doc).
+- <strong>MinHashEncoder</strong>: the default value “” becomes “zero_impute” (see doc).</p></li>
 </ul>
 </section>
 <section id="notes">

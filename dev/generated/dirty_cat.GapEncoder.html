@@ -135,12 +135,9 @@ of the input data.</p></li>
 <li><p><strong>rescale_W</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>default=True</em>) – If true, the weight matrix W is rescaled at each iteration
 to have an l1 norm equal to 1 for each row.</p></li>
 <li><p><strong>max_iter_e_step</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><em>default=20</em>) – Maximum number of iterations to adjust the activations h at each step.</p></li>
-<li><p><strong>handle_missing</strong> (<em>'error'</em><em> or </em><em>''</em><em> (</em><em>default</em><em>)</em>) – Whether to raise an error or impute with blank string ‘’ if missing
+<li><p><strong>handle_missing</strong> (<em>'error'</em><em> or </em><em>'empty_impute'</em><em> (</em><em>default</em><em>)</em>) – Whether to raise an error or impute with empty string ‘’ if missing
 values (NaN) are present during fit (default is to impute).
-When this parameter is set to ‘’, and a missing value is encountered
-during fit_transform, the resulting encoded columns for this feature
-will be all zeros. In the inverse transform, the missing category
-will be denoted as None.</p></li>
+In the inverse transform, the missing category will be denoted as None.</p></li>
 </ul>
 </dd>
 </dl>
