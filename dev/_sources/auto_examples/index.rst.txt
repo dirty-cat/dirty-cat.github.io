@@ -12,14 +12,35 @@ Using dirty_cat
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="Including strings that represent categories often calls for much data preparation. In particula...">
+
+.. only:: html
+
+ .. figure:: /auto_examples/images/thumb/sphx_glr_01_dirty_categories_thumb.png
+     :alt: Dirty categories: machine learning with non normalized strings
+
+     :ref:`sphx_glr_auto_examples_01_dirty_categories.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_examples/01_dirty_categories
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="What are dirty categorical variables and how can a good encoding help with statistical learning...">
 
 .. only:: html
 
- .. figure:: /auto_examples/images/thumb/sphx_glr_01_investigating_dirty_categories_thumb.png
+ .. figure:: /auto_examples/images/thumb/sphx_glr_02_investigating_dirty_categories_thumb.png
      :alt: Investigating dirty categories
 
-     :ref:`sphx_glr_auto_examples_01_investigating_dirty_categories.py`
+     :ref:`sphx_glr_auto_examples_02_investigating_dirty_categories.py`
 
 .. raw:: html
 
@@ -29,49 +50,7 @@ Using dirty_cat
 .. toctree::
    :hidden:
 
-   /auto_examples/01_investigating_dirty_categories
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="The column *Employee Position Title* of the dataset `employee salaries &lt;https://catalog.data.go...">
-
-.. only:: html
-
- .. figure:: /auto_examples/images/thumb/sphx_glr_02_fit_predict_plot_employee_salaries_thumb.png
-     :alt: Comparing encoders of a dirty categorical columns
-
-     :ref:`sphx_glr_auto_examples_02_fit_predict_plot_employee_salaries.py`
-
-.. raw:: html
-
-    </div>
-
-
-.. toctree::
-   :hidden:
-
-   /auto_examples/02_fit_predict_plot_employee_salaries
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="In this notebook, we introduce the |SV|, which automatically turns a heterogeneous dataset into...">
-
-.. only:: html
-
- .. figure:: /auto_examples/images/thumb/sphx_glr_03_automatic_preprocessing_with_the_supervectorizer_thumb.png
-     :alt: Automatic pre-processing with the SuperVectorizer
-
-     :ref:`sphx_glr_auto_examples_03_automatic_preprocessing_with_the_supervectorizer.py`
-
-.. raw:: html
-
-    </div>
-
-
-.. toctree::
-   :hidden:
-
-   /auto_examples/03_automatic_preprocessing_with_the_supervectorizer
+   /auto_examples/02_investigating_dirty_categories
 
 .. raw:: html
 
@@ -79,10 +58,10 @@ Using dirty_cat
 
 .. only:: html
 
- .. figure:: /auto_examples/images/thumb/sphx_glr_04_feature_interpretation_gap_encoder_thumb.png
+ .. figure:: /auto_examples/images/thumb/sphx_glr_03_feature_interpretation_gap_encoder_thumb.png
      :alt: Feature interpretation with the GapEncoder
 
-     :ref:`sphx_glr_auto_examples_04_feature_interpretation_gap_encoder.py`
+     :ref:`sphx_glr_auto_examples_03_feature_interpretation_gap_encoder.py`
 
 .. raw:: html
 
@@ -92,7 +71,7 @@ Using dirty_cat
 .. toctree::
    :hidden:
 
-   /auto_examples/04_feature_interpretation_gap_encoder
+   /auto_examples/03_feature_interpretation_gap_encoder
 
 .. raw:: html
 
@@ -100,10 +79,10 @@ Using dirty_cat
 
 .. only:: html
 
- .. figure:: /auto_examples/images/thumb/sphx_glr_05_scaling_non_linear_models_thumb.png
+ .. figure:: /auto_examples/images/thumb/sphx_glr_04_scaling_non_linear_models_thumb.png
      :alt: Fitting scalable, non-linear models on data with dirty categories
 
-     :ref:`sphx_glr_auto_examples_05_scaling_non_linear_models.py`
+     :ref:`sphx_glr_auto_examples_04_scaling_non_linear_models.py`
 
 .. raw:: html
 
@@ -113,7 +92,7 @@ Using dirty_cat
 .. toctree::
    :hidden:
 
-   /auto_examples/05_scaling_non_linear_models
+   /auto_examples/04_scaling_non_linear_models
 
 .. raw:: html
 
@@ -121,10 +100,10 @@ Using dirty_cat
 
 .. only:: html
 
- .. figure:: /auto_examples/images/thumb/sphx_glr_06_dimension_reduction_and_performance_thumb.png
+ .. figure:: /auto_examples/images/thumb/sphx_glr_05_dimension_reduction_and_performance_thumb.png
      :alt: Scalability considerations for similarity encoding
 
-     :ref:`sphx_glr_auto_examples_06_dimension_reduction_and_performance.py`
+     :ref:`sphx_glr_auto_examples_05_dimension_reduction_and_performance.py`
 
 .. raw:: html
 
@@ -134,7 +113,7 @@ Using dirty_cat
 .. toctree::
    :hidden:
 
-   /auto_examples/06_dimension_reduction_and_performance
+   /auto_examples/05_dimension_reduction_and_performance
 .. raw:: html
 
     <div class="sphx-glr-clear"></div>
