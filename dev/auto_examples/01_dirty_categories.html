@@ -64,7 +64,11 @@
 
 
 
-
+<ul>
+    <li class="toctree-l1"><a href="../index.html#using-dirty-cat">Usage</a></li>
+    <li class="toctree-l1"><a href="../index.html#api-documentation">API</a></li>
+    <li class="toctree-l1"><a href="../index.html#about">About</a></li>
+</ul>
   <h3><a href="../index.html">This page</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Dirty categories: machine learning with non normalized strings</a><ul>
@@ -495,7 +499,7 @@ r2 score:  mean: 0.919; std: 0.012
 /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/utils/deprecation.py:87: FutureWarning: Function get_feature_names is deprecated; get_feature_names is deprecated in 1.0 and will be removed in 1.2. Please use get_feature_names_out instead.
   warnings.warn(msg, category=FutureWarning)
 gap encoding
-r2 score:  mean: 0.910; std: 0.013
+r2 score:  mean: 0.908; std: 0.014
 </pre></div>
 </div>
 <section id="plotting-the-results">
@@ -757,9 +761,9 @@ can be readily applied to the dataframe</strong>.</p>
   warnings.warn(msg, category=FutureWarning)
 /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/utils/deprecation.py:87: FutureWarning: Function get_feature_names is deprecated; get_feature_names is deprecated in 1.0 and will be removed in 1.2. Please use get_feature_names_out instead.
   warnings.warn(msg, category=FutureWarning)
-scores=[0.90417768 0.89584176 0.92587016 0.92900167 0.92111851]
-mean=0.9152019540242042
-std=0.012927491938453202
+scores=[0.88785482 0.89039602 0.88625317 0.91738365 0.93117347]
+mean=0.9026122275977448
+std=0.018267866604256187
 </pre></div>
 </div>
 <p>The prediction performed here is pretty much as good as above
@@ -797,8 +801,7 @@ analyze its mechanisms along the way.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>array([[0.0, 1.0, 0.0, ..., 0.05695295856959702, 0.05661868158717038,
-        2007],
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>array([[0.0, 1.0, 0.0, ..., 0.05293450861700834, 37.66212676574463, 2007],
        [1.0, 0.0, 0.0, ..., 0.050000000000000044, 0.050000000000000044,
         2005],
        [1.0, 0.0, 0.0, ..., 0.050000000000000044, 0.050000000000000044,
@@ -929,7 +932,7 @@ having a permanent, full-time job :)</p>
 automated by the <a class="reference internal" href="../generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SuperVectorizer</span></code></a>, and the resulting pipeline can still be
 inspected, even with non-normalized entries.</p>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 6 minutes  20.524 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 8 minutes  31.072 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-01-dirty-categories-py">
 <div class="binder-badge docutils container">
 <a class="reference external image-reference" href="https://mybinder.org/v2/gh/dirty-cat/dirty-cat.github.io/master?filepath=dev/auto_examples/01_dirty_categories.ipynb"><img alt="Launch binder" src="../_images/binder_badge_logo.svg" width="150px" /></a>
