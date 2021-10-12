@@ -464,9 +464,9 @@ sample size varies.
 
  .. code-block:: none
 
-    using   500 samples: model fitting took 0.3s, test accuracy of 0.501
-    using  1666 samples: model fitting took 4.4s, test accuracy of 0.505
-    using  5000 samples: model fitting took 71.0s, test accuracy of 0.563
+    using   500 samples: model fitting took 0.2s, test accuracy of 0.501
+    using  1666 samples: model fitting took 4.2s, test accuracy of 0.505
+    using  5000 samples: model fitting took 63.3s, test accuracy of 0.563
 
 
 
@@ -801,7 +801,7 @@ trivial task at the beginning of this example!
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 7 minutes  23.041 seconds)
+   **Total running time of the script:** ( 6 minutes  42.942 seconds)
 
 
 .. _sphx_glr_download_auto_examples_04_scaling_non_linear_models.py:
