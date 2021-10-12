@@ -471,7 +471,10 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">_sklearn_loose_version</span> <span class="o">&lt;</span> <span class="n">LooseVersion</span><span class="p">(</span><span class="s1">&#39;0.23&#39;</span><span class="p">):</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="n">ct_feature_names</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">get_feature_names</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">_sklearn_loose_version</span> <span class="o">&lt;</span> <span class="n">LooseVersion</span><span class="p">(</span><span class="s1">&#39;1.0&#39;</span><span class="p">):</span>
+                    <span class="n">ct_feature_names</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">get_feature_names</span><span class="p">()</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">ct_feature_names</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">()</span>
             <span class="k">except</span> <span class="ne">NotImplementedError</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
                     <span class="s1">&#39;Prior to sklearn 0.23, get_feature_names with &#39;</span>
@@ -480,7 +483,10 @@
                     <span class="s1">&#39;transformers, or update your copy of scikit-learn.&#39;</span>
                 <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">ct_feature_names</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">get_feature_names</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">_sklearn_loose_version</span> <span class="o">&lt;</span> <span class="n">LooseVersion</span><span class="p">(</span><span class="s1">&#39;1.0&#39;</span><span class="p">):</span>
+                <span class="n">ct_feature_names</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">get_feature_names</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">ct_feature_names</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">()</span>
         <span class="n">all_trans_feature_names</span> <span class="o">=</span> <span class="p">[]</span>
 
         <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">trans</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iter</span><span class="p">(</span><span class="n">fitted</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
@@ -502,7 +508,14 @@
             <span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Could not extract clean feature names ; returning defaults.&#39;</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">ct_feature_names</span>
 
-        <span class="k">return</span> <span class="n">all_trans_feature_names</span></div></div>
+        <span class="k">return</span> <span class="n">all_trans_feature_names</span></div>
+    
+<div class="viewcode-block" id="SuperVectorizer.get_feature_names_out"><a class="viewcode-back" href="../../generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer.get_feature_names_out">[docs]</a>    <span class="k">def</span> <span class="nf">get_feature_names_out</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_features</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Ensures compatibility with sklearn &gt;= 1.0, and returns the output of</span>
+<span class="sd">        get_feature_names.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_feature_names</span><span class="p">()</span></div></div>
 </pre></div>
 
           </div>
