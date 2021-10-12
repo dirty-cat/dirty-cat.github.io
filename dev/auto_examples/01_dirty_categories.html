@@ -69,7 +69,7 @@
     <li class="toctree-l1"><a href="../index.html#api-documentation">API</a></li>
     <li class="toctree-l1"><a href="../index.html#about">About</a></li>
 </ul>
-  <h3><a href="../index.html">This page</a></h3>
+  <h3 class="this-page"><a href="../index.html">This page</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Dirty categories: machine learning with non normalized strings</a><ul>
 <li><a class="reference internal" href="#the-data">The data</a><ul>
@@ -489,7 +489,7 @@ minhash encoding
 r2 score:  mean: 0.919; std: 0.012
 
 gap encoding
-r2 score:  mean: 0.902; std: 0.010
+r2 score:  mean: 0.904; std: 0.009
 </pre></div>
 </div>
 <section id="plotting-the-results">
@@ -721,9 +721,9 @@ can be readily applied to the dataframe</strong>.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>scores=[0.91486695 0.89082364 0.92240007 0.90314759 0.91887142]
-mean=0.9100219319317775
-std=0.01158306555463784
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>scores=[0.905218   0.87193367 0.92744828 0.91411223 0.91554508]
+mean=0.906851451696251
+std=0.018838507419163993
 </pre></div>
 </div>
 <p>The prediction performed here is pretty much as good as above
@@ -752,8 +752,7 @@ analyze its mechanisms along the way.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>array([[0.0, 1.0, 0.0, ..., 23.282556172473107, 0.05993667471273417,
-        2007],
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>array([[0.0, 1.0, 0.0, ..., 0.07519796823518507, 0.188106403874062, 2007],
        [1.0, 0.0, 0.0, ..., 0.050000000000000044, 0.050000000000000044,
         2005],
        [1.0, 0.0, 0.0, ..., 0.050000000000000044, 0.050000000000000044,
@@ -884,7 +883,7 @@ having a permanent, full-time job :)</p>
 automated by the <a class="reference internal" href="../generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SuperVectorizer</span></code></a>, and the resulting pipeline can still be
 inspected, even with non-normalized entries.</p>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 5 minutes  0.112 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 3 minutes  16.142 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-01-dirty-categories-py">
 <div class="binder-badge docutils container">
 <a class="reference external image-reference" href="https://mybinder.org/v2/gh/dirty-cat/dirty-cat.github.io/master?filepath=dev/auto_examples/01_dirty_categories.ipynb"><img alt="Launch binder" src="../_images/binder_badge_logo.svg" width="150px" /></a>

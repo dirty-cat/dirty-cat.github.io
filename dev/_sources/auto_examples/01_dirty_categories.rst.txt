@@ -583,7 +583,7 @@ and store the returned cross-validation score:
     r2 score:  mean: 0.919; std: 0.012
 
     gap encoding
-    r2 score:  mean: 0.902; std: 0.010
+    r2 score:  mean: 0.904; std: 0.009
 
 
 
@@ -916,9 +916,9 @@ Let's perform a cross-validation to see how well this model predicts
 
  .. code-block:: none
 
-    scores=[0.91486695 0.89082364 0.92240007 0.90314759 0.91887142]
-    mean=0.9100219319317775
-    std=0.01158306555463784
+    scores=[0.905218   0.87193367 0.92744828 0.91411223 0.91554508]
+    mean=0.906851451696251
+    std=0.018838507419163993
 
 
 
@@ -994,8 +994,7 @@ The encoded data, X_train_enc and X_test_enc are numerical arrays:
  .. code-block:: none
 
 
-    array([[0.0, 1.0, 0.0, ..., 23.282556172473107, 0.05993667471273417,
-            2007],
+    array([[0.0, 1.0, 0.0, ..., 0.07519796823518507, 0.188106403874062, 2007],
            [1.0, 0.0, 0.0, ..., 0.050000000000000044, 0.050000000000000044,
             2005],
            [1.0, 0.0, 0.0, ..., 0.050000000000000044, 0.050000000000000044,
@@ -1274,7 +1273,7 @@ having a permanent, full-time job :)
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 5 minutes  0.112 seconds)
+   **Total running time of the script:** ( 3 minutes  16.142 seconds)
 
 
 .. _sphx_glr_download_auto_examples_01_dirty_categories.py:
