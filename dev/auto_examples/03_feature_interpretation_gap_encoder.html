@@ -25,6 +25,7 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/scrolltoc.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Fitting scalable, non-linear models on data with dirty categories" href="04_scaling_non_linear_models.html" />
@@ -63,13 +64,17 @@
 
 
 
-<h3>Navigation</h3>
-<hr />
-<ul>
-    <li class="toctree-l1"><a href="../index.html#using-dirty-cat">Usage</a></li>
-    <li class="toctree-l1"><a href="../index.html#api-documentation">API</a></li>
-    <li class="toctree-l1"><a href="../index.html#about">About</a></li>
-</ul><div class="relations">
+
+  <h3><a href="../index.html">This page</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Feature interpretation with the GapEncoder</a><ul>
+<li><a class="reference internal" href="#data-importing">Data Importing</a></li>
+<li><a class="reference internal" href="#encoding-dirty-job-titles">Encoding dirty job titles</a></li>
+<li><a class="reference internal" href="#interpreting-encoded-vectors">Interpreting encoded vectors</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
@@ -199,7 +204,7 @@ the labels <em>firefighter</em>, <em>rescuer</em>, <em>rescue</em> appear togeth
 <img src="../_images/sphx_glr_03_feature_interpretation_gap_encoder_001.png" srcset="../_images/sphx_glr_03_feature_interpretation_gap_encoder_001.png" alt="03 feature interpretation gap encoder" class = "sphx-glr-single-img"/><p>As we can see, each dirty category encodes on a small number of topics,
 These can thus be reliably used to summarize each topic, which are in
 effect latent categories captured from the data.</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  19.814 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  9.167 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-03-feature-interpretation-gap-encoder-py">
 <div class="binder-badge docutils container">
 <a class="reference external image-reference" href="https://mybinder.org/v2/gh/dirty-cat/dirty-cat.github.io/master?filepath=dev/auto_examples/03_feature_interpretation_gap_encoder.ipynb"><img alt="Launch binder" src="../_images/binder_badge_logo.svg" width="150px" /></a>

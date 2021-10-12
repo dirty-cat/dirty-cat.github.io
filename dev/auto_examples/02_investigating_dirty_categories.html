@@ -25,6 +25,7 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/scrolltoc.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Feature interpretation with the GapEncoder" href="03_feature_interpretation_gap_encoder.html" />
@@ -63,13 +64,21 @@
 
 
 
-<h3>Navigation</h3>
-<hr />
-<ul>
-    <li class="toctree-l1"><a href="../index.html#using-dirty-cat">Usage</a></li>
-    <li class="toctree-l1"><a href="../index.html#api-documentation">API</a></li>
-    <li class="toctree-l1"><a href="../index.html#about">About</a></li>
-</ul><div class="relations">
+
+  <h3><a href="../index.html">This page</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Investigating dirty categories</a><ul>
+<li><a class="reference internal" href="#what-do-we-mean-by-dirty-categories">What do we mean by dirty categories?</a></li>
+<li><a class="reference internal" href="#string-similarity-between-entries">String similarity between entries</a><ul>
+<li><a class="reference internal" href="#plotting-the-new-representation-using-multi-dimensional-scaling">Plotting the new representation using multi-dimensional scaling</a></li>
+<li><a class="reference internal" href="#heatmap-of-the-similarity-matrix">Heatmap of the similarity matrix</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#encoding-categorical-data-using-similarityencoder">Encoding categorical data using SimilarityEncoder</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
@@ -296,7 +305,7 @@ similarities:</p>
 </div>
 <img src="../_images/sphx_glr_02_investigating_dirty_categories_004.png" srcset="../_images/sphx_glr_02_investigating_dirty_categories_004.png" alt="Employee Position Title values, similarity encoded" class = "sphx-glr-single-img"/><p>Other examples in the dirty_cat documentation show how
 similarity encoding impacts prediction performance.</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  33.775 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  18.420 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-02-investigating-dirty-categories-py">
 <div class="binder-badge docutils container">
 <a class="reference external image-reference" href="https://mybinder.org/v2/gh/dirty-cat/dirty-cat.github.io/master?filepath=dev/auto_examples/02_investigating_dirty_categories.ipynb"><img alt="Launch binder" src="../_images/binder_badge_logo.svg" width="150px" /></a>

@@ -25,6 +25,7 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/scrolltoc.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Investigating dirty categories" href="02_investigating_dirty_categories.html" />
@@ -63,13 +64,39 @@
 
 
 
-<h3>Navigation</h3>
-<hr />
-<ul>
-    <li class="toctree-l1"><a href="../index.html#using-dirty-cat">Usage</a></li>
-    <li class="toctree-l1"><a href="../index.html#api-documentation">API</a></li>
-    <li class="toctree-l1"><a href="../index.html#about">About</a></li>
-</ul><div class="relations">
+
+  <h3><a href="../index.html">This page</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Dirty categories: machine learning with non normalized strings</a><ul>
+<li><a class="reference internal" href="#the-data">The data</a><ul>
+<li><a class="reference internal" href="#data-importing-and-preprocessing">Data Importing and preprocessing</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#assembling-a-machine-learning-pipeline-that-encodes-the-data">Assembling a machine-learning pipeline that encodes the data</a><ul>
+<li><a class="reference internal" href="#the-learning-pipeline">The learning pipeline</a><ul>
+<li><a class="reference internal" href="#the-categorical-encoders">The categorical encoders</a></li>
+<li><a class="reference internal" href="#pipelining-an-encoder-with-a-learner">Pipelining an encoder with a learner</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#dirty-category-encoding">Dirty-category encoding</a><ul>
+<li><a class="reference internal" href="#plotting-the-results">Plotting the results</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#a-simpler-way-automatic-vectorization">A simpler way: automatic vectorization</a><ul>
+<li><a class="reference internal" href="#using-the-supervectorizer-in-a-supervised-learning-pipeline">Using the SuperVectorizer in a supervised-learning pipeline</a></li>
+<li><a class="reference internal" href="#analyzing-the-features-created">Analyzing the features created</a><ul>
+<li><a class="reference internal" href="#inspecting-the-features-created">Inspecting the features created</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#feature-importances-in-the-statistical-model">Feature importances in the statistical model</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
@@ -468,7 +495,7 @@ r2 score:  mean: 0.919; std: 0.012
 /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/utils/deprecation.py:87: FutureWarning: Function get_feature_names is deprecated; get_feature_names is deprecated in 1.0 and will be removed in 1.2. Please use get_feature_names_out instead.
   warnings.warn(msg, category=FutureWarning)
 gap encoding
-r2 score:  mean: 0.909; std: 0.014
+r2 score:  mean: 0.910; std: 0.016
 </pre></div>
 </div>
 <section id="plotting-the-results">
@@ -730,9 +757,9 @@ can be readily applied to the dataframe</strong>.</p>
   warnings.warn(msg, category=FutureWarning)
 /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/utils/deprecation.py:87: FutureWarning: Function get_feature_names is deprecated; get_feature_names is deprecated in 1.0 and will be removed in 1.2. Please use get_feature_names_out instead.
   warnings.warn(msg, category=FutureWarning)
-scores=[0.93224521 0.89212736 0.90224497 0.92250415 0.93142016]
-mean=0.9161083712526332
-std=0.01614334090032783
+scores=[0.90156163 0.87354223 0.9126713  0.91766459 0.91844516]
+mean=0.9047769827320291
+std=0.01674023793378645
 </pre></div>
 </div>
 <p>The prediction performed here is pretty much as good as above
@@ -770,7 +797,7 @@ analyze its mechanisms along the way.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>array([[0.0, 1.0, 0.0, ..., 0.3499831174570204, 0.061467035518528695,
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>array([[0.0, 1.0, 0.0, ..., 0.08047613106047402, 0.0562195775321786,
         2007],
        [1.0, 0.0, 0.0, ..., 0.050000000000000044, 0.050000000000000044,
         2005],
@@ -902,7 +929,7 @@ having a permanent, full-time job :)</p>
 automated by the <a class="reference internal" href="../generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SuperVectorizer</span></code></a>, and the resulting pipeline can still be
 inspected, even with non-normalized entries.</p>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 8 minutes  8.824 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 7 minutes  17.540 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-01-dirty-categories-py">
 <div class="binder-badge docutils container">
 <a class="reference external image-reference" href="https://mybinder.org/v2/gh/dirty-cat/dirty-cat.github.io/master?filepath=dev/auto_examples/01_dirty_categories.ipynb"><img alt="Launch binder" src="../_images/binder_badge_logo.svg" width="150px" /></a>

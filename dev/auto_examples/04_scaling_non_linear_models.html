@@ -26,6 +26,7 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/scrolltoc.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Scalability considerations for similarity encoding" href="05_dimension_reduction_and_performance.html" />
@@ -64,13 +65,22 @@
 
 
 
-<h3>Navigation</h3>
-<hr />
-<ul>
-    <li class="toctree-l1"><a href="../index.html#using-dirty-cat">Usage</a></li>
-    <li class="toctree-l1"><a href="../index.html#api-documentation">API</a></li>
-    <li class="toctree-l1"><a href="../index.html#about">About</a></li>
-</ul><div class="relations">
+
+  <h3><a href="../index.html">This page</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Fitting scalable, non-linear models on data with dirty categories</a><ul>
+<li><a class="reference internal" href="#training-a-simple-pipeline">Training a simple pipeline</a></li>
+<li><a class="reference internal" href="#estimators-construction">Estimators construction</a></li>
+<li><a class="reference internal" href="#data-loading-and-preprocessing">Data Loading and Preprocessing</a></li>
+<li><a class="reference internal" href="#evaluating-time-and-sample-complexity">Evaluating time and sample complexity</a></li>
+<li><a class="reference internal" href="#reducing-input-dimension-using-kernel-approximation-methods">Reducing input dimension using kernel approximation methods.</a></li>
+<li><a class="reference internal" href="#kernel-approximation-methods">Kernel approximation methods</a></li>
+<li><a class="reference internal" href="#reducing-the-transformers-dimensionality">Reducing the transformers dimensionality</a></li>
+<li><a class="reference internal" href="#online-training-for-out-of-memory-data">Online training for out-of-memory data</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
@@ -365,9 +375,9 @@ sample size varies.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>using   500 samples: model fitting took 0.5s, test accuracy of 0.501
-using  1666 samples: model fitting took 6.5s, test accuracy of 0.505
-using  5000 samples: model fitting took 82.9s, test accuracy of 0.563
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>using   500 samples: model fitting took 0.4s, test accuracy of 0.501
+using  1666 samples: model fitting took 5.4s, test accuracy of 0.505
+using  5000 samples: model fitting took 87.3s, test accuracy of 0.563
 </pre></div>
 </div>
 <p>Increasing training size clearly improves model accuracy. However, the
@@ -623,7 +633,7 @@ trivial task at the beginning of this example!</p>
 <dd><p><a class="reference external" href="https://pdfs.semanticscholar.org/0373/e7289a1978108d6455218160a529c85842c0.pdf">Introduction to duality</a></p>
 </dd>
 </dl>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 9 minutes  28.545 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 9 minutes  1.570 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-04-scaling-non-linear-models-py">
 <div class="binder-badge docutils container">
 <a class="reference external image-reference" href="https://mybinder.org/v2/gh/dirty-cat/dirty-cat.github.io/master?filepath=dev/auto_examples/04_scaling_non_linear_models.ipynb"><img alt="Launch binder" src="../_images/binder_badge_logo.svg" width="150px" /></a>

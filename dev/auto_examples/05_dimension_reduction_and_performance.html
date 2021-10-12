@@ -25,6 +25,7 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/scrolltoc.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="dirty_cat.GapEncoder" href="../generated/dirty_cat.GapEncoder.html" />
@@ -63,13 +64,20 @@
 
 
 
-<h3>Navigation</h3>
-<hr />
-<ul>
-    <li class="toctree-l1"><a href="../index.html#using-dirty-cat">Usage</a></li>
-    <li class="toctree-l1"><a href="../index.html#api-documentation">API</a></li>
-    <li class="toctree-l1"><a href="../index.html#about">About</a></li>
-</ul><div class="relations">
+
+  <h3><a href="../index.html">This page</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Scalability considerations for similarity encoding</a><ul>
+<li><a class="reference internal" href="#a-tool-to-report-memory-usage-and-run-time">A tool to report memory usage and run time</a></li>
+<li><a class="reference internal" href="#data-importing-and-preprocessing">Data Importing and preprocessing</a></li>
+<li><a class="reference internal" href="#similarityencoder-with-default-options">SimilarityEncoder with default options</a></li>
+<li><a class="reference internal" href="#most-frequent-strategy-to-define-prototypes">Most frequent strategy to define prototypes</a></li>
+<li><a class="reference internal" href="#kmeans-strategy-to-define-prototypes">KMeans strategy to define prototypes</a></li>
+<li><a class="reference internal" href="#plot-a-summary-figure">Plot a summary figure</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
@@ -242,7 +250,7 @@ one-hot encoding and similarity encoding</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Time to vectorize: 0.6762478351593018
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Time to vectorize: 0.6323175430297852
 </pre></div>
 </div>
 <p>We can run a cross-validation</p>
@@ -257,7 +265,7 @@ one-hot encoding and similarity encoding</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Run time: 6s    Memory used: 12Mb
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Run time: 5s    Memory used: 12Mb
 Cross-validation score: [0.98513011 0.98884758 0.96641791 0.98134328 0.98880597]
 </pre></div>
 </div>
@@ -289,7 +297,7 @@ speed things up. We select manually the number of prototypes we want to use.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Run time: 5s    Memory used: 9Mb
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Run time: 4s    Memory used: 9Mb
 Cross-validation score: [0.98513011 0.99256506 0.97014925 0.98507463 0.98880597]
 </pre></div>
 </div>
@@ -319,7 +327,7 @@ to find the prototypes. The number of prototypes is set manually.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Run time: 17s    Memory used: 8Mb
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Run time: 15s    Memory used: 8Mb
 Cross-validation score: [0.98884758 0.99256506 0.97014925 0.98507463 0.98880597]
 </pre></div>
 </div>
@@ -372,7 +380,7 @@ Cross-validation score: [0.98884758 0.99256506 0.97014925 0.98507463 0.98880597]
   mpl_cm.register_cmap(_name + &quot;_r&quot;, _cmap_r)
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  37.105 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  33.635 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-05-dimension-reduction-and-performance-py">
 <div class="binder-badge docutils container">
 <a class="reference external image-reference" href="https://mybinder.org/v2/gh/dirty-cat/dirty-cat.github.io/master?filepath=dev/auto_examples/05_dimension_reduction_and_performance.ipynb"><img alt="Launch binder" src="../_images/binder_badge_logo.svg" width="150px" /></a>
