@@ -582,7 +582,7 @@ and store the returned cross-validation score:
     r2 score:  mean: 0.919; std: 0.012
 
     gap encoding
-    r2 score:  mean: 0.905; std: 0.012
+    r2 score:  mean: 0.905; std: 0.017
 
 
 
@@ -860,7 +860,7 @@ We still have a complex and heterogeneous dataframe:
 The |SV| can to turn this dataframe into a form suited for
 machine learning.
 
-.. GENERATED FROM PYTHON SOURCE LINES 237-243
+.. GENERATED FROM PYTHON SOURCE LINES 237-246
 
 Using the SuperVectorizer in a supervised-learning pipeline
 -----------------------------------------------------------
@@ -869,13 +869,13 @@ Assembling the |SV| in a |Pipeline| with a powerful learner,
 such as gradient boosted trees, gives **a machine-learning method that
 can be readily applied to the dataframe**.
 
-.. GENERATED FROM PYTHON SOURCE LINES 243-254
+The SuperVectorizer requires at least dirty_cat 0.2.0. 
+
+
+.. GENERATED FROM PYTHON SOURCE LINES 246-254
 
 .. code-block:: default
 
-
-    # The SuperVectorizer requires at least dirty_cat 0.2.0. 
-    #
 
     from dirty_cat import SuperVectorizer
 
@@ -917,9 +917,9 @@ Let's perform a cross-validation to see how well this model predicts
 
  .. code-block:: none
 
-    scores=[0.91424514 0.87087293 0.9096737  0.92983137 0.92758115]
-    mean=0.9104408596860099
-    std=0.021215388154838158
+    scores=[0.91439899 0.89070219 0.9142412  0.91774178 0.88697683]
+    mean=0.9048121996978515
+    std=0.013154311648998624
 
 
 
@@ -995,7 +995,7 @@ The encoded data, X_train_enc and X_test_enc are numerical arrays:
  .. code-block:: none
 
 
-    array([[0.0, 1.0, 0.0, ..., 0.060355010003694295, 0.09364991552471827,
+    array([[0.0, 1.0, 0.0, ..., 0.053614945605894755, 0.05488477289436072,
             2007],
            [1.0, 0.0, 0.0, ..., 0.050000000000000044, 0.050000000000000044,
             2005],
@@ -1275,7 +1275,7 @@ having a permanent, full-time job :)
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 3 minutes  18.346 seconds)
+   **Total running time of the script:** ( 4 minutes  59.412 seconds)
 
 
 .. _sphx_glr_download_auto_examples_01_dirty_categories.py:

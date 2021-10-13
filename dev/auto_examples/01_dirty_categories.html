@@ -482,7 +482,7 @@ minhash encoding
 r2 score:  mean: 0.919; std: 0.012
 
 gap encoding
-r2 score:  mean: 0.905; std: 0.012
+r2 score:  mean: 0.905; std: 0.017
 </pre></div>
 </div>
 <section id="plotting-the-results">
@@ -693,10 +693,8 @@ machine learning.</p>
 <p>Assembling the <a class="reference internal" href="../generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SuperVectorizer</span></code></a> in a <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="(in scikit-learn v1.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a> with a powerful learner,
 such as gradient boosted trees, gives <strong>a machine-learning method that
 can be readily applied to the dataframe</strong>.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># The SuperVectorizer requires at least dirty_cat 0.2.0.</span>
-<span class="c1">#</span>
-
-<span class="kn">from</span> <span class="nn">dirty_cat</span> <span class="kn">import</span> <a href="../generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer" class="sphx-glr-backref-module-dirty_cat sphx-glr-backref-type-py-class"><span class="n">SuperVectorizer</span></a>
+<p>The SuperVectorizer requires at least dirty_cat 0.2.0.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dirty_cat</span> <span class="kn">import</span> <a href="../generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer" class="sphx-glr-backref-module-dirty_cat sphx-glr-backref-type-py-class"><span class="n">SuperVectorizer</span></a>
 
 <a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">pipeline</span></a> <span class="o">=</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.make_pipeline.html#sklearn.pipeline.make_pipeline" title="sklearn.pipeline.make_pipeline" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-function"><span class="n">make_pipeline</span></a><span class="p">(</span>
     <a href="../generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer" class="sphx-glr-backref-module-dirty_cat sphx-glr-backref-type-py-class"><span class="n">SuperVectorizer</span></a><span class="p">(</span><span class="n">auto_cast</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
@@ -714,9 +712,9 @@ can be readily applied to the dataframe</strong>.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>scores=[0.91424514 0.87087293 0.9096737  0.92983137 0.92758115]
-mean=0.9104408596860099
-std=0.021215388154838158
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>scores=[0.91439899 0.89070219 0.9142412  0.91774178 0.88697683]
+mean=0.9048121996978515
+std=0.013154311648998624
 </pre></div>
 </div>
 <p>The prediction performed here is pretty much as good as above
@@ -745,7 +743,7 @@ analyze its mechanisms along the way.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>array([[0.0, 1.0, 0.0, ..., 0.060355010003694295, 0.09364991552471827,
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>array([[0.0, 1.0, 0.0, ..., 0.053614945605894755, 0.05488477289436072,
         2007],
        [1.0, 0.0, 0.0, ..., 0.050000000000000044, 0.050000000000000044,
         2005],
@@ -877,7 +875,7 @@ having a permanent, full-time job :)</p>
 automated by the <a class="reference internal" href="../generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SuperVectorizer</span></code></a>, and the resulting pipeline can still be
 inspected, even with non-normalized entries.</p>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 3 minutes  18.346 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 4 minutes  59.412 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-01-dirty-categories-py">
 <div class="binder-badge docutils container">
 <a class="reference external image-reference" href="https://mybinder.org/v2/gh/dirty-cat/dirty-cat.github.io/master?filepath=dev/auto_examples/01_dirty_categories.ipynb"><img alt="Launch binder" src="../_images/binder_badge_logo.svg" width="150px" /></a>
