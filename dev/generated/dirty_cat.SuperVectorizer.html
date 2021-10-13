@@ -113,8 +113,8 @@ It provides a simplified interface for scikit-learn’s <cite>ColumnTransformer<
 under this value, the low cardinality categorical values, and above or
 equal, the high cardinality categorical values.
 Different encoders will be applied to these two groups, defined by
-the parameters <cite>low_card_str_transformer</cite>/<cite>low_card_cat_transformer</cite> and
-<cite>high_card_str_transformer</cite>/<cite>high_card_cat_transformer</cite> respectively.</p></li>
+the parameters <cite>low_card_cat_transformer</cite> and
+<cite>high_card_cat_transformer</cite> respectively.</p></li>
 <li><p><strong>low_card_cat_transformer</strong> (<em>Transformer</em><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><em>None</em></a><em>, </em><em>default=OneHotEncoder</em><em>(</em><em>)</em>) – Transformer used on categorical/string features with low cardinality
 (threshold is defined by <cite>cardinality_threshold</cite>).
 Can either be a transformer object instance (e.g. <cite>OneHotEncoder()</cite>),
