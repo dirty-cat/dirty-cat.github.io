@@ -10,7 +10,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://dirty-cat.github.io/stable/auto_examples/01_dirty_categories.html" />
   <meta property="og:site_name" content="Dirty cat" />
-  <meta property="og:description" content="Including strings that represent categories often calls for much data preparation. In particular categories may appear with many morphological variants, when they have been manually input, or assem..." />
+  <meta property="og:description" content="Including strings that represent categories often calls for much data preparation. In particular categories may appear with many morphological variants, when they have been manually input or assemb..." />
   <meta property="og:image" content="https://dirty-cat.github.io/stable/_static/dirty_cat.svg" />
   <meta property="og:image:alt" content="Dirty cat" />
   
@@ -123,23 +123,22 @@ to download the full example code or to run this example in your browser via Bin
 <span id="sphx-glr-auto-examples-01-dirty-categories-py"></span><h1>Dirty categories: machine learning with non normalized strings<a class="headerlink" href="#dirty-categories-machine-learning-with-non-normalized-strings" title="Permalink to this headline">¶</a></h1>
 <p>Including strings that represent categories often calls for much data
 preparation. In particular categories may appear with many morphological
-variants, when they have been manually input, or assembled from diverse
+variants, when they have been manually input or assembled from diverse
 sources.</p>
-<p>Including such a column in a learning pipeline as a standard categorical
-column leads to categories with very high cardinalities and can loose
-information on which categories are similar.
-Here we look at a dataset on wages <a class="footnote-reference brackets" href="#id2" id="id1">1</a> where the column <em>Employee
-Position Title</em> contains dirty categories.</p>
+<p>Here we look at a dataset on wages <a class="footnote-reference brackets" href="#id2" id="id1">1</a> where the column <em>Employee
+Position Title</em> contains dirty categories. On such a column, standard
+categorical encodings leads to very high dimensions and can loose
+information on which categories are similar.</p>
+<p>We investigate various encodings of this dirty column for the machine
+learning workflow, predicting the <em>current annual salary</em> with gradient
+boosted trees. First we manually assemble a complex encoder for the full
+dataframe, after which we show a much simpler way, albeit with less fine
+control.</p>
 <dl class="footnote brackets">
 <dt class="label" id="id2"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
 <dd><p><a class="reference external" href="https://catalog.data.gov/dataset/employee-salaries-2016">https://catalog.data.gov/dataset/employee-salaries-2016</a></p>
 </dd>
 </dl>
-<p>We investigate encodings to include this dirty column in the machine learning
-workflow, and predict the <em>current annual salary</em>, using gradient boosted
-trees.</p>
-<blockquote>
-<div></div></blockquote>
 <section id="the-data">
 <h2>The data<a class="headerlink" href="#the-data" title="Permalink to this headline">¶</a></h2>
 <p>We first retrieve the dataset:</p>
@@ -483,7 +482,7 @@ minhash encoding
 r2 score:  mean: 0.919; std: 0.012
 
 gap encoding
-r2 score:  mean: 0.907; std: 0.017
+r2 score:  mean: 0.905; std: 0.012
 </pre></div>
 </div>
 <section id="plotting-the-results">
@@ -513,8 +512,8 @@ it provides interpretable features
 </section>
 </section>
 <section id="a-simpler-way-automatic-vectorization">
-<h2>A simpler way: automatic vectorization<a class="headerlink" href="#a-simpler-way-automatic-vectorization" title="Permalink to this headline">¶</a></h2>
-<p>The code to assemble the column transformer is a bit tedious. We will
+<span id="example-super-vectorizer"></span><h2>A simpler way: automatic vectorization<a class="headerlink" href="#a-simpler-way-automatic-vectorization" title="Permalink to this headline">¶</a></h2>
+<p>The code to assemble a column transformer is a bit tedious. We will
 now explore a simpler, automated, way of encoding the data.</p>
 <p>Let’s start again from the raw data:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">employee_salaries</span> <span class="o">=</span> <a href="../generated/dirty_cat.datasets.fetch_employee_salaries.html#dirty_cat.datasets.fetch_employee_salaries" title="dirty_cat.datasets.fetch_employee_salaries" class="sphx-glr-backref-module-dirty_cat-datasets sphx-glr-backref-type-py-function"><span class="n">fetch_employee_salaries</span></a><span class="p">()</span>
@@ -715,9 +714,9 @@ can be readily applied to the dataframe</strong>.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>scores=[0.91716991 0.8888727  0.90423983 0.90937022 0.90563301]
-mean=0.9050571343966933
-std=0.009254811298375467
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>scores=[0.91424514 0.87087293 0.9096737  0.92983137 0.92758115]
+mean=0.9104408596860099
+std=0.021215388154838158
 </pre></div>
 </div>
 <p>The prediction performed here is pretty much as good as above
@@ -746,7 +745,7 @@ analyze its mechanisms along the way.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>array([[0.0, 1.0, 0.0, ..., 0.10644566534353153, 0.05581445909377289,
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>array([[0.0, 1.0, 0.0, ..., 0.060355010003694295, 0.09364991552471827,
         2007],
        [1.0, 0.0, 0.0, ..., 0.050000000000000044, 0.050000000000000044,
         2005],
@@ -878,7 +877,7 @@ having a permanent, full-time job :)</p>
 automated by the <a class="reference internal" href="../generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SuperVectorizer</span></code></a>, and the resulting pipeline can still be
 inspected, even with non-normalized entries.</p>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 5 minutes  42.157 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 3 minutes  18.346 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-01-dirty-categories-py">
 <div class="binder-badge docutils container">
 <a class="reference external image-reference" href="https://mybinder.org/v2/gh/dirty-cat/dirty-cat.github.io/master?filepath=dev/auto_examples/01_dirty_categories.ipynb"><img alt="Launch binder" src="../_images/binder_badge_logo.svg" width="150px" /></a>
