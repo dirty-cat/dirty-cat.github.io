@@ -99,6 +99,10 @@
 <dt class="sig sig-object py" id="dirty_cat.datasets.fetch_employee_salaries">
 <span class="sig-prename descclassname"><span class="pre">dirty_cat.datasets.</span></span><span class="sig-name descname"><span class="pre">fetch_employee_salaries</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_dataframe</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop_linked</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop_irrelevant</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/datasets/fetching.html#fetch_employee_salaries"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.datasets.fetch_employee_salaries" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fetches the employee_salaries dataset.</p>
+<p>Description of the dataset:
+&gt; Annual salary information including gross pay and overtime pay for all
+active, permanent employees of Montgomery County, MD paid in calendar
+year 2016. This information will be published annually each year.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -107,6 +111,13 @@ which are closely linked to “current_annual_salary”, the target.</p></li>
 <li><p><strong>drop_irrelevant</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em> (</em><em>default True</em><em>)</em>) – Drops column “full_name”, which is usually irrelevant to the
 statistical analysis.</p></li>
 </ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><em>DatasetAll</em> – If <cite>load_dataframe=True</cite></p></li>
+<li><p><em>DatasetInfoOnly</em> – If <cite>load_dataframe=False</cite></p></li>
+</ul>
+</p>
 </dd>
 </dl>
 <div class="admonition seealso">

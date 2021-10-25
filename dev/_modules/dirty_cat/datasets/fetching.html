@@ -100,6 +100,7 @@
 
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span>
 <span class="kn">from</span> <span class="nn">distutils.version</span> <span class="kn">import</span> <span class="n">LooseVersion</span>
 
 <span class="kn">from</span> <span class="nn">dirty_cat.datasets.utils</span> <span class="kn">import</span> <span class="n">get_data_dir</span>
@@ -140,7 +141,8 @@
 
 
 <span class="k">def</span> <span class="nf">fetch_openml_dataset</span><span class="p">(</span><span class="n">dataset_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-                         <span class="n">data_directory</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="n">get_data_dir</span><span class="p">())</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+                         <span class="n">data_directory</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="n">get_data_dir</span><span class="p">(),</span>
+                         <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Gets a dataset from OpenML (https://www.openml.org),</span>
 <span class="sd">    or from the disk if already downloaded.</span>
@@ -155,7 +157,7 @@
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    dict</span>
+<span class="sd">    Dict[str, Any]</span>
 <span class="sd">        A dictionary containing:</span>
 <span class="sd">          - ``description``: str</span>
 <span class="sd">              The description of the dataset,</span>
@@ -165,16 +167,6 @@
 <span class="sd">          - ``path``: pathlib.Path</span>
 <span class="sd">              The local path leading to the dataset,</span>
 <span class="sd">              saved as a CSV file.</span>
-
-<span class="sd">          The following values are added by the fetches below (fetch_*)</span>
-<span class="sd">          - ``read_csv_kwargs``: Dict[str, Any]</span>
-<span class="sd">              A dict of keyword arguments that can be passed to</span>
-<span class="sd">              `pandas.read_csv` for reading.</span>
-<span class="sd">              Usually, it contains `quotechar`, `escapechar` and `na_values`.</span>
-<span class="sd">              Use by passing `**info[&#39;read_csv_kwargs&#39;]` to `read_csv`.</span>
-<span class="sd">              e.g., `df = pd.read_csv(info[&#39;path&#39;], **info[&#39;read_csv_kwargs&#39;])`</span>
-<span class="sd">          - ``target``: str</span>
-<span class="sd">              The name of `y`, the target column.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Make path absolute</span>
@@ -385,32 +377,22 @@
 
 <span class="k">def</span> <span class="nf">fetch_dataset_as_namedtuple</span><span class="p">(</span><span class="n">dataset_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
                                 <span class="n">read_csv_kwargs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
-                                <span class="n">load_dataframe</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">namedtuple</span><span class="p">:</span>
+                                <span class="n">load_dataframe</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+                                <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">DatasetAll</span><span class="p">,</span> <span class="n">DatasetInfoOnly</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Takes a dataset identifier, a target column name,</span>
 <span class="sd">    and some additional keyword arguments for `pd.read_csv`.</span>
 
-<span class="sd">    Returns a `collections.namedtuple` containing :</span>
-<span class="sd">    - ``description``: str</span>
-<span class="sd">        The description of the dataset, as gathered from OpenML.</span>
-<span class="sd">    - ``source``: str</span>
-<span class="sd">        The dataset&#39;s URL from OpenML.</span>
-<span class="sd">    - ``path``: pathlib.Path</span>
-<span class="sd">        The local path leading to the dataset,</span>
-<span class="sd">        saved as a CSV file.</span>
-
-<span class="sd">    If `load_dataframe` is True, the dataset is read and stored in memory,</span>
-<span class="sd">    and these fields are added:</span>
-<span class="sd">    - ``X``: pd.DataFrame</span>
-<span class="sd">        The dataset, as a pandas DataFrame.</span>
-<span class="sd">    - ``y``: pd.Series</span>
-<span class="sd">        The target column, as a pandas Series.</span>
-<span class="sd">    - ``read_csv_kwargs``: dict</span>
-<span class="sd">        A dictionary of keyword arguments that can be passed to</span>
-<span class="sd">        `pandas.read_csv`.</span>
-
 <span class="sd">    If you don&#39;t need the dataset to be loaded in memory,</span>
 <span class="sd">    pass `load_dataframe=False`.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    DatasetAll</span>
+<span class="sd">        If `load_dataframe=True`</span>
+
+<span class="sd">    DatasetInfoOnly</span>
+<span class="sd">        If `load_dataframe=False`</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">info</span> <span class="o">=</span> <span class="n">fetch_openml_dataset</span><span class="p">(</span><span class="n">dataset_id</span><span class="p">)</span>
@@ -442,8 +424,14 @@
 
 <div class="viewcode-block" id="fetch_employee_salaries"><a class="viewcode-back" href="../../../generated/dirty_cat.datasets.fetch_employee_salaries.html#dirty_cat.datasets.fetch_employee_salaries">[docs]</a><span class="k">def</span> <span class="nf">fetch_employee_salaries</span><span class="p">(</span><span class="n">load_dataframe</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
                             <span class="n">drop_linked</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-                            <span class="n">drop_irrelevant</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">namedtuple</span><span class="p">:</span>
+                            <span class="n">drop_irrelevant</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+                            <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">DatasetAll</span><span class="p">,</span> <span class="n">DatasetInfoOnly</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;Fetches the employee_salaries dataset.</span>
+
+<span class="sd">    Description of the dataset:</span>
+<span class="sd">    &gt; Annual salary information including gross pay and overtime pay for all</span>
+<span class="sd">    active, permanent employees of Montgomery County, MD paid in calendar</span>
+<span class="sd">    year 2016. This information will be published annually each year.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -454,6 +442,14 @@
 <span class="sd">    drop_irrelevant: bool (default True)</span>
 <span class="sd">        Drops column &quot;full_name&quot;, which is usually irrelevant to the</span>
 <span class="sd">        statistical analysis.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    DatasetAll</span>
+<span class="sd">        If `load_dataframe=True`</span>
+
+<span class="sd">    DatasetInfoOnly</span>
+<span class="sd">        If `load_dataframe=False`</span>
 
 <span class="sd">    See Also</span>
 <span class="sd">    --------</span>
@@ -479,8 +475,23 @@
     <span class="k">return</span> <span class="n">dataset</span></div>
 
 
-<div class="viewcode-block" id="fetch_road_safety"><a class="viewcode-back" href="../../../generated/dirty_cat.datasets.fetch_road_safety.html#dirty_cat.datasets.fetch_road_safety">[docs]</a><span class="k">def</span> <span class="nf">fetch_road_safety</span><span class="p">(</span><span class="n">load_dataframe</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">namedtuple</span><span class="p">:</span>
+<div class="viewcode-block" id="fetch_road_safety"><a class="viewcode-back" href="../../../generated/dirty_cat.datasets.fetch_road_safety.html#dirty_cat.datasets.fetch_road_safety">[docs]</a><span class="k">def</span> <span class="nf">fetch_road_safety</span><span class="p">(</span><span class="n">load_dataframe</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+                      <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">DatasetAll</span><span class="p">,</span> <span class="n">DatasetInfoOnly</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;Fetches the road safety dataset.</span>
+
+<span class="sd">    Description of the dataset:</span>
+<span class="sd">    &gt; Data reported to the police about the circumstances of personal injury</span>
+<span class="sd">    road accidents in Great Britain from 1979, and the maker and model</span>
+<span class="sd">    information of vehicles involved in the respective accident. This version</span>
+<span class="sd">    includes data up to 2015.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    DatasetAll</span>
+<span class="sd">        If `load_dataframe=True`</span>
+
+<span class="sd">    DatasetInfoOnly</span>
+<span class="sd">        If `load_dataframe=False`</span>
 
 <span class="sd">    See Also</span>
 <span class="sd">    --------</span>
@@ -496,8 +507,27 @@
     <span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="fetch_medical_charge"><a class="viewcode-back" href="../../../generated/dirty_cat.datasets.fetch_medical_charge.html#dirty_cat.datasets.fetch_medical_charge">[docs]</a><span class="k">def</span> <span class="nf">fetch_medical_charge</span><span class="p">(</span><span class="n">load_dataframe</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">namedtuple</span><span class="p">:</span>
+<div class="viewcode-block" id="fetch_medical_charge"><a class="viewcode-back" href="../../../generated/dirty_cat.datasets.fetch_medical_charge.html#dirty_cat.datasets.fetch_medical_charge">[docs]</a><span class="k">def</span> <span class="nf">fetch_medical_charge</span><span class="p">(</span><span class="n">load_dataframe</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+                         <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">DatasetAll</span><span class="p">,</span> <span class="n">DatasetInfoOnly</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;Fetches the medical charge dataset.</span>
+
+<span class="sd">    Description of the dataset:</span>
+<span class="sd">    &gt; The Inpatient Utilization and Payment Public Use File (Inpatient PUF)</span>
+<span class="sd">    provides information on inpatient discharges for Medicare fee-for-service</span>
+<span class="sd">    beneficiaries. The Inpatient PUF includes information on utilization,</span>
+<span class="sd">    payment (total payment and Medicare payment), and hospital-specific charges</span>
+<span class="sd">    for the more than 3,000 U.S. hospitals that receive Medicare Inpatient</span>
+<span class="sd">    Prospective Payment System (IPPS) payments. The PUF is organized by</span>
+<span class="sd">    hospital and Medicare Severity Diagnosis Related Group (MS-DRG) and</span>
+<span class="sd">    covers Fiscal Year (FY) 2011 through FY 2016.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    DatasetAll</span>
+<span class="sd">        If `load_dataframe=True`</span>
+
+<span class="sd">    DatasetInfoOnly</span>
+<span class="sd">        If `load_dataframe=False`</span>
 
 <span class="sd">    See Also</span>
 <span class="sd">    --------</span>
@@ -514,8 +544,20 @@
     <span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="fetch_midwest_survey"><a class="viewcode-back" href="../../../generated/dirty_cat.datasets.fetch_midwest_survey.html#dirty_cat.datasets.fetch_midwest_survey">[docs]</a><span class="k">def</span> <span class="nf">fetch_midwest_survey</span><span class="p">(</span><span class="n">load_dataframe</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">namedtuple</span><span class="p">:</span>
+<div class="viewcode-block" id="fetch_midwest_survey"><a class="viewcode-back" href="../../../generated/dirty_cat.datasets.fetch_midwest_survey.html#dirty_cat.datasets.fetch_midwest_survey">[docs]</a><span class="k">def</span> <span class="nf">fetch_midwest_survey</span><span class="p">(</span><span class="n">load_dataframe</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+                         <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">DatasetAll</span><span class="p">,</span> <span class="n">DatasetInfoOnly</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;Fetches the midwest survey dataset.</span>
+
+<span class="sd">    Description of the dataset:</span>
+<span class="sd">    &gt; Survey to know if people self-identify as Midwesterners.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    DatasetAll</span>
+<span class="sd">        If `load_dataframe=True`</span>
+
+<span class="sd">    DatasetInfoOnly</span>
+<span class="sd">        If `load_dataframe=False`</span>
 
 <span class="sd">    See Also</span>
 <span class="sd">    --------</span>
@@ -532,8 +574,21 @@
     <span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="fetch_open_payments"><a class="viewcode-back" href="../../../generated/dirty_cat.datasets.fetch_open_payments.html#dirty_cat.datasets.fetch_open_payments">[docs]</a><span class="k">def</span> <span class="nf">fetch_open_payments</span><span class="p">(</span><span class="n">load_dataframe</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">namedtuple</span><span class="p">:</span>
+<div class="viewcode-block" id="fetch_open_payments"><a class="viewcode-back" href="../../../generated/dirty_cat.datasets.fetch_open_payments.html#dirty_cat.datasets.fetch_open_payments">[docs]</a><span class="k">def</span> <span class="nf">fetch_open_payments</span><span class="p">(</span><span class="n">load_dataframe</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+                        <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">DatasetAll</span><span class="p">,</span> <span class="n">DatasetInfoOnly</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;Fetches the open payments dataset.</span>
+
+<span class="sd">    Description of the dataset:</span>
+<span class="sd">    &gt; Payments given by healthcare manufacturing companies to medical doctors</span>
+<span class="sd">    or hospitals.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    DatasetAll</span>
+<span class="sd">        If `load_dataframe=True`</span>
+
+<span class="sd">    DatasetInfoOnly</span>
+<span class="sd">        If `load_dataframe=False`</span>
 
 <span class="sd">    See Also</span>
 <span class="sd">    --------</span>
@@ -551,8 +606,23 @@
     <span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="fetch_traffic_violations"><a class="viewcode-back" href="../../../generated/dirty_cat.datasets.fetch_traffic_violations.html#dirty_cat.datasets.fetch_traffic_violations">[docs]</a><span class="k">def</span> <span class="nf">fetch_traffic_violations</span><span class="p">(</span><span class="n">load_dataframe</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">namedtuple</span><span class="p">:</span>
+<div class="viewcode-block" id="fetch_traffic_violations"><a class="viewcode-back" href="../../../generated/dirty_cat.datasets.fetch_traffic_violations.html#dirty_cat.datasets.fetch_traffic_violations">[docs]</a><span class="k">def</span> <span class="nf">fetch_traffic_violations</span><span class="p">(</span><span class="n">load_dataframe</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+                             <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">DatasetAll</span><span class="p">,</span> <span class="n">DatasetInfoOnly</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;Fetches the traffic violations dataset.</span>
+
+<span class="sd">    Description of the dataset:</span>
+<span class="sd">    &gt; This dataset contains traffic violation information from all electronic</span>
+<span class="sd">    traffic violations issued in the Montgomery County, MD. Any information that can be used</span>
+<span class="sd">    to uniquely identify the vehicle, the vehicle owner or the officer issuing</span>
+<span class="sd">    the violation will not be published.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    DatasetAll</span>
+<span class="sd">        If `load_dataframe=True`</span>
+
+<span class="sd">    DatasetInfoOnly</span>
+<span class="sd">        If `load_dataframe=False`</span>
 
 <span class="sd">    See Also</span>
 <span class="sd">    --------</span>
@@ -570,8 +640,21 @@
     <span class="p">)</span></div>
 
 
-<span class="k">def</span> <span class="nf">fetch_drug_directory</span><span class="p">(</span><span class="n">load_dataframe</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">namedtuple</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">fetch_drug_directory</span><span class="p">(</span><span class="n">load_dataframe</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+                         <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">DatasetAll</span><span class="p">,</span> <span class="n">DatasetInfoOnly</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;Fetches the drug directory dataset.</span>
+
+<span class="sd">    Description of the dataset:</span>
+<span class="sd">    &gt; Product listing data submitted to the U.S. FDA for all unfinished,</span>
+<span class="sd">    unapproved drugs.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    DatasetAll</span>
+<span class="sd">        If `load_dataframe=True`</span>
+
+<span class="sd">    DatasetInfoOnly</span>
+<span class="sd">        If `load_dataframe=False`</span>
 
 <span class="sd">    See Also</span>
 <span class="sd">    --------</span>
