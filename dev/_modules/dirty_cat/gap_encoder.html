@@ -248,7 +248,7 @@
                 <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_components</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_vocab</span><span class="p">))</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">init</span> <span class="o">==</span> <span class="s1">&#39;k-means&#39;</span><span class="p">:</span>
             <span class="n">prototypes</span> <span class="o">=</span> <span class="n">get_kmeans_prototypes</span><span class="p">(</span>
-                <span class="n">X</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_components</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">random_state</span><span class="p">)</span>
+                <span class="n">X</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_components</span><span class="p">,</span> <span class="n">analyzer</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">analyzer</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">random_state</span><span class="p">)</span>
             <span class="n">W</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ngrams_count_</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">prototypes</span><span class="p">)</span><span class="o">.</span><span class="n">A</span> <span class="o">+</span> <span class="mf">.1</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_words</span><span class="p">:</span>
                 <span class="n">W2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">word_count_</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">prototypes</span><span class="p">)</span><span class="o">.</span><span class="n">A</span> <span class="o">+</span> <span class="mf">.1</span>
@@ -654,6 +654,7 @@
         <span class="k">return</span> <span class="n">GapEncoderColumn</span><span class="p">(</span>
             <span class="n">ngram_range</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ngram_range</span><span class="p">,</span>
             <span class="n">n_components</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_components</span><span class="p">,</span>
+            <span class="n">analyzer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">analyzer</span><span class="p">,</span>
             <span class="n">gamma_shape_prior</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">gamma_shape_prior</span><span class="p">,</span>
             <span class="n">gamma_scale_prior</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">gamma_scale_prior</span><span class="p">,</span>
             <span class="n">rho</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rho</span><span class="p">,</span>
@@ -929,7 +930,7 @@
         <span class="k">yield</span> <span class="p">(</span><span class="n">unq_indices</span><span class="p">,</span> <span class="n">indices</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">get_kmeans_prototypes</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">n_prototypes</span><span class="p">,</span> <span class="n">hashing_dim</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span>
+<span class="k">def</span> <span class="nf">get_kmeans_prototypes</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">n_prototypes</span><span class="p">,</span> <span class="n">analyzer</span><span class="o">=</span><span class="s1">&#39;char&#39;</span><span class="p">,</span> <span class="n">hashing_dim</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span>
                           <span class="n">ngram_range</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                           <span class="n">sample_weight</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -938,7 +939,7 @@
 <span class="sd">      - k-means clustering</span>
 <span class="sd">      - nearest neighbor</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">vectorizer</span> <span class="o">=</span> <span class="n">HashingVectorizer</span><span class="p">(</span><span class="n">analyzer</span><span class="o">=</span><span class="s1">&#39;char&#39;</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">vectorizer</span> <span class="o">=</span> <span class="n">HashingVectorizer</span><span class="p">(</span><span class="n">analyzer</span><span class="o">=</span><span class="n">analyzer</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                                    <span class="n">alternate_sign</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                                    <span class="n">ngram_range</span><span class="o">=</span><span class="n">ngram_range</span><span class="p">,</span>
                                    <span class="n">n_features</span><span class="o">=</span><span class="n">hashing_dim</span><span class="p">)</span>
