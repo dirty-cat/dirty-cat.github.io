@@ -91,6 +91,7 @@
 <span class="sd">       with the Kullback-Leibler divergence as loss, and a Gamma prior on H.</span>
 <span class="sd">       We thus optimize H and W with the multiplicative update method.</span>
 <span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">distutils.version</span> <span class="kn">import</span> <span class="n">LooseVersion</span>
 <span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">sparse</span>
@@ -330,6 +331,17 @@
         <span class="k">return</span> <span class="bp">self</span>
 
     <span class="k">def</span> <span class="nf">get_feature_names</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_labels</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Deprecated, use &quot;get_feature_names_out&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="s2">&quot;get_feature_names is deprecated in scikit-learn &gt; 1.0. &quot;</span>
+            <span class="s2">&quot;use get_feature_names_out instead&quot;</span><span class="p">,</span>
+            <span class="ne">DeprecationWarning</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">(</span><span class="n">n_labels</span><span class="o">=</span><span class="n">n_labels</span><span class="p">,</span>
+                                          <span class="n">prefix</span><span class="o">=</span><span class="n">prefix</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get_feature_names_out</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_labels</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the labels that best summarize the learned components/topics.</span>
 <span class="sd">        For each topic, labels with highest activations are selected.</span>
@@ -780,7 +792,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">fitted_models_</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">partial_fit</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="n">k</span><span class="p">])</span>
         <span class="k">return</span> <span class="bp">self</span></div>
 
-<div class="viewcode-block" id="GapEncoder.get_feature_names"><a class="viewcode-back" href="../../generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder.get_feature_names">[docs]</a>    <span class="k">def</span> <span class="nf">get_feature_names</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">col_names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">n_labels</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+<div class="viewcode-block" id="GapEncoder.get_feature_names_out"><a class="viewcode-back" href="../../generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder.get_feature_names_out">[docs]</a>    <span class="k">def</span> <span class="nf">get_feature_names_out</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">col_names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">n_labels</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the labels that best summarize the learned components/topics.</span>
 <span class="sd">        For each topic, labels with highest activations are selected.</span>
@@ -820,18 +832,21 @@
             <span class="n">prefixes</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fitted_models_</span><span class="p">)</span>
         <span class="n">labels</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">enc</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fitted_models_</span><span class="p">):</span>
-            <span class="n">col_labels</span> <span class="o">=</span> <span class="n">enc</span><span class="o">.</span><span class="n">get_feature_names</span><span class="p">(</span><span class="n">n_labels</span><span class="p">,</span> <span class="n">prefixes</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
+            <span class="n">col_labels</span> <span class="o">=</span> <span class="n">enc</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">(</span><span class="n">n_labels</span><span class="p">,</span> <span class="n">prefixes</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
             <span class="n">labels</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">col_labels</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">labels</span></div>
     
-<div class="viewcode-block" id="GapEncoder.get_feature_names_out"><a class="viewcode-back" href="../../generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder.get_feature_names_out">[docs]</a>    <span class="k">def</span> <span class="nf">get_feature_names_out</span><span class="p">(</span>
+<div class="viewcode-block" id="GapEncoder.get_feature_names"><a class="viewcode-back" href="../../generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder.get_feature_names">[docs]</a>    <span class="k">def</span> <span class="nf">get_feature_names</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">input_features</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">col_names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">n_labels</span><span class="o">=</span><span class="mi">3</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Ensures compatibility with sklearn &gt;= 1.0, and returns the output of</span>
-<span class="sd">        get_feature_names.</span>
+        <span class="sd">&quot;&quot;&quot; Deprecated, use &quot;get_feature_names_out&quot;</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_feature_names</span><span class="p">(</span><span class="n">col_names</span><span class="p">,</span> <span class="n">n_labels</span><span class="p">)</span></div>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="s2">&quot;get_feature_names is deprecated in scikit-learn &gt; 1.0. &quot;</span>
+            <span class="s2">&quot;use get_feature_names_out instead&quot;</span><span class="p">,</span>
+            <span class="ne">DeprecationWarning</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">(</span><span class="n">col_names</span><span class="p">,</span> <span class="n">n_labels</span><span class="p">)</span></div>
         
 
 <div class="viewcode-block" id="GapEncoder.score"><a class="viewcode-back" href="../../generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder.score">[docs]</a>    <span class="k">def</span> <span class="nf">score</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>

@@ -471,7 +471,7 @@
 
         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="SuperVectorizer.get_feature_names"><a class="viewcode-back" href="../../generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer.get_feature_names">[docs]</a>    <span class="k">def</span> <span class="nf">get_feature_names</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<div class="viewcode-block" id="SuperVectorizer.get_feature_names_out"><a class="viewcode-back" href="../../generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer.get_feature_names_out">[docs]</a>    <span class="k">def</span> <span class="nf">get_feature_names_out</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_features</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns clean feature names with format</span>
 <span class="sd">        &quot;&lt;column_name&gt;_&lt;value&gt;&quot; if encoded by OneHotEncoder or alike,</span>
@@ -518,13 +518,16 @@
             <span class="k">return</span> <span class="n">ct_feature_names</span>
 
         <span class="k">return</span> <span class="n">all_trans_feature_names</span></div>
-
-<div class="viewcode-block" id="SuperVectorizer.get_feature_names_out"><a class="viewcode-back" href="../../generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer.get_feature_names_out">[docs]</a>    <span class="k">def</span> <span class="nf">get_feature_names_out</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_features</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Ensures compatibility with sklearn &gt;= 1.0, and returns the output of</span>
-<span class="sd">        get_feature_names.</span>
+    
+<div class="viewcode-block" id="SuperVectorizer.get_feature_names"><a class="viewcode-back" href="../../generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer.get_feature_names">[docs]</a>    <span class="k">def</span> <span class="nf">get_feature_names</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot; Deprecated, use &quot;get_feature_names_out&quot;</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_feature_names</span><span class="p">()</span></div></div>
+        <span class="n">warn</span><span class="p">(</span>
+            <span class="s2">&quot;get_feature_names is deprecated in scikit-learn &gt; 1.0. &quot;</span>
+            <span class="s2">&quot;use get_feature_names_out instead&quot;</span><span class="p">,</span>
+            <span class="ne">DeprecationWarning</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">()</span></div></div>
 </pre></div>
 
           </div>
