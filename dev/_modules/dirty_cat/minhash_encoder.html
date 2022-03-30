@@ -84,7 +84,7 @@
 <span class="sd">     n-dimensional vectors of integers.</span>
 <span class="sd">  3. A hashing function is used to assign an integer to each n-gram.</span>
 <span class="sd">     The minimum of the hashes over all n-grams is used in the encoding.</span>
-<span class="sd">  4. This process is repeated with N hashing functions are used to </span>
+<span class="sd">  4. This process is repeated with N hashing functions are used to</span>
 <span class="sd">     form N-dimensional encodings.</span>
 <span class="sd">Maxhash encodings can be computed similarly by taking the hashes maximum</span>
 <span class="sd">instead.</span>
@@ -92,16 +92,10 @@
 <span class="sd">probability of having same encoding values. These encodings thus capture</span>
 <span class="sd">morphological similarities between strings.</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">import</span> <span class="nn">warnings</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">joblib</span> <span class="kn">import</span> <span class="n">Parallel</span><span class="p">,</span> <span class="n">delayed</span>
-<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">sparse</span>
-<span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">KMeans</span>
-<span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">CountVectorizer</span><span class="p">,</span> <span class="n">HashingVectorizer</span>
-<span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">NearestNeighbors</span>
 <span class="kn">from</span> <span class="nn">sklearn.base</span> <span class="kn">import</span> <span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">TransformerMixin</span>
-<span class="kn">from</span> <span class="nn">sklearn.utils</span> <span class="kn">import</span> <span class="n">check_random_state</span><span class="p">,</span> <span class="n">murmurhash3_32</span>
+<span class="kn">from</span> <span class="nn">sklearn.utils</span> <span class="kn">import</span> <span class="n">murmurhash3_32</span>
 
 <span class="kn">from</span> <span class="nn">.fast_hash</span> <span class="kn">import</span> <span class="n">ngram_min_hash</span>
 <span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">LRUDict</span><span class="p">,</span> <span class="n">check_input</span>
