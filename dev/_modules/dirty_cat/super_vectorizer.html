@@ -185,6 +185,41 @@
 <span class="sd">        &#39;skip&#39; will not impute at all.</span>
 <span class="sd">        When imputed, missing values are replaced by the string &#39;missing&#39;.</span>
 <span class="sd">        See also attribute `imputed_columns_`.</span>
+<span class="sd">        </span>
+<span class="sd">    remainder : {&#39;drop&#39;, &#39;passthrough&#39;} or estimator, default=&#39;drop&#39;</span>
+<span class="sd">        By default, only the specified columns in `transformers` are</span>
+<span class="sd">        transformed and combined in the output, and the non-specified</span>
+<span class="sd">        columns are dropped. (default of ``&#39;drop&#39;``).</span>
+<span class="sd">        By specifying ``remainder=&#39;passthrough&#39;``, all remaining columns that</span>
+<span class="sd">        were not specified in `transformers` will be automatically passed</span>
+<span class="sd">        through. This subset of columns is concatenated with the output of</span>
+<span class="sd">        the transformers.</span>
+<span class="sd">        By setting ``remainder`` to be an estimator, the remaining</span>
+<span class="sd">        non-specified columns will use the ``remainder`` estimator. The</span>
+<span class="sd">        estimator must support :term:`fit` and :term:`transform`.</span>
+<span class="sd">        Note that using this feature requires that the DataFrame columns</span>
+<span class="sd">        input at :term:`fit` and :term:`transform` have identical order.</span>
+<span class="sd">        </span>
+<span class="sd">    sparse_threshold: float, default=0.3</span>
+<span class="sd">        If the output of the different transformers contains sparse matrices,</span>
+<span class="sd">        these will be stacked as a sparse matrix if the overall density is</span>
+<span class="sd">        lower than this value. Use sparse_threshold=0 to always return dense. </span>
+<span class="sd">        When the transformed output consists of all dense data, the stacked result</span>
+<span class="sd">        will be dense, and this keyword will be ignored.</span>
+<span class="sd">        </span>
+<span class="sd">    n_jobs : int, default=None</span>
+<span class="sd">        Number of jobs to run in parallel.</span>
+<span class="sd">        ``None`` means 1 unless in a :obj:`joblib.parallel_backend` context.</span>
+<span class="sd">        ``-1`` means using all processors.</span>
+<span class="sd">        </span>
+<span class="sd">    transformer_weights : dict, default=None</span>
+<span class="sd">        Multiplicative weights for features per transformer. The output of the</span>
+<span class="sd">        transformer is multiplied by these weights. Keys are transformer names,</span>
+<span class="sd">        values the weights.</span>
+<span class="sd">        </span>
+<span class="sd">    verbose : bool, default=False</span>
+<span class="sd">        If True, the time elapsed while fitting each transformer will be</span>
+<span class="sd">        printed as it is completed</span>
 
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
