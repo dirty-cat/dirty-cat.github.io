@@ -14,7 +14,7 @@
   
 <meta property="og:site_name" content="Dirty cat" />
   
-<meta property="og:description" content="Major changes: Notes: Improvements to the SuperVectorizer- Type detection works better: handles dates, numerics columns encoded as strings, or numeric columns containing strings for missing values...." />
+<meta property="og:description" content="Major changes: Improvements to the SuperVectorizer- Type detection works better: handles dates, numerics columns encoded as strings,. or numeric columns containing strings for missing values.,- “ge..." />
   
 <meta property="og:image" content="https://dirty-cat.github.io/stable/_static/dirty_cat.svg" />
   
@@ -77,6 +77,7 @@
   <ul>
 <li><a class="reference internal" href="#">Release 0.2.1</a><ul>
 <li><a class="reference internal" href="#major-changes">Major changes</a></li>
+<li><a class="reference internal" href="#bug-fixes">Bug-fixes</a></li>
 <li><a class="reference internal" href="#notes">Notes</a></li>
 </ul>
 </li>
@@ -87,17 +88,17 @@
 </li>
 <li><a class="reference internal" href="#release-0-2-0a1">Release 0.2.0a1</a><ul>
 <li><a class="reference internal" href="#id3">Major changes</a></li>
-<li><a class="reference internal" href="#bug-fixes">Bug-fixes</a></li>
+<li><a class="reference internal" href="#id4">Bug-fixes</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#release-0-1-1">Release 0.1.1</a><ul>
-<li><a class="reference internal" href="#id4">Major changes</a></li>
-<li><a class="reference internal" href="#id5">Bug-fixes</a></li>
+<li><a class="reference internal" href="#id5">Major changes</a></li>
+<li><a class="reference internal" href="#id6">Bug-fixes</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#release-0-1-0">Release 0.1.0</a><ul>
-<li><a class="reference internal" href="#id6">Major changes</a></li>
-<li><a class="reference internal" href="#id7">Bug-fixes</a></li>
+<li><a class="reference internal" href="#id7">Major changes</a></li>
+<li><a class="reference internal" href="#id8">Bug-fixes</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#release-0-0-7">Release 0.0.7</a></li>
@@ -123,18 +124,46 @@
 <h1>Release 0.2.1<a class="headerlink" href="#release-0-2-1" title="Permalink to this headline">¶</a></h1>
 <section id="major-changes">
 <h2>Major changes<a class="headerlink" href="#major-changes" title="Permalink to this headline">¶</a></h2>
-</section>
-<section id="notes">
-<h2>Notes<a class="headerlink" href="#notes" title="Permalink to this headline">¶</a></h2>
 <ul>
 <li><p>Improvements to the <code class="xref py py-class docutils literal notranslate"><span class="pre">SuperVectorizer</span></code></p>
 <blockquote>
 <div><ul class="simple">
-<li><p>Type detection works better: handles dates, numerics columns encoded as strings, or numeric columns containing strings for missing values</p></li>
+<li><p>Type detection works better: handles dates, numerics columns encoded as strings,</p></li>
 </ul>
+<blockquote>
+<div><p>or numeric columns containing strings for missing values.</p>
+</div></blockquote>
 </div></blockquote>
 </li>
+<li><dl class="simple">
+<dt>“get_feature_names” becomes “get_feature_names_out”, following changes in the scikit-learn API.</dt><dd><p>“get_feature_names” is deprecated in scikit-learn &gt; 1.0.</p>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>Improvements to the <code class="xref py py-class docutils literal notranslate"><span class="pre">MinHashEncoder</span></code></dt><dd><ul class="simple">
+<li><p>It is now possible to fit multiple columns simultaneously with the MinHashEncoder.</p></li>
+</ul>
+<p>Very useful when using for instance the sklearn.compose.make_column_transformer method,
+on multiple columns.</p>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+<section id="bug-fixes">
+<h2>Bug-fixes<a class="headerlink" href="#bug-fixes" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
 <li><p>Fixed a bug that resulted in the <strong>GapEncoder</strong> ignoring the analyzer argument.</p></li>
+<li><p>GapEncoder’s <cite>get_feature_names_out</cite> now accepts all iterators, not just lists.</p></li>
+</ul>
+</section>
+<section id="notes">
+<h2>Notes<a class="headerlink" href="#notes" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Remove trailing imports in the MinHashEncoder.</p></li>
+<li><p>Fix typos and update links for website.</p></li>
+<li><p>Documentation of the SuperVectorizer and the SimilarityEncoder improved.</p></li>
 </ul>
 </section>
 </section>
@@ -218,8 +247,8 @@ Internally, features are encoded by independent GapEncoder models,
 and are then concatenated into a single matrix.</p></li>
 </ul>
 </section>
-<section id="bug-fixes">
-<h2>Bug-fixes<a class="headerlink" href="#bug-fixes" title="Permalink to this headline">¶</a></h2>
+<section id="id4">
+<h2>Bug-fixes<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Fix get_feature_names for scikit-learn &gt; 0.21</p></li>
 </ul>
@@ -227,11 +256,11 @@ and are then concatenated into a single matrix.</p></li>
 </section>
 <section id="release-0-1-1">
 <h1>Release 0.1.1<a class="headerlink" href="#release-0-1-1" title="Permalink to this headline">¶</a></h1>
-<section id="id4">
-<h2>Major changes<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
-</section>
 <section id="id5">
-<h2>Bug-fixes<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<h2>Major changes<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id6">
+<h2>Bug-fixes<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>RuntimeWarnings due to overflow in GapEncoder (#161)</p></li>
 </ul>
@@ -239,8 +268,8 @@ and are then concatenated into a single matrix.</p></li>
 </section>
 <section id="release-0-1-0">
 <h1>Release 0.1.0<a class="headerlink" href="#release-0-1-0" title="Permalink to this headline">¶</a></h1>
-<section id="id6">
-<h2>Major changes<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<section id="id7">
+<h2>Major changes<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p><strong>GapEncoder</strong>: Added online Gamma-Poisson factorization through the
 <code class="xref py py-class docutils literal notranslate"><span class="pre">GapEncoder</span></code> class. This method discovers latent categories formed
@@ -248,8 +277,8 @@ via combinations of substrings, and encodes string data as combinations of
 these categories. To be used if interpretability is important.</p></li>
 </ul>
 </section>
-<section id="id7">
-<h2>Bug-fixes<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<section id="id8">
+<h2>Bug-fixes<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Multiprocessing exception in notebook (#154)</p></li>
 </ul>

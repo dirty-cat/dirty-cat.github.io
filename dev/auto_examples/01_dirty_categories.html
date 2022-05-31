@@ -142,7 +142,7 @@ dataframe, after which we show a much simpler way, albeit with less fine
 control.</p>
 <dl class="footnote brackets">
 <dt class="label" id="id2"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
-<dd><p><a class="reference external" href="https://catalog.data.gov/dataset/employee-salaries-2016">https://catalog.data.gov/dataset/employee-salaries-2016</a></p>
+<dd><p><a class="reference external" href="https://www.openml.org/d/42125">https://www.openml.org/d/42125</a></p>
 </dd>
 </dl>
 <section id="the-data">
@@ -384,44 +384,59 @@ alongside with the column names on which each must be applied</p>
 <section id="pipelining-an-encoder-with-a-learner">
 <h4>Pipelining an encoder with a learner<a class="headerlink" href="#pipelining-an-encoder-with-a-learner" title="Permalink to this headline">¶</a></h4>
 <p>We will use a HistGradientBoostingRegressor, which is a good predictor
-for data with heterogeneous columns
-(we need to require the experimental feature for scikit-learn 0.24)</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.experimental</span> <span class="kn">import</span> <span class="n">enable_hist_gradient_boosting</span>
-<span class="c1"># now you can import the HGBR from ensemble</span>
-<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.HistGradientBoostingRegressor.html#sklearn.ensemble.HistGradientBoostingRegressor" title="sklearn.ensemble._hist_gradient_boosting.gradient_boosting.HistGradientBoostingRegressor" class="sphx-glr-backref-module-sklearn-ensemble-_hist_gradient_boosting-gradient_boosting sphx-glr-backref-type-py-class"><span class="n">HistGradientBoostingRegressor</span></a>
+for data with heterogeneous columns</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.HistGradientBoostingRegressor.html#sklearn.ensemble.HistGradientBoostingRegressor" title="sklearn.ensemble._hist_gradient_boosting.gradient_boosting.HistGradientBoostingRegressor" class="sphx-glr-backref-module-sklearn-ensemble-_hist_gradient_boosting-gradient_boosting sphx-glr-backref-type-py-class"><span class="n">HistGradientBoostingRegressor</span></a>
 
 <span class="c1"># We then create a pipeline chaining our encoders to a learner</span>
 <span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.make_pipeline.html#sklearn.pipeline.make_pipeline" title="sklearn.pipeline.make_pipeline" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-function"><span class="n">make_pipeline</span></a>
 <a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">pipeline</span></a> <span class="o">=</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.make_pipeline.html#sklearn.pipeline.make_pipeline" title="sklearn.pipeline.make_pipeline" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-function"><span class="n">make_pipeline</span></a><span class="p">(</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.compose.ColumnTransformer.html#sklearn.compose.ColumnTransformer" title="sklearn.compose.ColumnTransformer" class="sphx-glr-backref-module-sklearn-compose sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">encoder</span></a><span class="p">,</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.HistGradientBoostingRegressor.html#sklearn.ensemble.HistGradientBoostingRegressor" title="sklearn.ensemble._hist_gradient_boosting.gradient_boosting.HistGradientBoostingRegressor" class="sphx-glr-backref-module-sklearn-ensemble-_hist_gradient_boosting-gradient_boosting sphx-glr-backref-type-py-class"><span class="n">HistGradientBoostingRegressor</span></a><span class="p">())</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/experimental/enable_hist_gradient_boosting.py:16: UserWarning: Since version 1.0, it is not needed to import enable_hist_gradient_boosting anymore. HistGradientBoostingClassifier and HistGradientBoostingRegressor are now stable and can be normally imported from sklearn.ensemble.
-  warnings.warn(
-</pre></div>
-</div>
 <p>The pipeline can be readily applied to the dataframe for prediction</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline.fit" title="sklearn.pipeline.Pipeline.fit" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-method"><span class="n">pipeline</span><span class="o">.</span><span class="n">fit</span></a><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X</span></a><span class="p">,</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Pipeline(steps=[(&#39;columntransformer&#39;,
-                 ColumnTransformer(transformers=[(&#39;onehotencoder-1&#39;,
-                                                  OneHotEncoder(handle_unknown=&#39;ignore&#39;,
+<div class="output_subarea output_html rendered_html output_result">
+<style>#sk-container-id-1 {color: black;background-color: white;}#sk-container-id-1 pre{padding: 0;}#sk-container-id-1 div.sk-toggleable {background-color: white;}#sk-container-id-1 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-1 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-1 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-1 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-1 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-1 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-1 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-1 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-1 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-1 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-1 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-1 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-1 div.sk-item {position: relative;z-index: 1;}#sk-container-id-1 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-1 div.sk-item::before, #sk-container-id-1 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-1 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-1 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-1 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-1 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-1 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-1 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-1 div.sk-label-container {text-align: center;}#sk-container-id-1 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-1 div.sk-text-repr-fallback {display: none;}</style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>Pipeline(steps=[(&#x27;columntransformer&#x27;,
+                 ColumnTransformer(transformers=[(&#x27;onehotencoder-1&#x27;,
+                                                  OneHotEncoder(handle_unknown=&#x27;ignore&#x27;,
                                                                 sparse=False),
-                                                  [&#39;gender&#39;, &#39;department_name&#39;,
-                                                   &#39;assignment_category&#39;]),
-                                                 (&#39;passthrough&#39;, &#39;passthrough&#39;,
-                                                  [&#39;year_first_hired&#39;]),
-                                                 (&#39;onehotencoder-2&#39;,
-                                                  OneHotEncoder(handle_unknown=&#39;ignore&#39;,
+                                                  [&#x27;gender&#x27;, &#x27;department_name&#x27;,
+                                                   &#x27;assignment_category&#x27;]),
+                                                 (&#x27;passthrough&#x27;, &#x27;passthrough&#x27;,
+                                                  [&#x27;year_first_hired&#x27;]),
+                                                 (&#x27;onehotencoder-2&#x27;,
+                                                  OneHotEncoder(handle_unknown=&#x27;ignore&#x27;,
                                                                 sparse=False),
-                                                  [&#39;employee_position_title&#39;])])),
-                (&#39;histgradientboostingregressor&#39;,
-                 HistGradientBoostingRegressor())])
-</pre></div>
+                                                  [&#x27;employee_position_title&#x27;])])),
+                (&#x27;histgradientboostingregressor&#x27;,
+                 HistGradientBoostingRegressor())])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" ><label for="sk-estimator-id-1" class="sk-toggleable__label sk-toggleable__label-arrow">Pipeline</label><div class="sk-toggleable__content"><pre>Pipeline(steps=[(&#x27;columntransformer&#x27;,
+                 ColumnTransformer(transformers=[(&#x27;onehotencoder-1&#x27;,
+                                                  OneHotEncoder(handle_unknown=&#x27;ignore&#x27;,
+                                                                sparse=False),
+                                                  [&#x27;gender&#x27;, &#x27;department_name&#x27;,
+                                                   &#x27;assignment_category&#x27;]),
+                                                 (&#x27;passthrough&#x27;, &#x27;passthrough&#x27;,
+                                                  [&#x27;year_first_hired&#x27;]),
+                                                 (&#x27;onehotencoder-2&#x27;,
+                                                  OneHotEncoder(handle_unknown=&#x27;ignore&#x27;,
+                                                                sparse=False),
+                                                  [&#x27;employee_position_title&#x27;])])),
+                (&#x27;histgradientboostingregressor&#x27;,
+                 HistGradientBoostingRegressor())])</pre></div></div></div><div class="sk-serial"><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox" ><label for="sk-estimator-id-2" class="sk-toggleable__label sk-toggleable__label-arrow">columntransformer: ColumnTransformer</label><div class="sk-toggleable__content"><pre>ColumnTransformer(transformers=[(&#x27;onehotencoder-1&#x27;,
+                                 OneHotEncoder(handle_unknown=&#x27;ignore&#x27;,
+                                               sparse=False),
+                                 [&#x27;gender&#x27;, &#x27;department_name&#x27;,
+                                  &#x27;assignment_category&#x27;]),
+                                (&#x27;passthrough&#x27;, &#x27;passthrough&#x27;,
+                                 [&#x27;year_first_hired&#x27;]),
+                                (&#x27;onehotencoder-2&#x27;,
+                                 OneHotEncoder(handle_unknown=&#x27;ignore&#x27;,
+                                               sparse=False),
+                                 [&#x27;employee_position_title&#x27;])])</pre></div></div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-3" type="checkbox" ><label for="sk-estimator-id-3" class="sk-toggleable__label sk-toggleable__label-arrow">onehotencoder-1</label><div class="sk-toggleable__content"><pre>[&#x27;gender&#x27;, &#x27;department_name&#x27;, &#x27;assignment_category&#x27;]</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-4" type="checkbox" ><label for="sk-estimator-id-4" class="sk-toggleable__label sk-toggleable__label-arrow">OneHotEncoder</label><div class="sk-toggleable__content"><pre>OneHotEncoder(handle_unknown=&#x27;ignore&#x27;, sparse=False)</pre></div></div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-5" type="checkbox" ><label for="sk-estimator-id-5" class="sk-toggleable__label sk-toggleable__label-arrow">passthrough</label><div class="sk-toggleable__content"><pre>[&#x27;year_first_hired&#x27;]</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-6" type="checkbox" ><label for="sk-estimator-id-6" class="sk-toggleable__label sk-toggleable__label-arrow">passthrough</label><div class="sk-toggleable__content"><pre>passthrough</pre></div></div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-7" type="checkbox" ><label for="sk-estimator-id-7" class="sk-toggleable__label sk-toggleable__label-arrow">onehotencoder-2</label><div class="sk-toggleable__content"><pre>[&#x27;employee_position_title&#x27;]</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-8" type="checkbox" ><label for="sk-estimator-id-8" class="sk-toggleable__label sk-toggleable__label-arrow">OneHotEncoder</label><div class="sk-toggleable__content"><pre>OneHotEncoder(handle_unknown=&#x27;ignore&#x27;, sparse=False)</pre></div></div></div></div></div></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-9" type="checkbox" ><label for="sk-estimator-id-9" class="sk-toggleable__label sk-toggleable__label-arrow">HistGradientBoostingRegressor</label><div class="sk-toggleable__content"><pre>HistGradientBoostingRegressor()</pre></div></div></div></div></div></div></div>
 </div>
-</section>
+<br />
+<br /></section>
 </section>
 <section id="dirty-category-encoding">
 <h3>Dirty-category encoding<a class="headerlink" href="#dirty-category-encoding" title="Permalink to this headline">¶</a></h3>
@@ -451,7 +466,7 @@ dirty columns</p>
 </pre></div>
 </div>
 <p>We now loop over the different encoding methods,
-instantiate a new <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="(in scikit-learn v1.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a> each time, fit it
+instantiate a new <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="(in scikit-learn v1.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a> each time, fit it
 and store the returned cross-validation score:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.cross_val_score.html#sklearn.model_selection.cross_val_score" title="sklearn.model_selection.cross_val_score" class="sphx-glr-backref-module-sklearn-model_selection sphx-glr-backref-type-py-function"><span class="n">cross_val_score</span></a>
 
@@ -488,7 +503,7 @@ minhash encoding
 r2 score:  mean: 0.919; std: 0.012
 
 gap encoding
-r2 score:  mean: 0.912; std: 0.018
+r2 score:  mean: 0.908; std: 0.011
 </pre></div>
 </div>
 <section id="plotting-the-results">
@@ -696,7 +711,7 @@ now explore a simpler, automated, way of encoding the data.</p>
 machine learning.</p>
 <section id="using-the-supervectorizer-in-a-supervised-learning-pipeline">
 <h3>Using the SuperVectorizer in a supervised-learning pipeline<a class="headerlink" href="#using-the-supervectorizer-in-a-supervised-learning-pipeline" title="Permalink to this headline">¶</a></h3>
-<p>Assembling the <a class="reference internal" href="../generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SuperVectorizer</span></code></a> in a <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="(in scikit-learn v1.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a> with a powerful learner,
+<p>Assembling the <a class="reference internal" href="../generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SuperVectorizer</span></code></a> in a <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="(in scikit-learn v1.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a> with a powerful learner,
 such as gradient boosted trees, gives <strong>a machine-learning method that
 can be readily applied to the dataframe</strong>.</p>
 <p>The SuperVectorizer requires at least dirty_cat 0.2.0.</p>
@@ -718,9 +733,9 @@ can be readily applied to the dataframe</strong>.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>scores=[0.91649775 0.89154321 0.91033578 0.91946909 0.91162564]
-mean=0.9098942915887518
-std=0.009749224401083133
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>scores=[0.90785963 0.88134005 0.91664441 0.93046332 0.9091893 ]
+mean=0.9090993428190195
+std=0.016034154054006055
 </pre></div>
 </div>
 <p>The prediction performed here is pretty much as good as above
@@ -729,7 +744,7 @@ columns manually.</p>
 </section>
 <section id="analyzing-the-features-created">
 <h3>Analyzing the features created<a class="headerlink" href="#analyzing-the-features-created" title="Permalink to this headline">¶</a></h3>
-<p>Let us perform the same workflow, but without the <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="(in scikit-learn v1.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a>, so we can
+<p>Let us perform the same workflow, but without the <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="(in scikit-learn v1.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a>, so we can
 analyze its mechanisms along the way.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer" class="sphx-glr-backref-module-dirty_cat sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sup_vec</span></a> <span class="o">=</span> <a href="../generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer" class="sphx-glr-backref-module-dirty_cat sphx-glr-backref-type-py-class"><span class="n">SuperVectorizer</span></a><span class="p">(</span><span class="n">auto_cast</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
@@ -750,7 +765,7 @@ analyze its mechanisms along the way.</p>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>array([[0.00000000e+00, 1.00000000e+00, 0.00000000e+00, ...,
-        7.38064689e-02, 5.50430335e-02, 2.00700000e+03],
+        5.38662592e-02, 6.19995469e-02, 2.00700000e+03],
        [1.00000000e+00, 0.00000000e+00, 0.00000000e+00, ...,
         5.00000000e-02, 5.00000000e-02, 2.00500000e+03],
        [1.00000000e+00, 0.00000000e+00, 0.00000000e+00, ...,
@@ -783,11 +798,11 @@ choice:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[(&#39;low_card_cat&#39;, OneHotEncoder(), [&#39;gender&#39;, &#39;department&#39;, &#39;department_name&#39;, &#39;assignment_category&#39;]), (&#39;high_card_cat&#39;, GapEncoder(n_components=30), [&#39;division&#39;, &#39;employee_position_title&#39;, &#39;underfilled_job_title&#39;]), (&#39;remainder&#39;, &#39;passthrough&#39;, [7])]
 </pre></div>
 </div>
-<p>This is what is being passed to the <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.compose.ColumnTransformer.html#sklearn.compose.ColumnTransformer" title="(in scikit-learn v1.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ColumnTransformer</span></code></a> under the hood.
+<p>This is what is being passed to the <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.compose.ColumnTransformer.html#sklearn.compose.ColumnTransformer" title="(in scikit-learn v1.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ColumnTransformer</span></code></a> under the hood.
 If you’re familiar with how the later works, it should be very intuitive.
 We can notice it classified the columns “gender” and “assignment_category”
 as low cardinality string variables.
-A <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.OneHotEncoder.html#sklearn.preprocessing.OneHotEncoder" title="(in scikit-learn v1.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">OneHotEncoder</span></code></a> will be applied to these columns.</p>
+A <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.OneHotEncoder.html#sklearn.preprocessing.OneHotEncoder" title="(in scikit-learn v1.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">OneHotEncoder</span></code></a> will be applied to these columns.</p>
 <p>The vectorizer actually makes the difference between string variables
 (data type <code class="docutils literal notranslate"><span class="pre">object</span></code> and <code class="docutils literal notranslate"><span class="pre">string</span></code>) and categorical variables
 (data type <code class="docutils literal notranslate"><span class="pre">category</span></code>).</p>
@@ -801,7 +816,7 @@ A <a class="reference external" href="https://scikit-learn.org/stable/modules/ge
 </pre></div>
 </div>
 <p>After encoding (we only plot the first 8 feature names):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">feature_names</span></a> <span class="o">=</span> <a href="../generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer.get_feature_names" title="dirty_cat.SuperVectorizer.get_feature_names" class="sphx-glr-backref-module-dirty_cat sphx-glr-backref-type-py-method"><span class="n">sup_vec</span><span class="o">.</span><span class="n">get_feature_names</span></a><span class="p">()</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">feature_names</span></a> <span class="o">=</span> <a href="../generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer.get_feature_names_out" title="dirty_cat.SuperVectorizer.get_feature_names_out" class="sphx-glr-backref-module-dirty_cat sphx-glr-backref-type-py-method"><span class="n">sup_vec</span><span class="o">.</span><span class="n">get_feature_names_out</span></a><span class="p">()</span>
 <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">feature_names</span></a><span class="p">[:</span><span class="mi">8</span><span class="p">]</span>
 </pre></div>
 </div>
@@ -832,20 +847,20 @@ which was classified as a high cardinality string variable.
 <div class="topic">
 <p class="topic-title">Note:</p>
 <p>To minimize compute time, use the feature importances computed by the
-<a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestRegressor.html#sklearn.ensemble.RandomForestRegressor" title="(in scikit-learn v1.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">RandomForestRegressor</span></code></a>, but you should prefer <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.inspection.permutation_importance.html#sklearn.inspection.permutation_importance" title="(in scikit-learn v1.0)"><code class="xref py py-func docutils literal notranslate"><span class="pre">permutation_importance()</span></code></a>
+<a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestRegressor.html#sklearn.ensemble.RandomForestRegressor" title="(in scikit-learn v1.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">RandomForestRegressor</span></code></a>, but you should prefer <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.inspection.permutation_importance.html#sklearn.inspection.permutation_importance" title="(in scikit-learn v1.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">permutation_importance()</span></code></a>
 instead (which are less subject to biases)</p>
 </div>
-<p>First, let’s train the <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestRegressor.html#sklearn.ensemble.RandomForestRegressor" title="(in scikit-learn v1.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">RandomForestRegressor</span></code></a>,</p>
+<p>First, let’s train the <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestRegressor.html#sklearn.ensemble.RandomForestRegressor" title="(in scikit-learn v1.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">RandomForestRegressor</span></code></a>,</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestRegressor.html#sklearn.ensemble.RandomForestRegressor" title="sklearn.ensemble.RandomForestRegressor" class="sphx-glr-backref-module-sklearn-ensemble sphx-glr-backref-type-py-class"><span class="n">RandomForestRegressor</span></a>
 <a href="https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestRegressor.html#sklearn.ensemble.RandomForestRegressor" title="sklearn.ensemble.RandomForestRegressor" class="sphx-glr-backref-module-sklearn-ensemble sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">regressor</span></a> <span class="o">=</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestRegressor.html#sklearn.ensemble.RandomForestRegressor" title="sklearn.ensemble.RandomForestRegressor" class="sphx-glr-backref-module-sklearn-ensemble sphx-glr-backref-type-py-class"><span class="n">RandomForestRegressor</span></a><span class="p">()</span>
 <a href="https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestRegressor.html#sklearn.ensemble.RandomForestRegressor.fit" title="sklearn.ensemble.RandomForestRegressor.fit" class="sphx-glr-backref-module-sklearn-ensemble sphx-glr-backref-type-py-method"><span class="n">regressor</span><span class="o">.</span><span class="n">fit</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_train_enc</span></a><span class="p">,</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_train</span></a><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>RandomForestRegressor()
-</pre></div>
+<div class="output_subarea output_html rendered_html output_result">
+<style>#sk-container-id-2 {color: black;background-color: white;}#sk-container-id-2 pre{padding: 0;}#sk-container-id-2 div.sk-toggleable {background-color: white;}#sk-container-id-2 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-2 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-2 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-2 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-2 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-2 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-2 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-2 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-2 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-2 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-2 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-2 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-2 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-2 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-2 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-2 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-2 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-2 div.sk-item {position: relative;z-index: 1;}#sk-container-id-2 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-2 div.sk-item::before, #sk-container-id-2 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-2 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-2 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-2 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-2 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-2 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-2 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-2 div.sk-label-container {text-align: center;}#sk-container-id-2 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-2 div.sk-text-repr-fallback {display: none;}</style><div id="sk-container-id-2" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>RandomForestRegressor()</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-10" type="checkbox" checked><label for="sk-estimator-id-10" class="sk-toggleable__label sk-toggleable__label-arrow">RandomForestRegressor</label><div class="sk-toggleable__content"><pre>RandomForestRegressor()</pre></div></div></div></div></div>
 </div>
-<p>Retrieving the feature importances</p>
+<br />
+<br /><p>Retrieving the feature importances</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">importances</span></a> <span class="o">=</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestRegressor.html#sklearn.ensemble.RandomForestRegressor.feature_importances_" title="sklearn.ensemble.RandomForestRegressor.feature_importances_" class="sphx-glr-backref-module-sklearn-ensemble sphx-glr-backref-type-py-property"><span class="n">regressor</span><span class="o">.</span><span class="n">feature_importances_</span></a>
 <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">std</span></a> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.std.html#numpy.std" title="numpy.std" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">std</span></a><span class="p">(</span>
     <span class="p">[</span>
@@ -881,7 +896,7 @@ having a permanent, full-time job :)</p>
 automated by the <a class="reference internal" href="../generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SuperVectorizer</span></code></a>, and the resulting pipeline can still be
 inspected, even with non-normalized entries.</p>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 2 minutes  41.428 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 2 minutes  55.842 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-01-dirty-categories-py">
 <div class="binder-badge docutils container">
 <a class="reference external image-reference" href="https://mybinder.org/v2/gh/dirty-cat/dirty-cat.github.io/master?filepath=dev/auto_examples/01_dirty_categories.ipynb"><img alt="Launch binder" src="../_images/binder_badge_logo.svg" width="150px" /></a>

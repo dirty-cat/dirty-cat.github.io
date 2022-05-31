@@ -285,7 +285,7 @@
 <span class="sd">        Whether to raise an error or ignore if a unknown categorical feature is</span>
 <span class="sd">        present during transform (default is to ignore). When this parameter</span>
 <span class="sd">        is set to &#39;ignore&#39; and an unknown category is encountered during</span>
-<span class="sd">        transform, the resulting one-hot encoded columns for this feature</span>
+<span class="sd">        transform, the resulting encoded columns for this feature</span>
 <span class="sd">        will be all zeros. In the inverse transform, an unknown category</span>
 <span class="sd">        will be denoted as None.</span>
 <span class="sd">    handle_missing : &#39;error&#39; or &#39;&#39; (default)</span>
@@ -312,6 +312,8 @@
 <span class="sd">    categories_ : list of arrays</span>
 <span class="sd">        The categories of each feature determined during fitting</span>
 <span class="sd">        (in order corresponding with output of ``transform``).</span>
+<span class="sd">    _infrequent_enabled: bool, default=False</span>
+<span class="sd">        Avoid taking into account the existance of infrequent categories.</span>
 
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
@@ -481,6 +483,8 @@
 
         <span class="k">if</span> <span class="n">LooseVersion</span><span class="p">(</span><span class="n">sklearn</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">LooseVersion</span><span class="p">(</span><span class="s1">&#39;0.21&#39;</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">drop_idx_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_drop_idx</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">LooseVersion</span><span class="p">(</span><span class="n">sklearn</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">LooseVersion</span><span class="p">(</span><span class="s1">&#39;1.1.0&#39;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_infrequent_enabled</span> <span class="o">=</span> <span class="kc">False</span>
 
         <span class="k">return</span> <span class="bp">self</span></div>
 
@@ -616,7 +620,35 @@
         <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">out_row</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">out</span><span class="p">):</span>
             <span class="n">out_row</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">se_dict</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
 
-        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">nan_to_num</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">nan_to_num</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<div class="viewcode-block" id="SimilarityEncoder.fit_transform"><a class="viewcode-back" href="../../generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder.fit_transform">[docs]</a>    <span class="k">def</span> <span class="nf">fit_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">fit_params</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Fit SimilarityEncoder to data, then transform it.</span>
+<span class="sd">            Fits transformer to `X` and `y` with optional parameters</span>
+<span class="sd">            `fit_params` and returns a transformed version of `X`.</span>
+
+<span class="sd">            Parameters</span>
+<span class="sd">            ----------</span>
+<span class="sd">            X : array-like of shape (n_samples, n_features)</span>
+<span class="sd">                Input samples.</span>
+<span class="sd">            y :  array-like of shape (n_samples,) or (n_samples, n_outputs), \</span>
+<span class="sd">                    default=None</span>
+<span class="sd">                Target values (None for unsupervised transformations).</span>
+<span class="sd">            **fit_params : dict</span>
+<span class="sd">                Additional fit parameters.</span>
+
+<span class="sd">            Returns</span>
+<span class="sd">            -------</span>
+<span class="sd">            X_new : ndarray array of shape (n_samples, n_features_new)</span>
+<span class="sd">                Transformed array.</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="k">if</span> <span class="n">y</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="c1"># fit method of arity 1 (unsupervised transformation)</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="o">**</span><span class="n">fit_params</span><span class="p">)</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># fit method of arity 2 (supervised transformation)</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="o">**</span><span class="n">fit_params</span><span class="p">)</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span></div></div>
 </pre></div>
 
           </div>

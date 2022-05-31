@@ -145,7 +145,7 @@ strings and numeric values.</p></li>
 <li><p><strong>handle_unknown</strong> (<em>'error'</em><em> or </em><em>'ignore'</em><em> (</em><em>default</em><em>)</em>) – Whether to raise an error or ignore if a unknown categorical feature is
 present during transform (default is to ignore). When this parameter
 is set to ‘ignore’ and an unknown category is encountered during
-transform, the resulting one-hot encoded columns for this feature
+transform, the resulting encoded columns for this feature
 will be all zeros. In the inverse transform, an unknown category
 will be denoted as None.</p></li>
 <li><p><strong>handle_missing</strong> (<em>'error'</em><em> or </em><em>''</em><em> (</em><em>default</em><em>)</em>) – Whether to raise an error or impute with blank string ‘’ if missing
@@ -176,6 +176,17 @@ only if <code class="docutils literal notranslate"><span class="pre">fast=True</
 </dl>
 </dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dirty_cat.SimilarityEncoder._infrequent_enabled">
+<span class="sig-name descname"><span class="pre">_infrequent_enabled</span></span><a class="headerlink" href="#dirty_cat.SimilarityEncoder._infrequent_enabled" title="Permalink to this definition">¶</a></dt>
+<dd><p>Avoid taking into account the existance of infrequent categories.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)">bool</a>, default=False</p>
+</dd>
+</dl>
+</dd></dl>
+
 <p class="rubric">References</p>
 <p>For a detailed description of the method, see
 <a class="reference external" href="https://hal.inria.fr/hal-01806175">Similarity encoding for learning with dirty categorical variables</a> by Cerda, Varoquaux, Kegl. 2018
@@ -196,23 +207,23 @@ only if <code class="docutils literal notranslate"><span class="pre">fast=True</
 
 <dl class="py method">
 <dt class="sig sig-object py" id="dirty_cat.SimilarityEncoder.fit_transform">
-<span class="sig-name descname"><span class="pre">fit_transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dirty_cat.SimilarityEncoder.fit_transform" title="Permalink to this definition">¶</a></dt>
-<dd><p>Fit OneHotEncoder to X, then transform X.</p>
-<p>Equivalent to fit(X).transform(X) but more convenient.</p>
+<span class="sig-name descname"><span class="pre">fit_transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">fit_params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/similarity_encoder.html#SimilarityEncoder.fit_transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.SimilarityEncoder.fit_transform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fit SimilarityEncoder to data, then transform it.
+Fits transformer to <cite>X</cite> and <cite>y</cite> with optional parameters
+<cite>fit_params</cite> and returns a transformed version of <cite>X</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>X</strong> (<em>array-like of shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – The data to encode.</p></li>
-<li><p><strong>y</strong> (<em>None</em>) – Ignored. This parameter exists only for compatibility with
-<a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="(in scikit-learn v1.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a>.</p></li>
+<li><p><strong>X</strong> (<em>array-like of shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Input samples.</p></li>
+<li><p><strong>y</strong> (<em>array-like of shape</em><em> (</em><em>n_samples</em><em>,</em><em>) or </em><em>(</em><em>n_samples</em><em>, </em><em>n_outputs</em><em>)</em><em>,                     </em><em>default=None</em>) – Target values (None for unsupervised transformations).</p></li>
+<li><p><strong>**fit_params</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Additional fit parameters.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>X_out</strong> – Transformed input. If <cite>sparse=True</cite>, a sparse matrix will be
-returned.</p>
+<dd class="field-even"><p><strong>X_new</strong> – Transformed array.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>{ndarray, sparse matrix} of shape                 (n_samples, n_encoded_features)</p>
+<dd class="field-odd"><p>ndarray array of shape (n_samples, n_features_new)</p>
 </dd>
 </dl>
 </dd></dl>
@@ -223,7 +234,9 @@ returned.</p>
 <dd><p>DEPRECATED: get_feature_names is deprecated in 1.0 and will be removed in 1.2. Please use get_feature_names_out instead.</p>
 <p>Return feature names for output features.</p>
 <blockquote>
-<div><dl class="simple">
+<div><p>For a given input feature, if there is an infrequent category, the most
+‘infrequent_sklearn’ will be used as a feature name.</p>
+<dl class="simple">
 <dt>input_features<span class="classifier">list of str of shape (n_features,)</span></dt><dd><p>String names for input features if available. By default,
 “x0”, “x1”, … “xn_features” is used.</p>
 </dd>
@@ -245,7 +258,8 @@ returned.</p>
 <ul class="simple">
 <li><p>If <cite>input_features</cite> is <cite>None</cite>, then <cite>feature_names_in_</cite> is
 used as feature names in. If <cite>feature_names_in_</cite> is not defined,
-then names are generated: <cite>[x0, x1, …, x(n_features_in_)]</cite>.</p></li>
+then the following input feature names are generated:
+<cite>[“x0”, “x1”, …, “x(n_features_in_ - 1)”]</cite>.</p></li>
 <li><p>If <cite>input_features</cite> is an array-like, then <cite>input_features</cite> must
 match <cite>feature_names_in_</cite> if <cite>feature_names_in_</cite> is defined.</p></li>
 </ul>
@@ -291,6 +305,12 @@ contained subobjects that are estimators.</p>
 </dl>
 </dd></dl>
 
+<dl class="py property">
+<dt class="sig sig-object py" id="dirty_cat.SimilarityEncoder.infrequent_categories_">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">infrequent_categories_</span></span><a class="headerlink" href="#dirty_cat.SimilarityEncoder.infrequent_categories_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Infrequent categories for each feature.</p>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="dirty_cat.SimilarityEncoder.inverse_transform">
 <span class="sig-name descname"><span class="pre">inverse_transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dirty_cat.SimilarityEncoder.inverse_transform" title="Permalink to this definition">¶</a></dt>
@@ -299,6 +319,8 @@ contained subobjects that are estimators.</p>
 one-hot encoding), <code class="docutils literal notranslate"><span class="pre">None</span></code> is used to represent this category. If the
 feature with the unknown category has a dropped category, the dropped
 category will be its inverse.</p>
+<p>For a given input feature, if there is an infrequent category,
+‘infrequent_sklearn’ will be used to represent the infrequent category.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>X</strong> (<em>{array-like</em><em>, </em><em>sparse matrix} of shape</em><em>                 (</em><em>n_samples</em><em>, </em><em>n_encoded_features</em><em>)</em>) – The transformed data.</p>
@@ -317,7 +339,7 @@ category will be its inverse.</p>
 <span class="sig-name descname"><span class="pre">set_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dirty_cat.SimilarityEncoder.set_params" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set the parameters of this estimator.</p>
 <p>The method works on simple estimators as well as on nested objects
-(such as <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="(in scikit-learn v1.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a>). The latter have
+(such as <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="(in scikit-learn v1.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a>). The latter have
 parameters of the form <code class="docutils literal notranslate"><span class="pre">&lt;component&gt;__&lt;parameter&gt;</span></code> so that it’s
 possible to update each component of a nested object.</p>
 <dl class="field-list simple">
