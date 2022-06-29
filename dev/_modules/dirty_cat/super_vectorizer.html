@@ -545,7 +545,10 @@
             <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">trans</span><span class="p">,</span> <span class="s1">&#39;get_feature_names&#39;</span><span class="p">):</span>
                 <span class="n">all_trans_feature_names</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">cols</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">trans_feature_names</span> <span class="o">=</span> <span class="n">trans</span><span class="o">.</span><span class="n">get_feature_names</span><span class="p">(</span><span class="n">cols</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">_sklearn_loose_version</span> <span class="o">&lt;</span> <span class="n">LooseVersion</span><span class="p">(</span><span class="s1">&#39;1.0&#39;</span><span class="p">):</span>
+                    <span class="n">trans_feature_names</span> <span class="o">=</span> <span class="n">trans</span><span class="o">.</span><span class="n">get_feature_names</span><span class="p">(</span><span class="n">cols</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">trans_feature_names</span> <span class="o">=</span> <span class="n">trans</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">(</span><span class="n">cols</span><span class="p">)</span>
                 <span class="n">all_trans_feature_names</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">trans_feature_names</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ct_feature_names</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">all_trans_feature_names</span><span class="p">):</span>
