@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-<meta property="og:title" content="Release 0.2.2" />
+<meta property="og:title" content="Release 0.3.0" />
   
 <meta property="og:type" content="website" />
   
@@ -14,13 +14,13 @@
   
 <meta property="og:site_name" content="Dirty cat" />
   
-<meta property="og:description" content="Bug-fixes: Fixed a bug in the SuperVectorizer causing a FutureWarning when using the get_feature_names_out method.. Release 0.2.1: Major changes: Improvements to the SuperVectorizer- Type detection..." />
+<meta property="og:description" content="Notes: The transformers_ attribute of the SuperVectorizer now contains column names. instead of column indices for the “remainder” columns. Release 0.2.2: Bug-fixes: Fixed a bug in the SuperVectori..." />
   
 <meta property="og:image" content="https://dirty-cat.github.io/stable/_static/dirty_cat.svg" />
   
 <meta property="og:image:alt" content="Dirty cat" />
   
-    <title>Release 0.2.2 &#8212; &amp;mdash; Dirty cat</title>
+    <title>Release 0.3.0 &#8212; &amp;mdash; Dirty cat</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
     <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css" />
@@ -75,34 +75,38 @@
 </ul>
   <h3 class="this-page"><a href="index.html">This page</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Release 0.2.2</a><ul>
+<li><a class="reference internal" href="#">Release 0.3.0</a><ul>
+<li><a class="reference internal" href="#notes">Notes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#release-0-2-2">Release 0.2.2</a><ul>
 <li><a class="reference internal" href="#bug-fixes">Bug-fixes</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#release-0-2-1">Release 0.2.1</a><ul>
 <li><a class="reference internal" href="#major-changes">Major changes</a></li>
 <li><a class="reference internal" href="#id1">Bug-fixes</a></li>
-<li><a class="reference internal" href="#notes">Notes</a></li>
+<li><a class="reference internal" href="#id2">Notes</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#release-0-2-0">Release 0.2.0</a><ul>
-<li><a class="reference internal" href="#id2">Major changes</a></li>
-<li><a class="reference internal" href="#id3">Notes</a></li>
+<li><a class="reference internal" href="#id3">Major changes</a></li>
+<li><a class="reference internal" href="#id4">Notes</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#release-0-2-0a1">Release 0.2.0a1</a><ul>
-<li><a class="reference internal" href="#id4">Major changes</a></li>
-<li><a class="reference internal" href="#id5">Bug-fixes</a></li>
+<li><a class="reference internal" href="#id5">Major changes</a></li>
+<li><a class="reference internal" href="#id6">Bug-fixes</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#release-0-1-1">Release 0.1.1</a><ul>
-<li><a class="reference internal" href="#id6">Major changes</a></li>
-<li><a class="reference internal" href="#id7">Bug-fixes</a></li>
+<li><a class="reference internal" href="#id7">Major changes</a></li>
+<li><a class="reference internal" href="#id8">Bug-fixes</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#release-0-1-0">Release 0.1.0</a><ul>
-<li><a class="reference internal" href="#id8">Major changes</a></li>
-<li><a class="reference internal" href="#id9">Bug-fixes</a></li>
+<li><a class="reference internal" href="#id9">Major changes</a></li>
+<li><a class="reference internal" href="#id10">Bug-fixes</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#release-0-0-7">Release 0.0.7</a></li>
@@ -124,7 +128,17 @@
 
           <div class="body" role="main">
             
-  <section id="release-0-2-2">
+  <section id="release-0-3-0">
+<h1>Release 0.3.0<a class="headerlink" href="#release-0-3-0" title="Permalink to this headline">¶</a></h1>
+<section id="notes">
+<h2>Notes<a class="headerlink" href="#notes" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>The <a href="#id11"><span class="problematic" id="id12">transformers_</span></a> attribute of the SuperVectorizer now contains column names</p></li>
+</ul>
+<p>instead of column indices for the “remainder” columns.</p>
+</section>
+</section>
+<section id="release-0-2-2">
 <h1>Release 0.2.2<a class="headerlink" href="#release-0-2-2" title="Permalink to this headline">¶</a></h1>
 <section id="bug-fixes">
 <h2>Bug-fixes<a class="headerlink" href="#bug-fixes" title="Permalink to this headline">¶</a></h2>
@@ -172,8 +186,8 @@ on multiple columns.</p>
 <li><p>GapEncoder’s <cite>get_feature_names_out</cite> now accepts all iterators, not just lists.</p></li>
 </ul>
 </section>
-<section id="notes">
-<h2>Notes<a class="headerlink" href="#notes" title="Permalink to this headline">¶</a></h2>
+<section id="id2">
+<h2>Notes<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Remove trailing imports in the MinHashEncoder.</p></li>
 <li><p>Fix typos and update links for website.</p></li>
@@ -184,8 +198,8 @@ on multiple columns.</p>
 <section id="release-0-2-0">
 <h1>Release 0.2.0<a class="headerlink" href="#release-0-2-0" title="Permalink to this headline">¶</a></h1>
 <p>Also see pre-release 0.2.0a1 below for additional changes.</p>
-<section id="id2">
-<h2>Major changes<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<section id="id3">
+<h2>Major changes<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Bump minimum dependencies:</p>
 <ul>
@@ -214,8 +228,8 @@ only supports two dimensional inputs of shape (N_samples, 1).</p></li>
 since “get_feature_names” will be depreciated in scikit-learn 1.2 (#216).</p></li>
 </ul>
 </section>
-<section id="id3">
-<h2>Notes<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<section id="id4">
+<h2>Notes<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Removed hard-coded CSV file <cite>dirty_cat/data/FiveThirtyEight_Midwest_Survey.csv</cite>.</p></li>
 <li><p>Improvements to the SuperVectorizer</p>
@@ -239,8 +253,8 @@ To try it, you have to install it manually using:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">git</span><span class="o">+</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">dirty</span><span class="o">-</span><span class="n">cat</span><span class="o">/</span><span class="n">dirty_cat</span><span class="o">.</span><span class="n">git</span>
 </pre></div>
 </div>
-<section id="id4">
-<h2>Major changes<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<section id="id5">
+<h2>Major changes<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Bump minimum dependencies:</p>
 <ul>
@@ -261,8 +275,8 @@ Internally, features are encoded by independent GapEncoder models,
 and are then concatenated into a single matrix.</p></li>
 </ul>
 </section>
-<section id="id5">
-<h2>Bug-fixes<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<section id="id6">
+<h2>Bug-fixes<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Fix get_feature_names for scikit-learn &gt; 0.21</p></li>
 </ul>
@@ -270,11 +284,11 @@ and are then concatenated into a single matrix.</p></li>
 </section>
 <section id="release-0-1-1">
 <h1>Release 0.1.1<a class="headerlink" href="#release-0-1-1" title="Permalink to this headline">¶</a></h1>
-<section id="id6">
-<h2>Major changes<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
-</section>
 <section id="id7">
-<h2>Bug-fixes<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<h2>Major changes<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id8">
+<h2>Bug-fixes<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>RuntimeWarnings due to overflow in GapEncoder (#161)</p></li>
 </ul>
@@ -282,8 +296,8 @@ and are then concatenated into a single matrix.</p></li>
 </section>
 <section id="release-0-1-0">
 <h1>Release 0.1.0<a class="headerlink" href="#release-0-1-0" title="Permalink to this headline">¶</a></h1>
-<section id="id8">
-<h2>Major changes<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<section id="id9">
+<h2>Major changes<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p><strong>GapEncoder</strong>: Added online Gamma-Poisson factorization through the
 <code class="xref py py-class docutils literal notranslate"><span class="pre">GapEncoder</span></code> class. This method discovers latent categories formed
@@ -291,8 +305,8 @@ via combinations of substrings, and encodes string data as combinations of
 these categories. To be used if interpretability is important.</p></li>
 </ul>
 </section>
-<section id="id9">
-<h2>Bug-fixes<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<section id="id10">
+<h2>Bug-fixes<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Multiprocessing exception in notebook (#154)</p></li>
 </ul>

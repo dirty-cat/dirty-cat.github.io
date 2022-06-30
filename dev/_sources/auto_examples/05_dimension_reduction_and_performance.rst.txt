@@ -263,7 +263,7 @@ one-hot encoding and similarity encoding
 
  .. code-block:: none
 
-    Time to vectorize: 0.2948486804962158
+    Time to vectorize: 0.2894108295440674
 
 
 
@@ -295,7 +295,7 @@ We can run a cross-validation
 
  .. code-block:: none
 
-    Run time: 2s    Memory used: 12Mb
+    Run time: 1s    Memory used: 12Mb
     Cross-validation score: [0.98513011 0.98884758 0.96641791 0.98134328 0.98880597]
 
 
@@ -443,7 +443,7 @@ Check now that prediction is still as good
 
  .. code-block:: none
 
-    Run time: 4s    Memory used: 8Mb
+    Run time: 5s    Memory used: 8Mb
     Cross-validation score: [0.98884758 0.99256506 0.97014925 0.98507463 0.98880597]
 
 
@@ -534,7 +534,7 @@ Plot a summary figure
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  15.680 seconds)
+   **Total running time of the script:** ( 0 minutes  15.787 seconds)
 
 
 .. _sphx_glr_download_auto_examples_05_dimension_reduction_and_performance.py:

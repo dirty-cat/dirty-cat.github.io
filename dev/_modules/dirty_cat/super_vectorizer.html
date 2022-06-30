@@ -504,7 +504,17 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;[SuperVectorizer] Assigned transformers: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">transformers</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span></div>
+        <span class="n">res</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+        <span class="c1"># for the &quot;remainder&quot; columns, the ColumnTransformer transformers_ attribute</span>
+        <span class="c1"># contains the index instead of the column name, so we convert it to the column name</span>
+        <span class="c1"># if there is less than 20 columns in the remainder.</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">tup</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">transformers_</span><span class="p">):</span>
+            <span class="n">name</span><span class="p">,</span> <span class="n">enc</span><span class="p">,</span> <span class="n">cols</span> <span class="o">=</span> <span class="n">tup</span>  <span class="c1"># Unpack</span>
+            <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;remainder&quot;</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">cols</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">transformers_</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">enc</span><span class="p">,</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">columns_</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">cols</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="n">res</span></div>
 
 <div class="viewcode-block" id="SuperVectorizer.get_feature_names_out"><a class="viewcode-back" href="../../generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer.get_feature_names_out">[docs]</a>    <span class="k">def</span> <span class="nf">get_feature_names_out</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_features</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
