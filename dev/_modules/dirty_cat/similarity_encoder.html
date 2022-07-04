@@ -92,7 +92,6 @@
 <span class="kn">import</span> <span class="nn">warnings</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">distutils.version</span> <span class="kn">import</span> <span class="n">LooseVersion</span>
 <span class="kn">from</span> <span class="nn">joblib</span> <span class="kn">import</span> <span class="n">Parallel</span><span class="p">,</span> <span class="n">delayed</span>
 <span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">sparse</span>
 <span class="kn">import</span> <span class="nn">sklearn</span>
@@ -103,6 +102,7 @@
 <span class="kn">from</span> <span class="nn">sklearn.utils</span> <span class="kn">import</span> <span class="n">check_random_state</span>
 <span class="kn">from</span> <span class="nn">sklearn.utils.fixes</span> <span class="kn">import</span> <span class="n">_object_dtype_isnan</span>
 
+<span class="kn">from</span> <span class="nn">dirty_cat.utils</span> <span class="kn">import</span> <span class="n">Version</span>
 <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">string_distances</span>
 <span class="kn">from</span> <span class="nn">.string_distances</span> <span class="kn">import</span> <span class="n">get_ngram_count</span><span class="p">,</span> <span class="n">preprocess</span>
 
@@ -477,7 +477,7 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">vocabulary_ngram_counts_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vocabulary_ngram_count</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">drop_idx_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_drop_idx</span><span class="p">()</span>
-        <span class="k">if</span> <span class="n">LooseVersion</span><span class="p">(</span><span class="n">sklearn</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">LooseVersion</span><span class="p">(</span><span class="s1">&#39;1.1.0&#39;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">Version</span><span class="p">(</span><span class="n">sklearn</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">Version</span><span class="p">(</span><span class="s1">&#39;1.1.0&#39;</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_infrequent_enabled</span> <span class="o">=</span> <span class="kc">False</span>
 
         <span class="k">return</span> <span class="bp">self</span></div>
