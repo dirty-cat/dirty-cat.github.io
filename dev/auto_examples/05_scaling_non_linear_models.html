@@ -10,7 +10,7 @@
   
 <meta property="og:type" content="website" />
   
-<meta property="og:url" content="https://dirty-cat.github.io/stable/auto_examples/04_scaling_non_linear_models.html" />
+<meta property="og:url" content="https://dirty-cat.github.io/stable/auto_examples/05_scaling_non_linear_models.html" />
   
 <meta property="og:site_name" content="Dirty cat" />
   
@@ -35,8 +35,8 @@
     <script src="../_static/scrolltoc.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Scalability considerations for similarity encoding" href="05_dimension_reduction_and_performance.html" />
-    <link rel="prev" title="Feature interpretation with the GapEncoder" href="03_feature_interpretation_gap_encoder.html" />
+    <link rel="next" title="Scalability considerations for similarity encoding" href="06_dimension_reduction_and_performance.html" />
+    <link rel="prev" title="Handling datetime features with the DatetimeEncoder" href="04_datetime_encoder.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
@@ -94,8 +94,8 @@
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="03_feature_interpretation_gap_encoder.html" title="previous chapter">Feature interpretation with the GapEncoder</a></li>
-      <li>Next: <a href="05_dimension_reduction_and_performance.html" title="next chapter">Scalability considerations for similarity encoding</a></li>
+      <li>Previous: <a href="04_datetime_encoder.html" title="previous chapter">Handling datetime features with the DatetimeEncoder</a></li>
+      <li>Next: <a href="06_dimension_reduction_and_performance.html" title="next chapter">Scalability considerations for similarity encoding</a></li>
   </ul></li>
 </ul>
 </div>
@@ -109,11 +109,11 @@
             
   <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-04-scaling-non-linear-models-py"><span class="std std-ref">here</span></a>
+<p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-05-scaling-non-linear-models-py"><span class="std std-ref">here</span></a>
 to download the full example code or to run this example in your browser via Binder</p>
 </div>
 <section class="sphx-glr-example-title" id="fitting-scalable-non-linear-models-on-data-with-dirty-categories">
-<span id="sphx-glr-auto-examples-04-scaling-non-linear-models-py"></span><h1>Fitting scalable, non-linear models on data with dirty categories<a class="headerlink" href="#fitting-scalable-non-linear-models-on-data-with-dirty-categories" title="Permalink to this headline">¶</a></h1>
+<span id="sphx-glr-auto-examples-05-scaling-non-linear-models-py"></span><h1>Fitting scalable, non-linear models on data with dirty categories<a class="headerlink" href="#fitting-scalable-non-linear-models-on-data-with-dirty-categories" title="Permalink to this headline">¶</a></h1>
 <p>A very classic dilemma when training a machine learning model consists in
 choosing between using a linear model or a non-linear one.</p>
 <p>Linear models are very well studied and understood. They are generally fast
@@ -177,9 +177,7 @@ its use-cases.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/circleci/project/dirty_cat/datasets/fetching.py:105: UserWarning: Could not find the dataset 43044 locally. Downloading it from OpenML; this might take a while... If it is interrupted, some files might be invalid/incomplete: if on the following run, the fetching raises errors, you can try fixing this issue by deleting the directory PosixPath(&#39;/home/circleci/project/dirty_cat/datasets/data&#39;).
-  warnings.warn(
-Product listing data submitted to the U.S. FDA for all unfinished, unapproved drugs.
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Product listing data submitted to the U.S. FDA for all unfinished, unapproved drugs.
 </pre></div>
 </div>
 <div class="topic">
@@ -384,8 +382,8 @@ sample size varies.</p>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>using   500 samples: model fitting took 0.2s, test accuracy of 0.501
-using  1666 samples: model fitting took 3.8s, test accuracy of 0.505
-using  5000 samples: model fitting took 55.7s, test accuracy of 0.563
+using  1666 samples: model fitting took 3.5s, test accuracy of 0.505
+using  5000 samples: model fitting took 53.4s, test accuracy of 0.563
 </pre></div>
 </div>
 <p>Increasing training size clearly improves model accuracy. However, the
@@ -606,7 +604,7 @@ visited samples for each model as we increase our time budget:</p>
 <a href="https://matplotlib.org/stable/api/figure_api.html#matplotlib.figure.Figure.suptitle" title="matplotlib.figure.Figure.suptitle" class="sphx-glr-backref-module-matplotlib-figure sphx-glr-backref-type-py-method"><span class="n">f</span><span class="o">.</span><span class="n">suptitle</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">title</span></a><span class="p">)</span>
 </pre></div>
 </div>
-<img src="../_images/sphx_glr_04_scaling_non_linear_models_001.png" srcset="../_images/sphx_glr_04_scaling_non_linear_models_001.png" alt="Test set accuracy and number of samples visited samples seen by the SGDClassifier" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
+<img src="../_images/sphx_glr_05_scaling_non_linear_models_001.png" srcset="../_images/sphx_glr_05_scaling_non_linear_models_001.png" alt="Test set accuracy and number of samples visited samples seen by the SGDClassifier" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Text(0.5, 0.98, &#39;Test set accuracy and number of samples visited\nsamples seen by the SGDClassifier&#39;)
 </pre></div>
 </div>
@@ -641,16 +639,16 @@ trivial task at the beginning of this example!</p>
 <dd><p><a class="reference external" href="https://pdfs.semanticscholar.org/0373/e7289a1978108d6455218160a529c85842c0.pdf">Introduction to duality</a></p>
 </dd>
 </dl>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 4 minutes  34.486 seconds)</p>
-<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-04-scaling-non-linear-models-py">
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 4 minutes  32.156 seconds)</p>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-05-scaling-non-linear-models-py">
 <div class="binder-badge docutils container">
-<a class="reference external image-reference" href="https://mybinder.org/v2/gh/dirty-cat/dirty-cat.github.io/master?filepath=dev/auto_examples/04_scaling_non_linear_models.ipynb"><img alt="Launch binder" src="../_images/binder_badge_logo.svg" width="150px" /></a>
+<a class="reference external image-reference" href="https://mybinder.org/v2/gh/dirty-cat/dirty-cat.github.io/master?filepath=dev/auto_examples/05_scaling_non_linear_models.ipynb"><img alt="Launch binder" src="../_images/binder_badge_logo.svg" width="150px" /></a>
 </div>
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
-<p><a class="reference download internal" download="" href="../_downloads/18f675486cc4fac8e7baeab44c5f3686/04_scaling_non_linear_models.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">04_scaling_non_linear_models.py</span></code></a></p>
+<p><a class="reference download internal" download="" href="../_downloads/b26bea2af540968a7bfefdf0b57e1577/05_scaling_non_linear_models.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">05_scaling_non_linear_models.py</span></code></a></p>
 </div>
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
-<p><a class="reference download internal" download="" href="../_downloads/0e38c347edd6b807fd8549235948f1d1/04_scaling_non_linear_models.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">04_scaling_non_linear_models.ipynb</span></code></a></p>
+<p><a class="reference download internal" download="" href="../_downloads/74f29e0944ce7f97147999e953dbc25d/05_scaling_non_linear_models.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">05_scaling_non_linear_models.ipynb</span></code></a></p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
@@ -668,7 +666,7 @@ trivial task at the beginning of this example!</p>
       &copy;2018-2021, dirty_cat developers.
       
       |
-      <a href="../_sources/auto_examples/04_scaling_non_linear_models.rst.txt"
+      <a href="../_sources/auto_examples/05_scaling_non_linear_models.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 

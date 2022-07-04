@@ -10,7 +10,7 @@
   
 <meta property="og:type" content="website" />
   
-<meta property="og:url" content="https://dirty-cat.github.io/stable/auto_examples/05_dimension_reduction_and_performance.html" />
+<meta property="og:url" content="https://dirty-cat.github.io/stable/auto_examples/06_dimension_reduction_and_performance.html" />
   
 <meta property="og:site_name" content="Dirty cat" />
   
@@ -34,8 +34,8 @@
     <script src="../_static/scrolltoc.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Handling datetime features with the DatetimeEncoder" href="06_datetime_encoder.html" />
-    <link rel="prev" title="Fitting scalable, non-linear models on data with dirty categories" href="04_scaling_non_linear_models.html" />
+    <link rel="next" title="dirty_cat.SuperVectorizer" href="../generated/dirty_cat.SuperVectorizer.html" />
+    <link rel="prev" title="Fitting scalable, non-linear models on data with dirty categories" href="05_scaling_non_linear_models.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
@@ -91,8 +91,8 @@
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="04_scaling_non_linear_models.html" title="previous chapter">Fitting scalable, non-linear models on data with dirty categories</a></li>
-      <li>Next: <a href="06_datetime_encoder.html" title="next chapter">Handling datetime features with the DatetimeEncoder</a></li>
+      <li>Previous: <a href="05_scaling_non_linear_models.html" title="previous chapter">Fitting scalable, non-linear models on data with dirty categories</a></li>
+      <li>Next: <a href="../generated/dirty_cat.SuperVectorizer.html" title="next chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat</span></code>.SuperVectorizer</a></li>
   </ul></li>
 </ul>
 </div>
@@ -106,11 +106,11 @@
             
   <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-05-dimension-reduction-and-performance-py"><span class="std std-ref">here</span></a>
+<p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-06-dimension-reduction-and-performance-py"><span class="std std-ref">here</span></a>
 to download the full example code or to run this example in your browser via Binder</p>
 </div>
 <section class="sphx-glr-example-title" id="scalability-considerations-for-similarity-encoding">
-<span id="sphx-glr-auto-examples-05-dimension-reduction-and-performance-py"></span><h1>Scalability considerations for similarity encoding<a class="headerlink" href="#scalability-considerations-for-similarity-encoding" title="Permalink to this headline">¶</a></h1>
+<span id="sphx-glr-auto-examples-06-dimension-reduction-and-performance-py"></span><h1>Scalability considerations for similarity encoding<a class="headerlink" href="#scalability-considerations-for-similarity-encoding" title="Permalink to this headline">¶</a></h1>
 <p>Here we discuss how to apply efficiently SimilarityEncoder to larger
 datasets: reducing the number of reference categories to “prototypes”,
 either chosen as the most frequent categories, or with kmeans clustering.</p>
@@ -189,9 +189,7 @@ usage and compute time of a function</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/circleci/project/dirty_cat/datasets/fetching.py:105: UserWarning: Could not find the dataset 42738 locally. Downloading it from OpenML; this might take a while... If it is interrupted, some files might be invalid/incomplete: if on the following run, the fetching raises errors, you can try fixing this issue by deleting the directory PosixPath(&#39;/home/circleci/project/dirty_cat/datasets/data&#39;).
-  warnings.warn(
-Payments given by healthcare manufacturing companies to medical doctors or hospitals
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Payments given by healthcare manufacturing companies to medical doctors or hospitals
 </pre></div>
 </div>
 <p>We will use SimilarityEncoder on the the two dirty columns defined above.
@@ -260,7 +258,7 @@ one-hot encoding and similarity encoding</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Time to vectorize: 0.28435826301574707
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Time to vectorize: 0.282055139541626
 </pre></div>
 </div>
 <p>We can run a cross-validation</p>
@@ -275,7 +273,7 @@ one-hot encoding and similarity encoding</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Run time: 2s    Memory used: 12Mb
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Run time: 1s    Memory used: 12Mb
 Cross-validation score: [0.98513011 0.98884758 0.96641791 0.98134328 0.98880597]
 </pre></div>
 </div>
@@ -363,43 +361,16 @@ Cross-validation score: [0.98884758 0.99256506 0.97014925 0.98507463 0.98880597]
 <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.tight_layout.html#matplotlib.pyplot.tight_layout" title="matplotlib.pyplot.tight_layout" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../_images/sphx_glr_05_dimension_reduction_and_performance_001.png" srcset="../_images/sphx_glr_05_dimension_reduction_and_performance_001.png" alt="05 dimension reduction and performance" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/seaborn/cm.py:1582: UserWarning: Trying to register the cmap &#39;rocket&#39; which already exists.
-  mpl_cm.register_cmap(_name, _cmap)
-/home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/seaborn/cm.py:1583: UserWarning: Trying to register the cmap &#39;rocket_r&#39; which already exists.
-  mpl_cm.register_cmap(_name + &quot;_r&quot;, _cmap_r)
-/home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/seaborn/cm.py:1582: UserWarning: Trying to register the cmap &#39;mako&#39; which already exists.
-  mpl_cm.register_cmap(_name, _cmap)
-/home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/seaborn/cm.py:1583: UserWarning: Trying to register the cmap &#39;mako_r&#39; which already exists.
-  mpl_cm.register_cmap(_name + &quot;_r&quot;, _cmap_r)
-/home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/seaborn/cm.py:1582: UserWarning: Trying to register the cmap &#39;icefire&#39; which already exists.
-  mpl_cm.register_cmap(_name, _cmap)
-/home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/seaborn/cm.py:1583: UserWarning: Trying to register the cmap &#39;icefire_r&#39; which already exists.
-  mpl_cm.register_cmap(_name + &quot;_r&quot;, _cmap_r)
-/home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/seaborn/cm.py:1582: UserWarning: Trying to register the cmap &#39;vlag&#39; which already exists.
-  mpl_cm.register_cmap(_name, _cmap)
-/home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/seaborn/cm.py:1583: UserWarning: Trying to register the cmap &#39;vlag_r&#39; which already exists.
-  mpl_cm.register_cmap(_name + &quot;_r&quot;, _cmap_r)
-/home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/seaborn/cm.py:1582: UserWarning: Trying to register the cmap &#39;flare&#39; which already exists.
-  mpl_cm.register_cmap(_name, _cmap)
-/home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/seaborn/cm.py:1583: UserWarning: Trying to register the cmap &#39;flare_r&#39; which already exists.
-  mpl_cm.register_cmap(_name + &quot;_r&quot;, _cmap_r)
-/home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/seaborn/cm.py:1582: UserWarning: Trying to register the cmap &#39;crest&#39; which already exists.
-  mpl_cm.register_cmap(_name, _cmap)
-/home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/seaborn/cm.py:1583: UserWarning: Trying to register the cmap &#39;crest_r&#39; which already exists.
-  mpl_cm.register_cmap(_name + &quot;_r&quot;, _cmap_r)
-</pre></div>
-</div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  15.489 seconds)</p>
-<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-05-dimension-reduction-and-performance-py">
+<img src="../_images/sphx_glr_06_dimension_reduction_and_performance_001.png" srcset="../_images/sphx_glr_06_dimension_reduction_and_performance_001.png" alt="06 dimension reduction and performance" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  14.943 seconds)</p>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-06-dimension-reduction-and-performance-py">
 <div class="binder-badge docutils container">
-<a class="reference external image-reference" href="https://mybinder.org/v2/gh/dirty-cat/dirty-cat.github.io/master?filepath=dev/auto_examples/05_dimension_reduction_and_performance.ipynb"><img alt="Launch binder" src="../_images/binder_badge_logo.svg" width="150px" /></a>
+<a class="reference external image-reference" href="https://mybinder.org/v2/gh/dirty-cat/dirty-cat.github.io/master?filepath=dev/auto_examples/06_dimension_reduction_and_performance.ipynb"><img alt="Launch binder" src="../_images/binder_badge_logo.svg" width="150px" /></a>
 </div>
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
-<p><a class="reference download internal" download="" href="../_downloads/04b2045abf8727543c72d925d6000a6c/05_dimension_reduction_and_performance.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">05_dimension_reduction_and_performance.py</span></code></a></p>
+<p><a class="reference download internal" download="" href="../_downloads/affdfa676c82de7bd5e64259b2cebdf1/06_dimension_reduction_and_performance.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">06_dimension_reduction_and_performance.py</span></code></a></p>
 </div>
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
-<p><a class="reference download internal" download="" href="../_downloads/dab2681b3509c3b23da5b3894ee42a14/05_dimension_reduction_and_performance.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">05_dimension_reduction_and_performance.ipynb</span></code></a></p>
+<p><a class="reference download internal" download="" href="../_downloads/5c67e9a3fcdb106fa2ec0cf9afc85978/06_dimension_reduction_and_performance.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">06_dimension_reduction_and_performance.ipynb</span></code></a></p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
@@ -417,7 +388,7 @@ Cross-validation score: [0.98884758 0.99256506 0.97014925 0.98507463 0.98880597]
       &copy;2018-2021, dirty_cat developers.
       
       |
-      <a href="../_sources/auto_examples/05_dimension_reduction_and_performance.rst.txt"
+      <a href="../_sources/auto_examples/06_dimension_reduction_and_performance.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 

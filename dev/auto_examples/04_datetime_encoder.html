@@ -10,7 +10,7 @@
   
 <meta property="og:type" content="website" />
   
-<meta property="og:url" content="https://dirty-cat.github.io/stable/auto_examples/06_datetime_encoder.html" />
+<meta property="og:url" content="https://dirty-cat.github.io/stable/auto_examples/04_datetime_encoder.html" />
   
 <meta property="og:site_name" content="Dirty cat" />
   
@@ -34,8 +34,8 @@
     <script src="../_static/scrolltoc.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="dirty_cat.SuperVectorizer" href="../generated/dirty_cat.SuperVectorizer.html" />
-    <link rel="prev" title="Scalability considerations for similarity encoding" href="05_dimension_reduction_and_performance.html" />
+    <link rel="next" title="Fitting scalable, non-linear models on data with dirty categories" href="05_scaling_non_linear_models.html" />
+    <link rel="prev" title="Feature interpretation with the GapEncoder" href="03_feature_interpretation_gap_encoder.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
@@ -97,8 +97,8 @@
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="05_dimension_reduction_and_performance.html" title="previous chapter">Scalability considerations for similarity encoding</a></li>
-      <li>Next: <a href="../generated/dirty_cat.SuperVectorizer.html" title="next chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat</span></code>.SuperVectorizer</a></li>
+      <li>Previous: <a href="03_feature_interpretation_gap_encoder.html" title="previous chapter">Feature interpretation with the GapEncoder</a></li>
+      <li>Next: <a href="05_scaling_non_linear_models.html" title="next chapter">Fitting scalable, non-linear models on data with dirty categories</a></li>
   </ul></li>
 </ul>
 </div>
@@ -112,11 +112,11 @@
             
   <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-06-datetime-encoder-py"><span class="std std-ref">here</span></a>
+<p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-04-datetime-encoder-py"><span class="std std-ref">here</span></a>
 to download the full example code or to run this example in your browser via Binder</p>
 </div>
 <section class="sphx-glr-example-title" id="handling-datetime-features-with-the-datetimeencoder">
-<span id="sphx-glr-auto-examples-06-datetime-encoder-py"></span><h1>Handling datetime features with the DatetimeEncoder<a class="headerlink" href="#handling-datetime-features-with-the-datetimeencoder" title="Permalink to this headline">¶</a></h1>
+<span id="sphx-glr-auto-examples-04-datetime-encoder-py"></span><h1>Handling datetime features with the DatetimeEncoder<a class="headerlink" href="#handling-datetime-features-with-the-datetimeencoder" title="Permalink to this headline">¶</a></h1>
 <p>We illustrate here how to handle datetime features with the
 DatetimeEncoder.</p>
 <p>The DatetimeEncoder breaks down each datetime features into several
@@ -389,7 +389,7 @@ visually the prediction of our model with the actual values.</p>
 <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.show.html#matplotlib.pyplot.show" title="matplotlib.pyplot.show" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../_images/sphx_glr_06_datetime_encoder_001.png" srcset="../_images/sphx_glr_06_datetime_encoder_001.png" alt="Paris, London, Antwerpen" class = "sphx-glr-single-img"/><p>Let’s zoom on a few days</p>
+<img src="../_images/sphx_glr_04_datetime_encoder_001.png" srcset="../_images/sphx_glr_04_datetime_encoder_001.png" alt="Paris, London, Antwerpen" class = "sphx-glr-single-img"/><p>Let’s zoom on a few days</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_zoomed</span></a> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X</span></a><span class="p">[</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X</span></a><span class="p">[</span><span class="s2">&quot;date.utc&quot;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="s2">&quot;2019-06-04&quot;</span><span class="p">][</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X</span></a><span class="p">[</span><span class="s2">&quot;date.utc&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="s2">&quot;2019-06-01&quot;</span><span class="p">]</span>
 <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_zoomed</span></a> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a><span class="p">[</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X</span></a><span class="p">[</span><span class="s2">&quot;date.utc&quot;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="s2">&quot;2019-06-04&quot;</span><span class="p">][</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X</span></a><span class="p">[</span><span class="s2">&quot;date.utc&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="s2">&quot;2019-06-01&quot;</span><span class="p">]</span>
 
@@ -417,7 +417,7 @@ visually the prediction of our model with the actual values.</p>
 <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.show.html#matplotlib.pyplot.show" title="matplotlib.pyplot.show" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../_images/sphx_glr_06_datetime_encoder_002.png" srcset="../_images/sphx_glr_06_datetime_encoder_002.png" alt="London, Paris" class = "sphx-glr-single-img"/></section>
+<img src="../_images/sphx_glr_04_datetime_encoder_002.png" srcset="../_images/sphx_glr_04_datetime_encoder_002.png" alt="London, Paris" class = "sphx-glr-single-img"/></section>
 </section>
 <section id="feature-importances">
 <h2>Feature importances<a class="headerlink" href="#feature-importances" title="Permalink to this headline">¶</a></h2>
@@ -453,18 +453,18 @@ and sees how the model changes its prediction</p>
 <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.show.html#matplotlib.pyplot.show" title="matplotlib.pyplot.show" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../_images/sphx_glr_06_datetime_encoder_003.png" srcset="../_images/sphx_glr_06_datetime_encoder_003.png" alt="Feature importances" class = "sphx-glr-single-img"/><p>We can see that the hour of the day is the most important feature,
+<img src="../_images/sphx_glr_04_datetime_encoder_003.png" srcset="../_images/sphx_glr_04_datetime_encoder_003.png" alt="Feature importances" class = "sphx-glr-single-img"/><p>We can see that the hour of the day is the most important feature,
 which seems reasonable.</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  3.758 seconds)</p>
-<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-06-datetime-encoder-py">
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  4.138 seconds)</p>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-04-datetime-encoder-py">
 <div class="binder-badge docutils container">
-<a class="reference external image-reference" href="https://mybinder.org/v2/gh/dirty-cat/dirty-cat.github.io/master?filepath=dev/auto_examples/06_datetime_encoder.ipynb"><img alt="Launch binder" src="../_images/binder_badge_logo.svg" width="150px" /></a>
+<a class="reference external image-reference" href="https://mybinder.org/v2/gh/dirty-cat/dirty-cat.github.io/master?filepath=dev/auto_examples/04_datetime_encoder.ipynb"><img alt="Launch binder" src="../_images/binder_badge_logo.svg" width="150px" /></a>
 </div>
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
-<p><a class="reference download internal" download="" href="../_downloads/27a73ce349fd3a3cdaf80e7d14b6f371/06_datetime_encoder.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">06_datetime_encoder.py</span></code></a></p>
+<p><a class="reference download internal" download="" href="../_downloads/05a2fb6c2c626415974b9a1a8e7de2d8/04_datetime_encoder.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">04_datetime_encoder.py</span></code></a></p>
 </div>
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
-<p><a class="reference download internal" download="" href="../_downloads/96a7fdbd3ea6b0420f9df7450111ce49/06_datetime_encoder.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">06_datetime_encoder.ipynb</span></code></a></p>
+<p><a class="reference download internal" download="" href="../_downloads/cd51f515cc7ba992903527e9db345e24/04_datetime_encoder.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">04_datetime_encoder.ipynb</span></code></a></p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
@@ -482,7 +482,7 @@ which seems reasonable.</p>
       &copy;2018-2021, dirty_cat developers.
       
       |
-      <a href="../_sources/auto_examples/06_datetime_encoder.rst.txt"
+      <a href="../_sources/auto_examples/04_datetime_encoder.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 
