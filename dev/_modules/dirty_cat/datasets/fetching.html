@@ -184,7 +184,9 @@
             <span class="s2">&quot;Downloading it from OpenML; this might take a while... &quot;</span>
             <span class="s2">&quot;If it is interrupted, some files might be invalid/incomplete: &quot;</span>
             <span class="s2">&quot;if on the following run, the fetching raises errors, you can try &quot;</span>
-            <span class="sa">f</span><span class="s2">&quot;fixing this issue by deleting the directory </span><span class="si">{</span><span class="n">data_directory</span><span class="si">!r}</span><span class="s2">.&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;fixing this issue by deleting the directory </span><span class="si">{</span><span class="n">data_directory</span><span class="si">!s}</span><span class="s2">.&quot;</span><span class="p">,</span>
+            <span class="ne">UserWarning</span><span class="p">,</span>
+            <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="n">_download_and_write_openml_dataset</span><span class="p">(</span><span class="n">dataset_id</span><span class="o">=</span><span class="n">dataset_id</span><span class="p">,</span>
                                            <span class="n">data_directory</span><span class="o">=</span><span class="n">data_directory</span><span class="p">)</span>
