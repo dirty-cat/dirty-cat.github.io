@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
 <meta property="og:title" content="dirty_cat.datasets.fetch_employee_salaries" />
   
@@ -14,7 +14,7 @@
   
 <meta property="og:site_name" content="Dirty cat" />
   
-<meta property="og:description" content="Examples using dirty_cat.datasets.fetch_employee_salaries: Dirty categories: machine learning with non normalized strings Dirty categories: machine learning with non normalized strings, Investigati..." />
+<meta property="og:description" content="Examples using dirty_cat.datasets.fetch_employee_salaries: Dirty categories: machine learning with non normalized strings Dirty categories: machine learning with non normalized strings Investigatin..." />
   
 <meta property="og:image" content="https://dirty-cat.github.io/stable/_images/sphx_glr_01_dirty_categories_thumb.png" />
   
@@ -30,6 +30,7 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/scrolltoc.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -100,7 +101,7 @@
           <div class="body" role="main">
             
   <section id="dirty-cat-datasets-fetch-employee-salaries">
-<h1><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat.datasets</span></code>.fetch_employee_salaries<a class="headerlink" href="#dirty-cat-datasets-fetch-employee-salaries" title="Permalink to this headline">¶</a></h1>
+<h1><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat.datasets</span></code>.fetch_employee_salaries<a class="headerlink" href="#dirty-cat-datasets-fetch-employee-salaries" title="Permalink to this heading">¶</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="dirty_cat.datasets.fetch_employee_salaries">
 <span class="sig-prename descclassname"><span class="pre">dirty_cat.datasets.</span></span><span class="sig-name descname"><span class="pre">fetch_employee_salaries</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_dataframe</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop_linked</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop_irrelevant</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/datasets/fetching.html#fetch_employee_salaries"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.datasets.fetch_employee_salaries" title="Permalink to this definition">¶</a></dt>
@@ -111,7 +112,7 @@
 active, permanent employees of Montgomery County, MD paid in calendar
 year 2016. This information will be published annually each year.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>drop_linked</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em> (</em><em>default True</em><em>)</em>) – Drops columns “2016_gross_pay_received” and “2016_overtime_pay”,
 which are closely linked to “current_annual_salary”, the target.</p></li>
@@ -119,7 +120,7 @@ which are closely linked to “current_annual_salary”, the target.</p></li>
 statistical analysis.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><ul class="simple">
 <li><p><em>DatasetAll</em> – If <cite>load_dataframe=True</cite></p></li>
 <li><p><em>DatasetInfoOnly</em> – If <cite>load_dataframe=False</cite></p></li>
@@ -137,26 +138,17 @@ statistical analysis.</p></li>
 </dd></dl>
 
 <section id="examples-using-dirty-cat-datasets-fetch-employee-salaries">
-<h2>Examples using <code class="docutils literal notranslate"><span class="pre">dirty_cat.datasets.fetch_employee_salaries</span></code><a class="headerlink" href="#examples-using-dirty-cat-datasets-fetch-employee-salaries" title="Permalink to this headline">¶</a></h2>
-<div class="sphx-glr-thumbcontainer" tooltip="Including strings that represent categories often calls for much data preparation. In particula..."><figure class="align-default" id="id1">
-<img alt="Dirty categories: machine learning with non normalized strings" src="../_images/sphx_glr_01_dirty_categories_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="../auto_examples/01_dirty_categories.html#sphx-glr-auto-examples-01-dirty-categories-py"><span class="std std-ref">Dirty categories: machine learning with non normalized strings</span></a></span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
-</div><div class="sphx-glr-thumbcontainer" tooltip="What are dirty categorical variables and how can a good encoding help with statistical learning..."><figure class="align-default" id="id2">
-<img alt="Investigating dirty categories" src="../_images/sphx_glr_02_investigating_dirty_categories_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="../auto_examples/02_investigating_dirty_categories.html#sphx-glr-auto-examples-02-investigating-dirty-categories-py"><span class="std std-ref">Investigating dirty categories</span></a></span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
-</div><div class="sphx-glr-thumbcontainer" tooltip="We illustrate here how categorical encodings obtained with the GapEncoder can be interpreted in..."><figure class="align-default" id="id3">
-<img alt="Feature interpretation with the GapEncoder" src="../_images/sphx_glr_03_feature_interpretation_gap_encoder_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="../auto_examples/03_feature_interpretation_gap_encoder.html#sphx-glr-auto-examples-03-feature-interpretation-gap-encoder-py"><span class="std std-ref">Feature interpretation with the GapEncoder</span></a></span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
-</div><div class="clearer"></div></section>
+<h2>Examples using <code class="docutils literal notranslate"><span class="pre">dirty_cat.datasets.fetch_employee_salaries</span></code><a class="headerlink" href="#examples-using-dirty-cat-datasets-fetch-employee-salaries" title="Permalink to this heading">¶</a></h2>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="Including strings that represent categories often calls for much data preparation. In particula..."><img alt="Dirty categories: machine learning with non normalized strings" src="../_images/sphx_glr_01_dirty_categories_thumb.png" />
+<p><a class="reference internal" href="../auto_examples/01_dirty_categories.html#sphx-glr-auto-examples-01-dirty-categories-py"><span class="std std-ref">Dirty categories: machine learning with non normalized strings</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Dirty categories: machine learning with non normalized strings</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="What are dirty categorical variables and how can a good encoding help with statistical learning..."><img alt="Investigating dirty categories" src="../_images/sphx_glr_02_investigating_dirty_categories_thumb.png" />
+<p><a class="reference internal" href="../auto_examples/02_investigating_dirty_categories.html#sphx-glr-auto-examples-02-investigating-dirty-categories-py"><span class="std std-ref">Investigating dirty categories</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Investigating dirty categories</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="We illustrate here how categorical encodings obtained with the GapEncoder can be interpreted in..."><img alt="Feature interpretation with the GapEncoder" src="../_images/sphx_glr_03_feature_interpretation_gap_encoder_thumb.png" />
+<p><a class="reference internal" href="../auto_examples/03_feature_interpretation_gap_encoder.html#sphx-glr-auto-examples-03-feature-interpretation-gap-encoder-py"><span class="std std-ref">Feature interpretation with the GapEncoder</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Feature interpretation with the GapEncoder</div>
+</div></div><div class="clearer"></div></section>
 </section>
 
 

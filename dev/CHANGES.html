@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
 <meta property="og:title" content="Release 0.3" />
   
@@ -30,6 +30,7 @@
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/scrolltoc.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -130,9 +131,9 @@
           <div class="body" role="main">
             
   <section id="release-0-3">
-<h1>Release 0.3<a class="headerlink" href="#release-0-3" title="Permalink to this headline">¶</a></h1>
+<h1>Release 0.3<a class="headerlink" href="#release-0-3" title="Permalink to this heading">¶</a></h1>
 <section id="major-changes">
-<h2>Major changes<a class="headerlink" href="#major-changes" title="Permalink to this headline">¶</a></h2>
+<h2>Major changes<a class="headerlink" href="#major-changes" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><dl class="simple">
 <dt>New encoder: <code class="xref py py-class docutils literal notranslate"><span class="pre">DatetimeEncoder</span></code> can transform a datetime column into several numerical</dt><dd><p>columns (year, month, day, hour, minute, second, …). It is now the default transformer used
@@ -144,17 +145,17 @@ in the SuperVectorizer for datetime columns.</p>
 </ul>
 </section>
 <section id="notes">
-<h2>Notes<a class="headerlink" href="#notes" title="Permalink to this headline">¶</a></h2>
+<h2>Notes<a class="headerlink" href="#notes" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
-<li><p>The <a href="#id12"><span class="problematic" id="id13">transformers_</span></a> attribute of the SuperVectorizer now contains column names</p></li>
+<li><p>The <cite>transformers_</cite> attribute of the SuperVectorizer now contains column
+names instead of column indices for the “remainder” columns.</p></li>
 </ul>
-<p>instead of column indices for the “remainder” columns.</p>
 </section>
 </section>
 <section id="release-0-2-2">
-<h1>Release 0.2.2<a class="headerlink" href="#release-0-2-2" title="Permalink to this headline">¶</a></h1>
+<h1>Release 0.2.2<a class="headerlink" href="#release-0-2-2" title="Permalink to this heading">¶</a></h1>
 <section id="bug-fixes">
-<h2>Bug-fixes<a class="headerlink" href="#bug-fixes" title="Permalink to this headline">¶</a></h2>
+<h2>Bug-fixes<a class="headerlink" href="#bug-fixes" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Fixed a bug in the <code class="xref py py-class docutils literal notranslate"><span class="pre">SuperVectorizer</span></code> causing a <cite>FutureWarning</cite>
 when using the <cite>get_feature_names_out</cite> method.</p></li>
@@ -162,9 +163,9 @@ when using the <cite>get_feature_names_out</cite> method.</p></li>
 </section>
 </section>
 <section id="release-0-2-1">
-<h1>Release 0.2.1<a class="headerlink" href="#release-0-2-1" title="Permalink to this headline">¶</a></h1>
+<h1>Release 0.2.1<a class="headerlink" href="#release-0-2-1" title="Permalink to this heading">¶</a></h1>
 <section id="id1">
-<h2>Major changes<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<h2>Major changes<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h2>
 <ul>
 <li><p>Improvements to the <code class="xref py py-class docutils literal notranslate"><span class="pre">SuperVectorizer</span></code></p>
 <blockquote>
@@ -193,7 +194,7 @@ on multiple columns.</p>
 </ul>
 </section>
 <section id="id2">
-<h2>Bug-fixes<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h2>Bug-fixes<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Fixed a bug that resulted in the <strong>GapEncoder</strong> ignoring the analyzer argument.</p></li>
 <li><p>GapEncoder’s <cite>get_feature_names_out</cite> now accepts all iterators, not just lists.</p></li>
@@ -201,7 +202,7 @@ on multiple columns.</p>
 </ul>
 </section>
 <section id="id3">
-<h2>Notes<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<h2>Notes<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Remove trailing imports in the MinHashEncoder.</p></li>
 <li><p>Fix typos and update links for website.</p></li>
@@ -210,10 +211,10 @@ on multiple columns.</p>
 </section>
 </section>
 <section id="release-0-2-0">
-<h1>Release 0.2.0<a class="headerlink" href="#release-0-2-0" title="Permalink to this headline">¶</a></h1>
+<h1>Release 0.2.0<a class="headerlink" href="#release-0-2-0" title="Permalink to this heading">¶</a></h1>
 <p>Also see pre-release 0.2.0a1 below for additional changes.</p>
 <section id="id4">
-<h2>Major changes<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<h2>Major changes<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Bump minimum dependencies:</p>
 <ul>
@@ -243,7 +244,7 @@ since “get_feature_names” will be depreciated in scikit-learn 1.2 (#216).</p
 </ul>
 </section>
 <section id="id5">
-<h2>Notes<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<h2>Notes<a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Removed hard-coded CSV file <cite>dirty_cat/data/FiveThirtyEight_Midwest_Survey.csv</cite>.</p></li>
 <li><p>Improvements to the SuperVectorizer</p>
@@ -257,7 +258,7 @@ since “get_feature_names” will be depreciated in scikit-learn 1.2 (#216).</p
 </section>
 </section>
 <section id="release-0-2-0a1">
-<h1>Release 0.2.0a1<a class="headerlink" href="#release-0-2-0a1" title="Permalink to this headline">¶</a></h1>
+<h1>Release 0.2.0a1<a class="headerlink" href="#release-0-2-0a1" title="Permalink to this heading">¶</a></h1>
 <p>Version 0.2.0a1 is a pre-release.
 To try it, you have to install it manually using:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">pre</span> <span class="n">dirty_cat</span><span class="o">==</span><span class="mf">0.2.0</span><span class="n">a1</span>
@@ -268,7 +269,7 @@ To try it, you have to install it manually using:</p>
 </pre></div>
 </div>
 <section id="id6">
-<h2>Major changes<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<h2>Major changes<a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Bump minimum dependencies:</p>
 <ul>
@@ -290,28 +291,28 @@ and are then concatenated into a single matrix.</p></li>
 </ul>
 </section>
 <section id="id7">
-<h2>Bug-fixes<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<h2>Bug-fixes<a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Fix get_feature_names for scikit-learn &gt; 0.21</p></li>
 </ul>
 </section>
 </section>
 <section id="release-0-1-1">
-<h1>Release 0.1.1<a class="headerlink" href="#release-0-1-1" title="Permalink to this headline">¶</a></h1>
+<h1>Release 0.1.1<a class="headerlink" href="#release-0-1-1" title="Permalink to this heading">¶</a></h1>
 <section id="id8">
-<h2>Major changes<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<h2>Major changes<a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h2>
 </section>
 <section id="id9">
-<h2>Bug-fixes<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<h2>Bug-fixes<a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>RuntimeWarnings due to overflow in GapEncoder (#161)</p></li>
 </ul>
 </section>
 </section>
 <section id="release-0-1-0">
-<h1>Release 0.1.0<a class="headerlink" href="#release-0-1-0" title="Permalink to this headline">¶</a></h1>
+<h1>Release 0.1.0<a class="headerlink" href="#release-0-1-0" title="Permalink to this heading">¶</a></h1>
 <section id="id10">
-<h2>Major changes<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<h2>Major changes<a class="headerlink" href="#id10" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p><strong>GapEncoder</strong>: Added online Gamma-Poisson factorization through the
 <code class="xref py py-class docutils literal notranslate"><span class="pre">GapEncoder</span></code> class. This method discovers latent categories formed
@@ -320,14 +321,14 @@ these categories. To be used if interpretability is important.</p></li>
 </ul>
 </section>
 <section id="id11">
-<h2>Bug-fixes<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
+<h2>Bug-fixes<a class="headerlink" href="#id11" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Multiprocessing exception in notebook (#154)</p></li>
 </ul>
 </section>
 </section>
 <section id="release-0-0-7">
-<h1>Release 0.0.7<a class="headerlink" href="#release-0-0-7" title="Permalink to this headline">¶</a></h1>
+<h1>Release 0.0.7<a class="headerlink" href="#release-0-0-7" title="Permalink to this heading">¶</a></h1>
 <ul class="simple">
 <li><p><strong>MinHashEncoder</strong>: Added <code class="docutils literal notranslate"><span class="pre">minhash_encoder.py</span></code> and <code class="docutils literal notranslate"><span class="pre">fast_hast.py</span></code> files
 that implement minhash encoding through the <code class="docutils literal notranslate"><span class="pre">MinHashEncoder</span></code> class.
@@ -352,7 +353,7 @@ with missing values.</p></li>
 </ul>
 </section>
 <section id="release-0-0-6">
-<h1>Release 0.0.6<a class="headerlink" href="#release-0-0-6" title="Permalink to this headline">¶</a></h1>
+<h1>Release 0.0.6<a class="headerlink" href="#release-0-0-6" title="Permalink to this heading">¶</a></h1>
 <ul class="simple">
 <li><p><strong>SimilarityEncoder</strong>: Accelerate <code class="docutils literal notranslate"><span class="pre">SimilarityEncoder.transform</span></code>, by:</p>
 <ul>
@@ -368,7 +369,7 @@ to float32, which reduces memory consumption during encoding.</p></li>
 </ul>
 </section>
 <section id="release-0-0-5">
-<h1>Release 0.0.5<a class="headerlink" href="#release-0-0-5" title="Permalink to this headline">¶</a></h1>
+<h1>Release 0.0.5<a class="headerlink" href="#release-0-0-5" title="Permalink to this heading">¶</a></h1>
 <ul class="simple">
 <li><p><strong>SimilarityEncoder</strong>: Change the default ngram range to (2, 4) which
 performs better empirically.</p></li>

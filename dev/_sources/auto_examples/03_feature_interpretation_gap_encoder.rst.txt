@@ -48,8 +48,6 @@ We first get the dataset:
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     Annual salary information including gross pay and overtime pay for all active, permanent employees of Montgomery County, MD paid in calendar year 2016. This information will be published annually each year.
@@ -75,8 +73,6 @@ Now, we retrieve the dirty column to encode:
 
 
 .. rst-class:: sphx-glr-script-out
-
- Out:
 
  .. code-block:: none
 
@@ -131,8 +127,6 @@ obtain encoded vectors of size 10:
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     Shape of encoded vectors = (9228, 10)
@@ -168,8 +162,6 @@ In the example below we select 3 labels to summarize each topic.
 
 
 .. rst-class:: sphx-glr-script-out
-
- Out:
 
  .. code-block:: none
 
@@ -233,35 +225,30 @@ effect latent categories captured from the data.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  3.565 seconds)
+   **Total running time of the script:** ( 0 minutes  3.902 seconds)
 
 
 .. _sphx_glr_download_auto_examples_03_feature_interpretation_gap_encoder.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
-  .. container:: binder-badge
+    .. container:: binder-badge
 
-    .. image:: images/binder_badge_logo.svg
-      :target: https://mybinder.org/v2/gh/dirty-cat/dirty-cat.github.io/master?filepath=dev/auto_examples/03_feature_interpretation_gap_encoder.ipynb
-      :alt: Launch binder
-      :width: 150 px
+      .. image:: images/binder_badge_logo.svg
+        :target: https://mybinder.org/v2/gh/dirty-cat/dirty-cat.github.io/master?filepath=dev/auto_examples/03_feature_interpretation_gap_encoder.ipynb
+        :alt: Launch binder
+        :width: 150 px
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: 03_feature_interpretation_gap_encoder.py <03_feature_interpretation_gap_encoder.py>`
 
-     :download:`Download Python source code: 03_feature_interpretation_gap_encoder.py <03_feature_interpretation_gap_encoder.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: 03_feature_interpretation_gap_encoder.ipynb <03_feature_interpretation_gap_encoder.ipynb>`
+      :download:`Download Jupyter notebook: 03_feature_interpretation_gap_encoder.ipynb <03_feature_interpretation_gap_encoder.ipynb>`
 
 
 .. only:: html

@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
 <meta property="og:title" content="dirty_cat: machine learning on dirty categories" />
   
@@ -30,6 +30,7 @@
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/scrolltoc.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -90,7 +91,7 @@
           <div class="body" role="main">
             
   <section id="dirty-cat-machine-learning-on-dirty-categories">
-<h1>dirty_cat: machine learning on dirty categories<a class="headerlink" href="#dirty-cat-machine-learning-on-dirty-categories" title="Permalink to this headline">¶</a></h1>
+<h1>dirty_cat: machine learning on dirty categories<a class="headerlink" href="#dirty-cat-machine-learning-on-dirty-categories" title="Permalink to this heading">¶</a></h1>
 <div class="toctree-wrapper compound">
 </div>
 <div class="larger-container docutils container">
@@ -119,8 +120,8 @@ to capture the strings.</p></li>
 </div>
 <div class="flex-container">
 <div class="flex-content" style="border: 0px;"><p>For a detailed description of the problem of encoding dirty categorical data,
-see <a class="reference external" href="https://hal.inria.fr/hal-01806175">Similarity encoding for learning with dirty categorical variables</a> <a class="footnote-reference brackets" href="#id3" id="id1">1</a> and <a class="reference external" href="https://hal.inria.fr/hal-02171256v4">Encoding high-cardinality
-string categorical variables</a> <a class="footnote-reference brackets" href="#id4" id="id2">2</a>.</p>
+see <a class="reference external" href="https://hal.inria.fr/hal-01806175">Similarity encoding for learning with dirty categorical variables</a> <a class="footnote-reference brackets" href="#id3" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> and <a class="reference external" href="https://hal.inria.fr/hal-02171256v4">Encoding high-cardinality
+string categorical variables</a> <a class="footnote-reference brackets" href="#id4" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>.</p>
 </div>
 <div class="flex-content" style="border: 0px;">
 <iframe style="display: block; margin: auto; width: 100%;" width="560" height="315"
@@ -130,76 +131,44 @@ string categorical variables</a> <a class="footnote-reference brackets" href="#i
 ></iframe></div>
 </div><p class="right-align"><a class="reference external" href="CHANGES.html">Recent changes</a></p>
 <dl class="field-list simple">
-<dt class="field-odd">Installing</dt>
+<dt class="field-odd">Installing<span class="colon">:</span></dt>
 <dd class="field-odd"><p><cite>$ pip install –user dirty_cat</cite></p>
 </dd>
 </dl>
 <hr class="docutils" />
 <section id="usage">
-<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading">¶</a></h2>
 <div class="larger-container docutils container">
-<div class="sphx-glr-thumbcontainer" tooltip="Including strings that represent categories often calls for much data preparation. In particula..."><figure class="align-default" id="id5">
-<img alt="Dirty categories: machine learning with non normalized strings" src="_images/sphx_glr_01_dirty_categories_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="auto_examples/01_dirty_categories.html#sphx-glr-auto-examples-01-dirty-categories-py"><span class="std std-ref">Dirty categories: machine learning with non normalized strings</span></a></span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
-</div><div class="toctree-wrapper compound">
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="Including strings that represent categories often calls for much data preparation. In particula..."><img alt="Dirty categories: machine learning with non normalized strings" src="_images/sphx_glr_01_dirty_categories_thumb.png" />
+<p><a class="reference internal" href="auto_examples/01_dirty_categories.html#sphx-glr-auto-examples-01-dirty-categories-py"><span class="std std-ref">Dirty categories: machine learning with non normalized strings</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Dirty categories: machine learning with non normalized strings</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="What are dirty categorical variables and how can a good encoding help with statistical learning..."><img alt="Investigating dirty categories" src="_images/sphx_glr_02_investigating_dirty_categories_thumb.png" />
+<p><a class="reference internal" href="auto_examples/02_investigating_dirty_categories.html#sphx-glr-auto-examples-02-investigating-dirty-categories-py"><span class="std std-ref">Investigating dirty categories</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Investigating dirty categories</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="We illustrate here how categorical encodings obtained with the GapEncoder can be interpreted in..."><img alt="Feature interpretation with the GapEncoder" src="_images/sphx_glr_03_feature_interpretation_gap_encoder_thumb.png" />
+<p><a class="reference internal" href="auto_examples/03_feature_interpretation_gap_encoder.html#sphx-glr-auto-examples-03-feature-interpretation-gap-encoder-py"><span class="std std-ref">Feature interpretation with the GapEncoder</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Feature interpretation with the GapEncoder</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="We illustrate here how to handle datetime features with the DatetimeEncoder."><img alt="Handling datetime features with the DatetimeEncoder" src="_images/sphx_glr_04_datetime_encoder_thumb.png" />
+<p><a class="reference internal" href="auto_examples/04_datetime_encoder.html#sphx-glr-auto-examples-04-datetime-encoder-py"><span class="std std-ref">Handling datetime features with the DatetimeEncoder</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Handling datetime features with the DatetimeEncoder</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="A very classic dilemma when training a machine learning model consists in choosing between usin..."><img alt="Fitting scalable, non-linear models on data with dirty categories" src="_images/sphx_glr_05_scaling_non_linear_models_thumb.png" />
+<p><a class="reference internal" href="auto_examples/05_scaling_non_linear_models.html#sphx-glr-auto-examples-05-scaling-non-linear-models-py"><span class="std std-ref">Fitting scalable, non-linear models on data with dirty categories</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Fitting scalable, non-linear models on data with dirty categories</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Here we discuss how to apply efficiently SimilarityEncoder to larger datasets: reducing the num..."><img alt="Scalability considerations for similarity encoding" src="_images/sphx_glr_06_dimension_reduction_and_performance_thumb.png" />
+<p><a class="reference internal" href="auto_examples/06_dimension_reduction_and_performance.html#sphx-glr-auto-examples-06-dimension-reduction-and-performance-py"><span class="std std-ref">Scalability considerations for similarity encoding</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Scalability considerations for similarity encoding</div>
+</div></div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="What are dirty categorical variables and how can a good encoding help with statistical learning..."><figure class="align-default" id="id6">
-<img alt="Investigating dirty categories" src="_images/sphx_glr_02_investigating_dirty_categories_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="auto_examples/02_investigating_dirty_categories.html#sphx-glr-auto-examples-02-investigating-dirty-categories-py"><span class="std std-ref">Investigating dirty categories</span></a></span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
-</div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="We illustrate here how categorical encodings obtained with the GapEncoder can be interpreted in..."><figure class="align-default" id="id7">
-<img alt="Feature interpretation with the GapEncoder" src="_images/sphx_glr_03_feature_interpretation_gap_encoder_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="auto_examples/03_feature_interpretation_gap_encoder.html#sphx-glr-auto-examples-03-feature-interpretation-gap-encoder-py"><span class="std std-ref">Feature interpretation with the GapEncoder</span></a></span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
-</div><div class="toctree-wrapper compound">
-</div>
-<div class="sphx-glr-thumbcontainer" tooltip="We illustrate here how to handle datetime features with the DatetimeEncoder."><figure class="align-default" id="id8">
-<img alt="Handling datetime features with the DatetimeEncoder" src="_images/sphx_glr_04_datetime_encoder_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="auto_examples/04_datetime_encoder.html#sphx-glr-auto-examples-04-datetime-encoder-py"><span class="std std-ref">Handling datetime features with the DatetimeEncoder</span></a></span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
-</div><div class="toctree-wrapper compound">
-</div>
-<div class="sphx-glr-thumbcontainer" tooltip="A very classic dilemma when training a machine learning model consists in choosing between usin..."><figure class="align-default" id="id9">
-<img alt="Fitting scalable, non-linear models on data with dirty categories" src="_images/sphx_glr_05_scaling_non_linear_models_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="auto_examples/05_scaling_non_linear_models.html#sphx-glr-auto-examples-05-scaling-non-linear-models-py"><span class="std std-ref">Fitting scalable, non-linear models on data with dirty categories</span></a></span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
-</div><div class="toctree-wrapper compound">
-</div>
-<div class="sphx-glr-thumbcontainer" tooltip="Here we discuss how to apply efficiently SimilarityEncoder to larger datasets: reducing the num..."><figure class="align-default" id="id10">
-<img alt="Scalability considerations for similarity encoding" src="_images/sphx_glr_06_dimension_reduction_and_performance_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="auto_examples/06_dimension_reduction_and_performance.html#sphx-glr-auto-examples-06-dimension-reduction-and-performance-py"><span class="std std-ref">Scalability considerations for similarity encoding</span></a></span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
-</div><div class="toctree-wrapper compound">
-</div>
-<div class="sphx-glr-clear"></div></div>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
 </section>
 <section id="api-documentation">
-<h2>API documentation<a class="headerlink" href="#api-documentation" title="Permalink to this headline">¶</a></h2>
+<h2>API documentation<a class="headerlink" href="#api-documentation" title="Permalink to this heading">¶</a></h2>
 <section id="vectorizing-a-dataframe">
-<h3>Vectorizing a dataframe<a class="headerlink" href="#vectorizing-a-dataframe" title="Permalink to this headline">¶</a></h3>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
+<h3>Vectorizing a dataframe<a class="headerlink" href="#vectorizing-a-dataframe" title="Permalink to this heading">¶</a></h3>
+<table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SuperVectorizer</span></code></a></p></td>
 <td><p>Easily transforms a heterogeneous data table (such as a dataframe) to a numerical array for machine learning.</p></td>
@@ -208,12 +177,8 @@ string categorical variables</a> <a class="footnote-reference brackets" href="#i
 </table>
 </section>
 <section id="dirty-category-encoders">
-<h3>Dirty Category encoders<a class="headerlink" href="#dirty-category-encoders" title="Permalink to this headline">¶</a></h3>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
+<h3>Dirty Category encoders<a class="headerlink" href="#dirty-category-encoders" title="Permalink to this heading">¶</a></h3>
+<table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder" title="dirty_cat.GapEncoder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GapEncoder</span></code></a></p></td>
 <td><p>This encoder can be understood as a continuous encoding on a set of latent categories estimated from the data.</p></td>
@@ -231,12 +196,8 @@ string categorical variables</a> <a class="footnote-reference brackets" href="#i
 </table>
 </section>
 <section id="other-encoders">
-<h3>Other encoders<a class="headerlink" href="#other-encoders" title="Permalink to this headline">¶</a></h3>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
+<h3>Other encoders<a class="headerlink" href="#other-encoders" title="Permalink to this heading">¶</a></h3>
+<table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/dirty_cat.DatetimeEncoder.html#dirty_cat.DatetimeEncoder" title="dirty_cat.DatetimeEncoder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DatetimeEncoder</span></code></a></p></td>
 <td><p>This encoder transforms each datetime column into several numeric columns corresponding to temporal features, e.g year, month, day.</p></td>
@@ -245,12 +206,8 @@ string categorical variables</a> <a class="footnote-reference brackets" href="#i
 </table>
 </section>
 <section id="data-download">
-<h3>Data download<a class="headerlink" href="#data-download" title="Permalink to this headline">¶</a></h3>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
+<h3>Data download<a class="headerlink" href="#data-download" title="Permalink to this heading">¶</a></h3>
+<table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/dirty_cat.datasets.fetch_employee_salaries.html#dirty_cat.datasets.fetch_employee_salaries" title="dirty_cat.datasets.fetch_employee_salaries"><code class="xref py py-obj docutils literal notranslate"><span class="pre">datasets.fetch_employee_salaries</span></code></a></p></td>
 <td><p>Fetches the employee_salaries dataset, available at <a class="reference external" href="https://openml.org/d/42125">https://openml.org/d/42125</a></p></td>
@@ -278,21 +235,21 @@ string categorical variables</a> <a class="footnote-reference brackets" href="#i
 </section>
 </section>
 <section id="about">
-<h2>About<a class="headerlink" href="#about" title="Permalink to this headline">¶</a></h2>
+<h2>About<a class="headerlink" href="#about" title="Permalink to this heading">¶</a></h2>
 <p>dirty_cat is for now a repository for ideas coming out of a research
 project: there is still little known about the problems of dirty
 categories. Tradeoffs will emerge in the long run. We really need people
 giving feedback on success and failures with the different techniques and
 pointing us to open datasets on which we can do more empirical work.
 Dirty-cat received funding from <a class="reference external" href="https://project.inria.fr/dirtydata/">project DirtyData</a> (ANR-17-CE23-0018).</p>
-<dl class="footnote brackets">
-<dt class="label" id="id3"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
-<dd><p>Patricio Cerda, Gaël Varoquaux. Encoding high-cardinality string categorical variables. 2020. IEEE Transactions on Knowledge &amp; Data Engineering.</p>
-</dd>
-<dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
-<dd><p>Patricio Cerda, Gaël Varoquaux, Balázs Kégl. Similarity encoding for learning with dirty categorical variables. 2018. Machine Learning journal, Springer.</p>
-</dd>
-</dl>
+<aside class="footnote brackets" id="id3" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>Patricio Cerda, Gaël Varoquaux. Encoding high-cardinality string categorical variables. 2020. IEEE Transactions on Knowledge &amp; Data Engineering.</p>
+</aside>
+<aside class="footnote brackets" id="id4" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
+<p>Patricio Cerda, Gaël Varoquaux, Balázs Kégl. Similarity encoding for learning with dirty categorical variables. 2018. Machine Learning journal, Springer.</p>
+</aside>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <p>Many classic categorical encoding schemes are available here:

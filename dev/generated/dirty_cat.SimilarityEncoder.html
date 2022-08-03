@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
 <meta property="og:title" content="dirty_cat.SimilarityEncoder" />
   
@@ -30,6 +30,7 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/scrolltoc.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -100,7 +101,7 @@
           <div class="body" role="main">
             
   <section id="dirty-cat-similarityencoder">
-<h1><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat</span></code>.SimilarityEncoder<a class="headerlink" href="#dirty-cat-similarityencoder" title="Permalink to this headline">¶</a></h1>
+<h1><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat</span></code>.SimilarityEncoder<a class="headerlink" href="#dirty-cat-similarityencoder" title="Permalink to this heading">¶</a></h1>
 <p class="side-comment">Usage examples at the bottom of this page.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="dirty_cat.SimilarityEncoder">
@@ -116,7 +117,7 @@ similarities: <code class="docutils literal notranslate"><span class="pre">simil
 This encoding is an alternative to OneHotEncoder in the case of
 dirty categorical variables.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>similarity</strong> (<em>str {'ngram'</em><em>, </em><em>'levenshtein-ratio'</em><em>, </em><em>'jaro'</em><em>, </em><em>or'jaro-winkler'}</em>) – The type of pairwise string similarity to use.</p></li>
 <li><p><strong>ngram_range</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.10)"><em>tuple</em></a><em> (</em><em>min_n</em><em>, </em><em>max_n</em><em>)</em><em>, </em><em>default=</em><em>(</em><em>2</em><em>, </em><em>4</em><em>)</em>) – Only significant for <code class="docutils literal notranslate"><span class="pre">similarity='ngram'</span></code>. The range of
@@ -170,7 +171,7 @@ only if <code class="docutils literal notranslate"><span class="pre">fast=True</
 <dd><p>The categories of each feature determined during fitting
 (in order corresponding with output of <code class="docutils literal notranslate"><span class="pre">transform</span></code>).</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>list of arrays</p>
 </dd>
 </dl>
@@ -181,7 +182,7 @@ only if <code class="docutils literal notranslate"><span class="pre">fast=True</
 <span class="sig-name descname"><span class="pre">_infrequent_enabled</span></span><a class="headerlink" href="#dirty_cat.SimilarityEncoder._infrequent_enabled" title="Permalink to this definition">¶</a></dt>
 <dd><p>Avoid taking into account the existance of infrequent categories.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)">bool</a>, default=False</p>
 </dd>
 </dl>
@@ -196,10 +197,10 @@ only if <code class="docutils literal notranslate"><span class="pre">fast=True</
 <span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/similarity_encoder.html#SimilarityEncoder.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.SimilarityEncoder.fit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fit the SimilarityEncoder to X.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>X</strong> (<em>array-like</em><em>, </em><em>shape</em><em> [</em><em>n_samples</em><em>, </em><em>n_features</em><em>]</em>) – The data to determine the categories of each feature.</p>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>self</p>
 </dd>
 </dl>
@@ -212,17 +213,17 @@ only if <code class="docutils literal notranslate"><span class="pre">fast=True</
 Fits transformer to <cite>X</cite> and <cite>y</cite> with optional parameters
 <cite>fit_params</cite> and returns a transformed version of <cite>X</cite>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>X</strong> (<em>array-like of shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Input samples.</p></li>
 <li><p><strong>y</strong> (<em>array-like of shape</em><em> (</em><em>n_samples</em><em>,</em><em>) or </em><em>(</em><em>n_samples</em><em>, </em><em>n_outputs</em><em>)</em><em>,                     </em><em>default=None</em>) – Target values (None for unsupervised transformations).</p></li>
 <li><p><strong>**fit_params</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Additional fit parameters.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>X_new</strong> – Transformed array.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>ndarray array of shape (n_samples, n_features_new)</p>
 </dd>
 </dl>
@@ -253,7 +254,7 @@ Fits transformer to <cite>X</cite> and <cite>y</cite> with optional parameters
 <span class="sig-name descname"><span class="pre">get_feature_names_out</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dirty_cat.SimilarityEncoder.get_feature_names_out" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get output feature names for transformation.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>input_features</strong> (<em>array-like of str</em><em> or </em><em>None</em><em>, </em><em>default=None</em>) – <p>Input features.</p>
 <ul class="simple">
 <li><p>If <cite>input_features</cite> is <cite>None</cite>, then <cite>feature_names_in_</cite> is
@@ -265,10 +266,10 @@ match <cite>feature_names_in_</cite> if <cite>feature_names_in_</cite> is define
 </ul>
 </p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>feature_names_out</strong> – Transformed feature names.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>ndarray of str objects</p>
 </dd>
 </dl>
@@ -281,7 +282,7 @@ match <cite>feature_names_in_</cite> if <cite>feature_names_in_</cite> is define
 :param prototypes:
 :type prototypes: the list of values for a category variable</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The n_prototypes most frequent values for a category variable</p>
 </dd>
 </dl>
@@ -292,14 +293,14 @@ match <cite>feature_names_in_</cite> if <cite>feature_names_in_</cite> is define
 <span class="sig-name descname"><span class="pre">get_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">deep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dirty_cat.SimilarityEncoder.get_params" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get parameters for this estimator.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>deep</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>default=True</em>) – If True, will return the parameters for this estimator and
 contained subobjects that are estimators.</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>params</strong> – Parameter names mapped to their values.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)">dict</a></p>
 </dd>
 </dl>
@@ -322,13 +323,13 @@ category will be its inverse.</p>
 <p>For a given input feature, if there is an infrequent category,
 ‘infrequent_sklearn’ will be used to represent the infrequent category.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>X</strong> (<em>{array-like</em><em>, </em><em>sparse matrix} of shape</em><em>                 (</em><em>n_samples</em><em>, </em><em>n_encoded_features</em><em>)</em>) – The transformed data.</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>X_tr</strong> – Inverse transformed array.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>ndarray of shape (n_samples, n_features)</p>
 </dd>
 </dl>
@@ -343,13 +344,13 @@ category will be its inverse.</p>
 parameters of the form <code class="docutils literal notranslate"><span class="pre">&lt;component&gt;__&lt;parameter&gt;</span></code> so that it’s
 possible to update each component of a nested object.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>**params</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Estimator parameters.</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>self</strong> – Estimator instance.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>estimator instance</p>
 </dd>
 </dl>
@@ -360,13 +361,13 @@ possible to update each component of a nested object.</p>
 <span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fast</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/similarity_encoder.html#SimilarityEncoder.transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.SimilarityEncoder.transform" title="Permalink to this definition">¶</a></dt>
 <dd><p>Transform X using specified encoding scheme.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>X</strong> (<em>array-like</em><em>, </em><em>shape</em><em> [</em><em>n_samples</em><em>, </em><em>n_features</em><em>]</em>) – The data to encode.</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>X_new</strong> – Transformed input.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>2-d array, shape [n_samples, n_features_new]</p>
 </dd>
 </dl>
@@ -375,32 +376,20 @@ possible to update each component of a nested object.</p>
 </dd></dl>
 
 <section id="examples-using-dirty-cat-similarityencoder">
-<h2>Examples using <code class="docutils literal notranslate"><span class="pre">dirty_cat.SimilarityEncoder</span></code><a class="headerlink" href="#examples-using-dirty-cat-similarityencoder" title="Permalink to this headline">¶</a></h2>
-<div class="sphx-glr-thumbcontainer" tooltip="Including strings that represent categories often calls for much data preparation. In particula..."><figure class="align-default" id="id1">
-<img alt="Dirty categories: machine learning with non normalized strings" src="../_images/sphx_glr_01_dirty_categories_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="../auto_examples/01_dirty_categories.html#sphx-glr-auto-examples-01-dirty-categories-py"><span class="std std-ref">Dirty categories: machine learning with non normalized strings</span></a></span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
-</div><div class="sphx-glr-thumbcontainer" tooltip="What are dirty categorical variables and how can a good encoding help with statistical learning..."><figure class="align-default" id="id2">
-<img alt="Investigating dirty categories" src="../_images/sphx_glr_02_investigating_dirty_categories_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="../auto_examples/02_investigating_dirty_categories.html#sphx-glr-auto-examples-02-investigating-dirty-categories-py"><span class="std std-ref">Investigating dirty categories</span></a></span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
-</div><div class="sphx-glr-thumbcontainer" tooltip="A very classic dilemma when training a machine learning model consists in choosing between usin..."><figure class="align-default" id="id3">
-<img alt="Fitting scalable, non-linear models on data with dirty categories" src="../_images/sphx_glr_05_scaling_non_linear_models_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="../auto_examples/05_scaling_non_linear_models.html#sphx-glr-auto-examples-05-scaling-non-linear-models-py"><span class="std std-ref">Fitting scalable, non-linear models on data with dirty categories</span></a></span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Here we discuss how to apply efficiently SimilarityEncoder to larger datasets: reducing the num..."><figure class="align-default" id="id4">
-<img alt="Scalability considerations for similarity encoding" src="../_images/sphx_glr_06_dimension_reduction_and_performance_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="../auto_examples/06_dimension_reduction_and_performance.html#sphx-glr-auto-examples-06-dimension-reduction-and-performance-py"><span class="std std-ref">Scalability considerations for similarity encoding</span></a></span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
-</div><div class="clearer"></div></section>
+<h2>Examples using <code class="docutils literal notranslate"><span class="pre">dirty_cat.SimilarityEncoder</span></code><a class="headerlink" href="#examples-using-dirty-cat-similarityencoder" title="Permalink to this heading">¶</a></h2>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="Including strings that represent categories often calls for much data preparation. In particula..."><img alt="Dirty categories: machine learning with non normalized strings" src="../_images/sphx_glr_01_dirty_categories_thumb.png" />
+<p><a class="reference internal" href="../auto_examples/01_dirty_categories.html#sphx-glr-auto-examples-01-dirty-categories-py"><span class="std std-ref">Dirty categories: machine learning with non normalized strings</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Dirty categories: machine learning with non normalized strings</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="What are dirty categorical variables and how can a good encoding help with statistical learning..."><img alt="Investigating dirty categories" src="../_images/sphx_glr_02_investigating_dirty_categories_thumb.png" />
+<p><a class="reference internal" href="../auto_examples/02_investigating_dirty_categories.html#sphx-glr-auto-examples-02-investigating-dirty-categories-py"><span class="std std-ref">Investigating dirty categories</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Investigating dirty categories</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="A very classic dilemma when training a machine learning model consists in choosing between usin..."><img alt="Fitting scalable, non-linear models on data with dirty categories" src="../_images/sphx_glr_05_scaling_non_linear_models_thumb.png" />
+<p><a class="reference internal" href="../auto_examples/05_scaling_non_linear_models.html#sphx-glr-auto-examples-05-scaling-non-linear-models-py"><span class="std std-ref">Fitting scalable, non-linear models on data with dirty categories</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Fitting scalable, non-linear models on data with dirty categories</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Here we discuss how to apply efficiently SimilarityEncoder to larger datasets: reducing the num..."><img alt="Scalability considerations for similarity encoding" src="../_images/sphx_glr_06_dimension_reduction_and_performance_thumb.png" />
+<p><a class="reference internal" href="../auto_examples/06_dimension_reduction_and_performance.html#sphx-glr-auto-examples-06-dimension-reduction-and-performance-py"><span class="std std-ref">Scalability considerations for similarity encoding</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Scalability considerations for similarity encoding</div>
+</div></div><div class="clearer"></div></section>
 </section>
 
 

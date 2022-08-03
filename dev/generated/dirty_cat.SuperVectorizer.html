@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
 <meta property="og:title" content="dirty_cat.SuperVectorizer" />
   
@@ -30,6 +30,7 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/scrolltoc.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -100,7 +101,7 @@
           <div class="body" role="main">
             
   <section id="dirty-cat-supervectorizer">
-<h1><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat</span></code>.SuperVectorizer<a class="headerlink" href="#dirty-cat-supervectorizer" title="Permalink to this headline">¶</a></h1>
+<h1><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat</span></code>.SuperVectorizer<a class="headerlink" href="#dirty-cat-supervectorizer" title="Permalink to this heading">¶</a></h1>
 <p class="side-comment">Usage examples at the bottom of this page.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="dirty_cat.SuperVectorizer">
@@ -113,7 +114,7 @@ It provides a simplified interface for scikit-learn’s <cite>ColumnTransformer<
 <p><span class="versionmodified added">New in version 0.2.0.</span></p>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>cardinality_threshold</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><em>default=40</em>) – Two lists of features will be created depending on this value: strictly
 under this value, the low cardinality categorical values, and above or
@@ -194,7 +195,7 @@ List of three-tuple containing
 or “passthrough” or “drop”
 (3) the list of column names or index</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>List[Tuple[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a>, Union[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a>, BaseEstimator], Union[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)">int</a>]]]</p>
 </dd>
 </dl>
@@ -205,7 +206,7 @@ or “passthrough” or “drop”
 <span class="sig-name descname"><span class="pre">columns_</span></span><a class="headerlink" href="#dirty_cat.SuperVectorizer.columns_" title="Permalink to this definition">¶</a></dt>
 <dd><p>The column names of fitted array.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>List[Union[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)">int</a>]]</p>
 </dd>
 </dl>
@@ -217,7 +218,7 @@ or “passthrough” or “drop”
 <dd><p>A mapping of inferred types per column.
 Key is the column name, value is the inferred dtype.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Dict[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#type" title="(in Python v3.10)">type</a>]</p>
 </dd>
 </dl>
@@ -228,7 +229,7 @@ Key is the column name, value is the inferred dtype.</p>
 <span class="sig-name descname"><span class="pre">imputed_columns_</span></span><a class="headerlink" href="#dirty_cat.SuperVectorizer.imputed_columns_" title="Permalink to this definition">¶</a></dt>
 <dd><p>The list of columns in which we imputed the missing values.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>List[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a>]</p>
 </dd>
 </dl>
@@ -237,7 +238,7 @@ Key is the column name, value is the inferred dtype.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="dirty_cat.SuperVectorizer.OptionalEstimator">
 <span class="sig-name descname"><span class="pre">OptionalEstimator</span></span><a class="headerlink" href="#dirty_cat.SuperVectorizer.OptionalEstimator" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Union</span></code></a>[<a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html#sklearn.base.BaseEstimator" title="(in scikit-learn v1.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.base.BaseEstimator</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]]</p>
+<dd><p>alias of <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Union</span></code></a>[<a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html#sklearn.base.BaseEstimator" title="(in scikit-learn v1.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseEstimator</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]]</p>
 </dd></dl>
 
 <dl class="py method">
@@ -245,17 +246,17 @@ Key is the column name, value is the inferred dtype.</p>
 <span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dirty_cat.SuperVectorizer.fit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fit all transformers using X.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>X</strong> (<em>{array-like</em><em>, </em><em>dataframe} of shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Input data, of which specified subsets are used to fit the
 transformers.</p></li>
 <li><p><strong>y</strong> (<em>array-like of shape</em><em> (</em><em>n_samples</em><em>,</em><em>...</em><em>)</em><em>, </em><em>default=None</em>) – Targets for supervised learning.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>self</strong> – This estimator.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>ColumnTransformer</p>
 </dd>
 </dl>
@@ -266,23 +267,23 @@ transformers.</p></li>
 <span class="sig-name descname"><span class="pre">fit_transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/super_vectorizer.html#SuperVectorizer.fit_transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.SuperVectorizer.fit_transform" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fit all transformers, transform the data, and concatenate results.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>X</strong> (<em>{array-like</em><em>, </em><em>dataframe} of shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Input data, of which specified subsets are used to fit the
 transformers.</p></li>
 <li><p><strong>y</strong> (<em>array-like of shape</em><em> (</em><em>n_samples</em><em>,</em><em>)</em><em>, </em><em>default=None</em>) – Targets for supervised learning.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>X_t</strong> – hstack of results of transformers. sum_n_components is the
 sum of n_components (output dimension) over transformers. If
 any result is a sparse matrix, everything will be converted to
 sparse matrices.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>{array-like, sparse matrix} of shape (n_samples, sum_n_components)</p>
 </dd>
-<dt class="field-even">Raises</dt>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#RuntimeError" title="(in Python v3.10)"><strong>RuntimeError</strong></a> – If no transformers could be constructed,
     usually because transformers passed do not match any column.
     To fix the issue, try passing the least amount of None as encoders.</p>
@@ -314,14 +315,14 @@ or “&lt;column_name&gt;” if not encoded.</p>
 estimators contained within the <cite>transformers</cite> of the
 <cite>ColumnTransformer</cite>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>deep</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>default=True</em>) – If True, will return the parameters for this estimator and
 contained subobjects that are estimators.</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>params</strong> – Parameter names mapped to their values.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)">dict</a></p>
 </dd>
 </dl>
@@ -344,13 +345,13 @@ objects.</p>
 can directly set the parameters of the estimators contained in
 <cite>transformers</cite> of <cite>ColumnTransformer</cite>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Estimator parameters.</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>self</strong> – This estimator.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>ColumnTransformer</p>
 </dd>
 </dl>
@@ -366,16 +367,16 @@ can directly set the parameters of the estimators contained in
 <span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/super_vectorizer.html#SuperVectorizer.transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.SuperVectorizer.transform" title="Permalink to this definition">¶</a></dt>
 <dd><p>Transform X by applying transformers on each column, then concatenate results.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>X</strong> (<em>{array-like</em><em>, </em><em>dataframe} of shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – The data to be transformed.</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>X_t</strong> – hstack of results of transformers. sum_n_components is the
 sum of n_components (output dimension) over transformers. If
 any result is a sparse matrix, everything will be converted to
 sparse matrices.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>{array-like, sparse matrix} of                 shape (n_samples, sum_n_components)</p>
 </dd>
 </dl>
@@ -384,20 +385,14 @@ sparse matrices.</p>
 </dd></dl>
 
 <section id="examples-using-dirty-cat-supervectorizer">
-<h2>Examples using <code class="docutils literal notranslate"><span class="pre">dirty_cat.SuperVectorizer</span></code><a class="headerlink" href="#examples-using-dirty-cat-supervectorizer" title="Permalink to this headline">¶</a></h2>
-<div class="sphx-glr-thumbcontainer" tooltip="Including strings that represent categories often calls for much data preparation. In particula..."><figure class="align-default" id="id1">
-<img alt="Dirty categories: machine learning with non normalized strings" src="../_images/sphx_glr_01_dirty_categories_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="../auto_examples/01_dirty_categories.html#sphx-glr-auto-examples-01-dirty-categories-py"><span class="std std-ref">Dirty categories: machine learning with non normalized strings</span></a></span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
-</div><div class="sphx-glr-thumbcontainer" tooltip="We illustrate here how to handle datetime features with the DatetimeEncoder."><figure class="align-default" id="id2">
-<img alt="Handling datetime features with the DatetimeEncoder" src="../_images/sphx_glr_04_datetime_encoder_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="../auto_examples/04_datetime_encoder.html#sphx-glr-auto-examples-04-datetime-encoder-py"><span class="std std-ref">Handling datetime features with the DatetimeEncoder</span></a></span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
-</div><div class="clearer"></div></section>
+<h2>Examples using <code class="docutils literal notranslate"><span class="pre">dirty_cat.SuperVectorizer</span></code><a class="headerlink" href="#examples-using-dirty-cat-supervectorizer" title="Permalink to this heading">¶</a></h2>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="Including strings that represent categories often calls for much data preparation. In particula..."><img alt="Dirty categories: machine learning with non normalized strings" src="../_images/sphx_glr_01_dirty_categories_thumb.png" />
+<p><a class="reference internal" href="../auto_examples/01_dirty_categories.html#sphx-glr-auto-examples-01-dirty-categories-py"><span class="std std-ref">Dirty categories: machine learning with non normalized strings</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Dirty categories: machine learning with non normalized strings</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="We illustrate here how to handle datetime features with the DatetimeEncoder."><img alt="Handling datetime features with the DatetimeEncoder" src="../_images/sphx_glr_04_datetime_encoder_thumb.png" />
+<p><a class="reference internal" href="../auto_examples/04_datetime_encoder.html#sphx-glr-auto-examples-04-datetime-encoder-py"><span class="std std-ref">Handling datetime features with the DatetimeEncoder</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Handling datetime features with the DatetimeEncoder</div>
+</div></div><div class="clearer"></div></section>
 </section>
 
 

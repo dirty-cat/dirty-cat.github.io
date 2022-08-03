@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
 <meta property="og:title" content="Scalability considerations for similarity encoding" />
   
@@ -30,6 +30,7 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/scrolltoc.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -110,7 +111,7 @@
 to download the full example code or to run this example in your browser via Binder</p>
 </div>
 <section class="sphx-glr-example-title" id="scalability-considerations-for-similarity-encoding">
-<span id="sphx-glr-auto-examples-06-dimension-reduction-and-performance-py"></span><h1>Scalability considerations for similarity encoding<a class="headerlink" href="#scalability-considerations-for-similarity-encoding" title="Permalink to this headline">¶</a></h1>
+<span id="sphx-glr-auto-examples-06-dimension-reduction-and-performance-py"></span><h1>Scalability considerations for similarity encoding<a class="headerlink" href="#scalability-considerations-for-similarity-encoding" title="Permalink to this heading">¶</a></h1>
 <p>Here we discuss how to apply efficiently SimilarityEncoder to larger
 datasets: reducing the number of reference categories to “prototypes”,
 either chosen as the most frequent categories, or with kmeans clustering.</p>
@@ -124,7 +125,7 @@ SimilarityEncoder, and should be preferred in large-scale settings.</p>
 </pre></div>
 </div>
 <section id="a-tool-to-report-memory-usage-and-run-time">
-<h2>A tool to report memory usage and run time<a class="headerlink" href="#a-tool-to-report-memory-usage-and-run-time" title="Permalink to this headline">¶</a></h2>
+<h2>A tool to report memory usage and run time<a class="headerlink" href="#a-tool-to-report-memory-usage-and-run-time" title="Permalink to this heading">¶</a></h2>
 <p>For this example, we build a small tool that reports memory
 usage and compute time of a function</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <a href="https://docs.python.org/3/library/time.html#time.time" title="time.time" class="sphx-glr-backref-module-time sphx-glr-backref-type-py-function"><span class="n">time</span></a>
@@ -153,7 +154,7 @@ usage and compute time of a function</p>
 </div>
 </section>
 <section id="data-importing-and-preprocessing">
-<h2>Data Importing and preprocessing<a class="headerlink" href="#data-importing-and-preprocessing" title="Permalink to this headline">¶</a></h2>
+<h2>Data Importing and preprocessing<a class="headerlink" href="#data-importing-and-preprocessing" title="Permalink to this heading">¶</a></h2>
 <p>We first get the dataset:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">dirty_cat.datasets</span> <span class="kn">import</span> <a href="../generated/dirty_cat.datasets.fetch_open_payments.html#dirty_cat.datasets.fetch_open_payments" title="dirty_cat.datasets.fetch_open_payments" class="sphx-glr-backref-module-dirty_cat-datasets sphx-glr-backref-type-py-function"><span class="n">fetch_open_payments</span></a>
@@ -188,7 +189,6 @@ usage and compute time of a function</p>
 <span class="p">]</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Payments given by healthcare manufacturing companies to medical doctors or hospitals
 </pre></div>
 </div>
@@ -197,7 +197,6 @@ One difficulty is that they have many different entries.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">df</span></a><span class="p">[</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">dirty_columns</span></a><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">())</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Name_of_Associated_Covered_Device_or_Medical_Supply1    223
 Name_of_Associated_Covered_Drug_or_Biological1          210
 dtype: int64
@@ -206,7 +205,6 @@ dtype: int64
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">df</span></a><span class="p">[</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">dirty_columns</span></a><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()[:</span><span class="mi">20</span><span class="p">])</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Name_of_Associated_Covered_Device_or_Medical_Supply1  Name_of_Associated_Covered_Drug_or_Biological1
 Sprix                                                 Sprix                                             95
 PriMatrix                                             PriMatrix                                         61
@@ -234,7 +232,7 @@ dtype: int64
 <p>As we will see, SimilarityEncoder takes a while on such data.</p>
 </section>
 <section id="similarityencoder-with-default-options">
-<h2>SimilarityEncoder with default options<a class="headerlink" href="#similarityencoder-with-default-options" title="Permalink to this headline">¶</a></h2>
+<h2>SimilarityEncoder with default options<a class="headerlink" href="#similarityencoder-with-default-options" title="Permalink to this heading">¶</a></h2>
 <p>Let us build our vectorizer, using a ColumnTransformer to combine
 one-hot encoding and similarity encoding</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.OneHotEncoder.html#sklearn.preprocessing.OneHotEncoder" title="sklearn.preprocessing.OneHotEncoder" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class"><span class="n">OneHotEncoder</span></a>
@@ -257,8 +255,7 @@ one-hot encoding and similarity encoding</p>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Time to vectorize: </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><a href="https://docs.python.org/3/library/functions.html#float" title="builtins.float" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">t1</span></a> <span class="o">-</span> <a href="https://docs.python.org/3/library/functions.html#float" title="builtins.float" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">t0</span></a><span class="p">))</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Time to vectorize: 0.2996022701263428
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Time to vectorize: 0.3068962097167969
 </pre></div>
 </div>
 <p>We can run a cross-validation</p>
@@ -272,8 +269,7 @@ one-hot encoding and similarity encoding</p>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Cross-validation score: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">results</span></a><span class="p">[</span><span class="s1">&#39;test_score&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Run time: 1s    Memory used: 12Mb
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Run time: 2s    Memory used: 12Mb
 Cross-validation score: [0.98513011 0.98884758 0.96641791 0.98134328 0.98880597]
 </pre></div>
 </div>
@@ -286,7 +282,7 @@ Cross-validation score: [0.98513011 0.98884758 0.96641791 0.98134328 0.98880597]
 </div>
 </section>
 <section id="most-frequent-strategy-to-define-prototypes">
-<h2>Most frequent strategy to define prototypes<a class="headerlink" href="#most-frequent-strategy-to-define-prototypes" title="Permalink to this headline">¶</a></h2>
+<h2>Most frequent strategy to define prototypes<a class="headerlink" href="#most-frequent-strategy-to-define-prototypes" title="Permalink to this heading">¶</a></h2>
 <p>The most frequent strategy selects the n most frequent values in a dirty
 categorical variable to reduce the dimensionality of the problem and thus
 speed things up. We select manually the number of prototypes we want to use.</p>
@@ -304,7 +300,6 @@ speed things up. We select manually the number of prototypes we want to use.</p>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Cross-validation score: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">results</span></a><span class="p">[</span><span class="s1">&#39;test_score&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Run time: 1s    Memory used: 9Mb
 Cross-validation score: [0.98513011 0.99256506 0.97014925 0.98507463 0.98880597]
 </pre></div>
@@ -316,7 +311,7 @@ Cross-validation score: [0.98513011 0.99256506 0.97014925 0.98507463 0.98880597]
 </div>
 </section>
 <section id="kmeans-strategy-to-define-prototypes">
-<h2>KMeans strategy to define prototypes<a class="headerlink" href="#kmeans-strategy-to-define-prototypes" title="Permalink to this headline">¶</a></h2>
+<h2>KMeans strategy to define prototypes<a class="headerlink" href="#kmeans-strategy-to-define-prototypes" title="Permalink to this heading">¶</a></h2>
 <p>K-means strategy is also a dimensionality reduction technique.
 SimilarityEncoder can apply a K-means and nearest neighbors algorithm
 to find the prototypes. The number of prototypes is set manually.</p>
@@ -334,9 +329,8 @@ to find the prototypes. The number of prototypes is set manually.</p>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Cross-validation score: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">results</span></a><span class="p">[</span><span class="s1">&#39;test_score&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Run time: 5s    Memory used: 8Mb
-Cross-validation score: [0.98884758 0.99256506 0.97014925 0.98507463 0.98880597]
+Cross-validation score: [0.98884758 0.99256506 0.96641791 0.98507463 0.98880597]
 </pre></div>
 </div>
 <p>Store results for later</p>
@@ -346,7 +340,7 @@ Cross-validation score: [0.98884758 0.99256506 0.97014925 0.98507463 0.98880597]
 </div>
 </section>
 <section id="plot-a-summary-figure">
-<h2>Plot a summary figure<a class="headerlink" href="#plot-a-summary-figure" title="Permalink to this headline">¶</a></h2>
+<h2>Plot a summary figure<a class="headerlink" href="#plot-a-summary-figure" title="Permalink to this heading">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
@@ -361,8 +355,8 @@ Cross-validation score: [0.98884758 0.99256506 0.97014925 0.98507463 0.98880597]
 <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.tight_layout.html#matplotlib.pyplot.tight_layout" title="matplotlib.pyplot.tight_layout" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../_images/sphx_glr_06_dimension_reduction_and_performance_001.png" srcset="../_images/sphx_glr_06_dimension_reduction_and_performance_001.png" alt="06 dimension reduction and performance" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  15.572 seconds)</p>
-<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-06-dimension-reduction-and-performance-py">
+<img src="../_images/sphx_glr_06_dimension_reduction_and_performance_001.png" srcset="../_images/sphx_glr_06_dimension_reduction_and_performance_001.png" alt="06 dimension reduction and performance" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  16.154 seconds)</p>
+<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-06-dimension-reduction-and-performance-py">
 <div class="binder-badge docutils container">
 <a class="reference external image-reference" href="https://mybinder.org/v2/gh/dirty-cat/dirty-cat.github.io/master?filepath=dev/auto_examples/06_dimension_reduction_and_performance.ipynb"><img alt="Launch binder" src="../_images/binder_badge_logo.svg" width="150px" /></a>
 </div>

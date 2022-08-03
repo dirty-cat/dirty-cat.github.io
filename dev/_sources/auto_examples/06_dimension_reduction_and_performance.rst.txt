@@ -137,8 +137,6 @@ We first get the dataset:
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     Payments given by healthcare manufacturing companies to medical doctors or hospitals
@@ -163,8 +161,6 @@ One difficulty is that they have many different entries.
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     Name_of_Associated_Covered_Device_or_Medical_Supply1    223
@@ -185,8 +181,6 @@ One difficulty is that they have many different entries.
 
 
 .. rst-class:: sphx-glr-script-out
-
- Out:
 
  .. code-block:: none
 
@@ -257,11 +251,9 @@ one-hot encoding and similarity encoding
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
-    Time to vectorize: 0.2996022701263428
+    Time to vectorize: 0.3068962097167969
 
 
 
@@ -289,11 +281,9 @@ We can run a cross-validation
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
-    Run time: 1s    Memory used: 12Mb
+    Run time: 2s    Memory used: 12Mb
     Cross-validation score: [0.98513011 0.98884758 0.96641791 0.98134328 0.98880597]
 
 
@@ -363,8 +353,6 @@ Check now that prediction is still as good
 
 
 .. rst-class:: sphx-glr-script-out
-
- Out:
 
  .. code-block:: none
 
@@ -437,12 +425,10 @@ Check now that prediction is still as good
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     Run time: 5s    Memory used: 8Mb
-    Cross-validation score: [0.98884758 0.99256506 0.97014925 0.98507463 0.98880597]
+    Cross-validation score: [0.98884758 0.99256506 0.96641791 0.98507463 0.98880597]
 
 
 
@@ -501,35 +487,30 @@ Plot a summary figure
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  15.572 seconds)
+   **Total running time of the script:** ( 0 minutes  16.154 seconds)
 
 
 .. _sphx_glr_download_auto_examples_06_dimension_reduction_and_performance.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
-  .. container:: binder-badge
+    .. container:: binder-badge
 
-    .. image:: images/binder_badge_logo.svg
-      :target: https://mybinder.org/v2/gh/dirty-cat/dirty-cat.github.io/master?filepath=dev/auto_examples/06_dimension_reduction_and_performance.ipynb
-      :alt: Launch binder
-      :width: 150 px
+      .. image:: images/binder_badge_logo.svg
+        :target: https://mybinder.org/v2/gh/dirty-cat/dirty-cat.github.io/master?filepath=dev/auto_examples/06_dimension_reduction_and_performance.ipynb
+        :alt: Launch binder
+        :width: 150 px
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: 06_dimension_reduction_and_performance.py <06_dimension_reduction_and_performance.py>`
 
-     :download:`Download Python source code: 06_dimension_reduction_and_performance.py <06_dimension_reduction_and_performance.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: 06_dimension_reduction_and_performance.ipynb <06_dimension_reduction_and_performance.ipynb>`
+      :download:`Download Jupyter notebook: 06_dimension_reduction_and_performance.ipynb <06_dimension_reduction_and_performance.ipynb>`
 
 
 .. only:: html

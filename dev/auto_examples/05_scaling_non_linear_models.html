@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
 <meta property="og:title" content="Fitting scalable, non-linear models on data with dirty categories" />
   
@@ -30,6 +30,7 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/scrolltoc.js"></script>
@@ -113,7 +114,7 @@
 to download the full example code or to run this example in your browser via Binder</p>
 </div>
 <section class="sphx-glr-example-title" id="fitting-scalable-non-linear-models-on-data-with-dirty-categories">
-<span id="sphx-glr-auto-examples-05-scaling-non-linear-models-py"></span><h1>Fitting scalable, non-linear models on data with dirty categories<a class="headerlink" href="#fitting-scalable-non-linear-models-on-data-with-dirty-categories" title="Permalink to this headline">¶</a></h1>
+<span id="sphx-glr-auto-examples-05-scaling-non-linear-models-py"></span><h1>Fitting scalable, non-linear models on data with dirty categories<a class="headerlink" href="#fitting-scalable-non-linear-models-on-data-with-dirty-categories" title="Permalink to this heading">¶</a></h1>
 <p>A very classic dilemma when training a machine learning model consists in
 choosing between using a linear model or a non-linear one.</p>
 <p>Linear models are very well studied and understood. They are generally fast
@@ -129,7 +130,7 @@ includes:</p>
 <ul class="simple">
 <li><p>Neural Networks</p></li>
 <li><p>Tree-based methods such as Random Forests, and the very powerful Gradient
-Boosting Machines <a class="footnote-reference brackets" href="#xgboost" id="id1">1</a></p></li>
+Boosting Machines <a class="footnote-reference brackets" href="#xgboost" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a></p></li>
 <li><p>Kernel Methods.</p></li>
 </ul>
 <p>However, reaching the phase where the non-linear model outperforms the linear
@@ -167,7 +168,7 @@ its use-cases.</p>
 </ul>
 </div>
 <section id="training-a-simple-pipeline">
-<h2>Training a simple pipeline<a class="headerlink" href="#training-a-simple-pipeline" title="Permalink to this headline">¶</a></h2>
+<h2>Training a simple pipeline<a class="headerlink" href="#training-a-simple-pipeline" title="Permalink to this heading">¶</a></h2>
 <p>The data that the model will fit is the <code class="code docutils literal notranslate"><span class="pre">drug_directory</span></code> dataset.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dirty_cat.datasets</span> <span class="kn">import</span> <span class="n">fetch_drug_directory</span>
 
@@ -176,15 +177,14 @@ its use-cases.</p>
 <span class="nb">print</span><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">drug_directory</span><span class="o">.</span><span class="n">description</span></a><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Product listing data submitted to the U.S. FDA for all unfinished, unapproved drugs.
 </pre></div>
 </div>
-<div class="topic">
+<aside class="topic">
 <p class="topic-title">Problem Setting</p>
 <p>We set the goal of our machine learning problem as follows:</p>
 <p class="centered">
-<strong><strong>predict the type of a drug given its composition.</strong></strong></p></div>
+<strong><strong>predict the type of a drug given its composition.</strong></strong></p></aside>
 <p>The <code class="code docutils literal notranslate"><span class="pre">NONPROPRIETARYNAME</span></code> column, is composed of text observations with
 describing each drug’s composition. The <code class="code docutils literal notranslate"><span class="pre">PRODUCTTYPENAME</span></code> column
 consists of categorical values: therefore, our problem is a classification
@@ -202,7 +202,6 @@ problem. You can have a glimpse of the values here:</p>
 <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Index.html#pandas.Index" title="pandas.core.indexes.base.Index" class="sphx-glr-backref-module-pandas-core-indexes-base sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">columns_names</span></a> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Index.html#pandas.Index" title="pandas.core.indexes.base.Index" class="sphx-glr-backref-module-pandas-core-indexes-base sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">df</span><span class="o">.</span><span class="n">columns</span></a>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  NONPROPRIETARYNAME          PRODUCTTYPENAME
 0            diluent           HUMAN OTC DRUG
 1   Florbetapir F 18  HUMAN PRESCRIPTION DRUG
@@ -213,7 +212,7 @@ problem. You can have a glimpse of the values here:</p>
 </div>
 </section>
 <section id="estimators-construction">
-<h2>Estimators construction<a class="headerlink" href="#estimators-construction" title="Permalink to this headline">¶</a></h2>
+<h2>Estimators construction<a class="headerlink" href="#estimators-construction" title="Permalink to this heading">¶</a></h2>
 <p>Our input is categorical, thus needs to be encoded. As observations often
 consist in variations around a few concepts (for instance,
 <code class="code docutils literal notranslate"><span class="pre">'Amlodipine</span> <span class="pre">Besylate'</span></code> and
@@ -247,7 +246,7 @@ fit the encoded inputs.</p>
 </div>
 </section>
 <section id="data-loading-and-preprocessing">
-<h2>Data Loading and Preprocessing<a class="headerlink" href="#data-loading-and-preprocessing" title="Permalink to this headline">¶</a></h2>
+<h2>Data Loading and Preprocessing<a class="headerlink" href="#data-loading-and-preprocessing" title="Permalink to this heading">¶</a></h2>
 <p>Like in most machine learning setups, the data has to be split into 2
 exclusive parts:</p>
 <ul class="simple">
@@ -256,14 +255,14 @@ exclusive parts:</p>
 </ul>
 <p>For this reason, we create a simple wrapper around <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html#pandas.read_csv" title="(in pandas v1.4.3)"><code class="xref py py-func docutils literal notranslate"><span class="pre">pandas.read_csv()</span></code></a>, that
 extracts the <code class="code docutils literal notranslate"><span class="pre">X</span></code>, and <code class="code docutils literal notranslate"><span class="pre">y</span></code> from the dataset.</p>
-<div class="topic">
+<aside class="topic">
 <p class="topic-title">Note about class imbalance:</p>
 <p>The <code class="code docutils literal notranslate"><span class="pre">y</span></code> labels are composed of 7 unique classes. However, <code class="docutils literal notranslate"><span class="pre">HUMAN</span>
 <span class="pre">OTC</span> <span class="pre">DRUG</span></code> and <code class="docutils literal notranslate"><span class="pre">HUMAN</span> <span class="pre">PRESCRIPTION</span> <span class="pre">DRUG</span></code> represent around 97% of the
 data, in a fairly balanced manner. The last 5 classes are much rarer.
 Dealing with class imbalance is out of the scope of this example, so the
 models will be trained on the first two classes only.</p>
-</div>
+</aside>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">preprocess</span><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">df</span></a><span class="p">,</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.LabelEncoder.html#sklearn.preprocessing.LabelEncoder" title="sklearn.preprocessing.LabelEncoder" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">label_encoder</span></a><span class="p">):</span>
     <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">df</span></a> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.loc.html#pandas.DataFrame.loc" title="pandas.DataFrame.loc" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-property"><span class="n">df</span><span class="o">.</span><span class="n">loc</span></a><span class="p">[</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">df</span></a><span class="p">[</span><span class="s1">&#39;PRODUCTTYPENAME&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span>
         <span class="p">[</span><span class="s1">&#39;HUMAN OTC DRUG&#39;</span><span class="p">,</span> <span class="s1">&#39;HUMAN PRESCRIPTION DRUG&#39;</span><span class="p">])]</span>
@@ -322,7 +321,7 @@ case for all datasets, so be careful before applying this code to your own
 !</p>
 </div>
 <p>Finally, the <code class="code docutils literal notranslate"><span class="pre">X</span></code> and <code class="code docutils literal notranslate"><span class="pre">y</span></code> are loaded.</p>
-<div class="topic">
+<aside class="topic">
 <p class="topic-title">Note: offsetting the test set</p>
 <p>We create an offset to separate the training and the test set. The reason
 for this, is that the online procedures of this example will consume far
@@ -330,7 +329,7 @@ more rows, but we still would like to compare accuracies with the
 same test set, and not change it each time. Therefore, we “reserve” the
 first 100000 rows for the training phase. The rest is made available to
 the test set.</p>
-</div>
+</aside>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">train_set_size</span></a> <span class="o">=</span> <span class="mi">5000</span>
 <a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">test_set_size</span></a> <span class="o">=</span> <span class="mi">10000</span>
 <a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">offset</span></a> <span class="o">=</span> <span class="mi">100000</span>
@@ -344,7 +343,7 @@ the test set.</p>
 </div>
 </section>
 <section id="evaluating-time-and-sample-complexity">
-<h2>Evaluating time and sample complexity<a class="headerlink" href="#evaluating-time-and-sample-complexity" title="Permalink to this headline">¶</a></h2>
+<h2>Evaluating time and sample complexity<a class="headerlink" href="#evaluating-time-and-sample-complexity" title="Permalink to this heading">¶</a></h2>
 <p>Let’s get an idea of model precision and performance depending on the number
 of the samples used in the train set.
 The <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="(in scikit-learn v1.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a> is trained over different training set sizes. For this,
@@ -380,10 +379,9 @@ sample size varies.</p>
     <span class="nb">print</span><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">msg</span></a><span class="o">.</span><span class="n">format</span><span class="p">(</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">n</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/functions.html#float" title="builtins.float" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">train_time</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.float64" title="numpy.float64" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-attribute"><span class="n">test_score</span></a><span class="p">))</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>using   500 samples: model fitting took 0.2s, test accuracy of 0.501
 using  1666 samples: model fitting took 3.4s, test accuracy of 0.505
-using  5000 samples: model fitting took 54.3s, test accuracy of 0.563
+using  5000 samples: model fitting took 58.1s, test accuracy of 0.563
 </pre></div>
 </div>
 <p>Increasing training size clearly improves model accuracy. However, the
@@ -395,21 +393,21 @@ has to remain low: Using 30000 observations, the input is a <span class="math no
 <span class="math notranslate nohighlight">\(30000^2 \times 32 = 2.8 \times 10^{10} \text{bits} = 4\text{GB}\)</span></p>
 </section>
 <section id="reducing-input-dimension-using-kernel-approximation-methods">
-<h2>Reducing input dimension using kernel approximation methods.<a class="headerlink" href="#reducing-input-dimension-using-kernel-approximation-methods" title="Permalink to this headline">¶</a></h2>
+<h2>Reducing input dimension using kernel approximation methods.<a class="headerlink" href="#reducing-input-dimension-using-kernel-approximation-methods" title="Permalink to this heading">¶</a></h2>
 <p>The main scalability issues with kernels methods is the processing of a large
 square matrix. To understand where this matrix comes from, we need to delve a
 little bit deeper these methods internals.</p>
-<div class="topic">
+<aside class="topic">
 <p class="topic-title">Kernel methods</p>
 <p>Kernel methods address non-linear problems by leveraging similarities
 between each pair of inputs. Using a similarity matrix to solve a machine
 learning problem allows to catch complex, non-linear relationships within
 the data.  But it requires inverting this matrix, which can be a
 computational burden when the sample sizes increases.</p>
-</div>
+</aside>
 </section>
 <section id="kernel-approximation-methods">
-<h2>Kernel approximation methods<a class="headerlink" href="#kernel-approximation-methods" title="Permalink to this headline">¶</a></h2>
+<h2>Kernel approximation methods<a class="headerlink" href="#kernel-approximation-methods" title="Permalink to this heading">¶</a></h2>
 <p>From what was said below, two criteria are limiting a kernel algorithm to
 scale:</p>
 <ul class="simple">
@@ -418,22 +416,22 @@ of samples.</p></li>
 <li><p>During fitting time, this matrix is <strong>inverted</strong>, meaning it has to be
 loaded into main memory.</p></li>
 </ul>
-<p>Kernel approximation methods such as <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.kernel_approximation.RBFSampler.html#sklearn.kernel_approximation.RBFSampler" title="(in scikit-learn v1.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">RBFSampler</span></code></a> or <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.kernel_approximation.Nystroem.html#sklearn.kernel_approximation.Nystroem" title="(in scikit-learn v1.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Nystroem</span></code></a> <a class="footnote-reference brackets" href="#nys-ref" id="id2">4</a> try to
+<p>Kernel approximation methods such as <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.kernel_approximation.RBFSampler.html#sklearn.kernel_approximation.RBFSampler" title="(in scikit-learn v1.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">RBFSampler</span></code></a> or <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.kernel_approximation.Nystroem.html#sklearn.kernel_approximation.Nystroem" title="(in scikit-learn v1.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Nystroem</span></code></a> <a class="footnote-reference brackets" href="#nys-ref" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a> try to
 approximate this similarity matrix, without actually creating it. By allowing
 the program to not compute the perfect similarity matrix, the problem
 complexity becomes linear! Plus, the samples also do not need to be processed
 at once into main memory. We are not bound to use a <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="(in scikit-learn v1.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">SupportVectorClassifier</span></code></a> anymore, and can
 instead use an online optimization that will process the input by batch.</p>
-<div class="topic">
+<aside class="topic">
 <p class="topic-title">Online algorithms</p>
-<p>An online algorithm <a class="footnote-reference brackets" href="#online-ref" id="id3">2</a> is an algorithm that treats its input
+<p>An online algorithm <a class="footnote-reference brackets" href="#online-ref" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a> is an algorithm that treats its input
 piece by piece in a serial fashion. An famous example is the stochastic
-gradient descent <a class="footnote-reference brackets" href="#sgd-ref" id="id4">3</a>, where an estimation the objective function’s
+gradient descent <a class="footnote-reference brackets" href="#sgd-ref" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>, where an estimation the objective function’s
 gradient is computed on a batch of the data at each step.</p>
-</div>
+</aside>
 </section>
 <section id="reducing-the-transformers-dimensionality">
-<h2>Reducing the transformers dimensionality<a class="headerlink" href="#reducing-the-transformers-dimensionality" title="Permalink to this headline">¶</a></h2>
+<h2>Reducing the transformers dimensionality<a class="headerlink" href="#reducing-the-transformers-dimensionality" title="Permalink to this heading">¶</a></h2>
 <p>There is one last scalability issue in our pipeline: the <a class="reference internal" href="../generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="dirty_cat.SimilarityEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimilarityEncoder</span></code></a> and the <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.kernel_approximation.RBFSampler.html#sklearn.kernel_approximation.RBFSampler" title="(in scikit-learn v1.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">RBFSampler</span></code></a>
 both implement the <a class="reference external" href="https://scikit-learn.org/stable/glossary.html#term-fit" title="(in scikit-learn v1.1)"><span class="xref std std-term">fit</span></a> method. How to adapt those method to an online
 setting, where the data is never loaded as a whole?</p>
@@ -485,7 +483,7 @@ the data, prior to the online fitting step.</p>
 </div>
 </section>
 <section id="online-training-for-out-of-memory-data">
-<h2>Online training for out-of-memory data<a class="headerlink" href="#online-training-for-out-of-memory-data" title="Permalink to this headline">¶</a></h2>
+<h2>Online training for out-of-memory data<a class="headerlink" href="#online-training-for-out-of-memory-data" title="Permalink to this heading">¶</a></h2>
 <p>We now have all the theoretical elements to create an non-linear, online
 kernel method.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">warnings</span>
@@ -549,7 +547,6 @@ likely to be marginal.</p>
         <span class="nb">print</span><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">message</span></a><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>batch    0 train precision: 0.8728  val precision: 0.5003
 batch    5 train precision: 0.5139  val precision: 0.5592
 batch   10 train precision: 0.5559  val precision: 0.6715
@@ -604,8 +601,7 @@ visited samples for each model as we increase our time budget:</p>
 <a href="https://matplotlib.org/stable/api/figure_api.html#matplotlib.figure.Figure.suptitle" title="matplotlib.figure.Figure.suptitle" class="sphx-glr-backref-module-matplotlib-figure sphx-glr-backref-type-py-method"><span class="n">f</span><span class="o">.</span><span class="n">suptitle</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">title</span></a><span class="p">)</span>
 </pre></div>
 </div>
-<img src="../_images/sphx_glr_05_scaling_non_linear_models_001.png" srcset="../_images/sphx_glr_05_scaling_non_linear_models_001.png" alt="Test set accuracy and number of samples visited samples seen by the SGDClassifier" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Text(0.5, 0.98, &#39;Test set accuracy and number of samples visited\nsamples seen by the SGDClassifier&#39;)
+<img src="../_images/sphx_glr_05_scaling_non_linear_models_001.png" srcset="../_images/sphx_glr_05_scaling_non_linear_models_001.png" alt="Test set accuracy and number of samples visited samples seen by the SGDClassifier" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Text(0.5, 0.98, &#39;Test set accuracy and number of samples visited\nsamples seen by the SGDClassifier&#39;)
 </pre></div>
 </div>
 <p>This plot shows us that for the time budget, the online model will eventually
@@ -622,25 +618,28 @@ between the input and the output. By scaling a kernel method, we successfully
 took this non-linearity into account in our model, which was a far from
 trivial task at the beginning of this example!</p>
 <p class="rubric">Footnotes</p>
-<dl class="footnote brackets">
-<dt class="label" id="xgboost"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
-<dd><p><a class="reference external" href="https://web.njit.edu/~usman/courses/cs675_summer20/BoostedTree.pdf">Slides on gradient boosting by Tianqi Chen, the founder of XGBoost</a></p>
-</dd>
-<dt class="label" id="online-ref"><span class="brackets"><a class="fn-backref" href="#id3">2</a></span></dt>
-<dd><p><a class="reference external" href="https://en.wikipedia.org/wiki/Online_algorithm">Wikipedia article on online algorithms</a></p>
-</dd>
-<dt class="label" id="sgd-ref"><span class="brackets"><a class="fn-backref" href="#id4">3</a></span></dt>
-<dd><p><a class="reference external" href="http://khalilghorbal.info/assets/spa/papers/ML_GradDescent.pdf">Leon Bouttou’s article on stochastic gradient descent</a></p>
-</dd>
-<dt class="label" id="nys-ref"><span class="brackets"><a class="fn-backref" href="#id2">4</a></span></dt>
-<dd><p><a class="reference external" href="https://scikit-learn.org/stable/modules/kernel_approximation.html#nystroem-kernel-approx" title="(in scikit-learn v1.1)"><span class="xref std std-ref">scikit-learn documentation</span></a></p>
-</dd>
-<dt class="label" id="dual-ref"><span class="brackets">5</span></dt>
-<dd><p><a class="reference external" href="https://pdfs.semanticscholar.org/0373/e7289a1978108d6455218160a529c85842c0.pdf">Introduction to duality</a></p>
-</dd>
-</dl>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 4 minutes  41.367 seconds)</p>
-<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-05-scaling-non-linear-models-py">
+<aside class="footnote brackets" id="xgboost" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://web.njit.edu/~usman/courses/cs675_summer20/BoostedTree.pdf">Slides on gradient boosting by Tianqi Chen, the founder of XGBoost</a></p>
+</aside>
+<aside class="footnote brackets" id="online-ref" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">2</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Online_algorithm">Wikipedia article on online algorithms</a></p>
+</aside>
+<aside class="footnote brackets" id="sgd-ref" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">3</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="http://khalilghorbal.info/assets/spa/papers/ML_GradDescent.pdf">Leon Bouttou’s article on stochastic gradient descent</a></p>
+</aside>
+<aside class="footnote brackets" id="nys-ref" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">4</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://scikit-learn.org/stable/modules/kernel_approximation.html#nystroem-kernel-approx" title="(in scikit-learn v1.1)"><span class="xref std std-ref">scikit-learn documentation</span></a></p>
+</aside>
+<aside class="footnote brackets" id="dual-ref" role="note">
+<span class="label"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://pdfs.semanticscholar.org/0373/e7289a1978108d6455218160a529c85842c0.pdf">Introduction to duality</a></p>
+</aside>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 4 minutes  43.513 seconds)</p>
+<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-05-scaling-non-linear-models-py">
 <div class="binder-badge docutils container">
 <a class="reference external image-reference" href="https://mybinder.org/v2/gh/dirty-cat/dirty-cat.github.io/master?filepath=dev/auto_examples/05_scaling_non_linear_models.ipynb"><img alt="Launch binder" src="../_images/binder_badge_logo.svg" width="150px" /></a>
 </div>

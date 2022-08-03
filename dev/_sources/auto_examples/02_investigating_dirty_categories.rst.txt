@@ -48,8 +48,6 @@ Let's look at a dataset called employee salaries:
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     Annual salary information including gross pay and overtime pay for all active, permanent employees of Montgomery County, MD paid in calendar year 2016. This information will be published annually each year.
@@ -80,8 +78,6 @@ Here is how many unique entries there is per column
 
 
 .. rst-class:: sphx-glr-script-out
-
- Out:
 
  .. code-block:: none
 
@@ -114,8 +110,6 @@ As we can see, some entries have many different unique values:
 
 
 .. rst-class:: sphx-glr-script-out
-
- Out:
 
  .. code-block:: none
 
@@ -228,8 +222,6 @@ to get an intuition of what the similarity encoder is doing:
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     (385, 2)
@@ -295,8 +287,6 @@ Then we plot it, adding the categories in the scatter plot:
 
 
 .. rst-class:: sphx-glr-script-out
-
- Out:
 
  .. code-block:: none
 
@@ -425,35 +415,30 @@ similarity encoding impacts prediction performance.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  5.840 seconds)
+   **Total running time of the script:** ( 0 minutes  6.612 seconds)
 
 
 .. _sphx_glr_download_auto_examples_02_investigating_dirty_categories.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
-  .. container:: binder-badge
+    .. container:: binder-badge
 
-    .. image:: images/binder_badge_logo.svg
-      :target: https://mybinder.org/v2/gh/dirty-cat/dirty-cat.github.io/master?filepath=dev/auto_examples/02_investigating_dirty_categories.ipynb
-      :alt: Launch binder
-      :width: 150 px
+      .. image:: images/binder_badge_logo.svg
+        :target: https://mybinder.org/v2/gh/dirty-cat/dirty-cat.github.io/master?filepath=dev/auto_examples/02_investigating_dirty_categories.ipynb
+        :alt: Launch binder
+        :width: 150 px
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: 02_investigating_dirty_categories.py <02_investigating_dirty_categories.py>`
 
-     :download:`Download Python source code: 02_investigating_dirty_categories.py <02_investigating_dirty_categories.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: 02_investigating_dirty_categories.ipynb <02_investigating_dirty_categories.ipynb>`
+      :download:`Download Jupyter notebook: 02_investigating_dirty_categories.ipynb <02_investigating_dirty_categories.ipynb>`
 
 
 .. only:: html

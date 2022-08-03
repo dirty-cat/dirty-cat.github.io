@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
 <meta property="og:title" content="Dirty categories: machine learning with non normalized strings" />
   
@@ -30,6 +30,7 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/scrolltoc.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -126,12 +127,12 @@
 to download the full example code or to run this example in your browser via Binder</p>
 </div>
 <section class="sphx-glr-example-title" id="dirty-categories-machine-learning-with-non-normalized-strings">
-<span id="sphx-glr-auto-examples-01-dirty-categories-py"></span><h1>Dirty categories: machine learning with non normalized strings<a class="headerlink" href="#dirty-categories-machine-learning-with-non-normalized-strings" title="Permalink to this headline">¶</a></h1>
+<span id="sphx-glr-auto-examples-01-dirty-categories-py"></span><h1>Dirty categories: machine learning with non normalized strings<a class="headerlink" href="#dirty-categories-machine-learning-with-non-normalized-strings" title="Permalink to this heading">¶</a></h1>
 <p>Including strings that represent categories often calls for much data
 preparation. In particular categories may appear with many morphological
 variants, when they have been manually input or assembled from diverse
 sources.</p>
-<p>Here we look at a dataset on wages <a class="footnote-reference brackets" href="#id2" id="id1">1</a> where the column <em>Employee
+<p>Here we look at a dataset on wages <a class="footnote-reference brackets" href="#id2" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> where the column <em>Employee
 Position Title</em> contains dirty categories. On such a column, standard
 categorical encodings leads to very high dimensions and can loose
 information on which categories are similar.</p>
@@ -140,19 +141,17 @@ learning workflow, predicting the <em>current annual salary</em> with gradient
 boosted trees. First we manually assemble a complex encoder for the full
 dataframe, after which we show a much simpler way, albeit with less fine
 control.</p>
-<dl class="footnote brackets">
-<dt class="label" id="id2"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
-<dd><p><a class="reference external" href="https://www.openml.org/d/42125">https://www.openml.org/d/42125</a></p>
-</dd>
-</dl>
+<aside class="footnote brackets" id="id2" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://www.openml.org/d/42125">https://www.openml.org/d/42125</a></p>
+</aside>
 <section id="the-data">
-<h2>The data<a class="headerlink" href="#the-data" title="Permalink to this headline">¶</a></h2>
+<h2>The data<a class="headerlink" href="#the-data" title="Permalink to this heading">¶</a></h2>
 <p>We first retrieve the dataset:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dirty_cat.datasets</span> <span class="kn">import</span> <a href="../generated/dirty_cat.datasets.fetch_employee_salaries.html#dirty_cat.datasets.fetch_employee_salaries" title="dirty_cat.datasets.fetch_employee_salaries" class="sphx-glr-backref-module-dirty_cat-datasets sphx-glr-backref-type-py-function"><span class="n">fetch_employee_salaries</span></a>
 <span class="n">employee_salaries</span> <span class="o">=</span> <a href="../generated/dirty_cat.datasets.fetch_employee_salaries.html#dirty_cat.datasets.fetch_employee_salaries" title="dirty_cat.datasets.fetch_employee_salaries" class="sphx-glr-backref-module-dirty_cat-datasets sphx-glr-backref-type-py-function"><span class="n">fetch_employee_salaries</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/circleci/project/dirty_cat/datasets/fetching.py:323: UserWarning: Could not find the dataset 42125 locally. Downloading it from OpenML; this might take a while... If it is interrupted, some files might be invalid/incomplete: if on the following run, the fetching raises errors, you can try fixing this issue by deleting the directory /home/circleci/project/dirty_cat/datasets/data.
   info = fetch_openml_dataset(dataset_id)
 </pre></div>
@@ -336,7 +335,6 @@ control.</p>
 <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.name.html#pandas.Series.name" title="pandas.Series.name" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-property"><span class="n">y</span><span class="o">.</span><span class="n">name</span></a>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&#39;current_annual_salary&#39;
 </pre></div>
 </div>
@@ -353,13 +351,13 @@ control.</p>
 </div>
 </section>
 <section id="assembling-a-machine-learning-pipeline-that-encodes-the-data">
-<h2>Assembling a machine-learning pipeline that encodes the data<a class="headerlink" href="#assembling-a-machine-learning-pipeline-that-encodes-the-data" title="Permalink to this headline">¶</a></h2>
+<h2>Assembling a machine-learning pipeline that encodes the data<a class="headerlink" href="#assembling-a-machine-learning-pipeline-that-encodes-the-data" title="Permalink to this heading">¶</a></h2>
 <section id="the-learning-pipeline">
-<h3>The learning pipeline<a class="headerlink" href="#the-learning-pipeline" title="Permalink to this headline">¶</a></h3>
+<h3>The learning pipeline<a class="headerlink" href="#the-learning-pipeline" title="Permalink to this heading">¶</a></h3>
 <p>To build a learning pipeline, we need to assemble encoders for each
 column, and apply a supervised learning model on top.</p>
 <section id="the-categorical-encoders">
-<h4>The categorical encoders<a class="headerlink" href="#the-categorical-encoders" title="Permalink to this headline">¶</a></h4>
+<h4>The categorical encoders<a class="headerlink" href="#the-categorical-encoders" title="Permalink to this heading">¶</a></h4>
 <p>An encoder is needed to turn a categorical column into a numerical
 representation</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.OneHotEncoder.html#sklearn.preprocessing.OneHotEncoder" title="sklearn.preprocessing.OneHotEncoder" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class"><span class="n">OneHotEncoder</span></a>
@@ -382,7 +380,7 @@ alongside with the column names on which each must be applied</p>
 </div>
 </section>
 <section id="pipelining-an-encoder-with-a-learner">
-<h4>Pipelining an encoder with a learner<a class="headerlink" href="#pipelining-an-encoder-with-a-learner" title="Permalink to this headline">¶</a></h4>
+<h4>Pipelining an encoder with a learner<a class="headerlink" href="#pipelining-an-encoder-with-a-learner" title="Permalink to this heading">¶</a></h4>
 <p>We will use a HistGradientBoostingRegressor, which is a good predictor
 for data with heterogeneous columns</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.HistGradientBoostingRegressor.html#sklearn.ensemble.HistGradientBoostingRegressor" title="sklearn.ensemble._hist_gradient_boosting.gradient_boosting.HistGradientBoostingRegressor" class="sphx-glr-backref-module-sklearn-ensemble-_hist_gradient_boosting-gradient_boosting sphx-glr-backref-type-py-class"><span class="n">HistGradientBoostingRegressor</span></a>
@@ -439,14 +437,13 @@ for data with heterogeneous columns</p>
 <br /></section>
 </section>
 <section id="dirty-category-encoding">
-<h3>Dirty-category encoding<a class="headerlink" href="#dirty-category-encoding" title="Permalink to this headline">¶</a></h3>
+<h3>Dirty-category encoding<a class="headerlink" href="#dirty-category-encoding" title="Permalink to this heading">¶</a></h3>
 <p>The one-hot encoder is actually not well suited to the ‘Employee
 Position Title’ column, as this columns contains 400 different entries:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <a href="https://numpy.org/doc/stable/reference/generated/numpy.unique.html#numpy.unique" title="numpy.unique" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">unique</span></a><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>array([  9196.  ,  11147.24,  13244.5 , ..., 233003.  , 239566.  ,
        303091.  ])
 </pre></div>
@@ -489,7 +486,6 @@ and store the returned cross-validation score:</p>
     <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">all_scores</span></a><span class="p">[</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">name</span></a><span class="p">]</span> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">scores</span></a>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>one-hot encoding
 r2 score:  mean: 0.776; std: 0.028
 
@@ -503,11 +499,11 @@ minhash encoding
 r2 score:  mean: 0.919; std: 0.012
 
 gap encoding
-r2 score:  mean: 0.906; std: 0.014
+r2 score:  mean: 0.907; std: 0.008
 </pre></div>
 </div>
 <section id="plotting-the-results">
-<h4>Plotting the results<a class="headerlink" href="#plotting-the-results" title="Permalink to this headline">¶</a></h4>
+<h4>Plotting the results<a class="headerlink" href="#plotting-the-results" title="Permalink to this heading">¶</a></h4>
 <p>Finally, we plot the scores on a boxplot:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
@@ -533,7 +529,7 @@ it provides interpretable features
 </section>
 </section>
 <section id="a-simpler-way-automatic-vectorization">
-<span id="example-super-vectorizer"></span><h2>A simpler way: automatic vectorization<a class="headerlink" href="#a-simpler-way-automatic-vectorization" title="Permalink to this headline">¶</a></h2>
+<span id="example-super-vectorizer"></span><h2>A simpler way: automatic vectorization<a class="headerlink" href="#a-simpler-way-automatic-vectorization" title="Permalink to this heading">¶</a></h2>
 <p>The code to assemble a column transformer is a bit tedious. We will
 now explore a simpler, automated, way of encoding the data.</p>
 <p>Let’s start again from the raw data:</p>
@@ -710,7 +706,7 @@ now explore a simpler, automated, way of encoding the data.</p>
 <br /><p>The <a class="reference internal" href="../generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SuperVectorizer</span></code></a> can to turn this dataframe into a form suited for
 machine learning.</p>
 <section id="using-the-supervectorizer-in-a-supervised-learning-pipeline">
-<h3>Using the SuperVectorizer in a supervised-learning pipeline<a class="headerlink" href="#using-the-supervectorizer-in-a-supervised-learning-pipeline" title="Permalink to this headline">¶</a></h3>
+<h3>Using the SuperVectorizer in a supervised-learning pipeline<a class="headerlink" href="#using-the-supervectorizer-in-a-supervised-learning-pipeline" title="Permalink to this heading">¶</a></h3>
 <p>Assembling the <a class="reference internal" href="../generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SuperVectorizer</span></code></a> in a <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="(in scikit-learn v1.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a> with a powerful learner,
 such as gradient boosted trees, gives <strong>a machine-learning method that
 can be readily applied to the dataframe</strong>.</p>
@@ -732,10 +728,9 @@ can be readily applied to the dataframe</strong>.</p>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;std=</span><span class="si">{</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.std.html#numpy.std" title="numpy.std" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">std</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">scores</span></a><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>scores=[0.91216256 0.89441414 0.92175232 0.91940195 0.91322266]
-mean=0.9121907268748537
-std=0.009596857422783647
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>scores=[0.91507884 0.89279984 0.91099901 0.92429611 0.92140265]
+mean=0.9129152909587246
+std=0.01108641355868956
 </pre></div>
 </div>
 <p>The prediction performed here is pretty much as good as above
@@ -743,7 +738,7 @@ but the code here is much simpler as it does not involve specifying
 columns manually.</p>
 </section>
 <section id="analyzing-the-features-created">
-<h3>Analyzing the features created<a class="headerlink" href="#analyzing-the-features-created" title="Permalink to this headline">¶</a></h3>
+<h3>Analyzing the features created<a class="headerlink" href="#analyzing-the-features-created" title="Permalink to this heading">¶</a></h3>
 <p>Let us perform the same workflow, but without the <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="(in scikit-learn v1.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a>, so we can
 analyze its mechanisms along the way.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer" class="sphx-glr-backref-module-dirty_cat sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sup_vec</span></a> <span class="o">=</span> <a href="../generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer" class="sphx-glr-backref-module-dirty_cat sphx-glr-backref-type-py-class"><span class="n">SuperVectorizer</span></a><span class="p">(</span><span class="n">auto_cast</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -763,9 +758,8 @@ analyze its mechanisms along the way.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_train_enc</span></a>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>array([[0.00000000e+00, 1.00000000e+00, 0.00000000e+00, ...,
-        5.67755876e-02, 1.11484929e+00, 2.00700000e+03],
+        7.62260955e-02, 5.59914795e-02, 2.00700000e+03],
        [1.00000000e+00, 0.00000000e+00, 0.00000000e+00, ...,
         5.00000000e-02, 5.00000000e-02, 2.00500000e+03],
        [1.00000000e+00, 0.00000000e+00, 0.00000000e+00, ...,
@@ -783,18 +777,16 @@ analyze its mechanisms along the way.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.shape.html#pandas.DataFrame.shape" title="pandas.DataFrame.shape" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-property"><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/stdtypes.html#tuple" title="builtins.tuple" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_train_enc</span><span class="o">.</span><span class="n">shape</span></a><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>((7843, 8), (7843, 170))
 </pre></div>
 </div>
 <section id="inspecting-the-features-created">
-<h4>Inspecting the features created<a class="headerlink" href="#inspecting-the-features-created" title="Permalink to this headline">¶</a></h4>
+<h4>Inspecting the features created<a class="headerlink" href="#inspecting-the-features-created" title="Permalink to this heading">¶</a></h4>
 <p>The <a class="reference internal" href="../generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SuperVectorizer</span></code></a> assigns a transformer for each column. We can inspect this
 choice:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sup_vec</span><span class="o">.</span><span class="n">transformers_</span></a>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[(&#39;low_card_cat&#39;, OneHotEncoder(), [&#39;gender&#39;, &#39;department&#39;, &#39;department_name&#39;, &#39;assignment_category&#39;]), (&#39;high_card_cat&#39;, GapEncoder(n_components=30), [&#39;division&#39;, &#39;employee_position_title&#39;, &#39;underfilled_job_title&#39;]), (&#39;remainder&#39;, &#39;passthrough&#39;, [&#39;year_first_hired&#39;])]
 </pre></div>
 </div>
@@ -811,7 +803,6 @@ A <a class="reference external" href="https://scikit-learn.org/stable/modules/ge
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Index.to_list.html#pandas.Index.to_list" title="pandas.Index.to_list" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-method"><span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">to_list</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[&#39;gender&#39;, &#39;department&#39;, &#39;department_name&#39;, &#39;division&#39;, &#39;assignment_category&#39;, &#39;employee_position_title&#39;, &#39;underfilled_job_title&#39;, &#39;year_first_hired&#39;]
 </pre></div>
 </div>
@@ -820,7 +811,6 @@ A <a class="reference external" href="https://scikit-learn.org/stable/modules/ge
 <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">feature_names</span></a><span class="p">[:</span><span class="mi">8</span><span class="p">]</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[&#39;gender_F&#39;, &#39;gender_M&#39;, &#39;gender_nan&#39;, &#39;department_BOA&#39;, &#39;department_BOE&#39;, &#39;department_CAT&#39;, &#39;department_CCL&#39;, &#39;department_CEC&#39;]
 </pre></div>
 </div>
@@ -832,21 +822,20 @@ which was classified as a high cardinality string variable.
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">feature_names</span></a><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>170
 </pre></div>
 </div>
 </section>
 </section>
 <section id="feature-importances-in-the-statistical-model">
-<h3>Feature importances in the statistical model<a class="headerlink" href="#feature-importances-in-the-statistical-model" title="Permalink to this headline">¶</a></h3>
+<h3>Feature importances in the statistical model<a class="headerlink" href="#feature-importances-in-the-statistical-model" title="Permalink to this heading">¶</a></h3>
 <p>In this section, we will train a regressor, and plot the feature importances</p>
-<div class="topic">
+<aside class="topic">
 <p class="topic-title">Note:</p>
 <p>To minimize compute time, use the feature importances computed by the
 <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestRegressor.html#sklearn.ensemble.RandomForestRegressor" title="(in scikit-learn v1.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">RandomForestRegressor</span></code></a>, but you should prefer <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.inspection.permutation_importance.html#sklearn.inspection.permutation_importance" title="(in scikit-learn v1.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">permutation_importance()</span></code></a>
 instead (which are less subject to biases)</p>
-</div>
+</aside>
 <p>First, let’s train the <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestRegressor.html#sklearn.ensemble.RandomForestRegressor" title="(in scikit-learn v1.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">RandomForestRegressor</span></code></a>,</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestRegressor.html#sklearn.ensemble.RandomForestRegressor" title="sklearn.ensemble.RandomForestRegressor" class="sphx-glr-backref-module-sklearn-ensemble sphx-glr-backref-type-py-class"><span class="n">RandomForestRegressor</span></a>
 <a href="https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestRegressor.html#sklearn.ensemble.RandomForestRegressor" title="sklearn.ensemble.RandomForestRegressor" class="sphx-glr-backref-module-sklearn-ensemble sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">regressor</span></a> <span class="o">=</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestRegressor.html#sklearn.ensemble.RandomForestRegressor" title="sklearn.ensemble.RandomForestRegressor" class="sphx-glr-backref-module-sklearn-ensemble sphx-glr-backref-type-py-class"><span class="n">RandomForestRegressor</span></a><span class="p">()</span>
@@ -887,14 +876,14 @@ instead (which are less subject to biases)</p>
 <img src="../_images/sphx_glr_01_dirty_categories_002.png" srcset="../_images/sphx_glr_01_dirty_categories_002.png" alt="Feature importances" class = "sphx-glr-single-img"/><p>We can deduce from this data that the three factors that define the
 most the salary are: being hired for a long time, being a manager, and
 having a permanent, full-time job :)</p>
-<div class="topic">
+<aside class="topic">
 <p class="topic-title">The SuperVectorizer automates preprocessing</p>
 <p>As this notebook demonstrates, many preprocessing steps can be
 automated by the <a class="reference internal" href="../generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SuperVectorizer</span></code></a>, and the resulting pipeline can still be
 inspected, even with non-normalized entries.</p>
-</div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 2 minutes  55.535 seconds)</p>
-<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-01-dirty-categories-py">
+</aside>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 3 minutes  14.273 seconds)</p>
+<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-01-dirty-categories-py">
 <div class="binder-badge docutils container">
 <a class="reference external image-reference" href="https://mybinder.org/v2/gh/dirty-cat/dirty-cat.github.io/master?filepath=dev/auto_examples/01_dirty_categories.ipynb"><img alt="Launch binder" src="../_images/binder_badge_logo.svg" width="150px" /></a>
 </div>

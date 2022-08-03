@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
 <meta property="og:title" content="dirty_cat.GapEncoder" />
   
@@ -30,6 +30,7 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/scrolltoc.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -100,7 +101,7 @@
           <div class="body" role="main">
             
   <section id="dirty-cat-gapencoder">
-<h1><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat</span></code>.GapEncoder<a class="headerlink" href="#dirty-cat-gapencoder" title="Permalink to this headline">¶</a></h1>
+<h1><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat</span></code>.GapEncoder<a class="headerlink" href="#dirty-cat-gapencoder" title="Permalink to this heading">¶</a></h1>
 <p class="side-comment">Usage examples at the bottom of this page.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="dirty_cat.GapEncoder">
@@ -111,7 +112,7 @@ capturing combinations of substrings that frequently co-occur.</p>
 <p>The GapEncoder supports online learning on batches of data for
 scalability through the partial_fit method.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>n_components</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><em>default=10</em>) – Number of latent categories used to model string data.</p></li>
 <li><p><strong>batch_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><em>default=128</em>) – Number of samples per batch.</p></li>
@@ -162,10 +163,10 @@ In the inverse transform, the missing category will be denoted as None.</p></li>
 <span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/gap_encoder.html#GapEncoder.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.GapEncoder.fit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fit the GapEncoder on batches of X.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>X</strong> (<em>array-like</em><em>, </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – The string data to fit the model on.</p>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>self</p>
 </dd>
 </dl>
@@ -178,17 +179,17 @@ In the inverse transform, the missing category will be denoted as None.</p></li>
 <p>Fits transformer to <cite>X</cite> and <cite>y</cite> with optional parameters <cite>fit_params</cite>
 and returns a transformed version of <cite>X</cite>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>X</strong> (<em>array-like of shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Input samples.</p></li>
 <li><p><strong>y</strong> (<em>array-like of shape</em><em> (</em><em>n_samples</em><em>,</em><em>) or </em><em>(</em><em>n_samples</em><em>, </em><em>n_outputs</em><em>)</em><em>,                 </em><em>default=None</em>) – Target values (None for unsupervised transformations).</p></li>
 <li><p><strong>**fit_params</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Additional fit parameters.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>X_new</strong> – Transformed array.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>ndarray array of shape (n_samples, n_features_new)</p>
 </dd>
 </dl>
@@ -207,7 +208,7 @@ Use <cite>get_feature_names_out</cite> instead.</p>
 <dd><p>Returns the labels that best summarize the learned components/topics.
 For each topic, labels with highest activations are selected.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>col_names</strong> (<em>{None</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a><em> or </em><em>str}</em><em>, </em><em>default=None</em>) – <p>The column names to be added as prefixes before the labels.
 If col_names == None, no prefixes are used.
@@ -223,10 +224,10 @@ If col_names == ‘auto’, column names are automatically defined:</p>
 <li><p><strong>n_labels</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><em>default=3</em>) – The number of labels used to describe each topic.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>topic_labels</strong> – The labels that best describe each topic.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>list of strings</p>
 </dd>
 </dl>
@@ -237,14 +238,14 @@ If col_names == ‘auto’, column names are automatically defined:</p>
 <span class="sig-name descname"><span class="pre">get_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">deep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dirty_cat.GapEncoder.get_params" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get parameters for this estimator.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>deep</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>default=True</em>) – If True, will return the parameters for this estimator and
 contained subobjects that are estimators.</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>params</strong> – Parameter names mapped to their values.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)">dict</a></p>
 </dd>
 </dl>
@@ -257,10 +258,10 @@ contained subobjects that are estimators.</p>
 To be used in a online learning procedure where batches of data are
 coming one by one.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>X</strong> (<em>array-like</em><em>, </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – The string data to fit the model on.</p>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>self</p>
 </dd>
 </dl>
@@ -273,13 +274,13 @@ coming one by one.</p>
 divergence between the n-grams counts matrix V of X, and its
 non-negative factorization HW.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>X</strong> (<em>array-like</em><em> (</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>)</em><em>, </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – The data to encode.</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>kl_divergence</strong> – The Kullback-Leibler divergence.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float.</p>
 </dd>
 </dl>
@@ -294,13 +295,13 @@ non-negative factorization HW.</p>
 parameters of the form <code class="docutils literal notranslate"><span class="pre">&lt;component&gt;__&lt;parameter&gt;</span></code> so that it’s
 possible to update each component of a nested object.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>**params</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Estimator parameters.</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>self</strong> – Estimator instance.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>estimator instance</p>
 </dd>
 </dl>
@@ -317,13 +318,13 @@ then concatenated.</p>
 input X can give slightly different encodings. This is expected
 due to a caching mechanism to speed things up.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>X</strong> (<em>array-like</em><em>, </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – The string data to encode.</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>H</strong> – Transformed input.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>2-d array, shape (n_samples, n_topics * n_features)</p>
 </dd>
 </dl>
@@ -332,20 +333,14 @@ due to a caching mechanism to speed things up.</p>
 </dd></dl>
 
 <section id="examples-using-dirty-cat-gapencoder">
-<h2>Examples using <code class="docutils literal notranslate"><span class="pre">dirty_cat.GapEncoder</span></code><a class="headerlink" href="#examples-using-dirty-cat-gapencoder" title="Permalink to this headline">¶</a></h2>
-<div class="sphx-glr-thumbcontainer" tooltip="Including strings that represent categories often calls for much data preparation. In particula..."><figure class="align-default" id="id1">
-<img alt="Dirty categories: machine learning with non normalized strings" src="../_images/sphx_glr_01_dirty_categories_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="../auto_examples/01_dirty_categories.html#sphx-glr-auto-examples-01-dirty-categories-py"><span class="std std-ref">Dirty categories: machine learning with non normalized strings</span></a></span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
-</div><div class="sphx-glr-thumbcontainer" tooltip="We illustrate here how categorical encodings obtained with the GapEncoder can be interpreted in..."><figure class="align-default" id="id2">
-<img alt="Feature interpretation with the GapEncoder" src="../_images/sphx_glr_03_feature_interpretation_gap_encoder_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="../auto_examples/03_feature_interpretation_gap_encoder.html#sphx-glr-auto-examples-03-feature-interpretation-gap-encoder-py"><span class="std std-ref">Feature interpretation with the GapEncoder</span></a></span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
-</div><div class="clearer"></div></section>
+<h2>Examples using <code class="docutils literal notranslate"><span class="pre">dirty_cat.GapEncoder</span></code><a class="headerlink" href="#examples-using-dirty-cat-gapencoder" title="Permalink to this heading">¶</a></h2>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="Including strings that represent categories often calls for much data preparation. In particula..."><img alt="Dirty categories: machine learning with non normalized strings" src="../_images/sphx_glr_01_dirty_categories_thumb.png" />
+<p><a class="reference internal" href="../auto_examples/01_dirty_categories.html#sphx-glr-auto-examples-01-dirty-categories-py"><span class="std std-ref">Dirty categories: machine learning with non normalized strings</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Dirty categories: machine learning with non normalized strings</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="We illustrate here how categorical encodings obtained with the GapEncoder can be interpreted in..."><img alt="Feature interpretation with the GapEncoder" src="../_images/sphx_glr_03_feature_interpretation_gap_encoder_thumb.png" />
+<p><a class="reference internal" href="../auto_examples/03_feature_interpretation_gap_encoder.html#sphx-glr-auto-examples-03-feature-interpretation-gap-encoder-py"><span class="std std-ref">Feature interpretation with the GapEncoder</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Feature interpretation with the GapEncoder</div>
+</div></div><div class="clearer"></div></section>
 </section>
 
 

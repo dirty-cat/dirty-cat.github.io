@@ -143,8 +143,6 @@ The data that the model will fit is the :code:`drug_directory` dataset.
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     Product listing data submitted to the U.S. FDA for all unfinished, unapproved drugs.
@@ -188,8 +186,6 @@ problem. You can have a glimpse of the values here:
 
 
 .. rst-class:: sphx-glr-script-out
-
- Out:
 
  .. code-block:: none
 
@@ -454,13 +450,11 @@ sample size varies.
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     using   500 samples: model fitting took 0.2s, test accuracy of 0.501
     using  1666 samples: model fitting took 3.4s, test accuracy of 0.505
-    using  5000 samples: model fitting took 54.3s, test accuracy of 0.563
+    using  5000 samples: model fitting took 58.1s, test accuracy of 0.563
 
 
 
@@ -678,8 +672,6 @@ likely to be marginal.
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     batch    0 train precision: 0.8728  val precision: 0.5003  
@@ -756,8 +748,6 @@ visited samples for each model as we increase our time budget:
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
 
@@ -795,35 +785,30 @@ trivial task at the beginning of this example!
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 4 minutes  41.367 seconds)
+   **Total running time of the script:** ( 4 minutes  43.513 seconds)
 
 
 .. _sphx_glr_download_auto_examples_05_scaling_non_linear_models.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
-  .. container:: binder-badge
+    .. container:: binder-badge
 
-    .. image:: images/binder_badge_logo.svg
-      :target: https://mybinder.org/v2/gh/dirty-cat/dirty-cat.github.io/master?filepath=dev/auto_examples/05_scaling_non_linear_models.ipynb
-      :alt: Launch binder
-      :width: 150 px
+      .. image:: images/binder_badge_logo.svg
+        :target: https://mybinder.org/v2/gh/dirty-cat/dirty-cat.github.io/master?filepath=dev/auto_examples/05_scaling_non_linear_models.ipynb
+        :alt: Launch binder
+        :width: 150 px
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: 05_scaling_non_linear_models.py <05_scaling_non_linear_models.py>`
 
-     :download:`Download Python source code: 05_scaling_non_linear_models.py <05_scaling_non_linear_models.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: 05_scaling_non_linear_models.ipynb <05_scaling_non_linear_models.ipynb>`
+      :download:`Download Jupyter notebook: 05_scaling_non_linear_models.ipynb <05_scaling_non_linear_models.ipynb>`
 
 
 .. only:: html

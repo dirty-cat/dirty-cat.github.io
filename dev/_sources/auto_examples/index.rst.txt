@@ -1,13 +1,14 @@
 :orphan:
 
 
-
-.. _sphx_glr_auto_examples:
-
-
 Using dirty_cat
 ===============
 
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
 
 
 .. raw:: html
@@ -16,10 +17,101 @@ Using dirty_cat
 
 .. only:: html
 
- .. figure:: /auto_examples/images/thumb/sphx_glr_01_dirty_categories_thumb.png
-     :alt: Dirty categories: machine learning with non normalized strings
+  .. image:: /auto_examples/images/thumb/sphx_glr_01_dirty_categories_thumb.png
+    :alt: Dirty categories: machine learning with non normalized strings
 
-     :ref:`sphx_glr_auto_examples_01_dirty_categories.py`
+  :ref:`sphx_glr_auto_examples_01_dirty_categories.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Dirty categories: machine learning with non normalized strings</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="What are dirty categorical variables and how can a good encoding help with statistical learning...">
+
+.. only:: html
+
+  .. image:: /auto_examples/images/thumb/sphx_glr_02_investigating_dirty_categories_thumb.png
+    :alt: Investigating dirty categories
+
+  :ref:`sphx_glr_auto_examples_02_investigating_dirty_categories.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Investigating dirty categories</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="We illustrate here how categorical encodings obtained with the GapEncoder can be interpreted in...">
+
+.. only:: html
+
+  .. image:: /auto_examples/images/thumb/sphx_glr_03_feature_interpretation_gap_encoder_thumb.png
+    :alt: Feature interpretation with the GapEncoder
+
+  :ref:`sphx_glr_auto_examples_03_feature_interpretation_gap_encoder.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Feature interpretation with the GapEncoder</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="We illustrate here how to handle datetime features with the DatetimeEncoder.">
+
+.. only:: html
+
+  .. image:: /auto_examples/images/thumb/sphx_glr_04_datetime_encoder_thumb.png
+    :alt: Handling datetime features with the DatetimeEncoder
+
+  :ref:`sphx_glr_auto_examples_04_datetime_encoder.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Handling datetime features with the DatetimeEncoder</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="A very classic dilemma when training a machine learning model consists in choosing between usin...">
+
+.. only:: html
+
+  .. image:: /auto_examples/images/thumb/sphx_glr_05_scaling_non_linear_models_thumb.png
+    :alt: Fitting scalable, non-linear models on data with dirty categories
+
+  :ref:`sphx_glr_auto_examples_05_scaling_non_linear_models.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Fitting scalable, non-linear models on data with dirty categories</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Here we discuss how to apply efficiently SimilarityEncoder to larger datasets: reducing the num...">
+
+.. only:: html
+
+  .. image:: /auto_examples/images/thumb/sphx_glr_06_dimension_reduction_and_performance_thumb.png
+    :alt: Scalability considerations for similarity encoding
+
+  :ref:`sphx_glr_auto_examples_06_dimension_reduction_and_performance.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Scalability considerations for similarity encoding</div>
+    </div>
+
 
 .. raw:: html
 
@@ -30,114 +122,11 @@ Using dirty_cat
    :hidden:
 
    /auto_examples/01_dirty_categories
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="What are dirty categorical variables and how can a good encoding help with statistical learning...">
-
-.. only:: html
-
- .. figure:: /auto_examples/images/thumb/sphx_glr_02_investigating_dirty_categories_thumb.png
-     :alt: Investigating dirty categories
-
-     :ref:`sphx_glr_auto_examples_02_investigating_dirty_categories.py`
-
-.. raw:: html
-
-    </div>
-
-
-.. toctree::
-   :hidden:
-
    /auto_examples/02_investigating_dirty_categories
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="We illustrate here how categorical encodings obtained with the GapEncoder can be interpreted in...">
-
-.. only:: html
-
- .. figure:: /auto_examples/images/thumb/sphx_glr_03_feature_interpretation_gap_encoder_thumb.png
-     :alt: Feature interpretation with the GapEncoder
-
-     :ref:`sphx_glr_auto_examples_03_feature_interpretation_gap_encoder.py`
-
-.. raw:: html
-
-    </div>
-
-
-.. toctree::
-   :hidden:
-
    /auto_examples/03_feature_interpretation_gap_encoder
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="We illustrate here how to handle datetime features with the DatetimeEncoder.">
-
-.. only:: html
-
- .. figure:: /auto_examples/images/thumb/sphx_glr_04_datetime_encoder_thumb.png
-     :alt: Handling datetime features with the DatetimeEncoder
-
-     :ref:`sphx_glr_auto_examples_04_datetime_encoder.py`
-
-.. raw:: html
-
-    </div>
-
-
-.. toctree::
-   :hidden:
-
    /auto_examples/04_datetime_encoder
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="A very classic dilemma when training a machine learning model consists in choosing between usin...">
-
-.. only:: html
-
- .. figure:: /auto_examples/images/thumb/sphx_glr_05_scaling_non_linear_models_thumb.png
-     :alt: Fitting scalable, non-linear models on data with dirty categories
-
-     :ref:`sphx_glr_auto_examples_05_scaling_non_linear_models.py`
-
-.. raw:: html
-
-    </div>
-
-
-.. toctree::
-   :hidden:
-
    /auto_examples/05_scaling_non_linear_models
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="Here we discuss how to apply efficiently SimilarityEncoder to larger datasets: reducing the num...">
-
-.. only:: html
-
- .. figure:: /auto_examples/images/thumb/sphx_glr_06_dimension_reduction_and_performance_thumb.png
-     :alt: Scalability considerations for similarity encoding
-
-     :ref:`sphx_glr_auto_examples_06_dimension_reduction_and_performance.py`
-
-.. raw:: html
-
-    </div>
-
-
-.. toctree::
-   :hidden:
-
    /auto_examples/06_dimension_reduction_and_performance
-.. raw:: html
-
-    <div class="sphx-glr-clear"></div>
 
 
 

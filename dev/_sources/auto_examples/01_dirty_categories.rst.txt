@@ -85,8 +85,6 @@ We first retrieve the dataset:
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     /home/circleci/project/dirty_cat/datasets/fetching.py:323: UserWarning: Could not find the dataset 42125 locally. Downloading it from OpenML; this might take a while... If it is interrupted, some files might be invalid/incomplete: if on the following run, the fetching raises errors, you can try fixing this issue by deleting the directory /home/circleci/project/dirty_cat/datasets/data.
@@ -301,8 +299,6 @@ and y, our target column (the annual salary)
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
 
@@ -500,8 +496,6 @@ Position Title' column, as this columns contains 400 different entries:
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
 
@@ -574,8 +568,6 @@ and store the returned cross-validation score:
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     one-hot encoding
@@ -591,7 +583,7 @@ and store the returned cross-validation score:
     r2 score:  mean: 0.919; std: 0.012
 
     gap encoding
-    r2 score:  mean: 0.906; std: 0.014
+    r2 score:  mean: 0.907; std: 0.008
 
 
 
@@ -922,13 +914,11 @@ Let's perform a cross-validation to see how well this model predicts
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
-    scores=[0.91216256 0.89441414 0.92175232 0.91940195 0.91322266]
-    mean=0.9121907268748537
-    std=0.009596857422783647
+    scores=[0.91507884 0.89279984 0.91099901 0.92429611 0.92140265]
+    mean=0.9129152909587246
+    std=0.01108641355868956
 
 
 
@@ -999,13 +989,11 @@ The encoded data, X_train_enc and X_test_enc are numerical arrays:
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
 
     array([[0.00000000e+00, 1.00000000e+00, 0.00000000e+00, ...,
-            5.67755876e-02, 1.11484929e+00, 2.00700000e+03],
+            7.62260955e-02, 5.59914795e-02, 2.00700000e+03],
            [1.00000000e+00, 0.00000000e+00, 0.00000000e+00, ...,
             5.00000000e-02, 5.00000000e-02, 2.00500000e+03],
            [1.00000000e+00, 0.00000000e+00, 0.00000000e+00, ...,
@@ -1036,8 +1024,6 @@ They have more columns than the original dataframe, but not much more:
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
 
@@ -1064,8 +1050,6 @@ choice:
 
 
 .. rst-class:: sphx-glr-script-out
-
- Out:
 
  .. code-block:: none
 
@@ -1102,8 +1086,6 @@ Before encoding:
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
 
@@ -1127,8 +1109,6 @@ After encoding (we only plot the first 8 feature names):
 
 
 .. rst-class:: sphx-glr-script-out
-
- Out:
 
  .. code-block:: none
 
@@ -1158,8 +1138,6 @@ In total, we have reasonable number of encoded columns.
 
 
 .. rst-class:: sphx-glr-script-out
-
- Out:
 
  .. code-block:: none
 
@@ -1280,35 +1258,30 @@ having a permanent, full-time job :)
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 2 minutes  55.535 seconds)
+   **Total running time of the script:** ( 3 minutes  14.273 seconds)
 
 
 .. _sphx_glr_download_auto_examples_01_dirty_categories.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
-  .. container:: binder-badge
+    .. container:: binder-badge
 
-    .. image:: images/binder_badge_logo.svg
-      :target: https://mybinder.org/v2/gh/dirty-cat/dirty-cat.github.io/master?filepath=dev/auto_examples/01_dirty_categories.ipynb
-      :alt: Launch binder
-      :width: 150 px
+      .. image:: images/binder_badge_logo.svg
+        :target: https://mybinder.org/v2/gh/dirty-cat/dirty-cat.github.io/master?filepath=dev/auto_examples/01_dirty_categories.ipynb
+        :alt: Launch binder
+        :width: 150 px
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: 01_dirty_categories.py <01_dirty_categories.py>`
 
-     :download:`Download Python source code: 01_dirty_categories.py <01_dirty_categories.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: 01_dirty_categories.ipynb <01_dirty_categories.ipynb>`
+      :download:`Download Jupyter notebook: 01_dirty_categories.ipynb <01_dirty_categories.ipynb>`
 
 
 .. only:: html

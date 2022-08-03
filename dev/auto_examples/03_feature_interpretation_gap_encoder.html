@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
 <meta property="og:title" content="Feature interpretation with the GapEncoder" />
   
@@ -30,6 +30,7 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/scrolltoc.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -107,21 +108,20 @@
 to download the full example code or to run this example in your browser via Binder</p>
 </div>
 <section class="sphx-glr-example-title" id="feature-interpretation-with-the-gapencoder">
-<span id="sphx-glr-auto-examples-03-feature-interpretation-gap-encoder-py"></span><h1>Feature interpretation with the GapEncoder<a class="headerlink" href="#feature-interpretation-with-the-gapencoder" title="Permalink to this headline">¶</a></h1>
+<span id="sphx-glr-auto-examples-03-feature-interpretation-gap-encoder-py"></span><h1>Feature interpretation with the GapEncoder<a class="headerlink" href="#feature-interpretation-with-the-gapencoder" title="Permalink to this heading">¶</a></h1>
 <p>We illustrate here how categorical encodings obtained with the GapEncoder
 can be interpreted in terms of latent topics. We use as example the
 <a class="reference external" href="https://catalog.data.gov/dataset/employee-salaries-2016">employee salaries</a>
 dataset, and encode the column <em>Employee Position Title</em>, that contains dirty
 categorical data.</p>
 <section id="data-importing">
-<h2>Data Importing<a class="headerlink" href="#data-importing" title="Permalink to this headline">¶</a></h2>
+<h2>Data Importing<a class="headerlink" href="#data-importing" title="Permalink to this heading">¶</a></h2>
 <p>We first get the dataset:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dirty_cat.datasets</span> <span class="kn">import</span> <a href="../generated/dirty_cat.datasets.fetch_employee_salaries.html#dirty_cat.datasets.fetch_employee_salaries" title="dirty_cat.datasets.fetch_employee_salaries" class="sphx-glr-backref-module-dirty_cat-datasets sphx-glr-backref-type-py-function"><span class="n">fetch_employee_salaries</span></a>
 <span class="n">employee_salaries</span> <span class="o">=</span> <a href="../generated/dirty_cat.datasets.fetch_employee_salaries.html#dirty_cat.datasets.fetch_employee_salaries" title="dirty_cat.datasets.fetch_employee_salaries" class="sphx-glr-backref-module-dirty_cat-datasets sphx-glr-backref-type-py-function"><span class="n">fetch_employee_salaries</span></a><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">employee_salaries</span><span class="o">.</span><span class="n">description</span></a><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Annual salary information including gross pay and overtime pay for all active, permanent employees of Montgomery County, MD paid in calendar year 2016. This information will be published annually each year.
 </pre></div>
 </div>
@@ -132,7 +132,6 @@ categorical data.</p>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Number of dirty entries = </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_dirty</span></a><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>       employee_position_title
 0  Office Services Coordinator
 1        Master Police Officer
@@ -145,7 +144,7 @@ Number of dirty entries = 9228
 </div>
 </section>
 <section id="encoding-dirty-job-titles">
-<h2>Encoding dirty job titles<a class="headerlink" href="#encoding-dirty-job-titles" title="Permalink to this headline">¶</a></h2>
+<h2>Encoding dirty job titles<a class="headerlink" href="#encoding-dirty-job-titles" title="Permalink to this heading">¶</a></h2>
 <p>We first create an instance of the GapEncoder with n_components=10:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dirty_cat</span> <span class="kn">import</span> <a href="../generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder" title="dirty_cat.GapEncoder" class="sphx-glr-backref-module-dirty_cat sphx-glr-backref-type-py-class"><span class="n">GapEncoder</span></a>
 <a href="../generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder" title="dirty_cat.GapEncoder" class="sphx-glr-backref-module-dirty_cat sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">enc</span></a> <span class="o">=</span> <a href="../generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder" title="dirty_cat.GapEncoder" class="sphx-glr-backref-module-dirty_cat sphx-glr-backref-type-py-class"><span class="n">GapEncoder</span></a><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
@@ -157,13 +156,12 @@ obtain encoded vectors of size 10:</p>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Shape of encoded vectors = </span><span class="si">{</span><a href="https://docs.python.org/3/library/stdtypes.html#tuple" title="builtins.tuple" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_enc</span><span class="o">.</span><span class="n">shape</span></a><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Shape of encoded vectors = (9228, 10)
 </pre></div>
 </div>
 </section>
 <section id="interpreting-encoded-vectors">
-<h2>Interpreting encoded vectors<a class="headerlink" href="#interpreting-encoded-vectors" title="Permalink to this headline">¶</a></h2>
+<h2>Interpreting encoded vectors<a class="headerlink" href="#interpreting-encoded-vectors" title="Permalink to this heading">¶</a></h2>
 <p>The GapEncoder can be understood as a continuous encoding on a set of latent
 topics estimated from the data. The latent topics are built by
 capturing combinations of substrings that frequently co-occur, and encoded
@@ -177,7 +175,6 @@ In the example below we select 3 labels to summarize each topic.</p>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Topic n°</span><span class="si">{</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">k</span></a><span class="si">}</span><span class="s1">: </span><span class="si">{</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">labels</span></a><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Topic n°0: correctional, correction, warehouse
 Topic n°1: administrative, specialist, principal
 Topic n°2: services, officer, service
@@ -210,8 +207,8 @@ the labels <em>firefighter</em>, <em>rescuer</em>, <em>rescue</em> appear togeth
 <img src="../_images/sphx_glr_03_feature_interpretation_gap_encoder_001.png" srcset="../_images/sphx_glr_03_feature_interpretation_gap_encoder_001.png" alt="03 feature interpretation gap encoder" class = "sphx-glr-single-img"/><p>As we can see, each dirty category encodes on a small number of topics,
 These can thus be reliably used to summarize each topic, which are in
 effect latent categories captured from the data.</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  3.565 seconds)</p>
-<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-03-feature-interpretation-gap-encoder-py">
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  3.902 seconds)</p>
+<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-03-feature-interpretation-gap-encoder-py">
 <div class="binder-badge docutils container">
 <a class="reference external image-reference" href="https://mybinder.org/v2/gh/dirty-cat/dirty-cat.github.io/master?filepath=dev/auto_examples/03_feature_interpretation_gap_encoder.ipynb"><img alt="Launch binder" src="../_images/binder_badge_logo.svg" width="150px" /></a>
 </div>

@@ -19,7 +19,7 @@
 
 
 Handling datetime features with the DatetimeEncoder
-==========================================
+===================================================
 
 We illustrate here how to handle datetime features with the
 DatetimeEncoder.
@@ -199,7 +199,7 @@ Encoders for categorical and datetime features
 .. GENERATED FROM PYTHON SOURCE LINES 57-63
 
 Transforming the input data
-..............................................
+...........................
 We can see that the encoder is working as expected: the date feature has
 been replaced by features for the month, day, hour, and day of the week.
 Note that the year and minute features have been removed by the encoder
@@ -216,8 +216,6 @@ because they are constant.
 
 
 .. rst-class:: sphx-glr-script-out
-
- Out:
 
  .. code-block:: none
 
@@ -241,8 +239,6 @@ because they are constant.
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
 
@@ -259,7 +255,7 @@ because they are constant.
 .. GENERATED FROM PYTHON SOURCE LINES 69-73
 
 One-liner with the SuperVectorizer
-..............................................
+..................................
 The DatetimeEncoder is used by default in the SuperVectorizer, which
 automatically detects datetime features.
 
@@ -278,8 +274,6 @@ automatically detects datetime features.
 
 
 .. rst-class:: sphx-glr-script-out
-
- Out:
 
  .. code-block:: none
 
@@ -308,8 +302,6 @@ If we want the day of the week, we can just replace SuperVectorizer's default
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
 
@@ -333,8 +325,6 @@ We can see that the SuperVectorizer is indeed using a DatetimeEncoder for the da
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
 
@@ -345,7 +335,7 @@ We can see that the SuperVectorizer is indeed using a DatetimeEncoder for the da
 .. GENERATED FROM PYTHON SOURCE LINES 92-97
 
 Predictions with date features
------------------------------------------------
+------------------------------
 For prediction tasks, we recommend using the SuperVectorizer inside a
 pipeline, combined with a model that uses the features extracted by the
 DatetimeEncoder.
@@ -374,7 +364,7 @@ DatetimeEncoder.
 .. GENERATED FROM PYTHON SOURCE LINES 108-115
 
 Evaluating the model
-.......................
+....................
 When using date and time features, we often care about predicting the future.
 In this case, we have to be careful when evaluating our model, because
 standard tools like cross-validation do not respect the time ordering.
@@ -400,8 +390,6 @@ the test set is always in the future.
 
 
 .. rst-class:: sphx-glr-script-out
-
- Out:
 
  .. code-block:: none
 
@@ -510,7 +498,7 @@ Let's zoom on a few days
 .. GENERATED FROM PYTHON SOURCE LINES 186-193
 
 Feature importances
-----------------------------
+-------------------
 Using the DatetimeEncoder allows us to better understand how the date
 impacts the NO2 concentration. To this aim, we can compute the
 importance of the features created by the Datetime encoder, using the
@@ -567,35 +555,30 @@ which seems reasonable.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  3.728 seconds)
+   **Total running time of the script:** ( 0 minutes  4.411 seconds)
 
 
 .. _sphx_glr_download_auto_examples_04_datetime_encoder.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
-  .. container:: binder-badge
+    .. container:: binder-badge
 
-    .. image:: images/binder_badge_logo.svg
-      :target: https://mybinder.org/v2/gh/dirty-cat/dirty-cat.github.io/master?filepath=dev/auto_examples/04_datetime_encoder.ipynb
-      :alt: Launch binder
-      :width: 150 px
+      .. image:: images/binder_badge_logo.svg
+        :target: https://mybinder.org/v2/gh/dirty-cat/dirty-cat.github.io/master?filepath=dev/auto_examples/04_datetime_encoder.ipynb
+        :alt: Launch binder
+        :width: 150 px
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: 04_datetime_encoder.py <04_datetime_encoder.py>`
 
-     :download:`Download Python source code: 04_datetime_encoder.py <04_datetime_encoder.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: 04_datetime_encoder.ipynb <04_datetime_encoder.ipynb>`
+      :download:`Download Jupyter notebook: 04_datetime_encoder.ipynb <04_datetime_encoder.ipynb>`
 
 
 .. only:: html
