@@ -100,19 +100,11 @@
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">List</span>
 
 <span class="kn">from</span> <span class="nn">dirty_cat.utils</span> <span class="kn">import</span> <span class="n">Version</span>
 <span class="kn">from</span> <span class="nn">dirty_cat.datasets.utils</span> <span class="kn">import</span> <span class="n">get_data_dir</span>
-
-
-<span class="n">Details</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s2">&quot;Details&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;file_id&quot;</span><span class="p">,</span> <span class="s2">&quot;description&quot;</span><span class="p">])</span>
-<span class="n">Features</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s2">&quot;Features&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;names&quot;</span><span class="p">])</span>
-
-<span class="n">DatasetAll</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;Dataset&#39;</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;description&#39;</span><span class="p">,</span> <span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;source&#39;</span><span class="p">,</span> <span class="s1">&#39;path&#39;</span><span class="p">))</span>
-<span class="n">DatasetInfoOnly</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;Dataset&#39;</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;description&#39;</span><span class="p">,</span> <span class="s1">&#39;source&#39;</span><span class="p">,</span> <span class="s1">&#39;path&#39;</span><span class="p">,</span>
-                                         <span class="s1">&#39;read_csv_kwargs&#39;</span><span class="p">))</span>
 
 <span class="c1"># Directory where the ``.gz`` files containing the</span>
 <span class="c1"># details on downloaded datasets are stored.</span>
@@ -139,6 +131,38 @@
 <span class="n">EMPLOYEE_SALARIES_ID</span> <span class="o">=</span> <span class="mi">42125</span>
 <span class="n">TRAFFIC_VIOLATIONS_ID</span> <span class="o">=</span> <span class="mi">42132</span>
 <span class="n">DRUG_DIRECTORY_ID</span> <span class="o">=</span> <span class="mi">43044</span>
+
+
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">unsafe_hash</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">Details</span><span class="p">:</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">file_id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span>
+
+
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">unsafe_hash</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">Features</span><span class="p">:</span>
+    <span class="n">names</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+
+
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">unsafe_hash</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">DatasetAll</span><span class="p">:</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">X</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span>
+    <span class="n">y</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span>
+    <span class="n">source</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">path</span><span class="p">:</span> <span class="n">Path</span>
+
+
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">unsafe_hash</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">DatasetInfoOnly</span><span class="p">:</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">source</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">target</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">path</span><span class="p">:</span> <span class="n">Path</span>
+    <span class="n">read_csv_kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
 
 
 <span class="k">def</span> <span class="nf">fetch_openml_dataset</span><span class="p">(</span><span class="n">dataset_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
@@ -309,12 +333,11 @@
     <span class="c1"># We filter out the irrelevant information.</span>
     <span class="c1"># If you want to modify this list (to add or remove items)</span>
     <span class="c1"># you must also modify the ``Details`` object definition.</span>
-    <span class="n">f_details</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">details</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">],</span>
-        <span class="s2">&quot;file_id&quot;</span><span class="p">:</span> <span class="n">details</span><span class="p">[</span><span class="s2">&quot;file_id&quot;</span><span class="p">],</span>
-        <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="n">details</span><span class="p">[</span><span class="s2">&quot;description&quot;</span><span class="p">],</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="n">Details</span><span class="p">(</span><span class="o">*</span><span class="n">f_details</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+    <span class="k">return</span> <span class="n">Details</span><span class="p">(</span>
+        <span class="n">name</span><span class="o">=</span><span class="n">details</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">],</span>
+        <span class="n">file_id</span><span class="o">=</span><span class="n">details</span><span class="p">[</span><span class="s2">&quot;file_id&quot;</span><span class="p">],</span>
+        <span class="n">description</span><span class="o">=</span><span class="n">details</span><span class="p">[</span><span class="s2">&quot;description&quot;</span><span class="p">],</span>
+    <span class="p">)</span>
 
 
 <span class="k">def</span> <span class="nf">_get_features</span><span class="p">(</span><span class="n">compressed_dir_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Features</span><span class="p">:</span>
@@ -337,10 +360,9 @@
     <span class="c1"># We filter out the irrelevant information.</span>
     <span class="c1"># If you want to modify this list (to add or remove items)</span>
     <span class="c1"># you must also modify the ``Features`` object definition.</span>
-    <span class="n">features</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;names&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">column</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">raw_features</span><span class="p">[</span><span class="s2">&quot;feature&quot;</span><span class="p">]]</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="n">Features</span><span class="p">(</span><span class="o">*</span><span class="n">features</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+    <span class="k">return</span> <span class="n">Features</span><span class="p">(</span>
+        <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="n">column</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">raw_features</span><span class="p">[</span><span class="s2">&quot;feature&quot;</span><span class="p">]]</span>
+    <span class="p">)</span>
 
 
 <span class="k">def</span> <span class="nf">_export_gz_data_to_csv</span><span class="p">(</span><span class="n">compressed_dir_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span>
@@ -378,10 +400,12 @@
     <span class="k">return</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">features</span><span class="o">.</span><span class="n">names</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">fetch_dataset_as_namedtuple</span><span class="p">(</span><span class="n">dataset_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-                                <span class="n">read_csv_kwargs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
-                                <span class="n">load_dataframe</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
-                                <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">DatasetAll</span><span class="p">,</span> <span class="n">DatasetInfoOnly</span><span class="p">]:</span>
+<span class="k">def</span> <span class="nf">fetch_dataset_as_dataclass</span><span class="p">(</span><span class="n">dataset_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                               <span class="n">dataset_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+                               <span class="n">target</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                               <span class="n">read_csv_kwargs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+                               <span class="n">load_dataframe</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+                               <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">DatasetAll</span><span class="p">,</span> <span class="n">DatasetInfoOnly</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Takes a dataset identifier, a target column name,</span>
 <span class="sd">    and some additional keyword arguments for `pd.read_csv`.</span>
@@ -404,6 +428,7 @@
         <span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">target</span><span class="p">]</span>
         <span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="s1">&#39;columns&#39;</span><span class="p">)</span>
         <span class="n">dataset</span> <span class="o">=</span> <span class="n">DatasetAll</span><span class="p">(</span>
+            <span class="n">name</span><span class="o">=</span><span class="n">dataset_name</span><span class="p">,</span>
             <span class="n">description</span><span class="o">=</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">],</span>
             <span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span>
             <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span>
@@ -412,8 +437,10 @@
         <span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">dataset</span> <span class="o">=</span> <span class="n">DatasetInfoOnly</span><span class="p">(</span>
+            <span class="n">name</span><span class="o">=</span><span class="n">dataset_name</span><span class="p">,</span>
             <span class="n">description</span><span class="o">=</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">],</span>
             <span class="n">source</span><span class="o">=</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;source&#39;</span><span class="p">],</span>
+            <span class="n">target</span><span class="o">=</span><span class="n">target</span><span class="p">,</span>
             <span class="n">path</span><span class="o">=</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;path&#39;</span><span class="p">],</span>
             <span class="n">read_csv_kwargs</span><span class="o">=</span><span class="n">read_csv_kwargs</span><span class="p">,</span>
         <span class="p">)</span>
@@ -454,12 +481,9 @@
 
 <span class="sd">    DatasetInfoOnly</span>
 <span class="sd">        If `load_dataframe=False`</span>
-
-<span class="sd">    See Also</span>
-<span class="sd">    --------</span>
-<span class="sd">    dirty_cat.datasets.fetch_dataset_as_namedtuple : additional information</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">dataset</span> <span class="o">=</span> <span class="n">fetch_dataset_as_namedtuple</span><span class="p">(</span>
+    <span class="n">dataset</span> <span class="o">=</span> <span class="n">fetch_dataset_as_dataclass</span><span class="p">(</span>
+        <span class="n">dataset_name</span><span class="o">=</span><span class="s1">&#39;Employee salaries&#39;</span><span class="p">,</span>
         <span class="n">dataset_id</span><span class="o">=</span><span class="n">EMPLOYEE_SALARIES_ID</span><span class="p">,</span>
         <span class="n">target</span><span class="o">=</span><span class="s1">&#39;current_annual_salary&#39;</span><span class="p">,</span>
         <span class="n">read_csv_kwargs</span><span class="o">=</span><span class="p">{</span>
@@ -497,12 +521,9 @@
 
 <span class="sd">    DatasetInfoOnly</span>
 <span class="sd">        If `load_dataframe=False`</span>
-
-<span class="sd">    See Also</span>
-<span class="sd">    --------</span>
-<span class="sd">    dirty_cat.datasets.fetch_dataset_as_namedtuple : additional information</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">fetch_dataset_as_namedtuple</span><span class="p">(</span>
+    <span class="k">return</span> <span class="n">fetch_dataset_as_dataclass</span><span class="p">(</span>
+        <span class="n">dataset_name</span><span class="o">=</span><span class="s1">&#39;Road safety&#39;</span><span class="p">,</span>
         <span class="n">dataset_id</span><span class="o">=</span><span class="n">ROAD_SAFETY_ID</span><span class="p">,</span>
         <span class="n">target</span><span class="o">=</span><span class="s1">&#39;Sex_of_Driver&#39;</span><span class="p">,</span>
         <span class="n">read_csv_kwargs</span><span class="o">=</span><span class="p">{</span>
@@ -534,12 +555,9 @@
 
 <span class="sd">    DatasetInfoOnly</span>
 <span class="sd">        If `load_dataframe=False`</span>
-
-<span class="sd">    See Also</span>
-<span class="sd">    --------</span>
-<span class="sd">    dirty_cat.datasets.fetch_dataset_as_namedtuple : additional information</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">fetch_dataset_as_namedtuple</span><span class="p">(</span>
+    <span class="k">return</span> <span class="n">fetch_dataset_as_dataclass</span><span class="p">(</span>
+        <span class="n">dataset_name</span><span class="o">=</span><span class="s1">&#39;Medical charge&#39;</span><span class="p">,</span>
         <span class="n">dataset_id</span><span class="o">=</span><span class="n">MEDICAL_CHARGE_ID</span><span class="p">,</span>
         <span class="n">target</span><span class="o">=</span><span class="s1">&#39;Average_Total_Payments&#39;</span><span class="p">,</span>
         <span class="n">read_csv_kwargs</span><span class="o">=</span><span class="p">{</span>
@@ -565,12 +583,9 @@
 
 <span class="sd">    DatasetInfoOnly</span>
 <span class="sd">        If `load_dataframe=False`</span>
-
-<span class="sd">    See Also</span>
-<span class="sd">    --------</span>
-<span class="sd">    dirty_cat.datasets.fetch_dataset_as_namedtuple : additional information</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">fetch_dataset_as_namedtuple</span><span class="p">(</span>
+    <span class="k">return</span> <span class="n">fetch_dataset_as_dataclass</span><span class="p">(</span>
+        <span class="n">dataset_name</span><span class="o">=</span><span class="s1">&#39;Midwest survey&#39;</span><span class="p">,</span>
         <span class="n">dataset_id</span><span class="o">=</span><span class="n">MIDWEST_SURVEY_ID</span><span class="p">,</span>
         <span class="n">target</span><span class="o">=</span><span class="s1">&#39;Census_Region&#39;</span><span class="p">,</span>
         <span class="n">read_csv_kwargs</span><span class="o">=</span><span class="p">{</span>
@@ -597,12 +612,9 @@
 
 <span class="sd">    DatasetInfoOnly</span>
 <span class="sd">        If `load_dataframe=False`</span>
-
-<span class="sd">    See Also</span>
-<span class="sd">    --------</span>
-<span class="sd">    dirty_cat.datasets.fetch_dataset_as_namedtuple : additional information</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">fetch_dataset_as_namedtuple</span><span class="p">(</span>
+    <span class="k">return</span> <span class="n">fetch_dataset_as_dataclass</span><span class="p">(</span>
+        <span class="n">dataset_name</span><span class="o">=</span><span class="s1">&#39;Open payments&#39;</span><span class="p">,</span>
         <span class="n">dataset_id</span><span class="o">=</span><span class="n">OPEN_PAYMENTS_ID</span><span class="p">,</span>
         <span class="n">target</span><span class="o">=</span><span class="s1">&#39;status&#39;</span><span class="p">,</span>
         <span class="n">read_csv_kwargs</span><span class="o">=</span><span class="p">{</span>
@@ -632,12 +644,9 @@
 
 <span class="sd">    DatasetInfoOnly</span>
 <span class="sd">        If `load_dataframe=False`</span>
-
-<span class="sd">    See Also</span>
-<span class="sd">    --------</span>
-<span class="sd">    dirty_cat.datasets.fetch_dataset_as_namedtuple : additional information</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">fetch_dataset_as_namedtuple</span><span class="p">(</span>
+    <span class="k">return</span> <span class="n">fetch_dataset_as_dataclass</span><span class="p">(</span>
+        <span class="n">dataset_name</span><span class="o">=</span><span class="s1">&#39;Traffic violations&#39;</span><span class="p">,</span>
         <span class="n">dataset_id</span><span class="o">=</span><span class="n">TRAFFIC_VIOLATIONS_ID</span><span class="p">,</span>
         <span class="n">target</span><span class="o">=</span><span class="s1">&#39;violation_type&#39;</span><span class="p">,</span>
         <span class="n">read_csv_kwargs</span><span class="o">=</span><span class="p">{</span>
@@ -665,12 +674,9 @@
 
 <span class="sd">    DatasetInfoOnly</span>
 <span class="sd">        If `load_dataframe=False`</span>
-
-<span class="sd">    See Also</span>
-<span class="sd">    --------</span>
-<span class="sd">    dirty_cat.datasets.fetch_dataset_as_namedtuple : additional information</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">fetch_dataset_as_namedtuple</span><span class="p">(</span>
+    <span class="k">return</span> <span class="n">fetch_dataset_as_dataclass</span><span class="p">(</span>
+        <span class="n">dataset_name</span><span class="o">=</span><span class="s1">&#39;Drug directory&#39;</span><span class="p">,</span>
         <span class="n">dataset_id</span><span class="o">=</span><span class="n">DRUG_DIRECTORY_ID</span><span class="p">,</span>
         <span class="n">target</span><span class="o">=</span><span class="s1">&#39;PRODUCTTYPENAME&#39;</span><span class="p">,</span>
         <span class="n">read_csv_kwargs</span><span class="o">=</span><span class="p">{</span>
