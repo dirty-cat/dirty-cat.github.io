@@ -230,7 +230,7 @@ one-hot encoding and similarity encoding
     from sklearn.compose import ColumnTransformer
     from dirty_cat import SimilarityEncoder
 
-    sim_enc = SimilarityEncoder(similarity='ngram')
+    sim_enc = SimilarityEncoder()
 
     transformers = [
         ('one_hot', OneHotEncoder(sparse=False, handle_unknown='ignore'), clean_columns),
@@ -253,7 +253,7 @@ one-hot encoding and similarity encoding
 
  .. code-block:: none
 
-    Time to vectorize: 0.2657618522644043
+    Time to vectorize: 0.3192887306213379
 
 
 
@@ -318,12 +318,11 @@ The most frequent strategy selects the n most frequent values in a dirty
 categorical variable to reduce the dimensionality of the problem and thus
 speed things up. We select manually the number of prototypes we want to use.
 
-.. GENERATED FROM PYTHON SOURCE LINES 148-155
+.. GENERATED FROM PYTHON SOURCE LINES 148-154
 
 .. code-block:: default
 
-    sim_enc = SimilarityEncoder(similarity='ngram', categories='most_frequent',
-                                n_prototypes=100)
+    sim_enc = SimilarityEncoder(categories='most_frequent', n_prototypes=100)
 
     column_trans = ColumnTransformer(
         transformers=transformers + [('sim_enc', sim_enc, dirty_columns)],
@@ -336,11 +335,11 @@ speed things up. We select manually the number of prototypes we want to use.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 156-157
+.. GENERATED FROM PYTHON SOURCE LINES 155-156
 
 Check now that prediction is still as good
 
-.. GENERATED FROM PYTHON SOURCE LINES 157-161
+.. GENERATED FROM PYTHON SOURCE LINES 156-160
 
 .. code-block:: default
 
@@ -362,11 +361,11 @@ Check now that prediction is still as good
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 162-163
+.. GENERATED FROM PYTHON SOURCE LINES 161-162
 
 Store results for later
 
-.. GENERATED FROM PYTHON SOURCE LINES 163-166
+.. GENERATED FROM PYTHON SOURCE LINES 162-165
 
 .. code-block:: default
 
@@ -380,7 +379,7 @@ Store results for later
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 167-173
+.. GENERATED FROM PYTHON SOURCE LINES 166-172
 
 KMeans strategy to define prototypes
 ------------------------------------
@@ -389,12 +388,11 @@ K-means strategy is also a dimensionality reduction technique.
 SimilarityEncoder can apply a K-means and nearest neighbors algorithm
 to find the prototypes. The number of prototypes is set manually.
 
-.. GENERATED FROM PYTHON SOURCE LINES 173-180
+.. GENERATED FROM PYTHON SOURCE LINES 172-178
 
 .. code-block:: default
 
-    sim_enc = SimilarityEncoder(similarity='ngram', categories='k-means',
-                                n_prototypes=100)
+    sim_enc = SimilarityEncoder(categories='k-means', n_prototypes=100)
 
     column_trans = ColumnTransformer(
         transformers=transformers + [('sim_enc', sim_enc, dirty_columns)],
@@ -407,11 +405,11 @@ to find the prototypes. The number of prototypes is set manually.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 181-182
+.. GENERATED FROM PYTHON SOURCE LINES 179-180
 
 Check now that prediction is still as good
 
-.. GENERATED FROM PYTHON SOURCE LINES 182-186
+.. GENERATED FROM PYTHON SOURCE LINES 180-184
 
 .. code-block:: default
 
@@ -427,17 +425,17 @@ Check now that prediction is still as good
 
  .. code-block:: none
 
-    Run time: 4s    Memory used: 8Mb
-    Cross-validation score: [0.98884758 0.99256506 0.96641791 0.98507463 0.98880597]
+    Run time: 5s    Memory used: 8Mb
+    Cross-validation score: [0.98884758 0.99256506 0.97014925 0.98507463 0.98880597]
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 187-188
+.. GENERATED FROM PYTHON SOURCE LINES 185-186
 
 Store results for later
 
-.. GENERATED FROM PYTHON SOURCE LINES 188-191
+.. GENERATED FROM PYTHON SOURCE LINES 186-189
 
 .. code-block:: default
 
@@ -451,12 +449,12 @@ Store results for later
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 192-194
+.. GENERATED FROM PYTHON SOURCE LINES 190-192
 
 Plot a summary figure
 ---------------------
 
-.. GENERATED FROM PYTHON SOURCE LINES 194-206
+.. GENERATED FROM PYTHON SOURCE LINES 192-204
 
 .. code-block:: default
 
@@ -487,7 +485,7 @@ Plot a summary figure
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  15.589 seconds)
+   **Total running time of the script:** ( 0 minutes  16.498 seconds)
 
 
 .. _sphx_glr_download_auto_examples_06_dimension_reduction_and_performance.py:

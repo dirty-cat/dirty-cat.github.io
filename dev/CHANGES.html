@@ -145,6 +145,12 @@ in the SuperVectorizer for datetime columns.</p>
 <li><p>Bumped minimum dependencies:
 - scipy&gt;=1.4.0
 - numpy&gt;=1.17.3</p></li>
+<li><dl class="simple">
+<dt>Dropped support for Jaro, Jaro-Winkler and Levenshtein distances.</dt><dd><p>The <code class="xref py py-class docutils literal notranslate"><span class="pre">SimilarityEncoder</span></code> now exclusively uses <cite>ngram</cite> for similarities,
+and the <cite>similarity</cite> parameter is deprecated. It will be removed in 0.5.</p>
+</dd>
+</dl>
+</li>
 </ul>
 </section>
 <section id="notes">

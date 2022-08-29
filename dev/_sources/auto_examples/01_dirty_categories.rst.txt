@@ -518,7 +518,7 @@ dirty columns
 
     encoders = {
         'one-hot': one_hot,
-        'similarity': SimilarityEncoder(similarity='ngram'),
+        'similarity': SimilarityEncoder(),
         'target': TargetEncoder(handle_unknown='ignore'),
         'minhash': MinHashEncoder(n_components=100),
         'gap': GapEncoder(n_components=100),
@@ -583,7 +583,7 @@ and store the returned cross-validation score:
     r2 score:  mean: 0.919; std: 0.012
 
     gap encoding
-    r2 score:  mean: 0.909; std: 0.012
+    r2 score:  mean: 0.907; std: 0.019
 
 
 
@@ -916,9 +916,9 @@ Let's perform a cross-validation to see how well this model predicts
 
  .. code-block:: none
 
-    scores=[0.92188895 0.89286852 0.91826662 0.9217491  0.92436272]
-    mean=0.915827181875178
-    std=0.011642339492654379
+    scores=[0.89897403 0.8706062  0.92179301 0.92378924 0.92046493]
+    mean=0.9071254830221657
+    std=0.020351225397589382
 
 
 
@@ -993,7 +993,7 @@ The encoded data, X_train_enc and X_test_enc are numerical arrays:
 
 
     array([[0.00000000e+00, 1.00000000e+00, 0.00000000e+00, ...,
-            5.45889957e-02, 5.61097439e-02, 2.00700000e+03],
+            5.22489829e-02, 5.42577498e-02, 2.00700000e+03],
            [1.00000000e+00, 0.00000000e+00, 0.00000000e+00, ...,
             5.00000000e-02, 5.00000000e-02, 2.00500000e+03],
            [1.00000000e+00, 0.00000000e+00, 0.00000000e+00, ...,
@@ -1258,7 +1258,7 @@ having a permanent, full-time job :)
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 2 minutes  53.032 seconds)
+   **Total running time of the script:** ( 2 minutes  44.143 seconds)
 
 
 .. _sphx_glr_download_auto_examples_01_dirty_categories.py:
