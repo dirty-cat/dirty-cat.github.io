@@ -97,7 +97,7 @@ Here is how many unique entries there is per column
 
 .. GENERATED FROM PYTHON SOURCE LINES 26-27
 
-As we can see, some entries have many different unique values:
+As we can see, some entries have many unique values:
 
 .. GENERATED FROM PYTHON SOURCE LINES 27-29
 
@@ -129,30 +129,28 @@ As we can see, some entries have many different unique values:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 30-50
+.. GENERATED FROM PYTHON SOURCE LINES 30-48
 
 These different entries are often variations on the same entities:
-there are 3 kinds of Accountant/Auditor.
+for example, there are 3 kinds of Accountant/Auditor.
 
 Such variations will break traditional categorical encoding methods:
 
 * Using simple one-hot encoding will create orthogonal features,
   whereas it is clear that those 3 terms have a lot in common.
 
-* If we wanted to use word embedding methods such as word2vec,
+* If we wanted to use word embedding methods such as Word2vec,
   we would have to go through a cleaning phase: those algorithms
   are not trained to work on data such as 'Accountant/Auditor I'.
-  However, this can be error prone and time consuming.
+  However, this can be error-prone and time-consuming.
 
 The problem becomes easier if we can capture relationships between
 entries.
 
 To simplify understanding, we will focus on the column describing the
 employee's position title:
-data
-values = data[['employee_position_title', 'gender']] + employee_salaries.y
 
-.. GENERATED FROM PYTHON SOURCE LINES 50-54
+.. GENERATED FROM PYTHON SOURCE LINES 48-52
 
 .. code-block:: default
 
@@ -167,18 +165,19 @@ values = data[['employee_position_title', 'gender']] + employee_salaries.y
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 55-61
+.. GENERATED FROM PYTHON SOURCE LINES 53-59
 
 String similarity between entries
 -------------------------------------------------
 
-That's where our encoders get into play. In order to robustly
-embed dirty semantic data, the SimilarityEncoder creates a similarity
-matrix based on the 3-gram structure of the data.
+That's where our encoders get into play.
+In order to robustly embed dirty semantic data, the SimilarityEncoder
+creates a similarity matrix based on the 3-gram structure of the data.
 
-.. GENERATED FROM PYTHON SOURCE LINES 61-69
+.. GENERATED FROM PYTHON SOURCE LINES 59-68
 
 .. code-block:: default
+
 
     sorted_values = values['employee_position_title'].sort_values().unique()
 
@@ -192,27 +191,35 @@ matrix based on the 3-gram structure of the data.
 
 
 
+.. rst-class:: sphx-glr-script-out
+
+ .. code-block:: none
+
+    /home/circleci/project/examples/02_investigating_dirty_categories.py:64: UserWarning: The "similarity" argument is deprecated since dirty_cat 0.3, and will be removed in 0.5.The n-gram similarity is the only one currently supported. 
+      similarity_encoder = SimilarityEncoder()
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 70-75
+
+.. GENERATED FROM PYTHON SOURCE LINES 69-74
 
 Plotting the new representation using multi-dimensional scaling
 ................................................................
 
-Let's now plot a couple points at random using a low-dimensional representation
-to get an intuition of what the similarity encoder is doing:
+Let's now plot a couple of points at random using a low-dimensional
+representation to get an intuition of what the similarity encoder is doing:
 
-.. GENERATED FROM PYTHON SOURCE LINES 75-84
+.. GENERATED FROM PYTHON SOURCE LINES 74-84
 
 .. code-block:: default
+
 
     from sklearn.manifold import MDS
 
     mds = MDS(dissimilarity='precomputed', n_init=10, random_state=42)
-    two_dim_data = mds.fit_transform(
-        1 - transformed_values)  # transformed values lie
-    # in the 0-1 range, so 1-transformed_value yields a positive dissimilarity matrix
+    two_dim_data = mds.fit_transform(1 - transformed_values)
+    # transformed values lie in the 0-1 range,
+    # so 1-transformed_value yields a positive dissimilarity matrix
     print(two_dim_data.shape)
     print(sorted_values.shape)
 
@@ -234,15 +241,16 @@ to get an intuition of what the similarity encoder is doing:
 
 We first quickly fit a KNN so that the plots does not get too busy:
 
-.. GENERATED FROM PYTHON SOURCE LINES 86-98
+.. GENERATED FROM PYTHON SOURCE LINES 86-99
 
 .. code-block:: default
 
+
     import numpy as np
+    from sklearn.neighbors import NearestNeighbors
 
     n_points = 5
     np.random.seed(42)
-    from sklearn.neighbors import NearestNeighbors
 
     random_points = np.random.choice(len(similarity_encoder.categories_[0]),
                                      n_points, replace=False)
@@ -257,11 +265,11 @@ We first quickly fit a KNN so that the plots does not get too busy:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 99-100
+.. GENERATED FROM PYTHON SOURCE LINES 100-101
 
 Then we plot it, adding the categories in the scatter plot:
 
-.. GENERATED FROM PYTHON SOURCE LINES 100-112
+.. GENERATED FROM PYTHON SOURCE LINES 101-113
 
 .. code-block:: default
 
@@ -295,16 +303,17 @@ Then we plot it, adding the categories in the scatter plot:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 113-117
+.. GENERATED FROM PYTHON SOURCE LINES 114-118
 
 Heatmap of the similarity matrix
 ................................
 
 We can also plot the distance matrix for those observations:
 
-.. GENERATED FROM PYTHON SOURCE LINES 117-128
+.. GENERATED FROM PYTHON SOURCE LINES 118-130
 
 .. code-block:: default
+
 
     f2, ax2 = plt.subplots(figsize=(6, 6))
     cax2 = ax2.matshow(transformed_values[indices, :][:, indices])
@@ -329,7 +338,7 @@ We can also plot the distance matrix for those observations:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 129-135
+.. GENERATED FROM PYTHON SOURCE LINES 131-137
 
 As shown in the previous plot, we see that the nearest neighbor of
 "Communication Equipment Technician"
@@ -338,7 +347,7 @@ very close to senior "supply technician": therefore, we grasp the
 "communication" part (not initially present in the category as a unique word)
 as well as the technician part of this category.
 
-.. GENERATED FROM PYTHON SOURCE LINES 138-143
+.. GENERATED FROM PYTHON SOURCE LINES 140-145
 
 Encoding categorical data using SimilarityEncoder
 -------------------------------------------------
@@ -346,9 +355,10 @@ Encoding categorical data using SimilarityEncoder
 A typical data-science workflow uses one-hot encoding to represent
 categories.
 
-.. GENERATED FROM PYTHON SOURCE LINES 143-157
+.. GENERATED FROM PYTHON SOURCE LINES 145-160
 
 .. code-block:: default
+
 
     from sklearn.preprocessing import OneHotEncoder
 
@@ -376,14 +386,14 @@ categories.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 158-162
+.. GENERATED FROM PYTHON SOURCE LINES 161-165
 
 The corresponding is very sparse
 
 SimilarityEncoder can be used to replace one-hot encoding capturing the
 similarities:
 
-.. GENERATED FROM PYTHON SOURCE LINES 162-170
+.. GENERATED FROM PYTHON SOURCE LINES 165-173
 
 .. code-block:: default
 
@@ -407,7 +417,7 @@ similarities:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 171-173
+.. GENERATED FROM PYTHON SOURCE LINES 174-176
 
 Other examples in the dirty_cat documentation show how
 similarity encoding impacts prediction performance.
@@ -415,7 +425,7 @@ similarity encoding impacts prediction performance.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  13.909 seconds)
+   **Total running time of the script:** ( 0 minutes  8.498 seconds)
 
 
 .. _sphx_glr_download_auto_examples_02_investigating_dirty_categories.py:

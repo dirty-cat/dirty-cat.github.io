@@ -29,7 +29,7 @@ sources.
 
 Here we look at a dataset on wages [#]_ where the column *Employee
 Position Title* contains dirty categories. On such a column, standard
-categorical encodings leads to very high dimensions and can loose
+categorical encodings leads to very high dimensions and can lose
 information on which categories are similar.
 
 We investigate various encodings of this dirty column for the machine
@@ -72,11 +72,12 @@ The data
 
 We first retrieve the dataset:
 
-.. GENERATED FROM PYTHON SOURCE LINES 56-59
+.. GENERATED FROM PYTHON SOURCE LINES 56-60
 
 .. code-block:: default
 
     from dirty_cat.datasets import fetch_employee_salaries
+
     employee_salaries = fetch_employee_salaries()
 
 
@@ -87,17 +88,17 @@ We first retrieve the dataset:
 
  .. code-block:: none
 
-    /home/circleci/project/dirty_cat/datasets/fetching.py:347: UserWarning: Could not find the dataset 42125 locally. Downloading it from OpenML; this might take a while... If it is interrupted, some files might be invalid/incomplete: if on the following run, the fetching raises errors, you can try fixing this issue by deleting the directory /home/circleci/project/dirty_cat/datasets/data.
+    /home/circleci/project/dirty_cat/datasets/fetching.py:330: UserWarning: Could not find the dataset 42125 locally. Downloading it from OpenML; this might take a while... If it is interrupted, some files might be invalid/incomplete: if on the following run, the fetching raises errors, you can try fixing this issue by deleting the directory /home/circleci/project/dirty_cat/datasets/data.
       info = fetch_openml_dataset(dataset_id)
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 60-61
+.. GENERATED FROM PYTHON SOURCE LINES 61-62
 
 X, the input data (descriptions of employees):
 
-.. GENERATED FROM PYTHON SOURCE LINES 61-64
+.. GENERATED FROM PYTHON SOURCE LINES 62-65
 
 .. code-block:: default
 
@@ -282,11 +283,11 @@ X, the input data (descriptions of employees):
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 65-66
+.. GENERATED FROM PYTHON SOURCE LINES 66-67
 
 and y, our target column (the annual salary)
 
-.. GENERATED FROM PYTHON SOURCE LINES 66-69
+.. GENERATED FROM PYTHON SOURCE LINES 67-70
 
 .. code-block:: default
 
@@ -306,20 +307,21 @@ and y, our target column (the annual salary)
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 70-71
+.. GENERATED FROM PYTHON SOURCE LINES 71-72
 
 Now, let's carry out some basic preprocessing:
 
-.. GENERATED FROM PYTHON SOURCE LINES 71-80
+.. GENERATED FROM PYTHON SOURCE LINES 72-82
 
 .. code-block:: default
 
     import pandas as pd
+
     X['date_first_hired'] = pd.to_datetime(X['date_first_hired'])
     X['year_first_hired'] = X['date_first_hired'].apply(lambda x: x.year)
-    # Get mask of rows with missing values in gender
+    # Get a mask of the rows with missing values in "gender"
     mask = X.isna()['gender']
-    # And remove the lines accordingly
+    # And remove them
     X.dropna(subset=['gender'], inplace=True)
     y = y[~mask]
 
@@ -330,7 +332,7 @@ Now, let's carry out some basic preprocessing:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 81-89
+.. GENERATED FROM PYTHON SOURCE LINES 83-91
 
 Assembling a machine-learning pipeline that encodes the data
 ============================================================
@@ -341,7 +343,7 @@ The learning pipeline
 To build a learning pipeline, we need to assemble encoders for each
 column, and apply a supervised learning model on top.
 
-.. GENERATED FROM PYTHON SOURCE LINES 92-97
+.. GENERATED FROM PYTHON SOURCE LINES 94-99
 
 The categorical encoders
 ........................
@@ -349,7 +351,7 @@ The categorical encoders
 An encoder is needed to turn a categorical column into a numerical
 representation
 
-.. GENERATED FROM PYTHON SOURCE LINES 97-101
+.. GENERATED FROM PYTHON SOURCE LINES 99-103
 
 .. code-block:: default
 
@@ -364,18 +366,19 @@ representation
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 102-105
+.. GENERATED FROM PYTHON SOURCE LINES 104-107
 
 We assemble these to apply them to the relevant columns.
 The ColumnTransformer is created by specifying a set of transformers
 alongside with the column names on which each must be applied
 
-.. GENERATED FROM PYTHON SOURCE LINES 105-115
+.. GENERATED FROM PYTHON SOURCE LINES 107-118
 
 .. code-block:: default
 
 
     from sklearn.compose import make_column_transformer
+
     encoder = make_column_transformer(
         (one_hot, ['gender', 'department_name', 'assignment_category']),
         ('passthrough', ['year_first_hired']),
@@ -391,7 +394,7 @@ alongside with the column names on which each must be applied
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 116-121
+.. GENERATED FROM PYTHON SOURCE LINES 119-124
 
 Pipelining an encoder with a learner
 ....................................
@@ -399,14 +402,16 @@ Pipelining an encoder with a learner
 We will use a HistGradientBoostingRegressor, which is a good predictor
 for data with heterogeneous columns
 
-.. GENERATED FROM PYTHON SOURCE LINES 121-127
+.. GENERATED FROM PYTHON SOURCE LINES 124-132
 
 .. code-block:: default
 
     from sklearn.ensemble import HistGradientBoostingRegressor
 
     # We then create a pipeline chaining our encoders to a learner
+
     from sklearn.pipeline import make_pipeline
+
     pipeline = make_pipeline(encoder, HistGradientBoostingRegressor())
 
 
@@ -416,11 +421,11 @@ for data with heterogeneous columns
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 128-129
+.. GENERATED FROM PYTHON SOURCE LINES 133-134
 
 The pipeline can be readily applied to the dataframe for prediction
 
-.. GENERATED FROM PYTHON SOURCE LINES 129-131
+.. GENERATED FROM PYTHON SOURCE LINES 134-136
 
 .. code-block:: default
 
@@ -475,19 +480,20 @@ The pipeline can be readily applied to the dataframe for prediction
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 132-137
+.. GENERATED FROM PYTHON SOURCE LINES 137-142
 
 Dirty-category encoding
 -----------------------
 
 The one-hot encoder is actually not well suited to the 'Employee
-Position Title' column, as this columns contains 400 different entries:
+Position Title' column, as this column contains 400 different entries:
 
-.. GENERATED FROM PYTHON SOURCE LINES 137-140
+.. GENERATED FROM PYTHON SOURCE LINES 142-146
 
 .. code-block:: default
 
     import numpy as np
+
     np.unique(y)
 
 
@@ -504,17 +510,18 @@ Position Title' column, as this columns contains 400 different entries:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 141-143
+.. GENERATED FROM PYTHON SOURCE LINES 147-149
 
 We will now experiment with encoders specially made for handling
 dirty columns
 
-.. GENERATED FROM PYTHON SOURCE LINES 143-154
+.. GENERATED FROM PYTHON SOURCE LINES 149-161
 
 .. code-block:: default
 
-    from dirty_cat import SimilarityEncoder, TargetEncoder, MinHashEncoder,\
-        GapEncoder
+
+    from dirty_cat import (SimilarityEncoder, TargetEncoder,
+                           MinHashEncoder, GapEncoder)
 
     encoders = {
         'one-hot': one_hot,
@@ -528,16 +535,23 @@ dirty columns
 
 
 
+.. rst-class:: sphx-glr-script-out
+
+ .. code-block:: none
+
+    /home/circleci/project/examples/01_dirty_categories.py:155: UserWarning: The "similarity" argument is deprecated since dirty_cat 0.3, and will be removed in 0.5.The n-gram similarity is the only one currently supported. 
+      'similarity': SimilarityEncoder(),
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 155-158
+
+.. GENERATED FROM PYTHON SOURCE LINES 162-165
 
 We now loop over the different encoding methods,
 instantiate a new |Pipeline| each time, fit it
 and store the returned cross-validation score:
 
-.. GENERATED FROM PYTHON SOURCE LINES 158-179
+.. GENERATED FROM PYTHON SOURCE LINES 165-186
 
 .. code-block:: default
 
@@ -583,26 +597,27 @@ and store the returned cross-validation score:
     r2 score:  mean: 0.919; std: 0.012
 
     gap encoding
-    r2 score:  mean: 0.912; std: 0.014
+    r2 score:  mean: 0.910; std: 0.010
 
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 180-184
+.. GENERATED FROM PYTHON SOURCE LINES 187-191
 
 Plotting the results
 ....................
 
 Finally, we plot the scores on a boxplot:
 
-.. GENERATED FROM PYTHON SOURCE LINES 184-194
+.. GENERATED FROM PYTHON SOURCE LINES 191-202
 
 .. code-block:: default
 
 
     import seaborn
     import matplotlib.pyplot as plt
+
     plt.figure(figsize=(4, 3))
     ax = seaborn.boxplot(data=pd.DataFrame(all_scores), orient='h')
     plt.ylabel('Encoding', size=20)
@@ -622,7 +637,7 @@ Finally, we plot the scores on a boxplot:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 195-206
+.. GENERATED FROM PYTHON SOURCE LINES 203-214
 
 The clear trend is that encoders grasping the similarities in the category
 (similarity, minhash, and gap) perform better than those discarding it.
@@ -636,7 +651,7 @@ it provides interpretable features
 |
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 208-217
+.. GENERATED FROM PYTHON SOURCE LINES 216-225
 
 .. _example_super_vectorizer:
 
@@ -648,7 +663,7 @@ now explore a simpler, automated, way of encoding the data.
 
 Let's start again from the raw data:
 
-.. GENERATED FROM PYTHON SOURCE LINES 217-221
+.. GENERATED FROM PYTHON SOURCE LINES 225-229
 
 .. code-block:: default
 
@@ -663,15 +678,16 @@ Let's start again from the raw data:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 222-223
+.. GENERATED FROM PYTHON SOURCE LINES 230-232
 
-We'll drop a column we don't want
+We'll drop the "date_first_hired" column as it's redundant with
+"year_first_hired".
 
-.. GENERATED FROM PYTHON SOURCE LINES 223-225
+.. GENERATED FROM PYTHON SOURCE LINES 232-234
 
 .. code-block:: default
 
-    X = X.drop(['date_first_hired'], axis=1)  # Redundant with "year_first_hired"
+    X = X.drop(['date_first_hired'], axis=1)
 
 
 
@@ -680,11 +696,11 @@ We'll drop a column we don't want
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 226-227
+.. GENERATED FROM PYTHON SOURCE LINES 235-236
 
 We still have a complex and heterogeneous dataframe:
 
-.. GENERATED FROM PYTHON SOURCE LINES 227-229
+.. GENERATED FROM PYTHON SOURCE LINES 236-238
 
 .. code-block:: default
 
@@ -856,12 +872,12 @@ We still have a complex and heterogeneous dataframe:
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 230-232
+.. GENERATED FROM PYTHON SOURCE LINES 239-241
 
 The |SV| can to turn this dataframe into a form suited for
 machine learning.
 
-.. GENERATED FROM PYTHON SOURCE LINES 234-243
+.. GENERATED FROM PYTHON SOURCE LINES 243-252
 
 Using the SuperVectorizer in a supervised-learning pipeline
 -----------------------------------------------------------
@@ -870,10 +886,10 @@ Assembling the |SV| in a |Pipeline| with a powerful learner,
 such as gradient boosted trees, gives **a machine-learning method that
 can be readily applied to the dataframe**.
 
-The SuperVectorizer requires at least dirty_cat 0.2.0. 
+The |SV| requires at least dirty_cat 0.2.0.
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 243-251
+.. GENERATED FROM PYTHON SOURCE LINES 252-260
 
 .. code-block:: default
 
@@ -892,16 +908,17 @@ The SuperVectorizer requires at least dirty_cat 0.2.0.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 252-253
+.. GENERATED FROM PYTHON SOURCE LINES 261-262
 
 Let's perform a cross-validation to see how well this model predicts
 
-.. GENERATED FROM PYTHON SOURCE LINES 253-261
+.. GENERATED FROM PYTHON SOURCE LINES 262-271
 
 .. code-block:: default
 
 
     from sklearn.model_selection import cross_val_score
+
     scores = cross_val_score(pipeline, X, y, scoring='r2')
 
     print(f'scores={scores}')
@@ -916,28 +933,28 @@ Let's perform a cross-validation to see how well this model predicts
 
  .. code-block:: none
 
-    scores=[0.92270193 0.88574852 0.915513   0.92632811 0.93285074]
-    mean=0.9166284595109724
-    std=0.016425268709535246
+    scores=[0.90655895 0.89063767 0.92646764 0.90899765 0.91064748]
+    mean=0.9086618775342498
+    std=0.01140521631698419
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 262-265
+.. GENERATED FROM PYTHON SOURCE LINES 272-275
 
 The prediction performed here is pretty much as good as above
 but the code here is much simpler as it does not involve specifying
 columns manually.
 
-.. GENERATED FROM PYTHON SOURCE LINES 267-272
+.. GENERATED FROM PYTHON SOURCE LINES 277-282
 
 Analyzing the features created
 ------------------------------
 
 Let us perform the same workflow, but without the |Pipeline|, so we can
-analyze its mechanisms along the way.
+analyze the SuperVectorizer's mechanisms along the way.
 
-.. GENERATED FROM PYTHON SOURCE LINES 272-274
+.. GENERATED FROM PYTHON SOURCE LINES 282-284
 
 .. code-block:: default
 
@@ -950,15 +967,16 @@ analyze its mechanisms along the way.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 275-276
+.. GENERATED FROM PYTHON SOURCE LINES 285-286
 
 We split the data between train and test, and transform them:
 
-.. GENERATED FROM PYTHON SOURCE LINES 276-284
+.. GENERATED FROM PYTHON SOURCE LINES 286-295
 
 .. code-block:: default
 
     from sklearn.model_selection import train_test_split
+
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.15, random_state=42
     )
@@ -973,11 +991,11 @@ We split the data between train and test, and transform them:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 285-286
+.. GENERATED FROM PYTHON SOURCE LINES 296-297
 
 The encoded data, X_train_enc and X_test_enc are numerical arrays:
 
-.. GENERATED FROM PYTHON SOURCE LINES 286-288
+.. GENERATED FROM PYTHON SOURCE LINES 297-299
 
 .. code-block:: default
 
@@ -993,7 +1011,7 @@ The encoded data, X_train_enc and X_test_enc are numerical arrays:
 
 
     array([[0.00000000e+00, 1.00000000e+00, 0.00000000e+00, ...,
-            7.83743548e-02, 5.10139343e-02, 2.00700000e+03],
+            7.35572362e-02, 5.79529639e-02, 2.00700000e+03],
            [1.00000000e+00, 0.00000000e+00, 0.00000000e+00, ...,
             5.00000000e-02, 5.00000000e-02, 2.00500000e+03],
            [1.00000000e+00, 0.00000000e+00, 0.00000000e+00, ...,
@@ -1008,15 +1026,15 @@ The encoded data, X_train_enc and X_test_enc are numerical arrays:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 289-290
+.. GENERATED FROM PYTHON SOURCE LINES 300-301
 
 They have more columns than the original dataframe, but not much more:
 
-.. GENERATED FROM PYTHON SOURCE LINES 290-292
+.. GENERATED FROM PYTHON SOURCE LINES 301-303
 
 .. code-block:: default
 
-    (X_train.shape, X_train_enc.shape)
+    X_train.shape, X_train_enc.shape
 
 
 
@@ -1031,7 +1049,7 @@ They have more columns than the original dataframe, but not much more:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 293-298
+.. GENERATED FROM PYTHON SOURCE LINES 304-309
 
 Inspecting the features created
 ...............................
@@ -1039,11 +1057,13 @@ Inspecting the features created
 The |SV| assigns a transformer for each column. We can inspect this
 choice:
 
-.. GENERATED FROM PYTHON SOURCE LINES 298-300
+.. GENERATED FROM PYTHON SOURCE LINES 309-313
 
 .. code-block:: default
 
-    sup_vec.transformers_
+    from pprint import pprint
+
+    pprint(sup_vec.transformers_)
 
 
 
@@ -1053,15 +1073,21 @@ choice:
 
  .. code-block:: none
 
+    [('low_card_cat',
+      OneHotEncoder(),
+      ['gender', 'department', 'department_name', 'assignment_category']),
+     ('high_card_cat',
+      GapEncoder(n_components=30),
+      ['division', 'employee_position_title', 'underfilled_job_title']),
+     ('remainder', 'passthrough', ['year_first_hired'])]
 
-    [('low_card_cat', OneHotEncoder(), ['gender', 'department', 'department_name', 'assignment_category']), ('high_card_cat', GapEncoder(n_components=30), ['division', 'employee_position_title', 'underfilled_job_title']), ('remainder', 'passthrough', ['year_first_hired'])]
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 301-314
+.. GENERATED FROM PYTHON SOURCE LINES 314-327
 
 This is what is being passed to the |ColumnTransformer| under the hood.
-If you're familiar with how the later works, it should be very intuitive.
+If you're familiar with how the latter works, it should be very intuitive.
 We can notice it classified the columns "gender" and "assignment_category"
 as low cardinality string variables.
 A |OneHotEncoder| will be applied to these columns.
@@ -1074,7 +1100,7 @@ Next, we can have a look at the encoded feature names.
 
 Before encoding:
 
-.. GENERATED FROM PYTHON SOURCE LINES 314-316
+.. GENERATED FROM PYTHON SOURCE LINES 327-329
 
 .. code-block:: default
 
@@ -1093,11 +1119,11 @@ Before encoding:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 317-318
+.. GENERATED FROM PYTHON SOURCE LINES 330-331
 
 After encoding (we only plot the first 8 feature names):
 
-.. GENERATED FROM PYTHON SOURCE LINES 318-321
+.. GENERATED FROM PYTHON SOURCE LINES 331-334
 
 .. code-block:: default
 
@@ -1117,7 +1143,7 @@ After encoding (we only plot the first 8 feature names):
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 322-328
+.. GENERATED FROM PYTHON SOURCE LINES 335-341
 
 As we can see, it gave us interpretable columns.
 This is because we used |Gap| on the column "division",
@@ -1126,7 +1152,7 @@ which was classified as a high cardinality string variable.
 
 In total, we have reasonable number of encoded columns.
 
-.. GENERATED FROM PYTHON SOURCE LINES 328-331
+.. GENERATED FROM PYTHON SOURCE LINES 341-344
 
 .. code-block:: default
 
@@ -1146,7 +1172,7 @@ In total, we have reasonable number of encoded columns.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 332-344
+.. GENERATED FROM PYTHON SOURCE LINES 345-357
 
 Feature importances in the statistical model
 --------------------------------------------
@@ -1161,11 +1187,13 @@ In this section, we will train a regressor, and plot the feature importances
 
 First, let's train the |RandomForestRegressor|,
 
-.. GENERATED FROM PYTHON SOURCE LINES 344-348
+.. GENERATED FROM PYTHON SOURCE LINES 357-363
 
 .. code-block:: default
 
+
     from sklearn.ensemble import RandomForestRegressor
+
     regressor = RandomForestRegressor()
     regressor.fit(X_train_enc, y_train)
 
@@ -1182,13 +1210,14 @@ First, let's train the |RandomForestRegressor|,
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 349-350
+.. GENERATED FROM PYTHON SOURCE LINES 364-365
 
 Retrieving the feature importances
 
-.. GENERATED FROM PYTHON SOURCE LINES 350-362
+.. GENERATED FROM PYTHON SOURCE LINES 365-378
 
 .. code-block:: default
+
 
     importances = regressor.feature_importances_
     std = np.std(
@@ -1209,16 +1238,17 @@ Retrieving the feature importances
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 363-364
+.. GENERATED FROM PYTHON SOURCE LINES 379-380
 
 Plotting the results:
 
-.. GENERATED FROM PYTHON SOURCE LINES 364-376
+.. GENERATED FROM PYTHON SOURCE LINES 380-393
 
 .. code-block:: default
 
 
     import matplotlib.pyplot as plt
+
     plt.figure(figsize=(12, 9))
     plt.title("Feature importances")
     n = 20
@@ -1241,7 +1271,7 @@ Plotting the results:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 377-388
+.. GENERATED FROM PYTHON SOURCE LINES 394-405
 
 We can deduce from this data that the three factors that define the
 most the salary are: being hired for a long time, being a manager, and
@@ -1258,7 +1288,7 @@ having a permanent, full-time job :)
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 5 minutes  39.909 seconds)
+   **Total running time of the script:** ( 3 minutes  51.936 seconds)
 
 
 .. _sphx_glr_download_auto_examples_01_dirty_categories.py:

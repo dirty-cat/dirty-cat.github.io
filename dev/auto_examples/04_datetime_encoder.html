@@ -12,13 +12,13 @@
   
 <meta property="og:url" content="https://dirty-cat.github.io/stable/auto_examples/04_datetime_encoder.html" />
   
-<meta property="og:site_name" content="Dirty cat" />
+<meta property="og:site_name" content="dirty_cat" />
   
 <meta property="og:description" content="We illustrate here how to handle datetime features with the DatetimeEncoder. The DatetimeEncoder breaks down each datetime features into several numerical features, by extracting relevant informati..." />
   
 <meta property="og:image" content="https://dirty-cat.github.io/stable/_static/dirty_cat.svg" />
   
-<meta property="og:image:alt" content="Dirty cat" />
+<meta property="og:image:alt" content="dirty_cat" />
   
     <title>Handling datetime features with the DatetimeEncoder &#8212; &amp;mdash; Dirty cat</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
@@ -285,13 +285,19 @@ because they are constant.</p>
 <p>The DatetimeEncoder is used by default in the SuperVectorizer, which
 automatically detects datetime features.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dirty_cat</span> <span class="kn">import</span> <a href="../generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer" class="sphx-glr-backref-module-dirty_cat sphx-glr-backref-type-py-class"><span class="n">SuperVectorizer</span></a>
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <a href="https://docs.python.org/3/library/pprint.html#pprint.pprint" title="pprint.pprint" class="sphx-glr-backref-module-pprint sphx-glr-backref-type-py-function"><span class="n">pprint</span></a>
 
 <a href="../generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer" class="sphx-glr-backref-module-dirty_cat sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sup_vec</span></a> <span class="o">=</span> <a href="../generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer" class="sphx-glr-backref-module-dirty_cat sphx-glr-backref-type-py-class"><span class="n">SuperVectorizer</span></a><span class="p">()</span>
 <a href="../generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer.fit_transform" title="dirty_cat.SuperVectorizer.fit_transform" class="sphx-glr-backref-module-dirty_cat sphx-glr-backref-type-py-method"><span class="n">sup_vec</span><span class="o">.</span><span class="n">fit_transform</span></a><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X</span></a><span class="p">)</span>
-<a href="../generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer.get_feature_names_out" title="dirty_cat.SuperVectorizer.get_feature_names_out" class="sphx-glr-backref-module-dirty_cat sphx-glr-backref-type-py-method"><span class="n">sup_vec</span><span class="o">.</span><span class="n">get_feature_names_out</span></a><span class="p">()</span>
+<a href="https://docs.python.org/3/library/pprint.html#pprint.pprint" title="pprint.pprint" class="sphx-glr-backref-module-pprint sphx-glr-backref-type-py-function"><span class="n">pprint</span></a><span class="p">(</span><a href="../generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer.get_feature_names_out" title="dirty_cat.SuperVectorizer.get_feature_names_out" class="sphx-glr-backref-module-dirty_cat sphx-glr-backref-type-py-method"><span class="n">sup_vec</span><span class="o">.</span><span class="n">get_feature_names_out</span></a><span class="p">())</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[&#39;date.utc_month&#39;, &#39;date.utc_day&#39;, &#39;date.utc_hour&#39;, &#39;city_Antwerpen&#39;, &#39;city_London&#39;, &#39;city_Paris&#39;]
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[&#39;date.utc_month&#39;,
+ &#39;date.utc_day&#39;,
+ &#39;date.utc_hour&#39;,
+ &#39;city_Antwerpen&#39;,
+ &#39;city_London&#39;,
+ &#39;city_Paris&#39;]
 </pre></div>
 </div>
 <p>If we want the day of the week, we can just replace SuperVectorizer’s default</p>
@@ -305,11 +311,13 @@ automatically detects datetime features.</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[&#39;date.utc_month&#39;, &#39;date.utc_day&#39;, &#39;date.utc_hour&#39;, &#39;date.utc_dayofweek&#39;, &#39;city_Antwerpen&#39;, &#39;city_London&#39;, &#39;city_Paris&#39;]
 </pre></div>
 </div>
-<p>We can see that the SuperVectorizer is indeed using a DatetimeEncoder for the datetime features.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sup_vec</span><span class="o">.</span><span class="n">transformers_</span></a>
+<p>We can see that the SuperVectorizer is indeed using
+a DatetimeEncoder for the datetime features.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3/library/pprint.html#pprint.pprint" title="pprint.pprint" class="sphx-glr-backref-module-pprint sphx-glr-backref-type-py-function"><span class="n">pprint</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sup_vec</span><span class="o">.</span><span class="n">transformers_</span></a><span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[(&#39;datetime&#39;, DatetimeEncoder(add_day_of_the_week=True), [&#39;date.utc&#39;]), (&#39;low_card_cat&#39;, OneHotEncoder(), [&#39;city&#39;])]
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[(&#39;datetime&#39;, DatetimeEncoder(add_day_of_the_week=True), [&#39;date.utc&#39;]),
+ (&#39;low_card_cat&#39;, OneHotEncoder(), [&#39;city&#39;])]
 </pre></div>
 </div>
 </section>
@@ -335,7 +343,7 @@ DatetimeEncoder.</p>
 <p>When using date and time features, we often care about predicting the future.
 In this case, we have to be careful when evaluating our model, because
 standard tools like cross-validation do not respect the time ordering.
-Instead we can use the <cite>TimeSeriesSplit</cite> class, which makes sure that
+Instead, we can use the <cite>TimeSeriesSplit</cite> class, which makes sure that
 the test set is always in the future.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X</span></a><span class="p">[</span><span class="s2">&quot;date.utc&quot;</span><span class="p">]</span> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.to_datetime.html#pandas.to_datetime" title="pandas.to_datetime" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-function"><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span></a><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X</span></a><span class="p">[</span><span class="s2">&quot;date.utc&quot;</span><span class="p">])</span>
 <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sorted_indices</span></a> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.argsort.html#numpy.argsort" title="numpy.argsort" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">argsort</span></a><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X</span></a><span class="p">[</span><span class="s2">&quot;date.utc&quot;</span><span class="p">])</span>
@@ -450,7 +458,7 @@ and sees how the model changes its prediction</p>
 </div>
 <img src="../_images/sphx_glr_04_datetime_encoder_003.png" srcset="../_images/sphx_glr_04_datetime_encoder_003.png" alt="Feature importances" class = "sphx-glr-single-img"/><p>We can see that the hour of the day is the most important feature,
 which seems reasonable.</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  7.791 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  4.898 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-04-datetime-encoder-py">
 <div class="binder-badge docutils container">
 <a class="reference external image-reference" href="https://mybinder.org/v2/gh/dirty-cat/dirty-cat.github.io/master?filepath=dev/auto_examples/04_datetime_encoder.ipynb"><img alt="Launch binder" src="../_images/binder_badge_logo.svg" width="150px" /></a>

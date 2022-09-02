@@ -12,7 +12,7 @@
   
 <meta property="og:url" content="https://dirty-cat.github.io/stable/generated/dirty_cat.SimilarityEncoder.html" />
   
-<meta property="og:site_name" content="Dirty cat" />
+<meta property="og:site_name" content="dirty_cat" />
   
 <meta property="og:description" content="Usage examples at the bottom of this page. Examples using dirty_cat.SimilarityEncoder: Dirty categories: machine learning with non normalized strings Dirty categories: machine learning with non nor..." />
   
@@ -105,7 +105,7 @@
 <p class="side-comment">Usage examples at the bottom of this page.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="dirty_cat.SimilarityEncoder">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">dirty_cat.</span></span><span class="sig-name descname"><span class="pre">SimilarityEncoder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">similarity=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ngram_range=(2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">categories='auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype=&lt;class</span> <span class="pre">'numpy.float64'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">handle_unknown='ignore'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">handle_missing=''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hashing_dim=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_prototypes=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_jobs=None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/similarity_encoder.html#SimilarityEncoder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.SimilarityEncoder" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">dirty_cat.</span></span><span class="sig-name descname"><span class="pre">SimilarityEncoder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">similarity='ngram'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ngram_range=(2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">categories='auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype=&lt;class</span> <span class="pre">'numpy.float64'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">handle_unknown='ignore'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">handle_missing=''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hashing_dim=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_prototypes=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_jobs=None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/similarity_encoder.html#SimilarityEncoder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.SimilarityEncoder" title="Permalink to this definition">¶</a></dt>
 <dd><p>Encode string categorical features as a numeric array.</p>
 <p>The input to this transformer should be an array-like of
 strings.
@@ -120,13 +120,14 @@ dirty categorical variables.</p>
 Was used to specify the type of pairwise string similarity to use.
 Since 0.3, only the ngram similarity is supported.</p></li>
 <li><p><strong>ngram_range</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.10)"><em>tuple</em></a><em> (</em><em>min_n</em><em>, </em><em>max_n</em><em>)</em><em>, </em><em>default=</em><em>(</em><em>2</em><em>, </em><em>4</em><em>)</em>) – The range of values for the n_gram similarity.</p></li>
-<li><p><strong>categories</strong> (<em>'auto'</em><em>, </em><em>'k-means'</em><em>, </em><em>'most_frequent'</em><em> or </em><em>a list of lists/arrays</em>) – </p></li>
-<li><p><strong>values.</strong> (<em>of</em>) – <p>Categories (unique values) per feature:</p>
+<li><p><strong>categories</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.10)"><em>Union</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Literal" title="(in Python v3.10)"><em>Literal</em></a><em>[</em><em>&quot;auto&quot;</em><em>, </em><em>&quot;k-means&quot;</em><em>, </em><em>&quot;most_frequent&quot;</em><em>]</em><em>, </em><em>typing.List</em><em>[</em><em>typing.List</em><em>[</em><em>str</em><em>]</em><em>]</em><em>]</em>) – <p>Categories (unique values) per feature:
+- ‘auto’ : Determine categories automatically from the training data.
+- list : <code class="docutils literal notranslate"><span class="pre">categories[i]</span></code> holds the categories expected in the i-th</p>
+<blockquote>
+<div><p>column. The passed categories must be sorted and should not mix
+strings and numeric values.</p>
+</div></blockquote>
 <ul>
-<li><p>’auto’ : Determine categories automatically from the training data.</p></li>
-<li><p>list : <code class="docutils literal notranslate"><span class="pre">categories[i]</span></code> holds the categories expected in the i-th
-column. The passed categories must be sorted and should not mix
-strings and numeric values.</p></li>
 <li><dl class="simple">
 <dt>’most_frequent’<span class="classifier">Computes the most frequent values for every</span></dt><dd><p>categorical variable</p>
 </dd>
@@ -141,8 +142,8 @@ strings and numeric values.</p></li>
 <p>The categories used can be found in the <code class="docutils literal notranslate"><span class="pre">categories_</span></code> attribute.</p>
 </p></li>
 <li><p><strong>dtype</strong> (<em>number type</em><em>, </em><em>default np.float64</em>) – Desired dtype of output.</p></li>
-<li><p><strong>handle_unknown</strong> (<em>'error'</em><em> or </em><em>'ignore'</em><em> (</em><em>default</em><em>)</em>) – Whether to raise an error or ignore if a unknown categorical feature is
-present during transform (default is to ignore). When this parameter
+<li><p><strong>handle_unknown</strong> (<em>'error'</em><em> or </em><em>'ignore'</em><em> (</em><em>default</em><em>)</em>) – Whether to raise an error or ignore if an unknown categorical feature
+is present during transform (default is to ignore). When this parameter
 is set to ‘ignore’ and an unknown category is encountered during
 transform, the resulting encoded columns for this feature
 will be all zeros. In the inverse transform, an unknown category
@@ -156,7 +157,7 @@ will be denoted as None.</p></li>
 <li><p><strong>hashing_dim</strong> (<em>int type</em><em> or </em><em>None.</em>) – If None, the base vectorizer is CountVectorizer, else it’s set to
 HashingVectorizer with a number of features equal to <cite>hashing_dim</cite>.</p></li>
 <li><p><strong>n_prototypes</strong> (<em>number of prototype we want to use.</em>) – Useful when <cite>most_frequent</cite> or <cite>k-means</cite> is used.
-Must be a positive non null integer.</p></li>
+Must be a positive non-null integer.</p></li>
 <li><p><strong>random_state</strong> (<em>either an int used as a seed</em><em>, </em><em>a RandomState instance</em><em> or </em><em>None.</em>) – Useful when <cite>k-means</cite> strategy is used.</p></li>
 <li><p><strong>n_jobs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><em>optional</em>) – maximum number of processes used to compute similarity matrices. Used
 only if <code class="docutils literal notranslate"><span class="pre">fast=True</span></code> in <code class="docutils literal notranslate"><span class="pre">SimilarityEncoder.transform</span></code></p></li>
@@ -170,7 +171,7 @@ only if <code class="docutils literal notranslate"><span class="pre">fast=True</
 (in order corresponding with output of <code class="docutils literal notranslate"><span class="pre">transform</span></code>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>list of arrays</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.10)"><em>List</em></a>[np.array]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -178,7 +179,7 @@ only if <code class="docutils literal notranslate"><span class="pre">fast=True</
 <dl class="py attribute">
 <dt class="sig sig-object py" id="dirty_cat.SimilarityEncoder._infrequent_enabled">
 <span class="sig-name descname"><span class="pre">_infrequent_enabled</span></span><a class="headerlink" href="#dirty_cat.SimilarityEncoder._infrequent_enabled" title="Permalink to this definition">¶</a></dt>
-<dd><p>Avoid taking into account the existance of infrequent categories.</p>
+<dd><p>Avoid taking into account the existence of infrequent categories.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)">bool</a>, default=False</p>
@@ -196,10 +197,16 @@ only if <code class="docutils literal notranslate"><span class="pre">fast=True</
 <dd><p>Fit the SimilarityEncoder to X.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>X</strong> (<em>array-like</em><em>, </em><em>shape</em><em> [</em><em>n_samples</em><em>, </em><em>n_features</em><em>]</em>) – The data to determine the categories of each feature.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>array-like</em><em>, </em><em>shape</em><em> [</em><em>n_samples</em><em>, </em><em>n_features</em><em>]</em>) – The data to determine the categories of each feature.</p></li>
+<li><p><strong>y</strong> (<em>None</em>) – Unused, only here for compatibility.</p></li>
+</ul>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>self</p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The fitted SimilarityEncoder instance.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#dirty_cat.SimilarityEncoder" title="dirty_cat.SimilarityEncoder">SimilarityEncoder</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -214,15 +221,15 @@ Fits transformer to <cite>X</cite> and <cite>y</cite> with optional parameters
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>X</strong> (<em>array-like of shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Input samples.</p></li>
-<li><p><strong>y</strong> (<em>array-like of shape</em><em> (</em><em>n_samples</em><em>,</em><em>) or </em><em>(</em><em>n_samples</em><em>, </em><em>n_outputs</em><em>)</em><em>,                     </em><em>default=None</em>) – Target values (None for unsupervised transformations).</p></li>
-<li><p><strong>**fit_params</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Additional fit parameters.</p></li>
+<li><p><strong>y</strong> (<em>array-like of shape</em><em> (</em><em>n_samples</em><em>,</em><em>) or </em><em>(</em><em>n_samples</em><em>, </em><em>n_outputs</em><em>)</em><em>,                 </em><em>default=None</em>) – Target values (None for unsupervised transformations).</p></li>
+<li><p><strong>**fit_params</strong> – Additional fit parameters.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>X_new</strong> – Transformed array.</p>
+<dd class="field-even"><p>Transformed array.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>ndarray array of shape (n_samples, n_features_new)</p>
+<dd class="field-odd"><p>array of shape (n_samples, n_features_new)</p>
 </dd>
 </dl>
 </dd></dl>
@@ -276,12 +283,16 @@ match <cite>feature_names_in_</cite> if <cite>feature_names_in_</cite> is define
 <dl class="py method">
 <dt class="sig sig-object py" id="dirty_cat.SimilarityEncoder.get_most_frequent">
 <span class="sig-name descname"><span class="pre">get_most_frequent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prototypes</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/similarity_encoder.html#SimilarityEncoder.get_most_frequent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.SimilarityEncoder.get_most_frequent" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the most frequent category prototypes
-:param prototypes:
-:type prototypes: the list of values for a category variable</p>
+<dd><p>Get the most frequent category prototypes.</p>
 <dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>prototypes</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.10)"><em>List</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>]</em>) – The list of values for a category variable.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The n_prototypes most frequent values for a category variable.</p>
+</dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The n_prototypes most frequent values for a category variable</p>
+<dd class="field-odd"><p>np.array</p>
 </dd>
 </dl>
 </dd></dl>
@@ -360,7 +371,10 @@ possible to update each component of a nested object.</p>
 <dd><p>Transform X using specified encoding scheme.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>X</strong> (<em>array-like</em><em>, </em><em>shape</em><em> [</em><em>n_samples</em><em>, </em><em>n_features</em><em>]</em>) – The data to encode.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>array-like</em><em>, </em><em>shape</em><em> [</em><em>n_samples</em><em>, </em><em>n_features</em><em>]</em>) – The data to encode.</p></li>
+<li><p><strong>fast</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to use the fast computation of ngrams.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>X_new</strong> – Transformed input.</p>
@@ -381,10 +395,10 @@ possible to update each component of a nested object.</p>
 </div><div class="sphx-glr-thumbcontainer" tooltip="What are dirty categorical variables and how can a good encoding help with statistical learning..."><img alt="Investigating dirty categories" src="../_images/sphx_glr_02_investigating_dirty_categories_thumb.png" />
 <p><a class="reference internal" href="../auto_examples/02_investigating_dirty_categories.html#sphx-glr-auto-examples-02-investigating-dirty-categories-py"><span class="std std-ref">Investigating dirty categories</span></a></p>
   <div class="sphx-glr-thumbnail-title">Investigating dirty categories</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="A very classic dilemma when training a machine learning model consists in choosing between usin..."><img alt="Fitting scalable, non-linear models on data with dirty categories" src="../_images/sphx_glr_05_scaling_non_linear_models_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="When training a machine learning model, it is often hard to choose between linear and a non-lin..."><img alt="Fitting scalable, non-linear models on data with dirty categories" src="../_images/sphx_glr_05_scaling_non_linear_models_thumb.png" />
 <p><a class="reference internal" href="../auto_examples/05_scaling_non_linear_models.html#sphx-glr-auto-examples-05-scaling-non-linear-models-py"><span class="std std-ref">Fitting scalable, non-linear models on data with dirty categories</span></a></p>
   <div class="sphx-glr-thumbnail-title">Fitting scalable, non-linear models on data with dirty categories</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Here we discuss how to apply efficiently SimilarityEncoder to larger datasets: reducing the num..."><img alt="Scalability considerations for similarity encoding" src="../_images/sphx_glr_06_dimension_reduction_and_performance_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="We discuss in this notebook how to efficiently apply the |SE| to larger datasets: reducing the ..."><img alt="Scalability considerations for similarity encoding" src="../_images/sphx_glr_06_dimension_reduction_and_performance_thumb.png" />
 <p><a class="reference internal" href="../auto_examples/06_dimension_reduction_and_performance.html#sphx-glr-auto-examples-06-dimension-reduction-and-performance-py"><span class="std std-ref">Scalability considerations for similarity encoding</span></a></p>
   <div class="sphx-glr-thumbnail-title">Scalability considerations for similarity encoding</div>
 </div></div><div class="clearer"></div></section>

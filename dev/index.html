@@ -12,7 +12,7 @@
   
 <meta property="og:url" content="https://dirty-cat.github.io/stable/index.html" />
   
-<meta property="og:site_name" content="Dirty cat" />
+<meta property="og:site_name" content="dirty_cat" />
   
 <meta property="og:description" content="dirty_cat facilitates machine-learning on non-curated categories: robust to morphological variants, such as typos., SuperVectorizer: a transformer automatically turning a pandas dataframe into a nu..." />
   
@@ -118,21 +118,20 @@ to capture the strings.</p></li>
 </ul>
 </div>
 </div>
-<div class="flex-container">
-<div class="flex-content" style="border: 0px;"><p>For a detailed description of the problem of encoding dirty categorical data,
-see <a class="reference external" href="https://hal.inria.fr/hal-01806175">Similarity encoding for learning with dirty categorical variables</a> <a class="footnote-reference brackets" href="#id3" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> and <a class="reference external" href="https://hal.inria.fr/hal-02171256v4">Encoding high-cardinality
-string categorical variables</a> <a class="footnote-reference brackets" href="#id4" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>.</p>
-</div>
-<div class="flex-content" style="border: 0px;">
+<div class="flex-container"><div class="flex-content" style="border: 0px;">
 <iframe style="display: block; margin: auto; width: 100%;" width="560" height="315"
  src="https://www.youtube.com/embed/_GNaaeEI2tg" frameborder="0"
  allow="accelerometer; autoplay; clipboard-write;
  encrypted-media; gyroscope; picture-in-picture" allowfullscreen
 ></iframe></div>
+<div class="flex-content" style="border: 0px;"><p>For a detailed description of the problem of encoding dirty categorical data,
+see <a class="reference external" href="https://hal.inria.fr/hal-01806175">Similarity encoding for learning with dirty categorical variables</a> <a class="footnote-reference brackets" href="#id3" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> and <a class="reference external" href="https://hal.inria.fr/hal-02171256v4">Encoding high-cardinality
+string categorical variables</a> <a class="footnote-reference brackets" href="#id4" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>.</p>
+</div>
 </div><p class="right-align"><a class="reference external" href="CHANGES.html">Recent changes</a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Installing<span class="colon">:</span></dt>
-<dd class="field-odd"><p><cite>$ pip install –user dirty_cat</cite></p>
+<dd class="field-odd"><p><cite>$ pip install –user –upgrade dirty_cat</cite></p>
 </dd>
 </dl>
 <hr class="docutils" />
@@ -151,10 +150,10 @@ string categorical variables</a> <a class="footnote-reference brackets" href="#i
 </div><div class="sphx-glr-thumbcontainer" tooltip="We illustrate here how to handle datetime features with the DatetimeEncoder."><img alt="Handling datetime features with the DatetimeEncoder" src="_images/sphx_glr_04_datetime_encoder_thumb.png" />
 <p><a class="reference internal" href="auto_examples/04_datetime_encoder.html#sphx-glr-auto-examples-04-datetime-encoder-py"><span class="std std-ref">Handling datetime features with the DatetimeEncoder</span></a></p>
   <div class="sphx-glr-thumbnail-title">Handling datetime features with the DatetimeEncoder</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="A very classic dilemma when training a machine learning model consists in choosing between usin..."><img alt="Fitting scalable, non-linear models on data with dirty categories" src="_images/sphx_glr_05_scaling_non_linear_models_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="When training a machine learning model, it is often hard to choose between linear and a non-lin..."><img alt="Fitting scalable, non-linear models on data with dirty categories" src="_images/sphx_glr_05_scaling_non_linear_models_thumb.png" />
 <p><a class="reference internal" href="auto_examples/05_scaling_non_linear_models.html#sphx-glr-auto-examples-05-scaling-non-linear-models-py"><span class="std std-ref">Fitting scalable, non-linear models on data with dirty categories</span></a></p>
   <div class="sphx-glr-thumbnail-title">Fitting scalable, non-linear models on data with dirty categories</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Here we discuss how to apply efficiently SimilarityEncoder to larger datasets: reducing the num..."><img alt="Scalability considerations for similarity encoding" src="_images/sphx_glr_06_dimension_reduction_and_performance_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="We discuss in this notebook how to efficiently apply the |SE| to larger datasets: reducing the ..."><img alt="Scalability considerations for similarity encoding" src="_images/sphx_glr_06_dimension_reduction_and_performance_thumb.png" />
 <p><a class="reference internal" href="auto_examples/06_dimension_reduction_and_performance.html#sphx-glr-auto-examples-06-dimension-reduction-and-performance-py"><span class="std std-ref">Scalability considerations for similarity encoding</span></a></p>
   <div class="sphx-glr-thumbnail-title">Scalability considerations for similarity encoding</div>
 </div></div><div class="toctree-wrapper compound">
@@ -241,7 +240,7 @@ project: there is still little known about the problems of dirty
 categories. Tradeoffs will emerge in the long run. We really need people
 giving feedback on success and failures with the different techniques and
 pointing us to open datasets on which we can do more empirical work.
-Dirty-cat received funding from <a class="reference external" href="https://project.inria.fr/dirtydata/">project DirtyData</a> (ANR-17-CE23-0018).</p>
+dirty-cat received funding from <a class="reference external" href="https://project.inria.fr/dirtydata/">project DirtyData</a> (ANR-17-CE23-0018).</p>
 <aside class="footnote brackets" id="id3" role="note">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
 <p>Patricio Cerda, Gaël Varoquaux. Encoding high-cardinality string categorical variables. 2020. IEEE Transactions on Knowledge &amp; Data Engineering.</p>

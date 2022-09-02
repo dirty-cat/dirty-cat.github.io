@@ -12,7 +12,7 @@
   
 <meta property="og:url" content="https://dirty-cat.github.io/stable/generated/dirty_cat.GapEncoder.html" />
   
-<meta property="og:site_name" content="Dirty cat" />
+<meta property="og:site_name" content="dirty_cat" />
   
 <meta property="og:description" content="Usage examples at the bottom of this page. Examples using dirty_cat.GapEncoder: Dirty categories: machine learning with non normalized strings Dirty categories: machine learning with non normalized..." />
   
@@ -127,7 +127,7 @@ datasets as there is no need to store a vocabulary dictionary in
 memory.</p></li>
 <li><p><strong>hashing_n_features</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><em>default=2**12</em>) – Number of features for the HashingVectorizer. Only relevant if
 hashing=True.</p></li>
-<li><p><strong>init</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>default='k-means++'</em>) – Initialization method of the W matrix.
+<li><p><strong>init</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Literal" title="(in Python v3.10)"><em>Literal</em></a><em>[</em><em>&quot;k-means++&quot;</em><em>, </em><em>&quot;random&quot;</em><em>, </em><em>&quot;k-means&quot;</em><em>]</em><em>, </em><em>default='k-means++'</em>) – Initialization method of the W matrix.
 Options: {‘k-means++’, ‘random’, ‘k-means’}.
 If init=’k-means++’, we use the init method of sklearn.cluster.KMeans.
 If init=’random’, topics are initialized with a Gamma distribution.
@@ -136,25 +136,55 @@ counts. This usually makes convergence faster but is a bit slower.</p></li>
 <li><p><strong>tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>, </em><em>default=1e-4</em>) – Tolerance for the convergence of the matrix W.</p></li>
 <li><p><strong>min_iter</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><em>default=2</em>) – Minimum number of iterations on the input data.</p></li>
 <li><p><strong>max_iter</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><em>default=5</em>) – Maximum number of iterations on the input data.</p></li>
-<li><p><strong>ngram_range</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.10)"><em>tuple</em></a><em>, </em><em>default=</em><em>(</em><em>2</em><em>, </em><em>4</em><em>)</em>) – The range of ngram length that will be used to build the
+<li><p><strong>ngram_range</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><em>Tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>]</em><em>, </em><em>default=</em><em>(</em><em>2</em><em>, </em><em>4</em><em>)</em>) – The range of ngram length that will be used to build the
 bag-of-n-grams representation of the input data.</p></li>
-<li><p><strong>analyzer</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>default='char'.</em>) – Analyzer parameter for the CountVectorizer/HashingVectorizer.
+<li><p><strong>analyzer</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Literal" title="(in Python v3.10)"><em>Literal</em></a><em>[</em><em>&quot;word&quot;</em><em>, </em><em>&quot;char&quot;</em><em>, </em><em>&quot;char_wb&quot;</em><em>]</em><em>, </em><em>default='char'.</em>) – Analyzer parameter for the CountVectorizer/HashingVectorizer.
 Options: {‘word’, ‘char’, ‘char_wb’}, describing whether the matrix V
 to factorize should be made of word counts or character n-gram counts.
 Option ‘char_wb’ creates character n-grams only from text inside word
 boundaries; n-grams at the edges of words are padded with space.</p></li>
 <li><p><strong>add_words</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>default=False</em>) – If true, add the words counts to the bag-of-n-grams representation
 of the input data.</p></li>
-<li><p><strong>random_state</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em> or </em><em>None</em><em>, </em><em>default=None</em>) – Pass an int for reproducible output across multiple function calls.</p></li>
+<li><p><strong>random_state</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><em>RandomState</em><em>]</em><em>]</em><em>, </em><em>default=None</em>) – Pass an int for reproducible output across multiple function calls.</p></li>
 <li><p><strong>rescale_W</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>default=True</em>) – If true, the weight matrix W is rescaled at each iteration
-to have an l1 norm equal to 1 for each row.</p></li>
+to have a l1 norm equal to 1 for each row.</p></li>
 <li><p><strong>max_iter_e_step</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><em>default=20</em>) – Maximum number of iterations to adjust the activations h at each step.</p></li>
-<li><p><strong>handle_missing</strong> (<em>'error'</em><em> or </em><em>'empty_impute'</em><em> (</em><em>default</em><em>)</em>) – Whether to raise an error or impute with empty string ‘’ if missing
+<li><p><strong>handle_missing</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Literal" title="(in Python v3.10)"><em>Literal</em></a><em>[</em><em>&quot;error&quot;</em><em>, </em><em>&quot;empty_impute&quot;</em><em>]</em><em>, </em><em>default=empty_impute</em>) – Whether to raise an error or impute with empty string ‘’ if missing
 values (NaN) are present during fit (default is to impute).
 In the inverse transform, the missing category will be denoted as None.</p></li>
 </ul>
 </dd>
 </dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dirty_cat.GapEncoder.rho_">
+<span class="sig-name descname"><span class="pre">rho_</span></span><a class="headerlink" href="#dirty_cat.GapEncoder.rho_" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dirty_cat.GapEncoder.fitted_models_">
+<span class="sig-name descname"><span class="pre">fitted_models_</span></span><a class="headerlink" href="#dirty_cat.GapEncoder.fitted_models_" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.10)"><em>List</em></a>[GapEncoderColumn]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dirty_cat.GapEncoder.column_names_">
+<span class="sig-name descname"><span class="pre">column_names_</span></span><a class="headerlink" href="#dirty_cat.GapEncoder.column_names_" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.10)"><em>List</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
 <p class="rubric">References</p>
 <p>For a detailed description of the method, see
 <a class="reference external" href="https://hal.inria.fr/hal-02171256v4">Encoding high-cardinality string categorical variables</a> by Cerda, Varoquaux (2019).</p>
@@ -164,10 +194,16 @@ In the inverse transform, the missing category will be denoted as None.</p></li>
 <dd><p>Fit the GapEncoder on batches of X.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>X</strong> (<em>array-like</em><em>, </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – The string data to fit the model on.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>array-like</em><em>, </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – The string data to fit the model on.</p></li>
+<li><p><strong>y</strong> (<em>None</em>) – Unused, only here for compatibility.</p></li>
+</ul>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>self</p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Fitted GapEncoder instance.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#dirty_cat.GapEncoder" title="dirty_cat.GapEncoder">GapEncoder</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -206,17 +242,17 @@ Use <cite>get_feature_names_out</cite> instead.</p>
 <dt class="sig sig-object py" id="dirty_cat.GapEncoder.get_feature_names_out">
 <span class="sig-name descname"><span class="pre">get_feature_names_out</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">col_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/gap_encoder.html#GapEncoder.get_feature_names_out"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.GapEncoder.get_feature_names_out" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the labels that best summarize the learned components/topics.
-For each topic, labels with highest activations are selected.</p>
+For each topic, labels with the highest activations are selected.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>col_names</strong> (<em>{None</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a><em> or </em><em>str}</em><em>, </em><em>default=None</em>) – <p>The column names to be added as prefixes before the labels.
+<li><p><strong>col_names</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.10)"><em>Union</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Literal" title="(in Python v3.10)"><em>Literal</em></a><em>[</em><em>&quot;auto&quot;</em><em>]</em><em>, </em><em>typing.List</em><em>[</em><em>str</em><em>]</em><em>]</em><em>]</em><em>, </em><em>default=None</em>) – <p>The column names to be added as prefixes before the labels.
 If col_names == None, no prefixes are used.
 If col_names == ‘auto’, column names are automatically defined:</p>
 <blockquote>
 <div><ul>
-<li><p>if the input data was a dataframe, its column names are used</p></li>
-<li><p>otherwise, ‘col1’, …, ‘colN’ are used as prefixes</p></li>
+<li><p>if the input data was a dataframe, its column names are used,</p></li>
+<li><p>otherwise, ‘col1’, …, ‘colN’ are used as prefixes.</p></li>
 </ul>
 </div></blockquote>
 <p>Prefixes can be manually set by passing a list  for col_names.</p>
@@ -255,14 +291,20 @@ contained subobjects that are estimators.</p>
 <dt class="sig sig-object py" id="dirty_cat.GapEncoder.partial_fit">
 <span class="sig-name descname"><span class="pre">partial_fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/gap_encoder.html#GapEncoder.partial_fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.GapEncoder.partial_fit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Partial fit of the GapEncoder on X.
-To be used in a online learning procedure where batches of data are
+To be used in an online learning procedure where batches of data are
 coming one by one.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>X</strong> (<em>array-like</em><em>, </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – The string data to fit the model on.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>array-like</em><em>, </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – The string data to fit the model on.</p></li>
+<li><p><strong>y</strong> (<em>None</em>) – Unused, only here for compatibility.</p></li>
+</ul>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>self</p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Fitted GapEncoder instance.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#dirty_cat.GapEncoder" title="dirty_cat.GapEncoder">GapEncoder</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -278,7 +320,7 @@ non-negative factorization HW.</p>
 <dd class="field-odd"><p><strong>X</strong> (<em>array-like</em><em> (</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>)</em><em>, </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – The data to encode.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>kl_divergence</strong> – The Kullback-Leibler divergence.</p>
+<dd class="field-even"><p>The Kullback-Leibler divergence.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float.</p>
@@ -314,7 +356,7 @@ possible to update each component of a nested object.</p>
 Given the learnt topics W, the activations H are tuned to fit V = HW.
 When X has several columns, they are encoded separately and
 then concatenated.</p>
-<p>Remark: calling transform mutliple times in a row on the same
+<p>Remark: calling transform multiple times in a row on the same
 input X can give slightly different encodings. This is expected
 due to a caching mechanism to speed things up.</p>
 <dl class="field-list simple">
@@ -340,6 +382,9 @@ due to a caching mechanism to speed things up.</p>
 </div><div class="sphx-glr-thumbcontainer" tooltip="We illustrate here how categorical encodings obtained with the GapEncoder can be interpreted in..."><img alt="Feature interpretation with the GapEncoder" src="../_images/sphx_glr_03_feature_interpretation_gap_encoder_thumb.png" />
 <p><a class="reference internal" href="../auto_examples/03_feature_interpretation_gap_encoder.html#sphx-glr-auto-examples-03-feature-interpretation-gap-encoder-py"><span class="std std-ref">Feature interpretation with the GapEncoder</span></a></p>
   <div class="sphx-glr-thumbnail-title">Feature interpretation with the GapEncoder</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="We discuss in this notebook how to efficiently apply the |SE| to larger datasets: reducing the ..."><img alt="Scalability considerations for similarity encoding" src="../_images/sphx_glr_06_dimension_reduction_and_performance_thumb.png" />
+<p><a class="reference internal" href="../auto_examples/06_dimension_reduction_and_performance.html#sphx-glr-auto-examples-06-dimension-reduction-and-performance-py"><span class="std std-ref">Scalability considerations for similarity encoding</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Scalability considerations for similarity encoding</div>
 </div></div><div class="clearer"></div></section>
 </section>
 

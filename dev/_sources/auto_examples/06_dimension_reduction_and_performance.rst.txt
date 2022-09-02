@@ -19,33 +19,28 @@
 
 
 Scalability considerations for similarity encoding
-===================================================
+==================================================
 
-Here we discuss how to apply efficiently SimilarityEncoder to larger
+We discuss in this notebook how to efficiently apply the |SE| to larger
 datasets: reducing the number of reference categories to "prototypes",
 either chosen as the most frequent categories, or with kmeans clustering.
 
-Note that the :class:`GapEncoder` naturally does data reduction and comes
-with online estimation. As a result is it more scalable than the
-SimilarityEncoder, and should be preferred in large-scale settings.
 
-.. GENERATED FROM PYTHON SOURCE LINES 14-19
-
-.. code-block:: default
-
-    # Avoid the warning in scikit-learn's LogisticRegression for the change
-    # in the solver
-    import warnings
-    warnings.simplefilter(action='ignore', category=FutureWarning)
+.. note::
+    The |Gap| naturally does data reduction and comes with online estimation.
+    As a result, is it more scalable than the |SE|,
+    and should be preferred in large-scale settings.
 
 
+.. |SE| replace:: :class:`~dirty_cat.SimilarityEncoder`
 
+.. |Gap| replace:: :class:`~dirty_cat.GapEncoder`
 
+.. |ColumnTransformer| replace:: :class:`~sklearn.compose.ColumnTransformer`
 
+.. |OHE| replace:: :class:`~sklearn.preprocessing.OneHotEncoder`
 
-
-
-.. GENERATED FROM PYTHON SOURCE LINES 20-25
+.. GENERATED FROM PYTHON SOURCE LINES 27-32
 
 A tool to report memory usage and run time
 ------------------------------------------
@@ -53,29 +48,30 @@ A tool to report memory usage and run time
 For this example, we build a small tool that reports memory
 usage and compute time of a function
 
-.. GENERATED FROM PYTHON SOURCE LINES 25-49
+.. GENERATED FROM PYTHON SOURCE LINES 32-57
 
 .. code-block:: default
 
-    from time import time
+    from time import perf_counter
     import functools
     import tracemalloc
 
 
     def resource_used(func):
-        """ Decorator that return a function that prints its usage
+        """
+        Decorator for performance analysis.
         """
 
         @functools.wraps(func)
         def wrapped_func(*args, **kwargs):
-            t0 = time()
+            t0 = perf_counter()  # Launch a time
             tracemalloc.start()
             out = func(*args, **kwargs)
             size, peak = tracemalloc.get_traced_memory()
             tracemalloc.stop()
             peak /= (1024 ** 2)  # Convert to megabytes
-            print("Run time: %.1is    Memory used: %iMb"
-                  % (time() - t0, peak))
+            print(f"Run time: {perf_counter() - t0:.2f}s | "
+                  f"Memory used: {peak:.2f}MB. ")
             return out
 
         return wrapped_func
@@ -88,14 +84,14 @@ usage and compute time of a function
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 50-54
+.. GENERATED FROM PYTHON SOURCE LINES 58-62
 
 Data Importing and preprocessing
 --------------------------------
 
-We first get the dataset:
+First, let's fetch the dataset we'll use further down
 
-.. GENERATED FROM PYTHON SOURCE LINES 54-86
+.. GENERATED FROM PYTHON SOURCE LINES 62-70
 
 .. code-block:: default
 
@@ -103,23 +99,57 @@ We first get the dataset:
     from dirty_cat.datasets import fetch_open_payments
 
     open_payments = fetch_open_payments()
-    print(open_payments.description)
+    X = open_payments.X
 
-    df = open_payments.X
+    open_payments.description
 
-    na_mask: pd.DataFrame = df.isna()
-    df = df.dropna(axis=0)
-    df = df.reset_index()
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ .. code-block:: none
+
+
+    'Payments given by healthcare manufacturing companies to medical doctors or hospitals'
+
+
+
+.. GENERATED FROM PYTHON SOURCE LINES 71-72
+
+We'll perform a some cleaning
+
+.. GENERATED FROM PYTHON SOURCE LINES 72-84
+
+.. code-block:: default
 
     from functools import reduce
 
+    # Remove the missing lines in X
+    na_mask: pd.DataFrame = X.isna()
+    X = X.dropna(axis=0).reset_index(drop=True)
+
     y = open_payments.y
     # Combine boolean masks
-    na_mask = reduce(lambda acc, col: acc | na_mask[col],
-                     na_mask.columns, na_mask[na_mask.columns[0]])
-    # Drop the lines that contained missing values in X
-    y = y[~na_mask]
-    y.reset_index()
+    na_mask = na_mask.any(axis=1)
+    # Drop the lines in y that contained missing values in X
+    y = y[~na_mask].reset_index(drop=True)
+
+
+
+
+
+
+
+
+.. GENERATED FROM PYTHON SOURCE LINES 85-86
+
+We'll write down which columns are clean and which are dirty
+
+.. GENERATED FROM PYTHON SOURCE LINES 86-96
+
+.. code-block:: default
 
     clean_columns = [
         'Applicable_Manufacturer_or_Applicable_GPO_Making_Payment_Name',
@@ -135,25 +165,20 @@ We first get the dataset:
 
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    Payments given by healthcare manufacturing companies to medical doctors or hospitals
 
 
 
+.. GENERATED FROM PYTHON SOURCE LINES 97-100
 
-.. GENERATED FROM PYTHON SOURCE LINES 87-89
+We will use |SE| on the two dirty columns defined above.
+One difficulty is that they have many entries, and because of that, as we'll
+see, the :code:`SimilarityEncoder` will take a while.
 
-We will use SimilarityEncoder on the the two dirty columns defined above.
-One difficulty is that they have many different entries.
-
-.. GENERATED FROM PYTHON SOURCE LINES 89-91
+.. GENERATED FROM PYTHON SOURCE LINES 100-102
 
 .. code-block:: default
 
-    print(df[dirty_columns].nunique())
+    X[dirty_columns].value_counts()[:20]
 
 
 
@@ -163,26 +188,6 @@ One difficulty is that they have many different entries.
 
  .. code-block:: none
 
-    Name_of_Associated_Covered_Device_or_Medical_Supply1    223
-    Name_of_Associated_Covered_Drug_or_Biological1          210
-    dtype: int64
-
-
-
-
-.. GENERATED FROM PYTHON SOURCE LINES 92-94
-
-.. code-block:: default
-
-    print(df[dirty_columns].value_counts()[:20])
-
-
-
-
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
 
     Name_of_Associated_Covered_Device_or_Medical_Supply1  Name_of_Associated_Covered_Drug_or_Biological1
     Sprix                                                 Sprix                                             95
@@ -209,20 +214,36 @@ One difficulty is that they have many different entries.
 
 
 
+.. GENERATED FROM PYTHON SOURCE LINES 103-105
 
-.. GENERATED FROM PYTHON SOURCE LINES 95-96
+.. code-block:: default
 
-As we will see, SimilarityEncoder takes a while on such data.
+    X[dirty_columns].nunique()
 
-.. GENERATED FROM PYTHON SOURCE LINES 99-104
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ .. code-block:: none
+
+
+    Name_of_Associated_Covered_Device_or_Medical_Supply1    223
+    Name_of_Associated_Covered_Drug_or_Biological1          210
+    dtype: int64
+
+
+
+.. GENERATED FROM PYTHON SOURCE LINES 106-111
 
 SimilarityEncoder with default options
 --------------------------------------
 
-Let us build our vectorizer, using a ColumnTransformer to combine
-one-hot encoding and similarity encoding
+Let us build our vectorizer, using a |ColumnTransformer| to combine
+a |OHE| and a |SE|
 
-.. GENERATED FROM PYTHON SOURCE LINES 104-123
+.. GENERATED FROM PYTHON SOURCE LINES 111-134
 
 .. code-block:: default
 
@@ -230,20 +251,24 @@ one-hot encoding and similarity encoding
     from sklearn.compose import ColumnTransformer
     from dirty_cat import SimilarityEncoder
 
-    sim_enc = SimilarityEncoder()
-
-    transformers = [
-        ('one_hot', OneHotEncoder(sparse=False, handle_unknown='ignore'), clean_columns),
+    clean_col_transformer = [
+        ('one_hot',
+         OneHotEncoder(sparse=False, handle_unknown='ignore'),
+         clean_columns),
     ]
 
     column_trans = ColumnTransformer(
-        transformers=transformers + [('sim_enc', sim_enc, dirty_columns)],
+        transformers=clean_col_transformer + [
+            ('sim_enc',
+             SimilarityEncoder(),
+             dirty_columns)
+        ],
         remainder='drop')
 
-    t0 = time()
-    X = column_trans.fit_transform(df)
-    t1 = time()
-    print('Time to vectorize: %s' % (t1 - t0))
+    t0 = perf_counter()
+    X_enc = column_trans.fit_transform(X)
+    t1 = perf_counter()
+    print(f'Time to vectorize: {t1 - t0:.3f}s')
 
 
 
@@ -253,47 +278,48 @@ one-hot encoding and similarity encoding
 
  .. code-block:: none
 
-    Time to vectorize: 0.788285493850708
-
-
-
-
-.. GENERATED FROM PYTHON SOURCE LINES 124-125
-
-We can run a cross-validation
-
-.. GENERATED FROM PYTHON SOURCE LINES 125-134
-
-.. code-block:: default
-
-    from sklearn import linear_model, pipeline, model_selection
-
-    # We specify max_iter to avoid convergence warnings
-    log_reg = linear_model.LogisticRegression(max_iter=10000)
-
-    model = pipeline.make_pipeline(column_trans, log_reg)
-    results = resource_used(model_selection.cross_validate)(model, df, y)
-    print("Cross-validation score: %s" % results['test_score'])
-
-
-
-
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    Run time: 5s    Memory used: 12Mb
-    Cross-validation score: [0.98513011 0.98884758 0.96641791 0.98134328 0.98880597]
+    Time to vectorize: 0.396s
 
 
 
 
 .. GENERATED FROM PYTHON SOURCE LINES 135-136
 
+Let's now run a cross-validation!
+
+.. GENERATED FROM PYTHON SOURCE LINES 136-146
+
+.. code-block:: default
+
+    from sklearn import pipeline, model_selection
+    from sklearn.linear_model import LogisticRegression
+
+    # We specify max_iter to avoid convergence warnings
+    log_reg = LogisticRegression(max_iter=10000)
+
+    model = pipeline.make_pipeline(column_trans, log_reg)
+    results = resource_used(model_selection.cross_validate)(model, X, y)
+    print(f"Cross-validation score: {results['test_score']}")
+
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ .. code-block:: none
+
+    Run time: 2.79s | Memory used: 12.18MB. 
+    Cross-validation score: [0.98513011 0.98884758 0.96641791 0.98134328 0.98880597]
+
+
+
+
+.. GENERATED FROM PYTHON SOURCE LINES 147-148
+
 Store results for later
 
-.. GENERATED FROM PYTHON SOURCE LINES 136-141
+.. GENERATED FROM PYTHON SOURCE LINES 148-153
 
 .. code-block:: default
 
@@ -309,23 +335,27 @@ Store results for later
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 142-148
+.. GENERATED FROM PYTHON SOURCE LINES 154-161
 
 Most frequent strategy to define prototypes
 -------------------------------------------
 
-The most frequent strategy selects the n most frequent values in a dirty
-categorical variable to reduce the dimensionality of the problem and thus
-speed things up. We select manually the number of prototypes we want to use.
+The :code:`most_frequent` strategy selects the :code:`n` most frequent
+values in a dirty categorical variable to reduce the dimensionality of the
+problem and thus speed things up.
+Here, we arbitrarily choose 100 as the number of prototypes we want to use.
 
-.. GENERATED FROM PYTHON SOURCE LINES 148-154
+.. GENERATED FROM PYTHON SOURCE LINES 161-170
 
 .. code-block:: default
 
-    sim_enc = SimilarityEncoder(categories='most_frequent', n_prototypes=100)
 
     column_trans = ColumnTransformer(
-        transformers=transformers + [('sim_enc', sim_enc, dirty_columns)],
+        transformers=clean_col_transformer + [
+            ('sim_enc',
+             SimilarityEncoder(categories='most_frequent', n_prototypes=100),
+             dirty_columns)
+        ],
         remainder='drop')
 
 
@@ -335,17 +365,17 @@ speed things up. We select manually the number of prototypes we want to use.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 155-156
+.. GENERATED FROM PYTHON SOURCE LINES 171-172
 
-Check now that prediction is still as good
+Check that the prediction is still as good
 
-.. GENERATED FROM PYTHON SOURCE LINES 156-160
+.. GENERATED FROM PYTHON SOURCE LINES 172-176
 
 .. code-block:: default
 
     model = pipeline.make_pipeline(column_trans, log_reg)
-    results = resource_used(model_selection.cross_validate)(model, df, y)
-    print("Cross-validation score: %s" % results['test_score'])
+    results = resource_used(model_selection.cross_validate)(model, X, y)
+    print(f"Cross-validation score: {results['test_score']}")
 
 
 
@@ -355,17 +385,17 @@ Check now that prediction is still as good
 
  .. code-block:: none
 
-    Run time: 5s    Memory used: 9Mb
+    Run time: 2.41s | Memory used: 9.07MB. 
     Cross-validation score: [0.98513011 0.99256506 0.97014925 0.98507463 0.98880597]
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 161-162
+.. GENERATED FROM PYTHON SOURCE LINES 177-178
 
 Store results for later
 
-.. GENERATED FROM PYTHON SOURCE LINES 162-165
+.. GENERATED FROM PYTHON SOURCE LINES 178-181
 
 .. code-block:: default
 
@@ -379,23 +409,27 @@ Store results for later
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 166-172
+.. GENERATED FROM PYTHON SOURCE LINES 182-189
 
 KMeans strategy to define prototypes
 ------------------------------------
 
-K-means strategy is also a dimensionality reduction technique.
-SimilarityEncoder can apply a K-means and nearest neighbors algorithm
-to find the prototypes. The number of prototypes is set manually.
+The k-means strategy is also a dimensionality reduction technique.
+The :code:`SimilarityEncoder` can apply a K-means and nearest neighbors
+algorithm to find the prototypes. Once again, the number of prototypes
+we chose here is arbitrary.
 
-.. GENERATED FROM PYTHON SOURCE LINES 172-178
+.. GENERATED FROM PYTHON SOURCE LINES 189-198
 
 .. code-block:: default
 
-    sim_enc = SimilarityEncoder(categories='k-means', n_prototypes=100)
 
     column_trans = ColumnTransformer(
-        transformers=transformers + [('sim_enc', sim_enc, dirty_columns)],
+        transformers=clean_col_transformer + [
+            ('sim_enc',
+             SimilarityEncoder(categories='k-means', n_prototypes=100),
+             dirty_columns)
+        ],
         remainder='drop')
 
 
@@ -405,16 +439,16 @@ to find the prototypes. The number of prototypes is set manually.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 179-180
+.. GENERATED FROM PYTHON SOURCE LINES 199-200
 
-Check now that prediction is still as good
+Check that the prediction is still as good
 
-.. GENERATED FROM PYTHON SOURCE LINES 180-184
+.. GENERATED FROM PYTHON SOURCE LINES 200-204
 
 .. code-block:: default
 
     model = pipeline.make_pipeline(column_trans, log_reg)
-    results = resource_used(model_selection.cross_validate)(model, df, y)
+    results = resource_used(model_selection.cross_validate)(model, X, y)
     print("Cross-validation score: %s" % results['test_score'])
 
 
@@ -425,17 +459,17 @@ Check now that prediction is still as good
 
  .. code-block:: none
 
-    Run time: 15s    Memory used: 8Mb
+    Run time: 6.67s | Memory used: 8.55MB. 
     Cross-validation score: [0.98884758 0.99256506 0.97014925 0.98507463 0.98880597]
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 185-186
+.. GENERATED FROM PYTHON SOURCE LINES 205-206
 
 Store results for later
 
-.. GENERATED FROM PYTHON SOURCE LINES 186-189
+.. GENERATED FROM PYTHON SOURCE LINES 206-209
 
 .. code-block:: default
 
@@ -449,12 +483,12 @@ Store results for later
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 190-192
+.. GENERATED FROM PYTHON SOURCE LINES 210-212
 
-Plot a summary figure
----------------------
+Summary
+-------
 
-.. GENERATED FROM PYTHON SOURCE LINES 192-204
+.. GENERATED FROM PYTHON SOURCE LINES 212-224
 
 .. code-block:: default
 
@@ -485,7 +519,7 @@ Plot a summary figure
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  36.555 seconds)
+   **Total running time of the script:** ( 0 minutes  19.642 seconds)
 
 
 .. _sphx_glr_download_auto_examples_06_dimension_reduction_and_performance.py:

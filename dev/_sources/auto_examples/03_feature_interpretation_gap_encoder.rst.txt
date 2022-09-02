@@ -34,9 +34,10 @@ Data Importing
 
 We first get the dataset:
 
-.. GENERATED FROM PYTHON SOURCE LINES 18-22
+.. GENERATED FROM PYTHON SOURCE LINES 18-23
 
 .. code-block:: default
+
 
     from dirty_cat.datasets import fetch_employee_salaries
     employee_salaries = fetch_employee_salaries()
@@ -55,13 +56,14 @@ We first get the dataset:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 23-24
+.. GENERATED FROM PYTHON SOURCE LINES 24-25
 
 Now, we retrieve the dirty column to encode:
 
-.. GENERATED FROM PYTHON SOURCE LINES 24-29
+.. GENERATED FROM PYTHON SOURCE LINES 25-31
 
 .. code-block:: default
+
 
     dirty_column = 'employee_position_title'
     X_dirty = employee_salaries.X[[dirty_column]]
@@ -88,18 +90,20 @@ Now, we retrieve the dirty column to encode:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 30-34
+.. GENERATED FROM PYTHON SOURCE LINES 32-36
 
 Encoding dirty job titles
 -------------------------
 
 We first create an instance of the GapEncoder with n_components=10:
 
-.. GENERATED FROM PYTHON SOURCE LINES 34-37
+.. GENERATED FROM PYTHON SOURCE LINES 36-41
 
 .. code-block:: default
 
+
     from dirty_cat import GapEncoder
+
     enc = GapEncoder(n_components=10, random_state=42)
 
 
@@ -109,14 +113,15 @@ We first create an instance of the GapEncoder with n_components=10:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 38-40
+.. GENERATED FROM PYTHON SOURCE LINES 42-44
 
 Then we fit the model on the dirty categorical data and transform it to
 obtain encoded vectors of size 10:
 
-.. GENERATED FROM PYTHON SOURCE LINES 40-43
+.. GENERATED FROM PYTHON SOURCE LINES 44-48
 
 .. code-block:: default
+
 
     X_enc = enc.fit_transform(X_dirty)
     print(f'Shape of encoded vectors = {X_enc.shape}')
@@ -134,7 +139,7 @@ obtain encoded vectors of size 10:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 44-54
+.. GENERATED FROM PYTHON SOURCE LINES 49-59
 
 Interpreting encoded vectors
 ----------------------------
@@ -147,7 +152,7 @@ To interpret these latent topics, we select for each of them a few labels
 from the input data with the highest activations.
 In the example below we select 3 labels to summarize each topic.
 
-.. GENERATED FROM PYTHON SOURCE LINES 54-60
+.. GENERATED FROM PYTHON SOURCE LINES 59-65
 
 .. code-block:: default
 
@@ -179,20 +184,21 @@ In the example below we select 3 labels to summarize each topic.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 61-66
+.. GENERATED FROM PYTHON SOURCE LINES 66-71
 
 As expected, topics capture labels that frequently co-occur. For instance,
 the labels *firefighter*, *rescuer*, *rescue* appear together in
-*Firefigther/Rescuer III*, or *Fire/Rescue Lieutenant*.
+*Firefighter/Rescuer III*, or *Fire/Rescue Lieutenant*.
 
 This enables us to understand the encoding of different samples
 
-.. GENERATED FROM PYTHON SOURCE LINES 66-79
+.. GENERATED FROM PYTHON SOURCE LINES 71-85
 
 .. code-block:: default
 
 
     import matplotlib.pyplot as plt
+
     encoded_labels = enc.transform(X_dirty[:20])
     plt.figure(figsize=(8,10))
     plt.imshow(encoded_labels)
@@ -216,7 +222,7 @@ This enables us to understand the encoding of different samples
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 80-83
+.. GENERATED FROM PYTHON SOURCE LINES 86-89
 
 As we can see, each dirty category encodes on a small number of topics,
 These can thus be reliably used to summarize each topic, which are in
@@ -225,7 +231,7 @@ effect latent categories captured from the data.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  7.735 seconds)
+   **Total running time of the script:** ( 0 minutes  5.003 seconds)
 
 
 .. _sphx_glr_download_auto_examples_03_feature_interpretation_gap_encoder.py:

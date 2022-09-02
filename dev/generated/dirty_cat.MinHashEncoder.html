@@ -12,7 +12,7 @@
   
 <meta property="og:url" content="https://dirty-cat.github.io/stable/generated/dirty_cat.MinHashEncoder.html" />
   
-<meta property="og:site_name" content="Dirty cat" />
+<meta property="og:site_name" content="dirty_cat" />
   
 <meta property="og:description" content="Usage examples at the bottom of this page. Examples using dirty_cat.MinHashEncoder: Dirty categories: machine learning with non normalized strings Dirty categories: machine learning with non normal..." />
   
@@ -114,17 +114,28 @@ of the string.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>n_components</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><em>default=30</em>) – The number of dimension of encoded strings. Numbers around 300 tend to
 lead to good prediction performance, but with more computational cost.</p></li>
-<li><p><strong>ngram_range</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.10)"><em>tuple</em></a><em> (</em><em>min_n</em><em>, </em><em>max_n</em><em>)</em><em>, </em><em>default=</em><em>(</em><em>2</em><em>, </em><em>4</em><em>)</em>) – The lower and upper boundary of the range of n-values for different
+<li><p><strong>ngram_range</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><em>Tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>]</em><em>, </em><em>default=</em><em>(</em><em>2</em><em>, </em><em>4</em><em>)</em>) – The lower and upper boundary of the range of n-values for different
 n-grams to be extracted. All values of n such that min_n &lt;= n &lt;= max_n.
 will be used.</p></li>
-<li><p><strong>hashing</strong> (<em>str {'fast'</em><em>, </em><em>'murmur'}</em><em>, </em><em>default=fast</em>) – Hashing function. fast is faster but
+<li><p><strong>hashing</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Literal" title="(in Python v3.10)"><em>Literal</em></a><em>[</em><em>&quot;fast&quot;</em><em>, </em><em>&quot;murmur&quot;</em><em>]</em><em>, </em><em>default=fast</em>) – Hashing function. fast is faster but
 might have some concern with its entropy.</p></li>
 <li><p><strong>minmax_hash</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>default=False</em>) – if True, return min hash and max hash concatenated.</p></li>
-<li><p><strong>handle_missing</strong> (<em>'error'</em><em> or </em><em>'zero_impute'</em><em> (</em><em>default</em><em>)</em>) – Whether to raise an error or encode missing values (NaN) with
+<li><p><strong>handle_missing</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Literal" title="(in Python v3.10)"><em>Literal</em></a><em>[</em><em>&quot;error&quot;</em><em>, </em><em>&quot;zero_impute&quot;</em><em>]</em><em>, </em><em>default=zero_impute</em>) – Whether to raise an error or encode missing values (NaN) with
 vectors filled with zeros.</p></li>
 </ul>
 </dd>
 </dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dirty_cat.MinHashEncoder.hash_dict_">
+<span class="sig-name descname"><span class="pre">hash_dict_</span></span><a class="headerlink" href="#dirty_cat.MinHashEncoder.hash_dict_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computed hashes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>LRUDict</p>
+</dd>
+</dl>
+</dd></dl>
+
 <p class="rubric">References</p>
 <p>For a detailed description of the method, see
 <a class="reference external" href="https://hal.inria.fr/hal-02171256v4">Encoding high-cardinality string categorical variables</a> by Cerda, Varoquaux (2019).</p>
@@ -132,15 +143,19 @@ vectors filled with zeros.</p></li>
 <dt class="sig sig-object py" id="dirty_cat.MinHashEncoder.fit">
 <span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/minhash_encoder.html#MinHashEncoder.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.MinHashEncoder.fit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fit the MinHashEncoder to X. In practice, just initializes a dictionary
-to store encodings to speed up computation.
-:param X: The string data to encode.
-:type X: array-like, shape (n_samples, ) or (n_samples, 1)</p>
+to store encodings to speed up computation.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The fitted MinHashEncoder instance.</p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>array-like</em><em>, </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>) or </em><em>(</em><em>n_samples</em><em>, </em><em>1</em><em>)</em>) – The string data to encode.</p></li>
+<li><p><strong>y</strong> (<em>None</em>) – Unused, only here for compatibility.</p></li>
+</ul>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>self</p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The fitted MinHashEncoder instance.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#dirty_cat.MinHashEncoder" title="dirty_cat.MinHashEncoder">MinHashEncoder</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -172,15 +187,16 @@ and returns a transformed version of <cite>X</cite>.</p>
 <dt class="sig sig-object py" id="dirty_cat.MinHashEncoder.get_fast_hash">
 <span class="sig-name descname"><span class="pre">get_fast_hash</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/minhash_encoder.html#MinHashEncoder.get_fast_hash"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.MinHashEncoder.get_fast_hash" title="Permalink to this definition">¶</a></dt>
 <dd><p>Encode a string with fast hashing function.
-fast hashing supports both min_hash and minmax_hash encoding.
-:param string: The string to encode.
-:type string: str</p>
+fast hashing supports both min_hash and minmax_hash encoding.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The encoded string, using specified encoding scheme.</p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>string</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The string to encode.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>array, shape (n_components, )</p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The encoded string, using specified encoding scheme.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.array of shape (n_components, )</p>
 </dd>
 </dl>
 </dd></dl>
@@ -204,43 +220,24 @@ contained subobjects that are estimators.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="dirty_cat.MinHashEncoder.get_unique_ngrams">
-<span class="sig-name descname"><span class="pre">get_unique_ngrams</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ngram_range</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/minhash_encoder.html#MinHashEncoder.get_unique_ngrams"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.MinHashEncoder.get_unique_ngrams" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the set of unique n-grams of a string.
-:param string: The string to split in n-grams.
-:type string: str
-:param ngram_range:
-:type ngram_range: tuple (min_n, max_n)
-:param The lower and upper boundary of the range of n-values for different:
-:param n-grams to be extracted. All values of n such that min_n &lt;= n &lt;= max_n.:</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The set of unique n-grams of the string.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#set" title="(in Python v3.10)">set</a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="dirty_cat.MinHashEncoder.minhash">
 <span class="sig-name descname"><span class="pre">minhash</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_components</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ngram_range</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/minhash_encoder.html#MinHashEncoder.minhash"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.MinHashEncoder.minhash" title="Permalink to this definition">¶</a></dt>
-<dd><p>Encode a string using murmur hashing function.
-:param string: The string to encode.
-:type string: str
-:param n_components: The number of dimension of encoded string.
-:type n_components: int
-:param ngram_range:
-:type ngram_range: tuple (min_n, max_n)
-:param The lower and upper boundary of the range of n-values for different:
-:param n-grams to be extracted. All values of n such that min_n &lt;= n &lt;= max_n.:</p>
+<dd><p>Encode a string using murmur hashing function.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The encoded string.</p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>string</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The string to encode.</p></li>
+<li><p><strong>n_components</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – The number of dimension of encoded string.</p></li>
+<li><p><strong>ngram_range</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><em>Tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>]</em>) – The lower and upper boundaries of the range of n-values for
+different n-grams to be extracted.
+All values of n such that min_n &lt;= n &lt;= max_n.</p></li>
+</ul>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>array, shape (n_components, )</p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The encoded string.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array, shape (n_components, )</p>
 </dd>
 </dl>
 </dd></dl>
@@ -269,15 +266,16 @@ possible to update each component of a nested object.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="dirty_cat.MinHashEncoder.transform">
 <span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/minhash_encoder.html#MinHashEncoder.transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.MinHashEncoder.transform" title="Permalink to this definition">¶</a></dt>
-<dd><p>Transform X using specified encoding scheme.
-:param X: The string data to encode.
-:type X: array-like, shape (n_samples, ) or (n_samples, 1)</p>
+<dd><p>Transform X using specified encoding scheme.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Transformed input.</p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>X</strong> (<em>array-like</em><em>, </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>) or </em><em>(</em><em>n_samples</em><em>, </em><em>1</em><em>)</em>) – The string data to encode.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>array, shape (n_samples, n_components)</p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Transformed input.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array, shape (n_samples, n_components)</p>
 </dd>
 </dl>
 </dd></dl>

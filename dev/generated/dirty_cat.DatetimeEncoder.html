@@ -12,7 +12,7 @@
   
 <meta property="og:url" content="https://dirty-cat.github.io/stable/generated/dirty_cat.DatetimeEncoder.html" />
   
-<meta property="og:site_name" content="Dirty cat" />
+<meta property="og:site_name" content="dirty_cat" />
   
 <meta property="og:description" content="Usage examples at the bottom of this page. Examples using dirty_cat.DatetimeEncoder: Handling datetime features with the DatetimeEncoder Handling datetime features with the DatetimeEncoder" />
   
@@ -106,20 +106,36 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="dirty_cat.DatetimeEncoder">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">dirty_cat.</span></span><span class="sig-name descname"><span class="pre">DatetimeEncoder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">extract_until</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'hour'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add_day_of_the_week</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/datetime_encoder.html#DatetimeEncoder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.DatetimeEncoder" title="Permalink to this definition">¶</a></dt>
-<dd><p>This encoder transforms each datetime column into several numeric columns corresponding to temporal features,
-e.g year, month, day…
-Constant extracted features are dropped ; for instance, if the year is always the same in a feature, the extracted “year” column won’t be added.
-If the dates are timezone aware, all the features extracted will correspond to the provided timezone.</p>
+<dd><p>This encoder transforms each datetime column into several numeric columns
+corresponding to temporal features, e.g year, month, day…
+Constant extracted features are dropped; for instance, if the year is
+always the same in a feature, the extracted “year” column won’t be added.
+If the dates are timezone aware, all the features extracted will correspond
+to the provided timezone.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>extract_until</strong> (<em>{&quot;year&quot;</em><em>, </em><em>&quot;month&quot;</em><em>, </em><em>&quot;day&quot;</em><em>, </em><em>&quot;hour&quot;</em><em>, </em><em>&quot;minute&quot;</em><em>, </em><em>&quot;second&quot;</em><em>, </em><em>&quot;millisecond&quot;</em><em>, </em><em>&quot;microsecond&quot;</em><em>, </em><em>&quot;nanosecond&quot;}</em><em>, </em><em>default=&quot;hour&quot;</em>) – Extract up to this granularity. If all features have not been extracted, add the “total_time” feature, which contains
-the time to epoch (in seconds).
-For instance, if you specify “day”, only “year”, “month”, “day” and “total_time” features will be created.</p></li>
-<li><p><strong>add_day_of_the_week</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>default=False</em>) – Add day of the week feature (if day is extracted). This is a numerical feature from 0 (Monday) to 6 (Sunday).</p></li>
+<li><p><strong>extract_until</strong> (<em>AcceptedTimeValues</em><em>, </em><em>default=&quot;hour&quot;</em>) – Extract up to this granularity.
+If all features have not been extracted, add the “total_time” feature,
+which contains the time to epoch (in seconds).
+For instance, if you specify “day”, only “year”, “month”, “day” and
+“total_time” features will be created.</p></li>
+<li><p><strong>add_day_of_the_week</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>default=False</em>) – Add day of the week feature (if day is extracted).
+This is a numerical feature from 0 (Monday) to 6 (Sunday).</p></li>
 </ul>
 </dd>
 </dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dirty_cat.DatetimeEncoder.n_features_in_">
+<span class="sig-name descname"><span class="pre">n_features_in_</span></span><a class="headerlink" href="#dirty_cat.DatetimeEncoder.n_features_in_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of features in the data seen during fit.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py attribute">
 <dt class="sig sig-object py" id="dirty_cat.DatetimeEncoder.n_features_out_">
 <span class="sig-name descname"><span class="pre">n_features_out_</span></span><a class="headerlink" href="#dirty_cat.DatetimeEncoder.n_features_out_" title="Permalink to this definition">¶</a></dt>
@@ -138,7 +154,7 @@ For instance, if you specify “day”, only “year”, “month”, “day” 
 to the list of features extracted for each column.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Dict[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)">int</a>, List[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a>]]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.10)"><em>Dict</em></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)">int</a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.10)"><em>List</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a>]]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -146,10 +162,11 @@ to the list of features extracted for each column.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="dirty_cat.DatetimeEncoder.col_names_">
 <span class="sig-name descname"><span class="pre">col_names_</span></span><a class="headerlink" href="#dirty_cat.DatetimeEncoder.col_names_" title="Permalink to this definition">¶</a></dt>
-<dd><p>List of the names of the features of the input data, if input data was a pandas DataFrame, otherwise None.</p>
+<dd><p>List of the names of the features of the input data,
+if input data was a pandas DataFrame, otherwise None.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>List[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a>]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.10)"><em>List</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a>]]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -157,17 +174,20 @@ to the list of features extracted for each column.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="dirty_cat.DatetimeEncoder.fit">
 <span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/datetime_encoder.html#DatetimeEncoder.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.DatetimeEncoder.fit" title="Permalink to this definition">¶</a></dt>
-<dd><p>Fit the DatetimeEncoder to X. In practice, just stores which extracted features
-are not constant.</p>
+<dd><p>Fit the DatetimeEncoder to X. In practice, just stores which extracted
+features are not constant.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>X</strong> (<em>array-like</em><em>, </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Data where each column is a datetime feature.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>array-like</em><em>, </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Data where each column is a datetime feature.</p></li>
+<li><p><strong>y</strong> (<em>None</em>) – Unused, only here for compatibility.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Fitted DatetimeEncoder instance.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>self</p>
+<dd class="field-odd"><p><a class="reference internal" href="#dirty_cat.DatetimeEncoder" title="dirty_cat.DatetimeEncoder">DatetimeEncoder</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -207,9 +227,9 @@ get_feature_names_out.</p>
 <span class="sig-name descname"><span class="pre">get_feature_names_out</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/datetime_encoder.html#DatetimeEncoder.get_feature_names_out"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.DatetimeEncoder.get_feature_names_out" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns clean feature names with format “&lt;column_name&gt;_&lt;new_feature&gt;”
 if the original data has column names, otherwise with format
-“&lt;column_index&gt;_&lt;new_feature&gt;”. new_feature is one of [“year”, “month”,
-“day”, “hour”, “minute”, “second”, “millisecond”, “microsecond”,
-“nanosecond”, “dayofweek”]</p>
+“&lt;column_index&gt;_&lt;new_feature&gt;” where <cite>&lt;new_feature&gt;</cite> is one of
+[“year”, “month”, “day”, “hour”, “minute”, “second”, “millisecond”,
+“microsecond”, “nanosecond”, “dayofweek”].</p>
 </dd></dl>
 
 <dl class="py method">
@@ -254,16 +274,20 @@ possible to update each component of a nested object.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="dirty_cat.DatetimeEncoder.transform">
 <span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/datetime_encoder.html#DatetimeEncoder.transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.DatetimeEncoder.transform" title="Permalink to this definition">¶</a></dt>
-<dd><p>Transform X by replacing each datetime column with corresponding numerical features.</p>
+<dd><p>Transform X by replacing each datetime column with
+corresponding numerical features.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>X</strong> (<em>array-like</em><em>, </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – The data to transform, where each column is a datetime feature.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>array-like</em><em>, </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – The data to transform, where each column is a datetime feature.</p></li>
+<li><p><strong>y</strong> (<em>None</em>) – Unused, only here for compatibility.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Transformed input.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>array, shape (n_samples, <a href="#id1"><span class="problematic" id="id2">n_features_out_</span></a>)</p>
+<dd class="field-odd"><p>np.array, shape (n_samples, <a href="#id1"><span class="problematic" id="id2">n_features_out_</span></a>)</p>
 </dd>
 </dl>
 </dd></dl>

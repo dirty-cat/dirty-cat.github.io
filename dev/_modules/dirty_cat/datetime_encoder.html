@@ -80,7 +80,7 @@
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
 <span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span>
 
 <span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">__version__</span> <span class="k">as</span> <span class="n">sklearn_version</span>
 <span class="kn">from</span> <span class="nn">sklearn.base</span> <span class="kn">import</span> <span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">TransformerMixin</span>
@@ -88,42 +88,61 @@
 
 <span class="kn">from</span> <span class="nn">dirty_cat.utils</span> <span class="kn">import</span> <span class="n">check_input</span><span class="p">,</span> <span class="n">Version</span>
 
-<span class="c1"># Some functions need aliases</span>
-<span class="n">WORD_TO_ALIAS</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;year&quot;</span><span class="p">:</span> <span class="s2">&quot;Y&quot;</span><span class="p">,</span> <span class="s2">&quot;month&quot;</span><span class="p">:</span> <span class="s2">&quot;M&quot;</span><span class="p">,</span> <span class="s2">&quot;day&quot;</span><span class="p">:</span> <span class="s2">&quot;D&quot;</span><span class="p">,</span> <span class="s2">&quot;hour&quot;</span><span class="p">:</span> <span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="s2">&quot;minute&quot;</span><span class="p">:</span> <span class="s2">&quot;min&quot;</span><span class="p">,</span> <span class="s2">&quot;second&quot;</span><span class="p">:</span> <span class="s2">&quot;S&quot;</span><span class="p">,</span>
-                 <span class="s2">&quot;millisecond&quot;</span><span class="p">:</span> <span class="s2">&quot;ms&quot;</span><span class="p">,</span> <span class="s2">&quot;microsecond&quot;</span><span class="p">:</span> <span class="s2">&quot;us&quot;</span><span class="p">,</span> <span class="s2">&quot;nanosecond&quot;</span><span class="p">:</span> <span class="s2">&quot;N&quot;</span><span class="p">}</span>
-<span class="n">TIME_LEVELS</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">,</span> <span class="s2">&quot;month&quot;</span><span class="p">,</span> <span class="s2">&quot;day&quot;</span><span class="p">,</span> <span class="s2">&quot;hour&quot;</span><span class="p">,</span> <span class="s2">&quot;minute&quot;</span><span class="p">,</span> <span class="s2">&quot;second&quot;</span><span class="p">,</span> <span class="s2">&quot;millisecond&quot;</span><span class="p">,</span> <span class="s2">&quot;microsecond&quot;</span><span class="p">,</span> <span class="s2">&quot;nanosecond&quot;</span><span class="p">]</span>
+
+<span class="n">WORD_TO_ALIAS</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;year&quot;</span><span class="p">:</span> <span class="s2">&quot;Y&quot;</span><span class="p">,</span> <span class="s2">&quot;month&quot;</span><span class="p">:</span> <span class="s2">&quot;M&quot;</span><span class="p">,</span> <span class="s2">&quot;day&quot;</span><span class="p">:</span> <span class="s2">&quot;D&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;hour&quot;</span><span class="p">:</span> <span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="s2">&quot;minute&quot;</span><span class="p">:</span> <span class="s2">&quot;min&quot;</span><span class="p">,</span> <span class="s2">&quot;second&quot;</span><span class="p">:</span> <span class="s2">&quot;S&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;millisecond&quot;</span><span class="p">:</span> <span class="s2">&quot;ms&quot;</span><span class="p">,</span> <span class="s2">&quot;microsecond&quot;</span><span class="p">:</span> <span class="s2">&quot;us&quot;</span><span class="p">,</span> <span class="s2">&quot;nanosecond&quot;</span><span class="p">:</span> <span class="s2">&quot;N&quot;</span>
+<span class="p">}</span>
+<span class="n">TIME_LEVELS</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">WORD_TO_ALIAS</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="n">AcceptedTimeValues</span> <span class="o">=</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">,</span> <span class="s2">&quot;month&quot;</span><span class="p">,</span> <span class="s2">&quot;day&quot;</span><span class="p">,</span>
+                             <span class="s2">&quot;hour&quot;</span><span class="p">,</span> <span class="s2">&quot;minute&quot;</span><span class="p">,</span> <span class="s2">&quot;second&quot;</span><span class="p">,</span>
+                             <span class="s2">&quot;millisecond&quot;</span><span class="p">,</span> <span class="s2">&quot;microsecond&quot;</span><span class="p">,</span> <span class="s2">&quot;nanosecond&quot;</span><span class="p">]</span>
 
 
 <div class="viewcode-block" id="DatetimeEncoder"><a class="viewcode-back" href="../../generated/dirty_cat.DatetimeEncoder.html#dirty_cat.DatetimeEncoder">[docs]</a><span class="k">class</span> <span class="nc">DatetimeEncoder</span><span class="p">(</span><span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">TransformerMixin</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    This encoder transforms each datetime column into several numeric columns corresponding to temporal features,</span>
-<span class="sd">    e.g year, month, day...</span>
-<span class="sd">    Constant extracted features are dropped ; for instance, if the year is always the same in a feature, the extracted &quot;year&quot; column won&#39;t be added.</span>
-<span class="sd">    If the dates are timezone aware, all the features extracted will correspond to the provided timezone.</span>
+<span class="sd">    This encoder transforms each datetime column into several numeric columns</span>
+<span class="sd">    corresponding to temporal features, e.g year, month, day...</span>
+<span class="sd">    Constant extracted features are dropped; for instance, if the year is</span>
+<span class="sd">    always the same in a feature, the extracted &quot;year&quot; column won&#39;t be added.</span>
+<span class="sd">    If the dates are timezone aware, all the features extracted will correspond</span>
+<span class="sd">    to the provided timezone.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    extract_until : {&quot;year&quot;, &quot;month&quot;, &quot;day&quot;, &quot;hour&quot;, &quot;minute&quot;, &quot;second&quot;, &quot;millisecond&quot;, &quot;microsecond&quot;, &quot;nanosecond&quot;}, default=&quot;hour&quot;</span>
-<span class="sd">        Extract up to this granularity. If all features have not been extracted, add the &quot;total_time&quot; feature, which contains</span>
-<span class="sd">        the time to epoch (in seconds).</span>
-<span class="sd">        For instance, if you specify &quot;day&quot;, only &quot;year&quot;, &quot;month&quot;, &quot;day&quot; and &quot;total_time&quot; features will be created.</span>
+<span class="sd">    extract_until : AcceptedTimeValues, default=&quot;hour&quot;</span>
+<span class="sd">        Extract up to this granularity.</span>
+<span class="sd">        If all features have not been extracted, add the &quot;total_time&quot; feature,</span>
+<span class="sd">        which contains the time to epoch (in seconds).</span>
+<span class="sd">        For instance, if you specify &quot;day&quot;, only &quot;year&quot;, &quot;month&quot;, &quot;day&quot; and</span>
+<span class="sd">        &quot;total_time&quot; features will be created.</span>
 <span class="sd">    add_day_of_the_week: bool, default=False</span>
-<span class="sd">        Add day of the week feature (if day is extracted). This is a numerical feature from 0 (Monday) to 6 (Sunday).</span>
+<span class="sd">        Add day of the week feature (if day is extracted).</span>
+<span class="sd">        This is a numerical feature from 0 (Monday) to 6 (Sunday).</span>
 
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
+<span class="sd">    n_features_in_: int</span>
+<span class="sd">        Number of features in the data seen during fit.</span>
 <span class="sd">    n_features_out_: int</span>
 <span class="sd">        Number of features of the transformed data.</span>
-<span class="sd">    features_per_column_: Dict[int, List[str]]</span>
+<span class="sd">    features_per_column_: typing.Dict[int, typing.List[str]]</span>
 <span class="sd">        Dictionary mapping the index of the original columns</span>
 <span class="sd">        to the list of features extracted for each column.</span>
-<span class="sd">    col_names_: List[str]</span>
-<span class="sd">        List of the names of the features of the input data, if input data was a pandas DataFrame, otherwise None.</span>
+<span class="sd">    col_names_: typing.Optional[typing.List[str]]</span>
+<span class="sd">        List of the names of the features of the input data,</span>
+<span class="sd">        if input data was a pandas DataFrame, otherwise None.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
+    <span class="n">n_features_in_</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">n_features_out_</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">features_per_column_</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span>
+    <span class="n">col_names_</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span>
+
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
-                 <span class="n">extract_until</span><span class="o">=</span><span class="s2">&quot;hour&quot;</span><span class="p">,</span>
-                 <span class="n">add_day_of_the_week</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+                 <span class="n">extract_until</span><span class="p">:</span> <span class="n">AcceptedTimeValues</span> <span class="o">=</span> <span class="s2">&quot;hour&quot;</span><span class="p">,</span>
+                 <span class="n">add_day_of_the_week</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">extract_until</span> <span class="o">=</span> <span class="n">extract_until</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add_day_of_the_week</span> <span class="o">=</span> <span class="n">add_day_of_the_week</span>
 
@@ -136,10 +155,12 @@
     <span class="k">def</span> <span class="nf">_validate_keywords</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">extract_until</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">TIME_LEVELS</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s1">&#39;&quot;extract_until&quot; should be one of </span><span class="si">{</span><span class="n">TIME_LEVELS</span><span class="si">}</span><span class="s1">, got </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">extract_until</span><span class="si">}</span><span class="s1">.&#39;</span>
+                <span class="sa">f</span><span class="s1">&#39;&quot;extract_until&quot; should be one of </span><span class="si">{</span><span class="n">TIME_LEVELS</span><span class="si">}</span><span class="s1">, &#39;</span>
+                <span class="sa">f</span><span class="s1">&#39;got </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">extract_until</span><span class="si">}</span><span class="s1">. &#39;</span>
             <span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_extract_from_date</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">date_series</span><span class="p">,</span> <span class="n">feature</span><span class="p">):</span>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_extract_from_date</span><span class="p">(</span><span class="n">date_series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">feature</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">feature</span> <span class="o">==</span> <span class="s2">&quot;year&quot;</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DatetimeIndex</span><span class="p">(</span><span class="n">date_series</span><span class="p">)</span><span class="o">.</span><span class="n">year</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
         <span class="k">elif</span> <span class="n">feature</span> <span class="o">==</span> <span class="s2">&quot;month&quot;</span><span class="p">:</span>
@@ -164,36 +185,44 @@
             <span class="n">tz</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DatetimeIndex</span><span class="p">(</span><span class="n">date_series</span><span class="p">)</span><span class="o">.</span><span class="n">tz</span>
             <span class="c1"># Compute the time in seconds from the epoch time UTC</span>
             <span class="k">if</span> <span class="n">tz</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="k">return</span> <span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">date_series</span><span class="p">)</span> <span class="o">-</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="s2">&quot;1970-01-01&quot;</span><span class="p">))</span> <span class="o">//</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="s1">&#39;1s&#39;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">date_series</span><span class="p">)</span> <span class="o">-</span>
+                        <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="s2">&quot;1970-01-01&quot;</span><span class="p">))</span> <span class="o">//</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="s1">&#39;1s&#39;</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="k">return</span> <span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DatetimeIndex</span><span class="p">(</span><span class="n">date_series</span><span class="p">)</span><span class="o">.</span><span class="n">tz_convert</span><span class="p">(</span><span class="s2">&quot;utc&quot;</span><span class="p">)</span> <span class="o">-</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="s2">&quot;1970-01-01&quot;</span><span class="p">,</span> <span class="n">tz</span><span class="o">=</span><span class="s2">&quot;utc&quot;</span><span class="p">))</span> <span class="o">//</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="s1">&#39;1s&#39;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DatetimeIndex</span><span class="p">(</span><span class="n">date_series</span><span class="p">)</span><span class="o">.</span><span class="n">tz_convert</span><span class="p">(</span><span class="s2">&quot;utc&quot;</span><span class="p">)</span> <span class="o">-</span>
+                        <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="s2">&quot;1970-01-01&quot;</span><span class="p">,</span> <span class="n">tz</span><span class="o">=</span><span class="s2">&quot;utc&quot;</span><span class="p">))</span> <span class="o">//</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="s1">&#39;1s&#39;</span><span class="p">)</span>
 
-<div class="viewcode-block" id="DatetimeEncoder.fit"><a class="viewcode-back" href="../../generated/dirty_cat.DatetimeEncoder.html#dirty_cat.DatetimeEncoder.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="DatetimeEncoder.fit"><a class="viewcode-back" href="../../generated/dirty_cat.DatetimeEncoder.html#dirty_cat.DatetimeEncoder.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;DatetimeEncoder&quot;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Fit the DatetimeEncoder to X. In practice, just stores which extracted features</span>
-<span class="sd">        are not constant.</span>
+<span class="sd">        Fit the DatetimeEncoder to X. In practice, just stores which extracted</span>
+<span class="sd">        features are not constant.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        X : array-like, shape (n_samples, n_features)</span>
 <span class="sd">            Data where each column is a datetime feature.</span>
+<span class="sd">        y : None</span>
+<span class="sd">            Unused, only here for compatibility.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        self</span>
+<span class="sd">        DatetimeEncoder</span>
 <span class="sd">            Fitted DatetimeEncoder instance.</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_validate_keywords</span><span class="p">()</span>
-        <span class="c1"># Columns to extract for each column, before taking into account constant columns</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_to_extract</span> <span class="o">=</span> <span class="n">TIME_LEVELS</span><span class="p">[:</span><span class="n">TIME_LEVELS</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">extract_until</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="c1"># Columns to extract for each column,</span>
+        <span class="c1"># before taking into account constant columns</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_to_extract</span> <span class="o">=</span> <span class="n">TIME_LEVELS</span><span class="p">[:</span><span class="n">TIME_LEVELS</span><span class="o">.</span><span class="n">index</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">extract_until</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_day_of_the_week</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_to_extract</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;dayofweek&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">col_names_</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">columns</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">col_names_</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">col_names_</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="n">X</span> <span class="o">=</span> <span class="n">check_input</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">features_per_column_</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># Features to extract for each column, after removing constant features</span>
+        <span class="c1"># Features to extract for each column, after removing constant features</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">features_per_column_</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">features_per_column_</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="c1"># Check which columns are constant</span>
@@ -201,39 +230,48 @@
             <span class="k">for</span> <span class="n">feature</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_to_extract</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">nanstd</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_extract_from_date</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="n">i</span><span class="p">],</span> <span class="n">feature</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">features_per_column_</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">feature</span><span class="p">)</span>
-            <span class="c1"># If some date features have not been extracted, then add the &quot;total_time&quot; feature, which contains the full</span>
-            <span class="c1"># time to epoch</span>
-            <span class="n">remainder</span> <span class="o">=</span> <span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="n">i</span><span class="p">])</span> <span class="o">-</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DatetimeIndex</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="n">i</span><span class="p">])</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span>
-                <span class="n">WORD_TO_ALIAS</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">extract_until</span><span class="p">])))</span><span class="o">.</span><span class="n">seconds</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+            <span class="c1"># If some date features have not been extracted, then add the</span>
+            <span class="c1"># &quot;total_time&quot; feature, which contains the full time to epoch</span>
+            <span class="n">remainder</span> <span class="o">=</span> <span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="n">i</span><span class="p">])</span> <span class="o">-</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span>
+                <span class="n">pd</span><span class="o">.</span><span class="n">DatetimeIndex</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="n">i</span><span class="p">])</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span>
+                    <span class="n">WORD_TO_ALIAS</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">extract_until</span><span class="p">])))</span><span class="o">.</span><span class="n">seconds</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
             <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">nanstd</span><span class="p">(</span><span class="n">remainder</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">features_per_column_</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;total_time&quot;</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">n_features_in_</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">n_features_out_</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">features_per_column_</span><span class="o">.</span><span class="n">values</span><span class="p">())))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_features_out_</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span>
+            <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">features_per_column_</span><span class="o">.</span><span class="n">values</span><span class="p">())))</span>
 
         <span class="k">return</span> <span class="bp">self</span></div>
 
-<div class="viewcode-block" id="DatetimeEncoder.transform"><a class="viewcode-back" href="../../generated/dirty_cat.DatetimeEncoder.html#dirty_cat.DatetimeEncoder.transform">[docs]</a>    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Transform X by replacing each datetime column with corresponding numerical features.</span>
+<div class="viewcode-block" id="DatetimeEncoder.transform"><a class="viewcode-back" href="../../generated/dirty_cat.DatetimeEncoder.html#dirty_cat.DatetimeEncoder.transform">[docs]</a>    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Transform X by replacing each datetime column with</span>
+<span class="sd">        corresponding numerical features.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        X : array-like, shape (n_samples, n_features)</span>
 <span class="sd">            The data to transform, where each column is a datetime feature.</span>
+<span class="sd">        y : None</span>
+<span class="sd">            Unused, only here for compatibility.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        array, shape (n_samples, n_features_out_)</span>
+<span class="sd">        np.array, shape (n_samples, n_features_out_)</span>
 <span class="sd">            Transformed input.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">check_is_fitted</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attributes</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;n_features_in_&quot;</span><span class="p">,</span> <span class="s2">&quot;n_features_out_&quot;</span><span class="p">,</span> <span class="s2">&quot;features_per_column_&quot;</span><span class="p">])</span>
+        <span class="n">check_is_fitted</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attributes</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;n_features_in_&quot;</span><span class="p">,</span> <span class="s2">&quot;n_features_out_&quot;</span><span class="p">,</span>
+                                          <span class="s2">&quot;features_per_column_&quot;</span><span class="p">])</span>
         <span class="n">X</span> <span class="o">=</span> <span class="n">check_input</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_features_in_</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;The number of features in the input data (</span><span class="si">{</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">) does not match the number of features &quot;</span>
-                <span class="sa">f</span><span class="s2">&quot;seen during fit (</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">n_features_in_</span><span class="si">}</span><span class="s2">).&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;The number of features in the input data (</span><span class="si">{</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">) &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;does not match the number of features &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;seen during fit (</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">n_features_in_</span><span class="si">}</span><span class="s2">). &quot;</span>
             <span class="p">)</span>
-        <span class="c1"># Create a new array with the extracted features, choosing only features that weren&#39;t constant during fit</span>
+        <span class="c1"># Create a new array with the extracted features,</span>
+        <span class="c1"># choosing only features that weren&#39;t constant during fit</span>
         <span class="n">X_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_features_out_</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
         <span class="n">idx</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
@@ -246,9 +284,9 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns clean feature names with format &quot;&lt;column_name&gt;_&lt;new_feature&gt;&quot;</span>
 <span class="sd">        if the original data has column names, otherwise with format</span>
-<span class="sd">        &quot;&lt;column_index&gt;_&lt;new_feature&gt;&quot;. new_feature is one of [&quot;year&quot;, &quot;month&quot;,</span>
-<span class="sd">        &quot;day&quot;, &quot;hour&quot;, &quot;minute&quot;, &quot;second&quot;, &quot;millisecond&quot;, &quot;microsecond&quot;,</span>
-<span class="sd">        &quot;nanosecond&quot;, &quot;dayofweek&quot;]</span>
+<span class="sd">        &quot;&lt;column_index&gt;_&lt;new_feature&gt;&quot; where `&lt;new_feature&gt;` is one of</span>
+<span class="sd">        [&quot;year&quot;, &quot;month&quot;, &quot;day&quot;, &quot;hour&quot;, &quot;minute&quot;, &quot;second&quot;, &quot;millisecond&quot;,</span>
+<span class="sd">        &quot;microsecond&quot;, &quot;nanosecond&quot;, &quot;dayofweek&quot;].</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">feature_names</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">features_per_column_</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
@@ -271,7 +309,6 @@
                 <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
             <span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">()</span></div></div>
-
 </pre></div>
 
           </div>
