@@ -114,63 +114,59 @@ If the dates are timezone aware, all the features extracted will correspond
 to the provided timezone.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>extract_until</strong> (<em>AcceptedTimeValues</em><em>, </em><em>default=&quot;hour&quot;</em>) – Extract up to this granularity.
+<dd class="field-odd"><dl class="simple">
+<dt><strong>extract_until</strong><span class="classifier">AcceptedTimeValues, default=”hour”</span></dt><dd><p>Extract up to this granularity.
 If all features have not been extracted, add the “total_time” feature,
 which contains the time to epoch (in seconds).
 For instance, if you specify “day”, only “year”, “month”, “day” and
-“total_time” features will be created.</p></li>
-<li><p><strong>add_day_of_the_week</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>default=False</em>) – Add day of the week feature (if day is extracted).
-This is a numerical feature from 0 (Monday) to 6 (Sunday).</p></li>
-</ul>
+“total_time” features will be created.</p>
+</dd>
+<dt><strong>add_day_of_the_week: bool, default=False</strong></dt><dd><p>Add day of the week feature (if day is extracted).
+This is a numerical feature from 0 (Monday) to 6 (Sunday).</p>
 </dd>
 </dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="dirty_cat.DatetimeEncoder.n_features_in_">
-<span class="sig-name descname"><span class="pre">n_features_in_</span></span><a class="headerlink" href="#dirty_cat.DatetimeEncoder.n_features_in_" title="Permalink to this definition">¶</a></dt>
-<dd><p>Number of features in the data seen during fit.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)">int</a></p>
 </dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="dirty_cat.DatetimeEncoder.n_features_out_">
-<span class="sig-name descname"><span class="pre">n_features_out_</span></span><a class="headerlink" href="#dirty_cat.DatetimeEncoder.n_features_out_" title="Permalink to this definition">¶</a></dt>
-<dd><p>Number of features of the transformed data.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)">int</a></p>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>n_features_in_: int</strong></dt><dd><p>Number of features in the data seen during fit.</p>
 </dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="dirty_cat.DatetimeEncoder.features_per_column_">
-<span class="sig-name descname"><span class="pre">features_per_column_</span></span><a class="headerlink" href="#dirty_cat.DatetimeEncoder.features_per_column_" title="Permalink to this definition">¶</a></dt>
-<dd><p>Dictionary mapping the index of the original columns
+<dt><strong>n_features_out_: int</strong></dt><dd><p>Number of features of the transformed data.</p>
+</dd>
+<dt><strong>features_per_column_: typing.Dict[int, typing.List[str]]</strong></dt><dd><p>Dictionary mapping the index of the original columns
 to the list of features extracted for each column.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.10)"><em>Dict</em></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)">int</a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.10)"><em>List</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a>]]</p>
 </dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="dirty_cat.DatetimeEncoder.col_names_">
-<span class="sig-name descname"><span class="pre">col_names_</span></span><a class="headerlink" href="#dirty_cat.DatetimeEncoder.col_names_" title="Permalink to this definition">¶</a></dt>
-<dd><p>List of the names of the features of the input data,
+<dt><strong>col_names_: typing.Optional[typing.List[str]]</strong></dt><dd><p>List of the names of the features of the input data,
 if input data was a pandas DataFrame, otherwise None.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.10)"><em>List</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a>]]</p>
 </dd>
 </dl>
-</dd></dl>
-
+</dd>
+</dl>
+<p class="rubric">Methods</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#dirty_cat.DatetimeEncoder.fit" title="dirty_cat.DatetimeEncoder.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a>(X[, y])</p></td>
+<td><p>Fit the DatetimeEncoder to X.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#dirty_cat.DatetimeEncoder.fit_transform" title="dirty_cat.DatetimeEncoder.fit_transform"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit_transform</span></code></a>(X[, y])</p></td>
+<td><p>Fit to data, then transform it.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#dirty_cat.DatetimeEncoder.get_feature_names" title="dirty_cat.DatetimeEncoder.get_feature_names"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_feature_names</span></code></a>([input_features])</p></td>
+<td><p>Ensures compatibility with sklearn &lt; 1.0, and returns the output of get_feature_names_out.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#dirty_cat.DatetimeEncoder.get_feature_names_out" title="dirty_cat.DatetimeEncoder.get_feature_names_out"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_feature_names_out</span></code></a>([input_features])</p></td>
+<td><p>Returns clean feature names with format &quot;&lt;column_name&gt;_&lt;new_feature&gt;&quot; if the original data has column names, otherwise with format &quot;&lt;column_index&gt;_&lt;new_feature&gt;&quot; where <cite>&lt;new_feature&gt;</cite> is one of [&quot;year&quot;, &quot;month&quot;, &quot;day&quot;, &quot;hour&quot;, &quot;minute&quot;, &quot;second&quot;, &quot;millisecond&quot;, &quot;microsecond&quot;, &quot;nanosecond&quot;, &quot;dayofweek&quot;].</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#dirty_cat.DatetimeEncoder.get_params" title="dirty_cat.DatetimeEncoder.get_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_params</span></code></a>([deep])</p></td>
+<td><p>Get parameters for this estimator.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#dirty_cat.DatetimeEncoder.set_params" title="dirty_cat.DatetimeEncoder.set_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_params</span></code></a>(**params)</p></td>
+<td><p>Set the parameters of this estimator.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#dirty_cat.DatetimeEncoder.transform" title="dirty_cat.DatetimeEncoder.transform"><code class="xref py py-obj docutils literal notranslate"><span class="pre">transform</span></code></a>(X[, y])</p></td>
+<td><p>Transform X by replacing each datetime column with corresponding numerical features.</p></td>
+</tr>
+</tbody>
+</table>
 <dl class="py method">
 <dt class="sig sig-object py" id="dirty_cat.DatetimeEncoder.fit">
 <span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/datetime_encoder.html#DatetimeEncoder.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.DatetimeEncoder.fit" title="Permalink to this definition">¶</a></dt>
@@ -178,16 +174,18 @@ if input data was a pandas DataFrame, otherwise None.</p>
 features are not constant.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>X</strong> (<em>array-like</em><em>, </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Data where each column is a datetime feature.</p></li>
-<li><p><strong>y</strong> (<em>None</em>) – Unused, only here for compatibility.</p></li>
-</ul>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like, shape (n_samples, n_features)</span></dt><dd><p>Data where each column is a datetime feature.</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">None</span></dt><dd><p>Unused, only here for compatibility.</p>
+</dd>
+</dl>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Fitted DatetimeEncoder instance.</p>
+<dd class="field-even"><dl class="simple">
+<dt>DatetimeEncoder</dt><dd><p>Fitted DatetimeEncoder instance.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="#dirty_cat.DatetimeEncoder" title="dirty_cat.DatetimeEncoder">DatetimeEncoder</a></p>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -200,17 +198,20 @@ features are not constant.</p>
 and returns a transformed version of <cite>X</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>X</strong> (<em>array-like of shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Input samples.</p></li>
-<li><p><strong>y</strong> (<em>array-like of shape</em><em> (</em><em>n_samples</em><em>,</em><em>) or </em><em>(</em><em>n_samples</em><em>, </em><em>n_outputs</em><em>)</em><em>,                 </em><em>default=None</em>) – Target values (None for unsupervised transformations).</p></li>
-<li><p><strong>**fit_params</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Additional fit parameters.</p></li>
-</ul>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like of shape (n_samples, n_features)</span></dt><dd><p>Input samples.</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">array-like of shape (n_samples,) or (n_samples, n_outputs),                 default=None</span></dt><dd><p>Target values (None for unsupervised transformations).</p>
+</dd>
+<dt><strong>**fit_params</strong><span class="classifier">dict</span></dt><dd><p>Additional fit parameters.</p>
+</dd>
+</dl>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>X_new</strong> – Transformed array.</p>
+<dd class="field-even"><dl class="simple">
+<dt><strong>X_new</strong><span class="classifier">ndarray array of shape (n_samples, n_features_new)</span></dt><dd><p>Transformed array.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>ndarray array of shape (n_samples, n_features_new)</p>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -238,14 +239,17 @@ if the original data has column names, otherwise with format
 <dd><p>Get parameters for this estimator.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>deep</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>default=True</em>) – If True, will return the parameters for this estimator and
+<dd class="field-odd"><dl class="simple">
+<dt><strong>deep</strong><span class="classifier">bool, default=True</span></dt><dd><p>If True, will return the parameters for this estimator and
 contained subobjects that are estimators.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>params</strong> – Parameter names mapped to their values.</p>
+</dl>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)">dict</a></p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>params</strong><span class="classifier">dict</span></dt><dd><p>Parameter names mapped to their values.</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -260,13 +264,16 @@ parameters of the form <code class="docutils literal notranslate"><span class="p
 possible to update each component of a nested object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>**params</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Estimator parameters.</p>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>**params</strong><span class="classifier">dict</span></dt><dd><p>Estimator parameters.</p>
+</dd>
+</dl>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>self</strong> – Estimator instance.</p>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">estimator instance</span></dt><dd><p>Estimator instance.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>estimator instance</p>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -278,16 +285,18 @@ possible to update each component of a nested object.</p>
 corresponding numerical features.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>X</strong> (<em>array-like</em><em>, </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – The data to transform, where each column is a datetime feature.</p></li>
-<li><p><strong>y</strong> (<em>None</em>) – Unused, only here for compatibility.</p></li>
-</ul>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like, shape (n_samples, n_features)</span></dt><dd><p>The data to transform, where each column is a datetime feature.</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">None</span></dt><dd><p>Unused, only here for compatibility.</p>
+</dd>
+</dl>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Transformed input.</p>
+<dd class="field-even"><dl class="simple">
+<dt>np.array, shape (n_samples, <a href="#id1"><span class="problematic" id="id2">n_features_out_</span></a>)</dt><dd><p>Transformed input.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>np.array, shape (n_samples, <a href="#id1"><span class="problematic" id="id2">n_features_out_</span></a>)</p>
+</dl>
 </dd>
 </dl>
 </dd></dl>

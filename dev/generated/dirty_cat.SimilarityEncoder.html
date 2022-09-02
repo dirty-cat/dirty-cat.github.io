@@ -113,100 +113,131 @@ The method is based on calculating the morphological similarities
 between the categories.
 This encoding is an alternative to OneHotEncoder in the case of
 dirty categorical variables.</p>
-<dl class="field-list simple">
+<dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>similarity</strong> (<em>None</em>) – Deprecated in dirty_cat 0.3, will be removed in 0.5.
+<dd class="field-odd"><dl>
+<dt><strong>similarity</strong><span class="classifier">None</span></dt><dd><p>Deprecated in dirty_cat 0.3, will be removed in 0.5.
 Was used to specify the type of pairwise string similarity to use.
-Since 0.3, only the ngram similarity is supported.</p></li>
-<li><p><strong>ngram_range</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.10)"><em>tuple</em></a><em> (</em><em>min_n</em><em>, </em><em>max_n</em><em>)</em><em>, </em><em>default=</em><em>(</em><em>2</em><em>, </em><em>4</em><em>)</em>) – The range of values for the n_gram similarity.</p></li>
-<li><p><strong>categories</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.10)"><em>Union</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Literal" title="(in Python v3.10)"><em>Literal</em></a><em>[</em><em>&quot;auto&quot;</em><em>, </em><em>&quot;k-means&quot;</em><em>, </em><em>&quot;most_frequent&quot;</em><em>]</em><em>, </em><em>typing.List</em><em>[</em><em>typing.List</em><em>[</em><em>str</em><em>]</em><em>]</em><em>]</em>) – <p>Categories (unique values) per feature:
+Since 0.3, only the ngram similarity is supported.</p>
+</dd>
+<dt><strong>ngram_range</strong><span class="classifier">tuple (min_n, max_n), default=(2, 4)</span></dt><dd><p>The range of values for the n_gram similarity.</p>
+</dd>
+<dt><strong>categories</strong><span class="classifier">typing.Union[typing.Literal[“auto”, “k-means”, “most_frequent”], typing.List[typing.List[str]]]</span></dt><dd><p>Categories (unique values) per feature:
 - ‘auto’ : Determine categories automatically from the training data.
 - list : <code class="docutils literal notranslate"><span class="pre">categories[i]</span></code> holds the categories expected in the i-th</p>
 <blockquote>
 <div><p>column. The passed categories must be sorted and should not mix
 strings and numeric values.</p>
 </div></blockquote>
-<ul>
+<ul class="simple">
 <li><dl class="simple">
-<dt>’most_frequent’<span class="classifier">Computes the most frequent values for every</span></dt><dd><p>categorical variable</p>
+<dt>‘most_frequent’<span class="classifier">Computes the most frequent values for every</span></dt><dd><p>categorical variable</p>
 </dd>
 </dl>
 </li>
 <li><dl class="simple">
-<dt>’k-means’<span class="classifier">Computes the K nearest neighbors of K-mean centroids</span></dt><dd><p>in order to choose the prototype categories</p>
+<dt>‘k-means’<span class="classifier">Computes the K nearest neighbors of K-mean centroids</span></dt><dd><p>in order to choose the prototype categories</p>
 </dd>
 </dl>
 </li>
 </ul>
 <p>The categories used can be found in the <code class="docutils literal notranslate"><span class="pre">categories_</span></code> attribute.</p>
-</p></li>
-<li><p><strong>dtype</strong> (<em>number type</em><em>, </em><em>default np.float64</em>) – Desired dtype of output.</p></li>
-<li><p><strong>handle_unknown</strong> (<em>'error'</em><em> or </em><em>'ignore'</em><em> (</em><em>default</em><em>)</em>) – Whether to raise an error or ignore if an unknown categorical feature
+</dd>
+<dt><strong>dtype</strong><span class="classifier">number type, default np.float64</span></dt><dd><p>Desired dtype of output.</p>
+</dd>
+<dt><strong>handle_unknown</strong><span class="classifier">‘error’ or ‘ignore’ (default)</span></dt><dd><p>Whether to raise an error or ignore if an unknown categorical feature
 is present during transform (default is to ignore). When this parameter
 is set to ‘ignore’ and an unknown category is encountered during
 transform, the resulting encoded columns for this feature
 will be all zeros. In the inverse transform, an unknown category
-will be denoted as None.</p></li>
-<li><p><strong>handle_missing</strong> (<em>'error'</em><em> or </em><em>''</em><em> (</em><em>default</em><em>)</em>) – Whether to raise an error or impute with blank string ‘’ if missing
+will be denoted as None.</p>
+</dd>
+<dt><strong>handle_missing</strong><span class="classifier">‘error’ or ‘’ (default)</span></dt><dd><p>Whether to raise an error or impute with blank string ‘’ if missing
 values (NaN) are present during fit (default is to impute).
 When this parameter is set to ‘’, and a missing value is encountered
 during fit_transform, the resulting encoded columns for this feature
 will be all zeros. In the inverse transform, the missing category
-will be denoted as None.</p></li>
-<li><p><strong>hashing_dim</strong> (<em>int type</em><em> or </em><em>None.</em>) – If None, the base vectorizer is CountVectorizer, else it’s set to
-HashingVectorizer with a number of features equal to <cite>hashing_dim</cite>.</p></li>
-<li><p><strong>n_prototypes</strong> (<em>number of prototype we want to use.</em>) – Useful when <cite>most_frequent</cite> or <cite>k-means</cite> is used.
-Must be a positive non-null integer.</p></li>
-<li><p><strong>random_state</strong> (<em>either an int used as a seed</em><em>, </em><em>a RandomState instance</em><em> or </em><em>None.</em>) – Useful when <cite>k-means</cite> strategy is used.</p></li>
-<li><p><strong>n_jobs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><em>optional</em>) – maximum number of processes used to compute similarity matrices. Used
-only if <code class="docutils literal notranslate"><span class="pre">fast=True</span></code> in <code class="docutils literal notranslate"><span class="pre">SimilarityEncoder.transform</span></code></p></li>
-</ul>
+will be denoted as None.</p>
+</dd>
+<dt><strong>hashing_dim</strong><span class="classifier">int type or None.</span></dt><dd><p>If None, the base vectorizer is CountVectorizer, else it’s set to
+HashingVectorizer with a number of features equal to <cite>hashing_dim</cite>.</p>
+</dd>
+<dt><strong>n_prototypes</strong><span class="classifier">number of prototype we want to use.</span></dt><dd><p>Useful when <cite>most_frequent</cite> or <cite>k-means</cite> is used.
+Must be a positive non-null integer.</p>
+</dd>
+<dt><strong>random_state</strong><span class="classifier">either an int used as a seed, a RandomState instance or None.</span></dt><dd><p>Useful when <cite>k-means</cite> strategy is used.</p>
+</dd>
+<dt><strong>n_jobs</strong><span class="classifier">int, optional</span></dt><dd><p>maximum number of processes used to compute similarity matrices. Used
+only if <code class="docutils literal notranslate"><span class="pre">fast=True</span></code> in <code class="docutils literal notranslate"><span class="pre">SimilarityEncoder.transform</span></code></p>
 </dd>
 </dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="dirty_cat.SimilarityEncoder.categories_">
-<span class="sig-name descname"><span class="pre">categories_</span></span><a class="headerlink" href="#dirty_cat.SimilarityEncoder.categories_" title="Permalink to this definition">¶</a></dt>
-<dd><p>The categories of each feature determined during fitting
-(in order corresponding with output of <code class="docutils literal notranslate"><span class="pre">transform</span></code>).</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.10)"><em>List</em></a>[np.array]</p>
 </dd>
 </dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="dirty_cat.SimilarityEncoder._infrequent_enabled">
-<span class="sig-name descname"><span class="pre">_infrequent_enabled</span></span><a class="headerlink" href="#dirty_cat.SimilarityEncoder._infrequent_enabled" title="Permalink to this definition">¶</a></dt>
-<dd><p>Avoid taking into account the existence of infrequent categories.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)">bool</a>, default=False</p>
-</dd>
-</dl>
-</dd></dl>
-
 <p class="rubric">References</p>
 <p>For a detailed description of the method, see
 <a class="reference external" href="https://hal.inria.fr/hal-01806175">Similarity encoding for learning with dirty categorical variables</a> by Cerda, Varoquaux, Kegl. 2018
 (accepted for publication at: Machine Learning journal, Springer).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Attributes<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>categories_</strong><span class="classifier">typing.List[np.array]</span></dt><dd><p>The categories of each feature determined during fitting
+(in order corresponding with output of <code class="docutils literal notranslate"><span class="pre">transform</span></code>).</p>
+</dd>
+<dt><strong>_infrequent_enabled</strong><span class="classifier">bool, default=False</span></dt><dd><p>Avoid taking into account the existence of infrequent categories.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Methods</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#dirty_cat.SimilarityEncoder.fit" title="dirty_cat.SimilarityEncoder.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a>(X[, y])</p></td>
+<td><p>Fit the SimilarityEncoder to X.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#dirty_cat.SimilarityEncoder.fit_transform" title="dirty_cat.SimilarityEncoder.fit_transform"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit_transform</span></code></a>(X[, y])</p></td>
+<td><p>Fit SimilarityEncoder to data, then transform it.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#dirty_cat.SimilarityEncoder.get_feature_names" title="dirty_cat.SimilarityEncoder.get_feature_names"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_feature_names</span></code></a>([input_features])</p></td>
+<td><p>DEPRECATED: get_feature_names is deprecated in 1.0 and will be removed in 1.2.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#dirty_cat.SimilarityEncoder.get_feature_names_out" title="dirty_cat.SimilarityEncoder.get_feature_names_out"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_feature_names_out</span></code></a>([input_features])</p></td>
+<td><p>Get output feature names for transformation.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#dirty_cat.SimilarityEncoder.get_most_frequent" title="dirty_cat.SimilarityEncoder.get_most_frequent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_most_frequent</span></code></a>(prototypes)</p></td>
+<td><p>Get the most frequent category prototypes.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#dirty_cat.SimilarityEncoder.get_params" title="dirty_cat.SimilarityEncoder.get_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_params</span></code></a>([deep])</p></td>
+<td><p>Get parameters for this estimator.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#dirty_cat.SimilarityEncoder.inverse_transform" title="dirty_cat.SimilarityEncoder.inverse_transform"><code class="xref py py-obj docutils literal notranslate"><span class="pre">inverse_transform</span></code></a>(X)</p></td>
+<td><p>Convert the data back to the original representation.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#dirty_cat.SimilarityEncoder.set_params" title="dirty_cat.SimilarityEncoder.set_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_params</span></code></a>(**params)</p></td>
+<td><p>Set the parameters of this estimator.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#dirty_cat.SimilarityEncoder.transform" title="dirty_cat.SimilarityEncoder.transform"><code class="xref py py-obj docutils literal notranslate"><span class="pre">transform</span></code></a>(X[, fast])</p></td>
+<td><p>Transform X using specified encoding scheme.</p></td>
+</tr>
+</tbody>
+</table>
 <dl class="py method">
 <dt class="sig sig-object py" id="dirty_cat.SimilarityEncoder.fit">
 <span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/similarity_encoder.html#SimilarityEncoder.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.SimilarityEncoder.fit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fit the SimilarityEncoder to X.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>X</strong> (<em>array-like</em><em>, </em><em>shape</em><em> [</em><em>n_samples</em><em>, </em><em>n_features</em><em>]</em>) – The data to determine the categories of each feature.</p></li>
-<li><p><strong>y</strong> (<em>None</em>) – Unused, only here for compatibility.</p></li>
-</ul>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like, shape [n_samples, n_features]</span></dt><dd><p>The data to determine the categories of each feature.</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">None</span></dt><dd><p>Unused, only here for compatibility.</p>
+</dd>
+</dl>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The fitted SimilarityEncoder instance.</p>
+<dd class="field-even"><dl class="simple">
+<dt>SimilarityEncoder</dt><dd><p>The fitted SimilarityEncoder instance.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="#dirty_cat.SimilarityEncoder" title="dirty_cat.SimilarityEncoder">SimilarityEncoder</a></p>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -219,17 +250,20 @@ Fits transformer to <cite>X</cite> and <cite>y</cite> with optional parameters
 <cite>fit_params</cite> and returns a transformed version of <cite>X</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>X</strong> (<em>array-like of shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Input samples.</p></li>
-<li><p><strong>y</strong> (<em>array-like of shape</em><em> (</em><em>n_samples</em><em>,</em><em>) or </em><em>(</em><em>n_samples</em><em>, </em><em>n_outputs</em><em>)</em><em>,                 </em><em>default=None</em>) – Target values (None for unsupervised transformations).</p></li>
-<li><p><strong>**fit_params</strong> – Additional fit parameters.</p></li>
-</ul>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like of shape (n_samples, n_features)</span></dt><dd><p>Input samples.</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">array-like of shape (n_samples,) or (n_samples, n_outputs),                 default=None</span></dt><dd><p>Target values (None for unsupervised transformations).</p>
+</dd>
+<dt><strong>**fit_params</strong></dt><dd><p>Additional fit parameters.</p>
+</dd>
+</dl>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Transformed array.</p>
+<dd class="field-even"><dl class="simple">
+<dt>array of shape (n_samples, n_features_new)</dt><dd><p>Transformed array.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>array of shape (n_samples, n_features_new)</p>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -242,16 +276,22 @@ Fits transformer to <cite>X</cite> and <cite>y</cite> with optional parameters
 <blockquote>
 <div><p>For a given input feature, if there is an infrequent category, the most
 ‘infrequent_sklearn’ will be used as a feature name.</p>
-<dl class="simple">
-<dt>input_features<span class="classifier">list of str of shape (n_features,)</span></dt><dd><p>String names for input features if available. By default,
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>input_features</strong><span class="classifier">list of str of shape (n_features,)</span></dt><dd><p>String names for input features if available. By default,
 “x0”, “x1”, … “xn_features” is used.</p>
 </dd>
 </dl>
-<dl class="simple">
-<dt>output_feature_names<span class="classifier">ndarray of shape (n_output_features,)</span></dt><dd><p>Array of feature names.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>output_feature_names</strong><span class="classifier">ndarray of shape (n_output_features,)</span></dt><dd><p>Array of feature names.</p>
 </dd>
 </dl>
-</div></blockquote>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -260,7 +300,8 @@ Fits transformer to <cite>X</cite> and <cite>y</cite> with optional parameters
 <dd><p>Get output feature names for transformation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>input_features</strong> (<em>array-like of str</em><em> or </em><em>None</em><em>, </em><em>default=None</em>) – <p>Input features.</p>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>input_features</strong><span class="classifier">array-like of str or None, default=None</span></dt><dd><p>Input features.</p>
 <ul class="simple">
 <li><p>If <cite>input_features</cite> is <cite>None</cite>, then <cite>feature_names_in_</cite> is
 used as feature names in. If <cite>feature_names_in_</cite> is not defined,
@@ -269,13 +310,14 @@ then the following input feature names are generated:
 <li><p>If <cite>input_features</cite> is an array-like, then <cite>input_features</cite> must
 match <cite>feature_names_in_</cite> if <cite>feature_names_in_</cite> is defined.</p></li>
 </ul>
-</p>
+</dd>
+</dl>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>feature_names_out</strong> – Transformed feature names.</p>
+<dd class="field-even"><dl class="simple">
+<dt><strong>feature_names_out</strong><span class="classifier">ndarray of str objects</span></dt><dd><p>Transformed feature names.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>ndarray of str objects</p>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -286,13 +328,16 @@ match <cite>feature_names_in_</cite> if <cite>feature_names_in_</cite> is define
 <dd><p>Get the most frequent category prototypes.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>prototypes</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.10)"><em>List</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>]</em>) – The list of values for a category variable.</p>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>prototypes</strong><span class="classifier">typing.List[str]</span></dt><dd><p>The list of values for a category variable.</p>
+</dd>
+</dl>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The n_prototypes most frequent values for a category variable.</p>
+<dd class="field-even"><dl class="simple">
+<dt>np.array</dt><dd><p>The n_prototypes most frequent values for a category variable.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>np.array</p>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -303,14 +348,17 @@ match <cite>feature_names_in_</cite> if <cite>feature_names_in_</cite> is define
 <dd><p>Get parameters for this estimator.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>deep</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>default=True</em>) – If True, will return the parameters for this estimator and
+<dd class="field-odd"><dl class="simple">
+<dt><strong>deep</strong><span class="classifier">bool, default=True</span></dt><dd><p>If True, will return the parameters for this estimator and
 contained subobjects that are estimators.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>params</strong> – Parameter names mapped to their values.</p>
+</dl>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)">dict</a></p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>params</strong><span class="classifier">dict</span></dt><dd><p>Parameter names mapped to their values.</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -333,13 +381,16 @@ category will be its inverse.</p>
 ‘infrequent_sklearn’ will be used to represent the infrequent category.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>X</strong> (<em>{array-like</em><em>, </em><em>sparse matrix} of shape</em><em>                 (</em><em>n_samples</em><em>, </em><em>n_encoded_features</em><em>)</em>) – The transformed data.</p>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">{array-like, sparse matrix} of shape                 (n_samples, n_encoded_features)</span></dt><dd><p>The transformed data.</p>
+</dd>
+</dl>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>X_tr</strong> – Inverse transformed array.</p>
+<dd class="field-even"><dl class="simple">
+<dt><strong>X_tr</strong><span class="classifier">ndarray of shape (n_samples, n_features)</span></dt><dd><p>Inverse transformed array.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>ndarray of shape (n_samples, n_features)</p>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -354,13 +405,16 @@ parameters of the form <code class="docutils literal notranslate"><span class="p
 possible to update each component of a nested object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>**params</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Estimator parameters.</p>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>**params</strong><span class="classifier">dict</span></dt><dd><p>Estimator parameters.</p>
+</dd>
+</dl>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>self</strong> – Estimator instance.</p>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">estimator instance</span></dt><dd><p>Estimator instance.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>estimator instance</p>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -371,16 +425,18 @@ possible to update each component of a nested object.</p>
 <dd><p>Transform X using specified encoding scheme.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>X</strong> (<em>array-like</em><em>, </em><em>shape</em><em> [</em><em>n_samples</em><em>, </em><em>n_features</em><em>]</em>) – The data to encode.</p></li>
-<li><p><strong>fast</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to use the fast computation of ngrams.</p></li>
-</ul>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like, shape [n_samples, n_features]</span></dt><dd><p>The data to encode.</p>
+</dd>
+<dt><strong>fast</strong><span class="classifier">bool</span></dt><dd><p>Whether to use the fast computation of ngrams.</p>
+</dd>
+</dl>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>X_new</strong> – Transformed input.</p>
+<dd class="field-even"><dl class="simple">
+<dt><strong>X_new</strong><span class="classifier">2-d array, shape [n_samples, n_features_new]</span></dt><dd><p>Transformed input.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>2-d array, shape [n_samples, n_features_new]</p>
+</dl>
 </dd>
 </dl>
 </dd></dl>

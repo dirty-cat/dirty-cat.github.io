@@ -111,34 +111,62 @@ applied to ngram decomposition of strings based on ngram decomposition
 of the string.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>n_components</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><em>default=30</em>) – The number of dimension of encoded strings. Numbers around 300 tend to
-lead to good prediction performance, but with more computational cost.</p></li>
-<li><p><strong>ngram_range</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><em>Tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>]</em><em>, </em><em>default=</em><em>(</em><em>2</em><em>, </em><em>4</em><em>)</em>) – The lower and upper boundary of the range of n-values for different
+<dd class="field-odd"><dl class="simple">
+<dt><strong>n_components</strong><span class="classifier">int, default=30</span></dt><dd><p>The number of dimension of encoded strings. Numbers around 300 tend to
+lead to good prediction performance, but with more computational cost.</p>
+</dd>
+<dt><strong>ngram_range</strong><span class="classifier">typing.Tuple[int, int], default=(2, 4)</span></dt><dd><p>The lower and upper boundary of the range of n-values for different
 n-grams to be extracted. All values of n such that min_n &lt;= n &lt;= max_n.
-will be used.</p></li>
-<li><p><strong>hashing</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Literal" title="(in Python v3.10)"><em>Literal</em></a><em>[</em><em>&quot;fast&quot;</em><em>, </em><em>&quot;murmur&quot;</em><em>]</em><em>, </em><em>default=fast</em>) – Hashing function. fast is faster but
-might have some concern with its entropy.</p></li>
-<li><p><strong>minmax_hash</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>default=False</em>) – if True, return min hash and max hash concatenated.</p></li>
-<li><p><strong>handle_missing</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Literal" title="(in Python v3.10)"><em>Literal</em></a><em>[</em><em>&quot;error&quot;</em><em>, </em><em>&quot;zero_impute&quot;</em><em>]</em><em>, </em><em>default=zero_impute</em>) – Whether to raise an error or encode missing values (NaN) with
-vectors filled with zeros.</p></li>
-</ul>
+will be used.</p>
+</dd>
+<dt><strong>hashing</strong><span class="classifier">typing.Literal[“fast”, “murmur”], default=fast</span></dt><dd><p>Hashing function. fast is faster but
+might have some concern with its entropy.</p>
+</dd>
+<dt><strong>minmax_hash</strong><span class="classifier">bool, default=False</span></dt><dd><p>if True, return min hash and max hash concatenated.</p>
+</dd>
+<dt><strong>handle_missing</strong><span class="classifier">typing.Literal[“error”, “zero_impute”], default=zero_impute</span></dt><dd><p>Whether to raise an error or encode missing values (NaN) with
+vectors filled with zeros.</p>
 </dd>
 </dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="dirty_cat.MinHashEncoder.hash_dict_">
-<span class="sig-name descname"><span class="pre">hash_dict_</span></span><a class="headerlink" href="#dirty_cat.MinHashEncoder.hash_dict_" title="Permalink to this definition">¶</a></dt>
-<dd><p>Computed hashes.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>LRUDict</p>
 </dd>
 </dl>
-</dd></dl>
-
 <p class="rubric">References</p>
 <p>For a detailed description of the method, see
 <a class="reference external" href="https://hal.inria.fr/hal-02171256v4">Encoding high-cardinality string categorical variables</a> by Cerda, Varoquaux (2019).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Attributes<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>hash_dict_</strong><span class="classifier">LRUDict</span></dt><dd><p>Computed hashes.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Methods</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#dirty_cat.MinHashEncoder.fit" title="dirty_cat.MinHashEncoder.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a>(X[, y])</p></td>
+<td><p>Fit the MinHashEncoder to X.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#dirty_cat.MinHashEncoder.fit_transform" title="dirty_cat.MinHashEncoder.fit_transform"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit_transform</span></code></a>(X[, y])</p></td>
+<td><p>Fit to data, then transform it.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#dirty_cat.MinHashEncoder.get_fast_hash" title="dirty_cat.MinHashEncoder.get_fast_hash"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_fast_hash</span></code></a>(string)</p></td>
+<td><p>Encode a string with fast hashing function.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#dirty_cat.MinHashEncoder.get_params" title="dirty_cat.MinHashEncoder.get_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_params</span></code></a>([deep])</p></td>
+<td><p>Get parameters for this estimator.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#dirty_cat.MinHashEncoder.minhash" title="dirty_cat.MinHashEncoder.minhash"><code class="xref py py-obj docutils literal notranslate"><span class="pre">minhash</span></code></a>(string, n_components, ngram_range)</p></td>
+<td><p>Encode a string using murmur hashing function.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#dirty_cat.MinHashEncoder.set_params" title="dirty_cat.MinHashEncoder.set_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_params</span></code></a>(**params)</p></td>
+<td><p>Set the parameters of this estimator.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#dirty_cat.MinHashEncoder.transform" title="dirty_cat.MinHashEncoder.transform"><code class="xref py py-obj docutils literal notranslate"><span class="pre">transform</span></code></a>(X)</p></td>
+<td><p>Transform X using specified encoding scheme.</p></td>
+</tr>
+</tbody>
+</table>
 <dl class="py method">
 <dt class="sig sig-object py" id="dirty_cat.MinHashEncoder.fit">
 <span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/minhash_encoder.html#MinHashEncoder.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.MinHashEncoder.fit" title="Permalink to this definition">¶</a></dt>
@@ -146,16 +174,18 @@ vectors filled with zeros.</p></li>
 to store encodings to speed up computation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>X</strong> (<em>array-like</em><em>, </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>) or </em><em>(</em><em>n_samples</em><em>, </em><em>1</em><em>)</em>) – The string data to encode.</p></li>
-<li><p><strong>y</strong> (<em>None</em>) – Unused, only here for compatibility.</p></li>
-</ul>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like, shape (n_samples, ) or (n_samples, 1)</span></dt><dd><p>The string data to encode.</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">None</span></dt><dd><p>Unused, only here for compatibility.</p>
+</dd>
+</dl>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The fitted MinHashEncoder instance.</p>
+<dd class="field-even"><dl class="simple">
+<dt>MinHashEncoder</dt><dd><p>The fitted MinHashEncoder instance.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="#dirty_cat.MinHashEncoder" title="dirty_cat.MinHashEncoder">MinHashEncoder</a></p>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -168,17 +198,20 @@ to store encodings to speed up computation.</p>
 and returns a transformed version of <cite>X</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>X</strong> (<em>array-like of shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Input samples.</p></li>
-<li><p><strong>y</strong> (<em>array-like of shape</em><em> (</em><em>n_samples</em><em>,</em><em>) or </em><em>(</em><em>n_samples</em><em>, </em><em>n_outputs</em><em>)</em><em>,                 </em><em>default=None</em>) – Target values (None for unsupervised transformations).</p></li>
-<li><p><strong>**fit_params</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Additional fit parameters.</p></li>
-</ul>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like of shape (n_samples, n_features)</span></dt><dd><p>Input samples.</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">array-like of shape (n_samples,) or (n_samples, n_outputs),                 default=None</span></dt><dd><p>Target values (None for unsupervised transformations).</p>
+</dd>
+<dt><strong>**fit_params</strong><span class="classifier">dict</span></dt><dd><p>Additional fit parameters.</p>
+</dd>
+</dl>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>X_new</strong> – Transformed array.</p>
+<dd class="field-even"><dl class="simple">
+<dt><strong>X_new</strong><span class="classifier">ndarray array of shape (n_samples, n_features_new)</span></dt><dd><p>Transformed array.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>ndarray array of shape (n_samples, n_features_new)</p>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -190,13 +223,16 @@ and returns a transformed version of <cite>X</cite>.</p>
 fast hashing supports both min_hash and minmax_hash encoding.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>string</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The string to encode.</p>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>string</strong><span class="classifier">str</span></dt><dd><p>The string to encode.</p>
+</dd>
+</dl>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The encoded string, using specified encoding scheme.</p>
+<dd class="field-even"><dl class="simple">
+<dt>np.array of shape (n_components, )</dt><dd><p>The encoded string, using specified encoding scheme.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>np.array of shape (n_components, )</p>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -207,14 +243,17 @@ fast hashing supports both min_hash and minmax_hash encoding.</p>
 <dd><p>Get parameters for this estimator.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>deep</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>default=True</em>) – If True, will return the parameters for this estimator and
+<dd class="field-odd"><dl class="simple">
+<dt><strong>deep</strong><span class="classifier">bool, default=True</span></dt><dd><p>If True, will return the parameters for this estimator and
 contained subobjects that are estimators.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>params</strong> – Parameter names mapped to their values.</p>
+</dl>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)">dict</a></p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>params</strong><span class="classifier">dict</span></dt><dd><p>Parameter names mapped to their values.</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -225,19 +264,22 @@ contained subobjects that are estimators.</p>
 <dd><p>Encode a string using murmur hashing function.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>string</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The string to encode.</p></li>
-<li><p><strong>n_components</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – The number of dimension of encoded string.</p></li>
-<li><p><strong>ngram_range</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><em>Tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>]</em>) – The lower and upper boundaries of the range of n-values for
+<dd class="field-odd"><dl class="simple">
+<dt><strong>string</strong><span class="classifier">str</span></dt><dd><p>The string to encode.</p>
+</dd>
+<dt><strong>n_components</strong><span class="classifier">int</span></dt><dd><p>The number of dimension of encoded string.</p>
+</dd>
+<dt><strong>ngram_range</strong><span class="classifier">typing.Tuple[int, int]</span></dt><dd><p>The lower and upper boundaries of the range of n-values for
 different n-grams to be extracted.
-All values of n such that min_n &lt;= n &lt;= max_n.</p></li>
-</ul>
+All values of n such that min_n &lt;= n &lt;= max_n.</p>
+</dd>
+</dl>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The encoded string.</p>
+<dd class="field-even"><dl class="simple">
+<dt>array, shape (n_components, )</dt><dd><p>The encoded string.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>array, shape (n_components, )</p>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -252,13 +294,16 @@ parameters of the form <code class="docutils literal notranslate"><span class="p
 possible to update each component of a nested object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>**params</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Estimator parameters.</p>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>**params</strong><span class="classifier">dict</span></dt><dd><p>Estimator parameters.</p>
+</dd>
+</dl>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>self</strong> – Estimator instance.</p>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">estimator instance</span></dt><dd><p>Estimator instance.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>estimator instance</p>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -269,13 +314,16 @@ possible to update each component of a nested object.</p>
 <dd><p>Transform X using specified encoding scheme.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>X</strong> (<em>array-like</em><em>, </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>) or </em><em>(</em><em>n_samples</em><em>, </em><em>1</em><em>)</em>) – The string data to encode.</p>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like, shape (n_samples, ) or (n_samples, 1)</span></dt><dd><p>The string data to encode.</p>
+</dd>
+</dl>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Transformed input.</p>
+<dd class="field-even"><dl class="simple">
+<dt>array, shape (n_samples, n_components)</dt><dd><p>Transformed input.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>array, shape (n_samples, n_components)</p>
+</dl>
 </dd>
 </dl>
 </dd></dl>

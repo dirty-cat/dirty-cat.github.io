@@ -113,19 +113,22 @@ active, permanent employees of Montgomery County, MD paid in calendar
 year 2016. This information will be published annually each year.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>drop_linked</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em> (</em><em>default True</em><em>)</em>) – Drops columns “2016_gross_pay_received” and “2016_overtime_pay”,
-which are closely linked to “current_annual_salary”, the target.</p></li>
-<li><p><strong>drop_irrelevant</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em> (</em><em>default True</em><em>)</em>) – Drops column “full_name”, which is usually irrelevant to the
-statistical analysis.</p></li>
-</ul>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>drop_linked: bool (default True)</strong></dt><dd><p>Drops columns “2016_gross_pay_received” and “2016_overtime_pay”,
+which are closely linked to “current_annual_salary”, the target.</p>
+</dd>
+<dt><strong>drop_irrelevant: bool (default True)</strong></dt><dd><p>Drops column “full_name”, which is usually irrelevant to the
+statistical analysis.</p>
+</dd>
+</dl>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p><em>DatasetAll</em> – If <cite>load_dataframe=True</cite></p></li>
-<li><p><em>DatasetInfoOnly</em> – If <cite>load_dataframe=False</cite></p></li>
-</ul>
-</p>
+<dd class="field-even"><dl class="simple">
+<dt>DatasetAll</dt><dd><p>If <cite>load_dataframe=True</cite></p>
+</dd>
+<dt>DatasetInfoOnly</dt><dd><p>If <cite>load_dataframe=False</cite></p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>

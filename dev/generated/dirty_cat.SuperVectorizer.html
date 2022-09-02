@@ -115,49 +115,56 @@ It provides a simplified interface for scikit-learn’s <cite>ColumnTransformer<
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>cardinality_threshold</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><em>default=40</em>) – Two lists of features will be created depending on this value: strictly
+<dd class="field-odd"><dl class="simple">
+<dt><strong>cardinality_threshold</strong><span class="classifier">int, default=40</span></dt><dd><p>Two lists of features will be created depending on this value: strictly
 under this value, the low cardinality categorical values, and above or
 equal, the high cardinality categorical values.
 Different encoders will be applied to these two groups, defined by
 the parameters <cite>low_card_cat_transformer</cite> and
-<cite>high_card_cat_transformer</cite> respectively.</p></li>
-<li><p><strong>low_card_cat_transformer</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.10)"><em>Union</em></a><em>[</em><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html#sklearn.base.BaseEstimator" title="(in scikit-learn v1.1)"><em>sklearn.base.BaseEstimator</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>]</em><em>]</em><em>, </em><em>default=None</em>) – Transformer used on categorical/string features with low cardinality
+<cite>high_card_cat_transformer</cite> respectively.</p>
+</dd>
+<dt><strong>low_card_cat_transformer</strong><span class="classifier">typing.Optional[typing.Union[sklearn.base.BaseEstimator, str]], default=None</span></dt><dd><p>Transformer used on categorical/string features with low cardinality
 (threshold is defined by <cite>cardinality_threshold</cite>).
 Default value None is converted to <cite>OneHotEncoder()</cite>.
 Can either be a transformer object instance (e.g. <cite>OneHotEncoder()</cite>),
 a <cite>Pipeline</cite> containing the preprocessing steps,
 None to apply <cite>remainder</cite>, ‘drop’ for dropping the columns,
-or ‘passthrough’ to return the unencoded columns.</p></li>
-<li><p><strong>high_card_cat_transformer</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.10)"><em>Union</em></a><em>[</em><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html#sklearn.base.BaseEstimator" title="(in scikit-learn v1.1)"><em>sklearn.base.BaseEstimator</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>]</em><em>]</em><em>, </em><em>default=None</em>) – Transformer used on categorical/string features with high cardinality
+or ‘passthrough’ to return the unencoded columns.</p>
+</dd>
+<dt><strong>high_card_cat_transformer</strong><span class="classifier">typing.Optional[typing.Union[sklearn.base.BaseEstimator, str]], default=None</span></dt><dd><p>Transformer used on categorical/string features with high cardinality
 (threshold is defined by <cite>cardinality_threshold</cite>).
 Default value None is converted to <cite>GapEncoder(n_components=30)</cite>.
 Can either be a transformer object instance (e.g. <cite>GapEncoder()</cite>),
 a <cite>Pipeline</cite> containing the preprocessing steps,
 None to apply <cite>remainder</cite>, ‘drop’ for dropping the columns,
-or ‘passthrough’ to return the unencoded columns.</p></li>
-<li><p><strong>numerical_transformer</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.10)"><em>Union</em></a><em>[</em><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html#sklearn.base.BaseEstimator" title="(in scikit-learn v1.1)"><em>sklearn.base.BaseEstimator</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>]</em><em>]</em><em>, </em><em>default=None</em>) – Transformer used on numerical features.
+or ‘passthrough’ to return the unencoded columns.</p>
+</dd>
+<dt><strong>numerical_transformer</strong><span class="classifier">typing.Optional[typing.Union[sklearn.base.BaseEstimator, str]], default=None</span></dt><dd><p>Transformer used on numerical features.
 Can either be a transformer object instance (e.g. <cite>StandardScaler()</cite>),
 a <cite>Pipeline</cite> containing the preprocessing steps,
 None to apply <cite>remainder</cite>, ‘drop’ for dropping the columns,
-or ‘passthrough’ to return the unencoded columns.</p></li>
-<li><p><strong>datetime_transformer</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.10)"><em>Union</em></a><em>[</em><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html#sklearn.base.BaseEstimator" title="(in scikit-learn v1.1)"><em>sklearn.base.BaseEstimator</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>]</em><em>]</em><em>, </em><em>default=None</em>) – Transformer used on datetime features.
+or ‘passthrough’ to return the unencoded columns.</p>
+</dd>
+<dt><strong>datetime_transformer</strong><span class="classifier">typing.Optional[typing.Union[sklearn.base.BaseEstimator, str]], default=None</span></dt><dd><p>Transformer used on datetime features.
 Default value None is converted to <cite>DatetimeEncoder()</cite>.
 Can either be a transformer object instance (e.g. <cite>DatetimeEncoder()</cite>),
 a <cite>Pipeline</cite> containing the preprocessing steps,
 None to apply <cite>remainder</cite>, ‘drop’ for dropping the columns,
-or ‘passthrough’ to return the unencoded columns.</p></li>
-<li><p><strong>auto_cast</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>default=True</em>) – If set to <cite>True</cite>, will try to convert each column to the best possible
-data type (dtype).</p></li>
-<li><p><strong>impute_missing</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>default='auto'</em>) – When to impute missing values in string columns.
+or ‘passthrough’ to return the unencoded columns.</p>
+</dd>
+<dt><strong>auto_cast</strong><span class="classifier">bool, default=True</span></dt><dd><p>If set to <cite>True</cite>, will try to convert each column to the best possible
+data type (dtype).</p>
+</dd>
+<dt><strong>impute_missing</strong><span class="classifier">str, default=’auto’</span></dt><dd><p>When to impute missing values in string columns.
 ‘auto’ will impute missing values if it’s considered appropriate
 (we are using an encoder that does not support missing values and/or
 specific versions of pandas, numpy and scikit-learn).
 ‘force’ will impute all missing values.
 ‘skip’ will not impute at all.
 When imputed, missing values are replaced by the string ‘missing’.
-See also attribute <cite>imputed_columns_</cite>.</p></li>
-<li><p><strong>remainder</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.10)"><em>Union</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Literal" title="(in Python v3.10)"><em>Literal</em></a><em>[</em><em>&quot;drop&quot;</em><em>, </em><em>&quot;passthrough&quot;</em><em>]</em><em>, </em><em>sklearn.base.BaseEstimator</em><em>]</em><em>, </em><em>default='drop'</em>) – By default, only the specified columns in <cite>transformers</cite> are
+See also attribute <cite>imputed_columns_</cite>.</p>
+</dd>
+<dt><strong>remainder</strong><span class="classifier">typing.Union[typing.Literal[“drop”, “passthrough”], sklearn.base.BaseEstimator], default=’drop’</span></dt><dd><p>By default, only the specified columns in <cite>transformers</cite> are
 transformed and combined in the output, and the non-specified
 columns are dropped. (default of <code class="docutils literal notranslate"><span class="pre">'drop'</span></code>).
 By specifying <code class="docutils literal notranslate"><span class="pre">remainder='passthrough'</span></code>, all remaining columns that
@@ -168,90 +175,94 @@ By setting <code class="docutils literal notranslate"><span class="pre">remainde
 non-specified columns will use the <code class="docutils literal notranslate"><span class="pre">remainder</span></code> estimator. The
 estimator must support <a class="reference external" href="https://scikit-learn.org/stable/glossary.html#term-fit" title="(in scikit-learn v1.1)"><span class="xref std std-term">fit</span></a> and <a class="reference external" href="https://scikit-learn.org/stable/glossary.html#term-transform" title="(in scikit-learn v1.1)"><span class="xref std std-term">transform</span></a>.
 Note that using this feature requires that the DataFrame columns
-input at <a class="reference external" href="https://scikit-learn.org/stable/glossary.html#term-fit" title="(in scikit-learn v1.1)"><span class="xref std std-term">fit</span></a> and <a class="reference external" href="https://scikit-learn.org/stable/glossary.html#term-transform" title="(in scikit-learn v1.1)"><span class="xref std std-term">transform</span></a> have identical order.</p></li>
-<li><p><strong>sparse_threshold</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>, </em><em>default=0.3</em>) – If the output of the different transformers contains sparse matrices,
+input at <a class="reference external" href="https://scikit-learn.org/stable/glossary.html#term-fit" title="(in scikit-learn v1.1)"><span class="xref std std-term">fit</span></a> and <a class="reference external" href="https://scikit-learn.org/stable/glossary.html#term-transform" title="(in scikit-learn v1.1)"><span class="xref std std-term">transform</span></a> have identical order.</p>
+</dd>
+<dt><strong>sparse_threshold: float, default=0.3</strong></dt><dd><p>If the output of the different transformers contains sparse matrices,
 these will be stacked as a sparse matrix if the overall density is
 lower than this value. Use sparse_threshold=0 to always return dense.
 When the transformed output consists of all dense data, the stacked
-result will be dense, and this keyword will be ignored.</p></li>
-<li><p><strong>n_jobs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><em>default=None</em>) – Number of jobs to run in parallel.
+result will be dense, and this keyword will be ignored.</p>
+</dd>
+<dt><strong>n_jobs</strong><span class="classifier">int, default=None</span></dt><dd><p>Number of jobs to run in parallel.
 <code class="docutils literal notranslate"><span class="pre">None</span></code> means 1 unless in a <code class="xref py py-obj docutils literal notranslate"><span class="pre">joblib.parallel_backend</span></code> context.
-<code class="docutils literal notranslate"><span class="pre">-1</span></code> means using all processors.</p></li>
-<li><p><strong>transformer_weights</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a><em>, </em><em>default=None</em>) – Multiplicative weights for features per transformer. The output of the
+<code class="docutils literal notranslate"><span class="pre">-1</span></code> means using all processors.</p>
+</dd>
+<dt><strong>transformer_weights</strong><span class="classifier">dict, default=None</span></dt><dd><p>Multiplicative weights for features per transformer. The output of the
 transformer is multiplied by these weights. Keys are transformer names,
-values the weights.</p></li>
-<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>default=False</em>) – If True, the time elapsed while fitting each transformer will be
-printed as it is completed</p></li>
-</ul>
+values the weights.</p>
+</dd>
+<dt><strong>verbose</strong><span class="classifier">bool, default=False</span></dt><dd><p>If True, the time elapsed while fitting each transformer will be
+printed as it is completed</p>
 </dd>
 </dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="dirty_cat.SuperVectorizer.transformers_">
-<span class="sig-name descname"><span class="pre">transformers_</span></span><a class="headerlink" href="#dirty_cat.SuperVectorizer.transformers_" title="Permalink to this definition">¶</a></dt>
-<dd><p>The final distribution of columns.
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>transformers_: typing.List[typing.Tuple[str, typing.Union[str, sklearn.base.BaseEstimator], typing.List[str]]]</strong></dt><dd><p>The final distribution of columns.
 List of three-tuple containing
 (1) the name of the category
 (2) the encoder/transformer instance which will be applied
 or “passthrough” or “drop”
 (3) the list of column names</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.10)"><em>List</em></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><em>Tuple</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.10)"><em>Union</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a>, <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html#sklearn.base.BaseEstimator" title="(in scikit-learn v1.1)">sklearn.base.BaseEstimator</a>], <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.10)"><em>List</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a>]]]</p>
 </dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="dirty_cat.SuperVectorizer.columns_">
-<span class="sig-name descname"><span class="pre">columns_</span></span><a class="headerlink" href="#dirty_cat.SuperVectorizer.columns_" title="Permalink to this definition">¶</a></dt>
-<dd><p>The column names of fitted array.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.10)"><em>List</em></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.10)"><em>Union</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)">int</a>]]</p>
+<dt><strong>columns_: typing.List[typing.Union[str, int]]</strong></dt><dd><p>The column names of fitted array.</p>
 </dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="dirty_cat.SuperVectorizer.types_">
-<span class="sig-name descname"><span class="pre">types_</span></span><a class="headerlink" href="#dirty_cat.SuperVectorizer.types_" title="Permalink to this definition">¶</a></dt>
-<dd><p>A mapping of inferred types per column.
+<dt><strong>types_: typing.Dict[str, type]</strong></dt><dd><p>A mapping of inferred types per column.
 Key is the column name, value is the inferred dtype.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.10)"><em>Dict</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#type" title="(in Python v3.10)">type</a>]</p>
+</dd>
+<dt><strong>imputed_columns_: typing.List[str]</strong></dt><dd><p>The list of columns in which we imputed the missing values.</p>
 </dd>
 </dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="dirty_cat.SuperVectorizer.imputed_columns_">
-<span class="sig-name descname"><span class="pre">imputed_columns_</span></span><a class="headerlink" href="#dirty_cat.SuperVectorizer.imputed_columns_" title="Permalink to this definition">¶</a></dt>
-<dd><p>The list of columns in which we imputed the missing values.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.10)"><em>List</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a>]</p>
 </dd>
 </dl>
-</dd></dl>
-
+<p class="rubric">Methods</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">OptionalEstimator</span></code></p></td>
+<td><p>alias of <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Union</span></code></a>[<a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html#sklearn.base.BaseEstimator" title="(in scikit-learn v1.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseEstimator</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]]</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#dirty_cat.SuperVectorizer.fit" title="dirty_cat.SuperVectorizer.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a>(X[, y])</p></td>
+<td><p>Fit all transformers using X.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#dirty_cat.SuperVectorizer.fit_transform" title="dirty_cat.SuperVectorizer.fit_transform"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit_transform</span></code></a>(X[, y])</p></td>
+<td><p>Fit all transformers, transform the data, and concatenate the results.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#dirty_cat.SuperVectorizer.get_feature_names" title="dirty_cat.SuperVectorizer.get_feature_names"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_feature_names</span></code></a>([input_features])</p></td>
+<td><p>Ensures compatibility with sklearn &lt; 1.0.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#dirty_cat.SuperVectorizer.get_feature_names_out" title="dirty_cat.SuperVectorizer.get_feature_names_out"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_feature_names_out</span></code></a>([input_features])</p></td>
+<td><p>Returns clean feature names with format &quot;&lt;column_name&gt;_&lt;value&gt;&quot; if encoded by OneHotEncoder or alike, e.g.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#dirty_cat.SuperVectorizer.get_params" title="dirty_cat.SuperVectorizer.get_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_params</span></code></a>([deep])</p></td>
+<td><p>Get parameters for this estimator.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#dirty_cat.SuperVectorizer.set_params" title="dirty_cat.SuperVectorizer.set_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_params</span></code></a>(**kwargs)</p></td>
+<td><p>Set the parameters of this estimator.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#dirty_cat.SuperVectorizer.transform" title="dirty_cat.SuperVectorizer.transform"><code class="xref py py-obj docutils literal notranslate"><span class="pre">transform</span></code></a>(X)</p></td>
+<td><p>Transform X by applying fitted transformers on each column, and concatenate the results.</p></td>
+</tr>
+</tbody>
+</table>
 <dl class="py method">
 <dt class="sig sig-object py" id="dirty_cat.SuperVectorizer.fit">
 <span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dirty_cat.SuperVectorizer.fit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fit all transformers using X.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>X</strong> (<em>{array-like</em><em>, </em><em>dataframe} of shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Input data, of which specified subsets are used to fit the
-transformers.</p></li>
-<li><p><strong>y</strong> (<em>array-like of shape</em><em> (</em><em>n_samples</em><em>,</em><em>...</em><em>)</em><em>, </em><em>default=None</em>) – Targets for supervised learning.</p></li>
-</ul>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">{array-like, dataframe} of shape (n_samples, n_features)</span></dt><dd><p>Input data, of which specified subsets are used to fit the
+transformers.</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">array-like of shape (n_samples,…), default=None</span></dt><dd><p>Targets for supervised learning.</p>
+</dd>
+</dl>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>self</strong> – This estimator.</p>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">ColumnTransformer</span></dt><dd><p>This estimator.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>ColumnTransformer</p>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -262,25 +273,30 @@ transformers.</p></li>
 <dd><p>Fit all transformers, transform the data, and concatenate the results.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>X</strong> (<em>{array-like</em><em>, </em><em>dataframe} of shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Input data, of which specified subsets are used to fit the
-transformers.</p></li>
-<li><p><strong>y</strong> (<em>array-like of shape</em><em> (</em><em>n_samples</em><em>,</em><em>)</em><em>, </em><em>default=None</em>) – Targets for supervised learning.</p></li>
-</ul>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">{array-like, dataframe} of shape (n_samples, n_features)</span></dt><dd><p>Input data, of which specified subsets are used to fit the
+transformers.</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">array-like of shape (n_samples,), default=None</span></dt><dd><p>Targets for supervised learning.</p>
+</dd>
+</dl>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>hstack of results of transformers. sum_n_components is the
+<dd class="field-even"><dl class="simple">
+<dt>{array-like, sparse matrix} of shape (n_samples, sum_n_components)</dt><dd><p>hstack of results of transformers. sum_n_components is the
 sum of n_components (output dimension) over transformers. If
 any result is a sparse matrix, everything will be converted to
 sparse matrices.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>{array-like, sparse matrix} of shape (n_samples, sum_n_components)</p>
+</dl>
 </dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#RuntimeError" title="(in Python v3.10)"><strong>RuntimeError</strong></a> – If no transformers could be constructed,
-    usually because transformers passed do not match any column.
-    To fix the issue, try passing the least amount of None as encoders.</p>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>RuntimeError</dt><dd><p>If no transformers could be constructed,
+usually because transformers passed do not match any column.
+To fix the issue, try passing the least amount of None as encoders.</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -300,10 +316,10 @@ Use <cite>get_feature_names_out</cite> instead.</p>
 e.g. “job_title_Police officer”, or “&lt;column_name&gt;” otherwise.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Feature names.</p>
+<dd class="field-odd"><dl class="simple">
+<dt>typing.List[str]</dt><dd><p>Feature names.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.10)"><em>List</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a>]</p>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -317,14 +333,17 @@ estimators contained within the <cite>transformers</cite> of the
 <cite>ColumnTransformer</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>deep</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>default=True</em>) – If True, will return the parameters for this estimator and
+<dd class="field-odd"><dl class="simple">
+<dt><strong>deep</strong><span class="classifier">bool, default=True</span></dt><dd><p>If True, will return the parameters for this estimator and
 contained subobjects that are estimators.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>params</strong> – Parameter names mapped to their values.</p>
+</dl>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)">dict</a></p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>params</strong><span class="classifier">dict</span></dt><dd><p>Parameter names mapped to their values.</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -347,13 +366,16 @@ can directly set the parameters of the estimators contained in
 <cite>transformers</cite> of <cite>ColumnTransformer</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Estimator parameters.</p>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>**kwargs</strong><span class="classifier">dict</span></dt><dd><p>Estimator parameters.</p>
+</dd>
+</dl>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>self</strong> – This estimator.</p>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">ColumnTransformer</span></dt><dd><p>This estimator.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>ColumnTransformer</p>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -365,16 +387,19 @@ can directly set the parameters of the estimators contained in
 and concatenate the results.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>X</strong> (<em>{array-like</em><em>, </em><em>dataframe} of shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – The data to be transformed.</p>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">{array-like, dataframe} of shape (n_samples, n_features)</span></dt><dd><p>The data to be transformed.</p>
+</dd>
+</dl>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>hstack of results of transformers. sum_n_components is the
+<dd class="field-even"><dl class="simple">
+<dt>{array-like, sparse matrix} of shape (n_samples, sum_n_components)</dt><dd><p>hstack of results of transformers. sum_n_components is the
 sum of n_components (output dimension) over transformers. If
 any result is a sparse matrix, everything will be converted to
 sparse matrices.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>{array-like, sparse matrix} of shape (n_samples, sum_n_components)</p>
+</dl>
 </dd>
 </dl>
 </dd></dl>
