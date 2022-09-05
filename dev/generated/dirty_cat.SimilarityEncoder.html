@@ -122,7 +122,7 @@ Since 0.3, only the ngram similarity is supported.</p>
 </dd>
 <dt><strong>ngram_range</strong><span class="classifier">tuple (min_n, max_n), default=(2, 4)</span></dt><dd><p>The range of values for the n_gram similarity.</p>
 </dd>
-<dt><strong>categories</strong><span class="classifier">typing.Union[typing.Literal[“auto”, “k-means”, “most_frequent”], typing.List[typing.List[str]]]</span></dt><dd><p>Categories (unique values) per feature:
+<dt><strong>categories</strong><span class="classifier">typing.Union[typing.Literal[“auto”, “k-means”, “most_frequent”], typing.List[typing.List[str]]]  # noqa</span></dt><dd><p>Categories (unique values) per feature:
 - ‘auto’ : Determine categories automatically from the training data.
 - list : <code class="docutils literal notranslate"><span class="pre">categories[i]</span></code> holds the categories expected in the i-th</p>
 <blockquote>

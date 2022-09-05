@@ -94,38 +94,37 @@
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Generator</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
+
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-
-<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">sparse</span>
 <span class="kn">from</span> <span class="nn">numpy.random</span> <span class="kn">import</span> <span class="n">RandomState</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Generator</span>
-
-<span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">KMeans</span>
-<span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">NearestNeighbors</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">sparse</span>
 <span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">__version__</span> <span class="k">as</span> <span class="n">sklearn_version</span>
-<span class="kn">from</span> <span class="nn">sklearn.utils.fixes</span> <span class="kn">import</span> <span class="n">_object_dtype_isnan</span>
 <span class="kn">from</span> <span class="nn">sklearn.base</span> <span class="kn">import</span> <span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">TransformerMixin</span>
+<span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">KMeans</span>
+<span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">CountVectorizer</span><span class="p">,</span> <span class="n">HashingVectorizer</span>
+<span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">NearestNeighbors</span>
 <span class="kn">from</span> <span class="nn">sklearn.utils</span> <span class="kn">import</span> <span class="n">check_random_state</span><span class="p">,</span> <span class="n">gen_batches</span>
 <span class="kn">from</span> <span class="nn">sklearn.utils.extmath</span> <span class="kn">import</span> <span class="n">row_norms</span><span class="p">,</span> <span class="n">safe_sparse_dot</span>
-<span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">CountVectorizer</span><span class="p">,</span> <span class="n">HashingVectorizer</span>
+<span class="kn">from</span> <span class="nn">sklearn.utils.fixes</span> <span class="kn">import</span> <span class="n">_object_dtype_isnan</span>
 
-<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">check_input</span>
 <span class="kn">from</span> <span class="nn">dirty_cat.utils</span> <span class="kn">import</span> <span class="n">Version</span>
 
+<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">check_input</span>
 
-<span class="k">if</span> <span class="n">Version</span><span class="p">(</span><span class="n">sklearn_version</span><span class="p">)</span> <span class="o">==</span> <span class="n">Version</span><span class="p">(</span><span class="s1">&#39;0.22&#39;</span><span class="p">):</span>
+<span class="k">if</span> <span class="n">Version</span><span class="p">(</span><span class="n">sklearn_version</span><span class="p">)</span> <span class="o">==</span> <span class="n">Version</span><span class="p">(</span><span class="s2">&quot;0.22&quot;</span><span class="p">):</span>
     <span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
-        <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
         <span class="kn">from</span> <span class="nn">sklearn.cluster.k_means_</span> <span class="kn">import</span> <span class="n">_k_init</span>
-<span class="k">elif</span> <span class="n">Version</span><span class="p">(</span><span class="n">sklearn_version</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">Version</span><span class="p">(</span><span class="s1">&#39;0.24&#39;</span><span class="p">):</span>
+<span class="k">elif</span> <span class="n">Version</span><span class="p">(</span><span class="n">sklearn_version</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">Version</span><span class="p">(</span><span class="s2">&quot;0.24&quot;</span><span class="p">):</span>
     <span class="kn">from</span> <span class="nn">sklearn.cluster._kmeans</span> <span class="kn">import</span> <span class="n">_k_init</span>
 <span class="k">else</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">kmeans_plusplus</span>
 
-<span class="k">if</span> <span class="n">Version</span><span class="p">(</span><span class="n">sklearn_version</span><span class="p">)</span> <span class="o">==</span> <span class="n">Version</span><span class="p">(</span><span class="s1">&#39;0.22&#39;</span><span class="p">):</span>
+<span class="k">if</span> <span class="n">Version</span><span class="p">(</span><span class="n">sklearn_version</span><span class="p">)</span> <span class="o">==</span> <span class="n">Version</span><span class="p">(</span><span class="s2">&quot;0.22&quot;</span><span class="p">):</span>
     <span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
-        <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
         <span class="kn">from</span> <span class="nn">sklearn.decomposition.nmf</span> <span class="kn">import</span> <span class="n">_beta_divergence</span>
 <span class="k">else</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">sklearn.decomposition._nmf</span> <span class="kn">import</span> <span class="n">_beta_divergence</span>
@@ -138,26 +137,27 @@
     <span class="n">rho_</span><span class="p">:</span> <span class="nb">float</span>
     <span class="n">H_dict_</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">]</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
-                 <span class="n">n_components</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
-                 <span class="n">batch_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">128</span><span class="p">,</span>
-                 <span class="n">gamma_shape_prior</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.1</span><span class="p">,</span>
-                 <span class="n">gamma_scale_prior</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
-                 <span class="n">rho</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">.95</span><span class="p">,</span>
-                 <span class="n">rescale_rho</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-                 <span class="n">hashing</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-                 <span class="n">hashing_n_features</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="o">**</span><span class="mi">12</span><span class="p">,</span>
-                 <span class="n">init</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;k-means++&quot;</span><span class="p">,</span> <span class="s2">&quot;random&quot;</span><span class="p">,</span> <span class="s2">&quot;k-means&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;k-means++&#39;</span><span class="p">,</span>
-                 <span class="n">tol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-4</span><span class="p">,</span>
-                 <span class="n">min_iter</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
-                 <span class="n">max_iter</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
-                 <span class="n">ngram_range</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
-                 <span class="n">analyzer</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;word&quot;</span><span class="p">,</span> <span class="s2">&quot;char&quot;</span><span class="p">,</span> <span class="s2">&quot;char_wb&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;char&#39;</span><span class="p">,</span>
-                 <span class="n">add_words</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-                 <span class="n">random_state</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">RandomState</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-                 <span class="n">rescale_W</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-                 <span class="n">max_iter_e_step</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">20</span><span class="p">):</span>
-
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">n_components</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="n">batch_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">128</span><span class="p">,</span>
+        <span class="n">gamma_shape_prior</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.1</span><span class="p">,</span>
+        <span class="n">gamma_scale_prior</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+        <span class="n">rho</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.95</span><span class="p">,</span>
+        <span class="n">rescale_rho</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">hashing</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">hashing_n_features</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="o">**</span><span class="mi">12</span><span class="p">,</span>
+        <span class="n">init</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;k-means++&quot;</span><span class="p">,</span> <span class="s2">&quot;random&quot;</span><span class="p">,</span> <span class="s2">&quot;k-means&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;k-means++&quot;</span><span class="p">,</span>
+        <span class="n">tol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-4</span><span class="p">,</span>
+        <span class="n">min_iter</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="n">max_iter</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
+        <span class="n">ngram_range</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+        <span class="n">analyzer</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;word&quot;</span><span class="p">,</span> <span class="s2">&quot;char&quot;</span><span class="p">,</span> <span class="s2">&quot;char_wb&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;char&quot;</span><span class="p">,</span>
+        <span class="n">add_words</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">random_state</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">RandomState</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">rescale_W</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">max_iter_e_step</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span>
+    <span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ngram_range</span> <span class="o">=</span> <span class="n">ngram_range</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">n_components</span> <span class="o">=</span> <span class="n">n_components</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">gamma_shape_prior</span> <span class="o">=</span> <span class="n">gamma_shape_prior</span>  <span class="c1"># &#39;a&#39; parameter</span>
@@ -185,18 +185,23 @@
         <span class="c1"># Init n-grams counts vectorizer</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">hashing</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ngrams_count_</span> <span class="o">=</span> <span class="n">HashingVectorizer</span><span class="p">(</span>
-                 <span class="n">analyzer</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">analyzer</span><span class="p">,</span> <span class="n">ngram_range</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ngram_range</span><span class="p">,</span>
-                 <span class="n">n_features</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">hashing_n_features</span><span class="p">,</span>
-                 <span class="n">norm</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">alternate_sign</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                <span class="n">analyzer</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">analyzer</span><span class="p">,</span>
+                <span class="n">ngram_range</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ngram_range</span><span class="p">,</span>
+                <span class="n">n_features</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">hashing_n_features</span><span class="p">,</span>
+                <span class="n">norm</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="n">alternate_sign</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="p">)</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_words</span><span class="p">:</span>  <span class="c1"># Init a word counts vectorizer if needed</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">word_count_</span> <span class="o">=</span> <span class="n">HashingVectorizer</span><span class="p">(</span>
-                     <span class="n">analyzer</span><span class="o">=</span><span class="s1">&#39;word&#39;</span><span class="p">,</span>
-                     <span class="n">n_features</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">hashing_n_features</span><span class="p">,</span>
-                     <span class="n">norm</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">alternate_sign</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                    <span class="n">analyzer</span><span class="o">=</span><span class="s2">&quot;word&quot;</span><span class="p">,</span>
+                    <span class="n">n_features</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">hashing_n_features</span><span class="p">,</span>
+                    <span class="n">norm</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                    <span class="n">alternate_sign</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ngrams_count_</span> <span class="o">=</span> <span class="n">CountVectorizer</span><span class="p">(</span>
-                 <span class="n">analyzer</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">analyzer</span><span class="p">,</span> <span class="n">ngram_range</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ngram_range</span><span class="p">,</span>
-                 <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+                <span class="n">analyzer</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">analyzer</span><span class="p">,</span> <span class="n">ngram_range</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ngram_range</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span>
+            <span class="p">)</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_words</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">word_count_</span> <span class="o">=</span> <span class="n">CountVectorizer</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
 
@@ -207,24 +212,22 @@
         <span class="n">unq_V</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ngrams_count_</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">unq_X</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_words</span><span class="p">:</span>  <span class="c1"># Add word counts to unq_V</span>
             <span class="n">unq_V2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">word_count_</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">unq_X</span><span class="p">)</span>
-            <span class="n">unq_V</span> <span class="o">=</span> <span class="n">sparse</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">unq_V</span><span class="p">,</span> <span class="n">unq_V2</span><span class="p">),</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;csr&#39;</span><span class="p">)</span>
+            <span class="n">unq_V</span> <span class="o">=</span> <span class="n">sparse</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">unq_V</span><span class="p">,</span> <span class="n">unq_V2</span><span class="p">),</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;csr&quot;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">hashing</span><span class="p">:</span>  <span class="c1"># Build n-grams/word vocabulary</span>
-            <span class="k">if</span> <span class="n">Version</span><span class="p">(</span><span class="n">sklearn_version</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">Version</span><span class="p">(</span><span class="s1">&#39;1.0&#39;</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">Version</span><span class="p">(</span><span class="n">sklearn_version</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">Version</span><span class="p">(</span><span class="s2">&quot;1.0&quot;</span><span class="p">):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">vocabulary</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ngrams_count_</span><span class="o">.</span><span class="n">get_feature_names</span><span class="p">()</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">vocabulary</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ngrams_count_</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">()</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_words</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">Version</span><span class="p">(</span><span class="n">sklearn_version</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">Version</span><span class="p">(</span><span class="s1">&#39;1.0&#39;</span><span class="p">):</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">vocabulary</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">vocabulary</span><span class="p">,</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">word_count_</span><span class="o">.</span><span class="n">get_feature_names</span><span class="p">()</span>
-                    <span class="p">))</span>
+                <span class="k">if</span> <span class="n">Version</span><span class="p">(</span><span class="n">sklearn_version</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">Version</span><span class="p">(</span><span class="s2">&quot;1.0&quot;</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">vocabulary</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span>
+                        <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vocabulary</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">word_count_</span><span class="o">.</span><span class="n">get_feature_names</span><span class="p">())</span>
+                    <span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">vocabulary</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">vocabulary</span><span class="p">,</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">word_count_</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">()</span>
-                    <span class="p">))</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">vocabulary</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span>
+                        <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vocabulary</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">word_count_</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">())</span>
+                    <span class="p">)</span>
         <span class="n">_</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_vocab</span> <span class="o">=</span> <span class="n">unq_V</span><span class="o">.</span><span class="n">shape</span>
         <span class="c1"># Init the topics W given the n-grams counts V</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">W_</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">A_</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">B_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_init_w</span><span class="p">(</span><span class="n">unq_V</span><span class="p">[</span><span class="n">lookup</span><span class="p">],</span> <span class="n">X</span><span class="p">)</span>
@@ -256,52 +259,69 @@
 <span class="sd">        If self.init=&#39;k-means&#39;, topics are initialized with a KMeans on the</span>
 <span class="sd">        n-grams counts.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">init</span> <span class="o">==</span> <span class="s1">&#39;k-means++&#39;</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">Version</span><span class="p">(</span><span class="n">sklearn_version</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">Version</span><span class="p">(</span><span class="s1">&#39;0.24&#39;</span><span class="p">):</span>
-                <span class="n">W</span> <span class="o">=</span> <span class="n">_k_init</span><span class="p">(</span>
-                    <span class="n">V</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_components</span><span class="p">,</span>
-                    <span class="n">x_squared_norms</span><span class="o">=</span><span class="n">row_norms</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="n">squared</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-                    <span class="n">random_state</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">random_state</span><span class="p">,</span>
-                    <span class="n">n_local_trials</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">+</span> <span class="mf">.1</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">init</span> <span class="o">==</span> <span class="s2">&quot;k-means++&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">Version</span><span class="p">(</span><span class="n">sklearn_version</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">Version</span><span class="p">(</span><span class="s2">&quot;0.24&quot;</span><span class="p">):</span>
+                <span class="n">W</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="n">_k_init</span><span class="p">(</span>
+                        <span class="n">V</span><span class="p">,</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">n_components</span><span class="p">,</span>
+                        <span class="n">x_squared_norms</span><span class="o">=</span><span class="n">row_norms</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="n">squared</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+                        <span class="n">random_state</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">random_state</span><span class="p">,</span>
+                        <span class="n">n_local_trials</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                    <span class="p">)</span>
+                    <span class="o">+</span> <span class="mf">0.1</span>
+                <span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">W</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">kmeans_plusplus</span><span class="p">(</span>
-                    <span class="n">V</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_components</span><span class="p">,</span>
+                    <span class="n">V</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">n_components</span><span class="p">,</span>
                     <span class="n">x_squared_norms</span><span class="o">=</span><span class="n">row_norms</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="n">squared</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
                     <span class="n">random_state</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">random_state</span><span class="p">,</span>
-                    <span class="n">n_local_trials</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-                <span class="n">W</span> <span class="o">=</span> <span class="n">W</span> <span class="o">+</span> <span class="mf">.1</span>  <span class="c1"># To avoid restricting topics to a few n-grams only</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">init</span> <span class="o">==</span> <span class="s1">&#39;random&#39;</span><span class="p">:</span>
+                    <span class="n">n_local_trials</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="n">W</span> <span class="o">=</span> <span class="n">W</span> <span class="o">+</span> <span class="mf">0.1</span>  <span class="c1"># To avoid restricting topics to a few n-grams only</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">init</span> <span class="o">==</span> <span class="s2">&quot;random&quot;</span><span class="p">:</span>
             <span class="n">W</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">random_state</span><span class="o">.</span><span class="n">gamma</span><span class="p">(</span>
-                <span class="n">shape</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">gamma_shape_prior</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">gamma_scale_prior</span><span class="p">,</span>
-                <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_components</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_vocab</span><span class="p">))</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">init</span> <span class="o">==</span> <span class="s1">&#39;k-means&#39;</span><span class="p">:</span>
-            <span class="n">prototypes</span> <span class="o">=</span> <span class="n">get_kmeans_prototypes</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_components</span><span class="p">,</span>
-                                               <span class="n">analyzer</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">analyzer</span><span class="p">,</span>
-                                               <span class="n">random_state</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">random_state</span><span class="p">)</span>
-            <span class="n">W</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ngrams_count_</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">prototypes</span><span class="p">)</span><span class="o">.</span><span class="n">A</span> <span class="o">+</span> <span class="mf">.1</span>
+                <span class="n">shape</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">gamma_shape_prior</span><span class="p">,</span>
+                <span class="n">scale</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">gamma_scale_prior</span><span class="p">,</span>
+                <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_components</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_vocab</span><span class="p">),</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">init</span> <span class="o">==</span> <span class="s2">&quot;k-means&quot;</span><span class="p">:</span>
+            <span class="n">prototypes</span> <span class="o">=</span> <span class="n">get_kmeans_prototypes</span><span class="p">(</span>
+                <span class="n">X</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">n_components</span><span class="p">,</span>
+                <span class="n">analyzer</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">analyzer</span><span class="p">,</span>
+                <span class="n">random_state</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">random_state</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">W</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ngrams_count_</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">prototypes</span><span class="p">)</span><span class="o">.</span><span class="n">A</span> <span class="o">+</span> <span class="mf">0.1</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_words</span><span class="p">:</span>
-                <span class="n">W2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">word_count_</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">prototypes</span><span class="p">)</span><span class="o">.</span><span class="n">A</span> <span class="o">+</span> <span class="mf">.1</span>
+                <span class="n">W2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">word_count_</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">prototypes</span><span class="p">)</span><span class="o">.</span><span class="n">A</span> <span class="o">+</span> <span class="mf">0.1</span>
                 <span class="n">W</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">W</span><span class="p">,</span> <span class="n">W2</span><span class="p">))</span>
             <span class="c1"># if k-means doesn&#39;t find the exact number of prototypes</span>
             <span class="k">if</span> <span class="n">W</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_components</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">Version</span><span class="p">(</span><span class="n">sklearn_version</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">Version</span><span class="p">(</span><span class="s1">&#39;0.24&#39;</span><span class="p">):</span>
-                    <span class="n">W2</span> <span class="o">=</span> <span class="n">_k_init</span><span class="p">(</span>
-                        <span class="n">V</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_components</span> <span class="o">-</span> <span class="n">W</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-                        <span class="n">x_squared_norms</span><span class="o">=</span><span class="n">row_norms</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="n">squared</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-                        <span class="n">random_state</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">random_state</span><span class="p">,</span>
-                        <span class="n">n_local_trials</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">+</span> <span class="mf">.1</span>
+                <span class="k">if</span> <span class="n">Version</span><span class="p">(</span><span class="n">sklearn_version</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">Version</span><span class="p">(</span><span class="s2">&quot;0.24&quot;</span><span class="p">):</span>
+                    <span class="n">W2</span> <span class="o">=</span> <span class="p">(</span>
+                        <span class="n">_k_init</span><span class="p">(</span>
+                            <span class="n">V</span><span class="p">,</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">n_components</span> <span class="o">-</span> <span class="n">W</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                            <span class="n">x_squared_norms</span><span class="o">=</span><span class="n">row_norms</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="n">squared</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+                            <span class="n">random_state</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">random_state</span><span class="p">,</span>
+                            <span class="n">n_local_trials</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                        <span class="p">)</span>
+                        <span class="o">+</span> <span class="mf">0.1</span>
+                    <span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">W2</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">kmeans_plusplus</span><span class="p">(</span>
-                        <span class="n">V</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_components</span> <span class="o">-</span> <span class="n">W</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                        <span class="n">V</span><span class="p">,</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">n_components</span> <span class="o">-</span> <span class="n">W</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
                         <span class="n">x_squared_norms</span><span class="o">=</span><span class="n">row_norms</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="n">squared</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
                         <span class="n">random_state</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">random_state</span><span class="p">,</span>
-                        <span class="n">n_local_trials</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-                    <span class="n">W2</span> <span class="o">=</span> <span class="n">W2</span> <span class="o">+</span> <span class="mf">.1</span>
+                        <span class="n">n_local_trials</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                    <span class="p">)</span>
+                    <span class="n">W2</span> <span class="o">=</span> <span class="n">W2</span> <span class="o">+</span> <span class="mf">0.1</span>
                 <span class="n">W</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">W</span><span class="p">,</span> <span class="n">W2</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s1">&#39;Initialization method </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">init</span><span class="si">!r}</span><span class="s1"> does not exist. &#39;</span>
-            <span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Initialization method </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">init</span><span class="si">!r}</span><span class="s2"> does not exist. &quot;</span><span class="p">)</span>
         <span class="n">W</span> <span class="o">/=</span> <span class="n">W</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">n_components</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_vocab</span><span class="p">))</span> <span class="o">*</span> <span class="mf">1e-10</span>
         <span class="n">B</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
@@ -317,7 +337,7 @@
 <span class="sd">            The string data to fit the model on.</span>
 <span class="sd">        y : None</span>
 <span class="sd">            Unused, only here for compatibility.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        self</span>
@@ -336,26 +356,34 @@
 
         <span class="k">for</span> <span class="n">n_iter_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max_iter</span><span class="p">):</span>
             <span class="c1"># Loop over batches</span>
-            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">unq_idx</span><span class="p">,</span> <span class="n">idx</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">batch_lookup</span><span class="p">(</span>
-              <span class="n">lookup</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span><span class="p">)):</span>
-                <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">n_batch</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">unq_idx</span><span class="p">,</span> <span class="n">idx</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">batch_lookup</span><span class="p">(</span><span class="n">lookup</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">n_batch</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
                     <span class="n">W_last</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">W_</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
                 <span class="c1"># Update activations unq_H</span>
                 <span class="n">unq_H</span><span class="p">[</span><span class="n">unq_idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">_multiplicative_update_h</span><span class="p">(</span>
-                    <span class="n">unq_V</span><span class="p">[</span><span class="n">unq_idx</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">W_</span><span class="p">,</span> <span class="n">unq_H</span><span class="p">[</span><span class="n">unq_idx</span><span class="p">],</span>
-                    <span class="n">epsilon</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">max_iter_e_step</span><span class="p">,</span>
+                    <span class="n">unq_V</span><span class="p">[</span><span class="n">unq_idx</span><span class="p">],</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">W_</span><span class="p">,</span>
+                    <span class="n">unq_H</span><span class="p">[</span><span class="n">unq_idx</span><span class="p">],</span>
+                    <span class="n">epsilon</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">,</span>
+                    <span class="n">max_iter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">max_iter_e_step</span><span class="p">,</span>
                     <span class="n">rescale_W</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rescale_W</span><span class="p">,</span>
                     <span class="n">gamma_shape_prior</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">gamma_shape_prior</span><span class="p">,</span>
-                    <span class="n">gamma_scale_prior</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">gamma_scale_prior</span><span class="p">)</span>
+                    <span class="n">gamma_scale_prior</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">gamma_scale_prior</span><span class="p">,</span>
+                <span class="p">)</span>
                 <span class="c1"># Update the topics self.W_</span>
                 <span class="n">_multiplicative_update_w</span><span class="p">(</span>
-                    <span class="n">unq_V</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">W_</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">A_</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">B_</span><span class="p">,</span> <span class="n">unq_H</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">rescale_W</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rho_</span><span class="p">)</span>
+                    <span class="n">unq_V</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">W_</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">A_</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">B_</span><span class="p">,</span>
+                    <span class="n">unq_H</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">rescale_W</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">rho_</span><span class="p">,</span>
+                <span class="p">)</span>
 
-                <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">n_batch</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">n_batch</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
                     <span class="c1"># Compute the norm of the update of W in the last batch</span>
-                    <span class="n">W_change</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">W_</span> <span class="o">-</span> <span class="n">W_last</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">W_last</span><span class="p">)</span>
+                    <span class="n">W_change</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">W_</span> <span class="o">-</span> <span class="n">W_last</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">W_last</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="p">(</span><span class="n">W_change</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">tol</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">n_iter_</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_iter</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
                 <span class="k">break</span>  <span class="c1"># Stop if the change in W is smaller than the tolerance</span>
@@ -364,7 +392,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">H_dict_</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">unq_X</span><span class="p">,</span> <span class="n">unq_H</span><span class="p">))</span>
         <span class="k">return</span> <span class="bp">self</span>
 
-    <span class="k">def</span> <span class="nf">get_feature_names</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_labels</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get_feature_names</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_labels</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Ensures compatibility with sklearn &lt; 1.0.</span>
 <span class="sd">        Use `get_feature_names_out` instead.</span>
@@ -378,8 +406,11 @@
         <span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">(</span><span class="n">n_labels</span><span class="o">=</span><span class="n">n_labels</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="n">prefix</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">get_feature_names_out</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_labels</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="n">prefix</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
-                              <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="nf">get_feature_names_out</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">n_labels</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="n">prefix</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the labels that best summarize the learned components/topics.</span>
 <span class="sd">        For each topic, labels with the highest activations are selected.</span>
@@ -399,7 +430,7 @@
 
         <span class="n">vectorizer</span> <span class="o">=</span> <span class="n">CountVectorizer</span><span class="p">()</span>
         <span class="n">vectorizer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">H_dict_</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
-        <span class="k">if</span> <span class="n">Version</span><span class="p">(</span><span class="n">sklearn_version</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">Version</span><span class="p">(</span><span class="s1">&#39;1.0&#39;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">Version</span><span class="p">(</span><span class="n">sklearn_version</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">Version</span><span class="p">(</span><span class="s2">&quot;1.0&quot;</span><span class="p">):</span>
             <span class="n">vocabulary</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">vectorizer</span><span class="o">.</span><span class="n">get_feature_names</span><span class="p">())</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">vocabulary</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">vectorizer</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">())</span>
@@ -412,7 +443,7 @@
             <span class="n">x</span> <span class="o">=</span> <span class="n">encoding</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span>
             <span class="n">labels</span> <span class="o">=</span> <span class="n">vocabulary</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">)[:</span><span class="n">n_labels</span><span class="p">]]</span>
             <span class="n">topic_labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
-        <span class="n">topic_labels</span> <span class="o">=</span> <span class="p">[</span><span class="n">prefix</span> <span class="o">+</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">label</span><span class="p">)</span> <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">topic_labels</span><span class="p">]</span>
+        <span class="n">topic_labels</span> <span class="o">=</span> <span class="p">[</span><span class="n">prefix</span> <span class="o">+</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">label</span><span class="p">)</span> <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">topic_labels</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">topic_labels</span>
 
     <span class="k">def</span> <span class="nf">score</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
@@ -436,23 +467,26 @@
         <span class="n">unq_V</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ngrams_count_</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">unq_X</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_words</span><span class="p">:</span>
             <span class="n">unq_V2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">word_count_</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">unq_X</span><span class="p">)</span>
-            <span class="n">unq_V</span> <span class="o">=</span> <span class="n">sparse</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">unq_V</span><span class="p">,</span> <span class="n">unq_V2</span><span class="p">),</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;csr&#39;</span><span class="p">)</span>
+            <span class="n">unq_V</span> <span class="o">=</span> <span class="n">sparse</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">unq_V</span><span class="p">,</span> <span class="n">unq_V2</span><span class="p">),</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;csr&quot;</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_add_unseen_keys_to_H_dict</span><span class="p">(</span><span class="n">unq_X</span><span class="p">)</span>
         <span class="n">unq_H</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_H</span><span class="p">(</span><span class="n">unq_X</span><span class="p">)</span>
         <span class="c1"># Given the learnt topics W, optimize the activations H to fit V = HW</span>
-        <span class="k">for</span> <span class="nb">slice</span> <span class="ow">in</span> <span class="n">gen_batches</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="n">unq_H</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-                                 <span class="n">batch_size</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span><span class="p">):</span>
+        <span class="k">for</span> <span class="nb">slice</span> <span class="ow">in</span> <span class="n">gen_batches</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="n">unq_H</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">batch_size</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span><span class="p">):</span>
             <span class="n">unq_H</span><span class="p">[</span><span class="nb">slice</span><span class="p">]</span> <span class="o">=</span> <span class="n">_multiplicative_update_h</span><span class="p">(</span>
-                <span class="n">unq_V</span><span class="p">[</span><span class="nb">slice</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">W_</span><span class="p">,</span> <span class="n">unq_H</span><span class="p">[</span><span class="nb">slice</span><span class="p">],</span>
-                <span class="n">epsilon</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">max_iter_e_step</span><span class="p">,</span>
+                <span class="n">unq_V</span><span class="p">[</span><span class="nb">slice</span><span class="p">],</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">W_</span><span class="p">,</span>
+                <span class="n">unq_H</span><span class="p">[</span><span class="nb">slice</span><span class="p">],</span>
+                <span class="n">epsilon</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">,</span>
+                <span class="n">max_iter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">max_iter_e_step</span><span class="p">,</span>
                 <span class="n">rescale_W</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rescale_W</span><span class="p">,</span>
                 <span class="n">gamma_shape_prior</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">gamma_shape_prior</span><span class="p">,</span>
-                <span class="n">gamma_scale_prior</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">gamma_scale_prior</span><span class="p">)</span>
+                <span class="n">gamma_scale_prior</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">gamma_scale_prior</span><span class="p">,</span>
+            <span class="p">)</span>
         <span class="c1"># Compute the KL divergence between V and HW</span>
         <span class="n">kl_divergence</span> <span class="o">=</span> <span class="n">_beta_divergence</span><span class="p">(</span>
-            <span class="n">unq_V</span><span class="p">[</span><span class="n">lookup</span><span class="p">],</span> <span class="n">unq_H</span><span class="p">[</span><span class="n">lookup</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">W_</span><span class="p">,</span>
-            <span class="s1">&#39;kullback-leibler&#39;</span><span class="p">,</span> <span class="n">square_root</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">unq_V</span><span class="p">[</span><span class="n">lookup</span><span class="p">],</span> <span class="n">unq_H</span><span class="p">[</span><span class="n">lookup</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">W_</span><span class="p">,</span> <span class="s2">&quot;kullback-leibler&quot;</span><span class="p">,</span> <span class="n">square_root</span><span class="o">=</span><span class="kc">False</span>
+        <span class="p">)</span>
         <span class="k">return</span> <span class="n">kl_divergence</span>
 
     <span class="k">def</span> <span class="nf">partial_fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;GapEncoderColumn&quot;</span><span class="p">:</span>
@@ -467,57 +501,68 @@
 <span class="sd">            The string data to fit the model on.</span>
 <span class="sd">        y : None</span>
 <span class="sd">            Unused, only here for compatibility.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        GapEncoderColumn</span>
 <span class="sd">            The fitted GapEncoderColumn instance.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        
+
         <span class="c1"># Init H_dict_ with empty dict if it&#39;s the first call of partial_fit</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;H_dict_&#39;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;H_dict_&quot;</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">H_dict_</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
         <span class="c1"># Same thing for the rho_ parameter</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;rho_&#39;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;rho_&quot;</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">rho_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rho</span>
         <span class="c1"># Check if first item has str or np.str_ type</span>
         <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">str</span><span class="p">),</span> <span class="s2">&quot;Input data is not string. &quot;</span>
         <span class="c1"># Check if it is not the first batch</span>
-        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;vocabulary&#39;</span><span class="p">):</span>  <span class="c1"># Update unq_X, unq_V with new batch</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;vocabulary&quot;</span><span class="p">):</span>  <span class="c1"># Update unq_X, unq_V with new batch</span>
             <span class="n">unq_X</span><span class="p">,</span> <span class="n">lookup</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">return_inverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
             <span class="n">unq_V</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ngrams_count_</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">unq_X</span><span class="p">)</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_words</span><span class="p">:</span>
                 <span class="n">unq_V2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">word_count_</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">unq_X</span><span class="p">)</span>
-                <span class="n">unq_V</span> <span class="o">=</span> <span class="n">sparse</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">unq_V</span><span class="p">,</span> <span class="n">unq_V2</span><span class="p">),</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;csr&#39;</span><span class="p">)</span>
+                <span class="n">unq_V</span> <span class="o">=</span> <span class="n">sparse</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">unq_V</span><span class="p">,</span> <span class="n">unq_V2</span><span class="p">),</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;csr&quot;</span><span class="p">)</span>
 
             <span class="n">unseen_X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">setdiff1d</span><span class="p">(</span><span class="n">unq_X</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">H_dict_</span><span class="p">]))</span>
             <span class="n">unseen_V</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ngrams_count_</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">unseen_X</span><span class="p">)</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_words</span><span class="p">:</span>
                 <span class="n">unseen_V2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">word_count_</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">unseen_X</span><span class="p">)</span>
-                <span class="n">unseen_V</span> <span class="o">=</span> <span class="n">sparse</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">unseen_V</span><span class="p">,</span> <span class="n">unseen_V2</span><span class="p">),</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;csr&#39;</span><span class="p">)</span>
+                <span class="n">unseen_V</span> <span class="o">=</span> <span class="n">sparse</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">unseen_V</span><span class="p">,</span> <span class="n">unseen_V2</span><span class="p">),</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;csr&quot;</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="n">unseen_V</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="n">unseen_H</span> <span class="o">=</span> <span class="n">_rescale_h</span><span class="p">(</span>
-                    <span class="n">unseen_V</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">unseen_X</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_components</span><span class="p">)))</span>
+                    <span class="n">unseen_V</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">unseen_X</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_components</span><span class="p">))</span>
+                <span class="p">)</span>
                 <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">h</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">unseen_X</span><span class="p">,</span> <span class="n">unseen_H</span><span class="p">):</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">H_dict_</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">h</span>
                 <span class="k">del</span> <span class="n">unseen_H</span>
             <span class="k">del</span> <span class="n">unseen_X</span><span class="p">,</span> <span class="n">unseen_V</span>
-        <span class="k">else</span><span class="p">:</span> <span class="c1"># If it is the first batch, call _init_vars to init unq_X, unq_V</span>
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># If it is the first batch, call _init_vars to init unq_X, unq_V</span>
             <span class="n">unq_X</span><span class="p">,</span> <span class="n">unq_V</span><span class="p">,</span> <span class="n">lookup</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_init_vars</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 
         <span class="n">unq_H</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_H</span><span class="p">(</span><span class="n">unq_X</span><span class="p">)</span>
         <span class="c1"># Update unq_H, the activations</span>
         <span class="n">unq_H</span> <span class="o">=</span> <span class="n">_multiplicative_update_h</span><span class="p">(</span>
-            <span class="n">unq_V</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">W_</span><span class="p">,</span> <span class="n">unq_H</span><span class="p">,</span>
-            <span class="n">epsilon</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">max_iter_e_step</span><span class="p">,</span>
+            <span class="n">unq_V</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">W_</span><span class="p">,</span>
+            <span class="n">unq_H</span><span class="p">,</span>
+            <span class="n">epsilon</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">,</span>
+            <span class="n">max_iter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">max_iter_e_step</span><span class="p">,</span>
             <span class="n">rescale_W</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rescale_W</span><span class="p">,</span>
             <span class="n">gamma_shape_prior</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">gamma_shape_prior</span><span class="p">,</span>
-            <span class="n">gamma_scale_prior</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">gamma_scale_prior</span><span class="p">)</span>
+            <span class="n">gamma_scale_prior</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">gamma_scale_prior</span><span class="p">,</span>
+        <span class="p">)</span>
         <span class="c1"># Update the topics self.W_</span>
         <span class="n">_multiplicative_update_w</span><span class="p">(</span>
-            <span class="n">unq_V</span><span class="p">[</span><span class="n">lookup</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">W_</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">A_</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">B_</span><span class="p">,</span>
-            <span class="n">unq_H</span><span class="p">[</span><span class="n">lookup</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">rescale_W</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rho_</span><span class="p">)</span>
+            <span class="n">unq_V</span><span class="p">[</span><span class="n">lookup</span><span class="p">],</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">W_</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">A_</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">B_</span><span class="p">,</span>
+            <span class="n">unq_H</span><span class="p">[</span><span class="n">lookup</span><span class="p">],</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rescale_W</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rho_</span><span class="p">,</span>
+        <span class="p">)</span>
         <span class="c1"># Update self.H_dict_ with the learned encoded vectors (activations)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">H_dict_</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">unq_X</span><span class="p">,</span> <span class="n">unq_H</span><span class="p">))</span>
         <span class="k">return</span> <span class="bp">self</span>
@@ -531,10 +576,11 @@
             <span class="n">unseen_V</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ngrams_count_</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">unseen_X</span><span class="p">)</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_words</span><span class="p">:</span>
                 <span class="n">unseen_V2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">word_count_</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">unseen_X</span><span class="p">)</span>
-                <span class="n">unseen_V</span> <span class="o">=</span> <span class="n">sparse</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">unseen_V</span><span class="p">,</span> <span class="n">unseen_V2</span><span class="p">),</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;csr&#39;</span><span class="p">)</span>
+                <span class="n">unseen_V</span> <span class="o">=</span> <span class="n">sparse</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">unseen_V</span><span class="p">,</span> <span class="n">unseen_V2</span><span class="p">),</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;csr&quot;</span><span class="p">)</span>
 
             <span class="n">unseen_H</span> <span class="o">=</span> <span class="n">_rescale_h</span><span class="p">(</span>
-                <span class="n">unseen_V</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">unseen_V</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_components</span><span class="p">)))</span>
+                <span class="n">unseen_V</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">unseen_V</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_components</span><span class="p">))</span>
+            <span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">H_dict_</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">unseen_X</span><span class="p">,</span> <span class="n">unseen_H</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">:</span>
@@ -557,22 +603,25 @@
         <span class="n">unq_X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
         <span class="c1"># Build the n-grams counts matrix V for the string data to encode</span>
         <span class="n">unq_V</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ngrams_count_</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">unq_X</span><span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_words</span><span class="p">:</span> <span class="c1"># Add words counts</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_words</span><span class="p">:</span>  <span class="c1"># Add words counts</span>
             <span class="n">unq_V2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">word_count_</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">unq_X</span><span class="p">)</span>
-            <span class="n">unq_V</span> <span class="o">=</span> <span class="n">sparse</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">unq_V</span><span class="p">,</span> <span class="n">unq_V2</span><span class="p">),</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;csr&#39;</span><span class="p">)</span>
+            <span class="n">unq_V</span> <span class="o">=</span> <span class="n">sparse</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">unq_V</span><span class="p">,</span> <span class="n">unq_V2</span><span class="p">),</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;csr&quot;</span><span class="p">)</span>
         <span class="c1"># Add unseen strings in X to H_dict</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_add_unseen_keys_to_H_dict</span><span class="p">(</span><span class="n">unq_X</span><span class="p">)</span>
         <span class="n">unq_H</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_H</span><span class="p">(</span><span class="n">unq_X</span><span class="p">)</span>
         <span class="c1"># Loop over batches</span>
-        <span class="k">for</span> <span class="n">slc</span> <span class="ow">in</span> <span class="n">gen_batches</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="n">unq_H</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-                               <span class="n">batch_size</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">slc</span> <span class="ow">in</span> <span class="n">gen_batches</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="n">unq_H</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">batch_size</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span><span class="p">):</span>
             <span class="c1"># Given the learnt topics W, optimize H to fit V = HW</span>
             <span class="n">unq_H</span><span class="p">[</span><span class="n">slc</span><span class="p">]</span> <span class="o">=</span> <span class="n">_multiplicative_update_h</span><span class="p">(</span>
-                <span class="n">unq_V</span><span class="p">[</span><span class="n">slc</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">W_</span><span class="p">,</span> <span class="n">unq_H</span><span class="p">[</span><span class="n">slc</span><span class="p">],</span>
-                <span class="n">epsilon</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+                <span class="n">unq_V</span><span class="p">[</span><span class="n">slc</span><span class="p">],</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">W_</span><span class="p">,</span>
+                <span class="n">unq_H</span><span class="p">[</span><span class="n">slc</span><span class="p">],</span>
+                <span class="n">epsilon</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">,</span>
+                <span class="n">max_iter</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
                 <span class="n">rescale_W</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rescale_W</span><span class="p">,</span>
                 <span class="n">gamma_shape_prior</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">gamma_shape_prior</span><span class="p">,</span>
-                <span class="n">gamma_scale_prior</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">gamma_scale_prior</span><span class="p">)</span>
+                <span class="n">gamma_scale_prior</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">gamma_scale_prior</span><span class="p">,</span>
+            <span class="p">)</span>
         <span class="c1"># Store and return the encoded vectors of X</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">H_dict_</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">unq_X</span><span class="p">,</span> <span class="n">unq_H</span><span class="p">))</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_H</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
@@ -659,34 +708,35 @@
 <span class="sd">    For a detailed description of the method, see</span>
 <span class="sd">    `Encoding high-cardinality string categorical variables</span>
 <span class="sd">    &lt;https://hal.inria.fr/hal-02171256v4&gt;`_ by Cerda, Varoquaux (2019).</span>
-<span class="sd">    </span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">rho_</span><span class="p">:</span> <span class="nb">float</span>
     <span class="n">fitted_models_</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">GapEncoderColumn</span><span class="p">]</span>
     <span class="n">column_names_</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
-                 <span class="n">n_components</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
-                 <span class="n">batch_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">128</span><span class="p">,</span>
-                 <span class="n">gamma_shape_prior</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.1</span><span class="p">,</span>
-                 <span class="n">gamma_scale_prior</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
-                 <span class="n">rho</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">.95</span><span class="p">,</span>
-                 <span class="n">rescale_rho</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-                 <span class="n">hashing</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-                 <span class="n">hashing_n_features</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="o">**</span><span class="mi">12</span><span class="p">,</span>
-                 <span class="n">init</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;k-means++&quot;</span><span class="p">,</span> <span class="s2">&quot;random&quot;</span><span class="p">,</span> <span class="s2">&quot;k-means&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;k-means++&#39;</span><span class="p">,</span>
-                 <span class="n">tol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-4</span><span class="p">,</span>
-                 <span class="n">min_iter</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
-                 <span class="n">max_iter</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
-                 <span class="n">ngram_range</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
-                 <span class="n">analyzer</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;word&quot;</span><span class="p">,</span> <span class="s2">&quot;char&quot;</span><span class="p">,</span> <span class="s2">&quot;char_wb&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;char&#39;</span><span class="p">,</span>
-                 <span class="n">add_words</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-                 <span class="n">random_state</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">RandomState</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-                 <span class="n">rescale_W</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-                 <span class="n">max_iter_e_step</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span>
-                 <span class="n">handle_missing</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;empty_impute&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;zero_impute&#39;</span><span class="p">):</span>
-
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">n_components</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="n">batch_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">128</span><span class="p">,</span>
+        <span class="n">gamma_shape_prior</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.1</span><span class="p">,</span>
+        <span class="n">gamma_scale_prior</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+        <span class="n">rho</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.95</span><span class="p">,</span>
+        <span class="n">rescale_rho</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">hashing</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">hashing_n_features</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="o">**</span><span class="mi">12</span><span class="p">,</span>
+        <span class="n">init</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;k-means++&quot;</span><span class="p">,</span> <span class="s2">&quot;random&quot;</span><span class="p">,</span> <span class="s2">&quot;k-means&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;k-means++&quot;</span><span class="p">,</span>
+        <span class="n">tol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-4</span><span class="p">,</span>
+        <span class="n">min_iter</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="n">max_iter</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
+        <span class="n">ngram_range</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+        <span class="n">analyzer</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;word&quot;</span><span class="p">,</span> <span class="s2">&quot;char&quot;</span><span class="p">,</span> <span class="s2">&quot;char_wb&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;char&quot;</span><span class="p">,</span>
+        <span class="n">add_words</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">random_state</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">RandomState</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">rescale_W</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">max_iter_e_step</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span>
+        <span class="n">handle_missing</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;empty_impute&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;zero_impute&quot;</span><span class="p">,</span>
+    <span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ngram_range</span> <span class="o">=</span> <span class="n">ngram_range</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">n_components</span> <span class="o">=</span> <span class="n">n_components</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">gamma_shape_prior</span> <span class="o">=</span> <span class="n">gamma_shape_prior</span>  <span class="c1"># &#39;a&#39; parameter</span>
@@ -717,7 +767,7 @@
         <span class="k">return</span> <span class="n">GapEncoderColumn</span><span class="p">(</span>
             <span class="n">ngram_range</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ngram_range</span><span class="p">,</span>
             <span class="n">n_components</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_components</span><span class="p">,</span>
-            <span class="n">analyzer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">analyzer</span><span class="p">,</span>
+            <span class="n">analyzer</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">analyzer</span><span class="p">,</span>
             <span class="n">gamma_shape_prior</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">gamma_shape_prior</span><span class="p">,</span>
             <span class="n">gamma_scale_prior</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">gamma_scale_prior</span><span class="p">,</span>
             <span class="n">rho</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rho</span><span class="p">,</span>
@@ -739,22 +789,22 @@
 <span class="sd">        Imputes missing values with `` or raises an error</span>
 <span class="sd">        Note: modifies the array in-place.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_missing</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="s1">&#39;zero_impute&#39;</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_missing</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;zero_impute&quot;</span><span class="p">]:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;handle_missing should be either &#39;error&#39; or &quot;</span>
+                <span class="s2">&quot;handle_missing should be either &#39;error&#39; or &quot;</span>
                 <span class="sa">f</span><span class="s2">&quot;&#39;zero_impute&#39;, got </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">handle_missing</span><span class="si">!r}</span><span class="s2">. &quot;</span>
             <span class="p">)</span>
 
         <span class="n">missing_mask</span> <span class="o">=</span> <span class="n">_object_dtype_isnan</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">missing_mask</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_missing</span> <span class="o">==</span> <span class="s1">&#39;error&#39;</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Input data contains missing values. &#39;</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_missing</span> <span class="o">==</span> <span class="s1">&#39;zero_impute&#39;</span><span class="p">:</span>
-                <span class="n">X</span><span class="p">[</span><span class="n">missing_mask</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_missing</span> <span class="o">==</span> <span class="s2">&quot;error&quot;</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Input data contains missing values. &quot;</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_missing</span> <span class="o">==</span> <span class="s2">&quot;zero_impute&quot;</span><span class="p">:</span>
+                <span class="n">X</span><span class="p">[</span><span class="n">missing_mask</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 
         <span class="k">return</span> <span class="n">X</span>
-            
+
 <div class="viewcode-block" id="GapEncoder.fit"><a class="viewcode-back" href="../../generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;GapEncoder&quot;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Fit the GapEncoder on batches of X.</span>
@@ -765,7 +815,7 @@
 <span class="sd">            The string data to fit the model on.</span>
 <span class="sd">        y : None</span>
 <span class="sd">            Unused, only here for compatibility.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        GapEncoder</span>
@@ -792,10 +842,10 @@
 <span class="sd">        Given the learnt topics W, the activations H are tuned to fit V = HW.</span>
 <span class="sd">        When X has several columns, they are encoded separately and</span>
 <span class="sd">        then concatenated.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Remark: calling transform multiple times in a row on the same</span>
 <span class="sd">        input X can give slightly different encodings. This is expected</span>
-<span class="sd">        due to a caching mechanism to speed things up.        </span>
+<span class="sd">        due to a caching mechanism to speed things up.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -844,7 +894,7 @@
         <span class="n">X</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handle_missing</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
         <span class="c1"># Init the `GapEncoderColumn` instances if the model was</span>
         <span class="c1"># not fitted already.</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;fitted_models_&#39;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;fitted_models_&quot;</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">fitted_models_</span> <span class="o">=</span> <span class="p">[</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_create_column_gap_encoder</span><span class="p">()</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
             <span class="p">]</span>
@@ -852,24 +902,25 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">fitted_models_</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">partial_fit</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="n">k</span><span class="p">])</span>
         <span class="k">return</span> <span class="bp">self</span></div>
 
-<div class="viewcode-block" id="GapEncoder.get_feature_names_out"><a class="viewcode-back" href="../../generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder.get_feature_names_out">[docs]</a>    <span class="k">def</span> <span class="nf">get_feature_names_out</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
-                              <span class="n">col_names</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;auto&quot;</span><span class="p">],</span>
-                                                        <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-                              <span class="n">n_labels</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">):</span>
+<div class="viewcode-block" id="GapEncoder.get_feature_names_out"><a class="viewcode-back" href="../../generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder.get_feature_names_out">[docs]</a>    <span class="k">def</span> <span class="nf">get_feature_names_out</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">col_names</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;auto&quot;</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">n_labels</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the labels that best summarize the learned components/topics.</span>
 <span class="sd">        For each topic, labels with the highest activations are selected.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        col_names : typing.Optional[typing.Union[typing.Literal[&quot;auto&quot;], typing.List[str]]], default=None</span>
+<span class="sd">        col_names : typing.Optional[typing.Union[typing.Literal[&quot;auto&quot;], typing.List[str]]], default=None  # noqa</span>
 <span class="sd">            The column names to be added as prefixes before the labels.</span>
 <span class="sd">            If col_names == None, no prefixes are used.</span>
 <span class="sd">            If col_names == &#39;auto&#39;, column names are automatically defined:</span>
 <span class="sd">                - if the input data was a dataframe, its column names are used,</span>
 <span class="sd">                - otherwise, &#39;col1&#39;, ..., &#39;colN&#39; are used as prefixes.</span>
 <span class="sd">            Prefixes can be manually set by passing a list for col_names.</span>
-<span class="sd">            </span>
+
 <span class="sd">        n_labels : int, default=3</span>
 <span class="sd">            The number of labels used to describe each topic.</span>
 
@@ -878,36 +929,33 @@
 <span class="sd">        topic_labels : list of strings</span>
 <span class="sd">            The labels that best describe each topic.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">assert</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;fitted_models_&#39;</span><span class="p">),</span> <span class="p">(</span>
-            <span class="s1">&#39;ERROR: GapEncoder must be fitted first.&#39;</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">hasattr</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;fitted_models_&quot;</span>
+        <span class="p">),</span> <span class="s2">&quot;ERROR: GapEncoder must be fitted first.&quot;</span>
         <span class="c1"># Generate prefixes</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">col_names</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="n">col_names</span> <span class="o">==</span> <span class="s1">&#39;auto&#39;</span><span class="p">:</span>
-            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;column_names_&#39;</span><span class="p">):</span>  <span class="c1"># Use column names</span>
-                <span class="n">prefixes</span> <span class="o">=</span> <span class="p">[</span>
-                    <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">: &#39;</span> <span class="o">%</span> <span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">column_names_</span>
-                <span class="p">]</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">col_names</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="n">col_names</span> <span class="o">==</span> <span class="s2">&quot;auto&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;column_names_&quot;</span><span class="p">):</span>  <span class="c1"># Use column names</span>
+                <span class="n">prefixes</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">: &quot;</span> <span class="o">%</span> <span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">column_names_</span><span class="p">]</span>
             <span class="k">else</span><span class="p">:</span>  <span class="c1"># Use &#39;col1: &#39;, ... &#39;colN: &#39; as prefixes</span>
-                <span class="n">prefixes</span> <span class="o">=</span> <span class="p">[</span>
-                    <span class="s1">&#39;col</span><span class="si">%d</span><span class="s1">: &#39;</span> <span class="o">%</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fitted_models_</span><span class="p">))</span>
-                <span class="p">]</span>
+                <span class="n">prefixes</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;col</span><span class="si">%d</span><span class="s2">: &quot;</span> <span class="o">%</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fitted_models_</span><span class="p">))]</span>
         <span class="k">elif</span> <span class="n">col_names</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># Empty prefixes</span>
-            <span class="n">prefixes</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fitted_models_</span><span class="p">)</span>
+            <span class="n">prefixes</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fitted_models_</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">prefixes</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">: &#39;</span> <span class="o">%</span> <span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">col_names</span><span class="p">]</span>
+            <span class="n">prefixes</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">: &quot;</span> <span class="o">%</span> <span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">col_names</span><span class="p">]</span>
         <span class="n">labels</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">enc</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fitted_models_</span><span class="p">):</span>
             <span class="n">col_labels</span> <span class="o">=</span> <span class="n">enc</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">(</span><span class="n">n_labels</span><span class="p">,</span> <span class="n">prefixes</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
             <span class="n">labels</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">col_labels</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">labels</span></div>
-    
-<div class="viewcode-block" id="GapEncoder.get_feature_names"><a class="viewcode-back" href="../../generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder.get_feature_names">[docs]</a>    <span class="k">def</span> <span class="nf">get_feature_names</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_features</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                          <span class="n">col_names</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">n_labels</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span>
-                          <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+
+<div class="viewcode-block" id="GapEncoder.get_feature_names"><a class="viewcode-back" href="../../generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder.get_feature_names">[docs]</a>    <span class="k">def</span> <span class="nf">get_feature_names</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">input_features</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">col_names</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">n_labels</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Ensures compatibility with sklearn &lt; 1.0.</span>
 <span class="sd">        Use `get_feature_names_out` instead.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">Version</span><span class="p">(</span><span class="n">sklearn_version</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="s1">&#39;1.0&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">Version</span><span class="p">(</span><span class="n">sklearn_version</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="s2">&quot;1.0&quot;</span><span class="p">:</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
                 <span class="s2">&quot;Following the changes in scikit-learn 1.0, &quot;</span>
                 <span class="s2">&quot;get_feature_names is deprecated. &quot;</span>
@@ -950,10 +998,15 @@
     <span class="n">A</span> <span class="o">/=</span> <span class="n">s</span>
 
 
-<span class="k">def</span> <span class="nf">_multiplicative_update_w</span><span class="p">(</span><span class="n">Vt</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">W</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">A</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span>
-                             <span class="n">B</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">Ht</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">rescale_W</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
-                             <span class="n">rho</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-                             <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">]:</span>
+<span class="k">def</span> <span class="nf">_multiplicative_update_w</span><span class="p">(</span>
+    <span class="n">Vt</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span>
+    <span class="n">W</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span>
+    <span class="n">A</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span>
+    <span class="n">B</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span>
+    <span class="n">Ht</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span>
+    <span class="n">rescale_W</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+    <span class="n">rho</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Multiplicative update step for the topics W.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -977,11 +1030,16 @@
     <span class="k">return</span> <span class="n">H</span>
 
 
-<span class="k">def</span> <span class="nf">_multiplicative_update_h</span><span class="p">(</span><span class="n">Vt</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">W</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">Ht</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span>
-                             <span class="n">epsilon</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-3</span><span class="p">,</span> <span class="n">max_iter</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
-                             <span class="n">rescale_W</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-                             <span class="n">gamma_shape_prior</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.1</span><span class="p">,</span>
-                             <span class="n">gamma_scale_prior</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">_multiplicative_update_h</span><span class="p">(</span>
+    <span class="n">Vt</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span>
+    <span class="n">W</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span>
+    <span class="n">Ht</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span>
+    <span class="n">epsilon</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-3</span><span class="p">,</span>
+    <span class="n">max_iter</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="n">rescale_W</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">gamma_shape_prior</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.1</span><span class="p">,</span>
+    <span class="n">gamma_scale_prior</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+<span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Multiplicative update step for the activations H.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -1004,14 +1062,15 @@
                 <span class="k">break</span>
             <span class="n">aux</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">W_WT1_</span><span class="p">,</span> <span class="n">vt_</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">ht</span><span class="p">,</span> <span class="n">W_</span><span class="p">)</span> <span class="o">+</span> <span class="mf">1e-10</span><span class="p">))</span>
             <span class="n">ht_out</span> <span class="o">=</span> <span class="n">ht</span> <span class="o">*</span> <span class="n">aux</span> <span class="o">+</span> <span class="n">const</span>
-            <span class="n">squared_norm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span>
-                <span class="n">ht_out</span> <span class="o">-</span> <span class="n">ht</span><span class="p">,</span> <span class="n">ht_out</span> <span class="o">-</span> <span class="n">ht</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">ht</span><span class="p">,</span> <span class="n">ht</span><span class="p">)</span>
+            <span class="n">squared_norm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">ht_out</span> <span class="o">-</span> <span class="n">ht</span><span class="p">,</span> <span class="n">ht_out</span> <span class="o">-</span> <span class="n">ht</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">ht</span><span class="p">,</span> <span class="n">ht</span><span class="p">)</span>
             <span class="n">ht</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">ht_out</span>
     <span class="k">return</span> <span class="n">Ht</span>
 
 
-<span class="k">def</span> <span class="nf">batch_lookup</span><span class="p">(</span><span class="n">lookup</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-                 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">],</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+<span class="k">def</span> <span class="nf">batch_lookup</span><span class="p">(</span>
+    <span class="n">lookup</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span>
+    <span class="n">n</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">],</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Make batches of the lookup array.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -1022,24 +1081,29 @@
         <span class="k">yield</span> <span class="n">unq_indices</span><span class="p">,</span> <span class="n">indices</span>
 
 
-<span class="k">def</span> <span class="nf">get_kmeans_prototypes</span><span class="p">(</span><span class="n">X</span><span class="p">,</span>
-                          <span class="n">n_prototypes</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-                          <span class="n">analyzer</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;word&quot;</span><span class="p">,</span> <span class="s2">&quot;char&quot;</span><span class="p">,</span> <span class="s2">&quot;char_wb&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;char&#39;</span><span class="p">,</span>
-                          <span class="n">hashing_dim</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">128</span><span class="p">,</span>
-                          <span class="n">ngram_range</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
-                          <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-                          <span class="n">sample_weight</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                          <span class="n">random_state</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">RandomState</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">get_kmeans_prototypes</span><span class="p">(</span>
+    <span class="n">X</span><span class="p">,</span>
+    <span class="n">n_prototypes</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">analyzer</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;word&quot;</span><span class="p">,</span> <span class="s2">&quot;char&quot;</span><span class="p">,</span> <span class="s2">&quot;char_wb&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;char&quot;</span><span class="p">,</span>
+    <span class="n">hashing_dim</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">128</span><span class="p">,</span>
+    <span class="n">ngram_range</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+    <span class="n">sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">sample_weight</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">random_state</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">RandomState</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Computes prototypes based on:</span>
 <span class="sd">      - dimensionality reduction (via hashing n-grams)</span>
 <span class="sd">      - k-means clustering</span>
 <span class="sd">      - nearest neighbor</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">vectorizer</span> <span class="o">=</span> <span class="n">HashingVectorizer</span><span class="p">(</span><span class="n">analyzer</span><span class="o">=</span><span class="n">analyzer</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                                   <span class="n">alternate_sign</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                                   <span class="n">ngram_range</span><span class="o">=</span><span class="n">ngram_range</span><span class="p">,</span>
-                                   <span class="n">n_features</span><span class="o">=</span><span class="n">hashing_dim</span><span class="p">)</span>
+    <span class="n">vectorizer</span> <span class="o">=</span> <span class="n">HashingVectorizer</span><span class="p">(</span>
+        <span class="n">analyzer</span><span class="o">=</span><span class="n">analyzer</span><span class="p">,</span>
+        <span class="n">norm</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">alternate_sign</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">ngram_range</span><span class="o">=</span><span class="n">ngram_range</span><span class="p">,</span>
+        <span class="n">n_features</span><span class="o">=</span><span class="n">hashing_dim</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="n">projected</span> <span class="o">=</span> <span class="n">vectorizer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">sparse</span><span class="p">:</span>
         <span class="n">projected</span> <span class="o">=</span> <span class="n">projected</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>

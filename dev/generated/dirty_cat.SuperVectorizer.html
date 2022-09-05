@@ -123,7 +123,7 @@ Different encoders will be applied to these two groups, defined by
 the parameters <cite>low_card_cat_transformer</cite> and
 <cite>high_card_cat_transformer</cite> respectively.</p>
 </dd>
-<dt><strong>low_card_cat_transformer</strong><span class="classifier">typing.Optional[typing.Union[sklearn.base.BaseEstimator, str]], default=None</span></dt><dd><p>Transformer used on categorical/string features with low cardinality
+<dt><strong>low_card_cat_transformer</strong><span class="classifier">typing.Optional[typing.Union[sklearn.base.BaseEstimator, str]], default=None  # noqa</span></dt><dd><p>Transformer used on categorical/string features with low cardinality
 (threshold is defined by <cite>cardinality_threshold</cite>).
 Default value None is converted to <cite>OneHotEncoder()</cite>.
 Can either be a transformer object instance (e.g. <cite>OneHotEncoder()</cite>),
@@ -131,7 +131,7 @@ a <cite>Pipeline</cite> containing the preprocessing steps,
 None to apply <cite>remainder</cite>, ‘drop’ for dropping the columns,
 or ‘passthrough’ to return the unencoded columns.</p>
 </dd>
-<dt><strong>high_card_cat_transformer</strong><span class="classifier">typing.Optional[typing.Union[sklearn.base.BaseEstimator, str]], default=None</span></dt><dd><p>Transformer used on categorical/string features with high cardinality
+<dt><strong>high_card_cat_transformer</strong><span class="classifier">typing.Optional[typing.Union[sklearn.base.BaseEstimator, str]], default=None  # noqa</span></dt><dd><p>Transformer used on categorical/string features with high cardinality
 (threshold is defined by <cite>cardinality_threshold</cite>).
 Default value None is converted to <cite>GapEncoder(n_components=30)</cite>.
 Can either be a transformer object instance (e.g. <cite>GapEncoder()</cite>),
@@ -139,7 +139,7 @@ a <cite>Pipeline</cite> containing the preprocessing steps,
 None to apply <cite>remainder</cite>, ‘drop’ for dropping the columns,
 or ‘passthrough’ to return the unencoded columns.</p>
 </dd>
-<dt><strong>numerical_transformer</strong><span class="classifier">typing.Optional[typing.Union[sklearn.base.BaseEstimator, str]], default=None</span></dt><dd><p>Transformer used on numerical features.
+<dt><strong>numerical_transformer</strong><span class="classifier">typing.Optional[typing.Union[sklearn.base.BaseEstimator,str]], default=None  # noqa</span></dt><dd><p>Transformer used on numerical features.
 Can either be a transformer object instance (e.g. <cite>StandardScaler()</cite>),
 a <cite>Pipeline</cite> containing the preprocessing steps,
 None to apply <cite>remainder</cite>, ‘drop’ for dropping the columns,
@@ -164,7 +164,7 @@ specific versions of pandas, numpy and scikit-learn).
 When imputed, missing values are replaced by the string ‘missing’.
 See also attribute <cite>imputed_columns_</cite>.</p>
 </dd>
-<dt><strong>remainder</strong><span class="classifier">typing.Union[typing.Literal[“drop”, “passthrough”], sklearn.base.BaseEstimator], default=’drop’</span></dt><dd><p>By default, only the specified columns in <cite>transformers</cite> are
+<dt><strong>remainder</strong><span class="classifier">typing.Union[typing.Literal[“drop”, “passthrough”], sklearn.base.BaseEstimator], default=’drop’  # noqa</span></dt><dd><p>By default, only the specified columns in <cite>transformers</cite> are
 transformed and combined in the output, and the non-specified
 columns are dropped. (default of <code class="docutils literal notranslate"><span class="pre">'drop'</span></code>).
 By specifying <code class="docutils literal notranslate"><span class="pre">remainder='passthrough'</span></code>, all remaining columns that
@@ -198,7 +198,7 @@ printed as it is completed</p>
 </dd>
 <dt class="field-even">Attributes<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
-<dt><strong>transformers_: typing.List[typing.Tuple[str, typing.Union[str, sklearn.base.BaseEstimator], typing.List[str]]]</strong></dt><dd><p>The final distribution of columns.
+<dt><strong>transformers_: typing.List[typing.Tuple[str, typing.Union[str, sklearn.base.BaseEstimator], typing.List[str]]]  # noqa</strong></dt><dd><p>The final distribution of columns.
 List of three-tuple containing
 (1) the name of the category
 (2) the encoder/transformer instance which will be applied
