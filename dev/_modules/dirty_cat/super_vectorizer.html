@@ -87,14 +87,13 @@
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">sklearn</span>
 <span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">__version__</span> <span class="k">as</span> <span class="n">sklearn_version</span>
 <span class="kn">from</span> <span class="nn">sklearn.base</span> <span class="kn">import</span> <span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">clone</span>
 <span class="kn">from</span> <span class="nn">sklearn.compose</span> <span class="kn">import</span> <span class="n">ColumnTransformer</span>
 <span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">OneHotEncoder</span>
 
 <span class="kn">from</span> <span class="nn">dirty_cat</span> <span class="kn">import</span> <span class="n">DatetimeEncoder</span><span class="p">,</span> <span class="n">GapEncoder</span>
-<span class="kn">from</span> <span class="nn">dirty_cat.utils</span> <span class="kn">import</span> <span class="n">Version</span>
+<span class="kn">from</span> <span class="nn">dirty_cat.utils</span> <span class="kn">import</span> <span class="n">Version</span><span class="p">,</span> <span class="n">check_input</span>
 
 
 <span class="k">def</span> <span class="nf">_has_missing_values</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
@@ -139,36 +138,35 @@
 <span class="sd">    low_card_cat_transformer : typing.Optional[typing.Union[sklearn.base.BaseEstimator, str]], default=None  # noqa</span>
 <span class="sd">        Transformer used on categorical/string features with low cardinality</span>
 <span class="sd">        (threshold is defined by `cardinality_threshold`).</span>
+<span class="sd">        Default value None is converted to `OneHotEncoder()`.</span>
 <span class="sd">        Can either be a transformer object instance (e.g. `OneHotEncoder()`),</span>
 <span class="sd">        a `Pipeline` containing the preprocessing steps,</span>
-<span class="sd">        &#39;drop&#39; for dropping the columns,</span>
-<span class="sd">        &#39;passthrough&#39; to return the unencoded columns,</span>
-<span class="sd">        or None to use the default transformer (`OneHotEncoder()`).</span>
+<span class="sd">        None to apply `remainder`, &#39;drop&#39; for dropping the columns,</span>
+<span class="sd">        or &#39;passthrough&#39; to return the unencoded columns.</span>
 
 <span class="sd">    high_card_cat_transformer : typing.Optional[typing.Union[sklearn.base.BaseEstimator, str]], default=None  # noqa</span>
 <span class="sd">        Transformer used on categorical/string features with high cardinality</span>
 <span class="sd">        (threshold is defined by `cardinality_threshold`).</span>
+<span class="sd">        Default value None is converted to `GapEncoder(n_components=30)`.</span>
 <span class="sd">        Can either be a transformer object instance (e.g. `GapEncoder()`),</span>
 <span class="sd">        a `Pipeline` containing the preprocessing steps,</span>
-<span class="sd">        &#39;drop&#39; for dropping the columns,</span>
-<span class="sd">        &#39;passthrough&#39; to return the unencoded columns,</span>
-<span class="sd">        or None to use the default transformer (`GapEncoder(n_components=30)`).</span>
+<span class="sd">        None to apply `remainder`, &#39;drop&#39; for dropping the columns,</span>
+<span class="sd">        or &#39;passthrough&#39; to return the unencoded columns.</span>
 
 <span class="sd">    numerical_transformer : typing.Optional[typing.Union[sklearn.base.BaseEstimator,str]], default=None  # noqa</span>
 <span class="sd">        Transformer used on numerical features.</span>
 <span class="sd">        Can either be a transformer object instance (e.g. `StandardScaler()`),</span>
 <span class="sd">        a `Pipeline` containing the preprocessing steps,</span>
-<span class="sd">        &#39;drop&#39; for dropping the columns,</span>
-<span class="sd">        &#39;passthrough&#39; to return the unencoded columns,</span>
-<span class="sd">        or None to use the default transformer (here nothing).</span>
+<span class="sd">        None to apply `remainder`, &#39;drop&#39; for dropping the columns,</span>
+<span class="sd">        or &#39;passthrough&#39; to return the unencoded columns.</span>
 
 <span class="sd">    datetime_transformer : typing.Optional[typing.Union[sklearn.base.BaseEstimator, str]], default=None</span>
 <span class="sd">        Transformer used on datetime features.</span>
+<span class="sd">        Default value None is converted to `DatetimeEncoder()`.</span>
 <span class="sd">        Can either be a transformer object instance (e.g. `DatetimeEncoder()`),</span>
 <span class="sd">        a `Pipeline` containing the preprocessing steps,</span>
-<span class="sd">        &#39;drop&#39; for dropping the columns,</span>
-<span class="sd">        &#39;passthrough&#39; to return the unencoded columns,</span>
-<span class="sd">        or None to use the default transformer (`DatetimeEncoder()`).</span>
+<span class="sd">        None to apply `remainder`, &#39;drop&#39; for dropping the columns,</span>
+<span class="sd">        or &#39;passthrough&#39; to return the unencoded columns.</span>
 
 <span class="sd">    auto_cast : bool, default=True</span>
 <span class="sd">        If set to `True`, will try to convert each column to the best possible</span>
@@ -291,26 +289,18 @@
         <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;allow_nan&quot;</span><span class="p">:</span> <span class="p">[</span><span class="kc">True</span><span class="p">]}</span>
 
     <span class="k">def</span> <span class="nf">_clone_transformers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">low_card_cat_transformer</span><span class="p">,</span> <span class="n">sklearn</span><span class="o">.</span><span class="n">base</span><span class="o">.</span><span class="n">TransformerMixin</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">low_card_cat_transformer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">low_card_cat_transformer_</span> <span class="o">=</span> <span class="n">clone</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">low_card_cat_transformer</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">low_card_cat_transformer</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">low_card_cat_transformer_</span> <span class="o">=</span> <span class="n">OneHotEncoder</span><span class="p">()</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">low_card_cat_transformer_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">low_card_cat_transformer</span>
-
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">high_card_cat_transformer</span><span class="p">,</span> <span class="n">sklearn</span><span class="o">.</span><span class="n">base</span><span class="o">.</span><span class="n">TransformerMixin</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">high_card_cat_transformer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">high_card_cat_transformer_</span> <span class="o">=</span> <span class="n">clone</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">high_card_cat_transformer</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">high_card_cat_transformer</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">high_card_cat_transformer_</span> <span class="o">=</span> <span class="n">GapEncoder</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">high_card_cat_transformer_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">high_card_cat_transformer</span>
-
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">datetime_transformer</span><span class="p">,</span> <span class="n">sklearn</span><span class="o">.</span><span class="n">base</span><span class="o">.</span><span class="n">TransformerMixin</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">datetime_transformer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">datetime_transformer_</span> <span class="o">=</span> <span class="n">clone</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">datetime_transformer</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">datetime_transformer</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">datetime_transformer_</span> <span class="o">=</span> <span class="n">DatetimeEncoder</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">datetime_transformer_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">datetime_transformer</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">datetime_transformer_</span> <span class="o">=</span> <span class="n">DatetimeEncoder</span><span class="p">()</span>
 
         <span class="c1"># TODO: check that the provided transformers are valid</span>
 
@@ -335,10 +325,11 @@
 
         <span class="c1"># Handle missing values</span>
         <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="n">contains_missing</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">_has_missing_values</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">col</span><span class="p">])</span>
             <span class="c1"># Convert pandas&#39; NaN value (pd.NA) to numpy NaN value (np.nan)</span>
             <span class="c1"># because the former tends to raise all kind of issues when dealing</span>
             <span class="c1"># with scikit-learn (as of version 0.24).</span>
-            <span class="k">if</span> <span class="n">_has_missing_values</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">col</span><span class="p">]):</span>
+            <span class="k">if</span> <span class="n">contains_missing</span><span class="p">:</span>
                 <span class="c1"># Some numerical dtypes like Int64 or Float64 only support</span>
                 <span class="c1"># pd.NA, so they must be converted to np.float64 before.</span>
                 <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">is_numeric_dtype</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">col</span><span class="p">]):</span>
@@ -385,7 +376,7 @@
                     <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span>
                         <span class="k">pass</span>
             <span class="c1"># Cast pandas dtypes to numpy dtypes</span>
-            <span class="c1"># for earlier versions of sklearn. FIXME: which ?</span>
+            <span class="c1"># for earlier versions of sklearn</span>
             <span class="k">if</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="vm">__class__</span><span class="p">,</span> <span class="n">ExtensionDtype</span><span class="p">):</span>
                 <span class="k">try</span><span class="p">:</span>
                     <span class="n">X</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">type</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
@@ -457,6 +448,13 @@
 <span class="sd">            sum of n_components (output dimension) over transformers. If</span>
 <span class="sd">            any result is a sparse matrix, everything will be converted to</span>
 <span class="sd">            sparse matrices.</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        RuntimeError</span>
+<span class="sd">            If no transformers could be constructed,</span>
+<span class="sd">            usually because transformers passed do not match any column.</span>
+<span class="sd">            To fix the issue, try passing the least amount of None as encoders.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_clone_transformers</span><span class="p">()</span>
         <span class="c1"># Convert to pandas DataFrame if not already.</span>
@@ -526,6 +524,9 @@
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">cols</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">enc</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">transformers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">trans</span><span class="p">)</span>
 
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">transformers</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;No transformers could be generated! &quot;</span><span class="p">)</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">imputed_columns_</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">if</span> <span class="n">_has_missing_values</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">impute_missing</span> <span class="o">==</span> <span class="s2">&quot;force&quot;</span><span class="p">:</span>
@@ -569,6 +570,8 @@
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[SuperVectorizer] Assigned transformers: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">transformers</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="n">check_input</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 
         <span class="n">res</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
 

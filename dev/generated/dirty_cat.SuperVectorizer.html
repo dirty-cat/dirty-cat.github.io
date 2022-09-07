@@ -125,33 +125,32 @@ the parameters <cite>low_card_cat_transformer</cite> and
 </dd>
 <dt><strong>low_card_cat_transformer</strong><span class="classifier">typing.Optional[typing.Union[sklearn.base.BaseEstimator, str]], default=None  # noqa</span></dt><dd><p>Transformer used on categorical/string features with low cardinality
 (threshold is defined by <cite>cardinality_threshold</cite>).
+Default value None is converted to <cite>OneHotEncoder()</cite>.
 Can either be a transformer object instance (e.g. <cite>OneHotEncoder()</cite>),
 a <cite>Pipeline</cite> containing the preprocessing steps,
-‘drop’ for dropping the columns,
-‘passthrough’ to return the unencoded columns,
-or None to use the default transformer (<cite>OneHotEncoder()</cite>).</p>
+None to apply <cite>remainder</cite>, ‘drop’ for dropping the columns,
+or ‘passthrough’ to return the unencoded columns.</p>
 </dd>
 <dt><strong>high_card_cat_transformer</strong><span class="classifier">typing.Optional[typing.Union[sklearn.base.BaseEstimator, str]], default=None  # noqa</span></dt><dd><p>Transformer used on categorical/string features with high cardinality
 (threshold is defined by <cite>cardinality_threshold</cite>).
+Default value None is converted to <cite>GapEncoder(n_components=30)</cite>.
 Can either be a transformer object instance (e.g. <cite>GapEncoder()</cite>),
 a <cite>Pipeline</cite> containing the preprocessing steps,
-‘drop’ for dropping the columns,
-‘passthrough’ to return the unencoded columns,
-or None to use the default transformer (<cite>GapEncoder(n_components=30)</cite>).</p>
+None to apply <cite>remainder</cite>, ‘drop’ for dropping the columns,
+or ‘passthrough’ to return the unencoded columns.</p>
 </dd>
 <dt><strong>numerical_transformer</strong><span class="classifier">typing.Optional[typing.Union[sklearn.base.BaseEstimator,str]], default=None  # noqa</span></dt><dd><p>Transformer used on numerical features.
 Can either be a transformer object instance (e.g. <cite>StandardScaler()</cite>),
 a <cite>Pipeline</cite> containing the preprocessing steps,
-‘drop’ for dropping the columns,
-‘passthrough’ to return the unencoded columns,
-or None to use the default transformer (here nothing).</p>
+None to apply <cite>remainder</cite>, ‘drop’ for dropping the columns,
+or ‘passthrough’ to return the unencoded columns.</p>
 </dd>
 <dt><strong>datetime_transformer</strong><span class="classifier">typing.Optional[typing.Union[sklearn.base.BaseEstimator, str]], default=None</span></dt><dd><p>Transformer used on datetime features.
+Default value None is converted to <cite>DatetimeEncoder()</cite>.
 Can either be a transformer object instance (e.g. <cite>DatetimeEncoder()</cite>),
 a <cite>Pipeline</cite> containing the preprocessing steps,
-‘drop’ for dropping the columns,
-‘passthrough’ to return the unencoded columns,
-or None to use the default transformer (<cite>DatetimeEncoder()</cite>).</p>
+None to apply <cite>remainder</cite>, ‘drop’ for dropping the columns,
+or ‘passthrough’ to return the unencoded columns.</p>
 </dd>
 <dt><strong>auto_cast</strong><span class="classifier">bool, default=True</span></dt><dd><p>If set to <cite>True</cite>, will try to convert each column to the best possible
 data type (dtype).</p>
@@ -288,6 +287,14 @@ transformers.</p>
 sum of n_components (output dimension) over transformers. If
 any result is a sparse matrix, everything will be converted to
 sparse matrices.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>RuntimeError</dt><dd><p>If no transformers could be constructed,
+usually because transformers passed do not match any column.
+To fix the issue, try passing the least amount of None as encoders.</p>
 </dd>
 </dl>
 </dd>
