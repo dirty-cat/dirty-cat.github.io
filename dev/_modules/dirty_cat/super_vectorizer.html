@@ -77,23 +77,26 @@
             
   <h1>Source code for dirty_cat.super_vectorizer</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Implements the SuperVectorizer: a preprocessor to automatically</span>
-<span class="sd">apply encoders to different types of data, without the need to manually</span>
-<span class="sd">categorize them beforehand, or construct complex Pipelines.</span>
+<span class="sd">Implements the SuperVectorizer: a preprocessor to automatically apply</span>
+<span class="sd">transformers/encoders to different types of data, without the need to</span>
+<span class="sd">manually categorize them beforehand, or construct complex Pipelines.</span>
 <span class="sd">&quot;&quot;&quot;</span>
+
 
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
 <span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">sklearn</span>
+<span class="kn">from</span> <span class="nn">pandas.core.dtypes.base</span> <span class="kn">import</span> <span class="n">ExtensionDtype</span>
 <span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">__version__</span> <span class="k">as</span> <span class="n">sklearn_version</span>
-<span class="kn">from</span> <span class="nn">sklearn.base</span> <span class="kn">import</span> <span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">clone</span>
+<span class="kn">from</span> <span class="nn">sklearn.base</span> <span class="kn">import</span> <span class="n">TransformerMixin</span><span class="p">,</span> <span class="n">clone</span>
 <span class="kn">from</span> <span class="nn">sklearn.compose</span> <span class="kn">import</span> <span class="n">ColumnTransformer</span>
 <span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">OneHotEncoder</span>
 
 <span class="kn">from</span> <span class="nn">dirty_cat</span> <span class="kn">import</span> <span class="n">DatetimeEncoder</span><span class="p">,</span> <span class="n">GapEncoder</span>
-<span class="kn">from</span> <span class="nn">dirty_cat.utils</span> <span class="kn">import</span> <span class="n">Version</span><span class="p">,</span> <span class="n">check_input</span>
+<span class="kn">from</span> <span class="nn">dirty_cat.utils</span> <span class="kn">import</span> <span class="n">Version</span>
 
 
 <span class="k">def</span> <span class="nf">_has_missing_values</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
@@ -103,16 +106,57 @@
     <span class="k">return</span> <span class="nb">any</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">isnull</span><span class="p">())</span>
 
 
-<span class="k">def</span> <span class="nf">_replace_missing_in_col</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;missing&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">_replace_false_missing</span><span class="p">(</span>
+    <span class="n">df</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">]</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Takes a Series with string data, replaces the missing values, and returns it.</span>
+<span class="sd">    Takes a DataFrame or a Series, and replaces the &quot;false missing&quot;, that is,</span>
+<span class="sd">    strings that designate a missing value, but do not have the corresponding</span>
+<span class="sd">    type. We convert these strings to np.nan.</span>
+<span class="sd">    Also replaces `None` to np.nan.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">dtype_name</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">name</span>
-
-    <span class="k">if</span> <span class="n">dtype_name</span> <span class="o">==</span> <span class="s2">&quot;category&quot;</span> <span class="ow">and</span> <span class="p">(</span><span class="n">value</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">categories</span><span class="p">):</span>
-        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">add_categories</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
-    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">value</span><span class="p">)</span>
+    <span class="c1"># Should not replace &quot;missing&quot; (the string used for imputation in</span>
+    <span class="c1"># categorical features).</span>
+    <span class="n">STR_NA_VALUES</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">&quot;null&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;1.#QNAN&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;#NA&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;nan&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;#N/A N/A&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;-1.#QNAN&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&lt;NA&gt;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;-1.#IND&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;-nan&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;n/a&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;-NaN&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;1.#IND&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;NULL&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;NA&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;N/A&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;#N/A&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;NaN&quot;</span><span class="p">,</span>
+    <span class="p">]</span>  <span class="c1"># taken from pandas.io.parsers (version 1.1.4)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">STR_NA_VALUES</span> <span class="o">+</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;?&quot;</span><span class="p">,</span> <span class="s2">&quot;...&quot;</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;^\s+$&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">regex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># Replace whitespaces</span>
     <span class="k">return</span> <span class="n">df</span>
+
+
+<span class="k">def</span> <span class="nf">_replace_missing_in_cat_col</span><span class="p">(</span><span class="n">ser</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;missing&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Takes a Series with string data,</span>
+<span class="sd">    replaces the missing values, and returns it.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ser</span> <span class="o">=</span> <span class="n">_replace_false_missing</span><span class="p">(</span><span class="n">ser</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">is_categorical_dtype</span><span class="p">(</span><span class="n">ser</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">value</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ser</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">categories</span><span class="p">):</span>
+        <span class="n">ser</span> <span class="o">=</span> <span class="n">ser</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">add_categories</span><span class="p">([</span><span class="n">value</span><span class="p">])</span>
+    <span class="n">ser</span> <span class="o">=</span> <span class="n">ser</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">value</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ser</span>
+
+
+<span class="n">OptionalTransformer</span> <span class="o">=</span> <span class="n">Optional</span><span class="p">[</span>
+    <span class="n">Union</span><span class="p">[</span><span class="n">TransformerMixin</span><span class="p">,</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;drop&quot;</span><span class="p">,</span> <span class="s2">&quot;remainder&quot;</span><span class="p">,</span> <span class="s2">&quot;passthrough&quot;</span><span class="p">]]</span>
+<span class="p">]</span>
 
 
 <div class="viewcode-block" id="SuperVectorizer"><a class="viewcode-back" href="../../generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer">[docs]</a><span class="k">class</span> <span class="nc">SuperVectorizer</span><span class="p">(</span><span class="n">ColumnTransformer</span><span class="p">):</span>
@@ -120,7 +164,8 @@
 <span class="sd">    Easily transforms a heterogeneous data table (such as a dataframe) to</span>
 <span class="sd">    a numerical array for machine learning. For this it transforms each</span>
 <span class="sd">    column depending on its data type.</span>
-<span class="sd">    It provides a simplified interface for scikit-learn&#39;s `ColumnTransformer`.</span>
+<span class="sd">    It provides a simplified interface for the :class:`sklearn.compose.ColumnTransformer` ;</span>
+<span class="sd">    more documentation of attributes and functions are available in its doc.</span>
 
 <span class="sd">    .. versionadded:: 0.2.0</span>
 
@@ -131,61 +176,76 @@
 <span class="sd">        Two lists of features will be created depending on this value: strictly</span>
 <span class="sd">        under this value, the low cardinality categorical values, and above or</span>
 <span class="sd">        equal, the high cardinality categorical values.</span>
-<span class="sd">        Different encoders will be applied to these two groups, defined by</span>
-<span class="sd">        the parameters `low_card_cat_transformer` and</span>
+<span class="sd">        Different transformers will be applied to these two groups,</span>
+<span class="sd">        defined by the parameters `low_card_cat_transformer` and</span>
 <span class="sd">        `high_card_cat_transformer` respectively.</span>
 
-<span class="sd">    low_card_cat_transformer : typing.Optional[typing.Union[sklearn.base.BaseEstimator, str]], default=None  # noqa</span>
+<span class="sd">    low_card_cat_transformer : typing.Optional[typing.Union[sklearn.base.TransformerMixin, typing.Literal[&quot;drop&quot;, &quot;remainder&quot;, &quot;passthrough&quot;]]], default=None  # noqa</span>
 <span class="sd">        Transformer used on categorical/string features with low cardinality</span>
 <span class="sd">        (threshold is defined by `cardinality_threshold`).</span>
-<span class="sd">        Default value None is converted to `OneHotEncoder()`.</span>
 <span class="sd">        Can either be a transformer object instance (e.g. `OneHotEncoder()`),</span>
 <span class="sd">        a `Pipeline` containing the preprocessing steps,</span>
-<span class="sd">        None to apply `remainder`, &#39;drop&#39; for dropping the columns,</span>
-<span class="sd">        or &#39;passthrough&#39; to return the unencoded columns.</span>
+<span class="sd">        &#39;drop&#39; for dropping the columns,</span>
+<span class="sd">        &#39;remainder&#39; for applying `remainder`,</span>
+<span class="sd">        &#39;passthrough&#39; to return the unencoded columns,</span>
+<span class="sd">        or None to use the default transformer (`OneHotEncoder()`).</span>
+<span class="sd">        Features classified under this category are imputed based on the</span>
+<span class="sd">        strategy defined with `impute_missing`.</span>
 
-<span class="sd">    high_card_cat_transformer : typing.Optional[typing.Union[sklearn.base.BaseEstimator, str]], default=None  # noqa</span>
+<span class="sd">    high_card_cat_transformer : typing.Optional[typing.Union[sklearn.base.TransformerMixin, typing.Literal[&quot;drop&quot;, &quot;remainder&quot;, &quot;passthrough&quot;]]], default=None  # noqa</span>
 <span class="sd">        Transformer used on categorical/string features with high cardinality</span>
 <span class="sd">        (threshold is defined by `cardinality_threshold`).</span>
-<span class="sd">        Default value None is converted to `GapEncoder(n_components=30)`.</span>
 <span class="sd">        Can either be a transformer object instance (e.g. `GapEncoder()`),</span>
 <span class="sd">        a `Pipeline` containing the preprocessing steps,</span>
-<span class="sd">        None to apply `remainder`, &#39;drop&#39; for dropping the columns,</span>
-<span class="sd">        or &#39;passthrough&#39; to return the unencoded columns.</span>
+<span class="sd">        &#39;drop&#39; for dropping the columns,</span>
+<span class="sd">        &#39;remainder&#39; for applying `remainder`,</span>
+<span class="sd">        &#39;passthrough&#39; to return the unencoded columns,</span>
+<span class="sd">        or None to use the default transformer (`GapEncoder(n_components=30)`).</span>
+<span class="sd">        Features classified under this category are imputed based on the</span>
+<span class="sd">        strategy defined with `impute_missing`.</span>
 
-<span class="sd">    numerical_transformer : typing.Optional[typing.Union[sklearn.base.BaseEstimator,str]], default=None  # noqa</span>
+<span class="sd">    numerical_transformer : typing.Optional[typing.Union[sklearn.base.TransformerMixin, typing.Literal[&quot;drop&quot;, &quot;remainder&quot;, &quot;passthrough&quot;]]], default=None  # noqa</span>
 <span class="sd">        Transformer used on numerical features.</span>
 <span class="sd">        Can either be a transformer object instance (e.g. `StandardScaler()`),</span>
 <span class="sd">        a `Pipeline` containing the preprocessing steps,</span>
-<span class="sd">        None to apply `remainder`, &#39;drop&#39; for dropping the columns,</span>
-<span class="sd">        or &#39;passthrough&#39; to return the unencoded columns.</span>
+<span class="sd">        &#39;drop&#39; for dropping the columns,</span>
+<span class="sd">        &#39;remainder&#39; for applying `remainder`,</span>
+<span class="sd">        &#39;passthrough&#39; to return the unencoded columns,</span>
+<span class="sd">        or None to use the default transformer (here nothing, so &#39;passthrough&#39;).</span>
+<span class="sd">        Features classified under this category are not imputed at all</span>
+<span class="sd">        (regardless of `impute_missing`).</span>
 
-<span class="sd">    datetime_transformer : typing.Optional[typing.Union[sklearn.base.BaseEstimator, str]], default=None</span>
+<span class="sd">    datetime_transformer : typing.Optional[typing.Union[sklearn.base.TransformerMixin, typing.Literal[&quot;drop&quot;, &quot;remainder&quot;, &quot;passthrough&quot;]]], default=None</span>
 <span class="sd">        Transformer used on datetime features.</span>
-<span class="sd">        Default value None is converted to `DatetimeEncoder()`.</span>
 <span class="sd">        Can either be a transformer object instance (e.g. `DatetimeEncoder()`),</span>
 <span class="sd">        a `Pipeline` containing the preprocessing steps,</span>
-<span class="sd">        None to apply `remainder`, &#39;drop&#39; for dropping the columns,</span>
-<span class="sd">        or &#39;passthrough&#39; to return the unencoded columns.</span>
+<span class="sd">        &#39;drop&#39; for dropping the columns,</span>
+<span class="sd">        &#39;remainder&#39; for applying `remainder`,</span>
+<span class="sd">        &#39;passthrough&#39; to return the unencoded columns,</span>
+<span class="sd">        or None to use the default transformer (`DatetimeEncoder()`).</span>
+<span class="sd">        Features classified under this category are not imputed at all</span>
+<span class="sd">        (regardless of `impute_missing`).</span>
 
 <span class="sd">    auto_cast : bool, default=True</span>
 <span class="sd">        If set to `True`, will try to convert each column to the best possible</span>
 <span class="sd">        data type (dtype).</span>
 
 <span class="sd">    impute_missing : str, default=&#39;auto&#39;</span>
-<span class="sd">        When to impute missing values in string columns.</span>
-<span class="sd">        &#39;auto&#39; will impute missing values if it&#39;s considered appropriate</span>
+<span class="sd">        When to impute missing values in categorical (textual) columns.</span>
+<span class="sd">        &#39;auto&#39; will impute missing values if it is considered appropriate</span>
 <span class="sd">        (we are using an encoder that does not support missing values and/or</span>
 <span class="sd">        specific versions of pandas, numpy and scikit-learn).</span>
-<span class="sd">        &#39;force&#39; will impute all missing values.</span>
+<span class="sd">        &#39;force&#39; will impute missing values in all categorical columns.</span>
 <span class="sd">        &#39;skip&#39; will not impute at all.</span>
 <span class="sd">        When imputed, missing values are replaced by the string &#39;missing&#39;.</span>
+<span class="sd">        As imputation logic for numerical features can be quite intricate,</span>
+<span class="sd">        it is left to the user to manage.</span>
 <span class="sd">        See also attribute `imputed_columns_`.</span>
 
-<span class="sd">    remainder : typing.Union[typing.Literal[&quot;drop&quot;, &quot;passthrough&quot;], sklearn.base.BaseEstimator], default=&#39;drop&#39;  # noqa</span>
+<span class="sd">    remainder : typing.Union[typing.Literal[&quot;drop&quot;, &quot;passthrough&quot;], sklearn.base.TransformerMixin], default=&#39;drop&#39;  # noqa</span>
 <span class="sd">        By default, only the specified columns in `transformers` are</span>
 <span class="sd">        transformed and combined in the output, and the non-specified</span>
-<span class="sd">        columns are dropped. (default of ``&#39;drop&#39;``).</span>
+<span class="sd">        columns are dropped. (default ``&#39;drop&#39;``).</span>
 <span class="sd">        By specifying ``remainder=&#39;passthrough&#39;``, all remaining columns that</span>
 <span class="sd">        were not specified in `transformers` will be automatically passed</span>
 <span class="sd">        through. This subset of columns is concatenated with the output of</span>
@@ -220,47 +280,54 @@
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
 
-<span class="sd">    transformers_: typing.List[typing.Tuple[str, typing.Union[str, sklearn.base.BaseEstimator], typing.List[str]]]  # noqa</span>
-<span class="sd">        The final distribution of columns.</span>
-<span class="sd">        List of three-tuple containing</span>
-<span class="sd">        (1) the name of the category</span>
-<span class="sd">        (2) the encoder/transformer instance which will be applied</span>
-<span class="sd">        or &quot;passthrough&quot; or &quot;drop&quot;</span>
-<span class="sd">        (3) the list of column names</span>
+<span class="sd">    transformers_: typing.List[typing.Tuple[str, typing.Union[str, sklearn.base.TransformerMixin], typing.List[str]]]  # noqa</span>
+<span class="sd">        The collection of fitted transformers as tuples of</span>
+<span class="sd">        (name, fitted_transformer, column). `fitted_transformer` can be an</span>
+<span class="sd">        estimator, &#39;drop&#39;, or &#39;passthrough&#39;. In case there were no columns</span>
+<span class="sd">        selected, this will be an unfitted transformer.</span>
+<span class="sd">        If there are remaining columns, the final element is a tuple of the</span>
+<span class="sd">        form:</span>
+<span class="sd">        (&#39;remainder&#39;, transformer, remaining_columns) corresponding to the</span>
+<span class="sd">        ``remainder`` parameter. If there are remaining columns, then</span>
+<span class="sd">        ``len(transformers_)==len(transformers)+1``, otherwise</span>
+<span class="sd">        ``len(transformers_)==len(transformers)``.</span>
 
-<span class="sd">    columns_: typing.List[typing.Union[str, int]]</span>
-<span class="sd">        The column names of fitted array.</span>
+<span class="sd">    columns_: pandas.Index</span>
+<span class="sd">        The fitted array&#39;s columns. They are applied to the data passed</span>
+<span class="sd">        to the `transform` method.</span>
 
 <span class="sd">    types_: typing.Dict[str, type]</span>
 <span class="sd">        A mapping of inferred types per column.</span>
 <span class="sd">        Key is the column name, value is the inferred dtype.</span>
+<span class="sd">        Exists only if `auto_cast=True`.</span>
 
 <span class="sd">    imputed_columns_: typing.List[str]</span>
 <span class="sd">        The list of columns in which we imputed the missing values.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">transformers_</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">BaseEstimator</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]]</span>
-    <span class="n">columns_</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+    <span class="n">transformers_</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">TransformerMixin</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]]</span>
+    <span class="n">columns_</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Index</span>
     <span class="n">types_</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">type</span><span class="p">]</span>
     <span class="n">imputed_columns_</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
 
     <span class="c1"># Override required parameters</span>
     <span class="n">_required_parameters</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">OptionalEstimator</span> <span class="o">=</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">BaseEstimator</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
         <span class="n">cardinality_threshold</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">40</span><span class="p">,</span>
-        <span class="n">low_card_cat_transformer</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">BaseEstimator</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">high_card_cat_transformer</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">BaseEstimator</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">numerical_transformer</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">BaseEstimator</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">datetime_transformer</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">BaseEstimator</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">low_card_cat_transformer</span><span class="p">:</span> <span class="n">OptionalTransformer</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">high_card_cat_transformer</span><span class="p">:</span> <span class="n">OptionalTransformer</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">numerical_transformer</span><span class="p">:</span> <span class="n">OptionalTransformer</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">datetime_transformer</span><span class="p">:</span> <span class="n">OptionalTransformer</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">auto_cast</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="n">impute_missing</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;auto&quot;</span><span class="p">,</span>
         <span class="c1"># The next parameters are inherited from ColumnTransformer</span>
-        <span class="n">remainder</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;drop&quot;</span><span class="p">,</span> <span class="s2">&quot;passthrough&quot;</span><span class="p">],</span> <span class="n">BaseEstimator</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;passthrough&quot;</span><span class="p">,</span>
+        <span class="n">remainder</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span>
+            <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;drop&quot;</span><span class="p">,</span> <span class="s2">&quot;passthrough&quot;</span><span class="p">],</span> <span class="n">TransformerMixin</span>
+        <span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;passthrough&quot;</span><span class="p">,</span>
         <span class="n">sparse_threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.3</span><span class="p">,</span>
         <span class="n">n_jobs</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">transformer_weights</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -289,78 +356,88 @@
         <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;allow_nan&quot;</span><span class="p">:</span> <span class="p">[</span><span class="kc">True</span><span class="p">]}</span>
 
     <span class="k">def</span> <span class="nf">_clone_transformers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">low_card_cat_transformer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        For each of the different transformers that can be passed,</span>
+<span class="sd">        create the corresponding variable name with a trailing underscore,</span>
+<span class="sd">        which is the value that will be used in `transformers`.</span>
+<span class="sd">        We clone the instances to avoid altering them.</span>
+<span class="sd">        See the clone function docstring.</span>
+<span class="sd">        Note: typos are not detected here, they are left in and are detected</span>
+<span class="sd">        down the line in `ColumnTransformer.fit_transform`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">low_card_cat_transformer</span><span class="p">,</span> <span class="n">sklearn</span><span class="o">.</span><span class="n">base</span><span class="o">.</span><span class="n">TransformerMixin</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">low_card_cat_transformer_</span> <span class="o">=</span> <span class="n">clone</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">low_card_cat_transformer</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">low_card_cat_transformer</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">low_card_cat_transformer_</span> <span class="o">=</span> <span class="n">OneHotEncoder</span><span class="p">()</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">high_card_cat_transformer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">low_card_cat_transformer</span> <span class="o">==</span> <span class="s2">&quot;remainder&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">low_card_cat_transformer_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">remainder</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">low_card_cat_transformer_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">low_card_cat_transformer</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">high_card_cat_transformer</span><span class="p">,</span> <span class="n">sklearn</span><span class="o">.</span><span class="n">base</span><span class="o">.</span><span class="n">TransformerMixin</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">high_card_cat_transformer_</span> <span class="o">=</span> <span class="n">clone</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">high_card_cat_transformer</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">high_card_cat_transformer</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">high_card_cat_transformer_</span> <span class="o">=</span> <span class="n">GapEncoder</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">datetime_transformer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">datetime_transformer_</span> <span class="o">=</span> <span class="n">clone</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">datetime_transformer</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">high_card_cat_transformer</span> <span class="o">==</span> <span class="s2">&quot;remainder&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">high_card_cat_transformer_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">remainder</span>
         <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">high_card_cat_transformer_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">high_card_cat_transformer</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">numerical_transformer</span><span class="p">,</span> <span class="n">sklearn</span><span class="o">.</span><span class="n">base</span><span class="o">.</span><span class="n">TransformerMixin</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">numerical_transformer_</span> <span class="o">=</span> <span class="n">clone</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">numerical_transformer</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">numerical_transformer</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">numerical_transformer_</span> <span class="o">=</span> <span class="s2">&quot;passthrough&quot;</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">numerical_transformer</span> <span class="o">==</span> <span class="s2">&quot;remainder&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">numerical_transformer_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">remainder</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">numerical_transformer_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">numerical_transformer</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">datetime_transformer</span><span class="p">,</span> <span class="n">sklearn</span><span class="o">.</span><span class="n">base</span><span class="o">.</span><span class="n">TransformerMixin</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">datetime_transformer_</span> <span class="o">=</span> <span class="n">clone</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">datetime_transformer</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">datetime_transformer</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">datetime_transformer_</span> <span class="o">=</span> <span class="n">DatetimeEncoder</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">datetime_transformer</span> <span class="o">==</span> <span class="s2">&quot;remainder&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">datetime_transformer_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">remainder</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">datetime_transformer_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">datetime_transformer</span>
 
         <span class="c1"># TODO: check that the provided transformers are valid</span>
 
-    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">_auto_cast</span><span class="p">(</span><span class="n">X</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">_auto_cast</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Takes a dataframe and tries to convert its columns to the best</span>
-<span class="sd">        possible data type.</span>
+<span class="sd">        Used during fit: takes a dataframe and tries to convert</span>
+<span class="sd">        its columns to their best possible data type.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        X : {dataframe} of shape (n_samples, n_features)</span>
+<span class="sd">        X : pandas.DataFrame of shape (n_samples, n_features)</span>
 <span class="sd">            The data to be transformed.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        pd.DataFrame</span>
+<span class="sd">        pandas.DataFrame</span>
 <span class="sd">            The same pandas DataFrame, with its columns cast to the best</span>
 <span class="sd">            possible data type.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">from</span> <span class="nn">pandas.core.dtypes.base</span> <span class="kn">import</span> <span class="n">ExtensionDtype</span>
+        <span class="c1"># We replace in all columns regardless of their type,</span>
+        <span class="c1"># as we might have some false missing</span>
+        <span class="c1"># in numerical columns for instance.</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="n">_replace_false_missing</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 
         <span class="c1"># Handle missing values</span>
         <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
-            <span class="n">contains_missing</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">_has_missing_values</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">col</span><span class="p">])</span>
             <span class="c1"># Convert pandas&#39; NaN value (pd.NA) to numpy NaN value (np.nan)</span>
             <span class="c1"># because the former tends to raise all kind of issues when dealing</span>
             <span class="c1"># with scikit-learn (as of version 0.24).</span>
-            <span class="k">if</span> <span class="n">contains_missing</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">_has_missing_values</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">col</span><span class="p">]):</span>
                 <span class="c1"># Some numerical dtypes like Int64 or Float64 only support</span>
                 <span class="c1"># pd.NA, so they must be converted to np.float64 before.</span>
                 <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">is_numeric_dtype</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">col</span><span class="p">]):</span>
                     <span class="n">X</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
                 <span class="n">X</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-        <span class="c1"># taken from pandas.io.parsers (version 1.1.4)</span>
-        <span class="n">STR_NA_VALUES</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="s2">&quot;null&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;1.#QNAN&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;#NA&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;nan&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;#N/A N/A&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;-1.#QNAN&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;&lt;NA&gt;&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;-1.#IND&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;-nan&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;n/a&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;-NaN&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;1.#IND&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;NULL&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;NA&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;N/A&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;#N/A&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;NaN&quot;</span><span class="p">,</span>
-        <span class="p">]</span>
-        <span class="n">X</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">STR_NA_VALUES</span> <span class="o">+</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;?&quot;</span><span class="p">,</span> <span class="s2">&quot;...&quot;</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
-        <span class="n">X</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;^\s+$&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">regex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># replace whitespaces</span>
-
         <span class="c1"># Convert to the best possible data type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">types_</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">pd</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">is_datetime64_any_dtype</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">col</span><span class="p">]):</span>
                 <span class="c1"># we don&#39;t want to cast datetime64</span>
@@ -376,58 +453,33 @@
                     <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span>
                         <span class="k">pass</span>
             <span class="c1"># Cast pandas dtypes to numpy dtypes</span>
-            <span class="c1"># for earlier versions of sklearn</span>
+            <span class="c1"># for earlier versions of sklearn. FIXME: which ?</span>
             <span class="k">if</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="vm">__class__</span><span class="p">,</span> <span class="n">ExtensionDtype</span><span class="p">):</span>
                 <span class="k">try</span><span class="p">:</span>
                     <span class="n">X</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">type</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
                 <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span>
                     <span class="k">pass</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">types_</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">col</span><span class="p">:</span> <span class="n">X</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span><span class="p">})</span>
         <span class="k">return</span> <span class="n">X</span>
 
-<div class="viewcode-block" id="SuperVectorizer.transform"><a class="viewcode-back" href="../../generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer.transform">[docs]</a>    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">_apply_cast</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Transform X by applying fitted transformers on each column,</span>
-<span class="sd">        and concatenate the results.</span>
+<span class="sd">        Used during transform: takes a pandas dataframe,</span>
+<span class="sd">        and applies the best data types learnt during fitting.</span>
 
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        X : {array-like, dataframe} of shape (n_samples, n_features)</span>
-<span class="sd">            The data to be transformed.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        {array-like, sparse matrix} of shape (n_samples, sum_n_components)</span>
-<span class="sd">            hstack of results of transformers. sum_n_components is the</span>
-<span class="sd">            sum of n_components (output dimension) over transformers. If</span>
-<span class="sd">            any result is a sparse matrix, everything will be converted to</span>
-<span class="sd">            sparse matrices.</span>
+<span class="sd">        Does the same thing as `_auto_cast`, but applies learnt info.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
-            <span class="n">X</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="c1"># Create a copy to avoid altering the original data.</span>
-            <span class="n">X</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-        <span class="c1"># Auto cast the imported data to avoid having issues with</span>
-        <span class="c1"># `object` dtype when we will cast columns to the fitted types.</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">auto_cast</span><span class="p">:</span>
-            <span class="n">X</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_auto_cast</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">types_</span> <span class="o">=</span> <span class="p">{</span><span class="n">c</span><span class="p">:</span> <span class="n">t</span> <span class="k">for</span> <span class="n">c</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">dtypes</span><span class="p">)}</span>
-        <span class="k">if</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">columns_</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="s2">&quot;Passed array does not match column count of &quot;</span>
-                <span class="sa">f</span><span class="s2">&quot;array seen at fit time. Got </span><span class="si">{</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> &quot;</span>
-                <span class="sa">f</span><span class="s2">&quot;columns, expected </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">columns_</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
-            <span class="p">)</span>
-
-        <span class="c1"># If the DataFrame does not have named columns already,</span>
-        <span class="c1"># apply the learnt columns</span>
-        <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">is_numeric_dtype</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">):</span>
-            <span class="n">X</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns_</span>
-
+        <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="n">X</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">_replace_false_missing</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">col</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">_has_missing_values</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">col</span><span class="p">]):</span>
+                <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">is_numeric_dtype</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">col</span><span class="p">]):</span>
+                    <span class="n">X</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+                <span class="n">X</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">imputed_columns_</span><span class="p">:</span>
-            <span class="n">X</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">_replace_missing_in_col</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">col</span><span class="p">])</span>
-
-        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span></div>
+            <span class="n">X</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">_replace_missing_in_cat_col</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">col</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">col</span><span class="p">,</span> <span class="n">dtype</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">types_</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">X</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">X</span>
 
 <div class="viewcode-block" id="SuperVectorizer.fit_transform"><a class="viewcode-back" href="../../generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer.fit_transform">[docs]</a>    <span class="k">def</span> <span class="nf">fit_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -448,15 +500,16 @@
 <span class="sd">            sum of n_components (output dimension) over transformers. If</span>
 <span class="sd">            any result is a sparse matrix, everything will be converted to</span>
 <span class="sd">            sparse matrices.</span>
-
-<span class="sd">        Raises</span>
-<span class="sd">        ------</span>
-<span class="sd">        RuntimeError</span>
-<span class="sd">            If no transformers could be constructed,</span>
-<span class="sd">            usually because transformers passed do not match any column.</span>
-<span class="sd">            To fix the issue, try passing the least amount of None as encoders.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">impute_missing</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;skip&quot;</span><span class="p">,</span> <span class="s2">&quot;force&quot;</span><span class="p">,</span> <span class="s2">&quot;auto&quot;</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;Invalid value for `impute_missing`, expected any of &quot;</span>
+                <span class="s2">&quot;{&#39;auto&#39;, &#39;force&#39;, &#39;skip&#39;}, &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;got </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">impute_missing</span><span class="si">!r}</span><span class="s2">. &quot;</span>
+            <span class="p">)</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">_clone_transformers</span><span class="p">()</span>
+
         <span class="c1"># Convert to pandas DataFrame if not already.</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
             <span class="n">X</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
@@ -464,13 +517,12 @@
             <span class="c1"># Create a copy to avoid altering the original data.</span>
             <span class="n">X</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">columns_</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">columns_</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">columns</span>
         <span class="c1"># If auto_cast is True, we&#39;ll find and apply the best possible type</span>
         <span class="c1"># to each column.</span>
         <span class="c1"># We&#39;ll keep the results in order to apply the types in `transform`.</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">auto_cast</span><span class="p">:</span>
             <span class="n">X</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_auto_cast</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">types_</span> <span class="o">=</span> <span class="p">{</span><span class="n">c</span><span class="p">:</span> <span class="n">t</span> <span class="k">for</span> <span class="n">c</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">dtypes</span><span class="p">)}</span>
 
         <span class="c1"># Select columns by dtype</span>
         <span class="n">numeric_columns</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span>
@@ -495,7 +547,7 @@
             <span class="n">include</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;datetime&quot;</span><span class="p">,</span> <span class="s2">&quot;datetimetz&quot;</span><span class="p">]</span>
         <span class="p">)</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span>
 
-        <span class="c1"># Divide categorical columns by cardinality</span>
+        <span class="c1"># Classify categorical columns by cardinality</span>
         <span class="n">low_card_cat_columns</span> <span class="o">=</span> <span class="p">[</span>
             <span class="n">col</span>
             <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">categorical_columns</span>
@@ -509,7 +561,7 @@
 
         <span class="c1"># Next part: construct the transformers</span>
         <span class="c1"># Create the list of all the transformers.</span>
-        <span class="n">all_transformers</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">all_transformers</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">OptionalTransformer</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]]</span> <span class="o">=</span> <span class="p">[</span>
             <span class="p">(</span><span class="s2">&quot;numeric&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">numerical_transformer</span><span class="p">,</span> <span class="n">numeric_columns</span><span class="p">),</span>
             <span class="p">(</span><span class="s2">&quot;datetime&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">datetime_transformer_</span><span class="p">,</span> <span class="n">datetime_columns</span><span class="p">),</span>
             <span class="p">(</span><span class="s2">&quot;low_card_cat&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">low_card_cat_transformer_</span><span class="p">,</span> <span class="n">low_card_cat_columns</span><span class="p">),</span>
@@ -524,56 +576,48 @@
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">cols</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">enc</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">transformers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">trans</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">transformers</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;No transformers could be generated! &quot;</span><span class="p">)</span>
-
         <span class="bp">self</span><span class="o">.</span><span class="n">imputed_columns_</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">if</span> <span class="n">_has_missing_values</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">impute_missing</span> <span class="o">==</span> <span class="s2">&quot;force&quot;</span><span class="p">:</span>
-                <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
-                    <span class="c1"># Do not impute numeric columns</span>
-                    <span class="k">if</span> <span class="ow">not</span> <span class="n">pd</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">is_numeric_dtype</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">col</span><span class="p">]):</span>
-                        <span class="n">X</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">_replace_missing_in_col</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">col</span><span class="p">])</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">imputed_columns_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">impute_missing</span> <span class="o">!=</span> <span class="s2">&quot;skip&quot;</span><span class="p">:</span>
+            <span class="c1"># First, replace false missing</span>
+            <span class="c1"># This is technically redundant with the call made in `_auto_cast`,</span>
+            <span class="c1"># but we do it again anyway.</span>
+            <span class="n">X</span> <span class="o">=</span> <span class="n">_replace_false_missing</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 
-            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">impute_missing</span> <span class="o">==</span> <span class="s2">&quot;skip&quot;</span><span class="p">:</span>
-                <span class="k">pass</span>
+            <span class="c1"># Then, impute if suiting</span>
+            <span class="k">if</span> <span class="n">_has_missing_values</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">impute_missing</span> <span class="o">==</span> <span class="s2">&quot;force&quot;</span><span class="p">:</span>
+                    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+                        <span class="c1"># Only impute categorical columns</span>
+                        <span class="k">if</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">categorical_columns</span><span class="p">:</span>
+                            <span class="n">X</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">_replace_missing_in_cat_col</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">col</span><span class="p">])</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">imputed_columns_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
 
-            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">impute_missing</span> <span class="o">==</span> <span class="s2">&quot;auto&quot;</span><span class="p">:</span>
-                <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">trans</span><span class="p">,</span> <span class="n">cols</span> <span class="ow">in</span> <span class="n">all_transformers</span><span class="p">:</span>
-                    <span class="n">impute</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">impute_missing</span> <span class="o">==</span> <span class="s2">&quot;auto&quot;</span><span class="p">:</span>
+                    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">trans</span><span class="p">,</span> <span class="n">cols</span> <span class="ow">in</span> <span class="n">all_transformers</span><span class="p">:</span>
+                        <span class="n">impute</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
 
-                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">trans</span><span class="p">,</span> <span class="n">OneHotEncoder</span><span class="p">)</span> <span class="ow">and</span> <span class="n">Version</span><span class="p">(</span>
-                        <span class="n">sklearn_version</span>
-                    <span class="p">)</span> <span class="o">&lt;</span> <span class="n">Version</span><span class="p">(</span><span class="s2">&quot;0.24&quot;</span><span class="p">):</span>
-                        <span class="n">impute</span> <span class="o">=</span> <span class="kc">True</span>
+                        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">trans</span><span class="p">,</span> <span class="n">OneHotEncoder</span><span class="p">)</span> <span class="ow">and</span> <span class="n">Version</span><span class="p">(</span>
+                            <span class="n">sklearn_version</span>
+                        <span class="p">)</span> <span class="o">&lt;</span> <span class="n">Version</span><span class="p">(</span><span class="s2">&quot;0.24&quot;</span><span class="p">):</span>
+                            <span class="n">impute</span> <span class="o">=</span> <span class="kc">True</span>
 
-                    <span class="k">if</span> <span class="n">impute</span><span class="p">:</span>
-                        <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">cols</span><span class="p">:</span>
-                            <span class="c1"># Do not impute numeric columns</span>
-                            <span class="k">if</span> <span class="ow">not</span> <span class="n">pd</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">is_numeric_dtype</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">col</span><span class="p">]):</span>
-                                <span class="n">X</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">_replace_missing_in_col</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">col</span><span class="p">])</span>
-                                <span class="bp">self</span><span class="o">.</span><span class="n">imputed_columns_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
-
-            <span class="k">else</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                    <span class="s2">&quot;Invalid value for `impute_missing`, expected any of &quot;</span>
-                    <span class="s2">&quot;{&#39;auto&#39;, &#39;force&#39;, &#39;skip&#39;}, &quot;</span>
-                    <span class="sa">f</span><span class="s2">&quot;got </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">impute_missing</span><span class="si">!r}</span><span class="s2">. &quot;</span>
-                <span class="p">)</span>
+                        <span class="k">if</span> <span class="n">impute</span><span class="p">:</span>
+                            <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">cols</span><span class="p">:</span>
+                                <span class="c1"># Only impute categorical columns</span>
+                                <span class="k">if</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">categorical_columns</span><span class="p">:</span>
+                                    <span class="n">X</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">_replace_missing_in_cat_col</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">col</span><span class="p">])</span>
+                                    <span class="bp">self</span><span class="o">.</span><span class="n">imputed_columns_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
 
         <span class="c1"># If there was missing values imputation, we cast the DataFrame again,</span>
         <span class="c1"># as pandas gives different types depending on whether a column has</span>
         <span class="c1"># missing values or not.</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">imputed_columns_</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">imputed_columns_</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">auto_cast</span><span class="p">:</span>
             <span class="n">X</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_auto_cast</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[SuperVectorizer] Assigned transformers: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">transformers</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-        <span class="n">check_input</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-
-        <span class="n">res</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="n">X_enc</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
 
         <span class="c1"># For the &quot;remainder&quot; columns, the `ColumnTransformer` `transformers_`</span>
         <span class="c1"># attribute contains the index instead of the column name,</span>
@@ -585,7 +629,46 @@
                 <span class="n">cols</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">transformers_</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">enc</span><span class="p">,</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">columns_</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">cols</span><span class="p">])</span>
 
-        <span class="k">return</span> <span class="n">res</span></div>
+        <span class="k">return</span> <span class="n">X_enc</span></div>
+
+<div class="viewcode-block" id="SuperVectorizer.transform"><a class="viewcode-back" href="../../generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer.transform">[docs]</a>    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Transform X by applying fitted transformers on each column,</span>
+<span class="sd">        and concatenate the results.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        X : {array-like, dataframe} of shape (n_samples, n_features)</span>
+<span class="sd">            The data to be transformed.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        {array-like, sparse matrix} of shape (n_samples, sum_n_components)</span>
+<span class="sd">            hstack of results of transformers. sum_n_components is the</span>
+<span class="sd">            sum of n_components (output dimension) over transformers. If</span>
+<span class="sd">            any result is a sparse matrix, everything will be converted to</span>
+<span class="sd">            sparse matrices.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">columns_</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;Passed array does not match column count of &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;array seen during fit. Got </span><span class="si">{</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;columns, expected </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">columns_</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+            <span class="n">X</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Create a copy to avoid altering the original data.</span>
+            <span class="n">X</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">columns</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns_</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+            <span class="n">X</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns_</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">auto_cast</span><span class="p">:</span>
+            <span class="n">X</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_apply_cast</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="SuperVectorizer.get_feature_names_out"><a class="viewcode-back" href="../../generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer.get_feature_names_out">[docs]</a>    <span class="k">def</span> <span class="nf">get_feature_names_out</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_features</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>

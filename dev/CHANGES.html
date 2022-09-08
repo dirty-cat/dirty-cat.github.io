@@ -137,18 +137,24 @@
 <ul class="simple">
 <li><dl class="simple">
 <dt>New encoder: <code class="xref py py-class docutils literal notranslate"><span class="pre">DatetimeEncoder</span></code> can transform a datetime column into several numerical</dt><dd><p>columns (year, month, day, hour, minute, second, …). It is now the default transformer used
-in the SuperVectorizer for datetime columns.</p>
+in the <code class="xref py py-class docutils literal notranslate"><span class="pre">SuperVectorizer</span></code> for datetime columns.</p>
 </dd>
 </dl>
 </li>
+<li><p>The <code class="xref py py-class docutils literal notranslate"><span class="pre">SuperVectorizer</span></code> has seen some major improvements and bug fixes.</p></li>
+<li><p><strong>Backward-incompatible change in the SuperVectorizer</strong>: to apply <code class="docutils literal notranslate"><span class="pre">remainder</span></code>
+to features (with the <code class="docutils literal notranslate"><span class="pre">*_transformer</span></code> parameters), the value <code class="docutils literal notranslate"><span class="pre">'remainder'</span></code>
+must be passed, instead of <code class="docutils literal notranslate"><span class="pre">None</span></code> in previous versions.
+<code class="docutils literal notranslate"><span class="pre">None</span></code> now indicates that we want to use the default transformer.</p></li>
 <li><p>Support for Python 3.6 and 3.7 has been dropped. Python &gt;= 3.8 is now required.</p></li>
 <li><p>Bumped minimum dependencies:
 - sklearn&gt;=0.22
 - scipy&gt;=1.4.0
-- numpy&gt;=1.17.3</p></li>
+- numpy&gt;=1.17.3
+- pandas&gt;=1.2.0</p></li>
 <li><dl class="simple">
-<dt>Dropped support for Jaro, Jaro-Winkler and Levenshtein distances.</dt><dd><p>The <code class="xref py py-class docutils literal notranslate"><span class="pre">SimilarityEncoder</span></code> now exclusively uses <cite>ngram</cite> for similarities,
-and the <cite>similarity</cite> parameter is deprecated. It will be removed in 0.5.</p>
+<dt>Dropped support for Jaro, Jaro-Winkler and Levenshtein distances.</dt><dd><p>The <code class="xref py py-class docutils literal notranslate"><span class="pre">SimilarityEncoder</span></code> now exclusively uses <code class="docutils literal notranslate"><span class="pre">ngram</span></code> for similarities,
+and the <code class="docutils literal notranslate"><span class="pre">similarity</span></code> parameter is deprecated. It will be removed in 0.5.</p>
 </dd>
 </dl>
 </li>
@@ -157,7 +163,7 @@ and the <cite>similarity</cite> parameter is deprecated. It will be removed in 0
 <section id="notes">
 <h2>Notes<a class="headerlink" href="#notes" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
-<li><p>The <cite>transformers_</cite> attribute of the SuperVectorizer now contains column
+<li><p>The <code class="docutils literal notranslate"><span class="pre">transformers_</span></code> attribute of the SuperVectorizer now contains column
 names instead of column indices for the “remainder” columns.</p></li>
 </ul>
 </section>
