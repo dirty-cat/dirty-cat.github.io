@@ -136,14 +136,14 @@
 <h2>Major changes<a class="headerlink" href="#major-changes" title="Permalink to this heading">¶</a></h2>
 <ul>
 <li><dl class="simple">
-<dt>New encoder: <code class="xref py py-class docutils literal notranslate"><span class="pre">DatetimeEncoder</span></code> can transform a datetime column into several numerical</dt><dd><p>columns (year, month, day, hour, minute, second, …). It is now the default transformer used
-in the <code class="xref py py-class docutils literal notranslate"><span class="pre">SuperVectorizer</span></code> for datetime columns.</p>
+<dt>New encoder: <a class="reference internal" href="generated/dirty_cat.DatetimeEncoder.html#dirty_cat.DatetimeEncoder" title="dirty_cat.DatetimeEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">DatetimeEncoder</span></code></a> can transform a datetime column into several numerical</dt><dd><p>columns (year, month, day, hour, minute, second, …). It is now the default transformer used
+in the <a class="reference internal" href="generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SuperVectorizer</span></code></a> for datetime columns.</p>
 </dd>
 </dl>
 </li>
-<li><p>The <code class="xref py py-class docutils literal notranslate"><span class="pre">SuperVectorizer</span></code> has seen some major improvements and bug fixes
+<li><p>The <a class="reference internal" href="generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SuperVectorizer</span></code></a> has seen some major improvements and bug fixes:
 - Fixes the automatic casting logic in <code class="docutils literal notranslate"><span class="pre">transform</span></code>.
-- <strong>Behavior change</strong> To avoid dimensionality explosion when a feature has two unique values,</p>
+- To avoid dimensionality explosion when a feature has two unique values,</p>
 <blockquote>
 <div><p>the default encoder (<code class="xref py py-class docutils literal notranslate"><span class="pre">OneHotEncoder</span></code>) now drops one of the two
 vectors (see parameter <cite>drop=”if_binary”</cite>).</p>
@@ -154,9 +154,9 @@ like the <code class="xref py py-class docutils literal notranslate"><span class
 Previously, a <code class="docutils literal notranslate"><span class="pre">RuntimeError</span></code> was raised.</p></li>
 </ul>
 </li>
-<li><p><strong>Backward-incompatible change in the SuperVectorizer</strong>: to apply <code class="docutils literal notranslate"><span class="pre">remainder</span></code>
-to features (with the <code class="docutils literal notranslate"><span class="pre">*_transformer</span></code> parameters), the value <code class="docutils literal notranslate"><span class="pre">'remainder'</span></code>
-must be passed, instead of <code class="docutils literal notranslate"><span class="pre">None</span></code> in previous versions.
+<li><p><strong>Backward-incompatible change in the SuperVectorizer</strong>:
+To apply <code class="docutils literal notranslate"><span class="pre">remainder</span></code> to features (with the <code class="docutils literal notranslate"><span class="pre">*_transformer</span></code> parameters),
+the value <code class="docutils literal notranslate"><span class="pre">'remainder'</span></code> must be passed, instead of <code class="docutils literal notranslate"><span class="pre">None</span></code> in previous versions.
 <code class="docutils literal notranslate"><span class="pre">None</span></code> now indicates that we want to use the default transformer.</p></li>
 <li><p>Support for Python 3.6 and 3.7 has been dropped. Python &gt;= 3.8 is now required.</p></li>
 <li><p>Bumped minimum dependencies:
@@ -165,7 +165,7 @@ must be passed, instead of <code class="docutils literal notranslate"><span clas
 - numpy&gt;=1.17.3
 - pandas&gt;=1.2.0</p></li>
 <li><dl class="simple">
-<dt>Dropped support for Jaro, Jaro-Winkler and Levenshtein distances.</dt><dd><p>The <code class="xref py py-class docutils literal notranslate"><span class="pre">SimilarityEncoder</span></code> now exclusively uses <code class="docutils literal notranslate"><span class="pre">ngram</span></code> for similarities,
+<dt>Dropped support for Jaro, Jaro-Winkler and Levenshtein distances.</dt><dd><p>The <a class="reference internal" href="generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="dirty_cat.SimilarityEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimilarityEncoder</span></code></a> now exclusively uses <code class="docutils literal notranslate"><span class="pre">ngram</span></code> for similarities,
 and the <code class="docutils literal notranslate"><span class="pre">similarity</span></code> parameter is deprecated. It will be removed in 0.5.</p>
 </dd>
 </dl>
@@ -185,7 +185,7 @@ names instead of column indices for the “remainder” columns.</p></li>
 <section id="bug-fixes">
 <h2>Bug-fixes<a class="headerlink" href="#bug-fixes" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
-<li><p>Fixed a bug in the <code class="xref py py-class docutils literal notranslate"><span class="pre">SuperVectorizer</span></code> causing a <cite>FutureWarning</cite>
+<li><p>Fixed a bug in the <a class="reference internal" href="generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SuperVectorizer</span></code></a> causing a <cite>FutureWarning</cite>
 when using the <cite>get_feature_names_out</cite> method.</p></li>
 </ul>
 </section>
@@ -195,7 +195,7 @@ when using the <cite>get_feature_names_out</cite> method.</p></li>
 <section id="id1">
 <h2>Major changes<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h2>
 <ul>
-<li><p>Improvements to the <code class="xref py py-class docutils literal notranslate"><span class="pre">SuperVectorizer</span></code></p>
+<li><p>Improvements to the <a class="reference internal" href="generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SuperVectorizer</span></code></a></p>
 <blockquote>
 <div><ul class="simple">
 <li><p>Type detection works better: handles dates, numerics columns encoded as strings,</p></li>
@@ -211,7 +211,7 @@ when using the <cite>get_feature_names_out</cite> method.</p></li>
 </dl>
 </li>
 <li><dl>
-<dt>Improvements to the <code class="xref py py-class docutils literal notranslate"><span class="pre">MinHashEncoder</span></code></dt><dd><ul class="simple">
+<dt>Improvements to the <a class="reference internal" href="generated/dirty_cat.MinHashEncoder.html#dirty_cat.MinHashEncoder" title="dirty_cat.MinHashEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">MinHashEncoder</span></code></a></dt><dd><ul class="simple">
 <li><p>It is now possible to fit multiple columns simultaneously with the MinHashEncoder.</p></li>
 </ul>
 <p>Very useful when using for instance the sklearn.compose.make_column_transformer method,
@@ -308,7 +308,7 @@ To try it, you have to install it manually using:</p>
 </ul>
 </li>
 <li><p><strong>SuperVectorizer</strong>: Added automatic transform through the
-<code class="xref py py-class docutils literal notranslate"><span class="pre">SuperVectorizer</span></code> class. It transforms
+<a class="reference internal" href="generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SuperVectorizer</span></code></a> class. It transforms
 columns automatically based on their type. It provides a replacement
 for scikit-learn’s <cite>ColumnTransformer</cite> simpler to use on heterogeneous
 pandas DataFrame.</p></li>
@@ -343,7 +343,7 @@ and are then concatenated into a single matrix.</p></li>
 <h2>Major changes<a class="headerlink" href="#id10" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p><strong>GapEncoder</strong>: Added online Gamma-Poisson factorization through the
-<code class="xref py py-class docutils literal notranslate"><span class="pre">GapEncoder</span></code> class. This method discovers latent categories formed
+<a class="reference internal" href="generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder" title="dirty_cat.GapEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">GapEncoder</span></code></a> class. This method discovers latent categories formed
 via combinations of substrings, and encodes string data as combinations of
 these categories. To be used if interpretability is important.</p></li>
 </ul>
