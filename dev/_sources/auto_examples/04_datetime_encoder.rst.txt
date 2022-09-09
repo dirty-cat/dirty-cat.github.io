@@ -335,7 +335,7 @@ a DatetimeEncoder for the datetime features.
  .. code-block:: none
 
     [('datetime', DatetimeEncoder(add_day_of_the_week=True), ['date.utc']),
-     ('low_card_cat', OneHotEncoder(), ['city'])]
+     ('low_card_cat', OneHotEncoder(drop='if_binary'), ['city'])]
 
 
 
@@ -563,7 +563,7 @@ which seems reasonable.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  4.486 seconds)
+   **Total running time of the script:** ( 0 minutes  4.433 seconds)
 
 
 .. _sphx_glr_download_auto_examples_04_datetime_encoder.py:

@@ -134,21 +134,33 @@
 <h1>Release 0.3<a class="headerlink" href="#release-0-3" title="Permalink to this heading">¶</a></h1>
 <section id="major-changes">
 <h2>Major changes<a class="headerlink" href="#major-changes" title="Permalink to this heading">¶</a></h2>
-<ul class="simple">
+<ul>
 <li><dl class="simple">
 <dt>New encoder: <code class="xref py py-class docutils literal notranslate"><span class="pre">DatetimeEncoder</span></code> can transform a datetime column into several numerical</dt><dd><p>columns (year, month, day, hour, minute, second, …). It is now the default transformer used
 in the <code class="xref py py-class docutils literal notranslate"><span class="pre">SuperVectorizer</span></code> for datetime columns.</p>
 </dd>
 </dl>
 </li>
-<li><p>The <code class="xref py py-class docutils literal notranslate"><span class="pre">SuperVectorizer</span></code> has seen some major improvements and bug fixes.</p></li>
+<li><p>The <code class="xref py py-class docutils literal notranslate"><span class="pre">SuperVectorizer</span></code> has seen some major improvements and bug fixes
+- Fixes the automatic casting logic in <code class="docutils literal notranslate"><span class="pre">transform</span></code>.
+- <strong>Behavior change</strong> To avoid dimensionality explosion when a feature has two unique values,</p>
+<blockquote>
+<div><p>the default encoder (<code class="xref py py-class docutils literal notranslate"><span class="pre">OneHotEncoder</span></code>) now drops one of the two
+vectors (see parameter <cite>drop=”if_binary”</cite>).</p>
+</div></blockquote>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">fit_transform</span></code> and <code class="docutils literal notranslate"><span class="pre">transform</span></code> can now return unencoded features,
+like the <code class="xref py py-class docutils literal notranslate"><span class="pre">ColumnTransformer</span></code>’s behavior.
+Previously, a <code class="docutils literal notranslate"><span class="pre">RuntimeError</span></code> was raised.</p></li>
+</ul>
+</li>
 <li><p><strong>Backward-incompatible change in the SuperVectorizer</strong>: to apply <code class="docutils literal notranslate"><span class="pre">remainder</span></code>
 to features (with the <code class="docutils literal notranslate"><span class="pre">*_transformer</span></code> parameters), the value <code class="docutils literal notranslate"><span class="pre">'remainder'</span></code>
 must be passed, instead of <code class="docutils literal notranslate"><span class="pre">None</span></code> in previous versions.
 <code class="docutils literal notranslate"><span class="pre">None</span></code> now indicates that we want to use the default transformer.</p></li>
 <li><p>Support for Python 3.6 and 3.7 has been dropped. Python &gt;= 3.8 is now required.</p></li>
 <li><p>Bumped minimum dependencies:
-- sklearn&gt;=0.22
+- sklearn&gt;=0.23
 - scipy&gt;=1.4.0
 - numpy&gt;=1.17.3
 - pandas&gt;=1.2.0</p></li>

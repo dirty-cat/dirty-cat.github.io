@@ -118,15 +118,17 @@ more documentation of attributes and functions are available in its doc.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
 <dt><strong>cardinality_threshold</strong><span class="classifier">int, default=40</span></dt><dd><p>Two lists of features will be created depending on this value: strictly
-under this value, the low cardinality categorical values, and above or
-equal, the high cardinality categorical values.
+under this value, the low cardinality categorical features, and above or
+equal, the high cardinality categorical features.
 Different transformers will be applied to these two groups,
 defined by the parameters <cite>low_card_cat_transformer</cite> and
-<cite>high_card_cat_transformer</cite> respectively.</p>
+<cite>high_card_cat_transformer</cite> respectively.
+Note: currently, missing values are counted as a single unique value
+(so they count in the cardinality).</p>
 </dd>
 <dt><strong>low_card_cat_transformer</strong><span class="classifier">typing.Optional[typing.Union[sklearn.base.TransformerMixin, typing.Literal[“drop”, “remainder”, “passthrough”]]], default=None  # noqa</span></dt><dd><p>Transformer used on categorical/string features with low cardinality
 (threshold is defined by <cite>cardinality_threshold</cite>).
-Can either be a transformer object instance (e.g. <cite>OneHotEncoder()</cite>),
+Can either be a transformer object instance (e.g. <cite>OneHotEncoder(drop=”if_binary”)</cite>),
 a <cite>Pipeline</cite> containing the preprocessing steps,
 ‘drop’ for dropping the columns,
 ‘remainder’ for applying <cite>remainder</cite>,
@@ -212,8 +214,19 @@ printed as it is completed</p>
 </dd>
 </dl>
 </dd>
-<dt class="field-even">Attributes<span class="colon">:</span></dt>
-<dd class="field-even"><dl class="simple">
+</dl>
+<p class="rubric">Notes</p>
+<p>The column order of the input data is not guaranteed to be the same
+as the output data (returned by <cite>transform</cite>).
+This is a due to the way the ColumnTransformer works.
+However, the output column order will always be the same for different
+calls to <cite>transform</cite> on a same fitted SuperVectorizer instance.
+For example, if input data has columns [‘name’, ‘job’, ‘year], then output
+columns might be shuffled, e.g., [‘job’, ‘year’, ‘name’], but every call
+to <cite>transform</cite> will return this order.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Attributes<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
 <dt><strong>transformers_: typing.List[typing.Tuple[str, typing.Union[str, sklearn.base.TransformerMixin], typing.List[str]]]  # noqa</strong></dt><dd><p>The collection of fitted transformers as tuples of
 (name, fitted_transformer, column). <cite>fitted_transformer</cite> can be an
 estimator, ‘drop’, or ‘passthrough’. In case there were no columns
@@ -289,7 +302,12 @@ transformers.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="dirty_cat.SuperVectorizer.fit_transform">
 <span class="sig-name descname"><span class="pre">fit_transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/super_vectorizer.html#SuperVectorizer.fit_transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.SuperVectorizer.fit_transform" title="Permalink to this definition">¶</a></dt>
-<dd><p>Fit all transformers, transform the data, and concatenate the results.</p>
+<dd><p>Fit all transformers, transform the data, and concatenate the results.
+In practice, it (1) converts features to their best possible types
+if <cite>auto_cast=True</cite>, (2) classify columns based on their data type,
+(3) replaces “false missing” (see function <cite>_replace_false_missing</cite>),
+and imputes categorical columns depending on <cite>impute_missing</cite>, and
+finally, transforms X.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">

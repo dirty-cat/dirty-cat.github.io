@@ -174,16 +174,18 @@
 
 <span class="sd">    cardinality_threshold : int, default=40</span>
 <span class="sd">        Two lists of features will be created depending on this value: strictly</span>
-<span class="sd">        under this value, the low cardinality categorical values, and above or</span>
-<span class="sd">        equal, the high cardinality categorical values.</span>
+<span class="sd">        under this value, the low cardinality categorical features, and above or</span>
+<span class="sd">        equal, the high cardinality categorical features.</span>
 <span class="sd">        Different transformers will be applied to these two groups,</span>
 <span class="sd">        defined by the parameters `low_card_cat_transformer` and</span>
 <span class="sd">        `high_card_cat_transformer` respectively.</span>
+<span class="sd">        Note: currently, missing values are counted as a single unique value</span>
+<span class="sd">        (so they count in the cardinality).</span>
 
 <span class="sd">    low_card_cat_transformer : typing.Optional[typing.Union[sklearn.base.TransformerMixin, typing.Literal[&quot;drop&quot;, &quot;remainder&quot;, &quot;passthrough&quot;]]], default=None  # noqa</span>
 <span class="sd">        Transformer used on categorical/string features with low cardinality</span>
 <span class="sd">        (threshold is defined by `cardinality_threshold`).</span>
-<span class="sd">        Can either be a transformer object instance (e.g. `OneHotEncoder()`),</span>
+<span class="sd">        Can either be a transformer object instance (e.g. `OneHotEncoder(drop=&quot;if_binary&quot;)`),</span>
 <span class="sd">        a `Pipeline` containing the preprocessing steps,</span>
 <span class="sd">        &#39;drop&#39; for dropping the columns,</span>
 <span class="sd">        &#39;remainder&#39; for applying `remainder`,</span>
@@ -304,6 +306,16 @@
 <span class="sd">    imputed_columns_: typing.List[str]</span>
 <span class="sd">        The list of columns in which we imputed the missing values.</span>
 
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    The column order of the input data is not guaranteed to be the same</span>
+<span class="sd">    as the output data (returned by `transform`).</span>
+<span class="sd">    This is a due to the way the ColumnTransformer works.</span>
+<span class="sd">    However, the output column order will always be the same for different</span>
+<span class="sd">    calls to `transform` on a same fitted SuperVectorizer instance.</span>
+<span class="sd">    For example, if input data has columns [&#39;name&#39;, &#39;job&#39;, &#39;year], then output</span>
+<span class="sd">    columns might be shuffled, e.g., [&#39;job&#39;, &#39;year&#39;, &#39;name&#39;], but every call</span>
+<span class="sd">    to `transform` will return this order.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">transformers_</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">TransformerMixin</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]]</span>
@@ -368,7 +380,7 @@
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">low_card_cat_transformer</span><span class="p">,</span> <span class="n">sklearn</span><span class="o">.</span><span class="n">base</span><span class="o">.</span><span class="n">TransformerMixin</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">low_card_cat_transformer_</span> <span class="o">=</span> <span class="n">clone</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">low_card_cat_transformer</span><span class="p">)</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">low_card_cat_transformer</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">low_card_cat_transformer_</span> <span class="o">=</span> <span class="n">OneHotEncoder</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">low_card_cat_transformer_</span> <span class="o">=</span> <span class="n">OneHotEncoder</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="s2">&quot;if_binary&quot;</span><span class="p">)</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">low_card_cat_transformer</span> <span class="o">==</span> <span class="s2">&quot;remainder&quot;</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">low_card_cat_transformer_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">remainder</span>
         <span class="k">else</span><span class="p">:</span>
@@ -484,6 +496,11 @@
 <div class="viewcode-block" id="SuperVectorizer.fit_transform"><a class="viewcode-back" href="../../generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer.fit_transform">[docs]</a>    <span class="k">def</span> <span class="nf">fit_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Fit all transformers, transform the data, and concatenate the results.</span>
+<span class="sd">        In practice, it (1) converts features to their best possible types</span>
+<span class="sd">        if `auto_cast=True`, (2) classify columns based on their data type,</span>
+<span class="sd">        (3) replaces &quot;false missing&quot; (see function `_replace_false_missing`),</span>
+<span class="sd">        and imputes categorical columns depending on `impute_missing`, and</span>
+<span class="sd">        finally, transforms X.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -548,16 +565,21 @@
         <span class="p">)</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span>
 
         <span class="c1"># Classify categorical columns by cardinality</span>
+        <span class="n">_nunique_values</span> <span class="o">=</span> <span class="p">{</span>  <span class="c1"># Cache results</span>
+            <span class="n">col</span><span class="p">:</span> <span class="n">X</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">categorical_columns</span>
+        <span class="p">}</span>
         <span class="n">low_card_cat_columns</span> <span class="o">=</span> <span class="p">[</span>
             <span class="n">col</span>
             <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">categorical_columns</span>
-            <span class="k">if</span> <span class="n">X</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">cardinality_threshold</span>
+            <span class="k">if</span> <span class="n">_nunique_values</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">cardinality_threshold</span>
         <span class="p">]</span>
         <span class="n">high_card_cat_columns</span> <span class="o">=</span> <span class="p">[</span>
             <span class="n">col</span>
             <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">categorical_columns</span>
-            <span class="k">if</span> <span class="n">X</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cardinality_threshold</span>
+            <span class="k">if</span> <span class="n">_nunique_values</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cardinality_threshold</span>
         <span class="p">]</span>
+        <span class="c1"># Clear cache</span>
+        <span class="k">del</span> <span class="n">_nunique_values</span>
 
         <span class="c1"># Next part: construct the transformers</span>
         <span class="c1"># Create the list of all the transformers.</span>
@@ -681,24 +703,10 @@
 <span class="sd">        typing.List[str]</span>
 <span class="sd">            Feature names.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">Version</span><span class="p">(</span><span class="n">sklearn_version</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">Version</span><span class="p">(</span><span class="s2">&quot;0.23&quot;</span><span class="p">):</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">Version</span><span class="p">(</span><span class="n">sklearn_version</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">Version</span><span class="p">(</span><span class="s2">&quot;1.0&quot;</span><span class="p">):</span>
-                    <span class="n">ct_feature_names</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">get_feature_names</span><span class="p">()</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">ct_feature_names</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">()</span>
-            <span class="k">except</span> <span class="ne">NotImplementedError</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
-                    <span class="s2">&quot;Prior to sklearn 0.23, get_feature_names with &quot;</span>
-                    <span class="s1">&#39;&quot;passthrough&quot; is unsupported. To use the method, &#39;</span>
-                    <span class="s1">&#39;either make sure there is no &quot;passthrough&quot; in the &#39;</span>
-                    <span class="s2">&quot;transformers, or update your copy of scikit-learn. &quot;</span>
-                <span class="p">)</span>
+        <span class="k">if</span> <span class="n">Version</span><span class="p">(</span><span class="n">sklearn_version</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">Version</span><span class="p">(</span><span class="s2">&quot;1.0&quot;</span><span class="p">):</span>
+            <span class="n">ct_feature_names</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">get_feature_names</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">Version</span><span class="p">(</span><span class="n">sklearn_version</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">Version</span><span class="p">(</span><span class="s2">&quot;1.0&quot;</span><span class="p">):</span>
-                <span class="n">ct_feature_names</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">get_feature_names</span><span class="p">()</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">ct_feature_names</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">()</span>
+            <span class="n">ct_feature_names</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">()</span>
         <span class="n">all_trans_feature_names</span> <span class="o">=</span> <span class="p">[]</span>
 
         <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">trans</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iter</span><span class="p">(</span><span class="n">fitted</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>

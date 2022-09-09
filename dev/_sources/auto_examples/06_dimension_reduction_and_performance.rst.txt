@@ -278,7 +278,7 @@ a |OHE| and a |SE|
 
  .. code-block:: none
 
-    Time to vectorize: 0.354s
+    Time to vectorize: 0.345s
 
 
 
@@ -309,7 +309,7 @@ Let's now run a cross-validation!
 
  .. code-block:: none
 
-    Run time: 2.29s | Memory used: 12.18MB. 
+    Run time: 2.40s | Memory used: 12.18MB. 
     Cross-validation score: [0.98513011 0.98884758 0.96641791 0.98134328 0.98880597]
 
 
@@ -385,7 +385,7 @@ Check that the prediction is still as good
 
  .. code-block:: none
 
-    Run time: 1.99s | Memory used: 9.07MB. 
+    Run time: 2.10s | Memory used: 9.07MB. 
     Cross-validation score: [0.98513011 0.99256506 0.97014925 0.98507463 0.98880597]
 
 
@@ -459,7 +459,7 @@ Check that the prediction is still as good
 
  .. code-block:: none
 
-    Run time: 5.43s | Memory used: 8.55MB. 
+    Run time: 5.98s | Memory used: 8.55MB. 
     Cross-validation score: [0.98884758 0.99256506 0.97014925 0.98507463 0.98880597]
 
 
@@ -519,7 +519,7 @@ Summary
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  18.231 seconds)
+   **Total running time of the script:** ( 1 minutes  47.895 seconds)
 
 
 .. _sphx_glr_download_auto_examples_06_dimension_reduction_and_performance.py:

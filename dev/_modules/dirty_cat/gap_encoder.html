@@ -113,21 +113,12 @@
 
 <span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">check_input</span>
 
-<span class="k">if</span> <span class="n">Version</span><span class="p">(</span><span class="n">sklearn_version</span><span class="p">)</span> <span class="o">==</span> <span class="n">Version</span><span class="p">(</span><span class="s2">&quot;0.22&quot;</span><span class="p">):</span>
-    <span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
-        <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
-        <span class="kn">from</span> <span class="nn">sklearn.cluster.k_means_</span> <span class="kn">import</span> <span class="n">_k_init</span>
-<span class="k">elif</span> <span class="n">Version</span><span class="p">(</span><span class="n">sklearn_version</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">Version</span><span class="p">(</span><span class="s2">&quot;0.24&quot;</span><span class="p">):</span>
+<span class="k">if</span> <span class="n">Version</span><span class="p">(</span><span class="n">sklearn_version</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">Version</span><span class="p">(</span><span class="s2">&quot;0.24&quot;</span><span class="p">):</span>
     <span class="kn">from</span> <span class="nn">sklearn.cluster._kmeans</span> <span class="kn">import</span> <span class="n">_k_init</span>
 <span class="k">else</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">kmeans_plusplus</span>
 
-<span class="k">if</span> <span class="n">Version</span><span class="p">(</span><span class="n">sklearn_version</span><span class="p">)</span> <span class="o">==</span> <span class="n">Version</span><span class="p">(</span><span class="s2">&quot;0.22&quot;</span><span class="p">):</span>
-    <span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
-        <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
-        <span class="kn">from</span> <span class="nn">sklearn.decomposition.nmf</span> <span class="kn">import</span> <span class="n">_beta_divergence</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">sklearn.decomposition._nmf</span> <span class="kn">import</span> <span class="n">_beta_divergence</span>
+<span class="kn">from</span> <span class="nn">sklearn.decomposition._nmf</span> <span class="kn">import</span> <span class="n">_beta_divergence</span>
 
 
 <span class="k">class</span> <span class="nc">GapEncoderColumn</span><span class="p">(</span><span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">TransformerMixin</span><span class="p">):</span>
