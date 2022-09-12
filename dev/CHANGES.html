@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-<meta property="og:title" content="Release 0.3" />
+<meta property="og:title" content="Release 0.3.0" />
   
 <meta property="og:type" content="website" />
   
@@ -20,7 +20,7 @@
   
 <meta property="og:image:alt" content="dirty_cat" />
   
-    <title>Release 0.3 &#8212; &amp;mdash; Dirty cat</title>
+    <title>Release 0.3.0 &#8212; &amp;mdash; Dirty cat</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
     <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css" />
@@ -76,7 +76,7 @@
 </ul>
   <h3 class="this-page"><a href="index.html">This page</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Release 0.3</a><ul>
+<li><a class="reference internal" href="#">Release 0.3.0</a><ul>
 <li><a class="reference internal" href="#major-changes">Major changes</a></li>
 <li><a class="reference internal" href="#notes">Notes</a></li>
 </ul>
@@ -130,8 +130,8 @@
 
           <div class="body" role="main">
             
-  <section id="release-0-3">
-<h1>Release 0.3<a class="headerlink" href="#release-0-3" title="Permalink to this heading">¶</a></h1>
+  <section id="release-0-3-0">
+<h1>Release 0.3.0<a class="headerlink" href="#release-0-3-0" title="Permalink to this heading">¶</a></h1>
 <section id="major-changes">
 <h2>Major changes<a class="headerlink" href="#major-changes" title="Permalink to this heading">¶</a></h2>
 <ul>
@@ -145,12 +145,12 @@ in the <a class="reference internal" href="generated/dirty_cat.SuperVectorizer.h
 - Fixes the automatic casting logic in <code class="docutils literal notranslate"><span class="pre">transform</span></code>.
 - To avoid dimensionality explosion when a feature has two unique values,</p>
 <blockquote>
-<div><p>the default encoder (<code class="xref py py-class docutils literal notranslate"><span class="pre">OneHotEncoder</span></code>) now drops one of the two
+<div><p>the default encoder (<a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.OneHotEncoder.html#sklearn.preprocessing.OneHotEncoder" title="(in scikit-learn v1.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">OneHotEncoder</span></code></a>) now drops one of the two
 vectors (see parameter <cite>drop=”if_binary”</cite>).</p>
 </div></blockquote>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">fit_transform</span></code> and <code class="docutils literal notranslate"><span class="pre">transform</span></code> can now return unencoded features,
-like the <code class="xref py py-class docutils literal notranslate"><span class="pre">ColumnTransformer</span></code>’s behavior.
+like the <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.compose.ColumnTransformer.html#sklearn.compose.ColumnTransformer" title="(in scikit-learn v1.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ColumnTransformer</span></code></a>’s behavior.
 Previously, a <code class="docutils literal notranslate"><span class="pre">RuntimeError</span></code> was raised.</p></li>
 </ul>
 </li>
@@ -206,15 +206,15 @@ when using the <cite>get_feature_names_out</cite> method.</p></li>
 </div></blockquote>
 </li>
 <li><dl class="simple">
-<dt>“get_feature_names” becomes “get_feature_names_out”, following changes in the scikit-learn API.</dt><dd><p>“get_feature_names” is deprecated in scikit-learn &gt; 1.0.</p>
+<dt><cite>get_feature_names</cite> becomes <cite>get_feature_names_out</cite>, following changes in the scikit-learn API.</dt><dd><p><cite>get_feature_names</cite> is deprecated in scikit-learn &gt; 1.0.</p>
 </dd>
 </dl>
 </li>
 <li><dl>
 <dt>Improvements to the <a class="reference internal" href="generated/dirty_cat.MinHashEncoder.html#dirty_cat.MinHashEncoder" title="dirty_cat.MinHashEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">MinHashEncoder</span></code></a></dt><dd><ul class="simple">
-<li><p>It is now possible to fit multiple columns simultaneously with the MinHashEncoder.</p></li>
+<li><p>It is now possible to fit multiple columns simultaneously with the <a class="reference internal" href="generated/dirty_cat.MinHashEncoder.html#dirty_cat.MinHashEncoder" title="dirty_cat.MinHashEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">MinHashEncoder</span></code></a>.</p></li>
 </ul>
-<p>Very useful when using for instance the sklearn.compose.make_column_transformer method,
+<p>Very useful when using for instance the <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.compose.make_column_transformer.html#sklearn.compose.make_column_transformer" title="(in scikit-learn v1.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_column_transformer()</span></code></a> method,
 on multiple columns.</p>
 </dd>
 </dl>
@@ -224,17 +224,17 @@ on multiple columns.</p>
 <section id="id2">
 <h2>Bug-fixes<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
-<li><p>Fixed a bug that resulted in the <strong>GapEncoder</strong> ignoring the analyzer argument.</p></li>
-<li><p>GapEncoder’s <cite>get_feature_names_out</cite> now accepts all iterators, not just lists.</p></li>
+<li><p>Fixed a bug that resulted in the <a class="reference internal" href="generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder" title="dirty_cat.GapEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">GapEncoder</span></code></a> ignoring the analyzer argument.</p></li>
+<li><p><a class="reference internal" href="generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder" title="dirty_cat.GapEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">GapEncoder</span></code></a>’s <cite>get_feature_names_out</cite> now accepts all iterators, not just lists.</p></li>
 <li><p>Fixed <cite>DeprecationWarning</cite> raised by the usage of <cite>distutils.version.LooseVersion</cite></p></li>
 </ul>
 </section>
 <section id="id3">
 <h2>Notes<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
-<li><p>Remove trailing imports in the MinHashEncoder.</p></li>
+<li><p>Remove trailing imports in the <a class="reference internal" href="generated/dirty_cat.MinHashEncoder.html#dirty_cat.MinHashEncoder" title="dirty_cat.MinHashEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">MinHashEncoder</span></code></a>.</p></li>
 <li><p>Fix typos and update links for website.</p></li>
-<li><p>Documentation of the SuperVectorizer and the SimilarityEncoder improved.</p></li>
+<li><p>Documentation of the SuperVectorizer and the <a class="reference internal" href="generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="dirty_cat.SimilarityEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimilarityEncoder</span></code></a> improved.</p></li>
 </ul>
 </section>
 </section>
@@ -262,20 +262,20 @@ for more information.</p></li>
 <li><p>The example notebooks were updated to reflect these changes.</p></li>
 </ul>
 </li>
-<li><p><strong>Backward incompatible change to MinHashEncoder</strong>: The MinHashEncoder now
+<li><p><strong>Backward incompatible change to</strong> <a class="reference internal" href="generated/dirty_cat.MinHashEncoder.html#dirty_cat.MinHashEncoder" title="dirty_cat.MinHashEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">MinHashEncoder</span></code></a>: The <a class="reference internal" href="generated/dirty_cat.MinHashEncoder.html#dirty_cat.MinHashEncoder" title="dirty_cat.MinHashEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">MinHashEncoder</span></code></a> now
 only supports two dimensional inputs of shape (N_samples, 1).</p></li>
 <li><p>Update <cite>handle_missing</cite> parameters:
-- <strong>GapEncoder</strong>: the default value “zero_impute” becomes “empty_impute” (see doc).
-- <strong>MinHashEncoder</strong>: the default value “” becomes “zero_impute” (see doc).</p></li>
-<li><p>Add a method “get_feature_names_out” for the <strong>GapEncoder</strong> and the <strong>SuperVectorizer</strong>,
-since “get_feature_names” will be depreciated in scikit-learn 1.2 (#216).</p></li>
+- <a class="reference internal" href="generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder" title="dirty_cat.GapEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">GapEncoder</span></code></a>: the default value “zero_impute” becomes “empty_impute” (see doc).
+- <a class="reference internal" href="generated/dirty_cat.MinHashEncoder.html#dirty_cat.MinHashEncoder" title="dirty_cat.MinHashEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">MinHashEncoder</span></code></a>: the default value “” becomes “zero_impute” (see doc).</p></li>
+<li><p>Add a method “get_feature_names_out” for the <a class="reference internal" href="generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder" title="dirty_cat.GapEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">GapEncoder</span></code></a> and the <a class="reference internal" href="generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SuperVectorizer</span></code></a>,
+since <cite>get_feature_names</cite> will be depreciated in scikit-learn 1.2 (#216).</p></li>
 </ul>
 </section>
 <section id="id5">
 <h2>Notes<a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Removed hard-coded CSV file <cite>dirty_cat/data/FiveThirtyEight_Midwest_Survey.csv</cite>.</p></li>
-<li><p>Improvements to the SuperVectorizer</p>
+<li><p>Improvements to the <a class="reference internal" href="generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SuperVectorizer</span></code></a></p>
 <ul>
 <li><p>Missing values are not systematically imputed anymore</p></li>
 <li><p>Type casting and per-column imputation are now learnt during fitting</p></li>
@@ -307,21 +307,21 @@ To try it, you have to install it manually using:</p>
 <li><p>scikit-learn (&gt;= 0.20.0)</p></li>
 </ul>
 </li>
-<li><p><strong>SuperVectorizer</strong>: Added automatic transform through the
+<li><p><a class="reference internal" href="generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SuperVectorizer</span></code></a>: Added automatic transform through the
 <a class="reference internal" href="generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SuperVectorizer</span></code></a> class. It transforms
 columns automatically based on their type. It provides a replacement
-for scikit-learn’s <cite>ColumnTransformer</cite> simpler to use on heterogeneous
+for scikit-learn’s <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.compose.ColumnTransformer.html#sklearn.compose.ColumnTransformer" title="(in scikit-learn v1.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ColumnTransformer</span></code></a> simpler to use on heterogeneous
 pandas DataFrame.</p></li>
-<li><p><strong>Backward incompatible change to GapEncoder</strong>: The GapEncoder now only
+<li><p><strong>Backward incompatible change to</strong> <a class="reference internal" href="generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder" title="dirty_cat.GapEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">GapEncoder</span></code></a>: The <a class="reference internal" href="generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder" title="dirty_cat.GapEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">GapEncoder</span></code></a> now only
 supports two-dimensional inputs of shape (n_samples, n_features).
-Internally, features are encoded by independent GapEncoder models,
+Internally, features are encoded by independent <a class="reference internal" href="generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder" title="dirty_cat.GapEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">GapEncoder</span></code></a> models,
 and are then concatenated into a single matrix.</p></li>
 </ul>
 </section>
 <section id="id7">
 <h2>Bug-fixes<a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
-<li><p>Fix get_feature_names for scikit-learn &gt; 0.21</p></li>
+<li><p>Fix <cite>get_feature_names</cite> for scikit-learn &gt; 0.21</p></li>
 </ul>
 </section>
 </section>
@@ -333,7 +333,7 @@ and are then concatenated into a single matrix.</p></li>
 <section id="id9">
 <h2>Bug-fixes<a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
-<li><p>RuntimeWarnings due to overflow in GapEncoder (#161)</p></li>
+<li><p>RuntimeWarnings due to overflow in <a class="reference internal" href="generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder" title="dirty_cat.GapEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">GapEncoder</span></code></a> (#161)</p></li>
 </ul>
 </section>
 </section>
@@ -342,7 +342,7 @@ and are then concatenated into a single matrix.</p></li>
 <section id="id10">
 <h2>Major changes<a class="headerlink" href="#id10" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><strong>GapEncoder</strong>: Added online Gamma-Poisson factorization through the
+<li><p><a class="reference internal" href="generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder" title="dirty_cat.GapEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">GapEncoder</span></code></a>: Added online Gamma-Poisson factorization through the
 <a class="reference internal" href="generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder" title="dirty_cat.GapEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">GapEncoder</span></code></a> class. This method discovers latent categories formed
 via combinations of substrings, and encodes string data as combinations of
 these categories. To be used if interpretability is important.</p></li>
@@ -359,7 +359,7 @@ these categories. To be used if interpretability is important.</p></li>
 <h1>Release 0.0.7<a class="headerlink" href="#release-0-0-7" title="Permalink to this heading">¶</a></h1>
 <ul class="simple">
 <li><p><strong>MinHashEncoder</strong>: Added <code class="docutils literal notranslate"><span class="pre">minhash_encoder.py</span></code> and <code class="docutils literal notranslate"><span class="pre">fast_hast.py</span></code> files
-that implement minhash encoding through the <code class="docutils literal notranslate"><span class="pre">MinHashEncoder</span></code> class.
+that implement minhash encoding through the <a class="reference internal" href="generated/dirty_cat.MinHashEncoder.html#dirty_cat.MinHashEncoder" title="dirty_cat.MinHashEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">MinHashEncoder</span></code></a> class.
 This method allows for fast and scalable encoding of string categorical
 variables.</p></li>
 <li><p><strong>datasets.fetch_employee_salaries</strong>: change the origin of download for employee_salaries.</p>
@@ -372,11 +372,11 @@ and not the path to the csv file.</p></li>
 <li><p><strong>SimilarityEncoder</strong>: Fixed a bug when using the Jaro-Winkler distance as a
 similarity metric. Our implementation now accurately reproduces the behaviour
 of the <code class="docutils literal notranslate"><span class="pre">python-Levenshtein</span></code> implementation.</p></li>
-<li><p><strong>SimilarityEncoder</strong>: Added a “handle_missing” attribute to allow encoding
+<li><p><strong>SimilarityEncoder</strong>: Added a <cite>handle_missing</cite> attribute to allow encoding
 with missing values.</p></li>
-<li><p><strong>TargetEncoder</strong>: Added a “handle_missing” attribute to allow encoding
+<li><p><strong>TargetEncoder</strong>: Added a <cite>handle_missing</cite> attribute to allow encoding
 with missing values.</p></li>
-<li><p><strong>MinHashEncoder</strong>: Added a “handle_missing” attribute to allow encoding
+<li><p><strong>MinHashEncoder</strong>: Added a <cite>handle_missing</cite> attribute to allow encoding
 with missing values.</p></li>
 </ul>
 </section>
@@ -387,10 +387,10 @@ with missing values.</p></li>
 <ul>
 <li><p>computing the vocabulary count vectors in <code class="docutils literal notranslate"><span class="pre">fit</span></code> instead of <code class="docutils literal notranslate"><span class="pre">transform</span></code></p></li>
 <li><p>computing the similarities in parallel using <code class="docutils literal notranslate"><span class="pre">joblib</span></code>. This option can be
-turned on/off via the <code class="docutils literal notranslate"><span class="pre">n_jobs</span></code> attribute of the <code class="docutils literal notranslate"><span class="pre">SimilarityEncoder</span></code>.</p></li>
+turned on/off via the <code class="docutils literal notranslate"><span class="pre">n_jobs</span></code> attribute of the <a class="reference internal" href="generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="dirty_cat.SimilarityEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimilarityEncoder</span></code></a>.</p></li>
 </ul>
 </li>
-<li><p><strong>SimilarityEncoder</strong>: Fix a bug that was preventing a <code class="docutils literal notranslate"><span class="pre">SimilarityEncoder</span></code>
+<li><p><strong>SimilarityEncoder</strong>: Fix a bug that was preventing a <a class="reference internal" href="generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="dirty_cat.SimilarityEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimilarityEncoder</span></code></a>
 to be created when <code class="docutils literal notranslate"><span class="pre">categories</span></code> was a list.</p></li>
 <li><p><strong>SimilarityEncoder</strong>: Set the dtype passed to the ngram similarity
 to float32, which reduces memory consumption during encoding.</p></li>
@@ -401,14 +401,14 @@ to float32, which reduces memory consumption during encoding.</p></li>
 <ul class="simple">
 <li><p><strong>SimilarityEncoder</strong>: Change the default ngram range to (2, 4) which
 performs better empirically.</p></li>
-<li><p><strong>SimilarityEncoder</strong>: Added a “most_frequent” strategy to define
+<li><p><strong>SimilarityEncoder</strong>: Added a <cite>most_frequent</cite> strategy to define
 prototype categories for large-scale learning.</p></li>
-<li><p><strong>SimilarityEncoder</strong>: Added a “k-means” strategy to define prototype
+<li><p><strong>SimilarityEncoder</strong>: Added a <cite>k-means</cite> strategy to define prototype
 categories for large-scale learning.</p></li>
 <li><p><strong>SimilarityEncoder</strong>: Added the possibility to use hashing ngrams for
 stateless fitting with the ngram similarity.</p></li>
 <li><p><strong>SimilarityEncoder</strong>: Performance improvements in the ngram similarity.</p></li>
-<li><p><strong>SimilarityEncoder</strong>: Expose a get_feature_names method.</p></li>
+<li><p><strong>SimilarityEncoder</strong>: Expose a <cite>get_feature_names</cite> method.</p></li>
 </ul>
 </section>
 
