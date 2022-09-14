@@ -47,7 +47,12 @@
   <div class="document">
     
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
+        <div class="sphinxsidebarwrapper"><!--
+    Inherited from the original Alabaster theme:
+    https://github.com/bitprophet/alabaster/blob/master/alabaster/about.html
+    Only the "Version" number is added.
+-->
+
 <p class="logo">
   <a href="../index.html">
     <img class="logo" src="../_static/dirty_cat.svg" alt="Logo"/>
@@ -55,6 +60,7 @@
     <h1 class="logo logo-name">dirty_cat</h1>
     
   </a>
+  <h4>Version 0.4.dev0</h4>
 </p>
 
 
@@ -105,7 +111,7 @@
 <p class="side-comment">Usage examples at the bottom of this page.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="dirty_cat.MinHashEncoder">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">dirty_cat.</span></span><span class="sig-name descname"><span class="pre">MinHashEncoder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_components</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">30</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ngram_range</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(2,</span> <span class="pre">4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hashing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'fast'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minmax_hash</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">handle_missing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'zero_impute'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/minhash_encoder.html#MinHashEncoder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.MinHashEncoder" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">dirty_cat.</span></span><span class="sig-name descname"><span class="pre">MinHashEncoder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_components</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">30</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ngram_range</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(2,</span> <span class="pre">4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hashing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'fast'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minmax_hash</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">handle_missing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'zero_impute'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/_minhash_encoder.html#MinHashEncoder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.MinHashEncoder" title="Permalink to this definition">¶</a></dt>
 <dd><p>Encode string categorical features as a numeric array, minhash method
 applied to ngram decomposition of strings based on ngram decomposition
 of the string.</p>
@@ -169,7 +175,7 @@ vectors filled with zeros.</p>
 </table>
 <dl class="py method">
 <dt class="sig sig-object py" id="dirty_cat.MinHashEncoder.fit">
-<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/minhash_encoder.html#MinHashEncoder.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.MinHashEncoder.fit" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/_minhash_encoder.html#MinHashEncoder.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.MinHashEncoder.fit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fit the MinHashEncoder to X. In practice, just initializes a dictionary
 to store encodings to speed up computation.</p>
 <dl class="field-list simple">
@@ -218,7 +224,7 @@ and returns a transformed version of <cite>X</cite>.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="dirty_cat.MinHashEncoder.get_fast_hash">
-<span class="sig-name descname"><span class="pre">get_fast_hash</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/minhash_encoder.html#MinHashEncoder.get_fast_hash"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.MinHashEncoder.get_fast_hash" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_fast_hash</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/_minhash_encoder.html#MinHashEncoder.get_fast_hash"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.MinHashEncoder.get_fast_hash" title="Permalink to this definition">¶</a></dt>
 <dd><p>Encode a string with fast hashing function.
 fast hashing supports both min_hash and minmax_hash encoding.</p>
 <dl class="field-list simple">
@@ -260,7 +266,7 @@ contained subobjects that are estimators.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="dirty_cat.MinHashEncoder.minhash">
-<span class="sig-name descname"><span class="pre">minhash</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_components</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ngram_range</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/minhash_encoder.html#MinHashEncoder.minhash"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.MinHashEncoder.minhash" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">minhash</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_components</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ngram_range</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/_minhash_encoder.html#MinHashEncoder.minhash"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.MinHashEncoder.minhash" title="Permalink to this definition">¶</a></dt>
 <dd><p>Encode a string using murmur hashing function.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -310,7 +316,7 @@ possible to update each component of a nested object.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="dirty_cat.MinHashEncoder.transform">
-<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/minhash_encoder.html#MinHashEncoder.transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.MinHashEncoder.transform" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/_minhash_encoder.html#MinHashEncoder.transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.MinHashEncoder.transform" title="Permalink to this definition">¶</a></dt>
 <dd><p>Transform X using specified encoding scheme.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>

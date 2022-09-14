@@ -47,7 +47,12 @@
   <div class="document">
     
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
+        <div class="sphinxsidebarwrapper"><!--
+    Inherited from the original Alabaster theme:
+    https://github.com/bitprophet/alabaster/blob/master/alabaster/about.html
+    Only the "Version" number is added.
+-->
+
 <p class="logo">
   <a href="../index.html">
     <img class="logo" src="../_static/dirty_cat.svg" alt="Logo"/>
@@ -55,6 +60,7 @@
     <h1 class="logo logo-name">dirty_cat</h1>
     
   </a>
+  <h4>Version 0.4.dev0</h4>
 </p>
 
 
@@ -105,7 +111,7 @@
 <p class="side-comment">Usage examples at the bottom of this page.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="dirty_cat.SimilarityEncoder">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">dirty_cat.</span></span><span class="sig-name descname"><span class="pre">SimilarityEncoder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">similarity='ngram'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ngram_range=(2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">categories='auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype=&lt;class</span> <span class="pre">'numpy.float64'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">handle_unknown='ignore'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">handle_missing=''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hashing_dim=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_prototypes=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_jobs=None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/similarity_encoder.html#SimilarityEncoder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.SimilarityEncoder" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">dirty_cat.</span></span><span class="sig-name descname"><span class="pre">SimilarityEncoder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">similarity='ngram'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ngram_range=(2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">categories='auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype=&lt;class</span> <span class="pre">'numpy.float64'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">handle_unknown='ignore'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">handle_missing=''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hashing_dim=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_prototypes=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_jobs=None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/_similarity_encoder.html#SimilarityEncoder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.SimilarityEncoder" title="Permalink to this definition">¶</a></dt>
 <dd><p>Encode string categorical features as a numeric array.</p>
 <p>The input to this transformer should be an array-like of
 strings.
@@ -222,7 +228,7 @@ only if <code class="docutils literal notranslate"><span class="pre">fast=True</
 </table>
 <dl class="py method">
 <dt class="sig sig-object py" id="dirty_cat.SimilarityEncoder.fit">
-<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/similarity_encoder.html#SimilarityEncoder.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.SimilarityEncoder.fit" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/_similarity_encoder.html#SimilarityEncoder.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.SimilarityEncoder.fit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fit the SimilarityEncoder to X.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -244,7 +250,7 @@ only if <code class="docutils literal notranslate"><span class="pre">fast=True</
 
 <dl class="py method">
 <dt class="sig sig-object py" id="dirty_cat.SimilarityEncoder.fit_transform">
-<span class="sig-name descname"><span class="pre">fit_transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">fit_params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/similarity_encoder.html#SimilarityEncoder.fit_transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.SimilarityEncoder.fit_transform" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">fit_transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">fit_params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/_similarity_encoder.html#SimilarityEncoder.fit_transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.SimilarityEncoder.fit_transform" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fit SimilarityEncoder to data, then transform it.
 Fits transformer to <cite>X</cite> and <cite>y</cite> with optional parameters
 <cite>fit_params</cite> and returns a transformed version of <cite>X</cite>.</p>
@@ -324,7 +330,7 @@ match <cite>feature_names_in_</cite> if <cite>feature_names_in_</cite> is define
 
 <dl class="py method">
 <dt class="sig sig-object py" id="dirty_cat.SimilarityEncoder.get_most_frequent">
-<span class="sig-name descname"><span class="pre">get_most_frequent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prototypes</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/similarity_encoder.html#SimilarityEncoder.get_most_frequent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.SimilarityEncoder.get_most_frequent" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_most_frequent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prototypes</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/_similarity_encoder.html#SimilarityEncoder.get_most_frequent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.SimilarityEncoder.get_most_frequent" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the most frequent category prototypes.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -421,7 +427,7 @@ possible to update each component of a nested object.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="dirty_cat.SimilarityEncoder.transform">
-<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fast</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/similarity_encoder.html#SimilarityEncoder.transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.SimilarityEncoder.transform" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fast</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/_similarity_encoder.html#SimilarityEncoder.transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.SimilarityEncoder.transform" title="Permalink to this definition">¶</a></dt>
 <dd><p>Transform X using specified encoding scheme.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>

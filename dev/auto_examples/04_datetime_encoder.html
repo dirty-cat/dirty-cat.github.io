@@ -47,7 +47,12 @@
   <div class="document">
     
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
+        <div class="sphinxsidebarwrapper"><!--
+    Inherited from the original Alabaster theme:
+    https://github.com/bitprophet/alabaster/blob/master/alabaster/about.html
+    Only the "Version" number is added.
+-->
+
 <p class="logo">
   <a href="../index.html">
     <img class="logo" src="../_static/dirty_cat.svg" alt="Logo"/>
@@ -55,6 +60,7 @@
     <h1 class="logo logo-name">dirty_cat</h1>
     
   </a>
+  <h4>Version 0.4.dev0</h4>
 </p>
 
 
@@ -231,7 +237,7 @@ on the date and the time of measurement.</p>
 <section id="encoders-for-categorical-and-datetime-features">
 <h3>Encoders for categorical and datetime features<a class="headerlink" href="#encoders-for-categorical-and-datetime-features" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.OneHotEncoder.html#sklearn.preprocessing.OneHotEncoder" title="sklearn.preprocessing.OneHotEncoder" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class"><span class="n">OneHotEncoder</span></a>
-<span class="kn">from</span> <span class="nn">dirty_cat.datetime_encoder</span> <span class="kn">import</span> <a href="../generated/dirty_cat.DatetimeEncoder.html#dirty_cat.DatetimeEncoder" title="dirty_cat.DatetimeEncoder" class="sphx-glr-backref-module-dirty_cat sphx-glr-backref-type-py-class"><span class="n">DatetimeEncoder</span></a>
+<span class="kn">from</span> <span class="nn">dirty_cat</span> <span class="kn">import</span> <a href="../generated/dirty_cat.DatetimeEncoder.html#dirty_cat.DatetimeEncoder" title="dirty_cat.DatetimeEncoder" class="sphx-glr-backref-module-dirty_cat sphx-glr-backref-type-py-class"><span class="n">DatetimeEncoder</span></a>
 
 <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.OneHotEncoder.html#sklearn.preprocessing.OneHotEncoder" title="sklearn.preprocessing.OneHotEncoder" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">cat_encoder</span></a> <span class="o">=</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.OneHotEncoder.html#sklearn.preprocessing.OneHotEncoder" title="sklearn.preprocessing.OneHotEncoder" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class"><span class="n">OneHotEncoder</span></a><span class="p">(</span><span class="n">handle_unknown</span><span class="o">=</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
 <span class="c1"># We encode dates using the day of the week as it is probably relevant,</span>
@@ -458,7 +464,7 @@ and sees how the model changes its prediction</p>
 </div>
 <img src="../_images/sphx_glr_04_datetime_encoder_003.png" srcset="../_images/sphx_glr_04_datetime_encoder_003.png" alt="Feature importances" class = "sphx-glr-single-img"/><p>We can see that the hour of the day is the most important feature,
 which seems reasonable.</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  3.585 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  3.884 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-04-datetime-encoder-py">
 <div class="binder-badge docutils container">
 <a class="reference external image-reference" href="https://mybinder.org/v2/gh/dirty-cat/dirty-cat.github.io/master?filepath=dev/auto_examples/04_datetime_encoder.ipynb"><img alt="Launch binder" src="../_images/binder_badge_logo.svg" width="150px" /></a>

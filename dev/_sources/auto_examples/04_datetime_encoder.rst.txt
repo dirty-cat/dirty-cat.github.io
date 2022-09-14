@@ -171,7 +171,7 @@ Encoders for categorical and datetime features
 .. code-block:: default
 
     from sklearn.preprocessing import OneHotEncoder
-    from dirty_cat.datetime_encoder import DatetimeEncoder
+    from dirty_cat import DatetimeEncoder
 
     cat_encoder = OneHotEncoder(handle_unknown="ignore")
     # We encode dates using the day of the week as it is probably relevant,
@@ -563,7 +563,7 @@ which seems reasonable.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  3.585 seconds)
+   **Total running time of the script:** ( 0 minutes  3.884 seconds)
 
 
 .. _sphx_glr_download_auto_examples_04_datetime_encoder.py:

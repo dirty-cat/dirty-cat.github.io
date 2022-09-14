@@ -47,7 +47,12 @@
   <div class="document">
     
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
+        <div class="sphinxsidebarwrapper"><!--
+    Inherited from the original Alabaster theme:
+    https://github.com/bitprophet/alabaster/blob/master/alabaster/about.html
+    Only the "Version" number is added.
+-->
+
 <p class="logo">
   <a href="../index.html">
     <img class="logo" src="../_static/dirty_cat.svg" alt="Logo"/>
@@ -55,6 +60,7 @@
     <h1 class="logo logo-name">dirty_cat</h1>
     
   </a>
+  <h4>Version 0.4.dev0</h4>
 </p>
 
 
@@ -105,7 +111,7 @@
 <p class="side-comment">Usage examples at the bottom of this page.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="dirty_cat.TargetEncoder">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">dirty_cat.</span></span><span class="sig-name descname"><span class="pre">TargetEncoder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">categories='auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clf_type='binary-clf'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype=&lt;class</span> <span class="pre">'numpy.float64'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">handle_unknown='error'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">handle_missing=''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/target_encoder.html#TargetEncoder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.TargetEncoder" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">dirty_cat.</span></span><span class="sig-name descname"><span class="pre">TargetEncoder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">categories='auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clf_type='binary-clf'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype=&lt;class</span> <span class="pre">'numpy.float64'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">handle_unknown='error'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">handle_missing=''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/_target_encoder.html#TargetEncoder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.TargetEncoder" title="Permalink to this definition">¶</a></dt>
 <dd><p>Encode categorical features as a numeric array given a target vector.</p>
 <p>Each category is encoded given the effect that it has in the
 target variable y. The method considers that categorical
@@ -180,7 +186,7 @@ problems.</p>
 </table>
 <dl class="py method">
 <dt class="sig sig-object py" id="dirty_cat.TargetEncoder.fit">
-<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/target_encoder.html#TargetEncoder.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.TargetEncoder.fit" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/_target_encoder.html#TargetEncoder.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.TargetEncoder.fit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fit the TargetEncoder to X.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -273,7 +279,7 @@ possible to update each component of a nested object.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="dirty_cat.TargetEncoder.transform">
-<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/target_encoder.html#TargetEncoder.transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.TargetEncoder.transform" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/_target_encoder.html#TargetEncoder.transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.TargetEncoder.transform" title="Permalink to this definition">¶</a></dt>
 <dd><p>Transform X using the specified encoding scheme.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
