@@ -1,0 +1,281 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+<meta property="og:title" content="dirty_cat: machine learning on dirty categories" />
+  
+<meta property="og:type" content="website" />
+  
+<meta property="og:url" content="https://dirty-cat.github.io/stable/index.html" />
+  
+<meta property="og:site_name" content="dirty_cat" />
+  
+<meta property="og:description" content="dirty_cat facilitates machine-learning on non-curated categories: robust to morphological variants, such as typos., SuperVectorizer: a transformer automatically turning a pandas dataframe into a nu..." />
+  
+<meta property="og:image" content="https://dirty-cat.github.io/stable/_images/sphx_glr_01_dirty_categories_thumb.png" />
+  
+<meta property="og:image:alt" content="Dirty categories: machine learning with non normalized strings" />
+  
+    <title>dirty_cat: machine learning on dirty categories &#8212; &amp;mdash; Dirty cat</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-rendered-html.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/scrolltoc.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Dirty categories: machine learning with non normalized strings" href="auto_examples/01_dirty_categories.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="#">
+    <img class="logo" src="_static/dirty_cat.svg" alt="Logo"/>
+    
+    <h1 class="logo logo-name">dirty_cat</h1>
+    
+  </a>
+</p>
+
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=dirty-cat&repo=dirty_cat&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<ul>
+    <li class="toctree-l1"><a href="./index.html#using-dirty-cat">Usage</a></li>
+    <li class="toctree-l1"><a href="./index.html#api-documentation">API</a></li>
+    <li class="toctree-l1"><a href="./index.html#about">About</a></li>
+</ul><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="#">Documentation overview</a><ul>
+      <li>Next: <a href="auto_examples/01_dirty_categories.html" title="next chapter">Dirty categories: machine learning with non normalized strings</a></li>
+  </ul></li>
+</ul>
+</div>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="dirty-cat-machine-learning-on-dirty-categories">
+<h1>dirty_cat: machine learning on dirty categories<a class="headerlink" href="#dirty-cat-machine-learning-on-dirty-categories" title="Permalink to this heading">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<div class="larger-container docutils container">
+<p><cite>dirty_cat</cite> facilitates machine-learning on non-curated categories:
+<strong>robust to morphological variants</strong>, such as typos.</p>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<div class="flex-container">
+<div class="flex-content">
+<span class="container-title">Automatic features from heterogeneous dataframes</span><p><a class="reference internal" href="generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SuperVectorizer</span></code></a>: a transformer <strong>automatically turning a pandas
+dataframe into a numpy array</strong> for machine learning – a default encoding
+pipeline you can tweak.</p>
+<p class="centered"><a class="reference internal" href="auto_examples/01_dirty_categories.html#example-super-vectorizer"><span class="std std-ref">An example</span></a></p>
+</div>
+<div class="flex-content">
+<span class="container-title">OneHotEncoder but for non-normalized categories</span><ul class="simple">
+<li><p><a class="reference internal" href="generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder" title="dirty_cat.GapEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">GapEncoder</span></code></a>, scalable and interpretable, where each encoding
+dimension corresponds to a topic that summarizes substrings captured.</p></li>
+<li><p><a class="reference internal" href="generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="dirty_cat.SimilarityEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimilarityEncoder</span></code></a>, a simple modification of one-hot encoding
+to capture the strings.</p></li>
+<li><p><a class="reference internal" href="generated/dirty_cat.MinHashEncoder.html#dirty_cat.MinHashEncoder" title="dirty_cat.MinHashEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">MinHashEncoder</span></code></a>, very scalable</p></li>
+</ul>
+</div>
+</div>
+<div class="flex-container"><div class="flex-content" style="border: 0px;">
+<iframe style="display: block; margin: auto; width: 100%;" width="560" height="315"
+ src="https://www.youtube.com/embed/_GNaaeEI2tg" frameborder="0"
+ allow="accelerometer; autoplay; clipboard-write;
+ encrypted-media; gyroscope; picture-in-picture" allowfullscreen
+></iframe></div>
+<div class="flex-content" style="border: 0px;"><p>For a detailed description of the problem of encoding dirty categorical data,
+see <a class="reference external" href="https://hal.inria.fr/hal-01806175">Similarity encoding for learning with dirty categorical variables</a> <a class="footnote-reference brackets" href="#id3" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> and <a class="reference external" href="https://hal.inria.fr/hal-02171256v4">Encoding high-cardinality
+string categorical variables</a> <a class="footnote-reference brackets" href="#id4" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>.</p>
+</div>
+</div><p class="right-align"><a class="reference external" href="CHANGES.html">Recent changes</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Installing<span class="colon">:</span></dt>
+<dd class="field-odd"><p><cite>$ pip install –user –upgrade dirty_cat</cite></p>
+</dd>
+</dl>
+<hr class="docutils" />
+<section id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading">¶</a></h2>
+<div class="larger-container docutils container">
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="Including strings that represent categories often calls for much data preparation. In particula..."><img alt="Dirty categories: machine learning with non normalized strings" src="_images/sphx_glr_01_dirty_categories_thumb.png" />
+<p><a class="reference internal" href="auto_examples/01_dirty_categories.html#sphx-glr-auto-examples-01-dirty-categories-py"><span class="std std-ref">Dirty categories: machine learning with non normalized strings</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Dirty categories: machine learning with non normalized strings</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="What are dirty categorical variables and how can a good encoding help with statistical learning..."><img alt="Investigating dirty categories" src="_images/sphx_glr_02_investigating_dirty_categories_thumb.png" />
+<p><a class="reference internal" href="auto_examples/02_investigating_dirty_categories.html#sphx-glr-auto-examples-02-investigating-dirty-categories-py"><span class="std std-ref">Investigating dirty categories</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Investigating dirty categories</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="We illustrate here how categorical encodings obtained with the GapEncoder can be interpreted in..."><img alt="Feature interpretation with the GapEncoder" src="_images/sphx_glr_03_feature_interpretation_gap_encoder_thumb.png" />
+<p><a class="reference internal" href="auto_examples/03_feature_interpretation_gap_encoder.html#sphx-glr-auto-examples-03-feature-interpretation-gap-encoder-py"><span class="std std-ref">Feature interpretation with the GapEncoder</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Feature interpretation with the GapEncoder</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="We illustrate here how to handle datetime features with the DatetimeEncoder."><img alt="Handling datetime features with the DatetimeEncoder" src="_images/sphx_glr_04_datetime_encoder_thumb.png" />
+<p><a class="reference internal" href="auto_examples/04_datetime_encoder.html#sphx-glr-auto-examples-04-datetime-encoder-py"><span class="std std-ref">Handling datetime features with the DatetimeEncoder</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Handling datetime features with the DatetimeEncoder</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="When training a machine learning model, it is often hard to choose between linear and a non-lin..."><img alt="Fitting scalable, non-linear models on data with dirty categories" src="_images/sphx_glr_05_scaling_non_linear_models_thumb.png" />
+<p><a class="reference internal" href="auto_examples/05_scaling_non_linear_models.html#sphx-glr-auto-examples-05-scaling-non-linear-models-py"><span class="std std-ref">Fitting scalable, non-linear models on data with dirty categories</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Fitting scalable, non-linear models on data with dirty categories</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="We discuss in this notebook how to efficiently apply the |SE| to larger datasets: reducing the ..."><img alt="Scalability considerations for similarity encoding" src="_images/sphx_glr_06_dimension_reduction_and_performance_thumb.png" />
+<p><a class="reference internal" href="auto_examples/06_dimension_reduction_and_performance.html#sphx-glr-auto-examples-06-dimension-reduction-and-performance-py"><span class="std std-ref">Scalability considerations for similarity encoding</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Scalability considerations for similarity encoding</div>
+</div></div><div class="toctree-wrapper compound">
+</div>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</section>
+<section id="api-documentation">
+<h2>API documentation<a class="headerlink" href="#api-documentation" title="Permalink to this heading">¶</a></h2>
+<section id="vectorizing-a-dataframe">
+<h3>Vectorizing a dataframe<a class="headerlink" href="#vectorizing-a-dataframe" title="Permalink to this heading">¶</a></h3>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SuperVectorizer</span></code></a></p></td>
+<td><p>Easily transforms a heterogeneous data table (such as a dataframe) to a numerical array for machine learning.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="dirty-category-encoders">
+<h3>Dirty Category encoders<a class="headerlink" href="#dirty-category-encoders" title="Permalink to this heading">¶</a></h3>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder" title="dirty_cat.GapEncoder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GapEncoder</span></code></a></p></td>
+<td><p>This encoder can be understood as a continuous encoding on a set of latent categories estimated from the data.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/dirty_cat.MinHashEncoder.html#dirty_cat.MinHashEncoder" title="dirty_cat.MinHashEncoder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MinHashEncoder</span></code></a></p></td>
+<td><p>Encode string categorical features as a numeric array, minhash method applied to ngram decomposition of strings based on ngram decomposition of the string.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="dirty_cat.SimilarityEncoder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SimilarityEncoder</span></code></a></p></td>
+<td><p>Encode string categorical features as a numeric array.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/dirty_cat.TargetEncoder.html#dirty_cat.TargetEncoder" title="dirty_cat.TargetEncoder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TargetEncoder</span></code></a></p></td>
+<td><p>Encode categorical features as a numeric array given a target vector.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="other-encoders">
+<h3>Other encoders<a class="headerlink" href="#other-encoders" title="Permalink to this heading">¶</a></h3>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/dirty_cat.DatetimeEncoder.html#dirty_cat.DatetimeEncoder" title="dirty_cat.DatetimeEncoder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DatetimeEncoder</span></code></a></p></td>
+<td><p>This encoder transforms each datetime column into several numeric columns corresponding to temporal features, e.g year, month, day.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="data-download">
+<h3>Data download<a class="headerlink" href="#data-download" title="Permalink to this heading">¶</a></h3>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/dirty_cat.datasets.fetch_employee_salaries.html#dirty_cat.datasets.fetch_employee_salaries" title="dirty_cat.datasets.fetch_employee_salaries"><code class="xref py py-obj docutils literal notranslate"><span class="pre">datasets.fetch_employee_salaries</span></code></a></p></td>
+<td><p>Fetches the employee_salaries dataset (regression), available at <a class="reference external" href="https://openml.org/d/42125">https://openml.org/d/42125</a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/dirty_cat.datasets.fetch_medical_charge.html#dirty_cat.datasets.fetch_medical_charge" title="dirty_cat.datasets.fetch_medical_charge"><code class="xref py py-obj docutils literal notranslate"><span class="pre">datasets.fetch_medical_charge</span></code></a></p></td>
+<td><p>Fetches the medical charge dataset (regression), available at <a class="reference external" href="https://openml.org/d/42720">https://openml.org/d/42720</a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/dirty_cat.datasets.fetch_midwest_survey.html#dirty_cat.datasets.fetch_midwest_survey" title="dirty_cat.datasets.fetch_midwest_survey"><code class="xref py py-obj docutils literal notranslate"><span class="pre">datasets.fetch_midwest_survey</span></code></a></p></td>
+<td><p>Fetches the midwest survey dataset (classification), available at <a class="reference external" href="https://openml.org/d/42805">https://openml.org/d/42805</a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/dirty_cat.datasets.fetch_open_payments.html#dirty_cat.datasets.fetch_open_payments" title="dirty_cat.datasets.fetch_open_payments"><code class="xref py py-obj docutils literal notranslate"><span class="pre">datasets.fetch_open_payments</span></code></a></p></td>
+<td><p>Fetches the open payments dataset (classification), available at <a class="reference external" href="https://openml.org/d/42738">https://openml.org/d/42738</a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/dirty_cat.datasets.fetch_road_safety.html#dirty_cat.datasets.fetch_road_safety" title="dirty_cat.datasets.fetch_road_safety"><code class="xref py py-obj docutils literal notranslate"><span class="pre">datasets.fetch_road_safety</span></code></a></p></td>
+<td><p>Fetches the road safety dataset (classification), available at <a class="reference external" href="https://openml.org/d/42803">https://openml.org/d/42803</a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/dirty_cat.datasets.fetch_traffic_violations.html#dirty_cat.datasets.fetch_traffic_violations" title="dirty_cat.datasets.fetch_traffic_violations"><code class="xref py py-obj docutils literal notranslate"><span class="pre">datasets.fetch_traffic_violations</span></code></a></p></td>
+<td><p>Fetches the traffic violations dataset (classification), available at <a class="reference external" href="https://openml.org/d/42132">https://openml.org/d/42132</a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/dirty_cat.datasets.get_data_dir.html#dirty_cat.datasets.get_data_dir" title="dirty_cat.datasets.get_data_dir"><code class="xref py py-obj docutils literal notranslate"><span class="pre">datasets.get_data_dir</span></code></a></p></td>
+<td><p>Returns the directory in which dirty_cat looks for data.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="about">
+<h2>About<a class="headerlink" href="#about" title="Permalink to this heading">¶</a></h2>
+<p>dirty_cat is for now a repository for ideas coming out of a research
+project: there is still little known about the problems of dirty
+categories. Tradeoffs will emerge in the long run. We really need people
+giving feedback on success and failures with the different techniques and
+pointing us to open datasets on which we can do more empirical work.
+dirty-cat received funding from <a class="reference external" href="https://project.inria.fr/dirtydata/">project DirtyData</a> (ANR-17-CE23-0018).</p>
+<aside class="footnote brackets" id="id3" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>Patricio Cerda, Gaël Varoquaux. Encoding high-cardinality string categorical variables. 2020. IEEE Transactions on Knowledge &amp; Data Engineering.</p>
+</aside>
+<aside class="footnote brackets" id="id4" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
+<p>Patricio Cerda, Gaël Varoquaux, Balázs Kégl. Similarity encoding for learning with dirty categorical variables. 2018. Machine Learning journal, Springer.</p>
+</aside>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Many classic categorical encoding schemes are available here:
+<a class="reference external" href="https://contrib.scikit-learn.org/category_encoders/">https://contrib.scikit-learn.org/category_encoders/</a></p>
+<p>Similarity encoding in also available in Spark ML:
+<a class="reference external" href="https://github.com/rakutentech/spark-dirty-cat">https://github.com/rakutentech/spark-dirty-cat</a></p>
+</div>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2018-2021, dirty_cat developers.
+      
+      |
+      <a href="_sources/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,698 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>dirty_cat.datasets.fetching &#8212; &amp;mdash; Dirty cat</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/scrolltoc.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../../../index.html">
+    <img class="logo" src="../../../_static/dirty_cat.svg" alt="Logo"/>
+    
+    <h1 class="logo logo-name">dirty_cat</h1>
+    
+  </a>
+</p>
+
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=dirty-cat&repo=dirty_cat&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<ul>
+    <li class="toctree-l1"><a href="../../../index.html#using-dirty-cat">Usage</a></li>
+    <li class="toctree-l1"><a href="../../../index.html#api-documentation">API</a></li>
+    <li class="toctree-l1"><a href="../../../index.html#about">About</a></li>
+</ul><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for dirty_cat.datasets.fetching</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Fetching functions to retrieve example datasets, using</span>
+<span class="sd">Scikit-Learn&#39;s ``fetch_openml()`` function.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c1"># Future notes:</span>
+<span class="c1"># - Watch out for ``fetch_openml()`` API modifications:</span>
+<span class="c1"># as of january 2021, the function is marked as experimental.</span>
+
+
+<span class="kn">import</span> <span class="nn">gzip</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">fetch_openml</span>
+
+<span class="kn">from</span> <span class="nn">dirty_cat.datasets.utils</span> <span class="kn">import</span> <span class="n">get_data_dir</span>
+
+<span class="c1"># Directory where the ``.gz`` files containing the</span>
+<span class="c1"># details on downloaded datasets are stored.</span>
+<span class="c1"># Note: the tree structure is created by ``fetch_openml()``.</span>
+<span class="c1"># As of october 2020, this function is annotated as</span>
+<span class="c1"># ``Experimental`` so the structure might change in future releases.</span>
+<span class="c1"># This path will be concatenated to the dirty_cat data directory,</span>
+<span class="c1"># available via the function ``get_data_dir()``.</span>
+<span class="n">DETAILS_DIRECTORY</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;openml/openml.org/api/v1/json/data/&quot;</span>
+
+<span class="c1"># Same as above; for the datasets features location.</span>
+<span class="n">FEATURES_DIRECTORY</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;openml/openml.org/api/v1/json/data/features/&quot;</span>
+
+<span class="c1"># Same as above; for the datasets data location.</span>
+<span class="n">DATA_DIRECTORY</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;openml/openml.org/data/v1/download/&quot;</span>
+
+<span class="c1"># The IDs of the datasets, from OpenML.</span>
+<span class="c1"># For each dataset, its URL is constructed as follows:</span>
+<span class="n">openml_url</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;https://www.openml.org/d/</span><span class="si">{ID}</span><span class="s2">&quot;</span>
+<span class="n">ROAD_SAFETY_ID</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">42803</span>
+<span class="n">OPEN_PAYMENTS_ID</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">42738</span>
+<span class="n">MIDWEST_SURVEY_ID</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">42805</span>
+<span class="n">MEDICAL_CHARGE_ID</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">42720</span>
+<span class="n">EMPLOYEE_SALARIES_ID</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">42125</span>
+<span class="n">TRAFFIC_VIOLATIONS_ID</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">42132</span>
+<span class="n">DRUG_DIRECTORY_ID</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">43044</span>
+
+
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">unsafe_hash</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">Details</span><span class="p">:</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">file_id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span>
+
+
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">unsafe_hash</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">Features</span><span class="p">:</span>
+    <span class="n">names</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+
+
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">unsafe_hash</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">DatasetAll</span><span class="p">:</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">X</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span>
+    <span class="n">y</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span>
+    <span class="n">source</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">path</span><span class="p">:</span> <span class="n">Path</span>
+
+
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">unsafe_hash</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">DatasetInfoOnly</span><span class="p">:</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">source</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">target</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">path</span><span class="p">:</span> <span class="n">Path</span>
+    <span class="n">read_csv_kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
+
+
+<span class="k">def</span> <span class="nf">fetch_openml_dataset</span><span class="p">(</span>
+    <span class="n">dataset_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">data_directory</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="n">get_data_dir</span><span class="p">(),</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Gets a dataset from OpenML (https://www.openml.org),</span>
+<span class="sd">    or from the disk if already downloaded.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    dataset_id: int</span>
+<span class="sd">        The ID of the dataset to fetch.</span>
+<span class="sd">    data_directory: Path</span>
+<span class="sd">        Optional. A directory to save the data to.</span>
+<span class="sd">        By default, the dirty_cat data directory.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Dict[str, Any]</span>
+<span class="sd">        A dictionary containing:</span>
+<span class="sd">          - ``description``: str</span>
+<span class="sd">              The description of the dataset,</span>
+<span class="sd">              as gathered from OpenML.</span>
+<span class="sd">          - ``source``: str</span>
+<span class="sd">              The dataset&#39;s URL from OpenML.</span>
+<span class="sd">          - ``path``: pathlib.Path</span>
+<span class="sd">              The local path leading to the dataset,</span>
+<span class="sd">              saved as a CSV file.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Make path absolute</span>
+    <span class="n">data_directory</span> <span class="o">=</span> <span class="n">data_directory</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
+
+    <span class="c1"># Construct the path to the gzip file containing the details on a dataset.</span>
+    <span class="n">details_gz_path</span> <span class="o">=</span> <span class="n">data_directory</span> <span class="o">/</span> <span class="n">DETAILS_DIRECTORY</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">dataset_id</span><span class="si">}</span><span class="s2">.gz&quot;</span>
+    <span class="n">features_gz_path</span> <span class="o">=</span> <span class="n">data_directory</span> <span class="o">/</span> <span class="n">FEATURES_DIRECTORY</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">dataset_id</span><span class="si">}</span><span class="s2">.gz&quot;</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">details_gz_path</span><span class="o">.</span><span class="n">is_file</span><span class="p">()</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">features_gz_path</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
+        <span class="c1"># If the details file or the features file don&#39;t exist,</span>
+        <span class="c1"># download the dataset.</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Could not find the dataset </span><span class="si">{</span><span class="n">dataset_id</span><span class="si">}</span><span class="s2"> locally. &quot;</span>
+            <span class="s2">&quot;Downloading it from OpenML; this might take a while... &quot;</span>
+            <span class="s2">&quot;If it is interrupted, some files might be invalid/incomplete: &quot;</span>
+            <span class="s2">&quot;if on the following run, the fetching raises errors, you can try &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;fixing this issue by deleting the directory </span><span class="si">{</span><span class="n">data_directory</span><span class="si">!s}</span><span class="s2">.&quot;</span><span class="p">,</span>
+            <span class="ne">UserWarning</span><span class="p">,</span>
+            <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">_download_and_write_openml_dataset</span><span class="p">(</span>
+            <span class="n">dataset_id</span><span class="o">=</span><span class="n">dataset_id</span><span class="p">,</span> <span class="n">data_directory</span><span class="o">=</span><span class="n">data_directory</span>
+        <span class="p">)</span>
+    <span class="n">details</span> <span class="o">=</span> <span class="n">_get_details</span><span class="p">(</span><span class="n">details_gz_path</span><span class="p">)</span>
+
+    <span class="c1"># The file ID is required because the data file is named after this ID,</span>
+    <span class="c1"># and not after the dataset&#39;s.</span>
+    <span class="n">file_id</span> <span class="o">=</span> <span class="n">details</span><span class="o">.</span><span class="n">file_id</span>
+    <span class="n">csv_path</span> <span class="o">=</span> <span class="n">data_directory</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">details</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">.csv&quot;</span>
+
+    <span class="n">data_gz_path</span> <span class="o">=</span> <span class="n">data_directory</span> <span class="o">/</span> <span class="n">DATA_DIRECTORY</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">file_id</span><span class="si">}</span><span class="s2">.gz&quot;</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">data_gz_path</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
+        <span class="c1"># double-check.</span>
+        <span class="c1"># If the data file does not exist, download the dataset.</span>
+        <span class="n">_download_and_write_openml_dataset</span><span class="p">(</span>
+            <span class="n">dataset_id</span><span class="o">=</span><span class="n">dataset_id</span><span class="p">,</span> <span class="n">data_directory</span><span class="o">=</span><span class="n">data_directory</span>
+        <span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">csv_path</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
+        <span class="c1"># If the CSV file does not exist, use the dataset</span>
+        <span class="c1"># downloaded by ``fetch_openml()`` to construct it.</span>
+        <span class="n">features</span> <span class="o">=</span> <span class="n">_get_features</span><span class="p">(</span><span class="n">features_gz_path</span><span class="p">)</span>
+        <span class="n">_export_gz_data_to_csv</span><span class="p">(</span><span class="n">data_gz_path</span><span class="p">,</span> <span class="n">csv_path</span><span class="p">,</span> <span class="n">features</span><span class="p">)</span>
+
+    <span class="n">url</span> <span class="o">=</span> <span class="n">openml_url</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ID</span><span class="o">=</span><span class="n">dataset_id</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="n">details</span><span class="o">.</span><span class="n">description</span><span class="p">,</span>
+        <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="n">url</span><span class="p">,</span>
+        <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="n">csv_path</span><span class="o">.</span><span class="n">resolve</span><span class="p">(),</span>
+    <span class="p">}</span>
+
+
+<span class="k">def</span> <span class="nf">_download_and_write_openml_dataset</span><span class="p">(</span><span class="n">dataset_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">data_directory</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Downloads a dataset from OpenML,</span>
+<span class="sd">    taking care of creating the directories.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    dataset_id: int</span>
+<span class="sd">        The ID of the dataset to download.</span>
+<span class="sd">    data_directory: Path</span>
+<span class="sd">        The directory in which the data will be saved.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If the ID is incorrect (does not exist on OpenML)</span>
+<span class="sd">    urllib.error.URLError</span>
+<span class="sd">        If there is no Internet connection.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># The ``fetch_openml()`` function returns a Scikit-Learn ``Bunch`` object,</span>
+    <span class="c1"># which behaves just like a ``namedtuple``.</span>
+    <span class="c1"># However, we do not want to save this data into memory:</span>
+    <span class="c1"># we will read it from the disk later.</span>
+    <span class="n">fetch_openml</span><span class="p">(</span>
+        <span class="n">data_id</span><span class="o">=</span><span class="n">dataset_id</span><span class="p">,</span>
+        <span class="n">data_home</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">data_directory</span><span class="p">),</span>
+        <span class="n">as_frame</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_read_json_from_gz</span><span class="p">(</span><span class="n">compressed_dir_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Opens a gzip file, reads its content (JSON expected),</span>
+<span class="sd">    and returns a dictionary.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    compressed_dir_path: Path</span>
+<span class="sd">        Path to the ``.gz`` file to read.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict</span>
+<span class="sd">        The information contained in the file,</span>
+<span class="sd">        parsed from plain-text JSON.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">compressed_dir_path</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
+        <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Couldn&#39;t find file </span><span class="si">{</span><span class="n">compressed_dir_path</span><span class="si">!s}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Read content</span>
+    <span class="k">with</span> <span class="n">gzip</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">compressed_dir_path</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;rt&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">gz</span><span class="p">:</span>
+        <span class="n">content</span> <span class="o">=</span> <span class="n">gz</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+    <span class="n">details_json</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">JSONDecoder</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">details_json</span>
+
+
+<span class="k">def</span> <span class="nf">_get_details</span><span class="p">(</span><span class="n">compressed_dir_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Details</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Gets useful details from the details file.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    compressed_dir_path: Path</span>
+<span class="sd">        The path to the ``.gz`` file containing the details.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Details</span>
+<span class="sd">        A ``Details`` object.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">details</span> <span class="o">=</span> <span class="n">_read_json_from_gz</span><span class="p">(</span><span class="n">compressed_dir_path</span><span class="p">)[</span><span class="s2">&quot;data_set_description&quot;</span><span class="p">]</span>
+    <span class="c1"># We filter out the irrelevant information.</span>
+    <span class="c1"># If you want to modify this list (to add or remove items)</span>
+    <span class="c1"># you must also modify the ``Details`` object definition.</span>
+    <span class="k">return</span> <span class="n">Details</span><span class="p">(</span>
+        <span class="n">name</span><span class="o">=</span><span class="n">details</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">],</span>
+        <span class="n">file_id</span><span class="o">=</span><span class="n">details</span><span class="p">[</span><span class="s2">&quot;file_id&quot;</span><span class="p">],</span>
+        <span class="n">description</span><span class="o">=</span><span class="n">details</span><span class="p">[</span><span class="s2">&quot;description&quot;</span><span class="p">],</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_get_features</span><span class="p">(</span><span class="n">compressed_dir_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Features</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Gets features that can be inserted in the CSV file.</span>
+<span class="sd">    The most important feature being the column names.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    compressed_dir_path: Path</span>
+<span class="sd">        Path to the gzip file containing the features.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Features</span>
+<span class="sd">        A ``Features`` object.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">raw_features</span> <span class="o">=</span> <span class="n">_read_json_from_gz</span><span class="p">(</span><span class="n">compressed_dir_path</span><span class="p">)[</span><span class="s2">&quot;data_features&quot;</span><span class="p">]</span>
+    <span class="c1"># We filter out the irrelevant information.</span>
+    <span class="c1"># If you want to modify this list (to add or remove items)</span>
+    <span class="c1"># you must also modify the ``Features`` object definition.</span>
+    <span class="k">return</span> <span class="n">Features</span><span class="p">(</span><span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="n">column</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">raw_features</span><span class="p">[</span><span class="s2">&quot;feature&quot;</span><span class="p">]])</span>
+
+
+<span class="k">def</span> <span class="nf">_export_gz_data_to_csv</span><span class="p">(</span>
+    <span class="n">compressed_dir_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">destination_file</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">features</span><span class="p">:</span> <span class="n">Features</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Reads a gzip file containing ARFF data,</span>
+<span class="sd">    and writes it to a target CSV.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    compressed_dir_path: Path</span>
+<span class="sd">        Path to the ``.gz`` file containing the ARFF data.</span>
+<span class="sd">    destination_file: Path</span>
+<span class="sd">        A CSV file to write to.</span>
+<span class="sd">    features: Features</span>
+<span class="sd">        A ``Features`` object containing the first CSV line (the column names).</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">atdata_found</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">with</span> <span class="n">destination_file</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">csv</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">gzip</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">compressed_dir_path</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;rt&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">gz</span><span class="p">:</span>
+            <span class="n">csv</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">_features_to_csv_format</span><span class="p">(</span><span class="n">features</span><span class="p">))</span>
+            <span class="n">csv</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="c1"># We will look at each line of the file until we find</span>
+            <span class="c1"># &quot;@data&quot;: only after this tag is the actual CSV data.</span>
+            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">gz</span><span class="o">.</span><span class="n">readlines</span><span class="p">():</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">atdata_found</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;@data&quot;</span><span class="p">):</span>
+                        <span class="n">atdata_found</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">csv</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_features_to_csv_format</span><span class="p">(</span><span class="n">features</span><span class="p">:</span> <span class="n">Features</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">return</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">features</span><span class="o">.</span><span class="n">names</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">fetch_dataset_as_dataclass</span><span class="p">(</span>
+    <span class="n">dataset_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">dataset_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">target</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">read_csv_kwargs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+    <span class="n">load_dataframe</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">DatasetAll</span><span class="p">,</span> <span class="n">DatasetInfoOnly</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Takes a dataset identifier, a target column name,</span>
+<span class="sd">    and some additional keyword arguments for `pd.read_csv`.</span>
+
+<span class="sd">    If you don&#39;t need the dataset to be loaded in memory,</span>
+<span class="sd">    pass `load_dataframe=False`.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    DatasetAll</span>
+<span class="sd">        If `load_dataframe=True`</span>
+
+<span class="sd">    DatasetInfoOnly</span>
+<span class="sd">        If `load_dataframe=False`</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">info</span> <span class="o">=</span> <span class="n">fetch_openml_dataset</span><span class="p">(</span><span class="n">dataset_id</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">load_dataframe</span><span class="p">:</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="s2">&quot;path&quot;</span><span class="p">],</span> <span class="o">**</span><span class="n">read_csv_kwargs</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">target</span><span class="p">]</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="s2">&quot;columns&quot;</span><span class="p">)</span>
+        <span class="n">dataset</span> <span class="o">=</span> <span class="n">DatasetAll</span><span class="p">(</span>
+            <span class="n">name</span><span class="o">=</span><span class="n">dataset_name</span><span class="p">,</span>
+            <span class="n">description</span><span class="o">=</span><span class="n">info</span><span class="p">[</span><span class="s2">&quot;description&quot;</span><span class="p">],</span>
+            <span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span>
+            <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span>
+            <span class="n">source</span><span class="o">=</span><span class="n">info</span><span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">],</span>
+            <span class="n">path</span><span class="o">=</span><span class="n">info</span><span class="p">[</span><span class="s2">&quot;path&quot;</span><span class="p">],</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">dataset</span> <span class="o">=</span> <span class="n">DatasetInfoOnly</span><span class="p">(</span>
+            <span class="n">name</span><span class="o">=</span><span class="n">dataset_name</span><span class="p">,</span>
+            <span class="n">description</span><span class="o">=</span><span class="n">info</span><span class="p">[</span><span class="s2">&quot;description&quot;</span><span class="p">],</span>
+            <span class="n">source</span><span class="o">=</span><span class="n">info</span><span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">],</span>
+            <span class="n">target</span><span class="o">=</span><span class="n">target</span><span class="p">,</span>
+            <span class="n">path</span><span class="o">=</span><span class="n">info</span><span class="p">[</span><span class="s2">&quot;path&quot;</span><span class="p">],</span>
+            <span class="n">read_csv_kwargs</span><span class="o">=</span><span class="n">read_csv_kwargs</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">dataset</span>
+
+
+<span class="c1"># Datasets fetchers section</span>
+<span class="c1"># Public API</span>
+
+
+<div class="viewcode-block" id="fetch_employee_salaries"><a class="viewcode-back" href="../../../generated/dirty_cat.datasets.fetch_employee_salaries.html#dirty_cat.datasets.fetch_employee_salaries">[docs]</a><span class="k">def</span> <span class="nf">fetch_employee_salaries</span><span class="p">(</span>
+    <span class="n">load_dataframe</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">drop_linked</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">drop_irrelevant</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">DatasetAll</span><span class="p">,</span> <span class="n">DatasetInfoOnly</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Fetches the employee_salaries dataset (regression), available at</span>
+<span class="sd">    https://openml.org/d/42125</span>
+
+<span class="sd">    Description of the dataset:</span>
+<span class="sd">    &gt; Annual salary information including gross pay and overtime pay for all</span>
+<span class="sd">    active, permanent employees of Montgomery County, MD paid in calendar</span>
+<span class="sd">    year 2016. This information will be published annually each year.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    drop_linked: bool (default True)</span>
+<span class="sd">        Drops columns &quot;2016_gross_pay_received&quot; and &quot;2016_overtime_pay&quot;,</span>
+<span class="sd">        which are closely linked to &quot;current_annual_salary&quot;, the target.</span>
+
+<span class="sd">    drop_irrelevant: bool (default True)</span>
+<span class="sd">        Drops column &quot;full_name&quot;, which is usually irrelevant to the</span>
+<span class="sd">        statistical analysis.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    DatasetAll</span>
+<span class="sd">        If `load_dataframe=True`</span>
+
+<span class="sd">    DatasetInfoOnly</span>
+<span class="sd">        If `load_dataframe=False`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">dataset</span> <span class="o">=</span> <span class="n">fetch_dataset_as_dataclass</span><span class="p">(</span>
+        <span class="n">dataset_name</span><span class="o">=</span><span class="s2">&quot;Employee salaries&quot;</span><span class="p">,</span>
+        <span class="n">dataset_id</span><span class="o">=</span><span class="n">EMPLOYEE_SALARIES_ID</span><span class="p">,</span>
+        <span class="n">target</span><span class="o">=</span><span class="s2">&quot;current_annual_salary&quot;</span><span class="p">,</span>
+        <span class="n">read_csv_kwargs</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;quotechar&quot;</span><span class="p">:</span> <span class="s2">&quot;&#39;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;escapechar&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;na_values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;?&quot;</span><span class="p">],</span>
+        <span class="p">},</span>
+        <span class="n">load_dataframe</span><span class="o">=</span><span class="n">load_dataframe</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="n">load_dataframe</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">drop_linked</span><span class="p">:</span>
+            <span class="n">dataset</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span>
+                <span class="p">[</span><span class="s2">&quot;2016_gross_pay_received&quot;</span><span class="p">,</span> <span class="s2">&quot;2016_overtime_pay&quot;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="n">drop_irrelevant</span><span class="p">:</span>
+            <span class="n">dataset</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s2">&quot;full_name&quot;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">dataset</span></div>
+
+
+<div class="viewcode-block" id="fetch_road_safety"><a class="viewcode-back" href="../../../generated/dirty_cat.datasets.fetch_road_safety.html#dirty_cat.datasets.fetch_road_safety">[docs]</a><span class="k">def</span> <span class="nf">fetch_road_safety</span><span class="p">(</span>
+    <span class="n">load_dataframe</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">DatasetAll</span><span class="p">,</span> <span class="n">DatasetInfoOnly</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Fetches the road safety dataset (classification), available at</span>
+<span class="sd">    https://openml.org/d/42803</span>
+
+<span class="sd">    Description of the dataset:</span>
+<span class="sd">    &gt; Data reported to the police about the circumstances of personal injury</span>
+<span class="sd">    road accidents in Great Britain from 1979, and the maker and model</span>
+<span class="sd">    information of vehicles involved in the respective accident. This version</span>
+<span class="sd">    includes data up to 2015.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    DatasetAll</span>
+<span class="sd">        If `load_dataframe=True`</span>
+
+<span class="sd">    DatasetInfoOnly</span>
+<span class="sd">        If `load_dataframe=False`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">fetch_dataset_as_dataclass</span><span class="p">(</span>
+        <span class="n">dataset_name</span><span class="o">=</span><span class="s2">&quot;Road safety&quot;</span><span class="p">,</span>
+        <span class="n">dataset_id</span><span class="o">=</span><span class="n">ROAD_SAFETY_ID</span><span class="p">,</span>
+        <span class="n">target</span><span class="o">=</span><span class="s2">&quot;Sex_of_Driver&quot;</span><span class="p">,</span>
+        <span class="n">read_csv_kwargs</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;na_values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;?&quot;</span><span class="p">],</span>
+        <span class="p">},</span>
+        <span class="n">load_dataframe</span><span class="o">=</span><span class="n">load_dataframe</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="fetch_medical_charge"><a class="viewcode-back" href="../../../generated/dirty_cat.datasets.fetch_medical_charge.html#dirty_cat.datasets.fetch_medical_charge">[docs]</a><span class="k">def</span> <span class="nf">fetch_medical_charge</span><span class="p">(</span>
+    <span class="n">load_dataframe</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">DatasetAll</span><span class="p">,</span> <span class="n">DatasetInfoOnly</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Fetches the medical charge dataset (regression), available at</span>
+<span class="sd">    https://openml.org/d/42720</span>
+
+<span class="sd">    Description of the dataset:</span>
+<span class="sd">    &gt; The Inpatient Utilization and Payment Public Use File (Inpatient PUF)</span>
+<span class="sd">    provides information on inpatient discharges for Medicare fee-for-service</span>
+<span class="sd">    beneficiaries. The Inpatient PUF includes information on utilization,</span>
+<span class="sd">    payment (total payment and Medicare payment), and hospital-specific charges</span>
+<span class="sd">    for the more than 3,000 U.S. hospitals that receive Medicare Inpatient</span>
+<span class="sd">    Prospective Payment System (IPPS) payments. The PUF is organized by</span>
+<span class="sd">    hospital and Medicare Severity Diagnosis Related Group (MS-DRG) and</span>
+<span class="sd">    covers Fiscal Year (FY) 2011 through FY 2016.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    DatasetAll</span>
+<span class="sd">        If `load_dataframe=True`</span>
+
+<span class="sd">    DatasetInfoOnly</span>
+<span class="sd">        If `load_dataframe=False`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">fetch_dataset_as_dataclass</span><span class="p">(</span>
+        <span class="n">dataset_name</span><span class="o">=</span><span class="s2">&quot;Medical charge&quot;</span><span class="p">,</span>
+        <span class="n">dataset_id</span><span class="o">=</span><span class="n">MEDICAL_CHARGE_ID</span><span class="p">,</span>
+        <span class="n">target</span><span class="o">=</span><span class="s2">&quot;Average_Total_Payments&quot;</span><span class="p">,</span>
+        <span class="n">read_csv_kwargs</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;quotechar&quot;</span><span class="p">:</span> <span class="s2">&quot;&#39;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;escapechar&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="n">load_dataframe</span><span class="o">=</span><span class="n">load_dataframe</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="fetch_midwest_survey"><a class="viewcode-back" href="../../../generated/dirty_cat.datasets.fetch_midwest_survey.html#dirty_cat.datasets.fetch_midwest_survey">[docs]</a><span class="k">def</span> <span class="nf">fetch_midwest_survey</span><span class="p">(</span>
+    <span class="n">load_dataframe</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">DatasetAll</span><span class="p">,</span> <span class="n">DatasetInfoOnly</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Fetches the midwest survey dataset (classification), available at</span>
+<span class="sd">    https://openml.org/d/42805</span>
+
+<span class="sd">    Description of the dataset:</span>
+<span class="sd">    &gt; Survey to know if people self-identify as Midwesterners.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    DatasetAll</span>
+<span class="sd">        If `load_dataframe=True`</span>
+
+<span class="sd">    DatasetInfoOnly</span>
+<span class="sd">        If `load_dataframe=False`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">fetch_dataset_as_dataclass</span><span class="p">(</span>
+        <span class="n">dataset_name</span><span class="o">=</span><span class="s2">&quot;Midwest survey&quot;</span><span class="p">,</span>
+        <span class="n">dataset_id</span><span class="o">=</span><span class="n">MIDWEST_SURVEY_ID</span><span class="p">,</span>
+        <span class="n">target</span><span class="o">=</span><span class="s2">&quot;Census_Region&quot;</span><span class="p">,</span>
+        <span class="n">read_csv_kwargs</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;quotechar&quot;</span><span class="p">:</span> <span class="s2">&quot;&#39;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;escapechar&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="n">load_dataframe</span><span class="o">=</span><span class="n">load_dataframe</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="fetch_open_payments"><a class="viewcode-back" href="../../../generated/dirty_cat.datasets.fetch_open_payments.html#dirty_cat.datasets.fetch_open_payments">[docs]</a><span class="k">def</span> <span class="nf">fetch_open_payments</span><span class="p">(</span>
+    <span class="n">load_dataframe</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">DatasetAll</span><span class="p">,</span> <span class="n">DatasetInfoOnly</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Fetches the open payments dataset (classification), available at</span>
+<span class="sd">    https://openml.org/d/42738</span>
+
+<span class="sd">    Description of the dataset:</span>
+<span class="sd">    &gt; Payments given by healthcare manufacturing companies to medical doctors</span>
+<span class="sd">    or hospitals.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    DatasetAll</span>
+<span class="sd">        If `load_dataframe=True`</span>
+
+<span class="sd">    DatasetInfoOnly</span>
+<span class="sd">        If `load_dataframe=False`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">fetch_dataset_as_dataclass</span><span class="p">(</span>
+        <span class="n">dataset_name</span><span class="o">=</span><span class="s2">&quot;Open payments&quot;</span><span class="p">,</span>
+        <span class="n">dataset_id</span><span class="o">=</span><span class="n">OPEN_PAYMENTS_ID</span><span class="p">,</span>
+        <span class="n">target</span><span class="o">=</span><span class="s2">&quot;status&quot;</span><span class="p">,</span>
+        <span class="n">read_csv_kwargs</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;quotechar&quot;</span><span class="p">:</span> <span class="s2">&quot;&#39;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;escapechar&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;na_values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;?&quot;</span><span class="p">],</span>
+        <span class="p">},</span>
+        <span class="n">load_dataframe</span><span class="o">=</span><span class="n">load_dataframe</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="fetch_traffic_violations"><a class="viewcode-back" href="../../../generated/dirty_cat.datasets.fetch_traffic_violations.html#dirty_cat.datasets.fetch_traffic_violations">[docs]</a><span class="k">def</span> <span class="nf">fetch_traffic_violations</span><span class="p">(</span>
+    <span class="n">load_dataframe</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">DatasetAll</span><span class="p">,</span> <span class="n">DatasetInfoOnly</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Fetches the traffic violations dataset (classification), available at</span>
+<span class="sd">    https://openml.org/d/42132</span>
+
+<span class="sd">    Description of the dataset:</span>
+<span class="sd">    &gt; This dataset contains traffic violation information from all electronic</span>
+<span class="sd">    traffic violations issued in the Montgomery County, MD. Any information</span>
+<span class="sd">    that can be used to uniquely identify the vehicle, the vehicle owner or</span>
+<span class="sd">    the officer issuing the violation will not be published.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    DatasetAll</span>
+<span class="sd">        If `load_dataframe=True`</span>
+
+<span class="sd">    DatasetInfoOnly</span>
+<span class="sd">        If `load_dataframe=False`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">fetch_dataset_as_dataclass</span><span class="p">(</span>
+        <span class="n">dataset_name</span><span class="o">=</span><span class="s2">&quot;Traffic violations&quot;</span><span class="p">,</span>
+        <span class="n">dataset_id</span><span class="o">=</span><span class="n">TRAFFIC_VIOLATIONS_ID</span><span class="p">,</span>
+        <span class="n">target</span><span class="o">=</span><span class="s2">&quot;violation_type&quot;</span><span class="p">,</span>
+        <span class="n">read_csv_kwargs</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;quotechar&quot;</span><span class="p">:</span> <span class="s2">&quot;&#39;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;escapechar&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;na_values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;?&quot;</span><span class="p">],</span>
+        <span class="p">},</span>
+        <span class="n">load_dataframe</span><span class="o">=</span><span class="n">load_dataframe</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+<span class="k">def</span> <span class="nf">fetch_drug_directory</span><span class="p">(</span>
+    <span class="n">load_dataframe</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">DatasetAll</span><span class="p">,</span> <span class="n">DatasetInfoOnly</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Fetches the drug directory dataset (classification), available at</span>
+<span class="sd">    https://openml.org/d/43044</span>
+
+<span class="sd">    Description of the dataset:</span>
+<span class="sd">    &gt; Product listing data submitted to the U.S. FDA for all unfinished,</span>
+<span class="sd">    unapproved drugs.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    DatasetAll</span>
+<span class="sd">        If `load_dataframe=True`</span>
+
+<span class="sd">    DatasetInfoOnly</span>
+<span class="sd">        If `load_dataframe=False`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">fetch_dataset_as_dataclass</span><span class="p">(</span>
+        <span class="n">dataset_name</span><span class="o">=</span><span class="s2">&quot;Drug directory&quot;</span><span class="p">,</span>
+        <span class="n">dataset_id</span><span class="o">=</span><span class="n">DRUG_DIRECTORY_ID</span><span class="p">,</span>
+        <span class="n">target</span><span class="o">=</span><span class="s2">&quot;PRODUCTTYPENAME&quot;</span><span class="p">,</span>
+        <span class="n">read_csv_kwargs</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;quotechar&quot;</span><span class="p">:</span> <span class="s2">&quot;&#39;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;escapechar&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="n">load_dataframe</span><span class="o">=</span><span class="n">load_dataframe</span><span class="p">,</span>
+    <span class="p">)</span>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2018-2021, dirty_cat developers.
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
