@@ -119,33 +119,34 @@ appropriate resources:</p>
 <li><p>Update <code class="docutils literal notranslate"><span class="pre">dirty_cat/CHANGES.rst</span></code>. It should be updated at each PR,
 but double-checking before the release is good practice.</p></li>
 <li><p>Update <code class="docutils literal notranslate"><span class="pre">dirty_cat/dirty_cat/VERSION.txt</span></code> with the new version
-number.</p></li>
+number (e.g. <code class="docutils literal notranslate"><span class="pre">1.0</span></code>).</p></li>
 <li><p>Update <code class="docutils literal notranslate"><span class="pre">dirty_cat/setup.py</span></code></p></li>
 <li><p>Make a new branch in order to make a PR.</p></li>
 <li><p>You have to commit the changes with a new tag: the version you’re
-going to push (e.g. <code class="docutils literal notranslate"><span class="pre">1.0</span></code>) with the commands
+going to push with the commands
 <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">commit</span> <span class="pre">-m</span> <span class="pre">&quot;Preparing</span> <span class="pre">for</span> <span class="pre">release</span> <span class="pre">1.0&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">tag</span> <span class="pre">1.0</span></code>,
-<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">push</span></code></p></li>
+<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">push</span> <span class="pre">--tags</span></code></p></li>
 <li><p>Next, you will need to install the <code class="docutils literal notranslate"><span class="pre">twine</span></code> package with
-<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">twine</span></code></p></li>
+<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">--upgrade</span> <span class="pre">twine</span></code></p></li>
 <li><p>Build the source with <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">bdist_wheel</span> <span class="pre">sdist</span></code></p></li>
-<li><p><a class="reference external" href="https://shouldideploy.today/">Check if today is a good day for
-releasing</a></p></li>
+<li><p><a class="reference external" href="https://shouldideploy.today/">Check if today is a good day for releasing</a></p></li>
 <li><p>It is advised to first push the version on the test package index
 <code class="docutils literal notranslate"><span class="pre">test.pypi.org</span></code> before the official package index <code class="docutils literal notranslate"><span class="pre">pypi.org</span></code>.
 You can do this with the command
 <code class="docutils literal notranslate"><span class="pre">twine</span> <span class="pre">upload</span> <span class="pre">dist/*</span> <span class="pre">--repository-url</span> <span class="pre">https://test.pypi.org/legacy/</span></code>
 This is useful to test if the build done by twine and the push to
-the package indexer is working (if you can pip install dirty_cat
-from test.pypi)</p></li>
+the package indexer is working.</p></li>
 <li><p>Install the new release from the test package index on a dedicated
-environment</p></li>
+environment with the command
+<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">--index-url</span> <span class="pre">https://test.pypi.org/simple/</span> <span class="pre">--extra-index-url</span> <span class="pre">https://test.pypi.org/simple/</span> <span class="pre">dirty_cat</span></code></p></li>
 <li><p>Finally, if that works fine, you can push to the official package
 index with <code class="docutils literal notranslate"><span class="pre">twine</span> <span class="pre">upload</span> <span class="pre">dist/*</span></code></p></li>
 <li><p>It is also good practice at this point to create a new environment
-and try installing and using the library.</p></li>
-<li><p>To finish the procedure, create a new release on the GitHub
-repository.</p></li>
+and try installing and using the library (for example by launching examples).
+Be sure to install it with the command <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">dirty_cat==&lt;version&gt;</span></code>
+(e.g. <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">dirty_cat==1.0</span></code>), otherwise some package/env managers
+such as conda might use a cached version.</p></li>
+<li><p>To finish the procedure, create a new release on the GitHub repository.</p></li>
 </ol>
 </section>
 <section id="resources">
