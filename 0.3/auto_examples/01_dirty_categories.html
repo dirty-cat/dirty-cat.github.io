@@ -47,7 +47,12 @@
   <div class="document">
     
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
+        <div class="sphinxsidebarwrapper"><!--
+    Inherited from the original Alabaster theme:
+    https://github.com/bitprophet/alabaster/blob/master/alabaster/about.html
+    Only the "Version" number is added.
+-->
+
 <p class="logo">
   <a href="../index.html">
     <img class="logo" src="../_static/dirty_cat.svg" alt="Logo"/>
@@ -55,6 +60,16 @@
     <h1 class="logo logo-name">dirty_cat</h1>
     
   </a>
+  <div class="version-switcher">
+    <h4>Version 0.3.0</h4>
+    <details>
+	<summary>Other versions</summary>
+	<ul>
+	    <li><a href="https://dirty-cat.github.io/stable">Stable</a></li>
+	    <li><a href="https://dirty-cat.github.io/dev">Dev</a></li>
+	</ul>
+    </details>
+  </div>
 </p>
 
 
@@ -385,8 +400,15 @@ alongside with the column names on which each must be applied</p>
 <section id="pipelining-an-encoder-with-a-learner">
 <h4>Pipelining an encoder with a learner<a class="headerlink" href="#pipelining-an-encoder-with-a-learner" title="Permalink to this heading">¶</a></h4>
 <p>We will use a HistGradientBoostingRegressor, which is a good predictor
-for data with heterogeneous columns</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.HistGradientBoostingRegressor.html#sklearn.ensemble.HistGradientBoostingRegressor" title="sklearn.ensemble._hist_gradient_boosting.gradient_boosting.HistGradientBoostingRegressor" class="sphx-glr-backref-module-sklearn-ensemble-_hist_gradient_boosting-gradient_boosting sphx-glr-backref-type-py-class"><span class="n">HistGradientBoostingRegressor</span></a>
+for data with heterogeneous columns
+(we need to require the experimental feature for scikit-learn versions
+earlier than 1.0)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sklearn</span>
+<span class="kn">from</span> <span class="nn">sklearn.utils.fixes</span> <span class="kn">import</span> <span class="n">parse_version</span>
+<span class="k">if</span> <span class="n">parse_version</span><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sklearn</span><span class="o">.</span><span class="n">__version__</span></a><span class="p">)</span> <span class="o">&lt;</span> <span class="n">parse_version</span><span class="p">(</span><span class="s2">&quot;1.0&quot;</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">sklearn.experimental</span> <span class="kn">import</span> <span class="n">enable_hist_gradient_boosting</span>
+<span class="c1"># We can now import the HGBR from ensemble</span>
+<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.HistGradientBoostingRegressor.html#sklearn.ensemble.HistGradientBoostingRegressor" title="sklearn.ensemble._hist_gradient_boosting.gradient_boosting.HistGradientBoostingRegressor" class="sphx-glr-backref-module-sklearn-ensemble-_hist_gradient_boosting-gradient_boosting sphx-glr-backref-type-py-class"><span class="n">HistGradientBoostingRegressor</span></a>
 
 <span class="c1"># We then create a pipeline chaining our encoders to a learner</span>
 
@@ -468,7 +490,7 @@ dirty columns</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/circleci/project/examples/01_dirty_categories.py:155: UserWarning: The &quot;similarity&quot; argument is deprecated since dirty_cat 0.3, and will be removed in 0.5.The n-gram similarity is the only one currently supported.
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/circleci/project/examples/01_dirty_categories.py:162: UserWarning: The &quot;similarity&quot; argument is deprecated since dirty_cat 0.3, and will be removed in 0.5.The n-gram similarity is the only one currently supported.
   &#39;similarity&#39;: SimilarityEncoder(),
 </pre></div>
 </div>
@@ -509,7 +531,7 @@ minhash encoding
 r2 score:  mean: 0.919; std: 0.012
 
 gap encoding
-r2 score:  mean: 0.908; std: 0.016
+r2 score:  mean: 0.912; std: 0.014
 </pre></div>
 </div>
 <section id="plotting-the-results">
@@ -741,9 +763,9 @@ can be readily applied to the dataframe</strong>.</p>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;std=</span><span class="si">{</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.std.html#numpy.std" title="numpy.std" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">std</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">scores</span></a><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>scores=[0.9229446  0.88388482 0.90510212 0.92588856 0.92202074]
-mean=0.911968169796902
-std=0.015818539963671288
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>scores=[0.92132842 0.87126817 0.92460464 0.89514685 0.91942013]
+mean=0.9063536431987578
+std=0.020418905380168707
 </pre></div>
 </div>
 <p>The prediction performed here is pretty much as good as above
@@ -773,7 +795,7 @@ analyze the SuperVectorizer’s mechanisms along the way.</p>
 </pre></div>
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>array([[0.00000000e+00, 1.00000000e+00, 0.00000000e+00, ...,
-        1.04476937e-01, 5.42982267e-02, 2.00700000e+03],
+        8.69983694e-02, 5.47497139e-02, 2.00700000e+03],
        [1.00000000e+00, 0.00000000e+00, 0.00000000e+00, ...,
         5.00000000e-02, 5.00000000e-02, 2.00500000e+03],
        [1.00000000e+00, 0.00000000e+00, 0.00000000e+00, ...,
@@ -906,7 +928,7 @@ having a permanent, full-time job :)</p>
 automated by the <a class="reference internal" href="../generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SuperVectorizer</span></code></a>, and the resulting pipeline can still be
 inspected, even with non-normalized entries.</p>
 </aside>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 3 minutes  5.488 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 3 minutes  52.561 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-01-dirty-categories-py">
 <div class="binder-badge docutils container">
 <a class="reference external image-reference" href="https://mybinder.org/v2/gh/dirty-cat/dirty-cat.github.io/master?filepath=dev/auto_examples/01_dirty_categories.ipynb"><img alt="Launch binder" src="../_images/binder_badge_logo.svg" width="150px" /></a>
