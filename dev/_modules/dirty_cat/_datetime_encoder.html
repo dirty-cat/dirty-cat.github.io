@@ -224,9 +224,7 @@
                 <span class="p">)</span> <span class="o">//</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="s2">&quot;1s&quot;</span><span class="p">)</span>
 
 <div class="viewcode-block" id="DatetimeEncoder.fit"><a class="viewcode-back" href="../../generated/dirty_cat.DatetimeEncoder.html#dirty_cat.DatetimeEncoder.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;DatetimeEncoder&quot;</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Fit the DatetimeEncoder to X. In practice, just stores which extracted</span>
-<span class="sd">        features are not constant.</span>
+        <span class="sd">&quot;&quot;&quot;Fit the DatetimeEncoder to X. In practice, just stores which extracted features are not constant.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -239,7 +237,6 @@
 <span class="sd">        -------</span>
 <span class="sd">        DatetimeEncoder</span>
 <span class="sd">            Fitted DatetimeEncoder instance.</span>
-
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_validate_keywords</span><span class="p">()</span>
         <span class="c1"># Columns to extract for each column,</span>
