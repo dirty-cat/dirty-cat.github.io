@@ -531,7 +531,7 @@ minhash encoding
 r2 score:  mean: 0.919; std: 0.012
 
 gap encoding
-r2 score:  mean: 0.911; std: 0.015
+r2 score:  mean: 0.907; std: 0.014
 </pre></div>
 </div>
 <section id="plotting-the-results">
@@ -763,9 +763,9 @@ can be readily applied to the dataframe</strong>.</p>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;std=</span><span class="si">{</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.std.html#numpy.std" title="numpy.std" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">std</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">scores</span></a><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>scores=[0.91057749 0.89092205 0.92986725 0.91379314 0.91563148]
-mean=0.9121582845846008
-std=0.012504557755204504
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>scores=[0.91457056 0.88960583 0.92164401 0.92284064 0.92530859]
+mean=0.9147939260194378
+std=0.013089855548191255
 </pre></div>
 </div>
 <p>The prediction performed here is pretty much as good as above
@@ -794,19 +794,19 @@ analyze the SuperVectorizer’s mechanisms along the way.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_train_enc</span></a>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>array([[0.0000000e+00, 1.0000000e+00, 0.0000000e+00, ..., 6.2836227e-02,
-        5.4340315e-02, 2.0070000e+03],
-       [1.0000000e+00, 0.0000000e+00, 0.0000000e+00, ..., 5.0000000e-02,
-        5.0000000e-02, 2.0050000e+03],
-       [1.0000000e+00, 0.0000000e+00, 0.0000000e+00, ..., 5.0000000e-02,
-        5.0000000e-02, 2.0090000e+03],
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>array([[0.00000000e+00, 1.00000000e+00, 0.00000000e+00, ...,
+        5.40042548e-02, 5.41260402e-02, 2.00700000e+03],
+       [1.00000000e+00, 0.00000000e+00, 0.00000000e+00, ...,
+        5.00000000e-02, 5.00000000e-02, 2.00500000e+03],
+       [1.00000000e+00, 0.00000000e+00, 0.00000000e+00, ...,
+        5.00000000e-02, 5.00000000e-02, 2.00900000e+03],
        ...,
-       [1.0000000e+00, 0.0000000e+00, 0.0000000e+00, ..., 5.0000000e-02,
-        5.0000000e-02, 1.9900000e+03],
-       [0.0000000e+00, 1.0000000e+00, 0.0000000e+00, ..., 5.0000000e-02,
-        5.0000000e-02, 2.0120000e+03],
-       [1.0000000e+00, 0.0000000e+00, 0.0000000e+00, ..., 5.0000000e-02,
-        5.0000000e-02, 2.0140000e+03]])
+       [1.00000000e+00, 0.00000000e+00, 0.00000000e+00, ...,
+        5.00000000e-02, 5.00000000e-02, 1.99000000e+03],
+       [0.00000000e+00, 1.00000000e+00, 0.00000000e+00, ...,
+        5.00000000e-02, 5.00000000e-02, 2.01200000e+03],
+       [1.00000000e+00, 0.00000000e+00, 0.00000000e+00, ...,
+        5.00000000e-02, 5.00000000e-02, 2.01400000e+03]])
 </pre></div>
 </div>
 <p>They have more columns than the original dataframe, but not much more:</p>
@@ -928,7 +928,7 @@ having a permanent, full-time job :)</p>
 automated by the <a class="reference internal" href="../generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SuperVectorizer</span></code></a>, and the resulting pipeline can still be
 inspected, even with non-normalized entries.</p>
 </aside>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 2 minutes  46.666 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 5 minutes  16.628 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-01-dirty-categories-py">
 <div class="binder-badge docutils container">
 <a class="reference external image-reference" href="https://mybinder.org/v2/gh/dirty-cat/dirty-cat.github.io/master?filepath=dev/auto_examples/01_dirty_categories.ipynb"><img alt="Launch binder" src="../_images/binder_badge_logo.svg" width="150px" /></a>
