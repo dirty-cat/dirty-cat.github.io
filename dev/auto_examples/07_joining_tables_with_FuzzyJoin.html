@@ -95,8 +95,9 @@
   <ul>
 <li><a class="reference internal" href="#">Merging dirty tables: fuzzy join</a><ul>
 <li><a class="reference internal" href="#data-importing-and-preprocessing">Data Importing and preprocessing</a></li>
-<li><a class="reference internal" href="#finding-additional-tables">Finding additional tables</a></li>
-<li><a class="reference internal" href="#joining-world-bank-tables-to-our-initial-one">Joining World Bank tables to our initial one</a><ul>
+<li><a class="reference internal" href="#additional-tables-from-other-sources">Additional tables from other sources</a></li>
+<li><a class="reference internal" href="#a-correspondance-problem">A correspondance problem</a></li>
+<li><a class="reference internal" href="#joining-tables-with-imperfect-correspondance">Joining tables with imperfect correspondance</a><ul>
 <li><a class="reference internal" href="#joining-gdp-per-capita-table">1. Joining GDP per capita table</a></li>
 <li><a class="reference internal" href="#joining-life-expectancy-table">2. Joining life expectancy table</a></li>
 <li><a class="reference internal" href="#joining-legal-rights-strength-table">3. Joining legal rights strength table</a></li>
@@ -131,8 +132,8 @@ to download the full example code or to run this example in your browser via Bin
 <section class="sphx-glr-example-title" id="merging-dirty-tables-fuzzy-join">
 <span id="sphx-glr-auto-examples-07-joining-tables-with-fuzzyjoin-py"></span><h1>Merging dirty tables: fuzzy join<a class="headerlink" href="#merging-dirty-tables-fuzzy-join" title="Permalink to this heading">¶</a></h1>
 <p>Here we show how to combine data from different sources,
-with a vocabulary not well normalized.
-Joining is difficult: one entry on one side does not have
+with a vocabulary not well normalized.</p>
+<p>Joining is difficult: one entry on one side does not have
 an exact match on the other side.</p>
 <p>In this example, the <code class="xref py py-func docutils literal notranslate"><span class="pre">fuzzy_join()</span></code> function allows us to join
 tables without cleaning the data by taking into account the
@@ -249,16 +250,15 @@ Generosity etc.</p>
 </pre></div>
 </div>
 <p>We keep the country names in our X table and we create
-the y table with the happiness score (our prediction target).</p>
-<p>Now, we need to include explanatory factors from other tables.
-What can we add from the available open public datasets to complete
-our X table?</p>
+the y table with the happiness score (our prediction target, or
+exogenous variable).</p>
 </section>
-<section id="finding-additional-tables">
-<h2>Finding additional tables<a class="headerlink" href="#finding-additional-tables" title="Permalink to this heading">¶</a></h2>
-<p>Interesting tables can be found on <a class="reference external" href="https://data.worldbank.org/">the World Bank open data platform</a>.
-We will extract data from it and include them in our model.
-Luckily, the following function helps us do it easily:</p>
+<section id="additional-tables-from-other-sources">
+<h2>Additional tables from other sources<a class="headerlink" href="#additional-tables-from-other-sources" title="Permalink to this heading">¶</a></h2>
+<p>Now, we need to include explanatory factors from other sources, to
+complete our covariates (X table).</p>
+<p>Interesting tables can be found on <a class="reference external" href="https://data.worldbank.org/">the World Bank open data platform</a>, for which we have a downloading
+function:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dirty_cat.datasets</span> <span class="kn">import</span> <a href="../generated/dirty_cat.datasets.fetch_world_bank_indicator.html#dirty_cat.datasets.fetch_world_bank_indicator" title="dirty_cat.datasets.fetch_world_bank_indicator" class="sphx-glr-backref-module-dirty_cat-datasets sphx-glr-backref-type-py-function"><span class="n">fetch_world_bank_indicator</span></a>
 </pre></div>
 </div>
@@ -410,10 +410,145 @@ Luckily, the following function helps us do it easily:</p>
 </div>
 <br />
 <br /></section>
-<section id="joining-world-bank-tables-to-our-initial-one">
-<h2>Joining World Bank tables to our initial one<a class="headerlink" href="#joining-world-bank-tables-to-our-initial-one" title="Permalink to this heading">¶</a></h2>
-<p>So now we have our initial table, X, and 3 additional ones that we have
-extracted.</p>
+<section id="a-correspondance-problem">
+<h2>A correspondance problem<a class="headerlink" href="#a-correspondance-problem" title="Permalink to this heading">¶</a></h2>
+<p>Alas, the entries for countries do not perfectly match between our
+original table (X), and those that we downloaded from the worldbank:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.sort_values.html#pandas.DataFrame.sort_values" title="pandas.DataFrame.sort_values" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-method"><span class="n">X</span><span class="o">.</span><span class="n">sort_values</span></a><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;Country&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="output_subarea output_html rendered_html output_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Country</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>29</th>
+      <td>Uruguay</td>
+    </tr>
+    <tr>
+      <th>52</th>
+      <td>Uzbekistan</td>
+    </tr>
+    <tr>
+      <th>107</th>
+      <td>Venezuela</td>
+    </tr>
+    <tr>
+      <th>76</th>
+      <td>Vietnam</td>
+    </tr>
+    <tr>
+      <th>131</th>
+      <td>Yemen*</td>
+    </tr>
+    <tr>
+      <th>136</th>
+      <td>Zambia</td>
+    </tr>
+    <tr>
+      <th>143</th>
+      <td>Zimbabwe</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+<br />
+<br /><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.sort_values.html#pandas.DataFrame.sort_values" title="pandas.DataFrame.sort_values" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-method"><span class="n">gdppc</span><span class="o">.</span><span class="n">sort_values</span></a><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;Country Name&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="output_subarea output_html rendered_html output_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Country Name</th>
+      <th>GDP per capita (current US$)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>253</th>
+      <td>Vietnam</td>
+      <td>3694.019046</td>
+    </tr>
+    <tr>
+      <th>252</th>
+      <td>Virgin Islands (U.S.)</td>
+      <td>39552.168595</td>
+    </tr>
+    <tr>
+      <th>193</th>
+      <td>West Bank and Gaza</td>
+      <td>3663.969055</td>
+    </tr>
+    <tr>
+      <th>255</th>
+      <td>World</td>
+      <td>12262.934615</td>
+    </tr>
+    <tr>
+      <th>258</th>
+      <td>Yemen, Rep.</td>
+      <td>690.759273</td>
+    </tr>
+    <tr>
+      <th>260</th>
+      <td>Zambia</td>
+      <td>1120.630171</td>
+    </tr>
+    <tr>
+      <th>261</th>
+      <td>Zimbabwe</td>
+      <td>1737.173977</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+<br />
+<br /><p>We can see that Yemen is written “Yemen*” on one side, and
+“Yemen, Rep.” on the other.</p>
+<p>We also have entries that probably do not have correspondances: “World”
+on one side, whereas the other table only has country-level data.</p>
+</section>
+<section id="joining-tables-with-imperfect-correspondance">
+<h2>Joining tables with imperfect correspondance<a class="headerlink" href="#joining-tables-with-imperfect-correspondance" title="Permalink to this heading">¶</a></h2>
+<p>We will now join our initial table, X, with the 3 additional ones that
+we have extracted.</p>
 <section id="joining-gdp-per-capita-table">
 <h3>1. Joining GDP per capita table<a class="headerlink" href="#joining-gdp-per-capita-table" title="Permalink to this heading">¶</a></h3>
 <p>To join them with dirty_cat, we only need to do the following:</p>
@@ -1019,7 +1154,7 @@ method is generalizable across all datasets.</p>
 <code class="xref py py-func docutils literal notranslate"><span class="pre">fuzzy_join()</span></code> is fast and easy-to-use.</p>
 <p>Now up to you, try improving our model by adding information into it and
 beating our result!</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  1.665 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  1.927 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-07-joining-tables-with-fuzzyjoin-py">
 <div class="binder-badge docutils container">
 <a class="reference external image-reference" href="https://mybinder.org/v2/gh/dirty-cat/dirty-cat.github.io/master?filepath=dev/auto_examples/07_joining_tables_with_FuzzyJoin.ipynb"><img alt="Launch binder" src="../_images/binder_badge_logo.svg" width="150px" /></a>
