@@ -1,0 +1,172 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+<meta property="og:title" content="dirty_cat.datasets.fetch_world_bank_indicator" />
+  
+<meta property="og:type" content="website" />
+  
+<meta property="og:url" content="https://dirty-cat.github.io/stable/generated/dirty_cat.datasets.fetch_world_bank_indicator.html" />
+  
+<meta property="og:site_name" content="dirty_cat" />
+  
+<meta property="og:description" content="Examples using dirty_cat.datasets.fetch_world_bank_indicator: Merging dirty tables: fuzzy join Merging dirty tables: fuzzy join" />
+  
+<meta property="og:image" content="https://dirty-cat.github.io/stable/_images/sphx_glr_07_joining_tables_with_FuzzyJoin_thumb.png" />
+  
+<meta property="og:image:alt" content="Merging dirty tables: fuzzy join" />
+  
+    <title>dirty_cat.datasets.fetch_world_bank_indicator &#8212; &amp;mdash; Dirty cat</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/scrolltoc.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="dirty_cat.datasets.get_data_dir" href="dirty_cat.datasets.get_data_dir.html" />
+    <link rel="prev" title="dirty_cat.datasets.fetch_traffic_violations" href="dirty_cat.datasets.fetch_traffic_violations.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><!--
+    Inherited from the original Alabaster theme:
+    https://github.com/bitprophet/alabaster/blob/master/alabaster/about.html
+    Only the "Version" number is added.
+-->
+
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/dirty_cat.svg" alt="Logo"/>
+    
+    <h1 class="logo logo-name">dirty_cat</h1>
+    
+  </a>
+  <div class="version-switcher">
+    <h4>Version 0.4.dev0</h4>
+    <details>
+	<summary>Other versions</summary>
+	<ul>
+	    <li><a href="https://dirty-cat.github.io/stable">Stable</a></li>
+	    <li><a href="https://dirty-cat.github.io/dev">Dev</a></li>
+	</ul>
+    </details>
+  </div>
+</p>
+
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=dirty-cat&repo=dirty_cat&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<ul>
+    <li class="toctree-l1"><a href="../index.html#using-dirty-cat">Usage</a></li>
+    <li class="toctree-l1"><a href="../index.html#api-documentation">API</a></li>
+    <li class="toctree-l1"><a href="../index.html#about">About</a></li>
+</ul>
+  <h3 class="this-page"><a href="../index.html">This page</a></h3>
+  <ul>
+<li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat.datasets</span></code>.fetch_world_bank_indicator</a><ul>
+<li><a class="reference internal" href="#examples-using-dirty-cat-datasets-fetch-world-bank-indicator">Examples using <code class="docutils literal notranslate"><span class="pre">dirty_cat.datasets.fetch_world_bank_indicator</span></code></a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="dirty_cat.datasets.fetch_traffic_violations.html" title="previous chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat.datasets</span></code>.fetch_traffic_violations</a></li>
+      <li>Next: <a href="dirty_cat.datasets.get_data_dir.html" title="next chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat.datasets</span></code>.get_data_dir</a></li>
+  </ul></li>
+</ul>
+</div>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="dirty-cat-datasets-fetch-world-bank-indicator">
+<h1><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat.datasets</span></code>.fetch_world_bank_indicator<a class="headerlink" href="#dirty-cat-datasets-fetch-world-bank-indicator" title="Permalink to this heading">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="dirty_cat.datasets.fetch_world_bank_indicator">
+<span class="sig-prename descclassname"><span class="pre">dirty_cat.datasets.</span></span><span class="sig-name descname"><span class="pre">fetch_world_bank_indicator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indicator_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_dataframe</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/datasets/_fetching.html#fetch_world_bank_indicator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.datasets.fetch_world_bank_indicator" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Fetches a dataset of an indicator from the World Bank</dt><dd><p>open data platform.</p>
+</dd>
+</dl>
+<p>Description of the dataset:
+&gt; The dataset contains two columns: the indicator value and the</p>
+<blockquote>
+<div><p>country names. A list of all available indicators can be found
+at <a class="reference external" href="https://data.worldbank.org/indicator">https://data.worldbank.org/indicator</a>.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>DatasetAll</dt><dd><p>If <cite>load_dataframe=True</cite></p>
+</dd>
+<dt>DatasetInfoOnly</dt><dd><p>If <cite>load_dataframe=False</cite></p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<section id="examples-using-dirty-cat-datasets-fetch-world-bank-indicator">
+<h2>Examples using <code class="docutils literal notranslate"><span class="pre">dirty_cat.datasets.fetch_world_bank_indicator</span></code><a class="headerlink" href="#examples-using-dirty-cat-datasets-fetch-world-bank-indicator" title="Permalink to this heading">¶</a></h2>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="Here we show how to combine data from different sources, with a vocabulary not well normalized...."><img alt="Merging dirty tables: fuzzy join" src="../_images/sphx_glr_07_joining_tables_with_FuzzyJoin_thumb.png" />
+<p><a class="reference internal" href="../auto_examples/07_joining_tables_with_FuzzyJoin.html#sphx-glr-auto-examples-07-joining-tables-with-fuzzyjoin-py"><span class="std std-ref">Merging dirty tables: fuzzy join</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Merging dirty tables: fuzzy join</div>
+</div></div><div class="clearer"></div></section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2018-2021, dirty_cat developers.
+      
+      |
+      <a href="../_sources/generated/dirty_cat.datasets.fetch_world_bank_indicator.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

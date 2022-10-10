@@ -14,7 +14,7 @@
   
 <meta property="og:site_name" content="dirty_cat" />
   
-<meta property="og:description" content="Major changes: Unnecessary API has been made private: everything (files, functions, classes) starting with an underscore shouldn’t be imported in your code.. Minor changes: Bug fixes: MinHashEncode..." />
+<meta property="og:description" content="Major changes: New experimental feature: joining tables using fuzzy_join() by approximate key matching. Matches are based on string similarities and the nearest neighbors matches are found for each..." />
   
 <meta property="og:image" content="https://dirty-cat.github.io/stable/_static/dirty_cat.svg" />
   
@@ -93,43 +93,44 @@
   <ul>
 <li><a class="reference internal" href="#">Release 0.4.0</a><ul>
 <li><a class="reference internal" href="#major-changes">Major changes</a></li>
+<li><a class="reference internal" href="#id1">Major changes</a></li>
 <li><a class="reference internal" href="#minor-changes">Minor changes</a></li>
 <li><a class="reference internal" href="#bug-fixes">Bug fixes</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#release-0-3-0">Release 0.3.0</a><ul>
-<li><a class="reference internal" href="#id1">Major changes</a></li>
+<li><a class="reference internal" href="#id2">Major changes</a></li>
 <li><a class="reference internal" href="#notes">Notes</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#release-0-2-2">Release 0.2.2</a><ul>
-<li><a class="reference internal" href="#id2">Bug fixes</a></li>
+<li><a class="reference internal" href="#id3">Bug fixes</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#release-0-2-1">Release 0.2.1</a><ul>
-<li><a class="reference internal" href="#id3">Major changes</a></li>
-<li><a class="reference internal" href="#id4">Bug-fixes</a></li>
-<li><a class="reference internal" href="#id5">Notes</a></li>
+<li><a class="reference internal" href="#id4">Major changes</a></li>
+<li><a class="reference internal" href="#id5">Bug-fixes</a></li>
+<li><a class="reference internal" href="#id6">Notes</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#release-0-2-0">Release 0.2.0</a><ul>
-<li><a class="reference internal" href="#id6">Major changes</a></li>
-<li><a class="reference internal" href="#id7">Notes</a></li>
+<li><a class="reference internal" href="#id7">Major changes</a></li>
+<li><a class="reference internal" href="#id8">Notes</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#release-0-2-0a1">Release 0.2.0a1</a><ul>
-<li><a class="reference internal" href="#id8">Major changes</a></li>
-<li><a class="reference internal" href="#id9">Bug-fixes</a></li>
+<li><a class="reference internal" href="#id9">Major changes</a></li>
+<li><a class="reference internal" href="#id10">Bug-fixes</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#release-0-1-1">Release 0.1.1</a><ul>
-<li><a class="reference internal" href="#id10">Major changes</a></li>
-<li><a class="reference internal" href="#id11">Bug-fixes</a></li>
+<li><a class="reference internal" href="#id11">Major changes</a></li>
+<li><a class="reference internal" href="#id12">Bug-fixes</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#release-0-1-0">Release 0.1.0</a><ul>
-<li><a class="reference internal" href="#id12">Major changes</a></li>
-<li><a class="reference internal" href="#id13">Bug-fixes</a></li>
+<li><a class="reference internal" href="#id13">Major changes</a></li>
+<li><a class="reference internal" href="#id14">Bug-fixes</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#release-0-0-7">Release 0.0.7</a></li>
@@ -156,6 +157,19 @@
 <section id="major-changes">
 <h2>Major changes<a class="headerlink" href="#major-changes" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
+<li><p>New experimental feature: joining tables using <a class="reference internal" href="generated/dirty_cat.fuzzy_join.html#dirty_cat.fuzzy_join" title="dirty_cat.fuzzy_join"><code class="xref py py-func docutils literal notranslate"><span class="pre">fuzzy_join()</span></code></a> by approximate key matching. Matches are based
+on string similarities and the nearest neighbors matches are found for each category.</p></li>
+<li><dl class="simple">
+<dt><strong>datasets.fetching</strong>: contains a new function <code class="xref py py-func docutils literal notranslate"><span class="pre">fetch_world_bank_indicator()</span></code> that can be</dt><dd><p>used to download any indicator from the World Bank Open Data platform. It only needs the
+indicator ID that can be found on the website.</p>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+<section id="id1">
+<h2>Major changes<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
 <li><p>Unnecessary API has been made private: everything (files, functions, classes)
 starting with an underscore shouldn’t be imported in your code.</p></li>
 </ul>
@@ -173,8 +187,8 @@ than raising an error.</p></li>
 </section>
 <section id="release-0-3-0">
 <h1>Release 0.3.0<a class="headerlink" href="#release-0-3-0" title="Permalink to this heading">¶</a></h1>
-<section id="id1">
-<h2>Major changes<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h2>
+<section id="id2">
+<h2>Major changes<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
 <ul>
 <li><dl class="simple">
 <dt>New encoder: <a class="reference internal" href="generated/dirty_cat.DatetimeEncoder.html#dirty_cat.DatetimeEncoder" title="dirty_cat.DatetimeEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">DatetimeEncoder</span></code></a> can transform a datetime column into several numerical</dt><dd><p>columns (year, month, day, hour, minute, second, …). It is now the default transformer used
@@ -223,8 +237,8 @@ names instead of column indices for the “remainder” columns.</p></li>
 </section>
 <section id="release-0-2-2">
 <h1>Release 0.2.2<a class="headerlink" href="#release-0-2-2" title="Permalink to this heading">¶</a></h1>
-<section id="id2">
-<h2>Bug fixes<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
+<section id="id3">
+<h2>Bug fixes<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Fixed a bug in the <a class="reference internal" href="generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SuperVectorizer</span></code></a> causing a <cite>FutureWarning</cite>
 when using the <cite>get_feature_names_out</cite> method.</p></li>
@@ -233,8 +247,8 @@ when using the <cite>get_feature_names_out</cite> method.</p></li>
 </section>
 <section id="release-0-2-1">
 <h1>Release 0.2.1<a class="headerlink" href="#release-0-2-1" title="Permalink to this heading">¶</a></h1>
-<section id="id3">
-<h2>Major changes<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
+<section id="id4">
+<h2>Major changes<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h2>
 <ul>
 <li><p>Improvements to the <a class="reference internal" href="generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SuperVectorizer</span></code></a></p>
 <blockquote>
@@ -262,16 +276,16 @@ on multiple columns.</p>
 </li>
 </ul>
 </section>
-<section id="id4">
-<h2>Bug-fixes<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h2>
+<section id="id5">
+<h2>Bug-fixes<a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Fixed a bug that resulted in the <a class="reference internal" href="generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder" title="dirty_cat.GapEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">GapEncoder</span></code></a> ignoring the analyzer argument.</p></li>
 <li><p><a class="reference internal" href="generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder" title="dirty_cat.GapEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">GapEncoder</span></code></a>’s <cite>get_feature_names_out</cite> now accepts all iterators, not just lists.</p></li>
 <li><p>Fixed <cite>DeprecationWarning</cite> raised by the usage of <cite>distutils.version.LooseVersion</cite></p></li>
 </ul>
 </section>
-<section id="id5">
-<h2>Notes<a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h2>
+<section id="id6">
+<h2>Notes<a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Remove trailing imports in the <a class="reference internal" href="generated/dirty_cat.MinHashEncoder.html#dirty_cat.MinHashEncoder" title="dirty_cat.MinHashEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">MinHashEncoder</span></code></a>.</p></li>
 <li><p>Fix typos and update links for website.</p></li>
@@ -282,8 +296,8 @@ on multiple columns.</p>
 <section id="release-0-2-0">
 <h1>Release 0.2.0<a class="headerlink" href="#release-0-2-0" title="Permalink to this heading">¶</a></h1>
 <p>Also see pre-release 0.2.0a1 below for additional changes.</p>
-<section id="id6">
-<h2>Major changes<a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h2>
+<section id="id7">
+<h2>Major changes<a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Bump minimum dependencies:</p>
 <ul>
@@ -312,8 +326,8 @@ only supports two dimensional inputs of shape (N_samples, 1).</p></li>
 since <cite>get_feature_names</cite> will be depreciated in scikit-learn 1.2 (#216).</p></li>
 </ul>
 </section>
-<section id="id7">
-<h2>Notes<a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h2>
+<section id="id8">
+<h2>Notes<a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Removed hard-coded CSV file <cite>dirty_cat/data/FiveThirtyEight_Midwest_Survey.csv</cite>.</p></li>
 <li><p>Improvements to the <a class="reference internal" href="generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SuperVectorizer</span></code></a></p>
@@ -337,8 +351,8 @@ To try it, you have to install it manually using:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">git</span><span class="o">+</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">dirty</span><span class="o">-</span><span class="n">cat</span><span class="o">/</span><span class="n">dirty_cat</span><span class="o">.</span><span class="n">git</span>
 </pre></div>
 </div>
-<section id="id8">
-<h2>Major changes<a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h2>
+<section id="id9">
+<h2>Major changes<a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Bump minimum dependencies:</p>
 <ul>
@@ -359,8 +373,8 @@ Internally, features are encoded by independent <a class="reference internal" hr
 and are then concatenated into a single matrix.</p></li>
 </ul>
 </section>
-<section id="id9">
-<h2>Bug-fixes<a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h2>
+<section id="id10">
+<h2>Bug-fixes<a class="headerlink" href="#id10" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Fix <cite>get_feature_names</cite> for scikit-learn &gt; 0.21</p></li>
 </ul>
@@ -368,11 +382,11 @@ and are then concatenated into a single matrix.</p></li>
 </section>
 <section id="release-0-1-1">
 <h1>Release 0.1.1<a class="headerlink" href="#release-0-1-1" title="Permalink to this heading">¶</a></h1>
-<section id="id10">
-<h2>Major changes<a class="headerlink" href="#id10" title="Permalink to this heading">¶</a></h2>
-</section>
 <section id="id11">
-<h2>Bug-fixes<a class="headerlink" href="#id11" title="Permalink to this heading">¶</a></h2>
+<h2>Major changes<a class="headerlink" href="#id11" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="id12">
+<h2>Bug-fixes<a class="headerlink" href="#id12" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>RuntimeWarnings due to overflow in <a class="reference internal" href="generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder" title="dirty_cat.GapEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">GapEncoder</span></code></a> (#161)</p></li>
 </ul>
@@ -380,8 +394,8 @@ and are then concatenated into a single matrix.</p></li>
 </section>
 <section id="release-0-1-0">
 <h1>Release 0.1.0<a class="headerlink" href="#release-0-1-0" title="Permalink to this heading">¶</a></h1>
-<section id="id12">
-<h2>Major changes<a class="headerlink" href="#id12" title="Permalink to this heading">¶</a></h2>
+<section id="id13">
+<h2>Major changes<a class="headerlink" href="#id13" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference internal" href="generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder" title="dirty_cat.GapEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">GapEncoder</span></code></a>: Added online Gamma-Poisson factorization through the
 <a class="reference internal" href="generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder" title="dirty_cat.GapEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">GapEncoder</span></code></a> class. This method discovers latent categories formed
@@ -389,8 +403,8 @@ via combinations of substrings, and encodes string data as combinations of
 these categories. To be used if interpretability is important.</p></li>
 </ul>
 </section>
-<section id="id13">
-<h2>Bug-fixes<a class="headerlink" href="#id13" title="Permalink to this heading">¶</a></h2>
+<section id="id14">
+<h2>Bug-fixes<a class="headerlink" href="#id14" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Multiprocessing exception in notebook (#154)</p></li>
 </ul>
