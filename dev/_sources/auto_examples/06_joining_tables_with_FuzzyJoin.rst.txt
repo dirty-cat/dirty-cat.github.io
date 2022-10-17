@@ -172,12 +172,16 @@ Generosity etc.
 
 For more information, read the `World Happiness Report <https://worldhappiness.report/>`_.
 
-.. GENERATED FROM PYTHON SOURCE LINES 44-47
+.. GENERATED FROM PYTHON SOURCE LINES 46-48
+
+For the sake of this example, we only keep the country names and our
+variable of interest: the happiness score
+
+.. GENERATED FROM PYTHON SOURCE LINES 48-50
 
 .. code-block:: default
 
-    X = df[["Country"]]
-    y = df[["Happiness score"]]
+    df = df[["Country", "Happiness score"]]
 
 
 
@@ -186,13 +190,7 @@ For more information, read the `World Happiness Report <https://worldhappiness.r
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 48-51
-
-We keep the country names in our X table and we create
-the y table with the happiness score (our prediction target, or
-exogenous variable).
-
-.. GENERATED FROM PYTHON SOURCE LINES 53-62
+.. GENERATED FROM PYTHON SOURCE LINES 51-60
 
 Additional tables from other sources
 ------------------------------------
@@ -204,7 +202,7 @@ Interesting tables can be found on `the World Bank open data platform
 <https://data.worldbank.org/>`_, for which we have a downloading
 function:
 
-.. GENERATED FROM PYTHON SOURCE LINES 62-64
+.. GENERATED FROM PYTHON SOURCE LINES 60-62
 
 .. code-block:: default
 
@@ -217,11 +215,11 @@ function:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 65-66
+.. GENERATED FROM PYTHON SOURCE LINES 63-64
 
 We extract the table containing GDP per capita by country:
 
-.. GENERATED FROM PYTHON SOURCE LINES 66-69
+.. GENERATED FROM PYTHON SOURCE LINES 64-67
 
 .. code-block:: default
 
@@ -281,11 +279,11 @@ We extract the table containing GDP per capita by country:
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 70-71
+.. GENERATED FROM PYTHON SOURCE LINES 68-69
 
 Then another table, with life expectancy by country:
 
-.. GENERATED FROM PYTHON SOURCE LINES 71-74
+.. GENERATED FROM PYTHON SOURCE LINES 69-72
 
 .. code-block:: default
 
@@ -345,11 +343,11 @@ Then another table, with life expectancy by country:
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 75-76
+.. GENERATED FROM PYTHON SOURCE LINES 73-74
 
 And a table with legal rights strength by country:
 
-.. GENERATED FROM PYTHON SOURCE LINES 76-79
+.. GENERATED FROM PYTHON SOURCE LINES 74-77
 
 .. code-block:: default
 
@@ -409,20 +407,21 @@ And a table with legal rights strength by country:
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 80-85
+.. GENERATED FROM PYTHON SOURCE LINES 78-84
 
 A correspondance problem
 ------------------------
 
 Alas, the entries for countries do not perfectly match between our
-original table (X), and those that we downloaded from the worldbank:
+original table (df), and those that we downloaded from the worldbank
+(gdppc):
 
-.. GENERATED FROM PYTHON SOURCE LINES 85-88
+.. GENERATED FROM PYTHON SOURCE LINES 84-87
 
 .. code-block:: default
 
 
-    X.sort_values(by="Country").tail(7)
+    df.sort_values(by="Country").tail(7)
 
 
 
@@ -451,36 +450,44 @@ original table (X), and those that we downloaded from the worldbank:
         <tr style="text-align: right;">
           <th></th>
           <th>Country</th>
+          <th>Happiness score</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <th>29</th>
           <td>Uruguay</td>
+          <td>6474.0</td>
         </tr>
         <tr>
           <th>52</th>
           <td>Uzbekistan</td>
+          <td>6063.0</td>
         </tr>
         <tr>
           <th>107</th>
           <td>Venezuela</td>
+          <td>4925.0</td>
         </tr>
         <tr>
           <th>76</th>
           <td>Vietnam</td>
+          <td>5485.0</td>
         </tr>
         <tr>
           <th>131</th>
           <td>Yemen*</td>
+          <td>4197.0</td>
         </tr>
         <tr>
           <th>136</th>
           <td>Zambia</td>
+          <td>3760.0</td>
         </tr>
         <tr>
           <th>143</th>
           <td>Zimbabwe</td>
+          <td>2995.0</td>
         </tr>
       </tbody>
     </table>
@@ -489,7 +496,7 @@ original table (X), and those that we downloaded from the worldbank:
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 89-91
+.. GENERATED FROM PYTHON SOURCE LINES 88-90
 
 .. code-block:: default
 
@@ -568,7 +575,7 @@ original table (X), and those that we downloaded from the worldbank:
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 92-97
+.. GENERATED FROM PYTHON SOURCE LINES 91-96
 
 We can see that Yemen is written "Yemen*" on one side, and
 "Yemen, Rep." on the other.
@@ -576,37 +583,37 @@ We can see that Yemen is written "Yemen*" on one side, and
 We also have entries that probably do not have correspondances: "World"
 on one side, whereas the other table only has country-level data.
 
-.. GENERATED FROM PYTHON SOURCE LINES 99-105
+.. GENERATED FROM PYTHON SOURCE LINES 98-104
 
 Joining tables with imperfect correspondance
 --------------------------------------------
 
-We will now join our initial table, X, with the 3 additional ones that
+We will now join our initial table, df, with the 3 additional ones that
 we have extracted.
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 107-111
+.. GENERATED FROM PYTHON SOURCE LINES 106-110
 
 1. Joining GDP per capita table
 ................................
 
 To join them with dirty_cat, we only need to do the following:
 
-.. GENERATED FROM PYTHON SOURCE LINES 111-124
+.. GENERATED FROM PYTHON SOURCE LINES 110-123
 
 .. code-block:: default
 
     from dirty_cat import fuzzy_join
 
-    X1 = fuzzy_join(
-        X,  # our table to join
+    df1 = fuzzy_join(
+        df,  # our table to join
         gdppc,  # the table to join with
         left_on="Country",  # the first join key column
         right_on="Country Name",  # the second join key column
         return_score=True,
     )
 
-    X1.head(20)
+    df1.head(20)
     # We merged the first WB table to our initial one.
 
 
@@ -636,6 +643,7 @@ To join them with dirty_cat, we only need to do the following:
         <tr style="text-align: right;">
           <th></th>
           <th>Country</th>
+          <th>Happiness score</th>
           <th>Country Name</th>
           <th>GDP per capita (current US$)</th>
           <th>matching_score</th>
@@ -645,6 +653,7 @@ To join them with dirty_cat, we only need to do the following:
         <tr>
           <th>0</th>
           <td>Finland</td>
+          <td>7821.0</td>
           <td>Finland</td>
           <td>53982.614274</td>
           <td>1.000000</td>
@@ -652,6 +661,7 @@ To join them with dirty_cat, we only need to do the following:
         <tr>
           <th>1</th>
           <td>Denmark</td>
+          <td>7636.0</td>
           <td>Denmark</td>
           <td>67803.047105</td>
           <td>1.000000</td>
@@ -659,6 +669,7 @@ To join them with dirty_cat, we only need to do the following:
         <tr>
           <th>2</th>
           <td>Iceland</td>
+          <td>7557.0</td>
           <td>Iceland</td>
           <td>68383.765336</td>
           <td>1.000000</td>
@@ -666,6 +677,7 @@ To join them with dirty_cat, we only need to do the following:
         <tr>
           <th>3</th>
           <td>Switzerland</td>
+          <td>7512.0</td>
           <td>Switzerland</td>
           <td>93457.440398</td>
           <td>1.000000</td>
@@ -673,6 +685,7 @@ To join them with dirty_cat, we only need to do the following:
         <tr>
           <th>4</th>
           <td>Netherlands</td>
+          <td>7415.0</td>
           <td>Netherlands</td>
           <td>58061.001668</td>
           <td>1.000000</td>
@@ -680,6 +693,7 @@ To join them with dirty_cat, we only need to do the following:
         <tr>
           <th>5</th>
           <td>Luxembourg*</td>
+          <td>7404.0</td>
           <td>Luxembourg</td>
           <td>135682.794275</td>
           <td>0.712015</td>
@@ -687,6 +701,7 @@ To join them with dirty_cat, we only need to do the following:
         <tr>
           <th>6</th>
           <td>Sweden</td>
+          <td>7384.0</td>
           <td>Sweden</td>
           <td>60238.986564</td>
           <td>1.000000</td>
@@ -694,6 +709,7 @@ To join them with dirty_cat, we only need to do the following:
         <tr>
           <th>7</th>
           <td>Norway</td>
+          <td>7365.0</td>
           <td>Norway</td>
           <td>89202.750538</td>
           <td>1.000000</td>
@@ -701,6 +717,7 @@ To join them with dirty_cat, we only need to do the following:
         <tr>
           <th>8</th>
           <td>Israel</td>
+          <td>7364.0</td>
           <td>Israel</td>
           <td>51430.079681</td>
           <td>1.000000</td>
@@ -708,6 +725,7 @@ To join them with dirty_cat, we only need to do the following:
         <tr>
           <th>9</th>
           <td>New Zealand</td>
+          <td>7200.0</td>
           <td>New Zealand</td>
           <td>48801.685128</td>
           <td>1.000000</td>
@@ -715,6 +733,7 @@ To join them with dirty_cat, we only need to do the following:
         <tr>
           <th>10</th>
           <td>Austria</td>
+          <td>7163.0</td>
           <td>Austria</td>
           <td>53267.932749</td>
           <td>1.000000</td>
@@ -722,6 +741,7 @@ To join them with dirty_cat, we only need to do the following:
         <tr>
           <th>11</th>
           <td>Australia</td>
+          <td>7162.0</td>
           <td>Australia</td>
           <td>59934.129409</td>
           <td>1.000000</td>
@@ -729,6 +749,7 @@ To join them with dirty_cat, we only need to do the following:
         <tr>
           <th>12</th>
           <td>Ireland</td>
+          <td>7041.0</td>
           <td>Ireland</td>
           <td>99152.102572</td>
           <td>1.000000</td>
@@ -736,6 +757,7 @@ To join them with dirty_cat, we only need to do the following:
         <tr>
           <th>13</th>
           <td>Germany</td>
+          <td>7034.0</td>
           <td>Germany</td>
           <td>50801.786711</td>
           <td>1.000000</td>
@@ -743,6 +765,7 @@ To join them with dirty_cat, we only need to do the following:
         <tr>
           <th>14</th>
           <td>Canada</td>
+          <td>7025.0</td>
           <td>Canada</td>
           <td>52051.351465</td>
           <td>1.000000</td>
@@ -750,6 +773,7 @@ To join them with dirty_cat, we only need to do the following:
         <tr>
           <th>15</th>
           <td>United States</td>
+          <td>6977.0</td>
           <td>United States</td>
           <td>69287.536588</td>
           <td>1.000000</td>
@@ -757,6 +781,7 @@ To join them with dirty_cat, we only need to do the following:
         <tr>
           <th>16</th>
           <td>United Kingdom</td>
+          <td>6943.0</td>
           <td>United Kingdom</td>
           <td>47334.355315</td>
           <td>1.000000</td>
@@ -764,6 +789,7 @@ To join them with dirty_cat, we only need to do the following:
         <tr>
           <th>17</th>
           <td>Czechia</td>
+          <td>6920.0</td>
           <td>Czechia</td>
           <td>26378.499958</td>
           <td>1.000000</td>
@@ -771,6 +797,7 @@ To join them with dirty_cat, we only need to do the following:
         <tr>
           <th>18</th>
           <td>Belgium</td>
+          <td>6805.0</td>
           <td>Belgium</td>
           <td>51767.788572</td>
           <td>1.000000</td>
@@ -778,6 +805,7 @@ To join them with dirty_cat, we only need to do the following:
         <tr>
           <th>19</th>
           <td>France</td>
+          <td>6687.0</td>
           <td>France</td>
           <td>43518.538513</td>
           <td>1.000000</td>
@@ -789,14 +817,14 @@ To join them with dirty_cat, we only need to do the following:
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 125-129
+.. GENERATED FROM PYTHON SOURCE LINES 124-128
 
 .. topic:: Note:
 
    We fix the `return_score` parameter to `True` so as to keep the matching
    score, that we will use later to show what are the worst matches.
 
-.. GENERATED FROM PYTHON SOURCE LINES 131-147
+.. GENERATED FROM PYTHON SOURCE LINES 130-146
 
 We see that our :func:`fuzzy_join` succesfully identified the countries,
 even though some country names differ between tables.
@@ -815,11 +843,11 @@ For instance, 'Czechia' is well identified as 'Czech Republic' and
 
 Let's do some more inspection of the merging done.
 
-.. GENERATED FROM PYTHON SOURCE LINES 150-151
+.. GENERATED FROM PYTHON SOURCE LINES 149-150
 
 The best way to inspect the matches is to use the following function:
 
-.. GENERATED FROM PYTHON SOURCE LINES 151-165
+.. GENERATED FROM PYTHON SOURCE LINES 150-164
 
 .. code-block:: default
 
@@ -844,17 +872,17 @@ The best way to inspect the matches is to use the following function:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 166-168
+.. GENERATED FROM PYTHON SOURCE LINES 165-167
 
 Let's print the four worst matches, which will give
 us an overview of the situation:
 
-.. GENERATED FROM PYTHON SOURCE LINES 168-171
+.. GENERATED FROM PYTHON SOURCE LINES 167-170
 
 .. code-block:: default
 
 
-    print_worst_matches(X1, n=4)
+    print_worst_matches(df1, n=4)
 
 
 
@@ -883,6 +911,7 @@ us an overview of the situation:
         <tr style="text-align: right;">
           <th></th>
           <th>Country</th>
+          <th>Happiness score</th>
           <th>Country Name</th>
           <th>GDP per capita (current US$)</th>
           <th>matching_score</th>
@@ -892,6 +921,7 @@ us an overview of the situation:
         <tr>
           <th>87</th>
           <td>Ivory Coast</td>
+          <td>5235.0</td>
           <td>East Asia &amp; Pacific</td>
           <td>13037.462641</td>
           <td>0.343485</td>
@@ -899,6 +929,7 @@ us an overview of the situation:
         <tr>
           <th>121</th>
           <td>Palestinian Territories*</td>
+          <td>4483.0</td>
           <td>Palau</td>
           <td>14243.864692</td>
           <td>0.344937</td>
@@ -906,6 +937,7 @@ us an overview of the situation:
         <tr>
           <th>94</th>
           <td>Laos</td>
+          <td>5140.0</td>
           <td>Lao PDR</td>
           <td>2551.326081</td>
           <td>0.425257</td>
@@ -913,6 +945,7 @@ us an overview of the situation:
         <tr>
           <th>111</th>
           <td>Turkey</td>
+          <td>4744.0</td>
           <td>Turkiye</td>
           <td>9586.612450</td>
           <td>0.431527</td>
@@ -924,31 +957,31 @@ us an overview of the situation:
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 172-175
+.. GENERATED FROM PYTHON SOURCE LINES 171-174
 
 We see that some matches were unsuccesful
 (e.g 'Palestinian Territories*' and 'Palau'),
 because there is simply no match in the two tables.
 
-.. GENERATED FROM PYTHON SOURCE LINES 177-180
+.. GENERATED FROM PYTHON SOURCE LINES 176-179
 
 In this case, it is better to use the threshold parameter
 so as to include only precise-enough matches:
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 181-191
+.. GENERATED FROM PYTHON SOURCE LINES 180-190
 
 .. code-block:: default
 
-    X1 = fuzzy_join(
-        X,
+    df1 = fuzzy_join(
+        df,
         gdppc,
         left_on="Country",
         right_on="Country Name",
         match_score=0.35,
         return_score=True,
     )
-    print_worst_matches(X1, n=4)
+    print_worst_matches(df1, n=4)
 
 
 
@@ -977,6 +1010,7 @@ so as to include only precise-enough matches:
         <tr style="text-align: right;">
           <th></th>
           <th>Country</th>
+          <th>Happiness score</th>
           <th>Country Name</th>
           <th>GDP per capita (current US$)</th>
           <th>matching_score</th>
@@ -986,6 +1020,7 @@ so as to include only precise-enough matches:
         <tr>
           <th>87</th>
           <td>Ivory Coast</td>
+          <td>5235.0</td>
           <td>NaN</td>
           <td>NaN</td>
           <td>0.343485</td>
@@ -993,6 +1028,7 @@ so as to include only precise-enough matches:
         <tr>
           <th>121</th>
           <td>Palestinian Territories*</td>
+          <td>4483.0</td>
           <td>NaN</td>
           <td>NaN</td>
           <td>0.344937</td>
@@ -1000,6 +1036,7 @@ so as to include only precise-enough matches:
         <tr>
           <th>94</th>
           <td>Laos</td>
+          <td>5140.0</td>
           <td>Lao PDR</td>
           <td>2551.326081</td>
           <td>0.425257</td>
@@ -1007,6 +1044,7 @@ so as to include only precise-enough matches:
         <tr>
           <th>111</th>
           <td>Turkey</td>
+          <td>4744.0</td>
           <td>Turkiye</td>
           <td>9586.612450</td>
           <td>0.431527</td>
@@ -1018,21 +1056,26 @@ so as to include only precise-enough matches:
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 192-194
+.. GENERATED FROM PYTHON SOURCE LINES 191-193
 
 Matches that are not available (or precise enough) are marked as `NaN`.
-We will remove them, as well as missing or unused information:
+We will remove them using the drop_unmatched parameter:
 
-.. GENERATED FROM PYTHON SOURCE LINES 194-201
+.. GENERATED FROM PYTHON SOURCE LINES 193-205
 
 .. code-block:: default
 
 
-    mask = X1["GDP per capita (current US$)"].notna()
-    X1 = X1[mask]
-    y = np.ravel(y[mask])
+    df1 = fuzzy_join(
+        df,
+        gdppc,
+        left_on="Country",
+        right_on="Country Name",
+        match_score=0.35,
+        drop_unmatched=True,
+    )
 
-    X1.drop(["matching_score"], axis=1, inplace=True)
+    df1.drop(columns=["Country Name"], inplace=True)
 
 
 
@@ -1041,12 +1084,12 @@ We will remove them, as well as missing or unused information:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 202-204
+.. GENERATED FROM PYTHON SOURCE LINES 206-208
 
 We can finally plot and look at the link between GDP per capita
 and happiness:
 
-.. GENERATED FROM PYTHON SOURCE LINES 205-217
+.. GENERATED FROM PYTHON SOURCE LINES 209-223
 
 .. code-block:: default
 
@@ -1056,7 +1099,9 @@ and happiness:
     sns.set_context("notebook")
 
     plt.figure(figsize=(4, 3))
-    ax = sns.regplot(x=X1["GDP per capita (current US$)"], y=y, lowess=True)
+    ax = sns.regplot(
+        data=df1, x="GDP per capita (current US$)", y="Happiness score", lowess=True
+    )
     ax.set_ylabel("Happiness index")
     ax.set_title("Is a higher GDP per capita linked to happiness?")
     plt.tight_layout()
@@ -1074,14 +1119,14 @@ and happiness:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 218-222
+.. GENERATED FROM PYTHON SOURCE LINES 224-228
 
 It seems that the happiest countries are those
 having a high GDP per capita.
 However, unhappy countries do not have only low levels
 of GDP per capita. We have to search for other patterns.
 
-.. GENERATED FROM PYTHON SOURCE LINES 224-229
+.. GENERATED FROM PYTHON SOURCE LINES 230-235
 
 2. Joining life expectancy table
 ................................
@@ -1089,20 +1134,21 @@ of GDP per capita. We have to search for other patterns.
 Now let's include other information that may be relevant, such as
 life expectancy table:
 
-.. GENERATED FROM PYTHON SOURCE LINES 229-240
+.. GENERATED FROM PYTHON SOURCE LINES 235-247
 
 .. code-block:: default
 
-    X2 = fuzzy_join(
-        X1,
+    df2 = fuzzy_join(
+        df1,
         life_exp,
         left_on="Country",
         right_on="Country Name",
         match_score=0.45,
-        how="left",
     )
 
-    X2.head(3)
+    df2.drop(columns=["Country Name"], inplace=True)
+
+    df2.head(3)
 
 
 
@@ -1131,7 +1177,7 @@ life expectancy table:
         <tr style="text-align: right;">
           <th></th>
           <th>Country</th>
-          <th>Country Name_l</th>
+          <th>Happiness score</th>
           <th>GDP per capita (current US$)</th>
           <th>Life expectancy at birth, total (years)</th>
         </tr>
@@ -1140,21 +1186,21 @@ life expectancy table:
         <tr>
           <th>0</th>
           <td>Finland</td>
-          <td>Finland</td>
+          <td>7821.0</td>
           <td>53982.614274</td>
           <td>82.131707</td>
         </tr>
         <tr>
           <th>1</th>
           <td>Denmark</td>
-          <td>Denmark</td>
+          <td>7636.0</td>
           <td>67803.047105</td>
           <td>81.551220</td>
         </tr>
         <tr>
           <th>2</th>
           <td>Iceland</td>
-          <td>Iceland</td>
+          <td>7557.0</td>
           <td>68383.765336</td>
           <td>83.065854</td>
         </tr>
@@ -1165,16 +1211,21 @@ life expectancy table:
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 241-242
+.. GENERATED FROM PYTHON SOURCE LINES 248-249
 
 Let's plot this relation:
 
-.. GENERATED FROM PYTHON SOURCE LINES 242-249
+.. GENERATED FROM PYTHON SOURCE LINES 249-261
 
 .. code-block:: default
 
     plt.figure(figsize=(4, 3))
-    fig = sns.regplot(x=X2["Life expectancy at birth, total (years)"], y=y, lowess=True)
+    fig = sns.regplot(
+        data=df2,
+        x="Life expectancy at birth, total (years)",
+        y="Happiness score",
+        lowess=True,
+    )
     fig.set_ylabel("Happiness index")
     fig.set_title("Is a higher life expectancy linked to happiness?")
     plt.tight_layout()
@@ -1192,12 +1243,12 @@ Let's plot this relation:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 250-252
+.. GENERATED FROM PYTHON SOURCE LINES 262-264
 
 It seems the answer is yes!
 Countries with higher life expectancy are also happier.
 
-.. GENERATED FROM PYTHON SOURCE LINES 255-263
+.. GENERATED FROM PYTHON SOURCE LINES 267-275
 
 3. Joining legal rights strength table
 ................................
@@ -1208,20 +1259,21 @@ Countries with higher life expectancy are also happier.
 
 And the table with a measure of legal rights strength in the country:
 
-.. GENERATED FROM PYTHON SOURCE LINES 263-274
+.. GENERATED FROM PYTHON SOURCE LINES 275-287
 
 .. code-block:: default
 
-    X3 = fuzzy_join(
-        X2,
+    df3 = fuzzy_join(
+        df2,
         legal_rights,
         left_on="Country",
         right_on="Country Name",
         match_score=0.45,
-        how="left",
     )
 
-    X3.head(3)
+    df3.drop(columns=["Country Name"], inplace=True)
+
+    df3.head(3)
 
 
 
@@ -1250,7 +1302,7 @@ And the table with a measure of legal rights strength in the country:
         <tr style="text-align: right;">
           <th></th>
           <th>Country</th>
-          <th>Country Name_l</th>
+          <th>Happiness score</th>
           <th>GDP per capita (current US$)</th>
           <th>Life expectancy at birth, total (years)</th>
           <th>Strength of legal rights index (0=weak to 12=strong)</th>
@@ -1260,7 +1312,7 @@ And the table with a measure of legal rights strength in the country:
         <tr>
           <th>0</th>
           <td>Finland</td>
-          <td>Finland</td>
+          <td>7821.0</td>
           <td>53982.614274</td>
           <td>82.131707</td>
           <td>6.0</td>
@@ -1268,7 +1320,7 @@ And the table with a measure of legal rights strength in the country:
         <tr>
           <th>1</th>
           <td>Denmark</td>
-          <td>Denmark</td>
+          <td>7636.0</td>
           <td>67803.047105</td>
           <td>81.551220</td>
           <td>8.0</td>
@@ -1276,7 +1328,7 @@ And the table with a measure of legal rights strength in the country:
         <tr>
           <th>2</th>
           <td>Iceland</td>
-          <td>Iceland</td>
+          <td>7557.0</td>
           <td>68383.765336</td>
           <td>83.065854</td>
           <td>4.0</td>
@@ -1288,17 +1340,20 @@ And the table with a measure of legal rights strength in the country:
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 275-276
+.. GENERATED FROM PYTHON SOURCE LINES 288-289
 
 Let's take a look at their correspondance in a figure:
 
-.. GENERATED FROM PYTHON SOURCE LINES 276-285
+.. GENERATED FROM PYTHON SOURCE LINES 289-301
 
 .. code-block:: default
 
     plt.figure(figsize=(4, 3))
     fig = sns.regplot(
-        x=X3["Strength of legal rights index (0=weak to 12=strong)"], y=y, lowess=True
+        data=df3,
+        x="Strength of legal rights index (0=weak to 12=strong)",
+        y="Happiness score",
+        lowess=True,
     )
     fig.set_ylabel("Happiness index")
     fig.set_title("Does a country's legal rights strength lead to happiness?")
@@ -1317,24 +1372,43 @@ Let's take a look at their correspondance in a figure:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 286-288
+.. GENERATED FROM PYTHON SOURCE LINES 302-304
 
 From this plot, it is not clear that this measure of legal strength
 is linked to happiness.
 
-.. GENERATED FROM PYTHON SOURCE LINES 290-292
+.. GENERATED FROM PYTHON SOURCE LINES 306-308
 
 Great! Our joined table has became bigger and full of useful informations.
 And now we are ready to apply a first machine learning model to it!
 
-.. GENERATED FROM PYTHON SOURCE LINES 294-298
+.. GENERATED FROM PYTHON SOURCE LINES 310-315
 
 Prediction model
 -----------------
 
+We now separate our covariates (X), from the target (or exogenous)
+variables: y
+
+.. GENERATED FROM PYTHON SOURCE LINES 315-318
+
+.. code-block:: default
+
+    X = df3.drop("Happiness score", axis=1).select_dtypes(exclude=object)
+    y = df3[["Happiness score"]]
+
+
+
+
+
+
+
+
+.. GENERATED FROM PYTHON SOURCE LINES 319-320
+
 Let us now define the model that will be used to predict the happiness score:
 
-.. GENERATED FROM PYTHON SOURCE LINES 298-308
+.. GENERATED FROM PYTHON SOURCE LINES 320-330
 
 .. code-block:: default
 
@@ -1355,27 +1429,25 @@ Let us now define the model that will be used to predict the happiness score:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 309-313
+.. GENERATED FROM PYTHON SOURCE LINES 331-335
 
 To evaluate our model, we will apply a `4-fold cross-validation`.
 We evaluate our model using the `R2` score.
 
 Let's finally assess the results of our models:
 
-.. GENERATED FROM PYTHON SOURCE LINES 313-326
+.. GENERATED FROM PYTHON SOURCE LINES 335-346
 
 .. code-block:: default
 
     from sklearn.model_selection import cross_validate
 
-    cv_results_t = cross_validate(
-        hgdb, X3.select_dtypes(exclude=object), y, cv=cv, scoring="r2"
-    )
+    cv_results_t = cross_validate(hgdb, X, y, cv=cv, scoring="r2")
 
     cv_r2_t = cv_results_t["test_score"]
 
     print(
-        f"Mean R2 score with {len(X3.columns) - 2} feature columns is"
+        f"Mean R2 score with {len(X.columns) - 2} feature columns is"
         f" {cv_r2_t.mean():.2f} +- {cv_r2_t.std():.2f}"
     )
 
@@ -1387,14 +1459,14 @@ Let's finally assess the results of our models:
 
  .. code-block:: none
 
-    Mean R2 score with 3 feature columns is 0.63 +- 0.00
+    Mean R2 score with 1 feature columns is 0.63 +- 0.00
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 327-338
+.. GENERATED FROM PYTHON SOURCE LINES 347-358
 
-We have a satisfying first result: an R2 of 0.63!
+We have a satisfying first result: an R2 of 0.66!
 
 Data cleaning varies from dataset to dataset: there are as
 many ways to clean a table as there are errors. :func:`fuzzy_join`
@@ -1409,7 +1481,7 @@ beating our result!
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  1.342 seconds)
+   **Total running time of the script:** ( 0 minutes  1.798 seconds)
 
 
 .. _sphx_glr_download_auto_examples_06_joining_tables_with_FuzzyJoin.py:
