@@ -10,7 +10,7 @@
   
 <meta property="og:type" content="website" />
   
-<meta property="og:url" content="https://dirty-cat.github.io/stable/auto_examples/07_joining_tables_with_FuzzyJoin.html" />
+<meta property="og:url" content="https://dirty-cat.github.io/stable/auto_examples/06_joining_tables_with_FuzzyJoin.html" />
   
 <meta property="og:site_name" content="dirty_cat" />
   
@@ -36,7 +36,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="dirty_cat.SuperVectorizer" href="../generated/dirty_cat.SuperVectorizer.html" />
-    <link rel="prev" title="Scalability considerations for similarity encoding" href="06_dimension_reduction_and_performance.html" />
+    <link rel="prev" title="Scalability considerations for similarity encoding" href="05_dimension_reduction_and_performance.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
@@ -111,7 +111,7 @@
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="06_dimension_reduction_and_performance.html" title="previous chapter">Scalability considerations for similarity encoding</a></li>
+      <li>Previous: <a href="05_dimension_reduction_and_performance.html" title="previous chapter">Scalability considerations for similarity encoding</a></li>
       <li>Next: <a href="../generated/dirty_cat.SuperVectorizer.html" title="next chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat</span></code>.SuperVectorizer</a></li>
   </ul></li>
 </ul>
@@ -126,11 +126,11 @@
             
   <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-07-joining-tables-with-fuzzyjoin-py"><span class="std std-ref">here</span></a>
+<p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-06-joining-tables-with-fuzzyjoin-py"><span class="std std-ref">here</span></a>
 to download the full example code or to run this example in your browser via Binder</p>
 </div>
 <section class="sphx-glr-example-title" id="merging-dirty-tables-fuzzy-join">
-<span id="sphx-glr-auto-examples-07-joining-tables-with-fuzzyjoin-py"></span><h1>Merging dirty tables: fuzzy join<a class="headerlink" href="#merging-dirty-tables-fuzzy-join" title="Permalink to this heading">¶</a></h1>
+<span id="sphx-glr-auto-examples-06-joining-tables-with-fuzzyjoin-py"></span><h1>Merging dirty tables: fuzzy join<a class="headerlink" href="#merging-dirty-tables-fuzzy-join" title="Permalink to this heading">¶</a></h1>
 <p>Here we show how to combine data from different sources,
 with a vocabulary not well normalized.</p>
 <p>Joining is difficult: one entry on one side does not have
@@ -414,7 +414,7 @@ function:</p>
 <h2>A correspondance problem<a class="headerlink" href="#a-correspondance-problem" title="Permalink to this heading">¶</a></h2>
 <p>Alas, the entries for countries do not perfectly match between our
 original table (X), and those that we downloaded from the worldbank:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.sort_values.html#pandas.DataFrame.sort_values" title="pandas.DataFrame.sort_values" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-method"><span class="n">X</span><span class="o">.</span><span class="n">sort_values</span></a><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;Country&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.sort_values.html#pandas.DataFrame.sort_values" title="pandas.DataFrame.sort_values" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-method"><span class="n">X</span><span class="o">.</span><span class="n">sort_values</span></a><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">&quot;Country&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="output_subarea output_html rendered_html output_result">
@@ -473,7 +473,7 @@ original table (X), and those that we downloaded from the worldbank:</p>
 </div>
 </div>
 <br />
-<br /><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.sort_values.html#pandas.DataFrame.sort_values" title="pandas.DataFrame.sort_values" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-method"><span class="n">gdppc</span><span class="o">.</span><span class="n">sort_values</span></a><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;Country Name&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+<br /><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.sort_values.html#pandas.DataFrame.sort_values" title="pandas.DataFrame.sort_values" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-method"><span class="n">gdppc</span><span class="o">.</span><span class="n">sort_values</span></a><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">&quot;Country Name&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="output_subarea output_html rendered_html output_result">
@@ -934,7 +934,7 @@ and happiness:</p>
 <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.show.html#matplotlib.pyplot.show" title="matplotlib.pyplot.show" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../_images/sphx_glr_07_joining_tables_with_FuzzyJoin_001.png" srcset="../_images/sphx_glr_07_joining_tables_with_FuzzyJoin_001.png" alt="Is a higher GDP per capita linked to happiness?" class = "sphx-glr-single-img"/><p>It seems that the happiest countries are those
+<img src="../_images/sphx_glr_06_joining_tables_with_FuzzyJoin_001.png" srcset="../_images/sphx_glr_06_joining_tables_with_FuzzyJoin_001.png" alt="Is a higher GDP per capita linked to happiness?" class = "sphx-glr-single-img"/><p>It seems that the happiest countries are those
 having a high GDP per capita.
 However, unhappy countries do not have only low levels
 of GDP per capita. We have to search for other patterns.</p>
@@ -1016,7 +1016,7 @@ life expectancy table:</p>
 <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.show.html#matplotlib.pyplot.show" title="matplotlib.pyplot.show" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../_images/sphx_glr_07_joining_tables_with_FuzzyJoin_002.png" srcset="../_images/sphx_glr_07_joining_tables_with_FuzzyJoin_002.png" alt="Is a higher life expectancy linked to happiness?" class = "sphx-glr-single-img"/><p>It seems the answer is yes!
+<img src="../_images/sphx_glr_06_joining_tables_with_FuzzyJoin_002.png" srcset="../_images/sphx_glr_06_joining_tables_with_FuzzyJoin_002.png" alt="Is a higher life expectancy linked to happiness?" class = "sphx-glr-single-img"/><p>It seems the answer is yes!
 Countries with higher life expectancy are also happier.</p>
 </section>
 <section id="joining-legal-rights-strength-table">
@@ -1106,7 +1106,7 @@ column, so as not to have unnecessary overlaping column with country names.</p>
 <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.show.html#matplotlib.pyplot.show" title="matplotlib.pyplot.show" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../_images/sphx_glr_07_joining_tables_with_FuzzyJoin_003.png" srcset="../_images/sphx_glr_07_joining_tables_with_FuzzyJoin_003.png" alt="Does a country's legal rights strength lead to happiness?" class = "sphx-glr-single-img"/><p>From this plot, it is not clear that this measure of legal strength
+<img src="../_images/sphx_glr_06_joining_tables_with_FuzzyJoin_003.png" srcset="../_images/sphx_glr_06_joining_tables_with_FuzzyJoin_003.png" alt="Does a country's legal rights strength lead to happiness?" class = "sphx-glr-single-img"/><p>From this plot, it is not clear that this measure of legal strength
 is linked to happiness.</p>
 <p>Great! Our joined table has became bigger and full of useful informations.
 And now we are ready to apply a first machine learning model to it!</p>
@@ -1154,16 +1154,16 @@ method is generalizable across all datasets.</p>
 <code class="xref py py-func docutils literal notranslate"><span class="pre">fuzzy_join()</span></code> is fast and easy-to-use.</p>
 <p>Now up to you, try improving our model by adding information into it and
 beating our result!</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  1.363 seconds)</p>
-<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-07-joining-tables-with-fuzzyjoin-py">
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  1.342 seconds)</p>
+<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-06-joining-tables-with-fuzzyjoin-py">
 <div class="binder-badge docutils container">
-<a class="reference external image-reference" href="https://mybinder.org/v2/gh/dirty-cat/dirty-cat.github.io/master?filepath=dev/auto_examples/07_joining_tables_with_FuzzyJoin.ipynb"><img alt="Launch binder" src="../_images/binder_badge_logo.svg" width="150px" /></a>
+<a class="reference external image-reference" href="https://mybinder.org/v2/gh/dirty-cat/dirty-cat.github.io/master?filepath=dev/auto_examples/06_joining_tables_with_FuzzyJoin.ipynb"><img alt="Launch binder" src="../_images/binder_badge_logo.svg" width="150px" /></a>
 </div>
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
-<p><a class="reference download internal" download="" href="../_downloads/3b3f0ae97720baa3962a0fd879b3513d/07_joining_tables_with_FuzzyJoin.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">07_joining_tables_with_FuzzyJoin.py</span></code></a></p>
+<p><a class="reference download internal" download="" href="../_downloads/d0a661e35fd87885f89235e06f2acf22/06_joining_tables_with_FuzzyJoin.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">06_joining_tables_with_FuzzyJoin.py</span></code></a></p>
 </div>
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
-<p><a class="reference download internal" download="" href="../_downloads/fffdb1f34a343ac045d9fd70f445106d/07_joining_tables_with_FuzzyJoin.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">07_joining_tables_with_FuzzyJoin.ipynb</span></code></a></p>
+<p><a class="reference download internal" download="" href="../_downloads/bcfbe82c73d88650a7850424d2406c3a/06_joining_tables_with_FuzzyJoin.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">06_joining_tables_with_FuzzyJoin.ipynb</span></code></a></p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
@@ -1181,7 +1181,7 @@ beating our result!</p>
       &copy;2018-2021, dirty_cat developers.
       
       |
-      <a href="../_sources/auto_examples/07_joining_tables_with_FuzzyJoin.rst.txt"
+      <a href="../_sources/auto_examples/06_joining_tables_with_FuzzyJoin.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 
