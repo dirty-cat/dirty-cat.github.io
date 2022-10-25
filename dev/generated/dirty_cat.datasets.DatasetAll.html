@@ -6,21 +6,21 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-<meta property="og:title" content="Using dirty_cat" />
+<meta property="og:title" content="dirty_cat.datasets.DatasetAll" />
   
 <meta property="og:type" content="website" />
   
-<meta property="og:url" content="https://dirty-cat.github.io/stable/auto_examples/index.html" />
+<meta property="og:url" content="https://dirty-cat.github.io/stable/generated/dirty_cat.datasets.DatasetAll.html" />
   
 <meta property="og:site_name" content="dirty_cat" />
   
-<meta property="og:description" content="Dirty categories: machine learning with non normalized strings Dirty categories: machine learning with non normalized strings Investigating and interpreting dirty categories Investigating and inter..." />
+<meta property="og:description" content="Usage examples at the bottom of this page. Examples using dirty_cat.datasets.DatasetAll: Dirty categories: machine learning with non normalized strings Dirty categories: machine learning with non n..." />
   
 <meta property="og:image" content="https://dirty-cat.github.io/stable/_images/sphx_glr_01_dirty_categories_thumb.png" />
   
 <meta property="og:image:alt" content="Dirty categories: machine learning with non normalized strings" />
   
-    <title>Using dirty_cat &#8212; &amp;mdash; Dirty cat</title>
+    <title>dirty_cat.datasets.DatasetAll &#8212; &amp;mdash; Dirty cat</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css" />
@@ -88,7 +88,15 @@
     <li class="toctree-l1"><a href="../index.html#using-dirty-cat">Usage</a></li>
     <li class="toctree-l1"><a href="../index.html#api-documentation">API</a></li>
     <li class="toctree-l1"><a href="../index.html#about">About</a></li>
-</ul><div class="relations">
+</ul>
+  <h3 class="this-page"><a href="../index.html">This page</a></h3>
+  <ul>
+<li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat.datasets</span></code>.DatasetAll</a><ul>
+<li><a class="reference internal" href="#examples-using-dirty-cat-datasets-datasetall">Examples using <code class="docutils literal notranslate"><span class="pre">dirty_cat.datasets.DatasetAll</span></code></a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
@@ -103,26 +111,36 @@
 
           <div class="body" role="main">
             
-  <section id="using-dirty-cat">
-<h1>Using dirty_cat<a class="headerlink" href="#using-dirty-cat" title="Permalink to this heading">¶</a></h1>
+  <section id="dirty-cat-datasets-datasetall">
+<h1><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat.datasets</span></code>.DatasetAll<a class="headerlink" href="#dirty-cat-datasets-datasetall" title="Permalink to this heading">¶</a></h1>
+<p class="side-comment">Usage examples at the bottom of this page.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="dirty_cat.datasets.DatasetAll">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">dirty_cat.datasets.</span></span><span class="sig-name descname"><span class="pre">DatasetAll</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">read_csv_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/datasets/_fetching.html#DatasetAll"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.datasets.DatasetAll" title="Permalink to this definition">¶</a></dt>
+<dd><p>Represents a dataset and its information.
+With this state, the dataset is loaded in memory as a pandas DataFrame
+(<code class="docutils literal notranslate"><span class="pre">X</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code>).
+Additional information such as <cite>path</cite> and <cite>read_csv_kwargs</cite> are provided
+in case the dataframe has to be read from disk, as such:
+.. code:: python</p>
+<blockquote>
+<div><p>ds = fetch_employee_salaries(load_dataframe=False)
+df = pd.read_csv(ds.path, <a href="#id1"><span class="problematic" id="id2">**</span></a>ds.read_csv_kwargs)</p>
+</div></blockquote>
+</dd></dl>
+
+<section id="examples-using-dirty-cat-datasets-datasetall">
+<h2>Examples using <code class="docutils literal notranslate"><span class="pre">dirty_cat.datasets.DatasetAll</span></code><a class="headerlink" href="#examples-using-dirty-cat-datasets-datasetall" title="Permalink to this heading">¶</a></h2>
 <div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="Including strings that represent categories often calls for much data preparation. In particula..."><img alt="Dirty categories: machine learning with non normalized strings" src="../_images/sphx_glr_01_dirty_categories_thumb.png" />
-<p><a class="reference internal" href="01_dirty_categories.html#sphx-glr-auto-examples-01-dirty-categories-py"><span class="std std-ref">Dirty categories: machine learning with non normalized strings</span></a></p>
+<p><a class="reference internal" href="../auto_examples/01_dirty_categories.html#sphx-glr-auto-examples-01-dirty-categories-py"><span class="std std-ref">Dirty categories: machine learning with non normalized strings</span></a></p>
   <div class="sphx-glr-thumbnail-title">Dirty categories: machine learning with non normalized strings</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="What are dirty categorical variables and how can a good encoding help with statistical learning..."><img alt="Investigating and interpreting dirty categories" src="../_images/sphx_glr_02_investigating_dirty_categories_thumb.png" />
-<p><a class="reference internal" href="02_investigating_dirty_categories.html#sphx-glr-auto-examples-02-investigating-dirty-categories-py"><span class="std std-ref">Investigating and interpreting dirty categories</span></a></p>
+<p><a class="reference internal" href="../auto_examples/02_investigating_dirty_categories.html#sphx-glr-auto-examples-02-investigating-dirty-categories-py"><span class="std std-ref">Investigating and interpreting dirty categories</span></a></p>
   <div class="sphx-glr-thumbnail-title">Investigating and interpreting dirty categories</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="We illustrate here how to handle datetime features with the DatetimeEncoder."><img alt="Handling datetime features with the DatetimeEncoder" src="../_images/sphx_glr_03_datetime_encoder_thumb.png" />
-<p><a class="reference internal" href="03_datetime_encoder.html#sphx-glr-auto-examples-03-datetime-encoder-py"><span class="std std-ref">Handling datetime features with the DatetimeEncoder</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Handling datetime features with the DatetimeEncoder</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="We discuss in this notebook how to efficiently apply the |SE| to larger datasets: reducing the ..."><img alt="Scalability considerations for similarity encoding" src="../_images/sphx_glr_04_dimension_reduction_and_performance_thumb.png" />
-<p><a class="reference internal" href="04_dimension_reduction_and_performance.html#sphx-glr-auto-examples-04-dimension-reduction-and-performance-py"><span class="std std-ref">Scalability considerations for similarity encoding</span></a></p>
+<p><a class="reference internal" href="../auto_examples/04_dimension_reduction_and_performance.html#sphx-glr-auto-examples-04-dimension-reduction-and-performance-py"><span class="std std-ref">Scalability considerations for similarity encoding</span></a></p>
   <div class="sphx-glr-thumbnail-title">Scalability considerations for similarity encoding</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Here we show how to combine data from different sources, with a vocabulary not well normalized."><img alt="Merging dirty tables: fuzzy join" src="../_images/sphx_glr_05_joining_tables_with_FuzzyJoin_thumb.png" />
-<p><a class="reference internal" href="05_joining_tables_with_FuzzyJoin.html#sphx-glr-auto-examples-05-joining-tables-with-fuzzyjoin-py"><span class="std std-ref">Merging dirty tables: fuzzy join</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Merging dirty tables: fuzzy join</div>
-</div></div><div class="toctree-wrapper compound">
-</div>
-<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</div></div><div class="clearer"></div></section>
 </section>
 
 
@@ -136,7 +154,7 @@
       &copy;2018-2021, dirty_cat developers.
       
       |
-      <a href="../_sources/auto_examples/index.rst.txt"
+      <a href="../_sources/generated/dirty_cat.datasets.DatasetAll.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 

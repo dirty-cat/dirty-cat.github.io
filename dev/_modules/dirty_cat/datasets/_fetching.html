@@ -155,24 +155,46 @@
     <span class="n">names</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
 
 
-<span class="nd">@dataclass</span><span class="p">(</span><span class="n">unsafe_hash</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="viewcode-block" id="DatasetAll"><a class="viewcode-back" href="../../../generated/dirty_cat.datasets.DatasetAll.html#dirty_cat.datasets.DatasetAll">[docs]</a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">unsafe_hash</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">DatasetAll</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Represents a dataset and its information.</span>
+<span class="sd">    With this state, the dataset is loaded in memory as a pandas DataFrame</span>
+<span class="sd">    (``X`` and ``y``).</span>
+<span class="sd">    Additional information such as `path` and `read_csv_kwargs` are provided</span>
+<span class="sd">    in case the dataframe has to be read from disk, as such:</span>
+<span class="sd">    .. code:: python</span>
+<span class="sd">        ds = fetch_employee_salaries(load_dataframe=False)</span>
+<span class="sd">        df = pd.read_csv(ds.path, **ds.read_csv_kwargs)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">description</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">source</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">target</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">X</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span>
     <span class="n">y</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span>
-    <span class="n">source</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">path</span><span class="p">:</span> <span class="n">Path</span>
+    <span class="n">read_csv_kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span></div>
 
 
-<span class="nd">@dataclass</span><span class="p">(</span><span class="n">unsafe_hash</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="viewcode-block" id="DatasetInfoOnly"><a class="viewcode-back" href="../../../generated/dirty_cat.datasets.DatasetInfoOnly.html#dirty_cat.datasets.DatasetInfoOnly">[docs]</a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">unsafe_hash</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">DatasetInfoOnly</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Represents a dataset and its information.</span>
+<span class="sd">    With this state, the dataset is NOT loaded in memory, but can be read</span>
+<span class="sd">    with ``path`` and ``read_csv_kwargs``, as such:</span>
+<span class="sd">    .. code:: python</span>
+<span class="sd">        ds = fetch_employee_salaries(load_dataframe=False)</span>
+<span class="sd">        df = pd.read_csv(ds.path, **ds.read_csv_kwargs)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">description</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">source</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">target</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">path</span><span class="p">:</span> <span class="n">Path</span>
-    <span class="n">read_csv_kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
+    <span class="n">read_csv_kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span></div>
 
 
 <span class="k">def</span> <span class="nf">fetch_openml_dataset</span><span class="p">(</span>
@@ -524,10 +546,12 @@
         <span class="n">dataset</span> <span class="o">=</span> <span class="n">DatasetAll</span><span class="p">(</span>
             <span class="n">name</span><span class="o">=</span><span class="n">dataset_name</span><span class="p">,</span>
             <span class="n">description</span><span class="o">=</span><span class="n">info</span><span class="p">[</span><span class="s2">&quot;description&quot;</span><span class="p">],</span>
+            <span class="n">source</span><span class="o">=</span><span class="n">info</span><span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">],</span>
+            <span class="n">target</span><span class="o">=</span><span class="n">target</span><span class="p">,</span>
             <span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span>
             <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span>
-            <span class="n">source</span><span class="o">=</span><span class="n">info</span><span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">],</span>
             <span class="n">path</span><span class="o">=</span><span class="n">info</span><span class="p">[</span><span class="s2">&quot;path&quot;</span><span class="p">],</span>
+            <span class="n">read_csv_kwargs</span><span class="o">=</span><span class="n">read_csv_kwargs</span><span class="p">,</span>
         <span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">dataset</span> <span class="o">=</span> <span class="n">DatasetInfoOnly</span><span class="p">(</span>
@@ -555,9 +579,9 @@
 <span class="sd">    https://openml.org/d/42125</span>
 
 <span class="sd">    Description of the dataset:</span>
-<span class="sd">    &gt; Annual salary information including gross pay and overtime pay for all</span>
-<span class="sd">    active, permanent employees of Montgomery County, MD paid in calendar</span>
-<span class="sd">    year 2016. This information will be published annually each year.</span>
+<span class="sd">        Annual salary information including gross pay and overtime pay for all</span>
+<span class="sd">        active, permanent employees of Montgomery County, MD paid in calendar</span>
+<span class="sd">        year 2016. This information will be published annually each year.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -606,10 +630,10 @@
 <span class="sd">    https://openml.org/d/42803</span>
 
 <span class="sd">    Description of the dataset:</span>
-<span class="sd">    &gt; Data reported to the police about the circumstances of personal injury</span>
-<span class="sd">    road accidents in Great Britain from 1979, and the maker and model</span>
-<span class="sd">    information of vehicles involved in the respective accident. This version</span>
-<span class="sd">    includes data up to 2015.</span>
+<span class="sd">        Data reported to the police about the circumstances of personal injury</span>
+<span class="sd">        road accidents in Great Britain from 1979, and the maker and model</span>
+<span class="sd">        information of vehicles involved in the respective accident.</span>
+<span class="sd">        This version includes data up to 2015.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -637,14 +661,14 @@
 <span class="sd">    https://openml.org/d/42720</span>
 
 <span class="sd">    Description of the dataset:</span>
-<span class="sd">    &gt; The Inpatient Utilization and Payment Public Use File (Inpatient PUF)</span>
-<span class="sd">    provides information on inpatient discharges for Medicare fee-for-service</span>
-<span class="sd">    beneficiaries. The Inpatient PUF includes information on utilization,</span>
-<span class="sd">    payment (total payment and Medicare payment), and hospital-specific charges</span>
-<span class="sd">    for the more than 3,000 U.S. hospitals that receive Medicare Inpatient</span>
-<span class="sd">    Prospective Payment System (IPPS) payments. The PUF is organized by</span>
-<span class="sd">    hospital and Medicare Severity Diagnosis Related Group (MS-DRG) and</span>
-<span class="sd">    covers Fiscal Year (FY) 2011 through FY 2016.</span>
+<span class="sd">        The Inpatient Utilization and Payment Public Use File (Inpatient PUF)</span>
+<span class="sd">        provides information on inpatient discharges for Medicare</span>
+<span class="sd">        fee-for-service beneficiaries. The Inpatient PUF includes information</span>
+<span class="sd">        on utilization, payment (total payment and Medicare payment), and</span>
+<span class="sd">        hospital-specific charges for the more than 3,000 U.S. hospitals that</span>
+<span class="sd">        receive Medicare Inpatient Prospective Payment System (IPPS) payments.</span>
+<span class="sd">        The PUF is organized by hospital and Medicare Severity Diagnosis</span>
+<span class="sd">        Related Group (MS-DRG) and covers Fiscal Year (FY) 2011 through FY 2016.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -673,7 +697,7 @@
 <span class="sd">    https://openml.org/d/42805</span>
 
 <span class="sd">    Description of the dataset:</span>
-<span class="sd">    &gt; Survey to know if people self-identify as Midwesterners.</span>
+<span class="sd">        Survey to know if people self-identify as Midwesterners.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -702,8 +726,8 @@
 <span class="sd">    https://openml.org/d/42738</span>
 
 <span class="sd">    Description of the dataset:</span>
-<span class="sd">    &gt; Payments given by healthcare manufacturing companies to medical doctors</span>
-<span class="sd">    or hospitals.</span>
+<span class="sd">        Payments given by healthcare manufacturing companies to medical doctors</span>
+<span class="sd">        or hospitals.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -733,10 +757,10 @@
 <span class="sd">    https://openml.org/d/42132</span>
 
 <span class="sd">    Description of the dataset:</span>
-<span class="sd">    &gt; This dataset contains traffic violation information from all electronic</span>
-<span class="sd">    traffic violations issued in the Montgomery County, MD. Any information</span>
-<span class="sd">    that can be used to uniquely identify the vehicle, the vehicle owner or</span>
-<span class="sd">    the officer issuing the violation will not be published.</span>
+<span class="sd">        This dataset contains traffic violation information from all electronic</span>
+<span class="sd">        traffic violations issued in the Montgomery County, MD. Any information</span>
+<span class="sd">        that can be used to uniquely identify the vehicle, the vehicle owner or</span>
+<span class="sd">        the officer issuing the violation will not be published.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -759,15 +783,15 @@
     <span class="p">)</span></div>
 
 
-<span class="k">def</span> <span class="nf">fetch_drug_directory</span><span class="p">(</span>
+<div class="viewcode-block" id="fetch_drug_directory"><a class="viewcode-back" href="../../../generated/dirty_cat.datasets.fetch_drug_directory.html#dirty_cat.datasets.fetch_drug_directory">[docs]</a><span class="k">def</span> <span class="nf">fetch_drug_directory</span><span class="p">(</span>
     <span class="n">load_dataframe</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">DatasetAll</span><span class="p">,</span> <span class="n">DatasetInfoOnly</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;Fetches the drug directory dataset (classification), available at</span>
 <span class="sd">    https://openml.org/d/43044</span>
 
 <span class="sd">    Description of the dataset:</span>
-<span class="sd">    &gt; Product listing data submitted to the U.S. FDA for all unfinished,</span>
-<span class="sd">    unapproved drugs.</span>
+<span class="sd">        Product listing data submitted to the U.S. FDA for all unfinished,</span>
+<span class="sd">        unapproved drugs.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -786,7 +810,7 @@
             <span class="s2">&quot;escapechar&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">,</span>
         <span class="p">},</span>
         <span class="n">load_dataframe</span><span class="o">=</span><span class="n">load_dataframe</span><span class="p">,</span>
-    <span class="p">)</span>
+    <span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="fetch_world_bank_indicator"><a class="viewcode-back" href="../../../generated/dirty_cat.datasets.fetch_world_bank_indicator.html#dirty_cat.datasets.fetch_world_bank_indicator">[docs]</a><span class="k">def</span> <span class="nf">fetch_world_bank_indicator</span><span class="p">(</span>

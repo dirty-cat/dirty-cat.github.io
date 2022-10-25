@@ -18,20 +18,26 @@
 .. _sphx_glr_auto_examples_02_investigating_dirty_categories.py:
 
 
-Investigating dirty categories
-=================================
+Investigating and interpreting dirty categories
+===============================================
 
-What are dirty categorical variables and how can a good encoding help
-with statistical learning.
+What are dirty categorical variables and how can
+a good encoding help with statistical learning?
 
-.. GENERATED FROM PYTHON SOURCE LINES 10-14
+We illustrate how categorical encodings obtained with
+the :class:`GapEncoder` can be interpreted in terms of latent topics.
+
+We use as example the `employee salaries <https://www.openml.org/d/42125>`_
+dataset.
+
+.. GENERATED FROM PYTHON SOURCE LINES 16-20
 
 What do we mean by dirty categories?
--------------------------------------------------
+------------------------------------
 
-Let's look at a dataset called employee salaries:
+Let's look at the dataset:
 
-.. GENERATED FROM PYTHON SOURCE LINES 14-21
+.. GENERATED FROM PYTHON SOURCE LINES 20-27
 
 .. code-block:: default
 
@@ -63,11 +69,11 @@ Let's look at a dataset called employee salaries:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 22-23
+.. GENERATED FROM PYTHON SOURCE LINES 28-29
 
-Here is how many unique entries there is per column
+Here is how many unique entries there is per column:
 
-.. GENERATED FROM PYTHON SOURCE LINES 23-25
+.. GENERATED FROM PYTHON SOURCE LINES 29-31
 
 .. code-block:: default
 
@@ -95,15 +101,15 @@ Here is how many unique entries there is per column
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 26-27
+.. GENERATED FROM PYTHON SOURCE LINES 32-33
 
 As we can see, some entries have many unique values:
 
-.. GENERATED FROM PYTHON SOURCE LINES 27-29
+.. GENERATED FROM PYTHON SOURCE LINES 33-35
 
 .. code-block:: default
 
-    print(data['employee_position_title'].value_counts().sort_index())
+    print(data["employee_position_title"].value_counts().sort_index())
 
 
 
@@ -129,17 +135,18 @@ As we can see, some entries have many unique values:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 30-48
+.. GENERATED FROM PYTHON SOURCE LINES 36-55
 
-These different entries are often variations on the same entities:
-for example, there are 3 kinds of Accountant/Auditor.
+These different entries are often variations of the same entity.
+For example, there are 3 kinds of Accountant/Auditor.
 
 Such variations will break traditional categorical encoding methods:
 
-* Using simple one-hot encoding will create orthogonal features,
-  whereas it is clear that those 3 terms have a lot in common.
+* Using simple `one-hot encoding <https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.OneHotEncoder.html>`_
+  will create orthogonal features, whereas it is clear that
+  those 3 terms have a lot in common.
 
-* If we wanted to use word embedding methods such as Word2vec,
+* If we wanted to use word embedding methods such as `Word2vec <https://www.tensorflow.org/tutorials/text/word2vec>`_,
   we would have to go through a cleaning phase: those algorithms
   are not trained to work on data such as 'Accountant/Auditor I'.
   However, this can be error-prone and time-consuming.
@@ -150,13 +157,13 @@ entries.
 To simplify understanding, we will focus on the column describing the
 employee's position title:
 
-.. GENERATED FROM PYTHON SOURCE LINES 48-52
+.. GENERATED FROM PYTHON SOURCE LINES 55-59
 
 .. code-block:: default
 
 
-    values = data[['employee_position_title', 'gender']]
-    values.insert(0, 'current_annual_salary', employee_salaries.y)
+    values = data[["employee_position_title", "gender"]]
+    values.insert(0, "current_annual_salary", employee_salaries.y)
 
 
 
@@ -165,27 +172,26 @@ employee's position title:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 53-59
+.. GENERATED FROM PYTHON SOURCE LINES 60-66
 
 String similarity between entries
--------------------------------------------------
+---------------------------------
 
 That's where our encoders get into play.
-In order to robustly embed dirty semantic data, the SimilarityEncoder
-creates a similarity matrix based on the 3-gram structure of the data.
+In order to robustly embed dirty semantic data, the :class:`SimilarityEncoder`
+creates a similarity matrix based on the n-gram representation of the data.
 
-.. GENERATED FROM PYTHON SOURCE LINES 59-68
+.. GENERATED FROM PYTHON SOURCE LINES 66-74
 
 .. code-block:: default
 
 
-    sorted_values = values['employee_position_title'].sort_values().unique()
+    sorted_values = values["employee_position_title"].sort_values().unique()
 
     from dirty_cat import SimilarityEncoder
 
     similarity_encoder = SimilarityEncoder()
-    transformed_values = similarity_encoder.fit_transform(
-        sorted_values.reshape(-1, 1))
+    transformed_values = similarity_encoder.fit_transform(sorted_values.reshape(-1, 1))
 
 
 
@@ -195,28 +201,28 @@ creates a similarity matrix based on the 3-gram structure of the data.
 
  .. code-block:: none
 
-    /home/circleci/project/examples/02_investigating_dirty_categories.py:64: UserWarning: The "similarity" argument is deprecated since dirty_cat 0.3, and will be removed in 0.5.The n-gram similarity is the only one currently supported. 
+    /home/circleci/project/examples/02_investigating_dirty_categories.py:71: UserWarning: The "similarity" argument is deprecated since dirty_cat 0.3, and will be removed in 0.5.The n-gram similarity is the only one currently supported. 
       similarity_encoder = SimilarityEncoder()
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 69-74
+.. GENERATED FROM PYTHON SOURCE LINES 75-80
 
 Plotting the new representation using multi-dimensional scaling
 ................................................................
 
 Let's now plot a couple of points at random using a low-dimensional
-representation to get an intuition of what the similarity encoder is doing:
+representation to get an intuition of what the :class:`SimilarityEncoder` is doing:
 
-.. GENERATED FROM PYTHON SOURCE LINES 74-84
+.. GENERATED FROM PYTHON SOURCE LINES 80-90
 
 .. code-block:: default
 
 
     from sklearn.manifold import MDS
 
-    mds = MDS(dissimilarity='precomputed', n_init=10, random_state=42)
+    mds = MDS(dissimilarity="precomputed", n_init=10, random_state=42)
     two_dim_data = mds.fit_transform(1 - transformed_values)
     # transformed values lie in the 0-1 range,
     # so 1-transformed_value yields a positive dissimilarity matrix
@@ -237,11 +243,11 @@ representation to get an intuition of what the similarity encoder is doing:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 85-86
+.. GENERATED FROM PYTHON SOURCE LINES 91-92
 
 We first quickly fit a KNN so that the plots does not get too busy:
 
-.. GENERATED FROM PYTHON SOURCE LINES 86-99
+.. GENERATED FROM PYTHON SOURCE LINES 92-106
 
 .. code-block:: default
 
@@ -252,8 +258,9 @@ We first quickly fit a KNN so that the plots does not get too busy:
     n_points = 5
     np.random.seed(42)
 
-    random_points = np.random.choice(len(similarity_encoder.categories_[0]),
-                                     n_points, replace=False)
+    random_points = np.random.choice(
+        len(similarity_encoder.categories_[0]), n_points, replace=False
+    )
     nn = NearestNeighbors(n_neighbors=2).fit(transformed_values)
     _, indices_ = nn.kneighbors(transformed_values[random_points])
     indices = np.unique(indices_.squeeze())
@@ -265,11 +272,11 @@ We first quickly fit a KNN so that the plots does not get too busy:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 100-101
+.. GENERATED FROM PYTHON SOURCE LINES 107-108
 
 Then we plot it, adding the categories in the scatter plot:
 
-.. GENERATED FROM PYTHON SOURCE LINES 101-113
+.. GENERATED FROM PYTHON SOURCE LINES 108-118
 
 .. code-block:: default
 
@@ -280,10 +287,8 @@ Then we plot it, adding the categories in the scatter plot:
     ax.scatter(x=two_dim_data[indices, 0], y=two_dim_data[indices, 1])
     # adding the legend
     for x in indices:
-        ax.text(x=two_dim_data[x, 0], y=two_dim_data[x, 1], s=sorted_values[x],
-                fontsize=8)
-    ax.set_title(
-        'multi-dimensional-scaling representation using a 3gram similarity matrix')
+        ax.text(x=two_dim_data[x, 0], y=two_dim_data[x, 1], s=sorted_values[x], fontsize=8)
+    ax.set_title("multi-dimensional-scaling representation using a 3gram similarity matrix")
 
 
 
@@ -303,14 +308,14 @@ Then we plot it, adding the categories in the scatter plot:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 114-118
+.. GENERATED FROM PYTHON SOURCE LINES 119-123
 
 Heatmap of the similarity matrix
 ................................
 
 We can also plot the distance matrix for those observations:
 
-.. GENERATED FROM PYTHON SOURCE LINES 118-130
+.. GENERATED FROM PYTHON SOURCE LINES 123-135
 
 .. code-block:: default
 
@@ -319,10 +324,10 @@ We can also plot the distance matrix for those observations:
     cax2 = ax2.matshow(transformed_values[indices, :][:, indices])
     ax2.set_yticks(np.arange(len(indices)))
     ax2.set_xticks(np.arange(len(indices)))
-    ax2.set_yticklabels(sorted_values[indices], rotation='30')
-    ax2.set_xticklabels(sorted_values[indices], rotation='60', ha='right')
+    ax2.set_yticklabels(sorted_values[indices], rotation="30")
+    ax2.set_xticklabels(sorted_values[indices], rotation="60", ha="right")
     ax2.xaxis.tick_bottom()
-    ax2.set_title('Similarities across categories')
+    ax2.set_title("Similarities across categories")
     f2.colorbar(cax2)
     f2.tight_layout()
 
@@ -338,47 +343,182 @@ We can also plot the distance matrix for those observations:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 131-137
+.. GENERATED FROM PYTHON SOURCE LINES 136-142
 
 As shown in the previous plot, we see that the nearest neighbor of
 "Communication Equipment Technician"
-is "telecommunication technician", although it is also
-very close to senior "supply technician": therefore, we grasp the
-"communication" part (not initially present in the category as a unique word)
-as well as the technician part of this category.
+is "Telecommunication Technician", although it is also
+very close to senior "Supply Technician": therefore, we grasp the
+"Communication" part (not initially present in the category as a unique word)
+as well as the "Technician" part of this category.
 
-.. GENERATED FROM PYTHON SOURCE LINES 140-145
+.. GENERATED FROM PYTHON SOURCE LINES 145-148
 
-Encoding categorical data using SimilarityEncoder
--------------------------------------------------
+Feature interpretation with the :class:`GapEncoder`
+---------------------------------------------------
 
-A typical data-science workflow uses one-hot encoding to represent
-categories.
 
-.. GENERATED FROM PYTHON SOURCE LINES 145-160
+.. GENERATED FROM PYTHON SOURCE LINES 150-155
+
+The :class:`GapEncoder` is another encoder, better than the
+:class:`SimilarityEncoder` in the sense that it is faster and
+interpretable, which we will present now.
+
+First, let's retrieve the dirty column to encode:
+
+.. GENERATED FROM PYTHON SOURCE LINES 155-161
 
 .. code-block:: default
 
 
-    from sklearn.preprocessing import OneHotEncoder
+    dirty_column = "employee_position_title"
+    X_dirty = data[[dirty_column]]
+    print(X_dirty.head(), end="\n\n")
+    print(f"Number of dirty entries = {len(X_dirty)}")
 
-    # encoding simply a subset of the observations
-    n_obs = 20
-    employee_position_titles = values['employee_position_title'].head(
-        n_obs).to_frame()
-    categorical_encoder = OneHotEncoder(sparse=False)
-    one_hot_encoded = categorical_encoder.fit_transform(employee_position_titles)
-    f3, ax3 = plt.subplots(figsize=(6, 6))
-    ax3.matshow(one_hot_encoded)
-    ax3.set_title('Employee Position Title values, one-hot encoded')
-    ax3.axis('off')
-    f3.tight_layout()
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ .. code-block:: none
+
+           employee_position_title
+    0  Office Services Coordinator
+    1        Master Police Officer
+    2             Social Worker IV
+    3       Resident Supervisor II
+    4      Planning Specialist III
+
+    Number of dirty entries = 9228
+
+
+
+
+.. GENERATED FROM PYTHON SOURCE LINES 162-166
+
+Encoding dirty job titles
+.........................
+
+Then, we'll create an instance of the :class:`GapEncoder` with 10 components:
+
+.. GENERATED FROM PYTHON SOURCE LINES 166-171
+
+.. code-block:: default
+
+
+    from dirty_cat import GapEncoder
+
+    enc = GapEncoder(n_components=10, random_state=42)
+
+
+
+
+
+
+
+
+.. GENERATED FROM PYTHON SOURCE LINES 172-174
+
+Finally, we'll fit the model on the dirty categorical data and transform it
+in order to obtain encoded vectors of size 10:
+
+.. GENERATED FROM PYTHON SOURCE LINES 174-178
+
+.. code-block:: default
+
+
+    X_enc = enc.fit_transform(X_dirty)
+    print(f"Shape of encoded vectors = {X_enc.shape}")
+
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ .. code-block:: none
+
+    Shape of encoded vectors = (9228, 10)
+
+
+
+
+.. GENERATED FROM PYTHON SOURCE LINES 179-189
+
+Interpreting encoded vectors
+............................
+
+The :class:`GapEncoder` can be understood as a continuous encoding
+on a set of latent topics estimated from the data. The latent topics
+are built by capturing combinations of substrings that frequently
+co-occur, and encoded vectors correspond to their activations.
+To interpret these latent topics, we select for each of them a few labels
+from the input data with the highest activations.
+In the example below we select 3 labels to summarize each topic.
+
+.. GENERATED FROM PYTHON SOURCE LINES 189-195
+
+.. code-block:: default
+
+
+    topic_labels = enc.get_feature_names_out(n_labels=3)
+    for k in range(len(topic_labels)):
+        labels = topic_labels[k]
+        print(f"Topic n°{k}: {labels}")
+
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ .. code-block:: none
+
+    Topic n°0: correctional, correction, warehouse
+    Topic n°1: administrative, specialist, principal
+    Topic n°2: services, officer, service
+    Topic n°3: coordinator, equipment, operator
+    Topic n°4: firefighter, rescuer, rescue
+    Topic n°5: management, enforcement, permitting
+    Topic n°6: technology, technician, mechanic
+    Topic n°7: community, sergeant, sheriff
+    Topic n°8: representative, accountant, auditor
+    Topic n°9: assistant, library, safety
+
+
+
+
+.. GENERATED FROM PYTHON SOURCE LINES 196-201
+
+As expected, topics capture labels that frequently co-occur. For instance,
+the labels *firefighter*, *rescuer*, *rescue* appear together in
+*Firefighter/Rescuer III*, or *Fire/Rescue Lieutenant*.
+
+This enables us to understand the encoding of different samples
+
+.. GENERATED FROM PYTHON SOURCE LINES 201-213
+
+.. code-block:: default
+
+
+    encoded_labels = enc.transform(X_dirty[:20])
+    plt.figure(figsize=(8, 10))
+    plt.imshow(encoded_labels)
+    plt.xlabel("Latent topics", size=12)
+    plt.xticks(range(0, 10), labels=topic_labels, rotation=50, ha="right")
+    plt.ylabel("Data entries", size=12)
+    plt.yticks(range(0, 20), labels=X_dirty[:20].to_numpy().flatten())
+    plt.colorbar().set_label(label="Topic activations", size=12)
+    plt.tight_layout()
+    plt.show()
 
 
 
 
 .. image-sg:: /auto_examples/images/sphx_glr_02_investigating_dirty_categories_003.png
-   :alt: Employee Position Title values, one-hot encoded
+   :alt: 02 investigating dirty categories
    :srcset: /auto_examples/images/sphx_glr_02_investigating_dirty_categories_003.png
    :class: sphx-glr-single-img
 
@@ -386,46 +526,16 @@ categories.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 161-165
+.. GENERATED FROM PYTHON SOURCE LINES 214-217
 
-The corresponding is very sparse
-
-SimilarityEncoder can be used to replace one-hot encoding capturing the
-similarities:
-
-.. GENERATED FROM PYTHON SOURCE LINES 165-173
-
-.. code-block:: default
-
-
-    f4, ax4 = plt.subplots(figsize=(6, 6))
-    similarity_encoded = similarity_encoder.fit_transform(employee_position_titles)
-    ax4.matshow(similarity_encoded)
-    ax4.set_title('Employee Position Title values, similarity encoded')
-    ax4.axis('off')
-    f4.tight_layout()
-
-
-
-
-.. image-sg:: /auto_examples/images/sphx_glr_02_investigating_dirty_categories_004.png
-   :alt: Employee Position Title values, similarity encoded
-   :srcset: /auto_examples/images/sphx_glr_02_investigating_dirty_categories_004.png
-   :class: sphx-glr-single-img
-
-
-
-
-
-.. GENERATED FROM PYTHON SOURCE LINES 174-176
-
-Other examples in the dirty_cat documentation show how
-similarity encoding impacts prediction performance.
+As we can see, each dirty category encodes on a small number of topics,
+These can thus be reliably used to summarize each topic, which are in
+effect latent categories captured from the data.
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  5.805 seconds)
+   **Total running time of the script:** ( 0 minutes  7.702 seconds)
 
 
 .. _sphx_glr_download_auto_examples_02_investigating_dirty_categories.py:
@@ -438,7 +548,7 @@ similarity encoding impacts prediction performance.
     .. container:: binder-badge
 
       .. image:: images/binder_badge_logo.svg
-        :target: https://mybinder.org/v2/gh/dirty-cat/dirty-cat.github.io/master?filepath=dev/auto_examples/02_investigating_dirty_categories.ipynb
+        :target: https://mybinder.org/v2/gh/dirty-cat/dirty-cat.github.io/main?filepath=dev/auto_examples/02_investigating_dirty_categories.ipynb
         :alt: Launch binder
         :width: 150 px
 

@@ -34,30 +34,13 @@ Using dirty_cat
 .. only:: html
 
   .. image:: /auto_examples/images/thumb/sphx_glr_02_investigating_dirty_categories_thumb.png
-    :alt: Investigating dirty categories
+    :alt: Investigating and interpreting dirty categories
 
   :ref:`sphx_glr_auto_examples_02_investigating_dirty_categories.py`
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">Investigating dirty categories</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="We illustrate here how categorical encodings obtained with the GapEncoder can be interpreted in...">
-
-.. only:: html
-
-  .. image:: /auto_examples/images/thumb/sphx_glr_03_feature_interpretation_gap_encoder_thumb.png
-    :alt: Feature interpretation with the GapEncoder
-
-  :ref:`sphx_glr_auto_examples_03_feature_interpretation_gap_encoder.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Feature interpretation with the GapEncoder</div>
+      <div class="sphx-glr-thumbnail-title">Investigating and interpreting dirty categories</div>
     </div>
 
 
@@ -67,10 +50,10 @@ Using dirty_cat
 
 .. only:: html
 
-  .. image:: /auto_examples/images/thumb/sphx_glr_04_datetime_encoder_thumb.png
+  .. image:: /auto_examples/images/thumb/sphx_glr_03_datetime_encoder_thumb.png
     :alt: Handling datetime features with the DatetimeEncoder
 
-  :ref:`sphx_glr_auto_examples_04_datetime_encoder.py`
+  :ref:`sphx_glr_auto_examples_03_datetime_encoder.py`
 
 .. raw:: html
 
@@ -84,10 +67,10 @@ Using dirty_cat
 
 .. only:: html
 
-  .. image:: /auto_examples/images/thumb/sphx_glr_05_dimension_reduction_and_performance_thumb.png
+  .. image:: /auto_examples/images/thumb/sphx_glr_04_dimension_reduction_and_performance_thumb.png
     :alt: Scalability considerations for similarity encoding
 
-  :ref:`sphx_glr_auto_examples_05_dimension_reduction_and_performance.py`
+  :ref:`sphx_glr_auto_examples_04_dimension_reduction_and_performance.py`
 
 .. raw:: html
 
@@ -101,10 +84,10 @@ Using dirty_cat
 
 .. only:: html
 
-  .. image:: /auto_examples/images/thumb/sphx_glr_06_joining_tables_with_FuzzyJoin_thumb.png
+  .. image:: /auto_examples/images/thumb/sphx_glr_05_joining_tables_with_FuzzyJoin_thumb.png
     :alt: Merging dirty tables: fuzzy join
 
-  :ref:`sphx_glr_auto_examples_06_joining_tables_with_FuzzyJoin.py`
+  :ref:`sphx_glr_auto_examples_05_joining_tables_with_FuzzyJoin.py`
 
 .. raw:: html
 
@@ -122,10 +105,9 @@ Using dirty_cat
 
    /auto_examples/01_dirty_categories
    /auto_examples/02_investigating_dirty_categories
-   /auto_examples/03_feature_interpretation_gap_encoder
-   /auto_examples/04_datetime_encoder
-   /auto_examples/05_dimension_reduction_and_performance
-   /auto_examples/06_joining_tables_with_FuzzyJoin
+   /auto_examples/03_datetime_encoder
+   /auto_examples/04_dimension_reduction_and_performance
+   /auto_examples/05_joining_tables_with_FuzzyJoin
 
 
 
