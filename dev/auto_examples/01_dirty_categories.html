@@ -53,6 +53,14 @@
     Only the "Version" number is added.
 -->
 
+<div class="warn-banner">
+    <p>
+        This is the documentation for the unstable development version.<br />
+        <a href="https://dirty-cat.github.io/stable/">Click here to go to the stable version documentation</a>.
+    </p>
+</div>
+
+
 <p class="logo">
   <a href="../index.html">
     <img class="logo" src="../_static/dirty_cat.svg" alt="Logo"/>
@@ -531,7 +539,7 @@ minhash encoding
 r2 score:  mean: 0.919; std: 0.012
 
 gap encoding
-r2 score:  mean: 0.916; std: 0.012
+r2 score:  mean: 0.909; std: 0.013
 </pre></div>
 </div>
 <section id="plotting-the-results">
@@ -763,9 +771,9 @@ can be readily applied to the dataframe</strong>.</p>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;std=</span><span class="si">{</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.std.html#numpy.std" title="numpy.std" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">std</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">scores</span></a><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>scores=[0.9113588  0.8831935  0.90136514 0.92794386 0.92112836]
-mean=0.9089979319375289
-std=0.01572130435161632
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>scores=[0.9090674  0.88600172 0.91775613 0.92512407 0.91841365]
+mean=0.911272594573617
+std=0.013626253471349962
 </pre></div>
 </div>
 <p>The prediction performed here is pretty much as good as above
@@ -795,7 +803,7 @@ analyze the SuperVectorizer’s mechanisms along the way.</p>
 </pre></div>
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>array([[0.00000000e+00, 1.00000000e+00, 0.00000000e+00, ...,
-        7.80214388e-02, 1.95142048e-01, 2.00700000e+03],
+        5.78948193e-02, 1.39139427e-01, 2.00700000e+03],
        [1.00000000e+00, 0.00000000e+00, 0.00000000e+00, ...,
         5.00000000e-02, 5.00000000e-02, 2.00500000e+03],
        [1.00000000e+00, 0.00000000e+00, 0.00000000e+00, ...,
@@ -928,7 +936,7 @@ having a permanent, full-time job :)</p>
 automated by the <a class="reference internal" href="../generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SuperVectorizer</span></code></a>, and the resulting pipeline can still be
 inspected, even with non-normalized entries.</p>
 </aside>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 2 minutes  24.505 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 2 minutes  47.031 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-01-dirty-categories-py">
 <div class="binder-badge docutils container">
 <a class="reference external image-reference" href="https://mybinder.org/v2/gh/dirty-cat/dirty-cat.github.io/main?filepath=dev/auto_examples/01_dirty_categories.ipynb"><img alt="Launch binder" src="../_images/binder_badge_logo.svg" width="150px" /></a>
@@ -953,7 +961,7 @@ inspected, even with non-normalized entries.</p>
     <div class="clearer"></div>
   </div>
     <div class="footer">
-      &copy;2018-2021, dirty_cat developers.
+      &copy;2018-2022, the dirty_cat developers.
       
       |
       <a href="../_sources/auto_examples/01_dirty_categories.rst.txt"
