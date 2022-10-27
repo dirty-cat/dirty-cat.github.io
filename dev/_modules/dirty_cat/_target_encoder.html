@@ -241,31 +241,20 @@
                 <span class="sa">f</span><span class="s2">&quot;Got handle_missing=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">handle_missing</span><span class="si">!r}</span><span class="s2">, but expected &quot;</span>
                 <span class="s2">&quot;any of {&#39;error&#39;, &#39;&#39;}. &quot;</span>
             <span class="p">)</span>
-        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="s2">&quot;iloc&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">X</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+
+        <span class="n">mask</span> <span class="o">=</span> <span class="n">_object_dtype_isnan</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">mask</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_missing</span> <span class="o">==</span> <span class="s2">&quot;error&quot;</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                     <span class="s2">&quot;Found missing values in input data; set &quot;</span>
                     <span class="s2">&quot;handle_missing=&#39;&#39; to encode with missing values. &quot;</span>
                 <span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">X</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">handle_missing</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="s2">&quot;dtype&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
-            <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="s2">&quot;dtype&quot;</span><span class="p">):</span>
-            <span class="n">mask</span> <span class="o">=</span> <span class="n">_object_dtype_isnan</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">X</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;O&quot;</span> <span class="ow">and</span> <span class="n">mask</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_missing</span> <span class="o">==</span> <span class="s2">&quot;error&quot;</span><span class="p">:</span>
-                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                        <span class="s2">&quot;Found missing values in input data; set &quot;</span>
-                        <span class="s2">&quot;handle_missing=&#39;&#39; to encode with missing values. &quot;</span>
-                    <span class="p">)</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">X</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_missing</span>
+                <span class="n">X</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_missing</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_unknown</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;ignore&quot;</span><span class="p">]:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;Got handle_unknown=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">handle_unknown</span><span class="si">!r}</span><span class="s2">, but expected&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;Got handle_unknown=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">handle_unknown</span><span class="si">!r}</span><span class="s2">, but expected &quot;</span>
                 <span class="s1">&#39;any of {&quot;error&quot;, &quot;ignore&quot;}. &#39;</span>
             <span class="p">)</span>
 
@@ -275,11 +264,7 @@
                     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Unsorted categories are not yet supported. &quot;</span><span class="p">)</span>
 
         <span class="n">X_temp</span> <span class="o">=</span> <span class="n">check_array</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="s2">&quot;dtype&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">issubdtype</span><span class="p">(</span><span class="n">X_temp</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">str_</span><span class="p">):</span>
-            <span class="n">X</span> <span class="o">=</span> <span class="n">check_array</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">object</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">X</span> <span class="o">=</span> <span class="n">X_temp</span>
-        <span class="n">X</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="n">X_temp</span>
 
         <span class="n">n_samples</span><span class="p">,</span> <span class="n">n_features</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
 
@@ -349,33 +334,18 @@
                 <span class="s2">&quot;does not match the number of features &quot;</span>
                 <span class="sa">f</span><span class="s2">&quot;seen during fit (</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">n_features_in_</span><span class="si">}</span><span class="s2">).&quot;</span>
             <span class="p">)</span>
-        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="s2">&quot;iloc&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">X</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="n">_object_dtype_isnan</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">mask</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_missing</span> <span class="o">==</span> <span class="s2">&quot;error&quot;</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                     <span class="s2">&quot;Found missing values in input data; set &quot;</span>
                     <span class="s2">&quot;handle_missing=&#39;&#39; to encode with missing values. &quot;</span>
                 <span class="p">)</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_missing</span> <span class="o">!=</span> <span class="s2">&quot;error&quot;</span><span class="p">:</span>
-                <span class="n">X</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">handle_missing</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="s2">&quot;dtype&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
-            <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="s2">&quot;dtype&quot;</span><span class="p">):</span>
-            <span class="n">mask</span> <span class="o">=</span> <span class="n">_object_dtype_isnan</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">X</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;O&quot;</span> <span class="ow">and</span> <span class="n">mask</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_missing</span> <span class="o">==</span> <span class="s2">&quot;error&quot;</span><span class="p">:</span>
-                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                        <span class="s2">&quot;Found missing values in input data; set &quot;</span>
-                        <span class="s2">&quot;handle_missing=&#39;&#39; to encode with missing values. &quot;</span>
-                    <span class="p">)</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_missing</span> <span class="o">!=</span> <span class="s2">&quot;error&quot;</span><span class="p">:</span>
-                    <span class="n">X</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_missing</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">X</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_missing</span>
 
         <span class="n">X_temp</span> <span class="o">=</span> <span class="n">check_array</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="s2">&quot;dtype&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">issubdtype</span><span class="p">(</span><span class="n">X_temp</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">str_</span><span class="p">):</span>
-            <span class="n">X</span> <span class="o">=</span> <span class="n">check_array</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">object</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">X</span> <span class="o">=</span> <span class="n">X_temp</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="n">X_temp</span>
 
         <span class="n">n_samples</span><span class="p">,</span> <span class="n">n_features</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
         <span class="n">X_int</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
@@ -390,7 +360,7 @@
                     <span class="n">diff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="o">~</span><span class="n">valid_mask</span><span class="p">,</span> <span class="n">i</span><span class="p">])</span>
                     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                         <span class="sa">f</span><span class="s2">&quot;Found unknown categories </span><span class="si">{</span><span class="n">diff</span><span class="si">}</span><span class="s2"> in column </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2"> &quot;</span>
-                        <span class="s2">&quot;during transform. &quot;</span>
+                        <span class="s2">&quot;during transform.&quot;</span>
                     <span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="c1"># Set the problematic rows to an acceptable value and</span>

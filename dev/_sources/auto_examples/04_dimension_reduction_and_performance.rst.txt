@@ -21,8 +21,8 @@
 Scalability considerations for similarity encoding
 ==================================================
 
-We discuss in this notebook how to efficiently apply the |SE| to larger
-datasets: reducing the number of reference categories to "prototypes",
+We discuss in this notebook how to efficiently apply the SimilarityEncoder
+to larger datasets: reducing the number of reference categories to `prototypes`,
 either chosen as the most frequent categories, or with kmeans clustering.
 
 
@@ -32,23 +32,23 @@ either chosen as the most frequent categories, or with kmeans clustering.
     and should be preferred in large-scale settings.
 
 
-.. |SE| replace:: :class:`~dirty_cat.SimilarityEncoder`
+ .. |SE| replace:: :class:`~dirty_cat.SimilarityEncoder`
 
-.. |Gap| replace:: :class:`~dirty_cat.GapEncoder`
+ .. |Gap| replace:: :class:`~dirty_cat.GapEncoder`
 
-.. |ColumnTransformer| replace:: :class:`~sklearn.compose.ColumnTransformer`
+ .. |ColumnTransformer| replace:: :class:`~sklearn.compose.ColumnTransformer`
 
-.. |OHE| replace:: :class:`~sklearn.preprocessing.OneHotEncoder`
+ .. |OHE| replace:: :class:`~sklearn.preprocessing.OneHotEncoder`
 
-.. GENERATED FROM PYTHON SOURCE LINES 27-32
+.. GENERATED FROM PYTHON SOURCE LINES 26-31
 
 A tool to report memory usage and run time
 ------------------------------------------
 
 For this example, we build a small tool that reports memory
-usage and compute time of a function
+usage and compute time of a function:
 
-.. GENERATED FROM PYTHON SOURCE LINES 32-56
+.. GENERATED FROM PYTHON SOURCE LINES 31-55
 
 .. code-block:: default
 
@@ -83,14 +83,14 @@ usage and compute time of a function
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 57-61
+.. GENERATED FROM PYTHON SOURCE LINES 56-60
 
 Data Importing and preprocessing
 --------------------------------
 
-First, let's fetch the dataset we'll use further down
+First, let's fetch the dataset we'll use further down:
 
-.. GENERATED FROM PYTHON SOURCE LINES 61-69
+.. GENERATED FROM PYTHON SOURCE LINES 60-68
 
 .. code-block:: default
 
@@ -115,11 +115,11 @@ First, let's fetch the dataset we'll use further down
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 70-71
+.. GENERATED FROM PYTHON SOURCE LINES 69-70
 
-We'll perform a some cleaning
+We'll perform some cleaning:
 
-.. GENERATED FROM PYTHON SOURCE LINES 71-83
+.. GENERATED FROM PYTHON SOURCE LINES 70-82
 
 .. code-block:: default
 
@@ -142,11 +142,11 @@ We'll perform a some cleaning
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 84-85
+.. GENERATED FROM PYTHON SOURCE LINES 83-84
 
-We'll write down which columns are clean and which are dirty
+We'll write down which columns are clean and which are dirty:
 
-.. GENERATED FROM PYTHON SOURCE LINES 85-95
+.. GENERATED FROM PYTHON SOURCE LINES 84-94
 
 .. code-block:: default
 
@@ -167,13 +167,13 @@ We'll write down which columns are clean and which are dirty
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 96-99
+.. GENERATED FROM PYTHON SOURCE LINES 95-98
 
 We will use |SE| on the two dirty columns defined above.
 One difficulty is that they have many entries, and because of that, as we'll
-see, the :code:`SimilarityEncoder` will take a while.
+see, the |SE| will take a while.
 
-.. GENERATED FROM PYTHON SOURCE LINES 99-101
+.. GENERATED FROM PYTHON SOURCE LINES 98-100
 
 .. code-block:: default
 
@@ -213,7 +213,7 @@ see, the :code:`SimilarityEncoder` will take a while.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 102-104
+.. GENERATED FROM PYTHON SOURCE LINES 101-103
 
 .. code-block:: default
 
@@ -234,15 +234,15 @@ see, the :code:`SimilarityEncoder` will take a while.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 105-110
+.. GENERATED FROM PYTHON SOURCE LINES 104-109
 
-SimilarityEncoder with default options
---------------------------------------
+|SE| with default options
+-------------------------
 
 Let us build our vectorizer, using a |ColumnTransformer| to combine
-a |OHE| and a |SE|
+a |OHE| and a |SE|.
 
-.. GENERATED FROM PYTHON SOURCE LINES 110-129
+.. GENERATED FROM PYTHON SOURCE LINES 109-132
 
 .. code-block:: default
 
@@ -251,7 +251,11 @@ a |OHE| and a |SE|
     from dirty_cat import SimilarityEncoder
 
     clean_col_transformer = [
-        ("one_hot", OneHotEncoder(sparse=False, handle_unknown="ignore"), clean_columns),
+        (
+            "one_hot",
+            OneHotEncoder(sparse=False, handle_unknown="ignore"),
+            clean_columns,
+        ),
     ]
 
     column_trans = ColumnTransformer(
@@ -273,16 +277,16 @@ a |OHE| and a |SE|
 
  .. code-block:: none
 
-    Time to vectorize: 0.281s
+    Time to vectorize: 0.265s
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 130-131
+.. GENERATED FROM PYTHON SOURCE LINES 133-134
 
-Let's now run a cross-validation!
+Let's now run a cross-validation:
 
-.. GENERATED FROM PYTHON SOURCE LINES 131-141
+.. GENERATED FROM PYTHON SOURCE LINES 134-144
 
 .. code-block:: default
 
@@ -304,17 +308,17 @@ Let's now run a cross-validation!
 
  .. code-block:: none
 
-    Run time: 2.17s | Memory used: 12.18MB. 
+    Run time: 1.83s | Memory used: 12.18MB. 
     Cross-validation score: [0.98513011 0.98884758 0.96641791 0.98134328 0.98880597]
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 142-143
+.. GENERATED FROM PYTHON SOURCE LINES 145-146
 
-Store results for later
+We store the results for later:
 
-.. GENERATED FROM PYTHON SOURCE LINES 143-148
+.. GENERATED FROM PYTHON SOURCE LINES 146-151
 
 .. code-block:: default
 
@@ -330,17 +334,17 @@ Store results for later
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 149-156
+.. GENERATED FROM PYTHON SOURCE LINES 152-159
 
 Most frequent strategy to define prototypes
 -------------------------------------------
 
-The :code:`most_frequent` strategy selects the :code:`n` most frequent
+The ``most_frequent`` strategy selects the `n` most frequent
 values in a dirty categorical variable to reduce the dimensionality of the
 problem and thus speed things up.
 Here, we arbitrarily choose 100 as the number of prototypes we want to use.
 
-.. GENERATED FROM PYTHON SOURCE LINES 156-169
+.. GENERATED FROM PYTHON SOURCE LINES 159-172
 
 .. code-block:: default
 
@@ -364,11 +368,11 @@ Here, we arbitrarily choose 100 as the number of prototypes we want to use.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 170-171
+.. GENERATED FROM PYTHON SOURCE LINES 173-174
 
-Check that the prediction is still as good
+Check that the prediction is still as good:
 
-.. GENERATED FROM PYTHON SOURCE LINES 171-175
+.. GENERATED FROM PYTHON SOURCE LINES 174-178
 
 .. code-block:: default
 
@@ -384,17 +388,17 @@ Check that the prediction is still as good
 
  .. code-block:: none
 
-    Run time: 1.73s | Memory used: 9.08MB. 
+    Run time: 1.49s | Memory used: 9.08MB. 
     Cross-validation score: [0.98513011 0.99256506 0.97014925 0.98507463 0.98880597]
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 176-177
+.. GENERATED FROM PYTHON SOURCE LINES 179-180
 
-Store results for later
+Store results for later:
 
-.. GENERATED FROM PYTHON SOURCE LINES 177-180
+.. GENERATED FROM PYTHON SOURCE LINES 180-183
 
 .. code-block:: default
 
@@ -408,17 +412,17 @@ Store results for later
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 181-188
+.. GENERATED FROM PYTHON SOURCE LINES 184-191
 
 KMeans strategy to define prototypes
 ------------------------------------
 
-The k-means strategy is also a dimensionality reduction technique.
-The :code:`SimilarityEncoder` can apply a K-means and nearest neighbors
+The ``k-means`` strategy is also a dimensionality reduction technique.
+The |SE| can apply a K-means and nearest neighbors
 algorithm to find the prototypes. Once again, the number of prototypes
 we chose here is arbitrary.
 
-.. GENERATED FROM PYTHON SOURCE LINES 188-201
+.. GENERATED FROM PYTHON SOURCE LINES 191-204
 
 .. code-block:: default
 
@@ -442,11 +446,11 @@ we chose here is arbitrary.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 202-203
+.. GENERATED FROM PYTHON SOURCE LINES 205-206
 
-Check that the prediction is still as good
+Check that the prediction is still as good:
 
-.. GENERATED FROM PYTHON SOURCE LINES 203-207
+.. GENERATED FROM PYTHON SOURCE LINES 206-210
 
 .. code-block:: default
 
@@ -462,17 +466,17 @@ Check that the prediction is still as good
 
  .. code-block:: none
 
-    Run time: 5.33s | Memory used: 8.55MB. 
+    Run time: 4.17s | Memory used: 8.55MB. 
     Cross-validation score: [0.98884758 0.99256506 0.97014925 0.98507463 0.98880597]
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 208-209
+.. GENERATED FROM PYTHON SOURCE LINES 211-212
 
-Store results for later
+Store results for later:
 
-.. GENERATED FROM PYTHON SOURCE LINES 209-212
+.. GENERATED FROM PYTHON SOURCE LINES 212-215
 
 .. code-block:: default
 
@@ -486,12 +490,12 @@ Store results for later
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 213-215
+.. GENERATED FROM PYTHON SOURCE LINES 216-218
 
 Summary
 -------
 
-.. GENERATED FROM PYTHON SOURCE LINES 215-227
+.. GENERATED FROM PYTHON SOURCE LINES 218-230
 
 .. code-block:: default
 
@@ -522,7 +526,7 @@ Summary
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  16.274 seconds)
+   **Total running time of the script:** ( 0 minutes  13.718 seconds)
 
 
 .. _sphx_glr_download_auto_examples_04_dimension_reduction_and_performance.py:
