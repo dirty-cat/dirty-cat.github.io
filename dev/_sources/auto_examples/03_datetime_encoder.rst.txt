@@ -24,14 +24,20 @@ Handling datetime features with the DatetimeEncoder
 We illustrate here how to handle datetime features with the
 DatetimeEncoder.
 
-The DatetimeEncoder breaks down each datetime features into several
-numerical features, by extracting relevant information from the datetime
-features, such as the month, the day of the week, the hour of the day,
-etc. Used in the SuperVectorizer, which automatically detects the
-datetime features, the DatetimeEncoder allows to handle datetime features
-easily.
+The |DtE| breaks down each datetime
+features into several numerical features, by extracting relevant
+information from the datetime features, such as the month, the day
+of the week, the hour of the day, etc.
+Used in the |SV|, which automatically detects
+the datetime features, the |DtE| allows to
+handle datetime features easily.
 
-.. GENERATED FROM PYTHON SOURCE LINES 15-20
+
+.. |DtE| replace:: :class:`~dirty_cat.DatetimeEncoder`
+
+.. |SV| replace:: :class:`~dirty_cat.SuperVectorizer`
+
+.. GENERATED FROM PYTHON SOURCE LINES 21-26
 
 .. code-block:: default
 
@@ -47,14 +53,17 @@ easily.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 21-25
+.. GENERATED FROM PYTHON SOURCE LINES 27-34
 
-**Data Importing**: We first fetch the dataset.
+Data Importing
+--------------
+
+We first fetch the dataset.
 
 We want to predict the NO2 air concentration in different cities, based
 on the date and the time of measurement.
 
-.. GENERATED FROM PYTHON SOURCE LINES 25-34
+.. GENERATED FROM PYTHON SOURCE LINES 34-43
 
 .. code-block:: default
 
@@ -161,15 +170,15 @@ on the date and the time of measurement.
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 35-40
+.. GENERATED FROM PYTHON SOURCE LINES 44-49
 
 Encoding the data to numerical representations
------------------------------------------------
+----------------------------------------------
 
 Encoders for categorical and datetime features
 ..............................................
 
-.. GENERATED FROM PYTHON SOURCE LINES 40-60
+.. GENERATED FROM PYTHON SOURCE LINES 49-69
 
 .. code-block:: default
 
@@ -200,7 +209,7 @@ Encoders for categorical and datetime features
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 61-67
+.. GENERATED FROM PYTHON SOURCE LINES 70-76
 
 Transforming the input data
 ...........................
@@ -209,7 +218,7 @@ been replaced by features for the month, day, hour, and day of the week.
 Note that the year and minute features have been removed by the encoder
 because they are constant.
 
-.. GENERATED FROM PYTHON SOURCE LINES 67-69
+.. GENERATED FROM PYTHON SOURCE LINES 76-78
 
 .. code-block:: default
 
@@ -231,7 +240,7 @@ because they are constant.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 70-72
+.. GENERATED FROM PYTHON SOURCE LINES 79-81
 
 .. code-block:: default
 
@@ -256,14 +265,14 @@ because they are constant.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 73-77
+.. GENERATED FROM PYTHON SOURCE LINES 82-86
 
-One-liner with the SuperVectorizer
-..................................
-The DatetimeEncoder is used by default in the SuperVectorizer, which
+One-liner with the |SV|
+.......................
+The |DtE| is used by default in the |SV|, which
 automatically detects datetime features.
 
-.. GENERATED FROM PYTHON SOURCE LINES 77-84
+.. GENERATED FROM PYTHON SOURCE LINES 86-93
 
 .. code-block:: default
 
@@ -292,11 +301,11 @@ automatically detects datetime features.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 85-86
+.. GENERATED FROM PYTHON SOURCE LINES 94-95
 
-If we want the day of the week, we can just replace SuperVectorizer's default
+If we want the day of the week, we can just replace |SV|'s default parameter:
 
-.. GENERATED FROM PYTHON SOURCE LINES 86-92
+.. GENERATED FROM PYTHON SOURCE LINES 95-101
 
 .. code-block:: default
 
@@ -319,12 +328,12 @@ If we want the day of the week, we can just replace SuperVectorizer's default
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 93-95
+.. GENERATED FROM PYTHON SOURCE LINES 102-104
 
-We can see that the SuperVectorizer is indeed using
-a DatetimeEncoder for the datetime features.
+We can see that the |SV| is indeed using
+a |DtE| for the datetime features.
 
-.. GENERATED FROM PYTHON SOURCE LINES 95-97
+.. GENERATED FROM PYTHON SOURCE LINES 104-106
 
 .. code-block:: default
 
@@ -344,15 +353,15 @@ a DatetimeEncoder for the datetime features.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 98-103
+.. GENERATED FROM PYTHON SOURCE LINES 107-112
 
 Predictions with date features
 ------------------------------
-For prediction tasks, we recommend using the SuperVectorizer inside a
+For prediction tasks, we recommend using the |SV| inside a
 pipeline, combined with a model that uses the features extracted by the
-DatetimeEncoder.
+|DtE|.
 
-.. GENERATED FROM PYTHON SOURCE LINES 103-113
+.. GENERATED FROM PYTHON SOURCE LINES 112-122
 
 .. code-block:: default
 
@@ -373,17 +382,17 @@ DatetimeEncoder.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 114-121
+.. GENERATED FROM PYTHON SOURCE LINES 123-130
 
 Evaluating the model
 ....................
 When using date and time features, we often care about predicting the future.
 In this case, we have to be careful when evaluating our model, because
 standard tools like cross-validation do not respect the time ordering.
-Instead, we can use the `TimeSeriesSplit` class, which makes sure that
-the test set is always in the future.
+Instead, we can use the :class:`~sklearn.model_selection.TimeSeriesSplit`,
+which makes sure that the test set is always in the future.
 
-.. GENERATED FROM PYTHON SOURCE LINES 121-132
+.. GENERATED FROM PYTHON SOURCE LINES 130-145
 
 .. code-block:: default
 
@@ -395,7 +404,11 @@ the test set is always in the future.
     from sklearn.model_selection import TimeSeriesSplit, cross_val_score
 
     cross_val_score(
-        pipeline, X, y, scoring="neg_mean_squared_error", cv=TimeSeriesSplit(n_splits=5)
+        pipeline,
+        X,
+        y,
+        scoring="neg_mean_squared_error",
+        cv=TimeSeriesSplit(n_splits=5),
     )
 
 
@@ -412,14 +425,14 @@ the test set is always in the future.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 133-137
+.. GENERATED FROM PYTHON SOURCE LINES 146-150
 
 Plotting the prediction
 .......................
 The mean squared error is not obvious to interpret, so we compare
 visually the prediction of our model with the actual values.
 
-.. GENERATED FROM PYTHON SOURCE LINES 137-166
+.. GENERATED FROM PYTHON SOURCE LINES 150-181
 
 .. code-block:: default
 
@@ -437,7 +450,9 @@ visually the prediction of our model with the actual values.
 
     for i, city in enumerate(X_test.city.unique()):
         axs[i].plot(
-            X.loc[X.city == city, "date.utc"], y.loc[X.city == city], label="Actual"
+            X.loc[X.city == city, "date.utc"],
+            y.loc[X.city == city],
+            label="Actual",
         )
         axs[i].plot(
             X_test.loc[X_test.city == city, "date.utc"],
@@ -464,11 +479,11 @@ visually the prediction of our model with the actual values.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 167-168
+.. GENERATED FROM PYTHON SOURCE LINES 182-183
 
-Let's zoom on a few days
+Let's zoom on a few days:
 
-.. GENERATED FROM PYTHON SOURCE LINES 168-202
+.. GENERATED FROM PYTHON SOURCE LINES 183-217
 
 .. code-block:: default
 
@@ -518,17 +533,17 @@ Let's zoom on a few days
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 203-210
+.. GENERATED FROM PYTHON SOURCE LINES 218-225
 
 Feature importances
 -------------------
-Using the DatetimeEncoder allows us to better understand how the date
+Using the |DtE| allows us to better understand how the date
 impacts the NO2 concentration. To this aim, we can compute the
-importance of the features created by the Datetime encoder, using the
-`permutation_importance` function, which basically shuffles a feature
-and sees how the model changes its prediction
+importance of the features created by the |DtE|, using the
+:func:`~sklearn.inspection.permutation_importance` function, which
+basically shuffles a feature and sees how the model changes its prediction.
 
-.. GENERATED FROM PYTHON SOURCE LINES 212-238
+.. GENERATED FROM PYTHON SOURCE LINES 227-253
 
 .. code-block:: default
 
@@ -570,7 +585,7 @@ and sees how the model changes its prediction
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 239-241
+.. GENERATED FROM PYTHON SOURCE LINES 254-256
 
 We can see that the hour of the day is the most important feature,
 which seems reasonable.
@@ -578,7 +593,7 @@ which seems reasonable.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  3.432 seconds)
+   **Total running time of the script:** ( 0 minutes  3.294 seconds)
 
 
 .. _sphx_glr_download_auto_examples_03_datetime_encoder.py:

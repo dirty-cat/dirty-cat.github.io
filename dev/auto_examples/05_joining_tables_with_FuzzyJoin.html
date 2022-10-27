@@ -143,7 +143,7 @@ to download the full example code or to run this example in your browser via Bin
 with a vocabulary not well normalized.</p>
 <p>Joining is difficult: one entry on one side does not have
 an exact match on the other side.</p>
-<p>In this example, the <code class="xref py py-func docutils literal notranslate"><span class="pre">fuzzy_join()</span></code> function allows us to join
+<p>In this example, the <a class="reference internal" href="../generated/dirty_cat.fuzzy_join.html#dirty_cat.fuzzy_join" title="dirty_cat.fuzzy_join"><code class="xref py py-func docutils literal notranslate"><span class="pre">fuzzy_join()</span></code></a> function allows us to join
 tables without cleaning the data by taking into account the
 label variations.</p>
 <p>To illustrate, we will join data from the <a class="reference external" href="https://worldhappiness.report/">2022 World Happiness Report</a>.
@@ -252,9 +252,8 @@ in order to create a satisfying first prediction model.</p>
 <br /><p>This is a table that contains the happiness index of a country along with
 some of the possible explanatory factors: GDP per capita, Social support,
 Generosity etc.</p>
-<p>For more information, read the <a class="reference external" href="https://worldhappiness.report/">World Happiness Report</a>.</p>
 <p>For the sake of this example, we only keep the country names and our
-variable of interest: the happiness score</p>
+variable of interest: the ‘Happiness score’.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">df</span></a> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">df</span></a><span class="p">[[</span><span class="s2">&quot;Country&quot;</span><span class="p">,</span> <span class="s2">&quot;Happiness score&quot;</span><span class="p">]]</span>
 </pre></div>
 </div>
@@ -775,19 +774,19 @@ we have extracted.</p>
 <br />
 <br /><aside class="topic">
 <p class="topic-title">Note:</p>
-<p>We fix the <cite>return_score</cite> parameter to <cite>True</cite> so as to keep the matching
+<p>We fix the <code class="docutils literal notranslate"><span class="pre">return_score</span></code> parameter to <cite>True</cite> so as to keep the matching
 score, that we will use later to show what are the worst matches.</p>
 </aside>
-<p>We see that our <code class="xref py py-func docutils literal notranslate"><span class="pre">fuzzy_join()</span></code> succesfully identified the countries,
+<p>We see that our <a class="reference internal" href="../generated/dirty_cat.fuzzy_join.html#dirty_cat.fuzzy_join" title="dirty_cat.fuzzy_join"><code class="xref py py-func docutils literal notranslate"><span class="pre">fuzzy_join()</span></code></a> succesfully identified the countries,
 even though some country names differ between tables.</p>
-<p>For instance, ‘Czechia’ is well identified as ‘Czech Republic’ and
-‘Luxembourg*’ as ‘Luxembourg’.</p>
+<p>For instance, “Czechia” is well identified as “Czech Republic” and
+“Luxembourg*” as “Luxembourg”.</p>
 <aside class="topic">
 <p class="topic-title">Note:</p>
 <p>This would all be missed out if we were using other methods such as
 <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.merge.html">pandas.merge</a>,
 which can only find exact matches.
-In this case, to reach the best result, we would have to ‘manually’ clean
+In this case, to reach the best result, we would have to <cite>manually</cite> clean
 the data (e.g. remove the * after country name) and look
 for matching patterns in every observation.</p>
 </aside>
@@ -800,7 +799,8 @@ for matching patterns in every observation.</p>
     <span class="sd">&quot;&quot;&quot;Prints n worst matches for inspection.&quot;&quot;&quot;</span>
     <span class="n">max_ind</span> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.argsort.html#numpy.argsort" title="numpy.argsort" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">argsort</span></a><span class="p">(</span><span class="n">joined_table</span><span class="p">[</span><span class="s2">&quot;matching_score&quot;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)[:</span><span class="n">n</span><span class="p">]</span>
     <span class="n">max_dist</span> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class"><span class="n">pd</span><span class="o">.</span><span class="n">Series</span></a><span class="p">(</span>
-        <span class="n">joined_table</span><span class="p">[</span><span class="s2">&quot;matching_score&quot;</span><span class="p">][</span><span class="n">max_ind</span><span class="o">.</span><span class="n">ravel</span><span class="p">()]</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">index</span><span class="o">=</span><span class="n">max_ind</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+        <span class="n">joined_table</span><span class="p">[</span><span class="s2">&quot;matching_score&quot;</span><span class="p">][</span><span class="n">max_ind</span><span class="o">.</span><span class="n">ravel</span><span class="p">()]</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span>
+        <span class="n">index</span><span class="o">=</span><span class="n">max_ind</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span>
     <span class="p">)</span>
     <span class="n">worst_matches</span> <span class="o">=</span> <span class="n">joined_table</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">max_ind</span><span class="o">.</span><span class="n">ravel</span><span class="p">())]</span>
     <span class="n">worst_matches</span> <span class="o">=</span> <span class="n">worst_matches</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">matching_score</span><span class="o">=</span><span class="n">max_dist</span><span class="p">)</span>
@@ -877,7 +877,7 @@ us an overview of the situation:</p>
 </div>
 <br />
 <br /><p>We see that some matches were unsuccesful
-(e.g ‘Palestinian Territories*’ and ‘Palau’),
+(e.g “Palestinian Territories*” and “Palau”),
 because there is simply no match in the two tables.</p>
 <p>In this case, it is better to use the threshold parameter
 so as to include only precise-enough matches:</p>
@@ -979,7 +979,10 @@ and happiness:</p>
 
 <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.figure.html#matplotlib.pyplot.figure" title="matplotlib.pyplot.figure" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">figure</span></a><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
 <span class="n">ax</span> <span class="o">=</span> <a href="http://seaborn.pydata.org/generated/seaborn.regplot.html#seaborn.regplot" title="seaborn.regplot" class="sphx-glr-backref-module-seaborn sphx-glr-backref-type-py-function"><span class="n">sns</span><span class="o">.</span><span class="n">regplot</span></a><span class="p">(</span>
-    <span class="n">data</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">df1</span></a><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;GDP per capita (current US$)&quot;</span><span class="p">,</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a><span class="o">=</span><span class="s2">&quot;Happiness score&quot;</span><span class="p">,</span> <span class="n">lowess</span><span class="o">=</span><span class="kc">True</span>
+    <span class="n">data</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">df1</span></a><span class="p">,</span>
+    <span class="n">x</span><span class="o">=</span><span class="s2">&quot;GDP per capita (current US$)&quot;</span><span class="p">,</span>
+    <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a><span class="o">=</span><span class="s2">&quot;Happiness score&quot;</span><span class="p">,</span>
+    <span class="n">lowess</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span>
 <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.set_ylabel.html#matplotlib.axes.Axes.set_ylabel" title="matplotlib.axes.Axes.set_ylabel" class="sphx-glr-backref-module-matplotlib-axes sphx-glr-backref-type-py-method"><span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span></a><span class="p">(</span><span class="s2">&quot;Happiness index&quot;</span><span class="p">)</span>
 <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.set_title.html#matplotlib.axes.Axes.set_title" title="matplotlib.axes.Axes.set_title" class="sphx-glr-backref-module-matplotlib-axes sphx-glr-backref-type-py-method"><span class="n">ax</span><span class="o">.</span><span class="n">set_title</span></a><span class="p">(</span><span class="s2">&quot;Is a higher GDP per capita linked to happiness?&quot;</span><span class="p">)</span>
@@ -994,8 +997,8 @@ of GDP per capita. We have to search for other patterns.</p>
 </section>
 <section id="joining-life-expectancy-table">
 <h3>2. Joining life expectancy table<a class="headerlink" href="#joining-life-expectancy-table" title="Permalink to this heading">¶</a></h3>
-<p>Now let’s include other information that may be relevant, such as
-life expectancy table:</p>
+<p>Now let’s include other information that may be relevant, such as in the
+life_exp table:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">df2</span></a> <span class="o">=</span> <a href="../generated/dirty_cat.fuzzy_join.html#dirty_cat.fuzzy_join" title="dirty_cat.fuzzy_join" class="sphx-glr-backref-module-dirty_cat sphx-glr-backref-type-py-function"><span class="n">fuzzy_join</span></a><span class="p">(</span>
     <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">df1</span></a><span class="p">,</span>
     <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">life_exp</span></a><span class="p">,</span>
@@ -1215,13 +1218,13 @@ We evaluate our model using the <cite>R2</cite> score.</p>
 </div>
 <p>We have a satisfying first result: an R2 of 0.66!</p>
 <p>Data cleaning varies from dataset to dataset: there are as
-many ways to clean a table as there are errors. <code class="xref py py-func docutils literal notranslate"><span class="pre">fuzzy_join()</span></code>
+many ways to clean a table as there are errors. <a class="reference internal" href="../generated/dirty_cat.fuzzy_join.html#dirty_cat.fuzzy_join" title="dirty_cat.fuzzy_join"><code class="xref py py-func docutils literal notranslate"><span class="pre">fuzzy_join()</span></code></a>
 method is generalizable across all datasets.</p>
 <p>Data transformation is also often very costly in both time and ressources.
-<code class="xref py py-func docutils literal notranslate"><span class="pre">fuzzy_join()</span></code> is fast and easy-to-use.</p>
+<a class="reference internal" href="../generated/dirty_cat.fuzzy_join.html#dirty_cat.fuzzy_join" title="dirty_cat.fuzzy_join"><code class="xref py py-func docutils literal notranslate"><span class="pre">fuzzy_join()</span></code></a> is fast and easy-to-use.</p>
 <p>Now up to you, try improving our model by adding information into it and
 beating our result!</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  1.442 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  1.341 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-05-joining-tables-with-fuzzyjoin-py">
 <div class="binder-badge docutils container">
 <a class="reference external image-reference" href="https://mybinder.org/v2/gh/dirty-cat/dirty-cat.github.io/main?filepath=dev/auto_examples/05_joining_tables_with_FuzzyJoin.ipynb"><img alt="Launch binder" src="../_images/binder_badge_logo.svg" width="150px" /></a>

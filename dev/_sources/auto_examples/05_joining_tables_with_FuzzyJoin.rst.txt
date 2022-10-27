@@ -19,7 +19,7 @@
 
 
 Merging dirty tables: fuzzy join
-====================================
+================================
 
 Here we show how to combine data from different sources,
 with a vocabulary not well normalized.
@@ -27,7 +27,7 @@ with a vocabulary not well normalized.
 Joining is difficult: one entry on one side does not have
 an exact match on the other side.
 
-In this example, the :func:`fuzzy_join` function allows us to join
+In this example, the |fj| function allows us to join
 tables without cleaning the data by taking into account the
 label variations.
 
@@ -35,14 +35,17 @@ To illustrate, we will join data from the `2022 World Happiness Report <https://
 with tables provided in `the World Bank open data platform <https://data.worldbank.org/>`_
 in order to create a satisfying first prediction model.
 
-.. GENERATED FROM PYTHON SOURCE LINES 22-26
+
+.. |fj| replace:: :func:`~dirty_cat.fuzzy_join`
+
+.. GENERATED FROM PYTHON SOURCE LINES 24-28
 
 Data Importing and preprocessing
 --------------------------------
 
 We import the happiness score table first:
 
-.. GENERATED FROM PYTHON SOURCE LINES 26-34
+.. GENERATED FROM PYTHON SOURCE LINES 28-36
 
 .. code-block:: default
 
@@ -61,11 +64,11 @@ We import the happiness score table first:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 35-36
+.. GENERATED FROM PYTHON SOURCE LINES 37-38
 
 Let's look at the table:
 
-.. GENERATED FROM PYTHON SOURCE LINES 36-38
+.. GENERATED FROM PYTHON SOURCE LINES 38-40
 
 .. code-block:: default
 
@@ -164,20 +167,19 @@ Let's look at the table:
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 39-44
+.. GENERATED FROM PYTHON SOURCE LINES 41-45
 
 This is a table that contains the happiness index of a country along with
 some of the possible explanatory factors: GDP per capita, Social support,
 Generosity etc.
 
-For more information, read the `World Happiness Report <https://worldhappiness.report/>`_.
 
-.. GENERATED FROM PYTHON SOURCE LINES 46-48
+.. GENERATED FROM PYTHON SOURCE LINES 47-49
 
 For the sake of this example, we only keep the country names and our
-variable of interest: the happiness score
+variable of interest: the 'Happiness score'.
 
-.. GENERATED FROM PYTHON SOURCE LINES 48-50
+.. GENERATED FROM PYTHON SOURCE LINES 49-51
 
 .. code-block:: default
 
@@ -190,7 +192,7 @@ variable of interest: the happiness score
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 51-60
+.. GENERATED FROM PYTHON SOURCE LINES 52-61
 
 Additional tables from other sources
 ------------------------------------
@@ -202,7 +204,7 @@ Interesting tables can be found on `the World Bank open data platform
 <https://data.worldbank.org/>`_, for which we have a downloading
 function:
 
-.. GENERATED FROM PYTHON SOURCE LINES 60-62
+.. GENERATED FROM PYTHON SOURCE LINES 61-63
 
 .. code-block:: default
 
@@ -215,11 +217,11 @@ function:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 63-64
+.. GENERATED FROM PYTHON SOURCE LINES 64-65
 
 We extract the table containing GDP per capita by country:
 
-.. GENERATED FROM PYTHON SOURCE LINES 64-67
+.. GENERATED FROM PYTHON SOURCE LINES 65-68
 
 .. code-block:: default
 
@@ -279,11 +281,11 @@ We extract the table containing GDP per capita by country:
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 68-69
+.. GENERATED FROM PYTHON SOURCE LINES 69-70
 
 Then another table, with life expectancy by country:
 
-.. GENERATED FROM PYTHON SOURCE LINES 69-72
+.. GENERATED FROM PYTHON SOURCE LINES 70-73
 
 .. code-block:: default
 
@@ -343,11 +345,11 @@ Then another table, with life expectancy by country:
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 73-74
+.. GENERATED FROM PYTHON SOURCE LINES 74-75
 
 And a table with legal rights strength by country:
 
-.. GENERATED FROM PYTHON SOURCE LINES 74-77
+.. GENERATED FROM PYTHON SOURCE LINES 75-78
 
 .. code-block:: default
 
@@ -407,7 +409,7 @@ And a table with legal rights strength by country:
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 78-84
+.. GENERATED FROM PYTHON SOURCE LINES 79-85
 
 A correspondance problem
 ------------------------
@@ -416,7 +418,7 @@ Alas, the entries for countries do not perfectly match between our
 original table (df), and those that we downloaded from the worldbank
 (gdppc):
 
-.. GENERATED FROM PYTHON SOURCE LINES 84-87
+.. GENERATED FROM PYTHON SOURCE LINES 85-88
 
 .. code-block:: default
 
@@ -496,7 +498,7 @@ original table (df), and those that we downloaded from the worldbank
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 88-90
+.. GENERATED FROM PYTHON SOURCE LINES 89-91
 
 .. code-block:: default
 
@@ -575,7 +577,7 @@ original table (df), and those that we downloaded from the worldbank
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 91-96
+.. GENERATED FROM PYTHON SOURCE LINES 92-97
 
 We can see that Yemen is written "Yemen*" on one side, and
 "Yemen, Rep." on the other.
@@ -583,7 +585,7 @@ We can see that Yemen is written "Yemen*" on one side, and
 We also have entries that probably do not have correspondances: "World"
 on one side, whereas the other table only has country-level data.
 
-.. GENERATED FROM PYTHON SOURCE LINES 98-104
+.. GENERATED FROM PYTHON SOURCE LINES 99-105
 
 Joining tables with imperfect correspondance
 --------------------------------------------
@@ -592,14 +594,14 @@ We will now join our initial table, df, with the 3 additional ones that
 we have extracted.
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 106-110
+.. GENERATED FROM PYTHON SOURCE LINES 107-111
 
 1. Joining GDP per capita table
 ................................
 
 To join them with dirty_cat, we only need to do the following:
 
-.. GENERATED FROM PYTHON SOURCE LINES 110-123
+.. GENERATED FROM PYTHON SOURCE LINES 111-124
 
 .. code-block:: default
 
@@ -817,37 +819,37 @@ To join them with dirty_cat, we only need to do the following:
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 124-128
+.. GENERATED FROM PYTHON SOURCE LINES 125-129
 
 .. topic:: Note:
 
-   We fix the `return_score` parameter to `True` so as to keep the matching
+   We fix the ``return_score`` parameter to `True` so as to keep the matching
    score, that we will use later to show what are the worst matches.
 
-.. GENERATED FROM PYTHON SOURCE LINES 130-146
+.. GENERATED FROM PYTHON SOURCE LINES 131-147
 
-We see that our :func:`fuzzy_join` succesfully identified the countries,
+We see that our |fj| succesfully identified the countries,
 even though some country names differ between tables.
 
-For instance, 'Czechia' is well identified as 'Czech Republic' and
-'Luxembourg*' as 'Luxembourg'.
+For instance, "Czechia" is well identified as "Czech Republic" and
+"Luxembourg*" as "Luxembourg".
 
 .. topic:: Note:
 
    This would all be missed out if we were using other methods such as
    `pandas.merge <https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.merge.html>`_,
    which can only find exact matches.
-   In this case, to reach the best result, we would have to 'manually' clean
+   In this case, to reach the best result, we would have to `manually` clean
    the data (e.g. remove the * after country name) and look
    for matching patterns in every observation.
 
 Let's do some more inspection of the merging done.
 
-.. GENERATED FROM PYTHON SOURCE LINES 149-150
+.. GENERATED FROM PYTHON SOURCE LINES 150-151
 
 The best way to inspect the matches is to use the following function:
 
-.. GENERATED FROM PYTHON SOURCE LINES 150-164
+.. GENERATED FROM PYTHON SOURCE LINES 151-166
 
 .. code-block:: default
 
@@ -858,7 +860,8 @@ The best way to inspect the matches is to use the following function:
         """Prints n worst matches for inspection."""
         max_ind = np.argsort(joined_table["matching_score"], axis=0)[:n]
         max_dist = pd.Series(
-            joined_table["matching_score"][max_ind.ravel()].ravel(), index=max_ind.ravel()
+            joined_table["matching_score"][max_ind.ravel()].ravel(),
+            index=max_ind.ravel(),
         )
         worst_matches = joined_table.iloc[list(max_ind.ravel())]
         worst_matches = worst_matches.assign(matching_score=max_dist)
@@ -872,12 +875,12 @@ The best way to inspect the matches is to use the following function:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 165-167
+.. GENERATED FROM PYTHON SOURCE LINES 167-169
 
 Let's print the four worst matches, which will give
 us an overview of the situation:
 
-.. GENERATED FROM PYTHON SOURCE LINES 167-170
+.. GENERATED FROM PYTHON SOURCE LINES 169-172
 
 .. code-block:: default
 
@@ -957,19 +960,19 @@ us an overview of the situation:
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 171-174
+.. GENERATED FROM PYTHON SOURCE LINES 173-176
 
 We see that some matches were unsuccesful
-(e.g 'Palestinian Territories*' and 'Palau'),
+(e.g "Palestinian Territories*" and "Palau"),
 because there is simply no match in the two tables.
 
-.. GENERATED FROM PYTHON SOURCE LINES 176-179
+.. GENERATED FROM PYTHON SOURCE LINES 178-181
 
 In this case, it is better to use the threshold parameter
 so as to include only precise-enough matches:
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 180-190
+.. GENERATED FROM PYTHON SOURCE LINES 182-192
 
 .. code-block:: default
 
@@ -1056,12 +1059,12 @@ so as to include only precise-enough matches:
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 191-193
+.. GENERATED FROM PYTHON SOURCE LINES 193-195
 
 Matches that are not available (or precise enough) are marked as `NaN`.
 We will remove them using the drop_unmatched parameter:
 
-.. GENERATED FROM PYTHON SOURCE LINES 193-205
+.. GENERATED FROM PYTHON SOURCE LINES 195-207
 
 .. code-block:: default
 
@@ -1084,12 +1087,12 @@ We will remove them using the drop_unmatched parameter:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 206-208
+.. GENERATED FROM PYTHON SOURCE LINES 208-210
 
 We can finally plot and look at the link between GDP per capita
 and happiness:
 
-.. GENERATED FROM PYTHON SOURCE LINES 209-223
+.. GENERATED FROM PYTHON SOURCE LINES 211-228
 
 .. code-block:: default
 
@@ -1100,7 +1103,10 @@ and happiness:
 
     plt.figure(figsize=(4, 3))
     ax = sns.regplot(
-        data=df1, x="GDP per capita (current US$)", y="Happiness score", lowess=True
+        data=df1,
+        x="GDP per capita (current US$)",
+        y="Happiness score",
+        lowess=True,
     )
     ax.set_ylabel("Happiness index")
     ax.set_title("Is a higher GDP per capita linked to happiness?")
@@ -1119,22 +1125,22 @@ and happiness:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 224-228
+.. GENERATED FROM PYTHON SOURCE LINES 229-233
 
 It seems that the happiest countries are those
 having a high GDP per capita.
 However, unhappy countries do not have only low levels
 of GDP per capita. We have to search for other patterns.
 
-.. GENERATED FROM PYTHON SOURCE LINES 230-235
+.. GENERATED FROM PYTHON SOURCE LINES 235-240
 
 2. Joining life expectancy table
 ................................
 
-Now let's include other information that may be relevant, such as
-life expectancy table:
+Now let's include other information that may be relevant, such as in the
+life_exp table:
 
-.. GENERATED FROM PYTHON SOURCE LINES 235-247
+.. GENERATED FROM PYTHON SOURCE LINES 240-252
 
 .. code-block:: default
 
@@ -1211,11 +1217,11 @@ life expectancy table:
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 248-249
+.. GENERATED FROM PYTHON SOURCE LINES 253-254
 
 Let's plot this relation:
 
-.. GENERATED FROM PYTHON SOURCE LINES 249-261
+.. GENERATED FROM PYTHON SOURCE LINES 254-266
 
 .. code-block:: default
 
@@ -1243,15 +1249,15 @@ Let's plot this relation:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 262-264
+.. GENERATED FROM PYTHON SOURCE LINES 267-269
 
 It seems the answer is yes!
 Countries with higher life expectancy are also happier.
 
-.. GENERATED FROM PYTHON SOURCE LINES 267-275
+.. GENERATED FROM PYTHON SOURCE LINES 272-280
 
 3. Joining legal rights strength table
-................................
+......................................
 .. topic:: Note:
 
    Here, we use the `keep='left'` option to keep only the left key matching
@@ -1259,7 +1265,7 @@ Countries with higher life expectancy are also happier.
 
 And the table with a measure of legal rights strength in the country:
 
-.. GENERATED FROM PYTHON SOURCE LINES 275-287
+.. GENERATED FROM PYTHON SOURCE LINES 280-292
 
 .. code-block:: default
 
@@ -1340,11 +1346,11 @@ And the table with a measure of legal rights strength in the country:
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 288-289
+.. GENERATED FROM PYTHON SOURCE LINES 293-294
 
 Let's take a look at their correspondance in a figure:
 
-.. GENERATED FROM PYTHON SOURCE LINES 289-301
+.. GENERATED FROM PYTHON SOURCE LINES 294-306
 
 .. code-block:: default
 
@@ -1372,25 +1378,25 @@ Let's take a look at their correspondance in a figure:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 302-304
+.. GENERATED FROM PYTHON SOURCE LINES 307-309
 
 From this plot, it is not clear that this measure of legal strength
 is linked to happiness.
 
-.. GENERATED FROM PYTHON SOURCE LINES 306-308
+.. GENERATED FROM PYTHON SOURCE LINES 311-313
 
 Great! Our joined table has became bigger and full of useful informations.
 And now we are ready to apply a first machine learning model to it!
 
-.. GENERATED FROM PYTHON SOURCE LINES 310-315
+.. GENERATED FROM PYTHON SOURCE LINES 315-320
 
 Prediction model
------------------
+----------------
 
 We now separate our covariates (X), from the target (or exogenous)
 variables: y
 
-.. GENERATED FROM PYTHON SOURCE LINES 315-318
+.. GENERATED FROM PYTHON SOURCE LINES 320-323
 
 .. code-block:: default
 
@@ -1404,11 +1410,11 @@ variables: y
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 319-320
+.. GENERATED FROM PYTHON SOURCE LINES 324-325
 
 Let us now define the model that will be used to predict the happiness score:
 
-.. GENERATED FROM PYTHON SOURCE LINES 320-330
+.. GENERATED FROM PYTHON SOURCE LINES 325-335
 
 .. code-block:: default
 
@@ -1429,14 +1435,14 @@ Let us now define the model that will be used to predict the happiness score:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 331-335
+.. GENERATED FROM PYTHON SOURCE LINES 336-340
 
 To evaluate our model, we will apply a `4-fold cross-validation`.
 We evaluate our model using the `R2` score.
 
 Let's finally assess the results of our models:
 
-.. GENERATED FROM PYTHON SOURCE LINES 335-346
+.. GENERATED FROM PYTHON SOURCE LINES 340-351
 
 .. code-block:: default
 
@@ -1464,16 +1470,16 @@ Let's finally assess the results of our models:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 347-358
+.. GENERATED FROM PYTHON SOURCE LINES 352-363
 
 We have a satisfying first result: an R2 of 0.66!
 
 Data cleaning varies from dataset to dataset: there are as
-many ways to clean a table as there are errors. :func:`fuzzy_join`
+many ways to clean a table as there are errors. |fj|
 method is generalizable across all datasets.
 
 Data transformation is also often very costly in both time and ressources.
-:func:`fuzzy_join` is fast and easy-to-use.
+|fj| is fast and easy-to-use.
 
 Now up to you, try improving our model by adding information into it and
 beating our result!
@@ -1481,7 +1487,7 @@ beating our result!
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  1.442 seconds)
+   **Total running time of the script:** ( 0 minutes  1.341 seconds)
 
 
 .. _sphx_glr_download_auto_examples_05_joining_tables_with_FuzzyJoin.py:

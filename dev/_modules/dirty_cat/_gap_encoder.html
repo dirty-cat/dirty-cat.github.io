@@ -710,6 +710,40 @@
 <span class="sd">        values (NaN) are present during fit (default is to impute).</span>
 <span class="sd">        In the inverse transform, the missing category will be denoted as None.</span>
 
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; enc = GapEncoder(n_components=2)</span>
+
+<span class="sd">    Let&#39;s encode the following non-normalized data:</span>
+
+<span class="sd">    &gt;&gt;&gt; X = [[&#39;paris, FR&#39;], [&#39;Paris&#39;], [&#39;London, UK&#39;], [&#39;Paris, France&#39;],</span>
+<span class="sd">             [&#39;london&#39;], [&#39;London, England&#39;], [&#39;London&#39;], [&#39;Pqris&#39;]]</span>
+
+<span class="sd">    &gt;&gt;&gt; enc.fit(X)</span>
+<span class="sd">    GapEncoder(n_components=2)</span>
+
+<span class="sd">    The GapEncoder has found the following two topics:</span>
+
+<span class="sd">    &gt;&gt;&gt; enc.get_feature_names()</span>
+<span class="sd">    [&#39;england, london, uk&#39;, &#39;france, paris, pqris&#39;]</span>
+
+<span class="sd">    He got it right, reccuring topics are &quot;London&quot; and &quot;England&quot; on the</span>
+<span class="sd">    one side and and &quot;Paris&quot; and &quot;France&quot; on the other.</span>
+
+<span class="sd">    As this is a continuous encoding, we can look at the level of</span>
+<span class="sd">    activation of each topic for each category:</span>
+
+<span class="sd">    &gt;&gt;&gt; enc.transform(X)</span>
+<span class="sd">    array([[ 0.05202843, 10.54797156],</span>
+<span class="sd">          [ 0.05000118,  4.54999882],</span>
+<span class="sd">          [12.04734788,  0.05265212],</span>
+<span class="sd">          [ 0.05263068, 16.54736932],</span>
+<span class="sd">          [ 6.04999624,  0.05000376],</span>
+<span class="sd">          [19.546716  ,  0.053284  ],</span>
+<span class="sd">          [ 6.04999623,  0.05000376],</span>
+<span class="sd">          [ 0.05002016,  4.54997983]])</span>
+
+<span class="sd">    The higher the value, the bigger the correspondance with the topic.</span>
 
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
@@ -934,7 +968,6 @@
 <span class="sd">                - if the input data was a dataframe, its column names are used,</span>
 <span class="sd">                - otherwise, &#39;col1&#39;, ..., &#39;colN&#39; are used as prefixes.</span>
 <span class="sd">            Prefixes can be manually set by passing a list for col_names.</span>
-
 <span class="sd">        n_labels : int, default=3</span>
 <span class="sd">            The number of labels used to describe each topic.</span>
 
