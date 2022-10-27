@@ -108,7 +108,7 @@
 <li><a class="reference internal" href="#heatmap-of-the-similarity-matrix">Heatmap of the similarity matrix</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#feature-interpretation-with-the-gap">Feature interpretation with the <code class="xref py py-class docutils literal notranslate"><span class="pre">GapEncoder</span></code></a><ul>
+<li><a class="reference internal" href="#feature-interpretation-with-the-gapencoder">Feature interpretation with the <code class="xref py py-class docutils literal notranslate"><span class="pre">GapEncoder</span></code></a><ul>
 <li><a class="reference internal" href="#encoding-dirty-job-titles">Encoding dirty job titles</a></li>
 <li><a class="reference internal" href="#interpreting-encoded-vectors">Interpreting encoded vectors</a></li>
 </ul>
@@ -143,7 +143,7 @@ to download the full example code or to run this example in your browser via Bin
 <p>What are dirty categorical variables and how can
 a good encoding help with statistical learning?</p>
 <p>We illustrate how categorical encodings obtained with
-the <a class="reference internal" href="../generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder" title="dirty_cat.GapEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">GapEncoder</span></code></a> can be interpreted in terms of latent topics.</p>
+the <code class="xref py py-class docutils literal notranslate"><span class="pre">GapEncoder</span></code> can be interpreted in terms of latent topics.</p>
 <p>We use as example the <a class="reference external" href="https://www.openml.org/d/42125">employee salaries</a>
 dataset.</p>
 <section id="what-do-we-mean-by-dirty-categories">
@@ -168,7 +168,7 @@ dataset.</p>
 [5 rows x 9 columns]
 </pre></div>
 </div>
-<p>Here is the number of unique entries per column:</p>
+<p>Here is how many unique entries there is per column:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.nunique.html#pandas.DataFrame.nunique" title="pandas.DataFrame.nunique" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-method"><span class="n">data</span><span class="o">.</span><span class="n">nunique</span></a><span class="p">())</span>
 </pre></div>
 </div>
@@ -203,15 +203,15 @@ Name: employee_position_title, Length: 385, dtype: int64
 </pre></div>
 </div>
 <p>These different entries are often variations of the same entity.
-For example, there are 3 kinds of “Accountant/Auditor”.</p>
+For example, there are 3 kinds of Accountant/Auditor.</p>
 <p>Such variations will break traditional categorical encoding methods:</p>
 <ul class="simple">
-<li><p>Using a simple <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.OneHotEncoder.html#sklearn.preprocessing.OneHotEncoder" title="(in scikit-learn v1.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">OneHotEncoder</span></code></a>
+<li><p>Using simple <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.OneHotEncoder.html">one-hot encoding</a>
 will create orthogonal features, whereas it is clear that
 those 3 terms have a lot in common.</p></li>
 <li><p>If we wanted to use word embedding methods such as <a class="reference external" href="https://www.tensorflow.org/tutorials/text/word2vec">Word2vec</a>,
 we would have to go through a cleaning phase: those algorithms
-are not trained to work on data such as “Accountant/Auditor I”.
+are not trained to work on data such as ‘Accountant/Auditor I’.
 However, this can be error-prone and time-consuming.</p></li>
 </ul>
 <p>The problem becomes easier if we can capture relationships between
@@ -226,8 +226,8 @@ employee’s position title:</p>
 <section id="string-similarity-between-entries">
 <h2>String similarity between entries<a class="headerlink" href="#string-similarity-between-entries" title="Permalink to this heading">¶</a></h2>
 <p>That’s where our encoders get into play.
-In order to robustly embed dirty semantic data, the <a class="reference internal" href="../generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="dirty_cat.SimilarityEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimilarityEncoder</span></code></a>
-creates a similarity matrix based on an n-gram representation of the data.</p>
+In order to robustly embed dirty semantic data, the <code class="xref py py-class docutils literal notranslate"><span class="pre">SimilarityEncoder</span></code>
+creates a similarity matrix based on the n-gram representation of the data.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sorted_values</span></a> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">values</span></a><span class="p">[</span><span class="s2">&quot;employee_position_title&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
 
 <span class="kn">from</span> <span class="nn">dirty_cat</span> <span class="kn">import</span> <a href="../generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="dirty_cat.SimilarityEncoder" class="sphx-glr-backref-module-dirty_cat sphx-glr-backref-type-py-class"><span class="n">SimilarityEncoder</span></a>
@@ -236,14 +236,14 @@ creates a similarity matrix based on an n-gram representation of the data.</p>
 <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">transformed_values</span></a> <span class="o">=</span> <a href="../generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder.fit_transform" title="dirty_cat.SimilarityEncoder.fit_transform" class="sphx-glr-backref-module-dirty_cat sphx-glr-backref-type-py-method"><span class="n">similarity_encoder</span><span class="o">.</span><span class="n">fit_transform</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sorted_values</span></a><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/circleci/project/examples/02_investigating_dirty_categories.py:81: UserWarning: The &quot;similarity&quot; argument is deprecated since dirty_cat 0.3, and will be removed in 0.5.The n-gram similarity is the only one currently supported.
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/circleci/project/examples/02_investigating_dirty_categories.py:71: UserWarning: The &quot;similarity&quot; argument is deprecated since dirty_cat 0.3, and will be removed in 0.5.The n-gram similarity is the only one currently supported.
   similarity_encoder = SimilarityEncoder()
 </pre></div>
 </div>
 <section id="plotting-the-new-representation-using-multi-dimensional-scaling">
 <h3>Plotting the new representation using multi-dimensional scaling<a class="headerlink" href="#plotting-the-new-representation-using-multi-dimensional-scaling" title="Permalink to this heading">¶</a></h3>
 <p>Let’s now plot a couple of points at random using a low-dimensional
-representation to get an intuition of what the <a class="reference internal" href="../generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="dirty_cat.SimilarityEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimilarityEncoder</span></code></a> is doing:</p>
+representation to get an intuition of what the <code class="xref py py-class docutils literal notranslate"><span class="pre">SimilarityEncoder</span></code> is doing:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.manifold</span> <span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.manifold.MDS.html#sklearn.manifold.MDS" title="sklearn.manifold.MDS" class="sphx-glr-backref-module-sklearn-manifold sphx-glr-backref-type-py-class"><span class="n">MDS</span></a>
 
 <a href="https://scikit-learn.org/stable/modules/generated/sklearn.manifold.MDS.html#sklearn.manifold.MDS" title="sklearn.manifold.MDS" class="sphx-glr-backref-module-sklearn-manifold sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">mds</span></a> <span class="o">=</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.manifold.MDS.html#sklearn.manifold.MDS" title="sklearn.manifold.MDS" class="sphx-glr-backref-module-sklearn-manifold sphx-glr-backref-type-py-class"><span class="n">MDS</span></a><span class="p">(</span><span class="n">dissimilarity</span><span class="o">=</span><span class="s2">&quot;precomputed&quot;</span><span class="p">,</span> <span class="n">n_init</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
@@ -280,12 +280,7 @@ representation to get an intuition of what the <a class="reference internal" hre
 <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.scatter.html#matplotlib.axes.Axes.scatter" title="matplotlib.axes.Axes.scatter" class="sphx-glr-backref-module-matplotlib-axes sphx-glr-backref-type-py-method"><span class="n">ax</span><span class="o">.</span><span class="n">scatter</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.int64" title="numpy.int64" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-attribute"><span class="n">x</span></a><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">two_dim_data</span></a><span class="p">[</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">indices</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">two_dim_data</span></a><span class="p">[</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">indices</span></a><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
 <span class="c1"># adding the legend</span>
 <span class="k">for</span> <a href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.int64" title="numpy.int64" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-attribute"><span class="n">x</span></a> <span class="ow">in</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">indices</span></a><span class="p">:</span>
-    <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.text.html#matplotlib.axes.Axes.text" title="matplotlib.axes.Axes.text" class="sphx-glr-backref-module-matplotlib-axes sphx-glr-backref-type-py-method"><span class="n">ax</span><span class="o">.</span><span class="n">text</span></a><span class="p">(</span>
-        <a href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.int64" title="numpy.int64" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-attribute"><span class="n">x</span></a><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">two_dim_data</span></a><span class="p">[</span><a href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.int64" title="numpy.int64" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-attribute"><span class="n">x</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-        <span class="n">y</span><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">two_dim_data</span></a><span class="p">[</span><a href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.int64" title="numpy.int64" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-attribute"><span class="n">x</span></a><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
-        <span class="n">s</span><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sorted_values</span></a><span class="p">[</span><a href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.int64" title="numpy.int64" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-attribute"><span class="n">x</span></a><span class="p">],</span>
-        <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
-    <span class="p">)</span>
+    <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.text.html#matplotlib.axes.Axes.text" title="matplotlib.axes.Axes.text" class="sphx-glr-backref-module-matplotlib-axes sphx-glr-backref-type-py-method"><span class="n">ax</span><span class="o">.</span><span class="n">text</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.int64" title="numpy.int64" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-attribute"><span class="n">x</span></a><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">two_dim_data</span></a><span class="p">[</span><a href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.int64" title="numpy.int64" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-attribute"><span class="n">x</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">two_dim_data</span></a><span class="p">[</span><a href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.int64" title="numpy.int64" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-attribute"><span class="n">x</span></a><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sorted_values</span></a><span class="p">[</span><a href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.int64" title="numpy.int64" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-attribute"><span class="n">x</span></a><span class="p">],</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
 <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.set_title.html#matplotlib.axes.Axes.set_title" title="matplotlib.axes.Axes.set_title" class="sphx-glr-backref-module-matplotlib-axes sphx-glr-backref-type-py-method"><span class="n">ax</span><span class="o">.</span><span class="n">set_title</span></a><span class="p">(</span><span class="s2">&quot;multi-dimensional-scaling representation using a 3gram similarity matrix&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -316,10 +311,10 @@ very close to senior “Supply Technician”: therefore, we grasp the
 as well as the “Technician” part of this category.</p>
 </section>
 </section>
-<section id="feature-interpretation-with-the-gap">
-<h2>Feature interpretation with the <a class="reference internal" href="../generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder" title="dirty_cat.GapEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">GapEncoder</span></code></a><a class="headerlink" href="#feature-interpretation-with-the-gap" title="Permalink to this heading">¶</a></h2>
-<p>The <a class="reference internal" href="../generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder" title="dirty_cat.GapEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">GapEncoder</span></code></a> is a better encoder than the
-<a class="reference internal" href="../generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="dirty_cat.SimilarityEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimilarityEncoder</span></code></a> in the sense that it is more scalable and
+<section id="feature-interpretation-with-the-gapencoder">
+<h2>Feature interpretation with the <code class="xref py py-class docutils literal notranslate"><span class="pre">GapEncoder</span></code><a class="headerlink" href="#feature-interpretation-with-the-gapencoder" title="Permalink to this heading">¶</a></h2>
+<p>The <code class="xref py py-class docutils literal notranslate"><span class="pre">GapEncoder</span></code> is another encoder, better than the
+<code class="xref py py-class docutils literal notranslate"><span class="pre">SimilarityEncoder</span></code> in the sense that it is faster and
 interpretable, which we will present now.</p>
 <p>First, let’s retrieve the dirty column to encode:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">dirty_column</span></a> <span class="o">=</span> <span class="s2">&quot;employee_position_title&quot;</span>
@@ -340,7 +335,7 @@ Number of dirty entries = 9228
 </div>
 <section id="encoding-dirty-job-titles">
 <h3>Encoding dirty job titles<a class="headerlink" href="#encoding-dirty-job-titles" title="Permalink to this heading">¶</a></h3>
-<p>Then, we’ll create an instance of the <a class="reference internal" href="../generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder" title="dirty_cat.GapEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">GapEncoder</span></code></a> with 10 components:</p>
+<p>Then, we’ll create an instance of the <code class="xref py py-class docutils literal notranslate"><span class="pre">GapEncoder</span></code> with 10 components:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dirty_cat</span> <span class="kn">import</span> <a href="../generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder" title="dirty_cat.GapEncoder" class="sphx-glr-backref-module-dirty_cat sphx-glr-backref-type-py-class"><span class="n">GapEncoder</span></a>
 
 <a href="../generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder" title="dirty_cat.GapEncoder" class="sphx-glr-backref-module-dirty_cat sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">enc</span></a> <span class="o">=</span> <a href="../generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder" title="dirty_cat.GapEncoder" class="sphx-glr-backref-module-dirty_cat sphx-glr-backref-type-py-class"><span class="n">GapEncoder</span></a><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
@@ -358,7 +353,7 @@ in order to obtain encoded vectors of size 10:</p>
 </section>
 <section id="interpreting-encoded-vectors">
 <h3>Interpreting encoded vectors<a class="headerlink" href="#interpreting-encoded-vectors" title="Permalink to this heading">¶</a></h3>
-<p>The <a class="reference internal" href="../generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder" title="dirty_cat.GapEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">GapEncoder</span></code></a> can be understood as a continuous encoding
+<p>The <code class="xref py py-class docutils literal notranslate"><span class="pre">GapEncoder</span></code> can be understood as a continuous encoding
 on a set of latent topics estimated from the data. The latent topics
 are built by capturing combinations of substrings that frequently
 co-occur, and encoded vectors correspond to their activations.
@@ -384,8 +379,8 @@ Topic n°9: assistant, library, safety
 </pre></div>
 </div>
 <p>As expected, topics capture labels that frequently co-occur. For instance,
-the labels “firefighter”, “rescuer”, “rescue” appear together in
-“Firefighter/Rescuer III”, or “Fire/Rescue Lieutenant”.</p>
+the labels <em>firefighter</em>, <em>rescuer</em>, <em>rescue</em> appear together in
+<em>Firefighter/Rescuer III</em>, or <em>Fire/Rescue Lieutenant</em>.</p>
 <p>This enables us to understand the encoding of different samples</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">encoded_labels</span></a> <span class="o">=</span> <a href="../generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder.transform" title="dirty_cat.GapEncoder.transform" class="sphx-glr-backref-module-dirty_cat sphx-glr-backref-type-py-method"><span class="n">enc</span><span class="o">.</span><span class="n">transform</span></a><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_dirty</span></a><span class="p">[:</span><span class="mi">20</span><span class="p">])</span>
 <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.figure.html#matplotlib.pyplot.figure" title="matplotlib.pyplot.figure" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">figure</span></a><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
@@ -402,7 +397,7 @@ the labels “firefighter”, “rescuer”, “rescue” appear together in
 <img src="../_images/sphx_glr_02_investigating_dirty_categories_003.png" srcset="../_images/sphx_glr_02_investigating_dirty_categories_003.png" alt="02 investigating dirty categories" class = "sphx-glr-single-img"/><p>As we can see, each dirty category encodes on a small number of topics,
 These can thus be reliably used to summarize each topic, which are in
 effect latent categories captured from the data.</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  9.128 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  9.493 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-02-investigating-dirty-categories-py">
 <div class="binder-badge docutils container">
 <a class="reference external image-reference" href="https://mybinder.org/v2/gh/dirty-cat/dirty-cat.github.io/main?filepath=dev/auto_examples/02_investigating_dirty_categories.ipynb"><img alt="Launch binder" src="../_images/binder_badge_logo.svg" width="150px" /></a>

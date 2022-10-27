@@ -5,18 +5,12 @@ Handling datetime features with the DatetimeEncoder
 We illustrate here how to handle datetime features with the
 DatetimeEncoder.
 
-The |DtE| breaks down each datetime
-features into several numerical features, by extracting relevant
-information from the datetime features, such as the month, the day
-of the week, the hour of the day, etc.
-Used in the |SV|, which automatically detects
-the datetime features, the |DtE| allows to
-handle datetime features easily.
-
-
-.. |DtE| replace:: :class:`~dirty_cat.DatetimeEncoder`
-
-.. |SV| replace:: :class:`~dirty_cat.SuperVectorizer`
+The DatetimeEncoder breaks down each datetime features into several
+numerical features, by extracting relevant information from the datetime
+features, such as the month, the day of the week, the hour of the day,
+etc. Used in the SuperVectorizer, which automatically detects the
+datetime features, the DatetimeEncoder allows to handle datetime features
+easily.
 """
 
 import warnings
@@ -24,10 +18,7 @@ import warnings
 warnings.filterwarnings("ignore")
 
 ###############################################################################
-# Data Importing
-# --------------
-#
-# We first fetch the dataset.
+# **Data Importing**: We first fetch the dataset.
 #
 # We want to predict the NO2 air concentration in different cities, based
 # on the date and the time of measurement.
@@ -42,7 +33,7 @@ X
 
 ###############################################################################
 # Encoding the data to numerical representations
-# ----------------------------------------------
+# -----------------------------------------------
 #
 # Encoders for categorical and datetime features
 # ..............................................
@@ -79,9 +70,9 @@ encoder.get_feature_names_out()
 X_
 
 ###############################################################################
-# One-liner with the |SV|
-# .......................
-# The |DtE| is used by default in the |SV|, which
+# One-liner with the SuperVectorizer
+# ..................................
+# The DatetimeEncoder is used by default in the SuperVectorizer, which
 # automatically detects datetime features.
 from dirty_cat import SuperVectorizer
 from pprint import pprint
@@ -91,7 +82,7 @@ sup_vec.fit_transform(X)
 pprint(sup_vec.get_feature_names_out())
 
 ###############################################################################
-# If we want the day of the week, we can just replace |SV|'s default parameter:
+# If we want the day of the week, we can just replace SuperVectorizer's default
 sup_vec = SuperVectorizer(
     datetime_transformer=DatetimeEncoder(add_day_of_the_week=True),
 )
@@ -99,16 +90,16 @@ sup_vec.fit_transform(X)
 sup_vec.get_feature_names_out()
 
 ###############################################################################
-# We can see that the |SV| is indeed using
-# a |DtE| for the datetime features.
+# We can see that the SuperVectorizer is indeed using
+# a DatetimeEncoder for the datetime features.
 pprint(sup_vec.transformers_)
 
 ###############################################################################
 # Predictions with date features
 # ------------------------------
-# For prediction tasks, we recommend using the |SV| inside a
+# For prediction tasks, we recommend using the SuperVectorizer inside a
 # pipeline, combined with a model that uses the features extracted by the
-# |DtE|.
+# DatetimeEncoder.
 import numpy as np
 from sklearn.ensemble import HistGradientBoostingRegressor
 from sklearn.pipeline import make_pipeline
@@ -125,8 +116,8 @@ pipeline = make_pipeline(sup_vec, reg)
 # When using date and time features, we often care about predicting the future.
 # In this case, we have to be careful when evaluating our model, because
 # standard tools like cross-validation do not respect the time ordering.
-# Instead, we can use the :class:`~sklearn.model_selection.TimeSeriesSplit`,
-# which makes sure that the test set is always in the future.
+# Instead, we can use the `TimeSeriesSplit` class, which makes sure that
+# the test set is always in the future.
 X["date.utc"] = pd.to_datetime(X["date.utc"])
 sorted_indices = np.argsort(X["date.utc"])
 X = X.iloc[sorted_indices]
@@ -135,11 +126,7 @@ y = y.iloc[sorted_indices]
 from sklearn.model_selection import TimeSeriesSplit, cross_val_score
 
 cross_val_score(
-    pipeline,
-    X,
-    y,
-    scoring="neg_mean_squared_error",
-    cv=TimeSeriesSplit(n_splits=5),
+    pipeline, X, y, scoring="neg_mean_squared_error", cv=TimeSeriesSplit(n_splits=5)
 )
 
 ###############################################################################
@@ -161,9 +148,7 @@ fig, axs = plt.subplots(nrows=len(X_test.city.unique()), ncols=1, figsize=(12, 9
 
 for i, city in enumerate(X_test.city.unique()):
     axs[i].plot(
-        X.loc[X.city == city, "date.utc"],
-        y.loc[X.city == city],
-        label="Actual",
+        X.loc[X.city == city, "date.utc"], y.loc[X.city == city], label="Actual"
     )
     axs[i].plot(
         X_test.loc[X_test.city == city, "date.utc"],
@@ -179,7 +164,7 @@ for i, city in enumerate(X_test.city.unique()):
 plt.show()
 
 ###############################################################################
-# Let's zoom on a few days:
+# Let's zoom on a few days
 
 X_zoomed = X[X["date.utc"] <= "2019-06-04"][X["date.utc"] >= "2019-06-01"]
 y_zoomed = y[X["date.utc"] <= "2019-06-04"][X["date.utc"] >= "2019-06-01"]
@@ -217,11 +202,11 @@ plt.show()
 ###############################################################################
 # Feature importances
 # -------------------
-# Using the |DtE| allows us to better understand how the date
+# Using the DatetimeEncoder allows us to better understand how the date
 # impacts the NO2 concentration. To this aim, we can compute the
-# importance of the features created by the |DtE|, using the
-# :func:`~sklearn.inspection.permutation_importance` function, which
-# basically shuffles a feature and sees how the model changes its prediction.
+# importance of the features created by the Datetime encoder, using the
+# `permutation_importance` function, which basically shuffles a feature
+# and sees how the model changes its prediction
 
 ###############################################################################
 from sklearn.inspection import permutation_importance
