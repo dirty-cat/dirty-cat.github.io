@@ -105,7 +105,6 @@
 <span class="sd">manually categorize them beforehand, or construct complex Pipelines.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
 <span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span>
 
@@ -120,6 +119,9 @@
 
 <span class="kn">from</span> <span class="nn">dirty_cat</span> <span class="kn">import</span> <span class="n">DatetimeEncoder</span><span class="p">,</span> <span class="n">GapEncoder</span>
 <span class="kn">from</span> <span class="nn">dirty_cat._utils</span> <span class="kn">import</span> <span class="n">Version</span>
+
+<span class="c1"># Required for ignoring lines too long in the docstrings</span>
+<span class="c1"># flake8: noqa: E501</span>
 
 
 <span class="k">def</span> <span class="nf">_has_missing_values</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
@@ -183,19 +185,21 @@
 
 
 <div class="viewcode-block" id="SuperVectorizer"><a class="viewcode-back" href="../../generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer">[docs]</a><span class="k">class</span> <span class="nc">SuperVectorizer</span><span class="p">(</span><span class="n">ColumnTransformer</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Easily transforms a heterogeneous data table (such as a dataframe) to</span>
-<span class="sd">    a numerical array for machine learning. For this it transforms each</span>
-<span class="sd">    column depending on its data type.</span>
-<span class="sd">    It provides a simplified interface for the :class:`sklearn.compose.ColumnTransformer` ;</span>
-<span class="sd">    more documentation of attributes and functions are available in its doc.</span>
+    <span class="sd">&quot;&quot;&quot;Easily transform a heterogeneous array to a numerical one.</span>
+
+<span class="sd">    Easily transforms a heterogeneous data table</span>
+<span class="sd">    (such as a :class:`pandas.DataFrame`) to a numerical array for machine</span>
+<span class="sd">    learning. For this it transforms each column depending on its data type.</span>
+<span class="sd">    It provides a simplified interface for the</span>
+<span class="sd">    :class:`sklearn.compose.ColumnTransformer`; more documentation of</span>
+<span class="sd">    attributes and functions are available in its doc.</span>
 
 <span class="sd">    .. versionadded:: 0.2.0</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 
-<span class="sd">    cardinality_threshold : int, default=40</span>
+<span class="sd">    cardinality_threshold : int, optional, default=40</span>
 <span class="sd">        Two lists of features will be created depending on this value: strictly</span>
 <span class="sd">        under this value, the low cardinality categorical features, and above or</span>
 <span class="sd">        equal, the high cardinality categorical features.</span>
@@ -205,19 +209,19 @@
 <span class="sd">        Note: currently, missing values are counted as a single unique value</span>
 <span class="sd">        (so they count in the cardinality).</span>
 
-<span class="sd">    low_card_cat_transformer : typing.Optional[typing.Union[sklearn.base.TransformerMixin, typing.Literal[&quot;drop&quot;, &quot;remainder&quot;, &quot;passthrough&quot;]]], default=None  # noqa</span>
+<span class="sd">    low_card_cat_transformer : {&quot;drop&quot;, &quot;remainder&quot;, &quot;passthrough&quot;} or Transformer, optional</span>
 <span class="sd">        Transformer used on categorical/string features with low cardinality</span>
 <span class="sd">        (threshold is defined by `cardinality_threshold`).</span>
-<span class="sd">        Can either be a transformer object instance (e.g. `OneHotEncoder(drop=&quot;if_binary&quot;)`),</span>
+<span class="sd">        Can either be a transformer object instance (e.g. `OneHotEncoder()`),</span>
 <span class="sd">        a `Pipeline` containing the preprocessing steps,</span>
 <span class="sd">        &#39;drop&#39; for dropping the columns,</span>
 <span class="sd">        &#39;remainder&#39; for applying `remainder`,</span>
 <span class="sd">        &#39;passthrough&#39; to return the unencoded columns,</span>
-<span class="sd">        or None to use the default transformer (`OneHotEncoder()`).</span>
+<span class="sd">        or None to use the default transformer (`OneHotEncoder(drop=&quot;if_binary&quot;)`).</span>
 <span class="sd">        Features classified under this category are imputed based on the</span>
 <span class="sd">        strategy defined with `impute_missing`.</span>
 
-<span class="sd">    high_card_cat_transformer : typing.Optional[typing.Union[sklearn.base.TransformerMixin, typing.Literal[&quot;drop&quot;, &quot;remainder&quot;, &quot;passthrough&quot;]]], default=None  # noqa</span>
+<span class="sd">    high_card_cat_transformer : {&quot;drop&quot;, &quot;remainder&quot;, &quot;passthrough&quot;} or Transformer, optional</span>
 <span class="sd">        Transformer used on categorical/string features with high cardinality</span>
 <span class="sd">        (threshold is defined by `cardinality_threshold`).</span>
 <span class="sd">        Can either be a transformer object instance (e.g. `GapEncoder()`),</span>
@@ -229,7 +233,7 @@
 <span class="sd">        Features classified under this category are imputed based on the</span>
 <span class="sd">        strategy defined with `impute_missing`.</span>
 
-<span class="sd">    numerical_transformer : typing.Optional[typing.Union[sklearn.base.TransformerMixin, typing.Literal[&quot;drop&quot;, &quot;remainder&quot;, &quot;passthrough&quot;]]], default=None  # noqa</span>
+<span class="sd">    numerical_transformer : {&quot;drop&quot;, &quot;remainder&quot;, &quot;passthrough&quot;} or Transformer, optional</span>
 <span class="sd">        Transformer used on numerical features.</span>
 <span class="sd">        Can either be a transformer object instance (e.g. `StandardScaler()`),</span>
 <span class="sd">        a `Pipeline` containing the preprocessing steps,</span>
@@ -240,7 +244,7 @@
 <span class="sd">        Features classified under this category are not imputed at all</span>
 <span class="sd">        (regardless of `impute_missing`).</span>
 
-<span class="sd">    datetime_transformer : typing.Optional[typing.Union[sklearn.base.TransformerMixin, typing.Literal[&quot;drop&quot;, &quot;remainder&quot;, &quot;passthrough&quot;]]], default=None</span>
+<span class="sd">    datetime_transformer : {&quot;drop&quot;, &quot;remainder&quot;, &quot;passthrough&quot;} or Transformer, optional</span>
 <span class="sd">        Transformer used on datetime features.</span>
 <span class="sd">        Can either be a transformer object instance (e.g. `DatetimeEncoder()`),</span>
 <span class="sd">        a `Pipeline` containing the preprocessing steps,</span>
@@ -251,11 +255,11 @@
 <span class="sd">        Features classified under this category are not imputed at all</span>
 <span class="sd">        (regardless of `impute_missing`).</span>
 
-<span class="sd">    auto_cast : bool, default=True</span>
+<span class="sd">    auto_cast : bool, optional, default=True</span>
 <span class="sd">        If set to `True`, will try to convert each column to the best possible</span>
 <span class="sd">        data type (dtype).</span>
 
-<span class="sd">    impute_missing : str, default=&#39;auto&#39;</span>
+<span class="sd">    impute_missing : {&quot;auto&quot;, &quot;force&quot;, &quot;skip&quot;}, optional, default=&#39;auto&#39;</span>
 <span class="sd">        When to impute missing values in categorical (textual) columns.</span>
 <span class="sd">        &#39;auto&#39; will impute missing values if it is considered appropriate</span>
 <span class="sd">        (we are using an encoder that does not support missing values and/or</span>
@@ -267,7 +271,7 @@
 <span class="sd">        it is left to the user to manage.</span>
 <span class="sd">        See also attribute `imputed_columns_`.</span>
 
-<span class="sd">    remainder : typing.Union[typing.Literal[&quot;drop&quot;, &quot;passthrough&quot;], sklearn.base.TransformerMixin], default=&#39;drop&#39;  # noqa</span>
+<span class="sd">    remainder : {&quot;drop&quot;, &quot;passthrough&quot;} or Transformer, optional, default=&#39;drop&#39;</span>
 <span class="sd">        By default, only the specified columns in `transformers` are</span>
 <span class="sd">        transformed and combined in the output, and the non-specified</span>
 <span class="sd">        columns are dropped. (default ``&#39;drop&#39;``).</span>
@@ -281,31 +285,32 @@
 <span class="sd">        Note that using this feature requires that the DataFrame columns</span>
 <span class="sd">        input at :term:`fit` and :term:`transform` have identical order.</span>
 
-<span class="sd">    sparse_threshold: float, default=0.3</span>
+<span class="sd">    sparse_threshold : float, optional, default=0.3</span>
 <span class="sd">        If the output of the different transformers contains sparse matrices,</span>
 <span class="sd">        these will be stacked as a sparse matrix if the overall density is</span>
 <span class="sd">        lower than this value. Use sparse_threshold=0 to always return dense.</span>
 <span class="sd">        When the transformed output consists of all dense data, the stacked</span>
 <span class="sd">        result will be dense, and this keyword will be ignored.</span>
 
-<span class="sd">    n_jobs : int, default=None</span>
+<span class="sd">    n_jobs : int, optional</span>
 <span class="sd">        Number of jobs to run in parallel.</span>
-<span class="sd">        ``None`` means 1 unless in a :obj:`joblib.parallel_backend` context.</span>
+<span class="sd">        ``None`` (the default) means 1 unless in a</span>
+<span class="sd">        :obj:`joblib.parallel_backend` context.</span>
 <span class="sd">        ``-1`` means using all processors.</span>
 
-<span class="sd">    transformer_weights : dict, default=None</span>
+<span class="sd">    transformer_weights : dict, optional</span>
 <span class="sd">        Multiplicative weights for features per transformer. The output of the</span>
 <span class="sd">        transformer is multiplied by these weights. Keys are transformer names,</span>
 <span class="sd">        values the weights.</span>
 
-<span class="sd">    verbose : bool, default=False</span>
+<span class="sd">    verbose : bool, optional, default=False</span>
 <span class="sd">        If True, the time elapsed while fitting each transformer will be</span>
-<span class="sd">        printed as it is completed</span>
+<span class="sd">        printed as it is completed.</span>
 
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
 
-<span class="sd">    transformers_: typing.List[typing.Tuple[str, typing.Union[str, sklearn.base.TransformerMixin], typing.List[str]]]  # noqa</span>
+<span class="sd">    transformers_: list of 3-tuples (str, Transformer or str, list of str)</span>
 <span class="sd">        The collection of fitted transformers as tuples of</span>
 <span class="sd">        (name, fitted_transformer, column). `fitted_transformer` can be an</span>
 <span class="sd">        estimator, &#39;drop&#39;, or &#39;passthrough&#39;. In case there were no columns</span>
@@ -321,24 +326,27 @@
 <span class="sd">        The fitted array&#39;s columns. They are applied to the data passed</span>
 <span class="sd">        to the `transform` method.</span>
 
-<span class="sd">    types_: typing.Dict[str, type]</span>
+<span class="sd">    types_: dict mapping str to type</span>
 <span class="sd">        A mapping of inferred types per column.</span>
 <span class="sd">        Key is the column name, value is the inferred dtype.</span>
 <span class="sd">        Exists only if `auto_cast=True`.</span>
 
-<span class="sd">    imputed_columns_: typing.List[str]</span>
+<span class="sd">    imputed_columns_: list of str</span>
 <span class="sd">        The list of columns in which we imputed the missing values.</span>
 
 <span class="sd">    Notes</span>
 <span class="sd">    -----</span>
 <span class="sd">    The column order of the input data is not guaranteed to be the same</span>
-<span class="sd">    as the output data (returned by `transform`).</span>
-<span class="sd">    This is a due to the way the ColumnTransformer works.</span>
+<span class="sd">    as the output data (returned by :func:`SuperVectorizer.transform`).</span>
+<span class="sd">    This is a due to the way the :class:`sklearn.compose.ColumnTransformer`</span>
+<span class="sd">    works.</span>
 <span class="sd">    However, the output column order will always be the same for different</span>
-<span class="sd">    calls to `transform` on a same fitted SuperVectorizer instance.</span>
-<span class="sd">    For example, if input data has columns [&#39;name&#39;, &#39;job&#39;, &#39;year], then output</span>
+<span class="sd">    calls to :func:`SuperVectorizer.transform` on a same fitted</span>
+<span class="sd">    :class:`SuperVectorizer` instance.</span>
+<span class="sd">    For example, if input data has columns [&#39;name&#39;, &#39;job&#39;, &#39;year&#39;], then output</span>
 <span class="sd">    columns might be shuffled, e.g., [&#39;job&#39;, &#39;year&#39;, &#39;name&#39;], but every call</span>
-<span class="sd">    to `transform` will return this order.</span>
+<span class="sd">    to :func:`SuperVectorizer.transform` on this instance will return this</span>
+<span class="sd">    order.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">transformers_</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">TransformerMixin</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]]</span>
@@ -358,7 +366,7 @@
         <span class="n">numerical_transformer</span><span class="p">:</span> <span class="n">OptionalTransformer</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">datetime_transformer</span><span class="p">:</span> <span class="n">OptionalTransformer</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">auto_cast</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-        <span class="n">impute_missing</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;auto&quot;</span><span class="p">,</span>
+        <span class="n">impute_missing</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;auto&quot;</span><span class="p">,</span> <span class="s2">&quot;force&quot;</span><span class="p">,</span> <span class="s2">&quot;skip&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;auto&quot;</span><span class="p">,</span>
         <span class="c1"># The next parameters are inherited from ColumnTransformer</span>
         <span class="n">remainder</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span>
             <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;drop&quot;</span><span class="p">,</span> <span class="s2">&quot;passthrough&quot;</span><span class="p">],</span> <span class="n">TransformerMixin</span>
