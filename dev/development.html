@@ -322,9 +322,8 @@ it is already on most linux distributions).</p>
 <div class="highlight-commandline notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/dirty-cat/dirty_cat
 </pre></div>
 </div>
-<p>Next, install the project dependencies. Currently, they are listed in
-<code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code>.</p>
-<div class="highlight-commandline notranslate"><div class="highlight"><pre><span></span>pip install -r requirements.txt
+<p>Next, install the project dependencies. They are listed in <code class="docutils literal notranslate"><span class="pre">setup.cfg</span></code>.</p>
+<div class="highlight-commandline notranslate"><div class="highlight"><pre><span></span>pip install -e .[dev]
 </pre></div>
 </div>
 <p>Code-formatting and linting is automatically done via
