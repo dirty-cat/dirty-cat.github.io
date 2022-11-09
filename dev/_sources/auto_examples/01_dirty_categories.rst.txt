@@ -952,9 +952,9 @@ Let's perform a cross-validation to see how well this model predicts:
 
  .. code-block:: none
 
-    scores=[0.91784842 0.88390744 0.91977388 0.93142113 0.91940684]
-    mean=0.9144715428043011
-    std=0.016033266072165115
+    scores=[0.91171066 0.90219808 0.90964261 0.9234309  0.9200595 ]
+    mean=0.9134083487834482
+    std=0.007581850577807629
 
 
 
@@ -1030,7 +1030,7 @@ The encoded data, X_train_enc and X_test_enc are numerical arrays:
 
 
     array([[0.00000000e+00, 1.00000000e+00, 0.00000000e+00, ...,
-            5.62353039e-02, 6.12382180e-02, 2.00700000e+03],
+            5.41702485e-02, 5.36329180e-02, 2.00700000e+03],
            [1.00000000e+00, 0.00000000e+00, 0.00000000e+00, ...,
             5.00000000e-02, 5.00000000e-02, 2.00500000e+03],
            [1.00000000e+00, 0.00000000e+00, 0.00000000e+00, ...,
@@ -1301,7 +1301,7 @@ having a permanent, full-time job :)
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 2 minutes  36.638 seconds)
+   **Total running time of the script:** ( 2 minutes  50.058 seconds)
 
 
 .. _sphx_glr_download_auto_examples_01_dirty_categories.py:
