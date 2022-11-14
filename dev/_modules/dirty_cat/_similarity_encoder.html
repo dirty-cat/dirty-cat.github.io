@@ -349,6 +349,32 @@
 <span class="sd">        maximum number of processes used to compute similarity matrices. Used</span>
 <span class="sd">        only if ``fast=True`` in ``SimilarityEncoder.transform``</span>
 
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; enc = SimilarityEncoder()</span>
+<span class="sd">    &gt;&gt;&gt; X = [[&#39;Male&#39;, 1], [&#39;Female&#39;, 3], [&#39;Female&#39;, 2]]</span>
+<span class="sd">    &gt;&gt;&gt; enc.fit(X)</span>
+<span class="sd">    SimilarityEncoder()</span>
+
+<span class="sd">    It inherits the same methods as sklearn&#39;s :class:`~sklearn.preprocessing.OneHotEncoder`:</span>
+
+<span class="sd">    &gt;&gt;&gt; enc.categories_</span>
+<span class="sd">    [array([&#39;Female&#39;, &#39;Male&#39;], dtype=object), array([1, 2, 3], dtype=object)]</span>
+
+<span class="sd">    But it provides a continuous encoding based on similarity</span>
+<span class="sd">    instead of a discrete one based on exact matches:</span>
+
+<span class="sd">    &gt;&gt;&gt; enc.transform([[&#39;Female&#39;, 1], [&#39;Male&#39;, 4]])</span>
+<span class="sd">    array([[1., 0.42857143, 1., 0., 0.],</span>
+<span class="sd">           [0.42857143, 1., 0. , 0. , 0.]])</span>
+
+<span class="sd">    &gt;&gt;&gt; enc.inverse_transform([[1., 0.42857143, 1., 0., 0.], [0.42857143, 1., 0. , 0. , 0.]])</span>
+<span class="sd">    array([[&#39;Female&#39;, 1],</span>
+<span class="sd">           [&#39;Male&#39;, None]], dtype=object)</span>
+
+<span class="sd">    &gt;&gt;&gt; enc.get_feature_names([&#39;gender&#39;, &#39;group&#39;])</span>
+<span class="sd">    array([&#39;gender_Female&#39;, &#39;gender_Male&#39;, &#39;group_1&#39;, &#39;group_2&#39;, &#39;group_3&#39;], ...)</span>
+
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
 <span class="sd">    categories_ : typing.List[np.array]</span>
