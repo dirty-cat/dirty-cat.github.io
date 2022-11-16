@@ -102,12 +102,15 @@
 <span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Fetching functions to retrieve example datasets, using</span>
 <span class="sd">Scikit-Learn&#39;s ``fetch_openml()`` function.</span>
+
+<span class="sd">Public API functions should return either a `DatasetInfoOnly` or a `DatasetAll`.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="c1"># Future notes:</span>
 <span class="c1"># - Watch out for ``fetch_openml()`` API modifications:</span>
 <span class="c1"># as of january 2021, the function is marked as experimental.</span>
 
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">import</span> <span class="nn">gzip</span>
 <span class="kn">import</span> <span class="nn">json</span>
@@ -115,7 +118,7 @@
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
 <span class="kn">from</span> <span class="nn">urllib.error</span> <span class="kn">import</span> <span class="n">URLError</span>
 <span class="kn">from</span> <span class="nn">zipfile</span> <span class="kn">import</span> <span class="n">BadZipFile</span><span class="p">,</span> <span class="n">ZipFile</span>
 
@@ -183,7 +186,24 @@
     <span class="n">X</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span>
     <span class="n">y</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span>
     <span class="n">path</span><span class="p">:</span> <span class="n">Path</span>
-    <span class="n">read_csv_kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span></div>
+    <span class="n">read_csv_kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">DatasetAll</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Implemented for the tests to work without bloating the code.</span>
+<span class="sd">        The main reason for which it&#39;s needed is that equality between</span>
+<span class="sd">        DataFrames (X and y) is often ambiguous and will raise an error.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">name</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">description</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">description</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">source</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">source</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">target</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">target</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">equals</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">X</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">equals</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">path</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_csv_kwargs</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">read_csv_kwargs</span>
+        <span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="DatasetInfoOnly"><a class="viewcode-back" href="../../../generated/dirty_cat.datasets.DatasetInfoOnly.html#dirty_cat.datasets.DatasetInfoOnly">[docs]</a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">unsafe_hash</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -205,7 +225,7 @@
     <span class="n">read_csv_kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span></div>
 
 
-<span class="k">def</span> <span class="nf">fetch_openml_dataset</span><span class="p">(</span>
+<span class="k">def</span> <span class="nf">_fetch_openml_dataset</span><span class="p">(</span>
     <span class="n">dataset_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
     <span class="n">data_directory</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="n">get_data_dir</span><span class="p">(),</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
@@ -318,17 +338,16 @@
 <span class="sd">              saved as a CSV file.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># See if file available locally :</span>
     <span class="n">path</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">data_directory</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">indicator_id</span><span class="si">}</span><span class="s2">.csv&quot;</span>
-    <span class="n">csv_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="n">csv_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
     <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;https://api.worldbank.org/v2/en/indicator/</span><span class="si">{</span><span class="n">indicator_id</span><span class="si">}</span><span class="s2">?downloadformat=csv&quot;</span>  <span class="c1"># noqa</span>
-    <span class="k">if</span> <span class="n">csv_path</span><span class="o">.</span><span class="n">is_file</span><span class="p">()</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">csv_path</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
         <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">csv_path</span><span class="p">,</span> <span class="n">nrows</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
         <span class="n">indicator_name</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;Could not find the dataset </span><span class="si">{</span><span class="n">indicator_id</span><span class="si">}</span><span class="s2"> locally. &quot;</span>
-            <span class="s2">&quot;Downloading it from World Bank data; this might take a while... &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;Could not find the dataset </span><span class="si">{</span><span class="n">indicator_id</span><span class="si">!r}</span><span class="s2"> locally. &quot;</span>
+            <span class="s2">&quot;Downloading it from the World Bank; this might take a while... &quot;</span>
             <span class="s2">&quot;If it is interrupted, some files might be invalid/incomplete: &quot;</span>
             <span class="s2">&quot;if on the following run, the fetching raises errors, you can try &quot;</span>
             <span class="sa">f</span><span class="s2">&quot;fixing this issue by deleting the directory </span><span class="si">{</span><span class="n">csv_path</span><span class="si">!s}</span><span class="s2">.&quot;</span><span class="p">,</span>
@@ -341,32 +360,34 @@
             <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">zip_file_object</span><span class="o">.</span><span class="n">namelist</span><span class="p">():</span>
                 <span class="k">if</span> <span class="s2">&quot;Metadata&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">name</span><span class="p">:</span>
                     <span class="n">true_file</span> <span class="o">=</span> <span class="n">name</span>
+                    <span class="k">break</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span>
+                    <span class="s2">&quot;Could not find any non-metadata file &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;for indicator </span><span class="si">{</span><span class="n">indicator_id</span><span class="si">!r}</span><span class="s2">.&quot;</span>
+                <span class="p">)</span>
             <span class="n">file</span> <span class="o">=</span> <span class="n">zip_file_object</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">true_file</span><span class="p">)</span>
-        <span class="k">except</span> <span class="n">BadZipFile</span><span class="p">:</span>
+        <span class="k">except</span> <span class="n">BadZipFile</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;Couldn&#39;t find csv file, the indicator id </span><span class="si">{</span><span class="n">indicator_id</span><span class="si">}</span><span class="s2"> seems invalid.&quot;</span>  <span class="c1"># noqa</span>
-            <span class="p">)</span>
+                <span class="s2">&quot;Couldn&#39;t find csv file, the indicator id &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">indicator_id</span><span class="si">!r}</span><span class="s2"> seems invalid.&quot;</span>
+            <span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
         <span class="k">except</span> <span class="n">URLError</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">URLError</span><span class="p">(</span><span class="s2">&quot;No internet connection or the website is down.&quot;</span><span class="p">)</span>  <span class="c1"># noqa</span>
-        <span class="c1"># Read and modify csv file</span>
-        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">URLError</span><span class="p">(</span><span class="s2">&quot;No internet connection or the website is down.&quot;</span><span class="p">)</span>
+        <span class="c1"># Read and modify the csv file</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>  <span class="c1"># FIXME: why three rows?</span>
         <span class="n">indicator_name</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
         <span class="n">df</span><span class="p">[</span><span class="n">indicator_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">stack</span><span class="p">()</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">last</span><span class="p">()</span>
         <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="n">indicator_name</span><span class="p">]</span> <span class="o">!=</span> <span class="n">indicator_id</span><span class="p">]</span>
         <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s2">&quot;Country Name&quot;</span><span class="p">,</span> <span class="n">indicator_name</span><span class="p">]]</span>
-        <span class="c1"># Save the file</span>
-        <span class="n">data_directory</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="n">csv_path</span> <span class="o">=</span> <span class="n">data_directory</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span> <span class="o">/</span> <span class="p">(</span><span class="n">indicator_id</span> <span class="o">+</span> <span class="s2">&quot;.csv&quot;</span><span class="p">)</span>
+
         <span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">csv_path</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="n">description</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="sa">f</span><span class="s2">&quot;This table shows the </span><span class="si">{</span><span class="n">indicator_name</span><span class="si">}</span><span class="s2"> World Bank indicator.&quot;</span>
-        <span class="s2">&quot; It can be used as an input table for fuzzy_join.&quot;</span>
-    <span class="p">)</span>
+    <span class="n">description</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;This table shows the </span><span class="si">{</span><span class="n">indicator_name</span><span class="si">!r}</span><span class="s2"> World Bank indicator.&quot;</span>
     <span class="k">return</span> <span class="p">{</span>
         <span class="s2">&quot;dataset_name&quot;</span><span class="p">:</span> <span class="n">indicator_name</span><span class="p">,</span>
         <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="n">description</span><span class="p">,</span>
         <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="n">url</span><span class="p">,</span>
-        <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="n">csv_path</span><span class="o">.</span><span class="n">resolve</span><span class="p">(),</span>
+        <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="n">csv_path</span><span class="p">,</span>
     <span class="p">}</span>
 
 
@@ -516,23 +537,27 @@
     <span class="k">return</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">features</span><span class="o">.</span><span class="n">names</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">fetch_dataset_as_dataclass</span><span class="p">(</span>
+<span class="k">def</span> <span class="nf">_fetch_dataset_as_dataclass</span><span class="p">(</span>
+    <span class="n">source</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">dataset_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="n">dataset_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-    <span class="n">target</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="n">read_csv_kwargs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+    <span class="n">dataset_id</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>
+    <span class="n">target</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
     <span class="n">load_dataframe</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
-    <span class="n">source</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;openml&quot;</span><span class="p">,</span>
+    <span class="n">read_csv_kwargs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">DatasetAll</span><span class="p">,</span> <span class="n">DatasetInfoOnly</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Takes a dataset identifier, a target column name,</span>
+<span class="sd">    Takes a dataset identifier, a target column name (if applicable),</span>
 <span class="sd">    and some additional keyword arguments for `pd.read_csv`.</span>
 
 <span class="sd">    If you don&#39;t need the dataset to be loaded in memory,</span>
 <span class="sd">    pass `load_dataframe=False`.</span>
 
-<span class="sd">    If you are loading data from the World Bank platform,</span>
-<span class="sd">    you need to specify `source=&#39;world_bank&#39;`.</span>
+<span class="sd">    For loading data from:</span>
+<span class="sd">    - the World Bank platform, specify `source=&quot;world_bank&quot;`.</span>
+<span class="sd">    - OpenML, specify `source=&quot;openml&quot;`</span>
+
+<span class="sd">    If the dataset doesn&#39;t have a target (unsupervised learning or inapplicable),</span>
+<span class="sd">    explicitly specify `target=None`.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -544,9 +569,18 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">source</span> <span class="o">==</span> <span class="s2">&quot;openml&quot;</span><span class="p">:</span>
-        <span class="n">info</span> <span class="o">=</span> <span class="n">fetch_openml_dataset</span><span class="p">(</span><span class="n">dataset_id</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">source</span> <span class="o">==</span> <span class="s2">&quot;world_bank&quot;</span><span class="p">:</span>
+        <span class="n">info</span> <span class="o">=</span> <span class="n">_fetch_openml_dataset</span><span class="p">(</span><span class="n">dataset_id</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">source</span> <span class="o">==</span> <span class="s2">&quot;world_bank&quot;</span><span class="p">:</span>
         <span class="n">info</span> <span class="o">=</span> <span class="n">_fetch_world_bank_data</span><span class="p">(</span><span class="n">dataset_id</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unknown source </span><span class="si">{</span><span class="n">source</span><span class="si">!r}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">read_csv_kwargs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">read_csv_kwargs</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">if</span> <span class="n">target</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">target</span> <span class="o">=</span> <span class="p">[]</span>
+
     <span class="k">if</span> <span class="n">load_dataframe</span><span class="p">:</span>
         <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="s2">&quot;path&quot;</span><span class="p">],</span> <span class="o">**</span><span class="n">read_csv_kwargs</span><span class="p">)</span>
         <span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">target</span><span class="p">]</span>
@@ -609,7 +643,8 @@
 <span class="sd">    DatasetInfoOnly</span>
 <span class="sd">        If `load_dataframe=False`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">dataset</span> <span class="o">=</span> <span class="n">fetch_dataset_as_dataclass</span><span class="p">(</span>
+    <span class="n">dataset</span> <span class="o">=</span> <span class="n">_fetch_dataset_as_dataclass</span><span class="p">(</span>
+        <span class="n">source</span><span class="o">=</span><span class="s2">&quot;openml&quot;</span><span class="p">,</span>
         <span class="n">dataset_name</span><span class="o">=</span><span class="s2">&quot;Employee salaries&quot;</span><span class="p">,</span>
         <span class="n">dataset_id</span><span class="o">=</span><span class="n">EMPLOYEE_SALARIES_ID</span><span class="p">,</span>
         <span class="n">target</span><span class="o">=</span><span class="s2">&quot;current_annual_salary&quot;</span><span class="p">,</span>
@@ -651,7 +686,8 @@
 <span class="sd">    DatasetInfoOnly</span>
 <span class="sd">        If `load_dataframe=False`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">fetch_dataset_as_dataclass</span><span class="p">(</span>
+    <span class="k">return</span> <span class="n">_fetch_dataset_as_dataclass</span><span class="p">(</span>
+        <span class="n">source</span><span class="o">=</span><span class="s2">&quot;openml&quot;</span><span class="p">,</span>
         <span class="n">dataset_name</span><span class="o">=</span><span class="s2">&quot;Road safety&quot;</span><span class="p">,</span>
         <span class="n">dataset_id</span><span class="o">=</span><span class="n">ROAD_SAFETY_ID</span><span class="p">,</span>
         <span class="n">target</span><span class="o">=</span><span class="s2">&quot;Sex_of_Driver&quot;</span><span class="p">,</span>
@@ -686,7 +722,8 @@
 <span class="sd">    DatasetInfoOnly</span>
 <span class="sd">        If `load_dataframe=False`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">fetch_dataset_as_dataclass</span><span class="p">(</span>
+    <span class="k">return</span> <span class="n">_fetch_dataset_as_dataclass</span><span class="p">(</span>
+        <span class="n">source</span><span class="o">=</span><span class="s2">&quot;openml&quot;</span><span class="p">,</span>
         <span class="n">dataset_name</span><span class="o">=</span><span class="s2">&quot;Medical charge&quot;</span><span class="p">,</span>
         <span class="n">dataset_id</span><span class="o">=</span><span class="n">MEDICAL_CHARGE_ID</span><span class="p">,</span>
         <span class="n">target</span><span class="o">=</span><span class="s2">&quot;Average_Total_Payments&quot;</span><span class="p">,</span>
@@ -715,7 +752,8 @@
 <span class="sd">    DatasetInfoOnly</span>
 <span class="sd">        If `load_dataframe=False`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">fetch_dataset_as_dataclass</span><span class="p">(</span>
+    <span class="k">return</span> <span class="n">_fetch_dataset_as_dataclass</span><span class="p">(</span>
+        <span class="n">source</span><span class="o">=</span><span class="s2">&quot;openml&quot;</span><span class="p">,</span>
         <span class="n">dataset_name</span><span class="o">=</span><span class="s2">&quot;Midwest survey&quot;</span><span class="p">,</span>
         <span class="n">dataset_id</span><span class="o">=</span><span class="n">MIDWEST_SURVEY_ID</span><span class="p">,</span>
         <span class="n">target</span><span class="o">=</span><span class="s2">&quot;Census_Region&quot;</span><span class="p">,</span>
@@ -745,7 +783,8 @@
 <span class="sd">    DatasetInfoOnly</span>
 <span class="sd">        If `load_dataframe=False`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">fetch_dataset_as_dataclass</span><span class="p">(</span>
+    <span class="k">return</span> <span class="n">_fetch_dataset_as_dataclass</span><span class="p">(</span>
+        <span class="n">source</span><span class="o">=</span><span class="s2">&quot;openml&quot;</span><span class="p">,</span>
         <span class="n">dataset_name</span><span class="o">=</span><span class="s2">&quot;Open payments&quot;</span><span class="p">,</span>
         <span class="n">dataset_id</span><span class="o">=</span><span class="n">OPEN_PAYMENTS_ID</span><span class="p">,</span>
         <span class="n">target</span><span class="o">=</span><span class="s2">&quot;status&quot;</span><span class="p">,</span>
@@ -778,7 +817,8 @@
 <span class="sd">    DatasetInfoOnly</span>
 <span class="sd">        If `load_dataframe=False`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">fetch_dataset_as_dataclass</span><span class="p">(</span>
+    <span class="k">return</span> <span class="n">_fetch_dataset_as_dataclass</span><span class="p">(</span>
+        <span class="n">source</span><span class="o">=</span><span class="s2">&quot;openml&quot;</span><span class="p">,</span>
         <span class="n">dataset_name</span><span class="o">=</span><span class="s2">&quot;Traffic violations&quot;</span><span class="p">,</span>
         <span class="n">dataset_id</span><span class="o">=</span><span class="n">TRAFFIC_VIOLATIONS_ID</span><span class="p">,</span>
         <span class="n">target</span><span class="o">=</span><span class="s2">&quot;violation_type&quot;</span><span class="p">,</span>
@@ -809,7 +849,8 @@
 <span class="sd">    DatasetInfoOnly</span>
 <span class="sd">        If `load_dataframe=False`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">fetch_dataset_as_dataclass</span><span class="p">(</span>
+    <span class="k">return</span> <span class="n">_fetch_dataset_as_dataclass</span><span class="p">(</span>
+        <span class="n">source</span><span class="o">=</span><span class="s2">&quot;openml&quot;</span><span class="p">,</span>
         <span class="n">dataset_name</span><span class="o">=</span><span class="s2">&quot;Drug directory&quot;</span><span class="p">,</span>
         <span class="n">dataset_id</span><span class="o">=</span><span class="n">DRUG_DIRECTORY_ID</span><span class="p">,</span>
         <span class="n">target</span><span class="o">=</span><span class="s2">&quot;PRODUCTTYPENAME&quot;</span><span class="p">,</span>
@@ -841,13 +882,12 @@
 <span class="sd">    DatasetInfoOnly</span>
 <span class="sd">        If `load_dataframe=False`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">fetch_dataset_as_dataclass</span><span class="p">(</span>
-        <span class="n">dataset_name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;World Bank indicator </span><span class="si">{</span><span class="n">indicator_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
-        <span class="n">dataset_id</span><span class="o">=</span><span class="n">indicator_id</span><span class="p">,</span>
-        <span class="n">target</span><span class="o">=</span><span class="p">[],</span>
-        <span class="n">read_csv_kwargs</span><span class="o">=</span><span class="p">{},</span>
-        <span class="n">load_dataframe</span><span class="o">=</span><span class="n">load_dataframe</span><span class="p">,</span>
+    <span class="k">return</span> <span class="n">_fetch_dataset_as_dataclass</span><span class="p">(</span>
         <span class="n">source</span><span class="o">=</span><span class="s2">&quot;world_bank&quot;</span><span class="p">,</span>
+        <span class="n">dataset_name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;World Bank indicator </span><span class="si">{</span><span class="n">indicator_id</span><span class="si">!r}</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="n">dataset_id</span><span class="o">=</span><span class="n">indicator_id</span><span class="p">,</span>
+        <span class="n">target</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">load_dataframe</span><span class="o">=</span><span class="n">load_dataframe</span><span class="p">,</span>
     <span class="p">)</span></div>
 </pre></div>
 

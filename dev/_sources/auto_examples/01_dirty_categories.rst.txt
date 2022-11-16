@@ -94,8 +94,8 @@ We first retrieve the dataset:
 
  .. code-block:: none
 
-    /home/circleci/project/dirty_cat/datasets/_fetching.py:446: UserWarning: Could not find the dataset 42125 locally. Downloading it from OpenML; this might take a while... If it is interrupted, some files might be invalid/incomplete: if on the following run, the fetching raises errors, you can try fixing this issue by deleting the directory /home/circleci/project/dirty_cat/datasets/data.
-      info = fetch_openml_dataset(dataset_id)
+    /home/circleci/project/dirty_cat/datasets/_fetching.py:471: UserWarning: Could not find the dataset 42125 locally. Downloading it from OpenML; this might take a while... If it is interrupted, some files might be invalid/incomplete: if on the following run, the fetching raises errors, you can try fixing this issue by deleting the directory /home/circleci/project/dirty_cat/datasets/data.
+      info = _fetch_openml_dataset(dataset_id)
 
 
 
@@ -617,7 +617,7 @@ and store the returned cross-validation score:
     r2 score:  mean: 0.919; std: 0.012
 
     gap encoding
-    r2 score:  mean: 0.908; std: 0.014
+    r2 score:  mean: 0.906; std: 0.016
 
 
 
@@ -952,9 +952,9 @@ Let's perform a cross-validation to see how well this model predicts:
 
  .. code-block:: none
 
-    scores=[0.91448148 0.880241   0.91691421 0.92602457 0.93248424]
-    mean=0.9140290995824663
-    std=0.01808119453901255
+    scores=[0.9156227  0.89518292 0.92313878 0.8952304  0.90722051]
+    mean=0.9072790619205012
+    std=0.011069214251784034
 
 
 
@@ -1030,7 +1030,7 @@ The encoded data, X_train_enc and X_test_enc are numerical arrays:
 
 
     array([[0.00000000e+00, 1.00000000e+00, 0.00000000e+00, ...,
-            5.88447259e-02, 5.43764609e-02, 2.00700000e+03],
+            6.78041663e-02, 4.93470163e-01, 2.00700000e+03],
            [1.00000000e+00, 0.00000000e+00, 0.00000000e+00, ...,
             5.00000000e-02, 5.00000000e-02, 2.00500000e+03],
            [1.00000000e+00, 0.00000000e+00, 0.00000000e+00, ...,
@@ -1301,7 +1301,7 @@ having a permanent, full-time job :)
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 2 minutes  53.274 seconds)
+   **Total running time of the script:** ( 2 minutes  41.400 seconds)
 
 
 .. _sphx_glr_download_auto_examples_01_dirty_categories.py:
