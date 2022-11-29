@@ -158,6 +158,29 @@
 <span class="sd">    ----------</span>
 <span class="sd">    hash_dict_ : LRUDict</span>
 <span class="sd">        Computed hashes.</span>
+<span class="sd">    </span>
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; enc = MinHashEncoder(n_components=5)</span>
+
+<span class="sd">    Let&#39;s encode the following non-normalized data:</span>
+
+<span class="sd">    &gt;&gt;&gt; X = [[&#39;paris, FR&#39;], [&#39;Paris&#39;], [&#39;London, UK&#39;], [&#39;London&#39;]]</span>
+
+<span class="sd">    &gt;&gt;&gt; enc.fit(X)</span>
+<span class="sd">    MinHashEncoder()</span>
+
+<span class="sd">    The encoded data with 5 components are:</span>
+
+<span class="sd">    &gt;&gt;&gt; enc.transform(X)</span>
+<span class="sd">    array([[-1.78337518e+09, -1.58827021e+09, -1.66359234e+09,</span>
+<span class="sd">            -1.81988679e+09, -1.96259387e+09],</span>
+<span class="sd">           [-8.48046971e+08, -1.76657887e+09, -1.55891205e+09,</span>
+<span class="sd">            -1.48574446e+09, -1.68729890e+09],</span>
+<span class="sd">           [-1.97582893e+09, -2.09500033e+09, -1.59652117e+09,</span>
+<span class="sd">            -1.81759383e+09, -2.09569333e+09],</span>
+<span class="sd">           [-1.97582893e+09, -2.09500033e+09, -1.53072052e+09,</span>
+<span class="sd">            -1.45918266e+09, -1.58098831e+09]])</span>
 
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>

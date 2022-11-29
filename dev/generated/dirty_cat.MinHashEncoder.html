@@ -150,6 +150,30 @@ vectors filled with zeros.</p>
 <p class="rubric">References</p>
 <p>For a detailed description of the method, see
 <a class="reference external" href="https://hal.inria.fr/hal-02171256v4">Encoding high-cardinality string categorical variables</a> by Cerda, Varoquaux (2019).</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">enc</span> <span class="o">=</span> <span class="n">MinHashEncoder</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Let’s encode the following non-normalized data:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="p">[[</span><span class="s1">&#39;paris, FR&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;Paris&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;London, UK&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;London&#39;</span><span class="p">]]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">enc</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="go">MinHashEncoder()</span>
+</pre></div>
+</div>
+<p>The encoded data with 5 components are:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">enc</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="go">array([[-1.78337518e+09, -1.58827021e+09, -1.66359234e+09,</span>
+<span class="go">        -1.81988679e+09, -1.96259387e+09],</span>
+<span class="go">       [-8.48046971e+08, -1.76657887e+09, -1.55891205e+09,</span>
+<span class="go">        -1.48574446e+09, -1.68729890e+09],</span>
+<span class="go">       [-1.97582893e+09, -2.09500033e+09, -1.59652117e+09,</span>
+<span class="go">        -1.81759383e+09, -2.09569333e+09],</span>
+<span class="go">       [-1.97582893e+09, -2.09500033e+09, -1.53072052e+09,</span>
+<span class="go">        -1.45918266e+09, -1.58098831e+09]])</span>
+</pre></div>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
