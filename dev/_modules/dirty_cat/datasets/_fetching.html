@@ -339,6 +339,7 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">path</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">data_directory</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">indicator_id</span><span class="si">}</span><span class="s2">.csv&quot;</span>
+    <span class="n">Path</span><span class="p">(</span><span class="n">data_directory</span><span class="p">)</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">csv_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
     <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;https://api.worldbank.org/v2/en/indicator/</span><span class="si">{</span><span class="n">indicator_id</span><span class="si">}</span><span class="s2">?downloadformat=csv&quot;</span>  <span class="c1"># noqa</span>
     <span class="k">if</span> <span class="n">csv_path</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
