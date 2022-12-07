@@ -123,9 +123,8 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="dirty_cat.DatetimeEncoder">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">dirty_cat.</span></span><span class="sig-name descname"><span class="pre">DatetimeEncoder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">extract_until</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'hour'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add_day_of_the_week</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dirty_cat/_datetime_encoder.html#DatetimeEncoder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.DatetimeEncoder" title="Permalink to this definition">¶</a></dt>
-<dd><p>This encoder transforms each datetime column into several numeric columns
-corresponding to temporal features, e.g year, month, day…
-Constant extracted features are dropped; for instance, if the year is
+<dd><p>Transforms each datetime column into several numeric columns for temporal features (e.g year, month, day…).</p>
+<p>Constant extracted features are dropped; for instance, if the year is
 always the same in a feature, the extracted “year” column won’t be added.
 If the dates are timezone aware, all the features extracted will correspond
 to the provided timezone.</p>
@@ -138,7 +137,7 @@ which contains the time to epoch (in seconds).
 For instance, if you specify “day”, only “year”, “month”, “day” and
 “total_time” features will be created.</p>
 </dd>
-<dt><strong>add_day_of_the_week: bool, default=False</strong></dt><dd><p>Add day of the week feature (if day is extracted).
+<dt><strong>add_day_of_the_week</strong><span class="classifier">bool, default=False</span></dt><dd><p>Add day of the week feature (if day is extracted).
 This is a numerical feature from 0 (Monday) to 6 (Sunday).</p>
 </dd>
 </dl>

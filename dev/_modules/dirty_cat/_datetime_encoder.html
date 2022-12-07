@@ -140,8 +140,8 @@
 
 <div class="viewcode-block" id="DatetimeEncoder"><a class="viewcode-back" href="../../generated/dirty_cat.DatetimeEncoder.html#dirty_cat.DatetimeEncoder">[docs]</a><span class="k">class</span> <span class="nc">DatetimeEncoder</span><span class="p">(</span><span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">TransformerMixin</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    This encoder transforms each datetime column into several numeric columns</span>
-<span class="sd">    corresponding to temporal features, e.g year, month, day...</span>
+<span class="sd">    Transforms each datetime column into several numeric columns for temporal features (e.g year, month, day...).</span>
+
 <span class="sd">    Constant extracted features are dropped; for instance, if the year is</span>
 <span class="sd">    always the same in a feature, the extracted &quot;year&quot; column won&#39;t be added.</span>
 <span class="sd">    If the dates are timezone aware, all the features extracted will correspond</span>
@@ -155,7 +155,7 @@
 <span class="sd">        which contains the time to epoch (in seconds).</span>
 <span class="sd">        For instance, if you specify &quot;day&quot;, only &quot;year&quot;, &quot;month&quot;, &quot;day&quot; and</span>
 <span class="sd">        &quot;total_time&quot; features will be created.</span>
-<span class="sd">    add_day_of_the_week: bool, default=False</span>
+<span class="sd">    add_day_of_the_week : bool, default=False</span>
 <span class="sd">        Add day of the week feature (if day is extracted).</span>
 <span class="sd">        This is a numerical feature from 0 (Monday) to 6 (Sunday).</span>
 
