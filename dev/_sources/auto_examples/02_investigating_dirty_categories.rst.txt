@@ -247,6 +247,8 @@ representation to get an intuition of what the |SE| is doing:
 
  .. code-block:: none
 
+    /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/manifold/_mds.py:299: FutureWarning: The default value of `normalized_stress` will change to `'auto'` in version 1.4. To suppress this warning, manually set the value of `normalized_stress`.
+      warnings.warn(
     (385, 2)
     (385,)
 
@@ -339,8 +341,8 @@ We can also plot the distance matrix for those observations:
     cax2 = ax2.matshow(transformed_values[indices, :][:, indices])
     ax2.set_yticks(np.arange(len(indices)))
     ax2.set_xticks(np.arange(len(indices)))
-    ax2.set_yticklabels(sorted_values[indices], rotation="30")
-    ax2.set_xticklabels(sorted_values[indices], rotation="60", ha="right")
+    ax2.set_yticklabels(sorted_values[indices], rotation=30)
+    ax2.set_xticklabels(sorted_values[indices], rotation=60, ha="right")
     ax2.xaxis.tick_bottom()
     ax2.set_title("Similarities across categories")
     f2.colorbar(cax2)
@@ -550,7 +552,7 @@ effect latent categories captured from the data.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  7.898 seconds)
+   **Total running time of the script:** ( 0 minutes  10.663 seconds)
 
 
 .. _sphx_glr_download_auto_examples_02_investigating_dirty_categories.py:

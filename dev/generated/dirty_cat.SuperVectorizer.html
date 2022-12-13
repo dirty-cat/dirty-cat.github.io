@@ -128,7 +128,7 @@
 (such as a <a class="reference external" href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.5.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>) to a numerical array for machine
 learning. For this it transforms each column depending on its data type.
 It provides a simplified interface for the
-<a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.compose.ColumnTransformer.html#sklearn.compose.ColumnTransformer" title="(in scikit-learn v1.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.compose.ColumnTransformer</span></code></a>; more documentation of
+<a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.compose.ColumnTransformer.html#sklearn.compose.ColumnTransformer" title="(in scikit-learn v1.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.compose.ColumnTransformer</span></code></a>; more documentation of
 attributes and functions are available in its doc.</p>
 <div class="versionadded">
 <p><span class="versionmodified added">New in version 0.2.0.</span></p>
@@ -210,9 +210,9 @@ through. This subset of columns is concatenated with the output of
 the transformers.
 By setting <code class="docutils literal notranslate"><span class="pre">remainder</span></code> to be an estimator, the remaining
 non-specified columns will use the <code class="docutils literal notranslate"><span class="pre">remainder</span></code> estimator. The
-estimator must support <a class="reference external" href="https://scikit-learn.org/stable/glossary.html#term-fit" title="(in scikit-learn v1.1)"><span class="xref std std-term">fit</span></a> and <a class="reference external" href="https://scikit-learn.org/stable/glossary.html#term-transform" title="(in scikit-learn v1.1)"><span class="xref std std-term">transform</span></a>.
+estimator must support <a class="reference external" href="https://scikit-learn.org/stable/glossary.html#term-fit" title="(in scikit-learn v1.2)"><span class="xref std std-term">fit</span></a> and <a class="reference external" href="https://scikit-learn.org/stable/glossary.html#term-transform" title="(in scikit-learn v1.2)"><span class="xref std std-term">transform</span></a>.
 Note that using this feature requires that the DataFrame columns
-input at <a class="reference external" href="https://scikit-learn.org/stable/glossary.html#term-fit" title="(in scikit-learn v1.1)"><span class="xref std std-term">fit</span></a> and <a class="reference external" href="https://scikit-learn.org/stable/glossary.html#term-transform" title="(in scikit-learn v1.1)"><span class="xref std std-term">transform</span></a> have identical order.</p>
+input at <a class="reference external" href="https://scikit-learn.org/stable/glossary.html#term-fit" title="(in scikit-learn v1.2)"><span class="xref std std-term">fit</span></a> and <a class="reference external" href="https://scikit-learn.org/stable/glossary.html#term-transform" title="(in scikit-learn v1.2)"><span class="xref std std-term">transform</span></a> have identical order.</p>
 </dd>
 <dt><strong>sparse_threshold</strong><span class="classifier">float, optional, default=0.3</span></dt><dd><p>If the output of the different transformers contains sparse matrices,
 these will be stacked as a sparse matrix if the overall density is
@@ -238,7 +238,7 @@ printed as it is completed.</p>
 <p class="rubric">Notes</p>
 <p>The column order of the input data is not guaranteed to be the same
 as the output data (returned by <a class="reference internal" href="#dirty_cat.SuperVectorizer.transform" title="dirty_cat.SuperVectorizer.transform"><code class="xref py py-func docutils literal notranslate"><span class="pre">SuperVectorizer.transform()</span></code></a>).
-This is a due to the way the <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.compose.ColumnTransformer.html#sklearn.compose.ColumnTransformer" title="(in scikit-learn v1.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.compose.ColumnTransformer</span></code></a>
+This is a due to the way the <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.compose.ColumnTransformer.html#sklearn.compose.ColumnTransformer" title="(in scikit-learn v1.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.compose.ColumnTransformer</span></code></a>
 works.
 However, the output column order will always be the same for different
 calls to <a class="reference internal" href="#dirty_cat.SuperVectorizer.transform" title="dirty_cat.SuperVectorizer.transform"><code class="xref py py-func docutils literal notranslate"><span class="pre">SuperVectorizer.transform()</span></code></a> on a same fitted
@@ -291,10 +291,13 @@ Exists only if <cite>auto_cast=True</cite>.</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="#dirty_cat.SuperVectorizer.get_params" title="dirty_cat.SuperVectorizer.get_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_params</span></code></a>([deep])</p></td>
 <td><p>Get parameters for this estimator.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#dirty_cat.SuperVectorizer.set_params" title="dirty_cat.SuperVectorizer.set_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_params</span></code></a>(**kwargs)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#dirty_cat.SuperVectorizer.set_output" title="dirty_cat.SuperVectorizer.set_output"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_output</span></code></a>(*[, transform])</p></td>
+<td><p>Set the output container when <cite>&quot;transform&quot;</cite> and <cite>&quot;fit_transform&quot;</cite> are called.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#dirty_cat.SuperVectorizer.set_params" title="dirty_cat.SuperVectorizer.set_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_params</span></code></a>(**kwargs)</p></td>
 <td><p>Set the parameters of this estimator.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#dirty_cat.SuperVectorizer.transform" title="dirty_cat.SuperVectorizer.transform"><code class="xref py py-obj docutils literal notranslate"><span class="pre">transform</span></code></a>(X)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#dirty_cat.SuperVectorizer.transform" title="dirty_cat.SuperVectorizer.transform"><code class="xref py py-obj docutils literal notranslate"><span class="pre">transform</span></code></a>(X)</p></td>
 <td><p>Transform X by applying fitted transformers on each column, and concatenate the results.</p></td>
 </tr>
 </tbody>
@@ -407,6 +410,33 @@ contained subobjects that are estimators.</p>
 <p>Read-only attribute to access any transformer by given name.
 Keys are transformer names and values are the fitted transformer
 objects.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dirty_cat.SuperVectorizer.set_output">
+<span class="sig-name descname"><span class="pre">set_output</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dirty_cat.SuperVectorizer.set_output" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the output container when <cite>“transform”</cite> and <cite>“fit_transform”</cite> are called.</p>
+<p>Calling <cite>set_output</cite> will set the output of all estimators in <cite>transformers</cite>
+and <cite>transformers_</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>transform</strong><span class="classifier">{“default”, “pandas”}, default=None</span></dt><dd><p>Configure output of <cite>transform</cite> and <cite>fit_transform</cite>.</p>
+<ul class="simple">
+<li><p><cite>“default”</cite>: Default output format of a transformer</p></li>
+<li><p><cite>“pandas”</cite>: DataFrame output</p></li>
+<li><p><cite>None</cite>: Transform configuration is unchanged</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">estimator instance</span></dt><dd><p>Estimator instance.</p>
+</dd>
+</dl>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">

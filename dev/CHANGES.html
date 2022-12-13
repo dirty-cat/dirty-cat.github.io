@@ -200,12 +200,12 @@ in the <a class="reference internal" href="generated/dirty_cat.SuperVectorizer.h
 - Fixes the automatic casting logic in <code class="docutils literal notranslate"><span class="pre">transform</span></code>.
 - To avoid dimensionality explosion when a feature has two unique values,</p>
 <blockquote>
-<div><p>the default encoder (<a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.OneHotEncoder.html#sklearn.preprocessing.OneHotEncoder" title="(in scikit-learn v1.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">OneHotEncoder</span></code></a>) now drops one of the two
+<div><p>the default encoder (<a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.OneHotEncoder.html#sklearn.preprocessing.OneHotEncoder" title="(in scikit-learn v1.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">OneHotEncoder</span></code></a>) now drops one of the two
 vectors (see parameter <cite>drop=”if_binary”</cite>).</p>
 </div></blockquote>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">fit_transform</span></code> and <code class="docutils literal notranslate"><span class="pre">transform</span></code> can now return unencoded features,
-like the <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.compose.ColumnTransformer.html#sklearn.compose.ColumnTransformer" title="(in scikit-learn v1.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ColumnTransformer</span></code></a>’s behavior.
+like the <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.compose.ColumnTransformer.html#sklearn.compose.ColumnTransformer" title="(in scikit-learn v1.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ColumnTransformer</span></code></a>’s behavior.
 Previously, a <code class="docutils literal notranslate"><span class="pre">RuntimeError</span></code> was raised.</p></li>
 </ul>
 </li>
@@ -269,7 +269,7 @@ when using the <cite>get_feature_names_out</cite> method.</p></li>
 <dt>Improvements to the <a class="reference internal" href="generated/dirty_cat.MinHashEncoder.html#dirty_cat.MinHashEncoder" title="dirty_cat.MinHashEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">MinHashEncoder</span></code></a></dt><dd><ul class="simple">
 <li><p>It is now possible to fit multiple columns simultaneously with the <a class="reference internal" href="generated/dirty_cat.MinHashEncoder.html#dirty_cat.MinHashEncoder" title="dirty_cat.MinHashEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">MinHashEncoder</span></code></a>.</p></li>
 </ul>
-<p>Very useful when using for instance the <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.compose.make_column_transformer.html#sklearn.compose.make_column_transformer" title="(in scikit-learn v1.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_column_transformer()</span></code></a> method,
+<p>Very useful when using for instance the <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.compose.make_column_transformer.html#sklearn.compose.make_column_transformer" title="(in scikit-learn v1.2)"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_column_transformer()</span></code></a> method,
 on multiple columns.</p>
 </dd>
 </dl>
@@ -365,7 +365,7 @@ To try it, you have to install it manually using:</p>
 <li><p><a class="reference internal" href="generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SuperVectorizer</span></code></a>: Added automatic transform through the
 <a class="reference internal" href="generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SuperVectorizer</span></code></a> class. It transforms
 columns automatically based on their type. It provides a replacement
-for scikit-learn’s <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.compose.ColumnTransformer.html#sklearn.compose.ColumnTransformer" title="(in scikit-learn v1.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ColumnTransformer</span></code></a> simpler to use on heterogeneous
+for scikit-learn’s <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.compose.ColumnTransformer.html#sklearn.compose.ColumnTransformer" title="(in scikit-learn v1.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ColumnTransformer</span></code></a> simpler to use on heterogeneous
 pandas DataFrame.</p></li>
 <li><p><strong>Backward incompatible change to</strong> <a class="reference internal" href="generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder" title="dirty_cat.GapEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">GapEncoder</span></code></a>: The <a class="reference internal" href="generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder" title="dirty_cat.GapEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">GapEncoder</span></code></a> now only
 supports two-dimensional inputs of shape (n_samples, n_features).
