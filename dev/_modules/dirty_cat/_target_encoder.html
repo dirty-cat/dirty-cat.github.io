@@ -156,7 +156,7 @@
 <span class="sd">    ----------</span>
 <span class="sd">    n_features_in_: int</span>
 <span class="sd">        Number of features in the data seen during fit.</span>
-<span class="sd">    categories_ : typing.List[np.array]</span>
+<span class="sd">    categories_ : typing.List[np.ndarray]</span>
 <span class="sd">        The categories of each feature determined during fitting</span>
 <span class="sd">        (in order corresponding with output of ``transform``).</span>
 
@@ -170,7 +170,7 @@
 <span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; enc = TargetEncoder(handle_unknown=&#39;ignore&#39;)</span>
 <span class="sd">    &gt;&gt;&gt; X = [[&#39;male&#39;], [&#39;Male&#39;], [&#39;Female&#39;], [&#39;male&#39;], [&#39;Female&#39;]]</span>
-<span class="sd">    &gt;&gt;&gt; y = np.array([1, 2, 3, 4, 5])</span>
+<span class="sd">    &gt;&gt;&gt; y = np.ndarray([1, 2, 3, 4, 5])</span>
 
 <span class="sd">    &gt;&gt;&gt; enc.fit(X, y)</span>
 <span class="sd">    TargetEncoder(handle_unknown=&#39;ignore&#39;)</span>
@@ -195,12 +195,12 @@
 
     <span class="n">n_features_in_</span><span class="p">:</span> <span class="nb">int</span>
     <span class="n">_label_encoders_</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">LabelEncoder</span><span class="p">]</span>
-    <span class="n">categories_</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">]</span>
+    <span class="n">categories_</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span>
     <span class="n">n_</span><span class="p">:</span> <span class="nb">int</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">categories</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;auto&quot;</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">]]]</span> <span class="o">=</span> <span class="s2">&quot;auto&quot;</span><span class="p">,</span>
+        <span class="n">categories</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;auto&quot;</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]]]</span> <span class="o">=</span> <span class="s2">&quot;auto&quot;</span><span class="p">,</span>
         <span class="n">clf_type</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;regression&quot;</span><span class="p">,</span> <span class="s2">&quot;binary-clf&quot;</span><span class="p">,</span> <span class="s2">&quot;multiclass-clf&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;binary-clf&quot;</span><span class="p">,</span>
         <span class="n">dtype</span><span class="p">:</span> <span class="nb">type</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span>
         <span class="n">handle_unknown</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;ignore&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;error&quot;</span><span class="p">,</span>
@@ -312,7 +312,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">k_</span> <span class="o">=</span> <span class="p">{</span><span class="n">j</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">counter_</span><span class="p">[</span><span class="n">j</span><span class="p">])</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">counter_</span><span class="p">}</span>
         <span class="k">return</span> <span class="bp">self</span></div>
 
-<div class="viewcode-block" id="TargetEncoder.transform"><a class="viewcode-back" href="../../generated/dirty_cat.TargetEncoder.html#dirty_cat.TargetEncoder.transform">[docs]</a>    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">:</span>
+<div class="viewcode-block" id="TargetEncoder.transform"><a class="viewcode-back" href="../../generated/dirty_cat.TargetEncoder.html#dirty_cat.TargetEncoder.transform">[docs]</a>    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Transform X using the specified encoding scheme.</span>
 
@@ -323,7 +323,7 @@
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        2-d np.array</span>
+<span class="sd">        2-d np.ndarray</span>
 <span class="sd">            Transformed input.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">check_is_fitted</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attributes</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;n_features_in_&quot;</span><span class="p">])</span>
