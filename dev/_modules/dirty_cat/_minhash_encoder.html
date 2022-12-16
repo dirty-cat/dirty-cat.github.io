@@ -117,17 +117,22 @@
 <span class="sd">morphological similarities between strings.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">Tuple</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Collection</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">Tuple</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">joblib</span> <span class="kn">import</span> <span class="n">Parallel</span><span class="p">,</span> <span class="n">delayed</span><span class="p">,</span> <span class="n">effective_n_jobs</span>
 <span class="kn">from</span> <span class="nn">sklearn.base</span> <span class="kn">import</span> <span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">TransformerMixin</span>
-<span class="kn">from</span> <span class="nn">sklearn.utils</span> <span class="kn">import</span> <span class="n">murmurhash3_32</span>
+<span class="kn">from</span> <span class="nn">sklearn.utils</span> <span class="kn">import</span> <span class="n">gen_even_slices</span><span class="p">,</span> <span class="n">murmurhash3_32</span>
 
 <span class="kn">from</span> <span class="nn">._fast_hash</span> <span class="kn">import</span> <span class="n">ngram_min_hash</span>
 <span class="kn">from</span> <span class="nn">._string_distances</span> <span class="kn">import</span> <span class="n">get_unique_ngrams</span>
 <span class="kn">from</span> <span class="nn">._utils</span> <span class="kn">import</span> <span class="n">LRUDict</span><span class="p">,</span> <span class="n">check_input</span>
 
 <span class="n">NoneType</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+
+
+<span class="c1"># Ignore lines too long, as links in the docstring cannot be cut.</span>
+<span class="c1"># flake8: noqa: E501</span>
 
 
 <div class="viewcode-block" id="MinHashEncoder"><a class="viewcode-back" href="../../generated/dirty_cat.MinHashEncoder.html#dirty_cat.MinHashEncoder">[docs]</a><span class="k">class</span> <span class="nc">MinHashEncoder</span><span class="p">(</span><span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">TransformerMixin</span><span class="p">):</span>
@@ -153,6 +158,14 @@
 <span class="sd">    handle_missing : typing.Literal[&quot;error&quot;, &quot;zero_impute&quot;], default=zero_impute</span>
 <span class="sd">        Whether to raise an error or encode missing values (NaN) with</span>
 <span class="sd">        vectors filled with zeros.</span>
+<span class="sd">    n_jobs : int, default=None</span>
+<span class="sd">        The number of jobs to run in parallel.</span>
+<span class="sd">        The hash computations for all unique elements are parallelized.</span>
+<span class="sd">        None means 1 unless in a</span>
+<span class="sd">        `joblib.parallel_backend context &lt;https://joblib.readthedocs.io/en/latest/parallel.html&gt;`_.</span>
+<span class="sd">        -1 means using all processors.</span>
+<span class="sd">        See `Scikit-learn Glossary &lt;https://scikit-learn.org/stable/glossary.html#term-n_jobs&gt;`_</span>
+<span class="sd">        for more details.</span>
 
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
@@ -201,12 +214,14 @@
         <span class="n">hashing</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;fast&quot;</span><span class="p">,</span> <span class="s2">&quot;murmur&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;fast&quot;</span><span class="p">,</span>
         <span class="n">minmax_hash</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">handle_missing</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;zero_impute&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;zero_impute&quot;</span><span class="p">,</span>
+        <span class="n">n_jobs</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ngram_range</span> <span class="o">=</span> <span class="n">ngram_range</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">n_components</span> <span class="o">=</span> <span class="n">n_components</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">hashing</span> <span class="o">=</span> <span class="n">hashing</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">minmax_hash</span> <span class="o">=</span> <span class="n">minmax_hash</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">handle_missing</span> <span class="o">=</span> <span class="n">handle_missing</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_jobs</span> <span class="o">=</span> <span class="n">n_jobs</span>
 
     <span class="k">def</span> <span class="nf">_more_tags</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -222,12 +237,6 @@
 <span class="sd">        ----------</span>
 <span class="sd">        string : str</span>
 <span class="sd">            The string to encode.</span>
-<span class="sd">        n_components : int</span>
-<span class="sd">            The number of dimension of encoded string.</span>
-<span class="sd">        ngram_range : typing.Tuple[int, int]</span>
-<span class="sd">            The lower and upper boundaries of the range of n-values for</span>
-<span class="sd">            different n-grams to be extracted.</span>
-<span class="sd">            All values of n such that min_n &lt;= n &lt;= max_n.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -278,6 +287,36 @@
                 <span class="p">]</span>
             <span class="p">)</span>
 
+    <span class="k">def</span> <span class="nf">_compute_hash_batched</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">:</span> <span class="n">Collection</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">hash_func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">str</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Function called to compute the hashes of a batch of strings.</span>
+
+<span class="sd">        Check if the string is in the hash dictionary, if not, compute the hash using</span>
+<span class="sd">        the specified hashing function and add it to the dictionary.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        batch : iterable of str</span>
+<span class="sd">            The batch of strings to encode.</span>
+<span class="sd">        hash_func : callable</span>
+<span class="sd">            Hashing function to use on the string.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        np.array of shape (n_samples, n_components)</span>
+<span class="sd">            The encoded strings, using specified encoding scheme.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">batch</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_components</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">string</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">batch</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">string</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">hash_dict_</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">string</span> <span class="o">==</span> <span class="s2">&quot;NAN&quot;</span><span class="p">:</span>  <span class="c1"># true if x is a missing value</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">hash_dict_</span><span class="p">[</span><span class="n">string</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_components</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">hash_dict_</span><span class="p">[</span><span class="n">string</span><span class="p">]</span> <span class="o">=</span> <span class="n">hash_func</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+            <span class="n">res</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hash_dict_</span><span class="p">[</span><span class="n">string</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">res</span>
+
 <div class="viewcode-block" id="MinHashEncoder.fit"><a class="viewcode-back" href="../../generated/dirty_cat.MinHashEncoder.html#dirty_cat.MinHashEncoder.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;MinHashEncoder&quot;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Fit the MinHashEncoder to X. In practice, just initializes a dictionary</span>
@@ -286,7 +325,7 @@
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        X : array-like, shape (n_samples, ) or (n_samples, 1)</span>
-<span class="sd">            The string data to encode.</span>
+<span class="sd">            The string data to encode. Only here for compatibility.</span>
 <span class="sd">        y : None</span>
 <span class="sd">            Unused, only here for compatibility.</span>
 
@@ -305,7 +344,6 @@
                 <span class="sa">f</span><span class="s2">&quot;Got handle_missing=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">handle_missing</span><span class="si">!r}</span><span class="s2">, but expected &quot;</span>
                 <span class="s1">&#39;any of {&quot;error&quot;, &quot;zero_impute&quot;}. &#39;</span>
             <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">hash_dict_</span> <span class="o">=</span> <span class="n">LRUDict</span><span class="p">(</span><span class="n">capacity</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_capacity</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span></div>
 
@@ -325,62 +363,70 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">X</span> <span class="o">=</span> <span class="n">check_input</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">minmax_hash</span><span class="p">:</span>
-            <span class="k">assert</span> <span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">n_components</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span>
-            <span class="p">),</span> <span class="s2">&quot;n_components should be even when minmax_hash=True. &quot;</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_components</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;n_components should be even when using&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;minmax_hash encoding, got </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">n_components</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">hashing</span> <span class="o">==</span> <span class="s2">&quot;murmur&quot;</span><span class="p">:</span>
-            <span class="k">assert</span> <span class="p">(</span>
-                <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">minmax_hash</span>
-            <span class="p">),</span> <span class="s1">&#39;minmax_hash is not implemented with hashing=&quot;murmur&quot;. &#39;</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">minmax_hash</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;minmax_hash encoding is not supported&quot;</span>
+                    <span class="s2">&quot;with the murmur hashing function&quot;</span>
+                <span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_missing</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;zero_impute&quot;</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;handle_missing should be either &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;&#39;error&#39; or &#39;zero_impute&#39;, got </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">handle_missing</span><span class="si">!r}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
 
-        <span class="c1"># TODO: Parallelize</span>
-        <span class="n">is_nan_idx</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># Handle missing values</span>
+        <span class="n">missing_mask</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="o">~</span><span class="p">(</span><span class="n">X</span> <span class="o">==</span> <span class="n">X</span><span class="p">)</span>  <span class="c1"># Find np.nan</span>
+            <span class="o">|</span> <span class="p">(</span><span class="n">X</span> <span class="o">==</span> <span class="kc">None</span><span class="p">)</span>  <span class="c1"># Find None. Note: `X is None` doesn&#39;t work.</span>
+            <span class="o">|</span> <span class="p">(</span><span class="n">X</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>  <span class="c1"># Find empty strings</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">missing_mask</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>  <span class="c1"># contains at least one missing value</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_missing</span> <span class="o">==</span> <span class="s2">&quot;error&quot;</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;Found missing values in input data; set &quot;</span>
+                    <span class="s2">&quot;handle_missing=&#39;zero_impute&#39; to encode with missing values&quot;</span>
+                <span class="p">)</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_missing</span> <span class="o">==</span> <span class="s2">&quot;zero_impute&quot;</span><span class="p">:</span>
+                <span class="c1"># NANs will be replaced by zeroes in _compute_hash</span>
+                <span class="n">X</span><span class="p">[</span><span class="n">missing_mask</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;NAN&quot;</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">hashing</span> <span class="o">==</span> <span class="s2">&quot;fast&quot;</span><span class="p">:</span>
-            <span class="n">X_out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">[:]),</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_components</span> <span class="o">*</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
-            <span class="n">counter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_components</span>
-            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
-                <span class="n">X_in</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-                <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">X_in</span><span class="p">):</span>
-                    <span class="k">if</span> <span class="p">(</span>
-                        <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span>  <span class="c1"># true if x is a missing value</span>
-                        <span class="ow">or</span> <span class="n">x</span> <span class="ow">is</span> <span class="kc">None</span>
-                    <span class="p">):</span>
-                        <span class="n">is_nan_idx</span> <span class="o">=</span> <span class="kc">True</span>
-                    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                        <span class="n">is_nan_idx</span> <span class="o">=</span> <span class="kc">True</span>
-                    <span class="k">elif</span> <span class="n">x</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">hash_dict_</span><span class="p">:</span>
-                        <span class="n">X_out</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">k</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_components</span> <span class="p">:</span> <span class="n">counter</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hash_dict_</span><span class="p">[</span>
-                            <span class="n">x</span>
-                        <span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_fast_hash</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-                    <span class="k">else</span><span class="p">:</span>
-                        <span class="n">X_out</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">k</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_components</span> <span class="p">:</span> <span class="n">counter</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hash_dict_</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
-                <span class="n">counter</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_components</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">hashing</span> <span class="o">==</span> <span class="s2">&quot;murmur&quot;</span><span class="p">:</span>
-            <span class="n">X_out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">[:]),</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_components</span> <span class="o">*</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
-            <span class="n">counter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_components</span>
-            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
-                <span class="n">X_in</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-                <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">X_in</span><span class="p">):</span>
-                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span> <span class="ow">or</span> <span class="n">x</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                        <span class="n">is_nan_idx</span> <span class="o">=</span> <span class="kc">True</span>
-                    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                        <span class="n">is_nan_idx</span> <span class="o">=</span> <span class="kc">True</span>
-                    <span class="k">elif</span> <span class="n">x</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">hash_dict_</span><span class="p">:</span>
-                        <span class="n">X_out</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">k</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_components</span> <span class="p">:</span> <span class="n">counter</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hash_dict_</span><span class="p">[</span>
-                            <span class="n">x</span>
-                        <span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_murmur_hash</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-                    <span class="k">else</span><span class="p">:</span>
-                        <span class="n">X_out</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">k</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_components</span> <span class="p">:</span> <span class="n">counter</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hash_dict_</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
-                <span class="n">counter</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_components</span>
-
-        <span class="k">if</span> <span class="n">is_nan_idx</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_missing</span> <span class="o">==</span> <span class="s2">&quot;error&quot;</span><span class="p">:</span>
+            <span class="n">hash_func</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_fast_hash</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">hashing</span> <span class="o">==</span> <span class="s2">&quot;murmur&quot;</span><span class="p">:</span>
+            <span class="n">hash_func</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_murmur_hash</span>
+        <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="s2">&quot;Found missing values in input data; set &quot;</span>
-                <span class="s2">&quot;handle_missing=&#39;zero_impute&#39; &quot;</span>
-                <span class="s2">&quot;to encode with missing values. &quot;</span>
+                <span class="s2">&quot;Hashing function should be either &#39;fast&#39; or &#39;murmur&#39;, &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;got </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">hashing</span><span class="si">!r}</span><span class="s2">&quot;</span>
             <span class="p">)</span>
-        <span class="k">return</span> <span class="n">X_out</span></div></div>
+
+        <span class="c1"># Compute the hashes for unique values</span>
+        <span class="n">unique_x</span><span class="p">,</span> <span class="n">indices_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">return_inverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">n_jobs</span> <span class="o">=</span> <span class="n">effective_n_jobs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_jobs</span><span class="p">)</span>
+
+        <span class="c1"># Compute the hashes in parallel on n_jobs batches</span>
+        <span class="n">unique_x_trans</span> <span class="o">=</span> <span class="n">Parallel</span><span class="p">(</span><span class="n">n_jobs</span><span class="o">=</span><span class="n">n_jobs</span><span class="p">)(</span>
+            <span class="n">delayed</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_compute_hash_batched</span><span class="p">)(</span>
+                <span class="n">unique_x</span><span class="p">[</span><span class="n">idx_slice</span><span class="p">],</span>
+                <span class="n">hash_func</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="k">for</span> <span class="n">idx_slice</span> <span class="ow">in</span> <span class="n">gen_even_slices</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">unique_x</span><span class="p">),</span> 
+            <span class="n">n_jobs</span><span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Match the hashes of the unique value to the original values</span>
+        <span class="n">X_out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">unique_x_trans</span><span class="p">)[</span><span class="n">indices_x</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span>
+            <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_components</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">X_out</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>  <span class="c1"># The output is an int32 before conversion</span></div></div>
 </pre></div>
 
           </div>
