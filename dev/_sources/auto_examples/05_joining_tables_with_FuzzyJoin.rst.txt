@@ -262,17 +262,17 @@ We extract the table containing GDP per capita by country:
         <tr>
           <th>0</th>
           <td>Aruba</td>
-          <td>23384.298791</td>
+          <td>29342.100858</td>
         </tr>
         <tr>
           <th>1</th>
           <td>Africa Eastern and Southern</td>
-          <td>1557.722682</td>
+          <td>1537.336021</td>
         </tr>
         <tr>
           <th>2</th>
           <td>Afghanistan</td>
-          <td>516.747871</td>
+          <td>368.754614</td>
         </tr>
       </tbody>
     </table>
@@ -326,17 +326,17 @@ Then another table, with life expectancy by country:
         <tr>
           <th>0</th>
           <td>Aruba</td>
-          <td>76.434000</td>
+          <td>75.723000</td>
         </tr>
         <tr>
           <th>1</th>
           <td>Africa Eastern and Southern</td>
-          <td>64.325702</td>
+          <td>63.313856</td>
         </tr>
         <tr>
           <th>2</th>
           <td>Afghanistan</td>
-          <td>65.173000</td>
+          <td>62.575000</td>
         </tr>
       </tbody>
     </table>
@@ -538,7 +538,7 @@ original table (df), and those that we downloaded from the worldbank
         <tr>
           <th>253</th>
           <td>Vietnam</td>
-          <td>3694.019046</td>
+          <td>3756.489121</td>
         </tr>
         <tr>
           <th>252</th>
@@ -553,22 +553,22 @@ original table (df), and those that we downloaded from the worldbank
         <tr>
           <th>255</th>
           <td>World</td>
-          <td>12262.934615</td>
+          <td>12234.796802</td>
         </tr>
         <tr>
           <th>258</th>
           <td>Yemen, Rep.</td>
-          <td>690.759273</td>
+          <td>701.714878</td>
         </tr>
         <tr>
           <th>260</th>
           <td>Zambia</td>
-          <td>1120.630171</td>
+          <td>1137.343633</td>
         </tr>
         <tr>
           <th>261</th>
           <td>Zimbabwe</td>
-          <td>1737.173977</td>
+          <td>1773.920411</td>
         </tr>
       </tbody>
     </table>
@@ -657,7 +657,7 @@ To join them with dirty_cat, we only need to do the following:
           <td>Sri Lanka</td>
           <td>4362.0</td>
           <td>Sri Lanka</td>
-          <td>3814.715219</td>
+          <td>4013.687657</td>
           <td>1.000000</td>
         </tr>
         <tr>
@@ -665,7 +665,7 @@ To join them with dirty_cat, we only need to do the following:
           <td>Madagascar*</td>
           <td>4339.0</td>
           <td>Madagascar</td>
-          <td>514.905862</td>
+          <td>500.511032</td>
           <td>0.710141</td>
         </tr>
         <tr>
@@ -673,7 +673,7 @@ To join them with dirty_cat, we only need to do the following:
           <td>Egypt</td>
           <td>4288.0</td>
           <td>Egypt, Arab Rep.</td>
-          <td>3876.359594</td>
+          <td>3698.834981</td>
           <td>0.510738</td>
         </tr>
         <tr>
@@ -681,7 +681,7 @@ To join them with dirty_cat, we only need to do the following:
           <td>Chad*</td>
           <td>4251.0</td>
           <td>Chad</td>
-          <td>696.422776</td>
+          <td>685.690284</td>
           <td>0.552203</td>
         </tr>
         <tr>
@@ -689,7 +689,7 @@ To join them with dirty_cat, we only need to do the following:
           <td>Ethiopia</td>
           <td>4241.0</td>
           <td>Ethiopia</td>
-          <td>943.965684</td>
+          <td>925.077428</td>
           <td>1.000000</td>
         </tr>
         <tr>
@@ -697,7 +697,7 @@ To join them with dirty_cat, we only need to do the following:
           <td>Yemen*</td>
           <td>4197.0</td>
           <td>Yemen, Rep.</td>
-          <td>690.759273</td>
+          <td>701.714878</td>
           <td>0.510213</td>
         </tr>
         <tr>
@@ -705,7 +705,7 @@ To join them with dirty_cat, we only need to do the following:
           <td>Mauritania*</td>
           <td>4153.0</td>
           <td>Mauritania</td>
-          <td>1723.013866</td>
+          <td>2166.046799</td>
           <td>0.732338</td>
         </tr>
         <tr>
@@ -713,7 +713,7 @@ To join them with dirty_cat, we only need to do the following:
           <td>Jordan</td>
           <td>4152.0</td>
           <td>Jordan</td>
-          <td>4405.839424</td>
+          <td>4103.258966</td>
           <td>1.000000</td>
         </tr>
         <tr>
@@ -721,7 +721,7 @@ To join them with dirty_cat, we only need to do the following:
           <td>Togo</td>
           <td>4112.0</td>
           <td>Togo</td>
-          <td>992.328429</td>
+          <td>973.206129</td>
           <td>1.000000</td>
         </tr>
         <tr>
@@ -729,7 +729,7 @@ To join them with dirty_cat, we only need to do the following:
           <td>India</td>
           <td>3777.0</td>
           <td>India</td>
-          <td>2277.434347</td>
+          <td>2256.590409</td>
           <td>1.000000</td>
         </tr>
         <tr>
@@ -737,7 +737,7 @@ To join them with dirty_cat, we only need to do the following:
           <td>Zambia</td>
           <td>3760.0</td>
           <td>Zambia</td>
-          <td>1120.630171</td>
+          <td>1137.343633</td>
           <td>1.000000</td>
         </tr>
         <tr>
@@ -745,7 +745,7 @@ To join them with dirty_cat, we only need to do the following:
           <td>Malawi</td>
           <td>3750.0</td>
           <td>Malawi</td>
-          <td>642.656916</td>
+          <td>634.835660</td>
           <td>1.000000</td>
         </tr>
         <tr>
@@ -753,7 +753,7 @@ To join them with dirty_cat, we only need to do the following:
           <td>Tanzania</td>
           <td>3702.0</td>
           <td>Tanzania</td>
-          <td>1135.539673</td>
+          <td>1099.287598</td>
           <td>1.000000</td>
         </tr>
         <tr>
@@ -761,7 +761,7 @@ To join them with dirty_cat, we only need to do the following:
           <td>Sierra Leone</td>
           <td>3574.0</td>
           <td>Sierra Leone</td>
-          <td>515.932092</td>
+          <td>480.039211</td>
           <td>1.000000</td>
         </tr>
         <tr>
@@ -769,7 +769,7 @@ To join them with dirty_cat, we only need to do the following:
           <td>Lesotho*</td>
           <td>3512.0</td>
           <td>Lesotho</td>
-          <td>1166.461667</td>
+          <td>1094.098185</td>
           <td>0.653840</td>
         </tr>
         <tr>
@@ -777,7 +777,7 @@ To join them with dirty_cat, we only need to do the following:
           <td>Botswana*</td>
           <td>3471.0</td>
           <td>Botswana</td>
-          <td>7347.552382</td>
+          <td>6805.221274</td>
           <td>0.711254</td>
         </tr>
         <tr>
@@ -785,7 +785,7 @@ To join them with dirty_cat, we only need to do the following:
           <td>Rwanda*</td>
           <td>3268.0</td>
           <td>Rwanda</td>
-          <td>833.829876</td>
+          <td>822.347989</td>
           <td>0.652952</td>
         </tr>
         <tr>
@@ -793,7 +793,7 @@ To join them with dirty_cat, we only need to do the following:
           <td>Zimbabwe</td>
           <td>2995.0</td>
           <td>Zimbabwe</td>
-          <td>1737.173977</td>
+          <td>1773.920411</td>
           <td>1.000000</td>
         </tr>
         <tr>
@@ -801,7 +801,7 @@ To join them with dirty_cat, we only need to do the following:
           <td>Lebanon</td>
           <td>2955.0</td>
           <td>Lebanon</td>
-          <td>2670.441956</td>
+          <td>4136.146347</td>
           <td>1.000000</td>
         </tr>
         <tr>
@@ -809,7 +809,7 @@ To join them with dirty_cat, we only need to do the following:
           <td>Afghanistan</td>
           <td>2404.0</td>
           <td>Afghanistan</td>
-          <td>516.747871</td>
+          <td>368.754614</td>
           <td>1.000000</td>
         </tr>
       </tbody>
@@ -926,7 +926,7 @@ us an overview of the situation:
           <td>Ivory Coast</td>
           <td>5235.0</td>
           <td>East Asia &amp; Pacific</td>
-          <td>13037.462641</td>
+          <td>13041.781186</td>
           <td>0.343485</td>
         </tr>
         <tr>
@@ -934,7 +934,7 @@ us an overview of the situation:
           <td>Palestinian Territories*</td>
           <td>4483.0</td>
           <td>Palau</td>
-          <td>14243.864692</td>
+          <td>12083.888149</td>
           <td>0.344937</td>
         </tr>
         <tr>
@@ -942,7 +942,7 @@ us an overview of the situation:
           <td>Laos</td>
           <td>5140.0</td>
           <td>Lao PDR</td>
-          <td>2551.326081</td>
+          <td>2535.623432</td>
           <td>0.425257</td>
         </tr>
         <tr>
@@ -950,7 +950,7 @@ us an overview of the situation:
           <td>Turkey</td>
           <td>4744.0</td>
           <td>Turkiye</td>
-          <td>9586.612450</td>
+          <td>9661.235975</td>
           <td>0.431527</td>
         </tr>
       </tbody>
@@ -1041,7 +1041,7 @@ so as to include only precise-enough matches:
           <td>Laos</td>
           <td>5140.0</td>
           <td>Lao PDR</td>
-          <td>2551.326081</td>
+          <td>2535.623432</td>
           <td>0.425257</td>
         </tr>
         <tr>
@@ -1049,7 +1049,7 @@ so as to include only precise-enough matches:
           <td>Turkey</td>
           <td>4744.0</td>
           <td>Turkiye</td>
-          <td>9586.612450</td>
+          <td>9661.235975</td>
           <td>0.431527</td>
         </tr>
       </tbody>
@@ -1193,21 +1193,21 @@ life_exp table:
           <th>0</th>
           <td>Finland</td>
           <td>7821.0</td>
-          <td>53982.614274</td>
+          <td>53654.750296</td>
           <td>82.131707</td>
         </tr>
         <tr>
           <th>1</th>
           <td>Denmark</td>
           <td>7636.0</td>
-          <td>67803.047105</td>
+          <td>68007.756673</td>
           <td>81.551220</td>
         </tr>
         <tr>
           <th>2</th>
           <td>Iceland</td>
           <td>7557.0</td>
-          <td>68383.765336</td>
+          <td>68727.636665</td>
           <td>83.065854</td>
         </tr>
       </tbody>
@@ -1319,7 +1319,7 @@ And the table with a measure of legal rights strength in the country:
           <th>0</th>
           <td>Finland</td>
           <td>7821.0</td>
-          <td>53982.614274</td>
+          <td>53654.750296</td>
           <td>82.131707</td>
           <td>6.0</td>
         </tr>
@@ -1327,7 +1327,7 @@ And the table with a measure of legal rights strength in the country:
           <th>1</th>
           <td>Denmark</td>
           <td>7636.0</td>
-          <td>67803.047105</td>
+          <td>68007.756673</td>
           <td>81.551220</td>
           <td>8.0</td>
         </tr>
@@ -1335,7 +1335,7 @@ And the table with a measure of legal rights strength in the country:
           <th>2</th>
           <td>Iceland</td>
           <td>7557.0</td>
-          <td>68383.765336</td>
+          <td>68727.636665</td>
           <td>83.065854</td>
           <td>4.0</td>
         </tr>
@@ -1465,7 +1465,7 @@ Let's finally assess the results of our models:
 
  .. code-block:: none
 
-    Mean R2 score with 1 feature columns is 0.63 +- 0.00
+    Mean R2 score with 1 feature columns is 0.60 +- 0.03
 
 
 
@@ -1487,7 +1487,7 @@ beating our result!
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  1.174 seconds)
+   **Total running time of the script:** ( 0 minutes  1.327 seconds)
 
 
 .. _sphx_glr_download_auto_examples_05_joining_tables_with_FuzzyJoin.py:
