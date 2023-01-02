@@ -14,7 +14,7 @@
 <meta property="og:image:alt" content="dirty_cat" />
 <meta name="description" content="We discuss in this notebook how to efficiently apply the SimilarityEncoder to larger datasets: reducing the number of reference categories to prototypes, either chosen as the most frequent categori..." />
 
-    <title>Scalability considerations for similarity encoding &#8212; — dirty_cat</title>
+    <title>Scalability considerations for similarity encoding &#8212; dirty_cat</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css" />
@@ -277,7 +277,7 @@ a <a class="reference external" href="https://scikit-learn.org/stable/modules/ge
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Time to vectorize: </span><span class="si">{</span><a href="https://docs.python.org/3/library/functions.html#float" title="builtins.float" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">t1</span></a> <span class="o">-</span> <a href="https://docs.python.org/3/library/functions.html#float" title="builtins.float" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">t0</span></a><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">s&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Time to vectorize: 0.201s
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Time to vectorize: 0.188s
 </pre></div>
 </div>
 <p>Let’s now run a cross-validation:</p>
@@ -292,7 +292,7 @@ a <a class="reference external" href="https://scikit-learn.org/stable/modules/ge
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Cross-validation score: </span><span class="si">{</span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">results</span></a><span class="p">[</span><span class="s1">&#39;test_score&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Run time: 2.33s | Memory used: 13.14MB.
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Run time: 1.82s | Memory used: 13.14MB.
 Cross-validation score: [0.98513011 0.98884758 0.96641791 0.98134328 0.98880597]
 </pre></div>
 </div>
@@ -329,7 +329,7 @@ Here, we arbitrarily choose 100 as the number of prototypes we want to use.</p>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Cross-validation score: </span><span class="si">{</span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">results</span></a><span class="p">[</span><span class="s1">&#39;test_score&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Run time: 1.97s | Memory used: 9.69MB.
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Run time: 1.52s | Memory used: 9.69MB.
 Cross-validation score: [0.98513011 0.99256506 0.97014925 0.98507463 0.98880597]
 </pre></div>
 </div>
@@ -364,7 +364,7 @@ we chose here is arbitrary.</p>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Cross-validation score: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">results</span></a><span class="p">[</span><span class="s2">&quot;test_score&quot;</span><span class="p">])</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Run time: 4.71s | Memory used: 9.15MB.
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Run time: 4.12s | Memory used: 9.15MB.
 Cross-validation score: [0.98884758 0.99256506 0.97014925 0.98507463 0.98880597]
 </pre></div>
 </div>
@@ -390,7 +390,7 @@ Cross-validation score: [0.98884758 0.99256506 0.97014925 0.98507463 0.98880597]
 <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.tight_layout.html#matplotlib.pyplot.tight_layout" title="matplotlib.pyplot.tight_layout" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../_images/sphx_glr_04_dimension_reduction_and_performance_001.png" srcset="../_images/sphx_glr_04_dimension_reduction_and_performance_001.png" alt="04 dimension reduction and performance" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  15.528 seconds)</p>
+<img src="../_images/sphx_glr_04_dimension_reduction_and_performance_001.png" srcset="../_images/sphx_glr_04_dimension_reduction_and_performance_001.png" alt="04 dimension reduction and performance" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  13.778 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-04-dimension-reduction-and-performance-py">
 <div class="binder-badge docutils container">
 <a class="reference external image-reference" href="https://mybinder.org/v2/gh/dirty-cat/dirty-cat.github.io/main?filepath=dev/auto_examples/04_dimension_reduction_and_performance.ipynb"><img alt="Launch binder" src="../_images/binder_badge_logo.svg" width="150px" /></a>
@@ -414,7 +414,7 @@ Cross-validation score: [0.98884758 0.99256506 0.97014925 0.98507463 0.98880597]
     <div class="clearer"></div>
   </div>
     <div class="footer">
-      &copy;2018-2022, the dirty_cat developers.
+      &copy;2018-2023, the dirty_cat developers.
       
       |
       <a href="../_sources/auto_examples/04_dimension_reduction_and_performance.rst.txt"
