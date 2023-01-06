@@ -159,17 +159,26 @@
 <h2>Major changes<a class="headerlink" href="#major-changes" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>New experimental feature: joining tables using <a class="reference internal" href="generated/dirty_cat.fuzzy_join.html#dirty_cat.fuzzy_join" title="dirty_cat.fuzzy_join"><code class="xref py py-func docutils literal notranslate"><span class="pre">fuzzy_join()</span></code></a> by approximate key matching. Matches are based
-on string similarities and the nearest neighbors matches are found for each category. <a class="reference external" href="https://github.com/dirty-cat/dirty_cat/pull/291">#291</a> by <a class="reference external" href="https://github.com/jovan-stojanovic">Jovan Stojanovic</a> and <a class="reference external" href="https://github.com/LeoGrin">Leo Grinsztajn</a></p></li>
-<li><p><strong>datasets.fetching</strong>: contains a new function <code class="xref py py-func docutils literal notranslate"><span class="pre">fetch_world_bank_indicator()</span></code> that can be used to download any indicator from the World Bank Open Data platform. It only needs the indicator ID that can be found on the website. <a class="reference external" href="https://github.com/dirty-cat/dirty_cat/pull/291">#291</a> by <a class="reference external" href="https://github.com/jovan-stojanovic">Jovan Stojanovic</a></p></li>
-<li><p>Unnecessary API has been made private: everything (files, functions, classes) starting with an underscore shouldn’t be imported in your code. <a class="reference external" href="https://github.com/dirty-cat/dirty_cat/pull/331">#331</a> by <a class="reference external" href="https://github.com/LilianBoulard">Lilian Boulard</a></p></li>
-<li><p>The MinHashEncoder now supports a <cite>n_jobs</cite> parameter to parallelize the hashes computation. <a class="reference external" href="https://github.com/dirty-cat/dirty_cat/pull/267">#267</a> by <a class="reference external" href="https://github.com/LeoGrin">Leo Grinsztajn</a> and <a class="reference external" href="https://github.com/LilianBoulard">Lilian Boulard</a>.</p></li>
+on string similarities and the nearest neighbors matches are found for each category.</p></li>
+</ul>
+<p><a class="reference external" href="https://github.com/dirty-cat/dirty_cat/pull/291">#291</a> by <a class="reference external" href="https://github.com/jovan-stojanovic">Jovan Stojanovic</a> and <a class="reference external" href="https://github.com/LeoGrin">Leo Grinsztajn</a>
+* <strong>datasets.fetching</strong>: contains a new function <code class="xref py py-func docutils literal notranslate"><span class="pre">fetch_world_bank_indicator()</span></code></p>
+<blockquote>
+<div><p>that can be used to download any indicator from the World Bank Open Data platform.
+It only needs the indicator ID that can be found on the website. <a class="reference external" href="https://github.com/dirty-cat/dirty_cat/pull/291">#291</a> by <a class="reference external" href="https://github.com/jovan-stojanovic">Jovan Stojanovic</a></p>
+</div></blockquote>
+<ul class="simple">
+<li><p>Unnecessary API has been made private: everything (files, functions, classes)
+starting with an underscore shouldn’t be imported in your code. <a class="reference external" href="https://github.com/dirty-cat/dirty_cat/pull/331">#331</a> by <a class="reference external" href="https://github.com/LilianBoulard">Lilian Boulard</a></p></li>
+<li><p>The <a class="reference internal" href="generated/dirty_cat.MinHashEncoder.html#dirty_cat.MinHashEncoder" title="dirty_cat.MinHashEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">MinHashEncoder</span></code></a> now supports a <cite>n_jobs</cite> parameter to parallelize
+the hashes computation. <a class="reference external" href="https://github.com/dirty-cat/dirty_cat/pull/267">#267</a> by <a class="reference external" href="https://github.com/LeoGrin">Leo Grinsztajn</a> and <a class="reference external" href="https://github.com/LilianBoulard">Lilian Boulard</a>.</p></li>
 </ul>
 </section>
 <section id="minor-changes">
 <h2>Minor changes<a class="headerlink" href="#minor-changes" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Removed example <cite>Fitting scalable, non-linear models on data with dirty categories</cite>. <a class="reference external" href="https://github.com/dirty-cat/dirty_cat/pull/386">#386</a> by <a class="reference external" href="https://github.com/jovan-stojanovic">Jovan Stojanovic</a></p></li>
-<li><p><a class="reference internal" href="generated/dirty_cat.MinHashEncoder.html#dirty_cat.MinHashEncoder" title="dirty_cat.MinHashEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">MinHashEncoder</span></code></a>’s <cite>minhash</cite> method is no longer public. <a class="reference external" href="https://github.com/dirty-cat/dirty_cat/pull/379">#379</a> by <a class="reference external" href="https://github.com/jovan-stojanovic">Jovan Stojanovic</a></p></li>
+<li><p><a class="reference internal" href="generated/dirty_cat.MinHashEncoder.html#dirty_cat.MinHashEncoder" title="dirty_cat.MinHashEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">MinHashEncoder</span></code></a>’s <code class="xref py py-func docutils literal notranslate"><span class="pre">minhash()</span></code> method is no longer public. <a class="reference external" href="https://github.com/dirty-cat/dirty_cat/pull/379">#379</a> by <a class="reference external" href="https://github.com/jovan-stojanovic">Jovan Stojanovic</a></p></li>
 <li><p>Fetching functions now have an additional argument <code class="docutils literal notranslate"><span class="pre">directory</span></code>,
 which can be used to specify where to save and load from datasets.
 <a class="reference external" href="https://github.com/dirty-cat/dirty_cat/pull/432">#432</a> by <a class="reference external" href="https://github.com/LilianBoulard">Lilian Boulard</a></p></li>
@@ -178,7 +187,7 @@ which can be used to specify where to save and load from datasets.
 <section id="bug-fixes">
 <h2>Bug fixes<a class="headerlink" href="#bug-fixes" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="generated/dirty_cat.MinHashEncoder.html#dirty_cat.MinHashEncoder" title="dirty_cat.MinHashEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">MinHashEncoder</span></code></a> now considers <cite>None</cite> and empty strings as missing values, rather
+<li><p>The <a class="reference internal" href="generated/dirty_cat.MinHashEncoder.html#dirty_cat.MinHashEncoder" title="dirty_cat.MinHashEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">MinHashEncoder</span></code></a> now considers <cite>None</cite> and empty strings as missing values, rather
 than raising an error. <a class="reference external" href="https://github.com/dirty-cat/dirty_cat/pull/378">#378</a> by <a class="reference external" href="https://github.com/GaelVaroquaux">Gael Varoquaux</a></p></li>
 </ul>
 </section>
@@ -188,7 +197,9 @@ than raising an error. <a class="reference external" href="https://github.com/di
 <section id="id1">
 <h2>Major changes<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h2>
 <ul>
-<li><p>New encoder: <a class="reference internal" href="generated/dirty_cat.DatetimeEncoder.html#dirty_cat.DatetimeEncoder" title="dirty_cat.DatetimeEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">DatetimeEncoder</span></code></a> can transform a datetime column into several numerical columns (year, month, day, hour, minute, second, …). It is now the default transformer used in the <a class="reference internal" href="generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SuperVectorizer</span></code></a> for datetime columns. <a class="reference external" href="https://github.com/dirty-cat/dirty_cat/pull/239">#239</a> by <a class="reference external" href="https://github.com/LeoGrin">Leo Grinsztajn</a></p></li>
+<li><p>New encoder: <a class="reference internal" href="generated/dirty_cat.DatetimeEncoder.html#dirty_cat.DatetimeEncoder" title="dirty_cat.DatetimeEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">DatetimeEncoder</span></code></a> can transform a datetime column into several numerical columns
+(year, month, day, hour, minute, second, …). It is now the default transformer used
+in the <a class="reference internal" href="generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SuperVectorizer</span></code></a> for datetime columns. <a class="reference external" href="https://github.com/dirty-cat/dirty_cat/pull/239">#239</a> by <a class="reference external" href="https://github.com/LeoGrin">Leo Grinsztajn</a></p></li>
 <li><p>The <a class="reference internal" href="generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SuperVectorizer</span></code></a> has seen some major improvements and bug fixes:</p>
 <ul class="simple">
 <li><p>Fixes the automatic casting logic in <code class="docutils literal notranslate"><span class="pre">transform</span></code>.</p></li>
@@ -202,23 +213,26 @@ To apply <code class="docutils literal notranslate"><span class="pre">remainder<
 the value <code class="docutils literal notranslate"><span class="pre">'remainder'</span></code> must be passed, instead of <code class="docutils literal notranslate"><span class="pre">None</span></code> in previous versions.
 <code class="docutils literal notranslate"><span class="pre">None</span></code> now indicates that we want to use the default transformer. <a class="reference external" href="https://github.com/dirty-cat/dirty_cat/pull/303">#303</a> by <a class="reference external" href="https://github.com/LilianBoulard">Lilian Boulard</a></p></li>
 <li><p>Support for Python 3.6 and 3.7 has been dropped. Python &gt;= 3.8 is now required. <a class="reference external" href="https://github.com/dirty-cat/dirty_cat/pull/289">#289</a> by <a class="reference external" href="https://github.com/LilianBoulard">Lilian Boulard</a></p></li>
-<li><p>Bumped minimum dependencies:
-- scikit-learn&gt;=0.23
-- scipy&gt;=1.4.0
-- numpy&gt;=1.17.3
-- pandas&gt;=1.2.0 <a class="reference external" href="https://github.com/dirty-cat/dirty_cat/pull/299">#299</a> and <a class="reference external" href="https://github.com/dirty-cat/dirty_cat/pull/300">#300</a> by <a class="reference external" href="https://github.com/LilianBoulard">Lilian Boulard</a></p></li>
-<li><dl class="simple">
-<dt>Dropped support for Jaro, Jaro-Winkler and Levenshtein distances.</dt><dd><p>The <a class="reference internal" href="generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="dirty_cat.SimilarityEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimilarityEncoder</span></code></a> now exclusively uses <code class="docutils literal notranslate"><span class="pre">ngram</span></code> for similarities,
-and the <cite>similarity</cite> parameter is deprecated. It will be removed in 0.5. <a class="reference external" href="https://github.com/dirty-cat/dirty_cat/pull/282">#282</a> by <a class="reference external" href="https://github.com/LilianBoulard">Lilian Boulard</a></p>
-</dd>
-</dl>
+<li><p>Bumped minimum dependencies:</p>
+<ul class="simple">
+<li><p>scikit-learn&gt;=0.23</p></li>
+<li><p>scipy&gt;=1.4.0</p></li>
+<li><p>numpy&gt;=1.17.3</p></li>
+<li><p>pandas&gt;=1.2.0 <a class="reference external" href="https://github.com/dirty-cat/dirty_cat/pull/299">#299</a> and <a class="reference external" href="https://github.com/dirty-cat/dirty_cat/pull/300">#300</a> by <a class="reference external" href="https://github.com/LilianBoulard">Lilian Boulard</a></p></li>
+</ul>
+</li>
+<li><p>Dropped support for Jaro, Jaro-Winkler and Levenshtein distances.</p>
+<ul class="simple">
+<li><p>The <a class="reference internal" href="generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="dirty_cat.SimilarityEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimilarityEncoder</span></code></a> now exclusively uses <code class="docutils literal notranslate"><span class="pre">ngram</span></code> for similarities,
+and the <cite>similarity</cite> parameter is deprecated. It will be removed in 0.5. <a class="reference external" href="https://github.com/dirty-cat/dirty_cat/pull/282">#282</a> by <a class="reference external" href="https://github.com/LilianBoulard">Lilian Boulard</a></p></li>
+</ul>
 </li>
 </ul>
 </section>
 <section id="notes">
 <h2>Notes<a class="headerlink" href="#notes" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
-<li><p>The <code class="docutils literal notranslate"><span class="pre">transformers_</span></code> attribute of the SuperVectorizer now contains column
+<li><p>The <code class="docutils literal notranslate"><span class="pre">transformers_</span></code> attribute of the <a class="reference internal" href="generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SuperVectorizer</span></code></a> now contains column
 names instead of column indices for the “remainder” columns. <a class="reference external" href="https://github.com/dirty-cat/dirty_cat/pull/266">#266</a> by <a class="reference external" href="https://github.com/LeoGrin">Leo Grinsztajn</a></p></li>
 </ul>
 </section>
@@ -228,8 +242,8 @@ names instead of column indices for the “remainder” columns. <a class="refer
 <section id="id2">
 <h2>Bug fixes<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
-<li><p>Fixed a bug in the <a class="reference internal" href="generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SuperVectorizer</span></code></a> causing a <cite>FutureWarning</cite>
-when using the <cite>get_feature_names_out</cite> method. <a class="reference external" href="https://github.com/dirty-cat/dirty_cat/pull/262">#262</a> by <a class="reference external" href="https://github.com/LilianBoulard">Lilian Boulard</a></p></li>
+<li><p>Fixed a bug in the <a class="reference internal" href="generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SuperVectorizer</span></code></a> causing a <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#FutureWarning" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">FutureWarning</span></code></a>
+when using the <code class="xref py py-func docutils literal notranslate"><span class="pre">get_feature_names_out()</span></code> method. <a class="reference external" href="https://github.com/dirty-cat/dirty_cat/pull/262">#262</a> by <a class="reference external" href="https://github.com/LilianBoulard">Lilian Boulard</a></p></li>
 </ul>
 </section>
 </section>
@@ -238,18 +252,21 @@ when using the <cite>get_feature_names_out</cite> method. <a class="reference ex
 <section id="id3">
 <h2>Major changes<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
 <ul>
-<li><dl class="simple">
-<dt>Improvements to the <a class="reference internal" href="generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SuperVectorizer</span></code></a></dt><dd><ul class="simple">
+<li><p>Improvements to the <a class="reference internal" href="generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SuperVectorizer</span></code></a></p>
+<blockquote>
+<div><ul class="simple">
 <li><p>Type detection works better: handles dates, numerics columns encoded as strings, or numeric columns containing strings for missing values.</p></li>
 </ul>
-</dd>
-</dl>
+</div></blockquote>
 <p><a class="reference external" href="https://github.com/dirty-cat/dirty_cat/pull/238">#238</a> by <a class="reference external" href="https://github.com/LeoGrin">Leo Grinsztajn</a></p>
 </li>
-<li><p><cite>get_feature_names</cite> becomes <cite>get_feature_names_out</cite>, following changes in the scikit-learn API. <cite>get_feature_names</cite> is deprecated in scikit-learn &gt; 1.0. <a class="reference external" href="https://github.com/dirty-cat/dirty_cat/pull/241">#241</a> by <a class="reference external" href="https://github.com/GaelVaroquaux">Gael Varoquaux</a></p></li>
+<li><p><code class="xref py py-func docutils literal notranslate"><span class="pre">get_feature_names()</span></code> becomes <code class="xref py py-func docutils literal notranslate"><span class="pre">get_feature_names_out()</span></code>, following changes in the scikit-learn API.
+<code class="xref py py-func docutils literal notranslate"><span class="pre">get_feature_names()</span></code> is deprecated in scikit-learn &gt; 1.0. <a class="reference external" href="https://github.com/dirty-cat/dirty_cat/pull/241">#241</a> by <a class="reference external" href="https://github.com/GaelVaroquaux">Gael Varoquaux</a></p></li>
 <li><dl class="simple">
 <dt>Improvements to the <a class="reference internal" href="generated/dirty_cat.MinHashEncoder.html#dirty_cat.MinHashEncoder" title="dirty_cat.MinHashEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">MinHashEncoder</span></code></a></dt><dd><ul class="simple">
-<li><p>It is now possible to fit multiple columns simultaneously with the <a class="reference internal" href="generated/dirty_cat.MinHashEncoder.html#dirty_cat.MinHashEncoder" title="dirty_cat.MinHashEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">MinHashEncoder</span></code></a>. Very useful when using for instance the <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.compose.make_column_transformer.html#sklearn.compose.make_column_transformer" title="(in scikit-learn v1.2)"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_column_transformer()</span></code></a> method, on multiple columns.</p></li>
+<li><p>It is now possible to fit multiple columns simultaneously with the <a class="reference internal" href="generated/dirty_cat.MinHashEncoder.html#dirty_cat.MinHashEncoder" title="dirty_cat.MinHashEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">MinHashEncoder</span></code></a>.
+Very useful when using for instance the <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.compose.make_column_transformer.html#sklearn.compose.make_column_transformer" title="(in scikit-learn v1.2)"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_column_transformer()</span></code></a> function,
+on multiple columns.</p></li>
 </ul>
 </dd>
 </dl>
@@ -262,7 +279,7 @@ when using the <cite>get_feature_names_out</cite> method. <a class="reference ex
 <ul class="simple">
 <li><p>Fixed a bug that resulted in the <a class="reference internal" href="generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder" title="dirty_cat.GapEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">GapEncoder</span></code></a> ignoring the analyzer argument. <a class="reference external" href="https://github.com/dirty-cat/dirty_cat/pull/242">#242</a> by <a class="reference external" href="https://github.com/jovan-stojanovic">Jovan Stojanovic</a></p></li>
 <li><p><a class="reference internal" href="generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder" title="dirty_cat.GapEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">GapEncoder</span></code></a>’s <cite>get_feature_names_out</cite> now accepts all iterators, not just lists. <a class="reference external" href="https://github.com/dirty-cat/dirty_cat/pull/255">#255</a> by <a class="reference external" href="https://github.com/LilianBoulard">Lilian Boulard</a></p></li>
-<li><p>Fixed <cite>DeprecationWarning</cite> raised by the usage of <cite>distutils.version.LooseVersion</cite>. <a class="reference external" href="https://github.com/dirty-cat/dirty_cat/pull/261">#261</a> by <a class="reference external" href="https://github.com/LilianBoulard">Lilian Boulard</a></p></li>
+<li><p>Fixed <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#DeprecationWarning" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DeprecationWarning</span></code></a> raised by the usage of <cite>distutils.version.LooseVersion</cite>. <a class="reference external" href="https://github.com/dirty-cat/dirty_cat/pull/261">#261</a> by <a class="reference external" href="https://github.com/LilianBoulard">Lilian Boulard</a></p></li>
 </ul>
 </section>
 <section id="id5">
@@ -270,7 +287,7 @@ when using the <cite>get_feature_names_out</cite> method. <a class="reference ex
 <ul class="simple">
 <li><p>Remove trailing imports in the <a class="reference internal" href="generated/dirty_cat.MinHashEncoder.html#dirty_cat.MinHashEncoder" title="dirty_cat.MinHashEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">MinHashEncoder</span></code></a>.</p></li>
 <li><p>Fix typos and update links for website.</p></li>
-<li><p>Documentation of the SuperVectorizer and the <a class="reference internal" href="generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="dirty_cat.SimilarityEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimilarityEncoder</span></code></a> improved.</p></li>
+<li><p>Documentation of the <a class="reference internal" href="generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SuperVectorizer</span></code></a> and the <a class="reference internal" href="generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="dirty_cat.SimilarityEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimilarityEncoder</span></code></a> improved.</p></li>
 </ul>
 </section>
 </section>

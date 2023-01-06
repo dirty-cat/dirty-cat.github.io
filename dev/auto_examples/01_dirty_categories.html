@@ -96,9 +96,7 @@
   <h3 class="this-page"><a href="../index.html">This page</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Dirty categories: machine learning with non normalized strings</a><ul>
-<li><a class="reference internal" href="#the-data">The data</a></li>
-<li><a class="reference internal" href="#assembling-a-machine-learning-pipeline-that-encodes-the-data">Assembling a machine-learning pipeline that encodes the data</a></li>
-<li><a class="reference internal" href="#the-learning-pipeline">The learning pipeline</a><ul>
+<li><a class="reference internal" href="#the-data">The data</a><ul>
 <li><a class="reference internal" href="#the-categorical-encoders">The categorical encoders</a></li>
 <li><a class="reference internal" href="#pipelining-an-encoder-with-a-learner">Pipelining an encoder with a learner</a></li>
 </ul>
@@ -364,16 +362,18 @@ control.</p>
 <span class="c1"># And remove them</span>
 <a href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.dropna.html#pandas.DataFrame.dropna" title="pandas.DataFrame.dropna" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-method"><span class="n">X</span><span class="o">.</span><span class="n">dropna</span></a><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;gender&quot;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <a href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a> <span class="o">=</span> <a href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a><span class="p">[</span><span class="o">~</span><a href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">mask</span></a><span class="p">]</span>
+
+<span class="c1"># #############################################################################</span>
+<span class="c1"># Assembling a machine-learning pipeline that encodes the data</span>
+<span class="c1"># ------------------------------------------------------------</span>
+<span class="c1">#</span>
+<span class="c1"># The learning pipeline</span>
+<span class="c1"># ---------------------</span>
+<span class="c1">#</span>
+<span class="c1"># To build a learning pipeline, we need to assemble encoders for each</span>
+<span class="c1"># column, and apply a supervised learning model on top.</span>
 </pre></div>
 </div>
-</section>
-<section id="assembling-a-machine-learning-pipeline-that-encodes-the-data">
-<h2>Assembling a machine-learning pipeline that encodes the data<a class="headerlink" href="#assembling-a-machine-learning-pipeline-that-encodes-the-data" title="Permalink to this heading">¶</a></h2>
-</section>
-<section id="the-learning-pipeline">
-<h2>The learning pipeline<a class="headerlink" href="#the-learning-pipeline" title="Permalink to this heading">¶</a></h2>
-<p>To build a learning pipeline, we need to assemble encoders for each
-column, and apply a supervised learning model on top.</p>
 <section id="the-categorical-encoders">
 <h3>The categorical encoders<a class="headerlink" href="#the-categorical-encoders" title="Permalink to this heading">¶</a></h3>
 <p>An encoder is needed to turn a categorical column into a numerical
@@ -502,7 +502,7 @@ dirty columns:</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/circleci/project/examples/01_dirty_categories.py:169: UserWarning: The &quot;similarity&quot; argument is deprecated since dirty_cat 0.3, and will be removed in 0.5.The n-gram similarity is the only one currently supported.
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/circleci/project/examples/01_dirty_categories.py:168: UserWarning: The &quot;similarity&quot; argument is deprecated since dirty_cat 0.3, and will be removed in 0.5.The n-gram similarity is the only one currently supported.
   &quot;similarity&quot;: SimilarityEncoder(),
 </pre></div>
 </div>
@@ -602,7 +602,7 @@ r2 score:  mean: 0.919; std: 0.012
 /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/preprocessing/_encoders.py:808: FutureWarning: `sparse` was renamed to `sparse_output` in version 1.2 and will be removed in 1.4. `sparse_output` is ignored unless you leave `sparse` to its default value.
   warnings.warn(
 gap encoding
-r2 score:  mean: 0.906; std: 0.014
+r2 score:  mean: 0.908; std: 0.014
 </pre></div>
 </div>
 <section id="plotting-the-results">
@@ -833,9 +833,9 @@ can be readily applied to the dataframe</strong>.</p>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;std=</span><span class="si">{</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.std.html#numpy.std" title="numpy.std" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">std</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">scores</span></a><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>scores=[0.92444885 0.88274464 0.89621296 0.92361954 0.91048832]
-mean=0.907502860794805
-std=0.01610129408571474
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>scores=[0.9153184  0.88564334 0.92460339 0.91219533 0.92166103]
+mean=0.9118842967185656
+std=0.01384079169627139
 </pre></div>
 </div>
 <p>The prediction performed here is pretty much as good as above
@@ -865,7 +865,7 @@ analyze the SuperVectorizer’s mechanisms along the way.</p>
 </pre></div>
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>array([[0.00000000e+00, 1.00000000e+00, 0.00000000e+00, ...,
-        2.47798213e-01, 6.18665170e-02, 2.00700000e+03],
+        5.55577472e-02, 5.17478682e-02, 2.00700000e+03],
        [1.00000000e+00, 0.00000000e+00, 0.00000000e+00, ...,
         5.00000000e-02, 5.00000000e-02, 2.00500000e+03],
        [1.00000000e+00, 0.00000000e+00, 0.00000000e+00, ...,
@@ -992,7 +992,7 @@ having a permanent, full-time job :)</p>
 automated by the <a class="reference internal" href="../generated/dirty_cat.SuperVectorizer.html#dirty_cat.SuperVectorizer" title="dirty_cat.SuperVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SuperVectorizer</span></code></a>, and the resulting pipeline can still be
 inspected, even with non-normalized entries.</p>
 </aside>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 2 minutes  37.871 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 2 minutes  41.327 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-01-dirty-categories-py">
 <div class="binder-badge docutils container">
 <a class="reference external image-reference" href="https://mybinder.org/v2/gh/dirty-cat/dirty-cat.github.io/main?filepath=dev/auto_examples/01_dirty_categories.ipynb"><img alt="Launch binder" src="../_images/binder_badge_logo.svg" width="150px" /></a>

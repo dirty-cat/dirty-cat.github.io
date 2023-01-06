@@ -597,7 +597,7 @@ we have extracted.
 .. GENERATED FROM PYTHON SOURCE LINES 107-111
 
 1. Joining GDP per capita table
-................................
+...............................
 
 To join them with dirty_cat, we only need to do the following:
 
@@ -972,7 +972,7 @@ In this case, it is better to use the threshold parameter
 so as to include only precise-enough matches:
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 182-192
+.. GENERATED FROM PYTHON SOURCE LINES 181-191
 
 .. code-block:: default
 
@@ -1059,12 +1059,12 @@ so as to include only precise-enough matches:
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 193-195
+.. GENERATED FROM PYTHON SOURCE LINES 192-194
 
 Matches that are not available (or precise enough) are marked as `NaN`.
 We will remove them using the drop_unmatched parameter:
 
-.. GENERATED FROM PYTHON SOURCE LINES 195-207
+.. GENERATED FROM PYTHON SOURCE LINES 194-206
 
 .. code-block:: default
 
@@ -1087,12 +1087,12 @@ We will remove them using the drop_unmatched parameter:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 208-210
+.. GENERATED FROM PYTHON SOURCE LINES 207-209
 
-We can finally plot and look at the link between GDP per capita
+We can finally plot and look at the link between GDP per capital
 and happiness:
 
-.. GENERATED FROM PYTHON SOURCE LINES 211-228
+.. GENERATED FROM PYTHON SOURCE LINES 209-226
 
 .. code-block:: default
 
@@ -1125,14 +1125,14 @@ and happiness:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 229-233
+.. GENERATED FROM PYTHON SOURCE LINES 227-231
 
 It seems that the happiest countries are those
 having a high GDP per capita.
 However, unhappy countries do not have only low levels
 of GDP per capita. We have to search for other patterns.
 
-.. GENERATED FROM PYTHON SOURCE LINES 235-240
+.. GENERATED FROM PYTHON SOURCE LINES 233-238
 
 2. Joining life expectancy table
 ................................
@@ -1140,7 +1140,7 @@ of GDP per capita. We have to search for other patterns.
 Now let's include other information that may be relevant, such as in the
 life_exp table:
 
-.. GENERATED FROM PYTHON SOURCE LINES 240-252
+.. GENERATED FROM PYTHON SOURCE LINES 238-250
 
 .. code-block:: default
 
@@ -1217,11 +1217,11 @@ life_exp table:
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 253-254
+.. GENERATED FROM PYTHON SOURCE LINES 251-252
 
 Let's plot this relation:
 
-.. GENERATED FROM PYTHON SOURCE LINES 254-266
+.. GENERATED FROM PYTHON SOURCE LINES 252-264
 
 .. code-block:: default
 
@@ -1249,12 +1249,12 @@ Let's plot this relation:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 267-269
+.. GENERATED FROM PYTHON SOURCE LINES 265-267
 
 It seems the answer is yes!
 Countries with higher life expectancy are also happier.
 
-.. GENERATED FROM PYTHON SOURCE LINES 272-280
+.. GENERATED FROM PYTHON SOURCE LINES 270-278
 
 3. Joining legal rights strength table
 ......................................
@@ -1265,7 +1265,7 @@ Countries with higher life expectancy are also happier.
 
 And the table with a measure of legal rights strength in the country:
 
-.. GENERATED FROM PYTHON SOURCE LINES 280-292
+.. GENERATED FROM PYTHON SOURCE LINES 278-290
 
 .. code-block:: default
 
@@ -1346,11 +1346,11 @@ And the table with a measure of legal rights strength in the country:
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 293-294
+.. GENERATED FROM PYTHON SOURCE LINES 291-292
 
 Let's take a look at their correspondance in a figure:
 
-.. GENERATED FROM PYTHON SOURCE LINES 294-306
+.. GENERATED FROM PYTHON SOURCE LINES 292-304
 
 .. code-block:: default
 
@@ -1378,17 +1378,17 @@ Let's take a look at their correspondance in a figure:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 307-309
+.. GENERATED FROM PYTHON SOURCE LINES 305-307
 
 From this plot, it is not clear that this measure of legal strength
 is linked to happiness.
 
-.. GENERATED FROM PYTHON SOURCE LINES 311-313
+.. GENERATED FROM PYTHON SOURCE LINES 309-311
 
-Great! Our joined table has became bigger and full of useful informations.
+Great! Our joined table has become bigger and full of useful information.
 And now we are ready to apply a first machine learning model to it!
 
-.. GENERATED FROM PYTHON SOURCE LINES 315-320
+.. GENERATED FROM PYTHON SOURCE LINES 313-318
 
 Prediction model
 ----------------
@@ -1396,7 +1396,7 @@ Prediction model
 We now separate our covariates (X), from the target (or exogenous)
 variables: y
 
-.. GENERATED FROM PYTHON SOURCE LINES 320-323
+.. GENERATED FROM PYTHON SOURCE LINES 318-321
 
 .. code-block:: default
 
@@ -1410,11 +1410,11 @@ variables: y
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 324-325
+.. GENERATED FROM PYTHON SOURCE LINES 322-323
 
 Let us now define the model that will be used to predict the happiness score:
 
-.. GENERATED FROM PYTHON SOURCE LINES 325-335
+.. GENERATED FROM PYTHON SOURCE LINES 323-333
 
 .. code-block:: default
 
@@ -1435,14 +1435,14 @@ Let us now define the model that will be used to predict the happiness score:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 336-340
+.. GENERATED FROM PYTHON SOURCE LINES 334-338
 
 To evaluate our model, we will apply a `4-fold cross-validation`.
 We evaluate our model using the `R2` score.
 
 Let's finally assess the results of our models:
 
-.. GENERATED FROM PYTHON SOURCE LINES 340-351
+.. GENERATED FROM PYTHON SOURCE LINES 338-349
 
 .. code-block:: default
 
@@ -1470,7 +1470,7 @@ Let's finally assess the results of our models:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 352-363
+.. GENERATED FROM PYTHON SOURCE LINES 350-361
 
 We have a satisfying first result: an R2 of 0.66!
 
@@ -1487,7 +1487,7 @@ beating our result!
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  1.243 seconds)
+   **Total running time of the script:** ( 0 minutes  1.252 seconds)
 
 
 .. _sphx_glr_download_auto_examples_05_joining_tables_with_FuzzyJoin.py:
