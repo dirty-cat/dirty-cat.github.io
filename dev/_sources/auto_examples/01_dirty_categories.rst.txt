@@ -94,7 +94,7 @@ We first retrieve the dataset:
 
  .. code-block:: none
 
-    /home/circleci/project/dirty_cat/datasets/_fetching.py:481: UserWarning: Could not find the dataset 42125 locally. Downloading it from OpenML; this might take a while... If it is interrupted, some files might be invalid/incomplete: if on the following run, the fetching raises errors, you can try fixing this issue by deleting the directory /home/circleci/project/dirty_cat/datasets/data.
+    /home/circleci/project/dirty_cat/datasets/_fetching.py:487: UserWarning: Could not find the dataset 42125 locally. Downloading it from OpenML; this might take a while... If it is interrupted, some files might be invalid/incomplete: if on the following run, the fetching raises errors, you can try fixing this issue by deleting the directory /home/circleci/project/dirty_cat/datasets/data.
       info = _fetch_openml_dataset(dataset_id, data_directory)
     /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/datasets/_openml.py:932: FutureWarning: The default value of `parser` will change from `'liac-arff'` to `'auto'` in 1.4. You can set `parser='auto'` to silence this warning. Therefore, an `ImportError` will be raised from 1.4 if the dataset is dense and pandas is not installed. Note that the pandas parser may return different data types. See the Notes Section in fetch_openml's API doc for details.
       warn(
@@ -687,7 +687,7 @@ and store the returned cross-validation score:
     /home/circleci/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/preprocessing/_encoders.py:808: FutureWarning: `sparse` was renamed to `sparse_output` in version 1.2 and will be removed in 1.4. `sparse_output` is ignored unless you leave `sparse` to its default value.
       warnings.warn(
     gap encoding
-    r2 score:  mean: 0.904; std: 0.014
+    r2 score:  mean: 0.906; std: 0.019
 
 
 
@@ -1022,9 +1022,9 @@ Let's perform a cross-validation to see how well this model predicts:
 
  .. code-block:: none
 
-    scores=[0.92328898 0.8847586  0.92131631 0.92024201 0.92614684]
-    mean=0.9151505487378525
-    std=0.015328163709724786
+    scores=[0.90446129 0.89581361 0.92686476 0.92957865 0.92703451]
+    mean=0.9167505625646643
+    std=0.013870823678741337
 
 
 
@@ -1100,7 +1100,7 @@ The encoded data, X_train_enc and X_test_enc are numerical arrays:
 
 
     array([[0.00000000e+00, 1.00000000e+00, 0.00000000e+00, ...,
-            7.30515054e-02, 3.16776022e-01, 2.00700000e+03],
+            5.50368840e-02, 5.35337246e-02, 2.00700000e+03],
            [1.00000000e+00, 0.00000000e+00, 0.00000000e+00, ...,
             5.00000000e-02, 5.00000000e-02, 2.00500000e+03],
            [1.00000000e+00, 0.00000000e+00, 0.00000000e+00, ...,
@@ -1371,7 +1371,7 @@ having a permanent, full-time job :)
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 2 minutes  57.595 seconds)
+   **Total running time of the script:** ( 3 minutes  31.689 seconds)
 
 
 .. _sphx_glr_download_auto_examples_01_dirty_categories.py:

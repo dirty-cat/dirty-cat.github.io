@@ -87,7 +87,7 @@
 
 
 <ul>
-    <li class="toctree-l1"><a href="./index.html#using-dirty-cat">Usage</a></li>
+    <li class="toctree-l1"><a href="./index.html#usage-examples">Usage</a></li>
     <li class="toctree-l1"><a href="./index.html#api-documentation">API</a></li>
     <li class="toctree-l1"><a href="./index.html#about">About</a></li>
 </ul><div class="relations">
@@ -113,10 +113,10 @@ but still have a generated page.</p>
 <table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/dirty_cat.datasets.DatasetAll.html#dirty_cat.datasets.DatasetAll" title="dirty_cat.datasets.DatasetAll"><code class="xref py py-obj docutils literal notranslate"><span class="pre">datasets.DatasetAll</span></code></a></p></td>
-<td><p>Represents a dataset and its information. With this state, the dataset is loaded in memory as a pandas DataFrame (<code class="docutils literal notranslate"><span class="pre">X</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code>). Additional information such as <cite>path</cite> and <cite>read_csv_kwargs</cite> are provided in case the dataframe has to be read from disk, as such: .. code:: python     ds = fetch_employee_salaries(load_dataframe=False)     df = pd.read_csv(ds.path, <a href="#id1"><span class="problematic" id="id2">**</span></a>ds.read_csv_kwargs).</p></td>
+<td><p>Represents a dataset and its information.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="generated/dirty_cat.datasets.DatasetInfoOnly.html#dirty_cat.datasets.DatasetInfoOnly" title="dirty_cat.datasets.DatasetInfoOnly"><code class="xref py py-obj docutils literal notranslate"><span class="pre">datasets.DatasetInfoOnly</span></code></a></p></td>
-<td><p>Represents a dataset and its information. With this state, the dataset is NOT loaded in memory, but can be read with <code class="docutils literal notranslate"><span class="pre">path</span></code> and <code class="docutils literal notranslate"><span class="pre">read_csv_kwargs</span></code>, as such: .. code:: python     ds = fetch_employee_salaries(load_dataframe=False)     df = pd.read_csv(ds.path, <a href="#id3"><span class="problematic" id="id4">**</span></a>ds.read_csv_kwargs).</p></td>
+<td><p>Represents a dataset and its information.</p></td>
 </tr>
 </tbody>
 </table>
