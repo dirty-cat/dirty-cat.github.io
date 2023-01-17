@@ -9,10 +9,10 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://dirty-cat.github.io/stable/generated/dirty_cat.fuzzy_join.html" />
 <meta property="og:site_name" content="dirty_cat" />
-<meta property="og:description" content="Examples using dirty_cat.fuzzy_join: Merging dirty tables: fuzzy join Merging dirty tables: fuzzy join" />
-<meta property="og:image" content="https://dirty-cat.github.io/stable/_images/sphx_glr_05_joining_tables_with_FuzzyJoin_thumb.png" />
-<meta property="og:image:alt" content="Merging dirty tables: fuzzy join" />
-<meta name="description" content="Examples using dirty_cat.fuzzy_join: Merging dirty tables: fuzzy join Merging dirty tables: fuzzy join" />
+<meta property="og:description" content="Examples using dirty_cat.fuzzy_join: Fuzzy joining dirty tables with the FeatureAugmenter Fuzzy joining dirty tables with the FeatureAugmenter" />
+<meta property="og:image" content="https://dirty-cat.github.io/stable/_images/sphx_glr_05_fuzzy_joining_with_FeatureAugmenter_thumb.png" />
+<meta property="og:image:alt" content="Fuzzy joining dirty tables with the FeatureAugmenter" />
+<meta name="description" content="Examples using dirty_cat.fuzzy_join: Fuzzy joining dirty tables with the FeatureAugmenter Fuzzy joining dirty tables with the FeatureAugmenter" />
 
     <title>dirty_cat.fuzzy_join &#8212; dirty_cat</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
@@ -29,7 +29,7 @@
     <script src="../_static/scrolltoc.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="dirty_cat.datasets.fetch_employee_salaries" href="dirty_cat.datasets.fetch_employee_salaries.html" />
+    <link rel="next" title="dirty_cat.FeatureAugmenter" href="dirty_cat.FeatureAugmenter.html" />
     <link rel="prev" title="dirty_cat.DatetimeEncoder" href="dirty_cat.DatetimeEncoder.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
@@ -105,7 +105,7 @@
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
       <li>Previous: <a href="dirty_cat.DatetimeEncoder.html" title="previous chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat</span></code>.DatetimeEncoder</a></li>
-      <li>Next: <a href="dirty_cat.datasets.fetch_employee_salaries.html" title="next chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat.datasets</span></code>.fetch_employee_salaries</a></li>
+      <li>Next: <a href="dirty_cat.FeatureAugmenter.html" title="next chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat</span></code>.FeatureAugmenter</a></li>
   </ul></li>
 </ul>
 </div>
@@ -121,7 +121,7 @@
 <h1><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat</span></code>.fuzzy_join<a class="headerlink" href="#dirty-cat-fuzzy-join" title="Permalink to this heading">¶</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="dirty_cat.fuzzy_join">
-<span class="sig-prename descclassname"><span class="pre">dirty_cat.</span></span><span class="sig-name descname"><span class="pre">fuzzy_join</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">left</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">right</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">how</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'left'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">left_on</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">right_on</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">analyzer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'char_wb'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ngram_range</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(2,</span> <span class="pre">4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_score</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">match_score</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop_unmatched</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suffixes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">('_x',</span> <span class="pre">'_y')</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/c545ed9/dirty_cat/_fuzzy_join.py#L28"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.fuzzy_join" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">dirty_cat.</span></span><span class="sig-name descname"><span class="pre">fuzzy_join</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">left</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">right</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">how</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'left'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">left_on</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">right_on</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">analyzer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'char_wb'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ngram_range</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(2,</span> <span class="pre">4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_score</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">match_score</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop_unmatched</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suffixes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">('_x',</span> <span class="pre">'_y')</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/2b4b171/dirty_cat/_fuzzy_join.py#L28"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.fuzzy_join" title="Permalink to this definition">¶</a></dt>
 <dd><p>Join two tables categorical string columns based on approximate
 matching and using morphological similarity.</p>
 <dl class="field-list">
@@ -131,7 +131,7 @@ matching and using morphological similarity.</p>
 </dd>
 <dt><strong>right</strong><span class="classifier"><a class="reference external" href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.5.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a></span></dt><dd><p>A table used to merge with.</p>
 </dd>
-<dt><strong>how</strong><span class="classifier">{“left”, “right”}, optional, default=`left`</span></dt><dd><p>Type of merge to be performed. Note that unlike pandas’ merge,
+<dt><strong>how: typing.Literal[“left”, “right”], default=`left`</strong></dt><dd><p>Type of merge to be performed. Note that unlike <a class="reference external" href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.merge.html#pandas.merge" title="(in pandas v1.5.2)"><code class="xref py py-func docutils literal notranslate"><span class="pre">merge()</span></code></a>,
 only “left” and “right” are supported so far, as the fuzzy-join comes
 with its own mechanism to resolve lack of correspondence between
 left and right tables.</p>
@@ -165,9 +165,9 @@ that min_n &lt;= n &lt;= max_n will be used.</p>
 the nearest matched categories.</p>
 </dd>
 <dt><strong>match_score</strong><span class="classifier">float, default=0.0</span></dt><dd><p>Distance score between the closest matches that will be accepted.
-In a [0, 1] interval. Closer to 1 means the matches need to be very
-close to be accepted, and closer to 0 that a bigger matching distance
-is tolerated.</p>
+In a [0, 1] interval. 1 means that only a perfect match will be
+accepted, and zero means that the closest match will be accepted,
+no matter how distant.</p>
 </dd>
 <dt><strong>drop_unmatched</strong><span class="classifier">boolean, default=False</span></dt><dd><p>Remove categories for which a match was not found in the two tables.</p>
 </dd>
@@ -246,9 +246,9 @@ we can use the <cite>match_score</cite> argument:</p>
 
 <section id="examples-using-dirty-cat-fuzzy-join">
 <h2>Examples using <code class="docutils literal notranslate"><span class="pre">dirty_cat.fuzzy_join</span></code><a class="headerlink" href="#examples-using-dirty-cat-fuzzy-join" title="Permalink to this heading">¶</a></h2>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="Here we show how to combine data from different sources, with a vocabulary not well normalized."><img alt="Merging dirty tables: fuzzy join" src="../_images/sphx_glr_05_joining_tables_with_FuzzyJoin_thumb.png" />
-<p><a class="reference internal" href="../auto_examples/05_joining_tables_with_FuzzyJoin.html#sphx-glr-auto-examples-05-joining-tables-with-fuzzyjoin-py"><span class="std std-ref">Merging dirty tables: fuzzy join</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Merging dirty tables: fuzzy join</div>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="Here we show how to combine data from different sources, with a vocabulary not well normalized."><img alt="Fuzzy joining dirty tables with the FeatureAugmenter" src="../_images/sphx_glr_05_fuzzy_joining_with_FeatureAugmenter_thumb.png" />
+<p><a class="reference internal" href="../auto_examples/05_fuzzy_joining_with_FeatureAugmenter.html#sphx-glr-auto-examples-05-fuzzy-joining-with-featureaugmenter-py"><span class="std std-ref">Fuzzy joining dirty tables with the FeatureAugmenter</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Fuzzy joining dirty tables with the FeatureAugmenter</div>
 </div></div><div class="clearer"></div></section>
 </section>
 

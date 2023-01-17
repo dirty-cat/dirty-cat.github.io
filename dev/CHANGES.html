@@ -5,16 +5,16 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
-<meta property="og:title" content="Release 0.4.0 (upcoming)" />
+<meta property="og:title" content="Release 0.5.0" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://dirty-cat.github.io/stable/CHANGES.html" />
 <meta property="og:site_name" content="dirty_cat" />
-<meta property="og:description" content="Major changes: New experimental feature: joining tables using fuzzy_join() by approximate key matching. Matches are based on string similarities and the nearest neighbors matches are found for each..." />
+<meta property="og:description" content="Release 0.4.0 (upcoming): Major changes: New experimental feature: joining tables using fuzzy_join() by approximate key matching. Matches are based on string similarities and the nearest neighbors ..." />
 <meta property="og:image" content="https://dirty-cat.github.io/stable/_static/dirty_cat.svg" />
 <meta property="og:image:alt" content="dirty_cat" />
-<meta name="description" content="Major changes: New experimental feature: joining tables using fuzzy_join() by approximate key matching. Matches are based on string similarities and the nearest neighbors matches are found for each..." />
+<meta name="description" content="Release 0.4.0 (upcoming): Major changes: New experimental feature: joining tables using fuzzy_join() by approximate key matching. Matches are based on string similarities and the nearest neighbors ..." />
 
-    <title>Release 0.4.0 (upcoming) &#8212; dirty_cat</title>
+    <title>Release 0.5.0 &#8212; dirty_cat</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
     <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css" />
@@ -93,7 +93,8 @@
 </ul>
   <h3 class="this-page"><a href="index.html">This page</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Release 0.4.0 (upcoming)</a><ul>
+<li><a class="reference internal" href="#">Release 0.5.0</a></li>
+<li><a class="reference internal" href="#release-0-4-0-upcoming">Release 0.4.0 (upcoming)</a><ul>
 <li><a class="reference internal" href="#major-changes">Major changes</a></li>
 <li><a class="reference internal" href="#minor-changes">Minor changes</a></li>
 <li><a class="reference internal" href="#bug-fixes">Bug fixes</a></li>
@@ -153,7 +154,10 @@
 
           <div class="body" role="main">
             
-  <section id="release-0-4-0-upcoming">
+  <section id="release-0-5-0">
+<h1>Release 0.5.0<a class="headerlink" href="#release-0-5-0" title="Permalink to this heading">¶</a></h1>
+</section>
+<section id="release-0-4-0-upcoming">
 <h1>Release 0.4.0 (upcoming)<a class="headerlink" href="#release-0-4-0-upcoming" title="Permalink to this heading">¶</a></h1>
 <section id="major-changes">
 <h2>Major changes<a class="headerlink" href="#major-changes" title="Permalink to this heading">¶</a></h2>
@@ -162,12 +166,15 @@
 on string similarities and the nearest neighbors matches are found for each category.</p></li>
 </ul>
 <p><a class="reference external" href="https://github.com/dirty-cat/dirty_cat/pull/291">#291</a> by <a class="reference external" href="https://github.com/jovan-stojanovic">Jovan Stojanovic</a> and <a class="reference external" href="https://github.com/LeoGrin">Leo Grinsztajn</a>
-* <strong>datasets.fetching</strong>: contains a new function <code class="xref py py-func docutils literal notranslate"><span class="pre">fetch_world_bank_indicator()</span></code></p>
+* New experimental feature: <a class="reference internal" href="generated/dirty_cat.FeatureAugmenter.html#dirty_cat.FeatureAugmenter" title="dirty_cat.FeatureAugmenter"><code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureAugmenter</span></code></a>, a transformer</p>
 <blockquote>
-<div><p>that can be used to download any indicator from the World Bank Open Data platform.
-It only needs the indicator ID that can be found on the website. <a class="reference external" href="https://github.com/dirty-cat/dirty_cat/pull/291">#291</a> by <a class="reference external" href="https://github.com/jovan-stojanovic">Jovan Stojanovic</a></p>
+<div><p>that augments with <a class="reference internal" href="generated/dirty_cat.fuzzy_join.html#dirty_cat.fuzzy_join" title="dirty_cat.fuzzy_join"><code class="xref py py-func docutils literal notranslate"><span class="pre">fuzzy_join()</span></code></a> the number of features in a main table
+by using information from auxilliary tables. <a class="reference external" href="https://github.com/dirty-cat/dirty_cat/pull/409">#409</a> by <a class="reference external" href="https://github.com/jovan-stojanovic">Jovan Stojanovic</a></p>
 </div></blockquote>
 <ul class="simple">
+<li><p><strong>datasets.fetching</strong>: contains a new function <code class="xref py py-func docutils literal notranslate"><span class="pre">fetch_world_bank_indicator()</span></code>
+that can be used to download any indicator from the World Bank Open Data platform.
+It only needs the indicator ID that can be found on the website. <a class="reference external" href="https://github.com/dirty-cat/dirty_cat/pull/291">#291</a> by <a class="reference external" href="https://github.com/jovan-stojanovic">Jovan Stojanovic</a></p></li>
 <li><p>Unnecessary API has been made private: everything (files, functions, classes)
 starting with an underscore shouldn’t be imported in your code. <a class="reference external" href="https://github.com/dirty-cat/dirty_cat/pull/331">#331</a> by <a class="reference external" href="https://github.com/LilianBoulard">Lilian Boulard</a></p></li>
 <li><p>The <a class="reference internal" href="generated/dirty_cat.MinHashEncoder.html#dirty_cat.MinHashEncoder" title="dirty_cat.MinHashEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">MinHashEncoder</span></code></a> now supports a <cite>n_jobs</cite> parameter to parallelize
