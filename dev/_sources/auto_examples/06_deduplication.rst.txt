@@ -21,25 +21,26 @@
 Deduplicating misspelled categories with deduplicate
 ====================================================
 
-A common step in data analyses is grouping or analyzing data conditional on a
-categorical variable. In real world datasets, there often will be slight
-misspellings in the category names: This happens when, for example, data input
-*should* use a drop down menu, but users are forced to input the category name
-by hand. Misspellings happen and analyzing the resulting data using a simple
-`GROUP BY` is not possible anymore.
+Real world datasets often come with slight misspellings in the category
+names, for instance if the category is manually input. Such misspellings
+break many data-analyses steps that require exact matching, such as a
+'GROUP BY'.
 
-This problem is however the perfect use case of *unsupervised learning*, a
-category of various statical methods that find structure in data without
-providing explicit labels/categories of the data a-priori. Specifically
-clustering of the distance between strings can be used to find clusters
-of strings that are similar to each other (e.g. differ only by a misspelling)
-and hence gives us an easy tool to flag potentially misspelled category names
-in an unsupervised manner.
+Merging the multiple variants of the same category or entity is known as
+*deduplication*. It is performed by the :func:`~dirty_cat.deduplicate`
+function.
 
-.. GENERATED FROM PYTHON SOURCE LINES 22-34
+Deduplication relies on *unsupervised learning*, to find structure in
+data without providing explicit labels/categories of the data a-priori.
+Specifically clustering of the distance between strings can be used to
+find clusters of strings that are similar to each other (e.g. differ only
+by a misspelling) and hence gives us an easy tool to flag potentially
+misspelled category names in an unsupervised manner.
 
-An example
-----------
+.. GENERATED FROM PYTHON SOURCE LINES 23-35
+
+An example dataset
+-------------------
 
 Imagine the following example:
 As a data scientist, our job is to analyze the data from a hospital ward.
@@ -51,19 +52,14 @@ spelling mistakes for these three medications.
 
 Let's generate some example data that demonstrate this.
 
-.. GENERATED FROM PYTHON SOURCE LINES 34-59
+.. GENERATED FROM PYTHON SOURCE LINES 35-60
 
 .. code-block:: default
 
 
 
     import numpy as np
-    import pandas as pd
-    import matplotlib.pyplot as plt
     from dirty_cat.datasets import make_deduplication_data
-
-    # set seed for reproducibility
-    np.random.seed(123)
 
     # our three medication names
     medications = ["Contrivan", "Genericon", "Zipholan"]
@@ -72,30 +68,48 @@ Let's generate some example data that demonstrate this.
     # 5% probability of a typo per letter
     prob_mistake_per_letter = 0.05
 
-    data = make_deduplication_data(
-        medications, entries_per_medications, prob_mistake_per_letter
+    duplicated_names = make_deduplication_data(
+        medications, entries_per_medications, prob_mistake_per_letter,
+        random_state=42, # set seed for reproducibility
     )
     # we extract the unique medication names in the data & how often they appear
-    unique_examples, counts = np.unique(data, return_counts=True)
+    unique_examples, counts = np.unique(duplicated_names, return_counts=True)
     # and build a series out of them
+    import pandas as pd
     ex_series = pd.Series(counts, index=unique_examples)
 
+    # This is our data:
+    ex_series.head()
 
 
 
 
 
+.. rst-class:: sphx-glr-script-out
+
+ .. code-block:: none
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 60-62
+    Cantrivan    1
+    Ccntrivan    1
+    Cegtrivan    1
+    Cfntrivan    1
+    Cintrivan    1
+    dtype: int64
+
+
+
+.. GENERATED FROM PYTHON SOURCE LINES 61-63
 
 Visualize the data
 ------------------
 
-.. GENERATED FROM PYTHON SOURCE LINES 62-67
+.. GENERATED FROM PYTHON SOURCE LINES 63-70
 
 .. code-block:: default
 
+
+    import matplotlib.pyplot as plt
 
     ex_series.plot.barh(figsize=(10, 15))
     plt.xlabel("Medication name")
@@ -115,11 +129,11 @@ Visualize the data
  .. code-block:: none
 
 
-    Text(23.222222222222214, 0.5, 'Counts')
+    Text(33.847222222222214, 0.5, 'Counts')
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 68-75
+.. GENERATED FROM PYTHON SOURCE LINES 71-78
 
 We can now see clearly the structure of the data: The three original medications
 are the most common ones, however there are many spelling mistakes and hence
@@ -129,27 +143,7 @@ The idea is to use the fact that the string-distance of each misspelled medicati
 name will be closest to either the correctly or incorrectly spelled orginal
 medication name - and therefore form clusters.
 
-.. GENERATED FROM PYTHON SOURCE LINES 75-84
-
-.. code-block:: default
-
-
-
-    from dirty_cat import deduplicate
-    from dirty_cat._deduplicate import compute_ngram_distance
-    from scipy.spatial.distance import squareform
-
-    ngram_distances = compute_ngram_distance(unique_examples)
-    square_distances = squareform(ngram_distances)
-
-
-
-
-
-
-
-
-.. GENERATED FROM PYTHON SOURCE LINES 85-92
+.. GENERATED FROM PYTHON SOURCE LINES 80-87
 
 We can visualize the pair-wise distance between all medication names
 --------------------------------------------------------------------
@@ -159,10 +153,16 @@ A darker color means that two medication names are closer together (i.e. more si
 a lighter color means a larger distance. We can see that we are dealing with three
 clusters - the original medication names and their misspellings that cluster around them.
 
-.. GENERATED FROM PYTHON SOURCE LINES 92-100
+.. GENERATED FROM PYTHON SOURCE LINES 87-101
 
 .. code-block:: default
 
+
+    from dirty_cat import compute_ngram_distance
+    from scipy.spatial.distance import squareform
+
+    ngram_distances = compute_ngram_distance(unique_examples)
+    square_distances = squareform(ngram_distances)
 
     import seaborn as sns
 
@@ -189,35 +189,39 @@ clusters - the original medication names and their misspellings that cluster aro
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 101-107
+.. GENERATED FROM PYTHON SOURCE LINES 102-111
 
-Clustering to suggest corrections of misspelled names
+Deduplication: suggest corrections of misspelled names
 -----------------------------------------------------
+
+The :func:`~dirty_cat.deduplicate` function uses clustering based on
+string similarities to group duplicated names
 
 The number of clusters will need some adjustment depending on the data you have.
 If no fixed number of clusters is given, `deduplicate` tries to set it automatically
 via the `silhouette score <https://scikit-learn.org/stable/modules/clustering.html#silhouette-coefficient>`_.
 
-.. GENERATED FROM PYTHON SOURCE LINES 107-111
+.. GENERATED FROM PYTHON SOURCE LINES 111-116
 
 .. code-block:: default
 
 
+    from dirty_cat import deduplicate
 
-    deduplicated_data = deduplicate(data)
-
-
-
+    deduplicated_data = deduplicate(duplicated_names)
 
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 112-113
+
+
+
+.. GENERATED FROM PYTHON SOURCE LINES 117-118
 
 We can visualize the distribution of categories in the deduplicated data:
 
-.. GENERATED FROM PYTHON SOURCE LINES 113-123
+.. GENERATED FROM PYTHON SOURCE LINES 118-128
 
 .. code-block:: default
 
@@ -249,7 +253,7 @@ We can visualize the distribution of categories in the deduplicated data:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 124-132
+.. GENERATED FROM PYTHON SOURCE LINES 129-137
 
 In this example we can correct all spelling mistakes by using the ideal number
 of clusters as determined by the silhouette score.
@@ -260,13 +264,13 @@ returned by `deduplicate`.
 It consists of the (potentially) misspelled category names as indices and the
 (potentially) correct categories as values.
 
-.. GENERATED FROM PYTHON SOURCE LINES 132-139
+.. GENERATED FROM PYTHON SOURCE LINES 137-144
 
 .. code-block:: default
 
 
     # create a table that maps original -> corrected categories
-    translation_table = pd.Series(deduplicated_data, index=data)
+    translation_table = pd.Series(deduplicated_data, index=duplicated_names)
 
     # remove duplicates in the original data
     translation_table = translation_table[~translation_table.index.duplicated(keep="first")]
@@ -278,13 +282,13 @@ It consists of the (potentially) misspelled category names as indices and the
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 140-143
+.. GENERATED FROM PYTHON SOURCE LINES 145-148
 
 Since the number of correct spellings will likely be much smaller than the
 number of original categories, we can print the estimated cluster and their
 most common exemplars (the guessed correct spelling):
 
-.. GENERATED FROM PYTHON SOURCE LINES 143-156
+.. GENERATED FROM PYTHON SOURCE LINES 148-161
 
 .. code-block:: default
 
@@ -309,36 +313,40 @@ most common exemplars (the guessed correct spelling):
 
  .. code-block:: none
 
-    Guessed correct spelling: 'Contrivan' for ['Contrivan' 'Cowtrivan' 'Contrihan' 'Chntrivan' 'Connrivan' 'Contriwan'
-     'Contrnvnn' 'Cobtrivan' 'Contzivan' 'Cdntrixan' 'Contrisan' 'Codtrivan'
-     'Conqrdvan' 'Contrdvan' 'Coytrivan' 'oontlgvan' 'Condrivan' 'Contrixfn'
-     'Contrivpn' 'iontrivan' 'Contrivam']
-    Guessed correct spelling: 'Genericon' for ['Genericon' 'Gszericon' 'Genwhmcon' 'Gjnericon']
-    Guessed correct spelling: 'Zipholan' for ['ioptrovan' 'Zipholmn' 'Zipholan' 'Ziphhlan' 'Zipholas' 'tipholan'
-     'Zgplolan' 'Ziphjlan' 'Ziplolan' 'Ziphozan' 'Ziphclen' 'Zrpholan'
-     'Ziphotan' 'Zipholar' 'timholan' 'Zipholsn' 'Ziyholan' 'miphooan'
-     'Zxpholan' 'Zipholzl' 'yipholan' 'Zirholan' 'Zyphqlan' 'Ziphoian'
-     'Zipholun' 'Zipyolan' 'Zikholan' 'hipholan' 'Zipmolan' 'Zipfolan'
-     'mipholan' 'Zipholin' 'Ziprolan' 'Zipholal' 'Zsmholan' 'Zspholan'
-     'Zioholan' 'Zipholwn' 'Zipholau' 'Zipxolan' 'eipholan' 'Ziphdlan'
-     'Zipholat' 'Ziphblan' 'Ziphoqan' 'Zipkolan' 'Ziphovan' 'Zipcolan'
-     'Zipholon' 'Zipiolan' 'Zdpholan' 'Zmphnlan']
+    Guessed correct spelling: 'Contrivan' for ['Contrivan' 'Cantrivan' 'Cootrivan' 'Contrijan' 'Contcivan' 'yontrivan'
+     'Contrivaj' 'Ccntrivan' 'Covtrivan' 'Cfntrivan' 'Contriban' 'wontrivan'
+     'Contrivyn' 'Cintrivan' 'Conhrivan' 'Cuntrivan' 'Contrixan' 'Coyarivan'
+     'Contriqan' 'Contrivam' 'Cegtrivan' 'Contryvan' 'Contrivas' 'Coatrivan'
+     'Contrican' 'Copthivan' 'gontrivan']
+    Guessed correct spelling: 'Genericon' for ['Genericon' 'Generukon' 'Genzricon' 'oenericon' 'yenericon']
+    Guessed correct spelling: 'Zipholan' for ['Zipholan' 'Zimholan' 'Ziphtlan' 'fipholan' 'Ziphelan' 'Zivholan'
+     'Ziphodan' 'sipholan' 'oipholan' 'Ziuholen' 'Zikholan' 'Zirhojan'
+     'Ziphopan' 'dipholan' 'Zspholan' 'Ziphowan' 'Zipholen' 'Ziphooan'
+     'Zipfolan' 'Zipholwn' 'Zipholab' 'Zjpholan' 'tfpholan' 'Zipholas'
+     'Zizholan' 'Zoaholan' 'Zhpholan' 'Zipholaz' 'uipholan' 'Zkpholan'
+     'Zipnolan' 'aipholan' 'Ziphnlan' 'Zipzolan' 'Ziphojan' 'Ziqholan'
+     'kipholjn' 'Zioholan' 'Ziplolan' 'Zipholcn' 'Zvpholan' 'Ziprolan'
+     'Zipholxn' 'Zzpgolan' 'Ziphklan' 'ripholan' 'wipholan' 'Zipholap'
+     'Ziwholan' 'cipholan' 'Ziphzlan' 'Zimholah' 'Ziphoxan' 'Zieholan'
+     'Zigholan' 'Zipholsn' 'Ziphovas' 'Zlpholan' 'Zixholan' 'yipholan']
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 157-158
+.. GENERATED FROM PYTHON SOURCE LINES 162-165
 
-In case we want to adapt the translation table post-hoc we can easily do so:
+In case we want to adapt the translation table post-hoc we can easily
+modified it manually and apply it, for instance modifying the
+correspondance for the last entry as such:
 
-.. GENERATED FROM PYTHON SOURCE LINES 158-162
+.. GENERATED FROM PYTHON SOURCE LINES 165-169
 
 .. code-block:: default
 
 
-    translation_table["Gszericon"] = "Completely new category"
-    new_deduplicated_data = translation_table[data]
-    assert (new_deduplicated_data == "Completely new category").sum() > 0
+    translation_table.iloc[-1] = "Completely new category"
+    new_deduplicated_names = translation_table[duplicated_names]
+    assert (new_deduplicated_names == "Completely new category").sum() > 0
 
 
 
@@ -349,7 +357,7 @@ In case we want to adapt the translation table post-hoc we can easily do so:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  3.006 seconds)
+   **Total running time of the script:** ( 0 minutes  4.538 seconds)
 
 
 .. _sphx_glr_download_auto_examples_06_deduplication.py:

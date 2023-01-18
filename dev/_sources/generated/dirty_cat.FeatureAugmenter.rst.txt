@@ -1,9 +1,18 @@
 ﻿:mod:`dirty_cat`.FeatureAugmenter
-==============================================
+========================================
+
+.. rst-class:: side_comment
+
+    Usage examples at the bottom of this page.
 
 .. currentmodule:: dirty_cat
 
-.. autofunction:: FeatureAugmenter
+.. autoclass:: FeatureAugmenter
+   :inherited-members:
+
+   
+
+   
 
 .. include:: dirty_cat.FeatureAugmenter.examples
 

@@ -166,7 +166,7 @@ to capture the strings.</p></li>
 </div><div class="sphx-glr-thumbcontainer" tooltip="Here we show how to combine data from different sources, with a vocabulary not well normalized."><img alt="Fuzzy joining dirty tables and the FeatureAugmenter" src="_images/sphx_glr_05_fuzzy_joining_and_FeatureAugmenter_thumb.png" />
 <p><a class="reference internal" href="auto_examples/05_fuzzy_joining_and_FeatureAugmenter.html#sphx-glr-auto-examples-05-fuzzy-joining-and-featureaugmenter-py"><span class="std std-ref">Fuzzy joining dirty tables and the FeatureAugmenter</span></a></p>
   <div class="sphx-glr-thumbnail-title">Fuzzy joining dirty tables and the FeatureAugmenter</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="A common step in data analyses is grouping or analyzing data conditional on a categorical varia..."><img alt="Deduplicating misspelled categories with deduplicate" src="_images/sphx_glr_06_deduplication_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="Real world datasets often come with slight misspellings in the category names, for instance if ..."><img alt="Deduplicating misspelled categories with deduplicate" src="_images/sphx_glr_06_deduplication_thumb.png" />
 <p><a class="reference internal" href="auto_examples/06_deduplication.html#sphx-glr-auto-examples-06-deduplication-py"><span class="std std-ref">Deduplicating misspelled categories with deduplicate</span></a></p>
   <div class="sphx-glr-thumbnail-title">Deduplicating misspelled categories with deduplicate</div>
 </div></div><div class="toctree-wrapper compound">
@@ -233,14 +233,28 @@ string categorical variables</a> <a class="footnote-reference brackets" href="#i
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/dirty_cat.fuzzy_join.html#dirty_cat.fuzzy_join" title="dirty_cat.fuzzy_join"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fuzzy_join</span></code></a></p></td>
 <td><p>Join two tables categorical string columns based on approximate matching and using morphological similarity.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/dirty_cat.FeatureAugmenter.html#dirty_cat.FeatureAugmenter" title="dirty_cat.FeatureAugmenter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FeatureAugmenter</span></code></a></p></td>
+</tbody>
+</table>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/dirty_cat.FeatureAugmenter.html#dirty_cat.FeatureAugmenter" title="dirty_cat.FeatureAugmenter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FeatureAugmenter</span></code></a></p></td>
 <td><p>Transformer augmenting the number of features in a table by joining multiple tables.</p></td>
 </tr>
 </tbody>
 </table>
 </section>
-<section id="data-download">
-<h3>Data download<a class="headerlink" href="#data-download" title="Permalink to this heading">¶</a></h3>
+<section id="deduplication-merging-variants-of-the-same-entry">
+<h3>Deduplication: merging variants of the same entry<a class="headerlink" href="#deduplication-merging-variants-of-the-same-entry" title="Permalink to this heading">¶</a></h3>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/dirty_cat.deduplicate.html#dirty_cat.deduplicate" title="dirty_cat.deduplicate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">deduplicate</span></code></a></p></td>
+<td><p>Deduplicate data by hierarchically clustering similar strings.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="data-download-and-generation">
+<h3>Data download and generation<a class="headerlink" href="#data-download-and-generation" title="Permalink to this heading">¶</a></h3>
 <table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/dirty_cat.datasets.fetch_employee_salaries.html#dirty_cat.datasets.fetch_employee_salaries" title="dirty_cat.datasets.fetch_employee_salaries"><code class="xref py py-obj docutils literal notranslate"><span class="pre">datasets.fetch_employee_salaries</span></code></a></p></td>
@@ -269,6 +283,9 @@ string categorical variables</a> <a class="footnote-reference brackets" href="#i
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/dirty_cat.datasets.get_data_dir.html#dirty_cat.datasets.get_data_dir" title="dirty_cat.datasets.get_data_dir"><code class="xref py py-obj docutils literal notranslate"><span class="pre">datasets.get_data_dir</span></code></a></p></td>
 <td><p>Returns the directory in which dirty_cat looks for data.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/dirty_cat.datasets.make_deduplication_data.html#dirty_cat.datasets.make_deduplication_data" title="dirty_cat.datasets.make_deduplication_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">datasets.make_deduplication_data</span></code></a></p></td>
+<td><p>Duplicates examples with spelling mistakes.</p></td>
 </tr>
 </tbody>
 </table>
