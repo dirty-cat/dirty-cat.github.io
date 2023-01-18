@@ -9,10 +9,10 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://dirty-cat.github.io/stable/generated/dirty_cat.FeatureAugmenter.html" />
 <meta property="og:site_name" content="dirty_cat" />
-<meta property="og:description" content="Examples using dirty_cat.FeatureAugmenter: Fuzzy joining dirty tables with the FeatureAugmenter Fuzzy joining dirty tables with the FeatureAugmenter" />
-<meta property="og:image" content="https://dirty-cat.github.io/stable/_images/sphx_glr_05_fuzzy_joining_with_FeatureAugmenter_thumb.png" />
-<meta property="og:image:alt" content="Fuzzy joining dirty tables with the FeatureAugmenter" />
-<meta name="description" content="Examples using dirty_cat.FeatureAugmenter: Fuzzy joining dirty tables with the FeatureAugmenter Fuzzy joining dirty tables with the FeatureAugmenter" />
+<meta property="og:description" content="Examples using dirty_cat.FeatureAugmenter: Fuzzy joining dirty tables and the FeatureAugmenter Fuzzy joining dirty tables and the FeatureAugmenter" />
+<meta property="og:image" content="https://dirty-cat.github.io/stable/_images/sphx_glr_05_fuzzy_joining_and_FeatureAugmenter_thumb.png" />
+<meta property="og:image:alt" content="Fuzzy joining dirty tables and the FeatureAugmenter" />
+<meta name="description" content="Examples using dirty_cat.FeatureAugmenter: Fuzzy joining dirty tables and the FeatureAugmenter Fuzzy joining dirty tables and the FeatureAugmenter" />
 
     <title>dirty_cat.FeatureAugmenter &#8212; dirty_cat</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
@@ -121,7 +121,7 @@
 <h1><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat</span></code>.FeatureAugmenter<a class="headerlink" href="#dirty-cat-featureaugmenter" title="Permalink to this heading">¶</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="dirty_cat.FeatureAugmenter">
-<span class="sig-prename descclassname"><span class="pre">dirty_cat.</span></span><span class="sig-name descname"><span class="pre">FeatureAugmenter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tables</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">main_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">match_score</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">analyzer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'char_wb'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ngram_range</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(2,</span> <span class="pre">4)</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/4481ea5/dirty_cat/_feature_augmenter.py#L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.FeatureAugmenter" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">dirty_cat.</span></span><span class="sig-name descname"><span class="pre">FeatureAugmenter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tables</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">main_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">match_score</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">analyzer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'char_wb'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ngram_range</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(2,</span> <span class="pre">4)</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/1dc60f7/dirty_cat/_feature_augmenter.py#L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.FeatureAugmenter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Transformer augmenting the number of features in a table by joining multiple tables.</p>
 <p>Given a list of tables and key column names,
 fuzzy join them to the main table.</p>
@@ -213,9 +213,9 @@ that min_n &lt;= n &lt;= max_n will be used.</p>
 
 <section id="examples-using-dirty-cat-featureaugmenter">
 <h2>Examples using <code class="docutils literal notranslate"><span class="pre">dirty_cat.FeatureAugmenter</span></code><a class="headerlink" href="#examples-using-dirty-cat-featureaugmenter" title="Permalink to this heading">¶</a></h2>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="Here we show how to combine data from different sources, with a vocabulary not well normalized."><img alt="Fuzzy joining dirty tables with the FeatureAugmenter" src="../_images/sphx_glr_05_fuzzy_joining_with_FeatureAugmenter_thumb.png" />
-<p><a class="reference internal" href="../auto_examples/05_fuzzy_joining_with_FeatureAugmenter.html#sphx-glr-auto-examples-05-fuzzy-joining-with-featureaugmenter-py"><span class="std std-ref">Fuzzy joining dirty tables with the FeatureAugmenter</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Fuzzy joining dirty tables with the FeatureAugmenter</div>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="Here we show how to combine data from different sources, with a vocabulary not well normalized."><img alt="Fuzzy joining dirty tables and the FeatureAugmenter" src="../_images/sphx_glr_05_fuzzy_joining_and_FeatureAugmenter_thumb.png" />
+<p><a class="reference internal" href="../auto_examples/05_fuzzy_joining_and_FeatureAugmenter.html#sphx-glr-auto-examples-05-fuzzy-joining-and-featureaugmenter-py"><span class="std std-ref">Fuzzy joining dirty tables and the FeatureAugmenter</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Fuzzy joining dirty tables and the FeatureAugmenter</div>
 </div></div><div class="clearer"></div></section>
 </section>
 
