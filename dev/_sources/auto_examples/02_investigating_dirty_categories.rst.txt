@@ -182,7 +182,9 @@ employee's position title:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 70-76
+.. GENERATED FROM PYTHON SOURCE LINES 70-78
+
+.. _example_similarity_encoder:
 
 String similarity between entries
 ---------------------------------
@@ -191,7 +193,7 @@ That's where our encoders get into play.
 In order to robustly embed dirty semantic data, the |SE|
 creates a similarity matrix based on an n-gram representation of the data.
 
-.. GENERATED FROM PYTHON SOURCE LINES 76-84
+.. GENERATED FROM PYTHON SOURCE LINES 78-86
 
 .. code-block:: default
 
@@ -211,13 +213,13 @@ creates a similarity matrix based on an n-gram representation of the data.
 
  .. code-block:: none
 
-    /home/circleci/project/examples/02_investigating_dirty_categories.py:81: UserWarning: The "similarity" argument is deprecated since dirty_cat 0.3, and will be removed in 0.5.The n-gram similarity is the only one currently supported. 
+    /home/circleci/project/examples/02_investigating_dirty_categories.py:83: UserWarning: The "similarity" argument is deprecated since dirty_cat 0.3, and will be removed in 0.5.The n-gram similarity is the only one currently supported. 
       similarity_encoder = SimilarityEncoder()
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 85-90
+.. GENERATED FROM PYTHON SOURCE LINES 87-92
 
 Plotting the new representation using multi-dimensional scaling
 ................................................................
@@ -225,7 +227,7 @@ Plotting the new representation using multi-dimensional scaling
 Let's now plot a couple of points at random using a low-dimensional
 representation to get an intuition of what the |SE| is doing:
 
-.. GENERATED FROM PYTHON SOURCE LINES 90-100
+.. GENERATED FROM PYTHON SOURCE LINES 92-102
 
 .. code-block:: default
 
@@ -255,11 +257,11 @@ representation to get an intuition of what the |SE| is doing:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 101-102
+.. GENERATED FROM PYTHON SOURCE LINES 103-104
 
 We first quickly fit a KNN so that the plots does not get too busy:
 
-.. GENERATED FROM PYTHON SOURCE LINES 102-116
+.. GENERATED FROM PYTHON SOURCE LINES 104-118
 
 .. code-block:: default
 
@@ -284,11 +286,11 @@ We first quickly fit a KNN so that the plots does not get too busy:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 117-118
+.. GENERATED FROM PYTHON SOURCE LINES 119-120
 
 Then we plot it, adding the categories in the scatter plot:
 
-.. GENERATED FROM PYTHON SOURCE LINES 118-133
+.. GENERATED FROM PYTHON SOURCE LINES 120-135
 
 .. code-block:: default
 
@@ -325,14 +327,14 @@ Then we plot it, adding the categories in the scatter plot:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 134-138
+.. GENERATED FROM PYTHON SOURCE LINES 136-140
 
 Heatmap of the similarity matrix
 ................................
 
 We can also plot the distance matrix for those observations:
 
-.. GENERATED FROM PYTHON SOURCE LINES 138-150
+.. GENERATED FROM PYTHON SOURCE LINES 140-152
 
 .. code-block:: default
 
@@ -360,7 +362,7 @@ We can also plot the distance matrix for those observations:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 151-157
+.. GENERATED FROM PYTHON SOURCE LINES 153-159
 
 As shown in the previous plot, we see that the nearest neighbor of
 "Communication Equipment Technician"
@@ -369,13 +371,13 @@ very close to senior "Supply Technician": therefore, we grasp the
 "Communication" part (not initially present in the category as a unique word)
 as well as the "Technician" part of this category.
 
-.. GENERATED FROM PYTHON SOURCE LINES 160-163
+.. GENERATED FROM PYTHON SOURCE LINES 162-165
 
 Feature interpretation with the |Gap|
 -------------------------------------
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 165-170
+.. GENERATED FROM PYTHON SOURCE LINES 167-172
 
 The |Gap| is a better encoder than the
 |SE| in the sense that it is more scalable and
@@ -383,7 +385,7 @@ interpretable, which we will present now.
 
 First, let's retrieve the dirty column to encode:
 
-.. GENERATED FROM PYTHON SOURCE LINES 170-176
+.. GENERATED FROM PYTHON SOURCE LINES 172-178
 
 .. code-block:: default
 
@@ -413,14 +415,16 @@ First, let's retrieve the dirty column to encode:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 177-181
+.. GENERATED FROM PYTHON SOURCE LINES 179-185
+
+.. _example_gap_encoder:
 
 Encoding dirty job titles
 .........................
 
 Then, we'll create an instance of the |Gap| with 10 components:
 
-.. GENERATED FROM PYTHON SOURCE LINES 181-186
+.. GENERATED FROM PYTHON SOURCE LINES 185-190
 
 .. code-block:: default
 
@@ -436,12 +440,12 @@ Then, we'll create an instance of the |Gap| with 10 components:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 187-189
+.. GENERATED FROM PYTHON SOURCE LINES 191-193
 
 Finally, we'll fit the model on the dirty categorical data and transform it
 in order to obtain encoded vectors of size 10:
 
-.. GENERATED FROM PYTHON SOURCE LINES 189-193
+.. GENERATED FROM PYTHON SOURCE LINES 193-197
 
 .. code-block:: default
 
@@ -462,7 +466,7 @@ in order to obtain encoded vectors of size 10:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 194-204
+.. GENERATED FROM PYTHON SOURCE LINES 198-208
 
 Interpreting encoded vectors
 ............................
@@ -475,7 +479,7 @@ To interpret these latent topics, we select for each of them a few labels
 from the input data with the highest activations.
 In the example below we select 3 labels to summarize each topic.
 
-.. GENERATED FROM PYTHON SOURCE LINES 204-210
+.. GENERATED FROM PYTHON SOURCE LINES 208-214
 
 .. code-block:: default
 
@@ -507,7 +511,7 @@ In the example below we select 3 labels to summarize each topic.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 211-216
+.. GENERATED FROM PYTHON SOURCE LINES 215-220
 
 As expected, topics capture labels that frequently co-occur. For instance,
 the labels "firefighter", "rescuer", "rescue" appear together in
@@ -515,7 +519,7 @@ the labels "firefighter", "rescuer", "rescue" appear together in
 
 This enables us to understand the encoding of different samples
 
-.. GENERATED FROM PYTHON SOURCE LINES 216-228
+.. GENERATED FROM PYTHON SOURCE LINES 220-232
 
 .. code-block:: default
 
@@ -543,7 +547,7 @@ This enables us to understand the encoding of different samples
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 229-232
+.. GENERATED FROM PYTHON SOURCE LINES 233-236
 
 As we can see, each dirty category encodes on a small number of topics,
 These can thus be reliably used to summarize each topic, which are in
@@ -552,7 +556,7 @@ effect latent categories captured from the data.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  7.911 seconds)
+   **Total running time of the script:** ( 0 minutes  7.806 seconds)
 
 
 .. _sphx_glr_download_auto_examples_02_investigating_dirty_categories.py:

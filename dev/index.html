@@ -124,11 +124,26 @@ pipeline you can tweak.</p>
 <div class="flex-content">
 <span class="container-title">OneHotEncoder but for non-normalized categories</span><ul class="simple">
 <li><p><a class="reference internal" href="generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder" title="dirty_cat.GapEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">GapEncoder</span></code></a>, scalable and interpretable, where each encoding
-dimension corresponds to a topic that summarizes substrings captured.</p></li>
+dimension corresponds to a topic that summarizes substrings captured.
+<a class="reference internal" href="auto_examples/02_investigating_dirty_categories.html#example-gap-encoder"><span class="std std-ref">Example</span></a></p></li>
 <li><p><a class="reference internal" href="generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="dirty_cat.SimilarityEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimilarityEncoder</span></code></a>, a simple modification of one-hot encoding
-to capture the strings.</p></li>
-<li><p><a class="reference internal" href="generated/dirty_cat.MinHashEncoder.html#dirty_cat.MinHashEncoder" title="dirty_cat.MinHashEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">MinHashEncoder</span></code></a>, very scalable</p></li>
+to capture the strings.
+<a class="reference internal" href="auto_examples/02_investigating_dirty_categories.html#example-similarity-encoder"><span class="std std-ref">Example</span></a></p></li>
+<li><p><a class="reference internal" href="generated/dirty_cat.MinHashEncoder.html#dirty_cat.MinHashEncoder" title="dirty_cat.MinHashEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">MinHashEncoder</span></code></a>, very scalable.
+<a class="reference internal" href="auto_examples/01_dirty_categories.html#example-minhash-encoder"><span class="std std-ref">Example</span></a></p></li>
 </ul>
+</div>
+<div class="flex-content">
+<span class="container-title">Joining tables on non-normalized categories</span><ul class="simple">
+<li><p><a class="reference internal" href="generated/dirty_cat.fuzzy_join.html#dirty_cat.fuzzy_join" title="dirty_cat.fuzzy_join"><code class="xref py py-func docutils literal notranslate"><span class="pre">fuzzy_join()</span></code></a>, approximate matching using morphological similarity.
+<a class="reference internal" href="auto_examples/05_fuzzy_joining_and_FeatureAugmenter.html#example-fuzzy-join"><span class="std std-ref">Example</span></a></p></li>
+<li><p><a class="reference internal" href="generated/dirty_cat.FeatureAugmenter.html#dirty_cat.FeatureAugmenter" title="dirty_cat.FeatureAugmenter"><code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureAugmenter</span></code></a>, a scikit-learn transformer for joining multiple tables.
+<a class="reference internal" href="auto_examples/05_fuzzy_joining_and_FeatureAugmenter.html#example-feature-augmenter"><span class="std std-ref">Example</span></a></p></li>
+</ul>
+</div>
+<div class="flex-content">
+<span class="container-title">Deduplicating dirty categories</span><p><a class="reference internal" href="generated/dirty_cat.deduplicate.html#dirty_cat.deduplicate" title="dirty_cat.deduplicate"><code class="xref py py-func docutils literal notranslate"><span class="pre">deduplicate()</span></code></a>, merging categories of similar morphology (spelling).</p>
+<p class="centered"><a class="reference internal" href="auto_examples/06_deduplication.html#example-deduplication"><span class="std std-ref">An example</span></a></p>
 </div>
 </div><div class="right-align docutils container">
 <p><a class="reference external" href="CHANGES.html">Recent changes</a></p>

@@ -194,7 +194,9 @@ clusters - the original medication names and their misspellings that cluster aro
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 107-116
+.. GENERATED FROM PYTHON SOURCE LINES 107-118
+
+.. _example_deduplication:
 
 Deduplication: suggest corrections of misspelled names
 ------------------------------------------------------
@@ -206,7 +208,7 @@ The number of clusters will need some adjustment depending on the data you have.
 If no fixed number of clusters is given, |dd| tries to set it automatically
 via the `silhouette score <https://scikit-learn.org/stable/modules/clustering.html#silhouette-coefficient>`_.
 
-.. GENERATED FROM PYTHON SOURCE LINES 116-121
+.. GENERATED FROM PYTHON SOURCE LINES 118-123
 
 .. code-block:: default
 
@@ -222,11 +224,11 @@ via the `silhouette score <https://scikit-learn.org/stable/modules/clustering.ht
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 122-123
+.. GENERATED FROM PYTHON SOURCE LINES 124-125
 
 We can visualize the distribution of categories in the deduplicated data:
 
-.. GENERATED FROM PYTHON SOURCE LINES 123-133
+.. GENERATED FROM PYTHON SOURCE LINES 125-135
 
 .. code-block:: default
 
@@ -258,7 +260,7 @@ We can visualize the distribution of categories in the deduplicated data:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 134-142
+.. GENERATED FROM PYTHON SOURCE LINES 136-144
 
 In this example we can correct all spelling mistakes by using the ideal number
 of clusters as determined by the silhouette score.
@@ -269,7 +271,7 @@ returned by |dd|.
 It consists of the (potentially) misspelled category names as indices and the
 (potentially) correct categories as values.
 
-.. GENERATED FROM PYTHON SOURCE LINES 142-149
+.. GENERATED FROM PYTHON SOURCE LINES 144-151
 
 .. code-block:: default
 
@@ -287,13 +289,13 @@ It consists of the (potentially) misspelled category names as indices and the
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 150-153
+.. GENERATED FROM PYTHON SOURCE LINES 152-155
 
 Since the number of correct spellings will likely be much smaller than the
 number of original categories, we can print the estimated cluster and their
 most common exemplars (the guessed correct spelling):
 
-.. GENERATED FROM PYTHON SOURCE LINES 153-166
+.. GENERATED FROM PYTHON SOURCE LINES 155-168
 
 .. code-block:: default
 
@@ -338,13 +340,13 @@ most common exemplars (the guessed correct spelling):
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 167-170
+.. GENERATED FROM PYTHON SOURCE LINES 169-172
 
 In case we want to adapt the translation table post-hoc we can easily
 modified it manually and apply it, for instance modifying the
 correspondance for the last entry as such:
 
-.. GENERATED FROM PYTHON SOURCE LINES 170-174
+.. GENERATED FROM PYTHON SOURCE LINES 172-176
 
 .. code-block:: default
 
@@ -362,7 +364,7 @@ correspondance for the last entry as such:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  4.337 seconds)
+   **Total running time of the script:** ( 0 minutes  4.295 seconds)
 
 
 .. _sphx_glr_download_auto_examples_06_deduplication.py:
