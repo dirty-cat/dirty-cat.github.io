@@ -27,8 +27,7 @@ break many data-analyses steps that require exact matching, such as a
 'GROUP BY'.
 
 Merging the multiple variants of the same category or entity is known as
-*deduplication*. It is performed by the :func:`~dirty_cat.deduplicate`
-function.
+*deduplication*. It is performed by the |dd| function.
 
 Deduplication relies on *unsupervised learning*, to find structure in
 data without providing explicit labels/categories of the data a-priori.
@@ -37,7 +36,10 @@ find clusters of strings that are similar to each other (e.g. differ only
 by a misspelling) and hence gives us an easy tool to flag potentially
 misspelled category names in an unsupervised manner.
 
-.. GENERATED FROM PYTHON SOURCE LINES 23-35
+
+.. |dd| replace:: :func:`~dirty_cat.deduplicate`
+
+.. GENERATED FROM PYTHON SOURCE LINES 25-37
 
 An example dataset
 -------------------
@@ -52,7 +54,7 @@ spelling mistakes for these three medications.
 
 Let's generate some example data that demonstrate this.
 
-.. GENERATED FROM PYTHON SOURCE LINES 35-60
+.. GENERATED FROM PYTHON SOURCE LINES 37-65
 
 .. code-block:: default
 
@@ -69,13 +71,16 @@ Let's generate some example data that demonstrate this.
     prob_mistake_per_letter = 0.05
 
     duplicated_names = make_deduplication_data(
-        medications, entries_per_medications, prob_mistake_per_letter,
-        random_state=42, # set seed for reproducibility
+        medications,
+        entries_per_medications,
+        prob_mistake_per_letter,
+        random_state=42,  # set seed for reproducibility
     )
     # we extract the unique medication names in the data & how often they appear
     unique_examples, counts = np.unique(duplicated_names, return_counts=True)
     # and build a series out of them
     import pandas as pd
+
     ex_series = pd.Series(counts, index=unique_examples)
 
     # This is our data:
@@ -99,12 +104,12 @@ Let's generate some example data that demonstrate this.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 61-63
+.. GENERATED FROM PYTHON SOURCE LINES 66-68
 
 Visualize the data
 ------------------
 
-.. GENERATED FROM PYTHON SOURCE LINES 63-70
+.. GENERATED FROM PYTHON SOURCE LINES 68-75
 
 .. code-block:: default
 
@@ -133,7 +138,7 @@ Visualize the data
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 71-78
+.. GENERATED FROM PYTHON SOURCE LINES 76-83
 
 We can now see clearly the structure of the data: The three original medications
 are the most common ones, however there are many spelling mistakes and hence
@@ -143,7 +148,7 @@ The idea is to use the fact that the string-distance of each misspelled medicati
 name will be closest to either the correctly or incorrectly spelled orginal
 medication name - and therefore form clusters.
 
-.. GENERATED FROM PYTHON SOURCE LINES 80-87
+.. GENERATED FROM PYTHON SOURCE LINES 85-92
 
 We can visualize the pair-wise distance between all medication names
 --------------------------------------------------------------------
@@ -153,7 +158,7 @@ A darker color means that two medication names are closer together (i.e. more si
 a lighter color means a larger distance. We can see that we are dealing with three
 clusters - the original medication names and their misspellings that cluster around them.
 
-.. GENERATED FROM PYTHON SOURCE LINES 87-101
+.. GENERATED FROM PYTHON SOURCE LINES 92-106
 
 .. code-block:: default
 
@@ -189,19 +194,19 @@ clusters - the original medication names and their misspellings that cluster aro
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 102-111
+.. GENERATED FROM PYTHON SOURCE LINES 107-116
 
 Deduplication: suggest corrections of misspelled names
------------------------------------------------------
+------------------------------------------------------
 
-The :func:`~dirty_cat.deduplicate` function uses clustering based on
+The |dd| function uses clustering based on
 string similarities to group duplicated names
 
 The number of clusters will need some adjustment depending on the data you have.
-If no fixed number of clusters is given, `deduplicate` tries to set it automatically
+If no fixed number of clusters is given, |dd| tries to set it automatically
 via the `silhouette score <https://scikit-learn.org/stable/modules/clustering.html#silhouette-coefficient>`_.
 
-.. GENERATED FROM PYTHON SOURCE LINES 111-116
+.. GENERATED FROM PYTHON SOURCE LINES 116-121
 
 .. code-block:: default
 
@@ -217,11 +222,11 @@ via the `silhouette score <https://scikit-learn.org/stable/modules/clustering.ht
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 117-118
+.. GENERATED FROM PYTHON SOURCE LINES 122-123
 
 We can visualize the distribution of categories in the deduplicated data:
 
-.. GENERATED FROM PYTHON SOURCE LINES 118-128
+.. GENERATED FROM PYTHON SOURCE LINES 123-133
 
 .. code-block:: default
 
@@ -253,18 +258,18 @@ We can visualize the distribution of categories in the deduplicated data:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 129-137
+.. GENERATED FROM PYTHON SOURCE LINES 134-142
 
 In this example we can correct all spelling mistakes by using the ideal number
 of clusters as determined by the silhouette score.
 
 However, often the translation/deduplication won't be perfect and will require some tweaks.
 In this case, we can construct and update a translation table based on the data
-returned by `deduplicate`.
+returned by |dd|.
 It consists of the (potentially) misspelled category names as indices and the
 (potentially) correct categories as values.
 
-.. GENERATED FROM PYTHON SOURCE LINES 137-144
+.. GENERATED FROM PYTHON SOURCE LINES 142-149
 
 .. code-block:: default
 
@@ -282,13 +287,13 @@ It consists of the (potentially) misspelled category names as indices and the
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 145-148
+.. GENERATED FROM PYTHON SOURCE LINES 150-153
 
 Since the number of correct spellings will likely be much smaller than the
 number of original categories, we can print the estimated cluster and their
 most common exemplars (the guessed correct spelling):
 
-.. GENERATED FROM PYTHON SOURCE LINES 148-161
+.. GENERATED FROM PYTHON SOURCE LINES 153-166
 
 .. code-block:: default
 
@@ -333,13 +338,13 @@ most common exemplars (the guessed correct spelling):
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 162-165
+.. GENERATED FROM PYTHON SOURCE LINES 167-170
 
 In case we want to adapt the translation table post-hoc we can easily
 modified it manually and apply it, for instance modifying the
 correspondance for the last entry as such:
 
-.. GENERATED FROM PYTHON SOURCE LINES 165-169
+.. GENERATED FROM PYTHON SOURCE LINES 170-174
 
 .. code-block:: default
 
@@ -357,7 +362,7 @@ correspondance for the last entry as such:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  5.014 seconds)
+   **Total running time of the script:** ( 0 minutes  4.337 seconds)
 
 
 .. _sphx_glr_download_auto_examples_06_deduplication.py:

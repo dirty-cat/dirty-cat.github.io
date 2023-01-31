@@ -125,8 +125,7 @@ names, for instance if the category is manually input. Such misspellings
 break many data-analyses steps that require exact matching, such as a
 ‘GROUP BY’.</p>
 <p>Merging the multiple variants of the same category or entity is known as
-<em>deduplication</em>. It is performed by the <a class="reference internal" href="../generated/dirty_cat.deduplicate.html#dirty_cat.deduplicate" title="dirty_cat.deduplicate"><code class="xref py py-func docutils literal notranslate"><span class="pre">deduplicate()</span></code></a>
-function.</p>
+<em>deduplication</em>. It is performed by the <a class="reference internal" href="../generated/dirty_cat.deduplicate.html#dirty_cat.deduplicate" title="dirty_cat.deduplicate"><code class="xref py py-func docutils literal notranslate"><span class="pre">deduplicate()</span></code></a> function.</p>
 <p>Deduplication relies on <em>unsupervised learning</em>, to find structure in
 data without providing explicit labels/categories of the data a-priori.
 Specifically clustering of the distance between strings can be used to
@@ -156,13 +155,16 @@ spelling mistakes for these three medications.</p>
 <a href="https://docs.python.org/3/library/functions.html#float" title="builtins.float" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">prob_mistake_per_letter</span></a> <span class="o">=</span> <span class="mf">0.05</span>
 
 <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">duplicated_names</span></a> <span class="o">=</span> <a href="../generated/dirty_cat.datasets.make_deduplication_data.html#dirty_cat.datasets.make_deduplication_data" title="dirty_cat.datasets.make_deduplication_data" class="sphx-glr-backref-module-dirty_cat-datasets sphx-glr-backref-type-py-function"><span class="n">make_deduplication_data</span></a><span class="p">(</span>
-    <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">medications</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">entries_per_medications</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/functions.html#float" title="builtins.float" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">prob_mistake_per_letter</span></a><span class="p">,</span>
-    <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="c1"># set seed for reproducibility</span>
+    <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">medications</span></a><span class="p">,</span>
+    <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">entries_per_medications</span></a><span class="p">,</span>
+    <a href="https://docs.python.org/3/library/functions.html#float" title="builtins.float" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">prob_mistake_per_letter</span></a><span class="p">,</span>
+    <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span>  <span class="c1"># set seed for reproducibility</span>
 <span class="p">)</span>
 <span class="c1"># we extract the unique medication names in the data &amp; how often they appear</span>
 <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">unique_examples</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">counts</span></a> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.unique.html#numpy.unique" title="numpy.unique" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">unique</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">duplicated_names</span></a><span class="p">,</span> <span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="c1"># and build a series out of them</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
 <a href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ex_series</span></a> <span class="o">=</span> <a href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class"><span class="n">pd</span><span class="o">.</span><span class="n">Series</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">counts</span></a><span class="p">,</span> <span class="n">index</span><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">unique_examples</span></a><span class="p">)</span>
 
 <span class="c1"># This is our data:</span>
@@ -226,7 +228,7 @@ clusters - the original medication names and their misspellings that cluster aro
 <p>The <a class="reference internal" href="../generated/dirty_cat.deduplicate.html#dirty_cat.deduplicate" title="dirty_cat.deduplicate"><code class="xref py py-func docutils literal notranslate"><span class="pre">deduplicate()</span></code></a> function uses clustering based on
 string similarities to group duplicated names</p>
 <p>The number of clusters will need some adjustment depending on the data you have.
-If no fixed number of clusters is given, <cite>deduplicate</cite> tries to set it automatically
+If no fixed number of clusters is given, <a class="reference internal" href="../generated/dirty_cat.deduplicate.html#dirty_cat.deduplicate" title="dirty_cat.deduplicate"><code class="xref py py-func docutils literal notranslate"><span class="pre">deduplicate()</span></code></a> tries to set it automatically
 via the <a class="reference external" href="https://scikit-learn.org/stable/modules/clustering.html#silhouette-coefficient">silhouette score</a>.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dirty_cat</span> <span class="kn">import</span> <a href="../generated/dirty_cat.deduplicate.html#dirty_cat.deduplicate" title="dirty_cat.deduplicate" class="sphx-glr-backref-module-dirty_cat sphx-glr-backref-type-py-function"><span class="n">deduplicate</span></a>
 
@@ -251,7 +253,7 @@ via the <a class="reference external" href="https://scikit-learn.org/stable/modu
 of clusters as determined by the silhouette score.</p>
 <p>However, often the translation/deduplication won’t be perfect and will require some tweaks.
 In this case, we can construct and update a translation table based on the data
-returned by <cite>deduplicate</cite>.
+returned by <a class="reference internal" href="../generated/dirty_cat.deduplicate.html#dirty_cat.deduplicate" title="dirty_cat.deduplicate"><code class="xref py py-func docutils literal notranslate"><span class="pre">deduplicate()</span></code></a>.
 It consists of the (potentially) misspelled category names as indices and the
 (potentially) correct categories as values.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># create a table that maps original -&gt; corrected categories</span>
@@ -302,7 +304,7 @@ correspondance for the last entry as such:</p>
 <span class="k">assert</span> <span class="p">(</span><a href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">new_deduplicated_names</span></a> <span class="o">==</span> <span class="s2">&quot;Completely new category&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  5.014 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  4.337 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-06-deduplication-py">
 <div class="binder-badge docutils container">
 <a class="reference external image-reference" href="https://mybinder.org/v2/gh/dirty-cat/dirty-cat.github.io/main?filepath=dev/auto_examples/06_deduplication.ipynb"><img alt="Launch binder" src="../_images/binder_badge_logo.svg" width="150px" /></a>
