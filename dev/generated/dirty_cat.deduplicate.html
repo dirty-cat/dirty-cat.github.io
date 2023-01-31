@@ -114,7 +114,7 @@
 <h1><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat</span></code>.deduplicate<a class="headerlink" href="#dirty-cat-deduplicate" title="Permalink to this heading">¶</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="dirty_cat.deduplicate">
-<span class="sig-prename descclassname"><span class="pre">dirty_cat.</span></span><span class="sig-name descname"><span class="pre">deduplicate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_clusters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ngram_range</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(2,</span> <span class="pre">4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">analyzer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'char_wb'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'average'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/3babb5d/dirty_cat/_deduplicate.py#L122"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.deduplicate" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">dirty_cat.</span></span><span class="sig-name descname"><span class="pre">deduplicate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_clusters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ngram_range</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(2,</span> <span class="pre">4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">analyzer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'char_wb'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'average'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/af6e188/dirty_cat/_deduplicate.py#L122"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.deduplicate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Deduplicate data by hierarchically clustering similar strings.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -155,6 +155,43 @@ categories in data, then performing hierarchical clustering on this distance
 matrix, and choosing the most frequent element in each cluster as the
 ‘correct’ spelling. This method works best if the true number of
 categories is significantly smaller than the number of observed spellings.</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">dirty_cat.datasets</span> <span class="kn">import</span> <span class="n">make_deduplication_data</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">duplicated</span> <span class="o">=</span> <span class="n">make_deduplication_data</span><span class="p">(</span><span class="n">examples</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="s1">&#39;white&#39;</span><span class="p">],</span>
+<span class="go">                                         entries_per_example=[5, 5],</span>
+<span class="go">                                         prob_mistake_per_letter=0.3,</span>
+<span class="go">                                         random_state=42)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">duplicated</span>
+<span class="go">[&#39;blacn&#39;, &#39;black&#39;, &#39;black&#39;, &#39;black&#39;, &#39;black&#39;,</span>
+<span class="go"> &#39;hvite&#39;, &#39;white&#39;, &#39;white&#39;, &#39;white&#39;, &#39;white&#39;]</span>
+</pre></div>
+</div>
+<p>To deduplicate the data, we can build a correspondance matrix:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">deduplicate_correspondence</span> <span class="o">=</span> <span class="n">deduplicate</span><span class="p">(</span><span class="n">duplicated</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">deduplicate_correspondence</span>
+<span class="go">blacn    black</span>
+<span class="go">black    black</span>
+<span class="go">black    black</span>
+<span class="go">black    black</span>
+<span class="go">black    black</span>
+<span class="go">hvite    white</span>
+<span class="go">white    white</span>
+<span class="go">white    white</span>
+<span class="go">white    white</span>
+<span class="go">white    white</span>
+<span class="go">dtype: object</span>
+</pre></div>
+</div>
+<p>The translation table above is actually a series, giving the deduplicated values, and indexed by the original values. A deduplicated version of the initial list can easily be created:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">deduplicated</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">deduplicate_correspondence</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">deduplicated</span>
+<span class="go">[&#39;black&#39;, &#39;black&#39;, &#39;black&#39;, &#39;black&#39;, &#39;black&#39;,</span>
+<span class="go">&#39;white&#39;, &#39;white&#39;, &#39;white&#39;, &#39;white&#39;, &#39;white&#39;]</span>
+</pre></div>
+</div>
+<p>We have our dirty categories deduplicated.</p>
 </dd></dl>
 
 <section id="examples-using-dirty-cat-deduplicate">
