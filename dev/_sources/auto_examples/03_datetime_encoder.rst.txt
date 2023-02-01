@@ -28,14 +28,14 @@ The |DtE| breaks down each datetime
 features into several numerical features, by extracting relevant
 information from the datetime features, such as the month, the day
 of the week, the hour of the day, etc.
-Used in the |SV|, which automatically detects
+Used in the |TV|, which automatically detects
 the datetime features, the |DtE| allows to
 handle datetime features easily.
 
 
 .. |DtE| replace:: :class:`~dirty_cat.DatetimeEncoder`
 
-.. |SV| replace:: :class:`~dirty_cat.SuperVectorizer`
+.. |TV| replace:: :class:`~dirty_cat.TableVectorizer`
 
 .. GENERATED FROM PYTHON SOURCE LINES 21-26
 
@@ -267,19 +267,19 @@ because they are constant.
 
 .. GENERATED FROM PYTHON SOURCE LINES 82-86
 
-One-liner with the |SV|
+One-liner with the |TV|
 .......................
-The |DtE| is used by default in the |SV|, which
+The |DtE| is used by default in the |TV|, which
 automatically detects datetime features.
 
 .. GENERATED FROM PYTHON SOURCE LINES 86-93
 
 .. code-block:: default
 
-    from dirty_cat import SuperVectorizer
+    from dirty_cat import TableVectorizer
     from pprint import pprint
 
-    sup_vec = SuperVectorizer()
+    sup_vec = TableVectorizer()
     sup_vec.fit_transform(X)
     pprint(sup_vec.get_feature_names_out())
 
@@ -303,13 +303,13 @@ automatically detects datetime features.
 
 .. GENERATED FROM PYTHON SOURCE LINES 94-95
 
-If we want the day of the week, we can just replace |SV|'s default parameter:
+If we want the day of the week, we can just replace |TV|'s default parameter:
 
 .. GENERATED FROM PYTHON SOURCE LINES 95-101
 
 .. code-block:: default
 
-    sup_vec = SuperVectorizer(
+    sup_vec = TableVectorizer(
         datetime_transformer=DatetimeEncoder(add_day_of_the_week=True),
     )
     sup_vec.fit_transform(X)
@@ -330,7 +330,7 @@ If we want the day of the week, we can just replace |SV|'s default parameter:
 
 .. GENERATED FROM PYTHON SOURCE LINES 102-104
 
-We can see that the |SV| is indeed using
+We can see that the |TV| is indeed using
 a |DtE| for the datetime features.
 
 .. GENERATED FROM PYTHON SOURCE LINES 104-106
@@ -357,7 +357,7 @@ a |DtE| for the datetime features.
 
 Predictions with date features
 ------------------------------
-For prediction tasks, we recommend using the |SV| inside a
+For prediction tasks, we recommend using the |TV| inside a
 pipeline, combined with a model that uses the features extracted by the
 |DtE|.
 
@@ -369,7 +369,7 @@ pipeline, combined with a model that uses the features extracted by the
     from sklearn.ensemble import HistGradientBoostingRegressor
     from sklearn.pipeline import make_pipeline
 
-    sup_vec = SuperVectorizer(
+    sup_vec = TableVectorizer(
         datetime_transformer=DatetimeEncoder(add_day_of_the_week=True),
     )
     reg = HistGradientBoostingRegressor()
@@ -549,7 +549,7 @@ basically shuffles a feature and sees how the model changes its prediction.
 
     from sklearn.inspection import permutation_importance
 
-    sup_vec = SuperVectorizer(
+    sup_vec = TableVectorizer(
         datetime_transformer=DatetimeEncoder(add_day_of_the_week=True),
     )
 
@@ -593,7 +593,7 @@ which seems reasonable.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  3.848 seconds)
+   **Total running time of the script:** ( 0 minutes  4.097 seconds)
 
 
 .. _sphx_glr_download_auto_examples_03_datetime_encoder.py:
