@@ -115,8 +115,8 @@
 <p class="side-comment">Usage examples at the bottom of this page.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="dirty_cat.FeatureAugmenter">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">dirty_cat.</span></span><span class="sig-name descname"><span class="pre">FeatureAugmenter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tables</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">main_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">match_score</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">analyzer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'char_wb'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ngram_range</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(2,</span> <span class="pre">4)</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/56f708b/dirty_cat/_feature_augmenter.py#L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.FeatureAugmenter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Transformer augmenting the number of features in a table by joining multiple tables.</p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">dirty_cat.</span></span><span class="sig-name descname"><span class="pre">FeatureAugmenter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tables</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">main_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">match_score</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">analyzer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'char_wb'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ngram_range</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(2,</span> <span class="pre">4)</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/76da935/dirty_cat/_feature_augmenter.py#L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.FeatureAugmenter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transformer augmenting number of features in a table by joining multiple tables.</p>
 <p>Given a list of tables and key column names,
 fuzzy join them to the main table.</p>
 <dl class="field-list">
@@ -155,8 +155,16 @@ that min_n &lt;= n &lt;= max_n will be used.</p>
 </dl>
 </dd>
 </dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="dirty_cat.fuzzy_join.html#dirty_cat.fuzzy_join" title="dirty_cat.fuzzy_join"><code class="xref py py-class docutils literal notranslate"><span class="pre">fuzzy_join</span></code></a></dt><dd><p>Join two tables (dataframes) based on approximate column matching.</p>
+</dd>
+</dl>
+</div>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="s1">&#39;France&#39;</span><span class="p">,</span> <span class="s1">&#39;Germany&#39;</span><span class="p">,</span> <span class="s1">&#39;Italy&#39;</span><span class="p">],</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Country&#39;</span><span class="p">])</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="s1">&#39;France&#39;</span><span class="p">,</span> <span class="s1">&#39;Germany&#39;</span><span class="p">,</span> <span class="s1">&#39;Italy&#39;</span><span class="p">],</span>
+<span class="go">                     columns=[&#39;Country&#39;])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">X</span>
 <span class="go">Country</span>
 <span class="go">0   France</span>
@@ -164,7 +172,10 @@ that min_n &lt;= n &lt;= max_n will be used.</p>
 <span class="go">2    Italy</span>
 </pre></div>
 </div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">aux_table_1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([[</span><span class="s1">&#39;Germany&#39;</span><span class="p">,</span> <span class="mi">84_000_000</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;France&#39;</span><span class="p">,</span> <span class="mi">68_000_000</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;Italy&#39;</span><span class="p">,</span> <span class="mi">59_000_000</span><span class="p">]],</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Country&#39;</span><span class="p">,</span> <span class="s1">&#39;Population&#39;</span><span class="p">])</span> <span class="c1"># noqa</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">aux_table_1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([[</span><span class="s1">&#39;Germany&#39;</span><span class="p">,</span> <span class="mi">84_000_000</span><span class="p">],</span>
+<span class="go">                                [&#39;France&#39;, 68_000_000],</span>
+<span class="go">                                [&#39;Italy&#39;, 59_000_000]],</span>
+<span class="go">                                columns=[&#39;Country&#39;, &#39;Population&#39;])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">aux_table_1</span>
 <span class="go">   Country  Population</span>
 <span class="go">0  Germany    84000000</span>
@@ -172,7 +183,11 @@ that min_n &lt;= n &lt;= max_n will be used.</p>
 <span class="go">2    Italy    59000000</span>
 </pre></div>
 </div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">aux_table_2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([[</span><span class="s1">&#39;French Republic&#39;</span><span class="p">,</span> <span class="mi">2937</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;Italy&#39;</span><span class="p">,</span> <span class="mi">2099</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;Germany&#39;</span><span class="p">,</span> <span class="mi">4223</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;UK&#39;</span><span class="p">,</span> <span class="mi">3186</span><span class="p">]],</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Country name&#39;</span><span class="p">,</span> <span class="s1">&#39;GDP (billion)&#39;</span><span class="p">])</span> <span class="c1"># noqa</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">aux_table_2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([[</span><span class="s1">&#39;French Republic&#39;</span><span class="p">,</span> <span class="mi">2937</span><span class="p">],</span>
+<span class="go">                                [&#39;Italy&#39;, 2099],</span>
+<span class="go">                                [&#39;Germany&#39;, 4223],</span>
+<span class="go">                                [&#39;UK&#39;, 3186]],</span>
+<span class="go">                                columns=[&#39;Country name&#39;, &#39;GDP (billion)&#39;])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">aux_table_2</span>
 <span class="go">    Country name  GDP (billion)</span>
 <span class="go">0   French Republic      2937</span>
@@ -181,7 +196,10 @@ that min_n &lt;= n &lt;= max_n will be used.</p>
 <span class="go">3           UK           3186</span>
 </pre></div>
 </div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">aux_table_3</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([[</span><span class="s1">&#39;France&#39;</span><span class="p">,</span> <span class="s1">&#39;Paris&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;Italia&#39;</span><span class="p">,</span> <span class="s1">&#39;Rome&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;Germany&#39;</span><span class="p">,</span> <span class="s1">&#39;Berlin&#39;</span><span class="p">]],</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Countries&#39;</span><span class="p">,</span> <span class="s1">&#39;Capital&#39;</span><span class="p">])</span> <span class="c1"># noqa</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">aux_table_3</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([[</span><span class="s1">&#39;France&#39;</span><span class="p">,</span> <span class="s1">&#39;Paris&#39;</span><span class="p">],</span>
+<span class="go">                                [&#39;Italia&#39;, &#39;Rome&#39;],</span>
+<span class="go">                                [&#39;Germany&#39;, &#39;Berlin&#39;]],</span>
+<span class="go">                                columns=[&#39;Countries&#39;, &#39;Capital&#39;])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">aux_table_3</span>
 <span class="go">  Countries Capital</span>
 <span class="go">0    France   Paris</span>
@@ -189,7 +207,9 @@ that min_n &lt;= n &lt;= max_n will be used.</p>
 <span class="go">2   Germany  Berlin</span>
 </pre></div>
 </div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">aux_tables</span> <span class="o">=</span> <span class="p">[(</span><span class="n">aux_table_1</span><span class="p">,</span> <span class="s2">&quot;Country&quot;</span><span class="p">),</span> <span class="p">(</span><span class="n">aux_table_2</span><span class="p">,</span> <span class="s2">&quot;Country name&quot;</span><span class="p">),</span> <span class="p">(</span><span class="n">aux_table_3</span><span class="p">,</span> <span class="s2">&quot;Countries&quot;</span><span class="p">)]</span> <span class="c1"># noqa</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">aux_tables</span> <span class="o">=</span> <span class="p">[(</span><span class="n">aux_table_1</span><span class="p">,</span> <span class="s2">&quot;Country&quot;</span><span class="p">),</span>
+<span class="go">                  (aux_table_2, &quot;Country name&quot;),</span>
+<span class="go">                  (aux_table_3, &quot;Countries&quot;)]</span>
 </pre></div>
 </div>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fa</span> <span class="o">=</span> <span class="n">FeatureAugmenter</span><span class="p">(</span><span class="n">tables</span><span class="o">=</span><span class="n">aux_tables</span><span class="p">,</span> <span class="n">main_key</span><span class="o">=</span><span class="s1">&#39;Country&#39;</span><span class="p">)</span>
@@ -228,7 +248,7 @@ that min_n &lt;= n &lt;= max_n will be used.</p>
 </table>
 <dl class="py method">
 <dt class="sig sig-object py" id="dirty_cat.FeatureAugmenter.fit">
-<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/56f708b/dirty_cat/_feature_augmenter.py#L114"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.FeatureAugmenter.fit" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/76da935/dirty_cat/_feature_augmenter.py#L132"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.FeatureAugmenter.fit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fit the Feature Augmenter to the main table.</p>
 <p>In practice, just checks if the key columns in X,
 the main table, and in the auxilliary tables exist.</p>
@@ -253,7 +273,7 @@ auxilliary ones.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="dirty_cat.FeatureAugmenter.fit_transform">
-<span class="sig-name descname"><span class="pre">fit_transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/56f708b/dirty_cat/_feature_augmenter.py#L180"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.FeatureAugmenter.fit_transform" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">fit_transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/76da935/dirty_cat/_feature_augmenter.py#L198"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.FeatureAugmenter.fit_transform" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fit the FeatureAugmenter to X, then transforms it.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -276,7 +296,7 @@ auxilliary ones.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="dirty_cat.FeatureAugmenter.get_params">
-<span class="sig-name descname"><span class="pre">get_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">deep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/56f708b/dirty_cat/../../miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/base.py#L153"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.FeatureAugmenter.get_params" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">deep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/76da935/dirty_cat/../../miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/base.py#L153"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.FeatureAugmenter.get_params" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get parameters for this estimator.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -297,7 +317,7 @@ contained subobjects that are estimators.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="dirty_cat.FeatureAugmenter.set_output">
-<span class="sig-name descname"><span class="pre">set_output</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/56f708b/dirty_cat/../../miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/utils/_set_output.py#L210"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.FeatureAugmenter.set_output" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">set_output</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/76da935/dirty_cat/../../miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/utils/_set_output.py#L210"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.FeatureAugmenter.set_output" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set output container.</p>
 <p>See <a class="reference external" href="https://scikit-learn.org/stable/auto_examples/miscellaneous/plot_set_output.html#sphx-glr-auto-examples-miscellaneous-plot-set-output-py" title="(in scikit-learn v1.2)"><span>Introducing the set_output API</span></a>
 for an example on how to use the API.</p>
@@ -324,7 +344,7 @@ for an example on how to use the API.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="dirty_cat.FeatureAugmenter.set_params">
-<span class="sig-name descname"><span class="pre">set_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/56f708b/dirty_cat/../../miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/base.py#L177"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.FeatureAugmenter.set_params" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">set_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/76da935/dirty_cat/../../miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/base.py#L177"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.FeatureAugmenter.set_params" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set the parameters of this estimator.</p>
 <p>The method works on simple estimators as well as on nested objects
 (such as <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="(in scikit-learn v1.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a>). The latter have
@@ -348,7 +368,7 @@ possible to update each component of a nested object.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="dirty_cat.FeatureAugmenter.transform">
-<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/56f708b/dirty_cat/_feature_augmenter.py#L147"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.FeatureAugmenter.transform" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/76da935/dirty_cat/_feature_augmenter.py#L165"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.FeatureAugmenter.transform" title="Permalink to this definition">¶</a></dt>
 <dd><p>Transform X using the specified encoding scheme.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
