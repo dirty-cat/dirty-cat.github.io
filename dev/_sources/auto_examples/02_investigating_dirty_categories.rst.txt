@@ -209,13 +209,6 @@ creates a similarity matrix based on an n-gram representation of the data.
 
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    /home/circleci/project/examples/02_investigating_dirty_categories.py:83: UserWarning: The "similarity" argument is deprecated since dirty_cat 0.3, and will be removed in 0.5.The n-gram similarity is the only one currently supported. 
-      similarity_encoder = SimilarityEncoder()
-
 
 
 
@@ -556,7 +549,7 @@ effect latent categories captured from the data.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  9.772 seconds)
+   **Total running time of the script:** ( 0 minutes  9.599 seconds)
 
 
 .. _sphx_glr_download_auto_examples_02_investigating_dirty_categories.py:
