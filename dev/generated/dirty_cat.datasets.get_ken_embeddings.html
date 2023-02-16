@@ -1,0 +1,208 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta property="og:title" content="dirty_cat.datasets.get_ken_embeddings" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://dirty-cat.github.io/stable/generated/dirty_cat.datasets.get_ken_embeddings.html" />
+<meta property="og:site_name" content="dirty_cat" />
+<meta property="og:description" content="Examples using dirty_cat.datasets.get_ken_embeddings: Wikipedia embeddings to enrich the data Wikipedia embeddings to enrich the data" />
+<meta property="og:image" content="https://dirty-cat.github.io/stable/_images/sphx_glr_07_ken_embeddings_example_thumb.png" />
+<meta property="og:image:alt" content="Wikipedia embeddings to enrich the data" />
+<meta name="description" content="Examples using dirty_cat.datasets.get_ken_embeddings: Wikipedia embeddings to enrich the data Wikipedia embeddings to enrich the data" />
+
+    <title>dirty_cat.datasets.get_ken_embeddings &#8212; dirty_cat</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/scrolltoc.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="dirty_cat.datasets.get_data_dir" href="dirty_cat.datasets.get_data_dir.html" />
+    <link rel="prev" title="dirty_cat.datasets.fetch_world_bank_indicator" href="dirty_cat.datasets.fetch_world_bank_indicator.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><!--
+    Inherited from the original Alabaster theme:
+    https://github.com/bitprophet/alabaster/blob/master/alabaster/about.html
+    Only the "Version" number is added.
+-->
+
+
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/dirty_cat.svg" alt="Logo"/>
+    
+    <h1 class="logo logo-name">dirty_cat</h1>
+    
+  </a>
+  <div class="version-switcher">
+    <h4>Version 0.4.0b2</h4>
+    <details>
+	<summary>Other versions</summary>
+	<ul>
+	    <li><a href="https://dirty-cat.github.io/stable">Stable</a></li>
+	    <li><a href="https://dirty-cat.github.io/dev">Dev</a></li>
+	</ul>
+    </details>
+  </div>
+</p>
+
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=dirty-cat&repo=dirty_cat&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<ul>
+    <li class="toctree-l1"><a href="../index.html#usage-examples">Usage</a></li>
+    <li class="toctree-l1"><a href="../index.html#api-documentation">API</a></li>
+    <li class="toctree-l1"><a href="../index.html#about">About</a></li>
+</ul>
+  <h3 class="this-page"><a href="../index.html">This page</a></h3>
+  <ul>
+<li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat.datasets</span></code>.get_ken_embeddings</a><ul>
+<li><a class="reference internal" href="#examples-using-dirty-cat-datasets-get-ken-embeddings">Examples using <code class="docutils literal notranslate"><span class="pre">dirty_cat.datasets.get_ken_embeddings</span></code></a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="dirty_cat.datasets.fetch_world_bank_indicator.html" title="previous chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat.datasets</span></code>.fetch_world_bank_indicator</a></li>
+      <li>Next: <a href="dirty_cat.datasets.get_data_dir.html" title="next chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat.datasets</span></code>.get_data_dir</a></li>
+  </ul></li>
+</ul>
+</div>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="dirty-cat-datasets-get-ken-embeddings">
+<h1><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat.datasets</span></code>.get_ken_embeddings<a class="headerlink" href="#dirty-cat-datasets-get-ken-embeddings" title="Permalink to this heading">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="dirty_cat.datasets.get_ken_embeddings">
+<span class="sig-prename descclassname"><span class="pre">dirty_cat.datasets.</span></span><span class="sig-name descname"><span class="pre">get_ken_embeddings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">types</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embedding_table_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all_entities'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embedding_type_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pca_components</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suffix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/877859a/dirty_cat/datasets/_ken_embeddings.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.datasets.get_ken_embeddings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Download Wikipedia embeddings by type.</p>
+<p>More details on the embeddings can be found on
+<a class="reference external" href="https://soda-inria.github.io/ken_embeddings/">https://soda-inria.github.io/ken_embeddings/</a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>types</strong><span class="classifier">str, optional, default=None</span></dt><dd><p>Substring pattern that filters the types of entities.
+Will keep all entity types containing the substring.
+Write in lowercase. If None, all types will be passed.</p>
+</dd>
+<dt><strong>exclude</strong><span class="classifier">str, optional, default=None</span></dt><dd><p>Type of embeddings to exclude from the types search.</p>
+</dd>
+<dt><strong>embedding_table_id</strong><span class="classifier">{“all_entities”, “albums”, “companies”, “movies”, “games”, “school”} or str, optional, default=’all_entities’ # noqa</span></dt><dd><p>Table of embedded entities from which to extract the embeddings.
+See correspondence table
+(<a class="reference external" href="https://github.com/dirty-cat/datasets/blob/master/data/ken_correspondence.csv">https://github.com/dirty-cat/datasets/blob/master/data/ken_correspondence.csv</a>)
+for the figshare ID’s of the tables.
+It is also possible to introduce a custom figshare ID.</p>
+</dd>
+<dt><strong>embedding_type_id</strong><span class="classifier">str, optional, default=None</span></dt><dd><p>Figshare ID of the file containing the type of embeddings. Ignored
+unless a custom <cite>embedding_table_id</cite> is provided.</p>
+</dd>
+<dt><strong>pca_components</strong><span class="classifier">int, optional, default=None</span></dt><dd><p>Size of the dimensional space on which the embeddings will be projected
+by a principal component analysis.
+If None, the default dimension (200) of the embeddins will be kept.</p>
+</dd>
+<dt><strong>suffix</strong><span class="classifier">str, optional, default=””</span></dt><dd><p>Suffix to add to the column names of the embeddings.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>embeddings: class:<cite>~pandas.DataFrame</cite></dt><dd><p>The embeddings of entities and the specified type from Wikipedia.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="dirty_cat.fuzzy_join.html#dirty_cat.fuzzy_join" title="dirty_cat.fuzzy_join"><code class="xref py py-class docutils literal notranslate"><span class="pre">fuzzy_join</span></code></a></dt><dd><p>Join two tables (dataframes) based on approximate column matching.</p>
+</dd>
+<dt><a class="reference internal" href="dirty_cat.FeatureAugmenter.html#dirty_cat.FeatureAugmenter" title="dirty_cat.FeatureAugmenter"><code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureAugmenter</span></code></a></dt><dd><p>Transformer to enrich a given table via one or more fuzzy joins to external resources.</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Notes</p>
+<p>The files are read and returned in parquet format, this function needs
+pyarrow installed to run correctly.</p>
+<p>The <cite>types</cite> parameter is there to filter the types by the input string
+pattern.
+In case the input is “music”, all types with this string will be included
+(e.g. “wikicat_musician_from_france”, “wikicat_music_label” etc.).
+Going directly for the exact type name (e.g. “wikicat_rock_music_bands”)
+is possible but may not be complete (as some relevant bands may be
+in other similar types).
+For the full list of accepted types, see the <cite>entity_detailed_types</cite>
+table on <a class="reference external" href="https://soda-inria.github.io/ken_embeddings/">https://soda-inria.github.io/ken_embeddings/</a>.</p>
+<p class="rubric">References</p>
+<p>For more details, see Cvetkov-Iliev, A., Allauzen, A. &amp; Varoquaux, G.:
+<a class="reference external" href="https://doi.org/10.1007/s10994-022-06277-7">Relational data embeddings for feature enrichment
+with background information.</a></p>
+</dd></dl>
+
+<section id="examples-using-dirty-cat-datasets-get-ken-embeddings">
+<h2>Examples using <code class="docutils literal notranslate"><span class="pre">dirty_cat.datasets.get_ken_embeddings</span></code><a class="headerlink" href="#examples-using-dirty-cat-datasets-get-ken-embeddings" title="Permalink to this heading">¶</a></h2>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="When the data comprises common entities (cities, companies or famous people), bringing new info..."><img alt="Wikipedia embeddings to enrich the data" src="../_images/sphx_glr_07_ken_embeddings_example_thumb.png" />
+<p><a class="reference internal" href="../auto_examples/07_ken_embeddings_example.html#sphx-glr-auto-examples-07-ken-embeddings-example-py"><span class="std std-ref">Wikipedia embeddings to enrich the data</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Wikipedia embeddings to enrich the data</div>
+</div></div><div class="clearer"></div></section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2018-2023, the dirty_cat developers.
+      
+      |
+      <a href="../_sources/generated/dirty_cat.datasets.get_ken_embeddings.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
