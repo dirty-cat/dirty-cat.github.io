@@ -682,7 +682,7 @@ and store the returned cross-validation score:
     /home/circleci/project/miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/preprocessing/_encoders.py:828: FutureWarning: `sparse` was renamed to `sparse_output` in version 1.2 and will be removed in 1.4. `sparse_output` is ignored unless you leave `sparse` to its default value.
       warnings.warn(
     gap encoding
-    r2 score:  mean: 0.908; std: 0.018
+    r2 score:  mean: 0.912; std: 0.014
 
 
 
@@ -1017,9 +1017,9 @@ Let's perform a cross-validation to see how well this model predicts:
 
  .. code-block:: none
 
-    scores=[0.90881785 0.86735713 0.92374985 0.92652266 0.92559995]
-    mean=0.9104094900396307
-    std=0.02246948352221801
+    scores=[0.92716522 0.86169036 0.92125117 0.9239006  0.92597156]
+    mean=0.9119957826079975
+    std=0.02523274412898094
 
 
 
@@ -1042,7 +1042,7 @@ analyze the TableVectorizer's mechanisms along the way.
 
 .. code-block:: default
 
-    sup_vec = TableVectorizer(auto_cast=True)
+    table_vec = TableVectorizer(auto_cast=True)
 
 
 
@@ -1065,8 +1065,8 @@ We split the data between train and test, and transform them:
         X, y, test_size=0.15, random_state=42
     )
 
-    X_train_enc = sup_vec.fit_transform(X_train, y_train)
-    X_test_enc = sup_vec.transform(X_test)
+    X_train_enc = table_vec.fit_transform(X_train, y_train)
+    X_test_enc = table_vec.transform(X_test)
 
 
 
@@ -1095,7 +1095,7 @@ The encoded data, X_train_enc and X_test_enc are numerical arrays:
 
 
     array([[0.00000000e+00, 1.00000000e+00, 0.00000000e+00, ...,
-            7.55798056e-02, 5.73100916e-02, 2.00700000e+03],
+            5.20893103e-02, 5.40275422e-02, 2.00700000e+03],
            [1.00000000e+00, 0.00000000e+00, 0.00000000e+00, ...,
             5.00000000e-02, 5.00000000e-02, 2.00500000e+03],
            [1.00000000e+00, 0.00000000e+00, 0.00000000e+00, ...,
@@ -1147,7 +1147,7 @@ choice:
 
     from pprint import pprint
 
-    pprint(sup_vec.transformers_)
+    pprint(table_vec.transformers_)
 
 
 
@@ -1158,7 +1158,7 @@ choice:
  .. code-block:: none
 
     [('low_card_cat',
-      OneHotEncoder(drop='if_binary'),
+      OneHotEncoder(drop='if_binary', handle_unknown='ignore'),
       ['gender', 'department', 'department_name', 'assignment_category']),
      ('high_card_cat',
       GapEncoder(n_components=30),
@@ -1211,7 +1211,7 @@ After encoding (we only plot the first 8 feature names):
 
 .. code-block:: default
 
-    feature_names = sup_vec.get_feature_names_out()
+    feature_names = table_vec.get_feature_names_out()
     feature_names[:8]
 
 
@@ -1366,7 +1366,7 @@ having a permanent, full-time job :)
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 3 minutes  11.952 seconds)
+   **Total running time of the script:** ( 2 minutes  50.119 seconds)
 
 
 .. _sphx_glr_download_auto_examples_01_dirty_categories.py:
