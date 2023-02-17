@@ -191,9 +191,6 @@ from the World Bank Open Data platform.
 <li><p>Fetching functions now have an additional argument <code class="docutils literal notranslate"><span class="pre">directory</span></code>,
 which can be used to specify where to save and load from datasets.
 <a class="reference external" href="https://github.com/dirty-cat/dirty_cat/pull/432">#432</a> by <a class="reference external" href="https://github.com/LilianBoulard">Lilian Boulard</a></p></li>
-<li><p>Fetching functions now have an additional argument <code class="docutils literal notranslate"><span class="pre">directory</span></code>,
-which can be used to specify where to save and load from datasets.
-<a class="reference external" href="https://github.com/dirty-cat/dirty_cat/pull/432">#432</a> and <a class="reference external" href="https://github.com/dirty-cat/dirty_cat/pull/453">#453</a> by <a class="reference external" href="https://github.com/LilianBoulard">Lilian Boulard</a></p></li>
 <li><p>The <a class="reference internal" href="generated/dirty_cat.TableVectorizer.html#dirty_cat.TableVectorizer" title="dirty_cat.TableVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">TableVectorizer</span></code></a>’s default <cite>OneHotEncoder</cite> for low cardinality categorical variables now defaults
 to <cite>handle_unknown=”ignore”</cite> instead of <cite>handle_unknown=”error”</cite> (for sklearn &gt;= 1.0.0).
 This means that categories seen only at test time will be encoded by a vector of zeroes instead of raising an error. <a class="reference external" href="https://github.com/dirty-cat/dirty_cat/pull/473">#473</a> by <a class="reference external" href="https://github.com/LeoGrin">Leo Grinsztajn</a></p></li>
