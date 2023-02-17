@@ -1,0 +1,164 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta property="og:title" content="dirty_cat.datasets.fetch_open_payments" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://dirty-cat.github.io/stable/generated/dirty_cat.datasets.fetch_open_payments.html" />
+<meta property="og:site_name" content="dirty_cat" />
+<meta property="og:description" content="Examples using dirty_cat.datasets.fetch_open_payments: Scalability considerations for similarity encoding Scalability considerations for similarity encoding" />
+<meta property="og:image" content="https://dirty-cat.github.io/stable/_images/sphx_glr_04_dimension_reduction_and_performance_thumb.png" />
+<meta property="og:image:alt" content="Scalability considerations for similarity encoding" />
+<meta name="description" content="Examples using dirty_cat.datasets.fetch_open_payments: Scalability considerations for similarity encoding Scalability considerations for similarity encoding" />
+
+    <title>dirty_cat.datasets.fetch_open_payments &#8212; dirty_cat</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/scrolltoc.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="dirty_cat.datasets.fetch_road_safety" href="dirty_cat.datasets.fetch_road_safety.html" />
+    <link rel="prev" title="dirty_cat.datasets.fetch_midwest_survey" href="dirty_cat.datasets.fetch_midwest_survey.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><!--
+    Inherited from the original Alabaster theme:
+    https://github.com/bitprophet/alabaster/blob/master/alabaster/about.html
+    Only the "Version" number is added.
+-->
+
+
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/dirty_cat.svg" alt="Logo"/>
+    
+    <h1 class="logo logo-name">dirty_cat</h1>
+    
+  </a>
+  <div class="version-switcher">
+    <h4>Version 0.4.0</h4>
+    <details>
+	<summary>Other versions</summary>
+	<ul>
+	    <li><a href="https://dirty-cat.github.io/stable">Stable</a></li>
+	    <li><a href="https://dirty-cat.github.io/dev">Dev</a></li>
+	</ul>
+    </details>
+  </div>
+</p>
+
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=dirty-cat&repo=dirty_cat&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<ul>
+    <li class="toctree-l1"><a href="../index.html#usage-examples">Usage</a></li>
+    <li class="toctree-l1"><a href="../index.html#api-documentation">API</a></li>
+    <li class="toctree-l1"><a href="../index.html#about">About</a></li>
+</ul>
+  <h3 class="this-page"><a href="../index.html">This page</a></h3>
+  <ul>
+<li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat.datasets</span></code>.fetch_open_payments</a><ul>
+<li><a class="reference internal" href="#examples-using-dirty-cat-datasets-fetch-open-payments">Examples using <code class="docutils literal notranslate"><span class="pre">dirty_cat.datasets.fetch_open_payments</span></code></a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="dirty_cat.datasets.fetch_midwest_survey.html" title="previous chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat.datasets</span></code>.fetch_midwest_survey</a></li>
+      <li>Next: <a href="dirty_cat.datasets.fetch_road_safety.html" title="next chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat.datasets</span></code>.fetch_road_safety</a></li>
+  </ul></li>
+</ul>
+</div>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="dirty-cat-datasets-fetch-open-payments">
+<h1><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat.datasets</span></code>.fetch_open_payments<a class="headerlink" href="#dirty-cat-datasets-fetch-open-payments" title="Permalink to this heading">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="dirty_cat.datasets.fetch_open_payments">
+<span class="sig-prename descclassname"><span class="pre">dirty_cat.datasets.</span></span><span class="sig-name descname"><span class="pre">fetch_open_payments</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_dataframe</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/ea009b9/dirty_cat/datasets/_fetching.py#L795"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.datasets.fetch_open_payments" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetches the open payments dataset (classification), available at
+<a class="reference external" href="https://openml.org/d/42738">https://openml.org/d/42738</a></p>
+<dl class="simple">
+<dt>Description of the dataset:</dt><dd><p>Payments given by healthcare manufacturing companies to medical doctors
+or hospitals.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>DatasetAll</dt><dd><p>If <cite>load_dataframe=True</cite></p>
+</dd>
+<dt>DatasetInfoOnly</dt><dd><p>If <cite>load_dataframe=False</cite></p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<section id="examples-using-dirty-cat-datasets-fetch-open-payments">
+<h2>Examples using <code class="docutils literal notranslate"><span class="pre">dirty_cat.datasets.fetch_open_payments</span></code><a class="headerlink" href="#examples-using-dirty-cat-datasets-fetch-open-payments" title="Permalink to this heading">¶</a></h2>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="We discuss in this notebook how to efficiently apply the SimilarityEncoder to larger datasets: ..."><img alt="Scalability considerations for similarity encoding" src="../_images/sphx_glr_04_dimension_reduction_and_performance_thumb.png" />
+<p><a class="reference internal" href="../auto_examples/04_dimension_reduction_and_performance.html#sphx-glr-auto-examples-04-dimension-reduction-and-performance-py"><span class="std std-ref">Scalability considerations for similarity encoding</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Scalability considerations for similarity encoding</div>
+</div></div><div class="clearer"></div></section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2018-2023, the dirty_cat developers.
+      
+      |
+      <a href="../_sources/generated/dirty_cat.datasets.fetch_open_payments.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

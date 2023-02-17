@@ -1,0 +1,400 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta property="og:title" content="Contributing to dirty_cat" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://dirty-cat.github.io/stable/CONTRIBUTING.html" />
+<meta property="og:site_name" content="dirty_cat" />
+<meta property="og:description" content="First off, thanks for taking the time to contribute! The following is a set of guidelines for contributing to dirty_cat., I don’t want to read the whole thing I just have a question, What should I ..." />
+<meta property="og:image" content="https://dirty-cat.github.io/stable/_static/dirty_cat.svg" />
+<meta property="og:image:alt" content="dirty_cat" />
+<meta name="description" content="First off, thanks for taking the time to contribute! The following is a set of guidelines for contributing to dirty_cat., I don’t want to read the whole thing I just have a question, What should I ..." />
+
+    <title>Contributing to dirty_cat &#8212; dirty_cat</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-rendered-html.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/scrolltoc.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><!--
+    Inherited from the original Alabaster theme:
+    https://github.com/bitprophet/alabaster/blob/master/alabaster/about.html
+    Only the "Version" number is added.
+-->
+
+
+<p class="logo">
+  <a href="index.html">
+    <img class="logo" src="_static/dirty_cat.svg" alt="Logo"/>
+    
+    <h1 class="logo logo-name">dirty_cat</h1>
+    
+  </a>
+  <div class="version-switcher">
+    <h4>Version 0.4.0</h4>
+    <details>
+	<summary>Other versions</summary>
+	<ul>
+	    <li><a href="https://dirty-cat.github.io/stable">Stable</a></li>
+	    <li><a href="https://dirty-cat.github.io/dev">Dev</a></li>
+	</ul>
+    </details>
+  </div>
+</p>
+
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=dirty-cat&repo=dirty_cat&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<ul>
+    <li class="toctree-l1"><a href="./index.html#usage-examples">Usage</a></li>
+    <li class="toctree-l1"><a href="./index.html#api-documentation">API</a></li>
+    <li class="toctree-l1"><a href="./index.html#about">About</a></li>
+</ul>
+  <h3 class="this-page"><a href="index.html">This page</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Contributing to dirty_cat</a><ul>
+<li><a class="reference internal" href="#i-dont-want-to-read-the-whole-thing-i-just-have-a-question">I don’t want to read the whole thing I just have a question</a></li>
+<li><a class="reference internal" href="#what-should-i-know-before-i-get-started">What should I know before I get started?</a></li>
+<li><a class="reference internal" href="#how-can-i-contribute">How can I contribute?</a><ul>
+<li><a class="reference internal" href="#reporting-bugs">Reporting bugs</a><ul>
+<li><a class="reference internal" href="#how-do-i-submit-a-good-bug-report">How do I submit a (good) bug report?</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#suggesting-enhancements">Suggesting enhancements</a><ul>
+<li><a class="reference internal" href="#how-do-i-submit-a-good-enhancement-proposal">How do I submit a (good) enhancement proposal?</a><ul>
+<li><a class="reference internal" href="#if-the-enhancement-is-validated">If the enhancement is validated</a></li>
+<li><a class="reference internal" href="#if-the-enhancement-is-refused">If the enhancement is refused</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#writing-your-first-pull-request">Writing your first Pull Request</a><ul>
+<li><a class="reference internal" href="#preparing-the-ground">Preparing the ground</a></li>
+<li><a class="reference internal" href="#setting-up-the-environment">Setting up the environment</a></li>
+<li><a class="reference internal" href="#implementation">Implementation</a></li>
+<li><a class="reference internal" href="#submitting-your-code">Submitting your code</a></li>
+<li><a class="reference internal" href="#integration">Integration</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="contributing-to-dirty-cat">
+<h1>Contributing to dirty_cat<a class="headerlink" href="#contributing-to-dirty-cat" title="Permalink to this heading">¶</a></h1>
+<p>First off, thanks for taking the time to contribute!</p>
+<p>The following is a set of guidelines for contributing to
+<a class="reference external" href="https://github.com/dirty-cat/dirty_cat">dirty_cat</a>.</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<nav class="contents local" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#i-dont-want-to-read-the-whole-thing-i-just-have-a-question" id="id1">I don’t want to read the whole thing I just have a question</a></p></li>
+<li><p><a class="reference internal" href="#what-should-i-know-before-i-get-started" id="id2">What should I know before I get started?</a></p></li>
+<li><p><a class="reference internal" href="#how-can-i-contribute" id="id3">How can I contribute?</a></p>
+<ul>
+<li><p><a class="reference internal" href="#reporting-bugs" id="id4">Reporting bugs</a></p>
+<ul>
+<li><p><a class="reference internal" href="#how-do-i-submit-a-good-bug-report" id="id5">How do I submit a (good) bug report?</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#suggesting-enhancements" id="id6">Suggesting enhancements</a></p>
+<ul>
+<li><p><a class="reference internal" href="#how-do-i-submit-a-good-enhancement-proposal" id="id7">How do I submit a (good) enhancement proposal?</a></p>
+<ul>
+<li><p><a class="reference internal" href="#if-the-enhancement-is-validated" id="id8">If the enhancement is validated</a></p></li>
+<li><p><a class="reference internal" href="#if-the-enhancement-is-refused" id="id9">If the enhancement is refused</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#writing-your-first-pull-request" id="id10">Writing your first Pull Request</a></p>
+<ul>
+<li><p><a class="reference internal" href="#preparing-the-ground" id="id11">Preparing the ground</a></p></li>
+<li><p><a class="reference internal" href="#setting-up-the-environment" id="id12">Setting up the environment</a></p></li>
+<li><p><a class="reference internal" href="#implementation" id="id13">Implementation</a></p></li>
+<li><p><a class="reference internal" href="#submitting-your-code" id="id14">Submitting your code</a></p></li>
+<li><p><a class="reference internal" href="#integration" id="id15">Integration</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<section id="i-dont-want-to-read-the-whole-thing-i-just-have-a-question">
+<h2><a class="toc-backref" href="#id1" role="doc-backlink">I don’t want to read the whole thing I just have a question</a><a class="headerlink" href="#i-dont-want-to-read-the-whole-thing-i-just-have-a-question" title="Permalink to this heading">¶</a></h2>
+<p>We use GitHub Discussions for general chat and Q&amp;As. <a class="reference external" href="https://github.com/dirty-cat/dirty_cat/discussions">Check it
+out!</a></p>
+</section>
+<section id="what-should-i-know-before-i-get-started">
+<h2><a class="toc-backref" href="#id2" role="doc-backlink">What should I know before I get started?</a><a class="headerlink" href="#what-should-i-know-before-i-get-started" title="Permalink to this heading">¶</a></h2>
+<p>If you want to truly understand what are the incentives behind
+dirty_cat, and if scientific literature doesn’t scare you, we greatly
+encourage you to read the two papers <a class="reference external" href="https://hal.inria.fr/hal-01806175">Similarity encoding for learning
+with dirty categorical variables</a>
+and <a class="reference external" href="https://hal.inria.fr/hal-02171256v4">Encoding high-cardinality string categorical
+variables</a>.</p>
+</section>
+<section id="how-can-i-contribute">
+<h2><a class="toc-backref" href="#id3" role="doc-backlink">How can I contribute?</a><a class="headerlink" href="#how-can-i-contribute" title="Permalink to this heading">¶</a></h2>
+<section id="reporting-bugs">
+<h3><a class="toc-backref" href="#id4" role="doc-backlink">Reporting bugs</a><a class="headerlink" href="#reporting-bugs" title="Permalink to this heading">¶</a></h3>
+<p>Even if we unit-test our code, using the library is the best way to
+discover new bugs and limitations.</p>
+<p>If you stumble upon one, please <a class="reference external" href="https://github.com/dirty-cat/dirty_cat/issues?q=is%3Aissue">check if a similar or identical issue already
+exists</a></p>
+<ul class="simple">
+<li><p>If yes:</p>
+<ul>
+<li><p><strong>The issue is still open</strong>: leave the emote :+1: on the original message,
+which will let us know there are several users affected by this issue</p></li>
+<li><p><strong>The issue has been closed</strong>:</p>
+<ul>
+<li><p><strong>It has been closed by a merged pull request</strong> (1) update your dirty_cat version,
+or (2) the fix has not been released in a version yet</p></li>
+<li><p><strong>Otherwise</strong>, there might be a <code class="docutils literal notranslate"><span class="pre">wontfix</span></code> label, and / or a reason at the bottom of the conversation</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>If not, <a class="reference external" href="https://github.com/dirty-cat/dirty_cat/issues/new">file a new issue</a> (see following section)</p></li>
+</ul>
+<section id="how-do-i-submit-a-good-bug-report">
+<h4><a class="toc-backref" href="#id5" role="doc-backlink">How do I submit a (good) bug report?</a><a class="headerlink" href="#how-do-i-submit-a-good-bug-report" title="Permalink to this heading">¶</a></h4>
+<p>To solve your issue as soon as possible, explain the problem and include
+additional details to help maintainers easily reproduce the problem:</p>
+<ul class="simple">
+<li><p><strong>Use a clear and descriptive title</strong> which identifies the problem</p></li>
+<li><p><strong>Describe the result you expected</strong></p></li>
+<li><p><strong>Add additional details to your description problem</strong> such as
+situations where the bug should have appeared but didn’t</p></li>
+<li><p><strong>Include a snippet of code that reproduces the error</strong>, as it allows
+maintainers to reproduce it in a matter of seconds!</p></li>
+<li><p><strong>Specify versions</strong> of Python, dirty_cat, and other dependencies
+which might be linked to the issue (e.g., scikit-learn, numpy,
+pandas, etc.). You can get these versions with <code class="docutils literal notranslate"><span class="pre">pip3</span> <span class="pre">freeze</span></code>
+(<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">freeze</span></code> for Windows)</p></li>
+</ul>
+<p>Of course, some of these bullet points might not apply depending on the
+kind of error you’re submitting.</p>
+</section>
+</section>
+<section id="suggesting-enhancements">
+<h3><a class="toc-backref" href="#id6" role="doc-backlink">Suggesting enhancements</a><a class="headerlink" href="#suggesting-enhancements" title="Permalink to this heading">¶</a></h3>
+<p>This section will guide you through submitting a new enhancement for
+dirty_cat, whether it is a small fix or a new feature.</p>
+<p>First, you should <a class="reference external" href="https://github.com/dirty-cat/dirty_cat/pulls?q=is%3Apr">check if the feature has not already been proposed or
+implemented</a>.</p>
+<p>If not, the next thing you should do, before writing any code, is to
+<a class="reference external" href="https://github.com/dirty-cat/dirty_cat/issues/new">submit a new
+issue</a> proposing
+the change.</p>
+<section id="how-do-i-submit-a-good-enhancement-proposal">
+<h4><a class="toc-backref" href="#id7" role="doc-backlink">How do I submit a (good) enhancement proposal?</a><a class="headerlink" href="#how-do-i-submit-a-good-enhancement-proposal" title="Permalink to this heading">¶</a></h4>
+<ul class="simple">
+<li><p><strong>Use a clear and descriptive title</strong></p></li>
+<li><p><strong>Provide a quick explanation of the goal of this enhancement</strong></p></li>
+<li><p><strong>Provide a step-by-step description of the suggested enhancement</strong>
+with as many details as possible</p></li>
+<li><p><strong>If it exists elsewhere, link resources</strong></p></li>
+</ul>
+<p>Of course, some of these bullet points might not apply depending on the
+kind of enhancement you’re submitting.</p>
+<section id="if-the-enhancement-is-validated">
+<h5><a class="toc-backref" href="#id8" role="doc-backlink">If the enhancement is validated</a><a class="headerlink" href="#if-the-enhancement-is-validated" title="Permalink to this heading">¶</a></h5>
+<p>Let maintainers know whether :</p>
+<ul class="simple">
+<li><p><strong>You will write the code and submit a pull request (PR)</strong>.
+Writing the feature yourself is the fastest way to getting it
+implemented in the library, and we’ll help in that process if guidance
+is needed! To go further, refer to the section <em>Writing your first Pull Request</em>.</p></li>
+<li><p><strong>You won’t be able to write the code</strong>, in which case a
+developer interested in the feature can start working on it. Note
+however that maintainers are <strong>volunteers</strong>, and therefore cannot
+guarantee how much time it will take to implement the change.</p></li>
+</ul>
+</section>
+<section id="if-the-enhancement-is-refused">
+<h5><a class="toc-backref" href="#id9" role="doc-backlink">If the enhancement is refused</a><a class="headerlink" href="#if-the-enhancement-is-refused" title="Permalink to this heading">¶</a></h5>
+<p>There are specific incentives behind dirty_cat. While most enhancement
+ideas are good, they don’t always fit in the context of the library.</p>
+<p>If you’d like to implement your idea regardless, we’d be very glad if
+you create a new package that builds on top of dirty_cat! In some cases,
+we might even feature it on the official repository!</p>
+</section>
+</section>
+</section>
+<section id="writing-your-first-pull-request">
+<h3><a class="toc-backref" href="#id10" role="doc-backlink">Writing your first Pull Request</a><a class="headerlink" href="#writing-your-first-pull-request" title="Permalink to this heading">¶</a></h3>
+<section id="preparing-the-ground">
+<h4><a class="toc-backref" href="#id11" role="doc-backlink">Preparing the ground</a><a class="headerlink" href="#preparing-the-ground" title="Permalink to this heading">¶</a></h4>
+<p>If not already done, you’ll want to create an issue first, and discuss
+the changes with the project’s maintainers.</p>
+<p>Please refer to the previous section <em>How do I submit a (good)
+enhancement proposal?</em> for more information.</p>
+</section>
+<section id="setting-up-the-environment">
+<h4><a class="toc-backref" href="#id12" role="doc-backlink">Setting up the environment</a><a class="headerlink" href="#setting-up-the-environment" title="Permalink to this heading">¶</a></h4>
+<p>Using a dedicated Python environment is highly recommended!</p>
+<p>Different solutions are available, the most common being
+<a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/index.html">conda</a>
+and <a class="reference external" href="https://github.com/pyenv/pyenv">pyenv</a>.</p>
+<p>So, first step: create your environment.</p>
+<p>For this example, we’ll use conda:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">conda create python=3.10 --name dirty_cat</span>
+<span class="go">conda activate dirty_cat</span>
+</pre></div>
+</div>
+<p>Secondly, clone the repository (you’ll need to have <code class="docutils literal notranslate"><span class="pre">git</span></code> installed -
+it is already on most linux distributions).</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">git clone https://github.com/dirty-cat/dirty_cat</span>
+</pre></div>
+</div>
+<p>Next, install the project dependencies. They are listed in <code class="docutils literal notranslate"><span class="pre">setup.cfg</span></code>.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pip install -e .[dev]</span>
+</pre></div>
+</div>
+<p>Code-formatting and linting is automatically done via
+<code class="docutils literal notranslate"><span class="pre">`pre-commit</span></code> &lt;<a class="reference external" href="https://github.com/pre-commit/pre-commit">https://github.com/pre-commit/pre-commit</a>&gt;`__. You
+install this setup using:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pip install pre-commit</span>
+<span class="go">pre-commit install</span>
+</pre></div>
+</div>
+<p>A few revisions (formatting the whole code-base for instance) better be
+ignored by <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">blame</span></code> and IDE integrations. The revisions to be
+ignored are listed in <code class="docutils literal notranslate"><span class="pre">.git-blame-ignore-revs</span></code>, which can be set in
+your local repository with:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">git config blame.ignoreRevsFile .git-blame-ignore-revs</span>
+</pre></div>
+</div>
+</section>
+<section id="implementation">
+<h4><a class="toc-backref" href="#id13" role="doc-backlink">Implementation</a><a class="headerlink" href="#implementation" title="Permalink to this heading">¶</a></h4>
+<p>While writing your implementation, there are a few specific project
+goals to keep in mind:</p>
+<ul class="simple">
+<li><p>Pure Python code - no binary extensions, Cython, etc</p></li>
+<li><p>Make production-friendly code</p>
+<ul>
+<li><p>Try to target the broadest range of versions (Python and dependencies)</p></li>
+<li><p>Use the least amount of dependencies</p></li>
+<li><p>Make code as backward compatible as possible</p></li>
+</ul>
+</li>
+<li><p>Prefer performance to readability</p>
+<ul>
+<li><p>Optimized code might be hard to read, so
+<a class="reference external" href="https://stackoverflow.blog/2021/12/23/best-practices-for-writing-code-comments/">please comment it</a></p></li>
+</ul>
+</li>
+<li><p>Use explicit, borderline verbose variables / function names</p></li>
+<li><p>Public functions / methods / variables / class signatures should be documented
+and type-hinted</p>
+<ul>
+<li><p>The public API describes the components users of the
+library will import and use. It’s everything that can be imported and
+does not start with an underscore.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="submitting-your-code">
+<h4><a class="toc-backref" href="#id14" role="doc-backlink">Submitting your code</a><a class="headerlink" href="#submitting-your-code" title="Permalink to this heading">¶</a></h4>
+<p>First, you’ll want to fork dirty_cat on Github.</p>
+<p>That will enable you to push your commits to a branch <em>on your fork</em>.
+It is advised to create a new branch every time you work on a new issue,
+to avoid confusion.
+Use the following command to create a branch:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">git checkout -b branch_name</span>
+</pre></div>
+</div>
+<p>Next, you can use the Github “Compare &amp; pull request” button to submit
+your branch code as a PR.</p>
+</section>
+<section id="integration">
+<h4><a class="toc-backref" href="#id15" role="doc-backlink">Integration</a><a class="headerlink" href="#integration" title="Permalink to this heading">¶</a></h4>
+<p>Community consensus is key in the integration process. Expect a minimum
+of 1 to 3 reviews depending on the size of the change before we consider
+merging the PR.</p>
+<p>Once again, remember that maintainers are <strong>volunteers</strong> and therefore
+cannot guarantee how much time it will take to review the changes.</p>
+</section>
+</section>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2018-2023, the dirty_cat developers.
+      
+      |
+      <a href="_sources/CONTRIBUTING.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

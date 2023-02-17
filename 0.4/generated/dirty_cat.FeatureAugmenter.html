@@ -1,0 +1,426 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta property="og:title" content="dirty_cat.FeatureAugmenter" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://dirty-cat.github.io/stable/generated/dirty_cat.FeatureAugmenter.html" />
+<meta property="og:site_name" content="dirty_cat" />
+<meta property="og:description" content="Usage examples at the bottom of this page. Examples using dirty_cat.FeatureAugmenter: Fuzzy joining dirty tables and the FeatureAugmenter Fuzzy joining dirty tables and the FeatureAugmenter Wikiped..." />
+<meta property="og:image" content="https://dirty-cat.github.io/stable/_images/sphx_glr_05_fuzzy_joining_and_FeatureAugmenter_thumb.png" />
+<meta property="og:image:alt" content="Fuzzy joining dirty tables and the FeatureAugmenter" />
+<meta name="description" content="Usage examples at the bottom of this page. Examples using dirty_cat.FeatureAugmenter: Fuzzy joining dirty tables and the FeatureAugmenter Fuzzy joining dirty tables and the FeatureAugmenter Wikiped..." />
+
+    <title>dirty_cat.FeatureAugmenter &#8212; dirty_cat</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/scrolltoc.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="dirty_cat.deduplicate" href="dirty_cat.deduplicate.html" />
+    <link rel="prev" title="dirty_cat.fuzzy_join" href="dirty_cat.fuzzy_join.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><!--
+    Inherited from the original Alabaster theme:
+    https://github.com/bitprophet/alabaster/blob/master/alabaster/about.html
+    Only the "Version" number is added.
+-->
+
+
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/dirty_cat.svg" alt="Logo"/>
+    
+    <h1 class="logo logo-name">dirty_cat</h1>
+    
+  </a>
+  <div class="version-switcher">
+    <h4>Version 0.4.0</h4>
+    <details>
+	<summary>Other versions</summary>
+	<ul>
+	    <li><a href="https://dirty-cat.github.io/stable">Stable</a></li>
+	    <li><a href="https://dirty-cat.github.io/dev">Dev</a></li>
+	</ul>
+    </details>
+  </div>
+</p>
+
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=dirty-cat&repo=dirty_cat&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<ul>
+    <li class="toctree-l1"><a href="../index.html#usage-examples">Usage</a></li>
+    <li class="toctree-l1"><a href="../index.html#api-documentation">API</a></li>
+    <li class="toctree-l1"><a href="../index.html#about">About</a></li>
+</ul>
+  <h3 class="this-page"><a href="../index.html">This page</a></h3>
+  <ul>
+<li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat</span></code>.FeatureAugmenter</a><ul>
+<li><a class="reference internal" href="#examples-using-dirty-cat-featureaugmenter">Examples using <code class="docutils literal notranslate"><span class="pre">dirty_cat.FeatureAugmenter</span></code></a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="dirty_cat.fuzzy_join.html" title="previous chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat</span></code>.fuzzy_join</a></li>
+      <li>Next: <a href="dirty_cat.deduplicate.html" title="next chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat</span></code>.deduplicate</a></li>
+  </ul></li>
+</ul>
+</div>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="dirty-cat-featureaugmenter">
+<h1><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat</span></code>.FeatureAugmenter<a class="headerlink" href="#dirty-cat-featureaugmenter" title="Permalink to this heading">¶</a></h1>
+<p class="side-comment">Usage examples at the bottom of this page.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="dirty_cat.FeatureAugmenter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">dirty_cat.</span></span><span class="sig-name descname"><span class="pre">FeatureAugmenter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tables</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">main_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">match_score</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">analyzer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'char_wb'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ngram_range</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(2,</span> <span class="pre">4)</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/ea009b9/dirty_cat/_feature_augmenter.py#L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.FeatureAugmenter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transformer augmenting number of features in a table by joining multiple tables.</p>
+<p>Given a list of tables and key column names,
+fuzzy join them to the main table.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl>
+<dt><strong>tables</strong><span class="classifier">list of 2-tuples of (<a class="reference external" href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.5.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a>, str)</span></dt><dd><p>List of (table, column name) tuples
+specyfying the transformer objects to be applied.
+table: str</p>
+<blockquote>
+<div><p>Name of the table to be joined.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>column: str</dt><dd><p>Name of table column to join on.</p>
+</dd>
+</dl>
+</dd>
+<dt><strong>main_key</strong><span class="classifier">str</span></dt><dd><p>The key column name in the main table on which
+the join will be performed.</p>
+</dd>
+<dt><strong>match_score</strong><span class="classifier">float, default=0</span></dt><dd><p>Distance score between the closest matches that will be accepted.
+In a [0, 1] interval. 1 means that only a perfect match will be
+accepted, and zero means that the closest match will be accepted,
+no matter how distant.</p>
+</dd>
+<dt><strong>analyzer</strong><span class="classifier">typing.Literal[“word”, “char”, “char_wb”], default=`char_wb`</span></dt><dd><p>Analyzer parameter for the CountVectorizer used for the string
+similarities.
+Options: {<cite>word</cite>, <cite>char</cite>, <cite>char_wb</cite>}, describing whether the matrix V
+to factorize should be made of word counts or character n-gram counts.
+Option <cite>char_wb</cite> creates character n-grams only from text inside word
+boundaries; n-grams at the edges of words are padded with space.</p>
+</dd>
+<dt><strong>ngram_range</strong><span class="classifier">tuple (min_n, max_n), default=(2, 4)</span></dt><dd><p>The lower and upper boundary of the range of n-values for different
+n-grams used in the string similarity. All values of n such
+that min_n &lt;= n &lt;= max_n will be used.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="dirty_cat.fuzzy_join.html#dirty_cat.fuzzy_join" title="dirty_cat.fuzzy_join"><code class="xref py py-class docutils literal notranslate"><span class="pre">fuzzy_join</span></code></a></dt><dd><p>Join two tables (dataframes) based on approximate column matching.</p>
+</dd>
+<dt><a class="reference internal" href="dirty_cat.datasets.get_ken_embeddings.html#dirty_cat.datasets.get_ken_embeddings" title="dirty_cat.datasets.get_ken_embeddings"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_ken_embeddings()</span></code></a></dt><dd><p>Download vector embeddings for many common entities (cities, places, people…).</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="s1">&#39;France&#39;</span><span class="p">,</span> <span class="s1">&#39;Germany&#39;</span><span class="p">,</span> <span class="s1">&#39;Italy&#39;</span><span class="p">],</span>
+<span class="go">                     columns=[&#39;Country&#39;])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span>
+<span class="go">Country</span>
+<span class="go">0   France</span>
+<span class="go">1  Germany</span>
+<span class="go">2    Italy</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">aux_table_1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([[</span><span class="s1">&#39;Germany&#39;</span><span class="p">,</span> <span class="mi">84_000_000</span><span class="p">],</span>
+<span class="go">                                [&#39;France&#39;, 68_000_000],</span>
+<span class="go">                                [&#39;Italy&#39;, 59_000_000]],</span>
+<span class="go">                                columns=[&#39;Country&#39;, &#39;Population&#39;])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aux_table_1</span>
+<span class="go">   Country  Population</span>
+<span class="go">0  Germany    84000000</span>
+<span class="go">1   France    68000000</span>
+<span class="go">2    Italy    59000000</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">aux_table_2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([[</span><span class="s1">&#39;French Republic&#39;</span><span class="p">,</span> <span class="mi">2937</span><span class="p">],</span>
+<span class="go">                                [&#39;Italy&#39;, 2099],</span>
+<span class="go">                                [&#39;Germany&#39;, 4223],</span>
+<span class="go">                                [&#39;UK&#39;, 3186]],</span>
+<span class="go">                                columns=[&#39;Country name&#39;, &#39;GDP (billion)&#39;])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aux_table_2</span>
+<span class="go">    Country name  GDP (billion)</span>
+<span class="go">0   French Republic      2937</span>
+<span class="go">1        Italy           2099</span>
+<span class="go">2      Germany           4223</span>
+<span class="go">3           UK           3186</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">aux_table_3</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([[</span><span class="s1">&#39;France&#39;</span><span class="p">,</span> <span class="s1">&#39;Paris&#39;</span><span class="p">],</span>
+<span class="go">                                [&#39;Italia&#39;, &#39;Rome&#39;],</span>
+<span class="go">                                [&#39;Germany&#39;, &#39;Berlin&#39;]],</span>
+<span class="go">                                columns=[&#39;Countries&#39;, &#39;Capital&#39;])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aux_table_3</span>
+<span class="go">  Countries Capital</span>
+<span class="go">0    France   Paris</span>
+<span class="go">1     Italia   Rome</span>
+<span class="go">2   Germany  Berlin</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">aux_tables</span> <span class="o">=</span> <span class="p">[(</span><span class="n">aux_table_1</span><span class="p">,</span> <span class="s2">&quot;Country&quot;</span><span class="p">),</span>
+<span class="go">                  (aux_table_2, &quot;Country name&quot;),</span>
+<span class="go">                  (aux_table_3, &quot;Countries&quot;)]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fa</span> <span class="o">=</span> <span class="n">FeatureAugmenter</span><span class="p">(</span><span class="n">tables</span><span class="o">=</span><span class="n">aux_tables</span><span class="p">,</span> <span class="n">main_key</span><span class="o">=</span><span class="s1">&#39;Country&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">augmented_table</span> <span class="o">=</span> <span class="n">fa</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">augmented_table</span>
+<span class="go">    Country Country_aux  Population Country name  GDP (billion) Countries Capital</span>
+<span class="go">0   France      France    68000000  French Republic       2937    France   Paris</span>
+<span class="go">1  Germany     Germany    84000000      Germany           4223   Germany  Berlin</span>
+<span class="go">2    Italy       Italy    59000000        Italy           2099    Italia    Rome</span>
+</pre></div>
+</div>
+<p class="rubric">Methods</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#dirty_cat.FeatureAugmenter.fit" title="dirty_cat.FeatureAugmenter.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a>(X[, y])</p></td>
+<td><p>Fit the Feature Augmenter to the main table.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#dirty_cat.FeatureAugmenter.fit_transform" title="dirty_cat.FeatureAugmenter.fit_transform"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit_transform</span></code></a>(X[, y])</p></td>
+<td><p>Fit the FeatureAugmenter to X, then transforms it.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#dirty_cat.FeatureAugmenter.get_params" title="dirty_cat.FeatureAugmenter.get_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_params</span></code></a>([deep])</p></td>
+<td><p>Get parameters for this estimator.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#dirty_cat.FeatureAugmenter.set_output" title="dirty_cat.FeatureAugmenter.set_output"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_output</span></code></a>(*[, transform])</p></td>
+<td><p>Set output container.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#dirty_cat.FeatureAugmenter.set_params" title="dirty_cat.FeatureAugmenter.set_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_params</span></code></a>(**params)</p></td>
+<td><p>Set the parameters of this estimator.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#dirty_cat.FeatureAugmenter.transform" title="dirty_cat.FeatureAugmenter.transform"><code class="xref py py-obj docutils literal notranslate"><span class="pre">transform</span></code></a>(X[, y])</p></td>
+<td><p>Transform X using the specified encoding scheme.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="dirty_cat.FeatureAugmenter.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/ea009b9/dirty_cat/_feature_augmenter.py#L136"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.FeatureAugmenter.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fit the Feature Augmenter to the main table.</p>
+<p>In practice, just checks if the key columns in X,
+the main table, and in the auxilliary tables exist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">DataFrame, shape [n_samples, n_features]</span></dt><dd><p>The main table, to be joined to the
+auxilliary ones.</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">array-like of shape (n_samples,…), default=None</span></dt><dd><p>Targets for supervised learning.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>FeatureAugmenter</dt><dd><p>Fitted FeatureAugmenter instance.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dirty_cat.FeatureAugmenter.fit_transform">
+<span class="sig-name descname"><span class="pre">fit_transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/ea009b9/dirty_cat/_feature_augmenter.py#L202"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.FeatureAugmenter.fit_transform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fit the FeatureAugmenter to X, then transforms it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">DataFrame, shape [n_samples, n_features]</span></dt><dd><p>The main table, to be joined to the
+auxilliary ones.</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">array-like of shape (n_samples,…), default=None</span></dt><dd><p>Targets for supervised learning.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>DataFrame</dt><dd><p>The final joined table.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dirty_cat.FeatureAugmenter.get_params">
+<span class="sig-name descname"><span class="pre">get_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">deep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/ea009b9/dirty_cat/../miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/base.py#L153"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.FeatureAugmenter.get_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get parameters for this estimator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>deep</strong><span class="classifier">bool, default=True</span></dt><dd><p>If True, will return the parameters for this estimator and
+contained subobjects that are estimators.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>params</strong><span class="classifier">dict</span></dt><dd><p>Parameter names mapped to their values.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dirty_cat.FeatureAugmenter.set_output">
+<span class="sig-name descname"><span class="pre">set_output</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/ea009b9/dirty_cat/../miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/utils/_set_output.py#L210"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.FeatureAugmenter.set_output" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set output container.</p>
+<p>See <a class="reference external" href="https://scikit-learn.org/stable/auto_examples/miscellaneous/plot_set_output.html#sphx-glr-auto-examples-miscellaneous-plot-set-output-py" title="(in scikit-learn v1.2)"><span>Introducing the set_output API</span></a>
+for an example on how to use the API.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>transform</strong><span class="classifier">{“default”, “pandas”}, default=None</span></dt><dd><p>Configure output of <cite>transform</cite> and <cite>fit_transform</cite>.</p>
+<ul class="simple">
+<li><p><cite>“default”</cite>: Default output format of a transformer</p></li>
+<li><p><cite>“pandas”</cite>: DataFrame output</p></li>
+<li><p><cite>None</cite>: Transform configuration is unchanged</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">estimator instance</span></dt><dd><p>Estimator instance.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dirty_cat.FeatureAugmenter.set_params">
+<span class="sig-name descname"><span class="pre">set_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/ea009b9/dirty_cat/../miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/base.py#L177"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.FeatureAugmenter.set_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the parameters of this estimator.</p>
+<p>The method works on simple estimators as well as on nested objects
+(such as <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="(in scikit-learn v1.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a>). The latter have
+parameters of the form <code class="docutils literal notranslate"><span class="pre">&lt;component&gt;__&lt;parameter&gt;</span></code> so that it’s
+possible to update each component of a nested object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>**params</strong><span class="classifier">dict</span></dt><dd><p>Estimator parameters.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">estimator instance</span></dt><dd><p>Estimator instance.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dirty_cat.FeatureAugmenter.transform">
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/ea009b9/dirty_cat/_feature_augmenter.py#L169"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.FeatureAugmenter.transform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transform X using the specified encoding scheme.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">DataFrame, shape [n_samples, n_features]</span></dt><dd><p>The main table, to be joined to the
+auxilliary ones.</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">array-like of shape (n_samples,…), default=None</span></dt><dd><p>Targets for supervised learning.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>DataFrame</dt><dd><p>The final joined table.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<section id="examples-using-dirty-cat-featureaugmenter">
+<h2>Examples using <code class="docutils literal notranslate"><span class="pre">dirty_cat.FeatureAugmenter</span></code><a class="headerlink" href="#examples-using-dirty-cat-featureaugmenter" title="Permalink to this heading">¶</a></h2>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="Here we show how to combine data from different sources, with a vocabulary not well normalized."><img alt="Fuzzy joining dirty tables and the FeatureAugmenter" src="../_images/sphx_glr_05_fuzzy_joining_and_FeatureAugmenter_thumb.png" />
+<p><a class="reference internal" href="../auto_examples/05_fuzzy_joining_and_FeatureAugmenter.html#sphx-glr-auto-examples-05-fuzzy-joining-and-featureaugmenter-py"><span class="std std-ref">Fuzzy joining dirty tables and the FeatureAugmenter</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Fuzzy joining dirty tables and the FeatureAugmenter</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="When the data comprises common entities (cities, companies or famous people), bringing new info..."><img alt="Wikipedia embeddings to enrich the data" src="../_images/sphx_glr_07_ken_embeddings_example_thumb.png" />
+<p><a class="reference internal" href="../auto_examples/07_ken_embeddings_example.html#sphx-glr-auto-examples-07-ken-embeddings-example-py"><span class="std std-ref">Wikipedia embeddings to enrich the data</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Wikipedia embeddings to enrich the data</div>
+</div></div><div class="clearer"></div></section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2018-2023, the dirty_cat developers.
+      
+      |
+      <a href="../_sources/generated/dirty_cat.FeatureAugmenter.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,178 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta property="og:title" content="dirty_cat.datasets.fetch_employee_salaries" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://dirty-cat.github.io/stable/generated/dirty_cat.datasets.fetch_employee_salaries.html" />
+<meta property="og:site_name" content="dirty_cat" />
+<meta property="og:description" content="Examples using dirty_cat.datasets.fetch_employee_salaries: Dirty categories: machine learning with non normalized strings Dirty categories: machine learning with non normalized strings Investigatin..." />
+<meta property="og:image" content="https://dirty-cat.github.io/stable/_images/sphx_glr_01_dirty_categories_thumb.png" />
+<meta property="og:image:alt" content="Dirty categories: machine learning with non normalized strings" />
+<meta name="description" content="Examples using dirty_cat.datasets.fetch_employee_salaries: Dirty categories: machine learning with non normalized strings Dirty categories: machine learning with non normalized strings Investigatin..." />
+
+    <title>dirty_cat.datasets.fetch_employee_salaries &#8212; dirty_cat</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/scrolltoc.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="dirty_cat.datasets.fetch_medical_charge" href="dirty_cat.datasets.fetch_medical_charge.html" />
+    <link rel="prev" title="dirty_cat.deduplicate" href="dirty_cat.deduplicate.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><!--
+    Inherited from the original Alabaster theme:
+    https://github.com/bitprophet/alabaster/blob/master/alabaster/about.html
+    Only the "Version" number is added.
+-->
+
+
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/dirty_cat.svg" alt="Logo"/>
+    
+    <h1 class="logo logo-name">dirty_cat</h1>
+    
+  </a>
+  <div class="version-switcher">
+    <h4>Version 0.4.0</h4>
+    <details>
+	<summary>Other versions</summary>
+	<ul>
+	    <li><a href="https://dirty-cat.github.io/stable">Stable</a></li>
+	    <li><a href="https://dirty-cat.github.io/dev">Dev</a></li>
+	</ul>
+    </details>
+  </div>
+</p>
+
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=dirty-cat&repo=dirty_cat&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<ul>
+    <li class="toctree-l1"><a href="../index.html#usage-examples">Usage</a></li>
+    <li class="toctree-l1"><a href="../index.html#api-documentation">API</a></li>
+    <li class="toctree-l1"><a href="../index.html#about">About</a></li>
+</ul>
+  <h3 class="this-page"><a href="../index.html">This page</a></h3>
+  <ul>
+<li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat.datasets</span></code>.fetch_employee_salaries</a><ul>
+<li><a class="reference internal" href="#examples-using-dirty-cat-datasets-fetch-employee-salaries">Examples using <code class="docutils literal notranslate"><span class="pre">dirty_cat.datasets.fetch_employee_salaries</span></code></a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="dirty_cat.deduplicate.html" title="previous chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat</span></code>.deduplicate</a></li>
+      <li>Next: <a href="dirty_cat.datasets.fetch_medical_charge.html" title="next chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat.datasets</span></code>.fetch_medical_charge</a></li>
+  </ul></li>
+</ul>
+</div>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="dirty-cat-datasets-fetch-employee-salaries">
+<h1><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat.datasets</span></code>.fetch_employee_salaries<a class="headerlink" href="#dirty-cat-datasets-fetch-employee-salaries" title="Permalink to this heading">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="dirty_cat.datasets.fetch_employee_salaries">
+<span class="sig-prename descclassname"><span class="pre">dirty_cat.datasets.</span></span><span class="sig-name descname"><span class="pre">fetch_employee_salaries</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_dataframe</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop_linked</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop_irrelevant</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/ea009b9/dirty_cat/datasets/_fetching.py#L634"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.datasets.fetch_employee_salaries" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetches the employee_salaries dataset (regression), available at
+<a class="reference external" href="https://openml.org/d/42125">https://openml.org/d/42125</a></p>
+<dl class="simple">
+<dt>Description of the dataset:</dt><dd><p>Annual salary information including gross pay and overtime pay for all
+active, permanent employees of Montgomery County, MD paid in calendar
+year 2016. This information will be published annually each year.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>drop_linked: bool (default True)</strong></dt><dd><p>Drops columns “2016_gross_pay_received” and “2016_overtime_pay”,
+which are closely linked to “current_annual_salary”, the target.</p>
+</dd>
+<dt><strong>drop_irrelevant: bool (default True)</strong></dt><dd><p>Drops column “full_name”, which is usually irrelevant to the
+statistical analysis.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>DatasetAll</dt><dd><p>If <cite>load_dataframe=True</cite></p>
+</dd>
+<dt>DatasetInfoOnly</dt><dd><p>If <cite>load_dataframe=False</cite></p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<section id="examples-using-dirty-cat-datasets-fetch-employee-salaries">
+<h2>Examples using <code class="docutils literal notranslate"><span class="pre">dirty_cat.datasets.fetch_employee_salaries</span></code><a class="headerlink" href="#examples-using-dirty-cat-datasets-fetch-employee-salaries" title="Permalink to this heading">¶</a></h2>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="Including strings that represent categories often calls for much data preparation. In particula..."><img alt="Dirty categories: machine learning with non normalized strings" src="../_images/sphx_glr_01_dirty_categories_thumb.png" />
+<p><a class="reference internal" href="../auto_examples/01_dirty_categories.html#sphx-glr-auto-examples-01-dirty-categories-py"><span class="std std-ref">Dirty categories: machine learning with non normalized strings</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Dirty categories: machine learning with non normalized strings</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="What are dirty categorical variables and how can a good encoding help with statistical learning..."><img alt="Investigating and interpreting dirty categories" src="../_images/sphx_glr_02_investigating_dirty_categories_thumb.png" />
+<p><a class="reference internal" href="../auto_examples/02_investigating_dirty_categories.html#sphx-glr-auto-examples-02-investigating-dirty-categories-py"><span class="std std-ref">Investigating and interpreting dirty categories</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Investigating and interpreting dirty categories</div>
+</div></div><div class="clearer"></div></section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2018-2023, the dirty_cat developers.
+      
+      |
+      <a href="../_sources/generated/dirty_cat.datasets.fetch_employee_salaries.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

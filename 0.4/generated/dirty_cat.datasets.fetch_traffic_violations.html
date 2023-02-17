@@ -1,0 +1,150 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta property="og:title" content="dirty_cat.datasets.fetch_traffic_violations" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://dirty-cat.github.io/stable/generated/dirty_cat.datasets.fetch_traffic_violations.html" />
+<meta property="og:site_name" content="dirty_cat" />
+<meta property="og:image" content="https://dirty-cat.github.io/stable/_static/dirty_cat.svg" />
+<meta property="og:image:alt" content="dirty_cat" />
+
+    <title>dirty_cat.datasets.fetch_traffic_violations &#8212; dirty_cat</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/scrolltoc.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="dirty_cat.datasets.fetch_drug_directory" href="dirty_cat.datasets.fetch_drug_directory.html" />
+    <link rel="prev" title="dirty_cat.datasets.fetch_road_safety" href="dirty_cat.datasets.fetch_road_safety.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><!--
+    Inherited from the original Alabaster theme:
+    https://github.com/bitprophet/alabaster/blob/master/alabaster/about.html
+    Only the "Version" number is added.
+-->
+
+
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/dirty_cat.svg" alt="Logo"/>
+    
+    <h1 class="logo logo-name">dirty_cat</h1>
+    
+  </a>
+  <div class="version-switcher">
+    <h4>Version 0.4.0</h4>
+    <details>
+	<summary>Other versions</summary>
+	<ul>
+	    <li><a href="https://dirty-cat.github.io/stable">Stable</a></li>
+	    <li><a href="https://dirty-cat.github.io/dev">Dev</a></li>
+	</ul>
+    </details>
+  </div>
+</p>
+
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=dirty-cat&repo=dirty_cat&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<ul>
+    <li class="toctree-l1"><a href="../index.html#usage-examples">Usage</a></li>
+    <li class="toctree-l1"><a href="../index.html#api-documentation">API</a></li>
+    <li class="toctree-l1"><a href="../index.html#about">About</a></li>
+</ul><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="dirty_cat.datasets.fetch_road_safety.html" title="previous chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat.datasets</span></code>.fetch_road_safety</a></li>
+      <li>Next: <a href="dirty_cat.datasets.fetch_drug_directory.html" title="next chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat.datasets</span></code>.fetch_drug_directory</a></li>
+  </ul></li>
+</ul>
+</div>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="dirty-cat-datasets-fetch-traffic-violations">
+<h1><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat.datasets</span></code>.fetch_traffic_violations<a class="headerlink" href="#dirty-cat-datasets-fetch-traffic-violations" title="Permalink to this heading">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="dirty_cat.datasets.fetch_traffic_violations">
+<span class="sig-prename descclassname"><span class="pre">dirty_cat.datasets.</span></span><span class="sig-name descname"><span class="pre">fetch_traffic_violations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_dataframe</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/ea009b9/dirty_cat/datasets/_fetching.py#L829"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.datasets.fetch_traffic_violations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetches the traffic violations dataset (classification), available at
+<a class="reference external" href="https://openml.org/d/42132">https://openml.org/d/42132</a></p>
+<dl class="simple">
+<dt>Description of the dataset:</dt><dd><p>This dataset contains traffic violation information from all electronic
+traffic violations issued in the Montgomery County, MD. Any information
+that can be used to uniquely identify the vehicle, the vehicle owner or
+the officer issuing the violation will not be published.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>DatasetAll</dt><dd><p>If <cite>load_dataframe=True</cite></p>
+</dd>
+<dt>DatasetInfoOnly</dt><dd><p>If <cite>load_dataframe=False</cite></p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<div class="clearer"></div></section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2018-2023, the dirty_cat developers.
+      
+      |
+      <a href="../_sources/generated/dirty_cat.datasets.fetch_traffic_violations.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,525 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta property="og:title" content="dirty_cat.SimilarityEncoder" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://dirty-cat.github.io/stable/generated/dirty_cat.SimilarityEncoder.html" />
+<meta property="og:site_name" content="dirty_cat" />
+<meta property="og:description" content="Usage examples at the bottom of this page. Examples using dirty_cat.SimilarityEncoder: Dirty categories: machine learning with non normalized strings Dirty categories: machine learning with non nor..." />
+<meta property="og:image" content="https://dirty-cat.github.io/stable/_images/sphx_glr_01_dirty_categories_thumb.png" />
+<meta property="og:image:alt" content="Dirty categories: machine learning with non normalized strings" />
+<meta name="description" content="Usage examples at the bottom of this page. Examples using dirty_cat.SimilarityEncoder: Dirty categories: machine learning with non normalized strings Dirty categories: machine learning with non nor..." />
+
+    <title>dirty_cat.SimilarityEncoder &#8212; dirty_cat</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/scrolltoc.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="dirty_cat.TargetEncoder" href="dirty_cat.TargetEncoder.html" />
+    <link rel="prev" title="dirty_cat.MinHashEncoder" href="dirty_cat.MinHashEncoder.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><!--
+    Inherited from the original Alabaster theme:
+    https://github.com/bitprophet/alabaster/blob/master/alabaster/about.html
+    Only the "Version" number is added.
+-->
+
+
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/dirty_cat.svg" alt="Logo"/>
+    
+    <h1 class="logo logo-name">dirty_cat</h1>
+    
+  </a>
+  <div class="version-switcher">
+    <h4>Version 0.4.0</h4>
+    <details>
+	<summary>Other versions</summary>
+	<ul>
+	    <li><a href="https://dirty-cat.github.io/stable">Stable</a></li>
+	    <li><a href="https://dirty-cat.github.io/dev">Dev</a></li>
+	</ul>
+    </details>
+  </div>
+</p>
+
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=dirty-cat&repo=dirty_cat&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<ul>
+    <li class="toctree-l1"><a href="../index.html#usage-examples">Usage</a></li>
+    <li class="toctree-l1"><a href="../index.html#api-documentation">API</a></li>
+    <li class="toctree-l1"><a href="../index.html#about">About</a></li>
+</ul>
+  <h3 class="this-page"><a href="../index.html">This page</a></h3>
+  <ul>
+<li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat</span></code>.SimilarityEncoder</a><ul>
+<li><a class="reference internal" href="#examples-using-dirty-cat-similarityencoder">Examples using <code class="docutils literal notranslate"><span class="pre">dirty_cat.SimilarityEncoder</span></code></a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="dirty_cat.MinHashEncoder.html" title="previous chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat</span></code>.MinHashEncoder</a></li>
+      <li>Next: <a href="dirty_cat.TargetEncoder.html" title="next chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat</span></code>.TargetEncoder</a></li>
+  </ul></li>
+</ul>
+</div>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="dirty-cat-similarityencoder">
+<h1><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat</span></code>.SimilarityEncoder<a class="headerlink" href="#dirty-cat-similarityencoder" title="Permalink to this heading">¶</a></h1>
+<p class="side-comment">Usage examples at the bottom of this page.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="dirty_cat.SimilarityEncoder">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">dirty_cat.</span></span><span class="sig-name descname"><span class="pre">SimilarityEncoder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">similarity=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ngram_range=(2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">categories='auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype=&lt;class</span> <span class="pre">'numpy.float64'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">handle_unknown='ignore'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">handle_missing=''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hashing_dim=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_prototypes=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_jobs=None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/ea009b9/dirty_cat/_similarity_encoder.py#L193"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.SimilarityEncoder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Encode string categorical features as a numeric array.</p>
+<p>The input to this transformer should be an array-like of
+strings.
+The method is based on calculating the morphological similarities
+between the categories.
+This encoding is an alternative to OneHotEncoder in the case of
+dirty categorical variables.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl>
+<dt><strong>similarity</strong><span class="classifier">None</span></dt><dd><p>Deprecated in dirty_cat 0.3, will be removed in 0.5.
+Was used to specify the type of pairwise string similarity to use.
+Since 0.3, only the ngram similarity is supported.</p>
+</dd>
+<dt><strong>ngram_range</strong><span class="classifier">tuple (min_n, max_n), default=(2, 4)</span></dt><dd><p>The range of values for the n_gram similarity.</p>
+</dd>
+<dt><strong>categories</strong><span class="classifier">typing.Union[typing.Literal[“auto”, “k-means”, “most_frequent”], typing.List[typing.List[str]]]  # noqa</span></dt><dd><p>Categories (unique values) per feature:</p>
+<ul class="simple">
+<li><p>‘auto’ : Determine categories automatically from the training data.</p></li>
+<li><p>list : <code class="docutils literal notranslate"><span class="pre">categories[i]</span></code> holds the categories expected in the i-th
+column. The passed categories must be sorted and should not mix
+strings and numeric values.</p></li>
+<li><dl class="simple">
+<dt>‘most_frequent’<span class="classifier">Computes the most frequent values for every</span></dt><dd><p>categorical variable</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>‘k-means’<span class="classifier">Computes the K nearest neighbors of K-mean centroids</span></dt><dd><p>in order to choose the prototype categories</p>
+</dd>
+</dl>
+</li>
+</ul>
+<p>The categories used can be found in the <code class="docutils literal notranslate"><span class="pre">categories_</span></code> attribute.</p>
+</dd>
+<dt><strong>dtype</strong><span class="classifier">number type, default np.float64</span></dt><dd><p>Desired dtype of output.</p>
+</dd>
+<dt><strong>handle_unknown</strong><span class="classifier">‘error’ or ‘ignore’ (default)</span></dt><dd><p>Whether to raise an error or ignore if an unknown categorical feature
+is present during transform (default is to ignore). When this parameter
+is set to ‘ignore’ and an unknown category is encountered during
+transform, the resulting encoded columns for this feature
+will be all zeros. In the inverse transform, an unknown category
+will be denoted as None.</p>
+</dd>
+<dt><strong>handle_missing</strong><span class="classifier">‘error’ or ‘’ (default)</span></dt><dd><p>Whether to raise an error or impute with blank string ‘’ if missing
+values (NaN) are present during fit (default is to impute).
+When this parameter is set to ‘’, and a missing value is encountered
+during fit_transform, the resulting encoded columns for this feature
+will be all zeros. In the inverse transform, the missing category
+will be denoted as None.</p>
+</dd>
+<dt><strong>hashing_dim</strong><span class="classifier">int type or None.</span></dt><dd><p>If None, the base vectorizer is CountVectorizer, else it’s set to
+HashingVectorizer with a number of features equal to <cite>hashing_dim</cite>.</p>
+</dd>
+<dt><strong>n_prototypes</strong><span class="classifier">number of prototype we want to use.</span></dt><dd><p>Useful when <cite>most_frequent</cite> or <cite>k-means</cite> is used.
+Must be a positive non-null integer.</p>
+</dd>
+<dt><strong>random_state</strong><span class="classifier">either an int used as a seed, a RandomState instance or None.</span></dt><dd><p>Useful when <cite>k-means</cite> strategy is used.</p>
+</dd>
+<dt><strong>n_jobs</strong><span class="classifier">int, optional</span></dt><dd><p>maximum number of processes used to compute similarity matrices. Used
+only if <code class="docutils literal notranslate"><span class="pre">fast=True</span></code> in <code class="docutils literal notranslate"><span class="pre">SimilarityEncoder.transform</span></code></p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="dirty_cat.MinHashEncoder.html#dirty_cat.MinHashEncoder" title="dirty_cat.MinHashEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">MinHashEncoder</span></code></a></dt><dd><p>Encode string columns as a numeric array with the minhash method.</p>
+</dd>
+<dt><a class="reference internal" href="dirty_cat.GapEncoder.html#dirty_cat.GapEncoder" title="dirty_cat.GapEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">GapEncoder</span></code></a></dt><dd><p>Encodes dirty categories (strings) by constructing latent topics with continuous encoding.</p>
+</dd>
+<dt><a class="reference internal" href="dirty_cat.deduplicate.html#dirty_cat.deduplicate" title="dirty_cat.deduplicate"><code class="xref py py-class docutils literal notranslate"><span class="pre">deduplicate</span></code></a></dt><dd><p>Deduplicate data by hierarchically clustering similar strings.</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">References</p>
+<p>For a detailed description of the method, see
+<a class="reference external" href="https://hal.inria.fr/hal-01806175">Similarity encoding for learning with dirty categorical variables</a> by Cerda, Varoquaux, Kegl. 2018
+(accepted for publication at: Machine Learning journal, Springer).</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">enc</span> <span class="o">=</span> <span class="n">SimilarityEncoder</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="p">[[</span><span class="s1">&#39;Male&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;Female&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;Female&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">enc</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="go">SimilarityEncoder()</span>
+</pre></div>
+</div>
+<p>It inherits the same methods as sklearn’s <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.OneHotEncoder.html#sklearn.preprocessing.OneHotEncoder" title="(in scikit-learn v1.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">OneHotEncoder</span></code></a>:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">enc</span><span class="o">.</span><span class="n">categories_</span>
+<span class="go">[array([&#39;Female&#39;, &#39;Male&#39;], dtype=object), array([1, 2, 3], dtype=object)]</span>
+</pre></div>
+</div>
+<p>But it provides a continuous encoding based on similarity
+instead of a discrete one based on exact matches:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">enc</span><span class="o">.</span><span class="n">transform</span><span class="p">([[</span><span class="s1">&#39;Female&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;Male&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">]])</span>
+<span class="go">array([[1., 0.42857143, 1., 0., 0.],</span>
+<span class="go">       [0.42857143, 1., 0. , 0. , 0.]])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">enc</span><span class="o">.</span><span class="n">inverse_transform</span><span class="p">([[</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">0.42857143</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.42857143</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">0.</span> <span class="p">,</span> <span class="mf">0.</span> <span class="p">,</span> <span class="mf">0.</span><span class="p">]])</span>
+<span class="go">array([[&#39;Female&#39;, 1],</span>
+<span class="go">       [&#39;Male&#39;, None]], dtype=object)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">enc</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">([</span><span class="s1">&#39;gender&#39;</span><span class="p">,</span> <span class="s1">&#39;group&#39;</span><span class="p">])</span>
+<span class="go">array([&#39;gender_Female&#39;, &#39;gender_Male&#39;, &#39;group_1&#39;, &#39;group_2&#39;, &#39;group_3&#39;], ...)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Attributes<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>categories_</strong><span class="classifier">typing.List[np.array]</span></dt><dd><p>The categories of each feature determined during fitting
+(in order corresponding with output of <code class="docutils literal notranslate"><span class="pre">transform</span></code>).</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Methods</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#dirty_cat.SimilarityEncoder.fit" title="dirty_cat.SimilarityEncoder.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a>(X[, y])</p></td>
+<td><p>Fit the instance to X.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#dirty_cat.SimilarityEncoder.fit_transform" title="dirty_cat.SimilarityEncoder.fit_transform"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit_transform</span></code></a>(X[, y])</p></td>
+<td><p>Fit SimilarityEncoder to data, then transform it.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#dirty_cat.SimilarityEncoder.get_feature_names_out" title="dirty_cat.SimilarityEncoder.get_feature_names_out"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_feature_names_out</span></code></a>([input_features])</p></td>
+<td><p>Get output feature names for transformation.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#dirty_cat.SimilarityEncoder.get_most_frequent" title="dirty_cat.SimilarityEncoder.get_most_frequent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_most_frequent</span></code></a>(prototypes)</p></td>
+<td><p>Get the most frequent category prototypes.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#dirty_cat.SimilarityEncoder.get_params" title="dirty_cat.SimilarityEncoder.get_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_params</span></code></a>([deep])</p></td>
+<td><p>Get parameters for this estimator.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#dirty_cat.SimilarityEncoder.inverse_transform" title="dirty_cat.SimilarityEncoder.inverse_transform"><code class="xref py py-obj docutils literal notranslate"><span class="pre">inverse_transform</span></code></a>(X)</p></td>
+<td><p>Convert the data back to the original representation.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#dirty_cat.SimilarityEncoder.set_output" title="dirty_cat.SimilarityEncoder.set_output"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_output</span></code></a>(*[, transform])</p></td>
+<td><p>Set output container.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#dirty_cat.SimilarityEncoder.set_params" title="dirty_cat.SimilarityEncoder.set_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_params</span></code></a>(**params)</p></td>
+<td><p>Set the parameters of this estimator.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#dirty_cat.SimilarityEncoder.transform" title="dirty_cat.SimilarityEncoder.transform"><code class="xref py py-obj docutils literal notranslate"><span class="pre">transform</span></code></a>(X[, fast])</p></td>
+<td><p>Transform X using specified encoding scheme.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="dirty_cat.SimilarityEncoder.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/ea009b9/dirty_cat/_similarity_encoder.py#L380"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.SimilarityEncoder.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fit the instance to X.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like, shape [n_samples, n_features]</span></dt><dd><p>The data to determine the categories of each feature.</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">None</span></dt><dd><p>Unused, only here for compatibility.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><a class="reference internal" href="#dirty_cat.SimilarityEncoder" title="dirty_cat.SimilarityEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimilarityEncoder</span></code></a></dt><dd><p>The fitted <a class="reference internal" href="#dirty_cat.SimilarityEncoder" title="dirty_cat.SimilarityEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimilarityEncoder</span></code></a> instance (self).</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dirty_cat.SimilarityEncoder.fit_transform">
+<span class="sig-name descname"><span class="pre">fit_transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">fit_params</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/ea009b9/dirty_cat/_similarity_encoder.py#L650"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.SimilarityEncoder.fit_transform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fit SimilarityEncoder to data, then transform it.
+Fits transformer to <cite>X</cite> and <cite>y</cite> with optional parameters
+<cite>fit_params</cite> and returns a transformed version of <cite>X</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like of shape (n_samples, n_features)</span></dt><dd><p>Input samples.</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">array-like of shape (n_samples,) or (n_samples, n_outputs),                 default=None</span></dt><dd><p>Target values (None for unsupervised transformations).</p>
+</dd>
+<dt><strong>**fit_params</strong></dt><dd><p>Additional fit parameters.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>array of shape (n_samples, n_features_new)</dt><dd><p>Transformed array.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dirty_cat.SimilarityEncoder.get_feature_names_out">
+<span class="sig-name descname"><span class="pre">get_feature_names_out</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/ea009b9/dirty_cat/../miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/preprocessing/_encoders.py#L1036"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.SimilarityEncoder.get_feature_names_out" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get output feature names for transformation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>input_features</strong><span class="classifier">array-like of str or None, default=None</span></dt><dd><p>Input features.</p>
+<ul class="simple">
+<li><p>If <cite>input_features</cite> is <cite>None</cite>, then <cite>feature_names_in_</cite> is
+used as feature names in. If <cite>feature_names_in_</cite> is not defined,
+then the following input feature names are generated:
+<cite>[“x0”, “x1”, …, “x(n_features_in_ - 1)”]</cite>.</p></li>
+<li><p>If <cite>input_features</cite> is an array-like, then <cite>input_features</cite> must
+match <cite>feature_names_in_</cite> if <cite>feature_names_in_</cite> is defined.</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>feature_names_out</strong><span class="classifier">ndarray of str objects</span></dt><dd><p>Transformed feature names.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dirty_cat.SimilarityEncoder.get_most_frequent">
+<span class="sig-name descname"><span class="pre">get_most_frequent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prototypes</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/ea009b9/dirty_cat/_similarity_encoder.py#L363"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.SimilarityEncoder.get_most_frequent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the most frequent category prototypes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>prototypes</strong><span class="classifier">list of str</span></dt><dd><p>The list of values for a category variable.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>np.array</dt><dd><p>The n_prototypes most frequent values for a category variable.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dirty_cat.SimilarityEncoder.get_params">
+<span class="sig-name descname"><span class="pre">get_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">deep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/ea009b9/dirty_cat/../miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/base.py#L153"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.SimilarityEncoder.get_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get parameters for this estimator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>deep</strong><span class="classifier">bool, default=True</span></dt><dd><p>If True, will return the parameters for this estimator and
+contained subobjects that are estimators.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>params</strong><span class="classifier">dict</span></dt><dd><p>Parameter names mapped to their values.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="dirty_cat.SimilarityEncoder.infrequent_categories_">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">infrequent_categories_</span></span><a class="headerlink" href="#dirty_cat.SimilarityEncoder.infrequent_categories_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Infrequent categories for each feature.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dirty_cat.SimilarityEncoder.inverse_transform">
+<span class="sig-name descname"><span class="pre">inverse_transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/ea009b9/dirty_cat/../miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/preprocessing/_encoders.py#L922"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.SimilarityEncoder.inverse_transform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert the data back to the original representation.</p>
+<p>When unknown categories are encountered (all zeros in the
+one-hot encoding), <code class="docutils literal notranslate"><span class="pre">None</span></code> is used to represent this category. If the
+feature with the unknown category has a dropped category, the dropped
+category will be its inverse.</p>
+<p>For a given input feature, if there is an infrequent category,
+‘infrequent_sklearn’ will be used to represent the infrequent category.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">{array-like, sparse matrix} of shape                 (n_samples, n_encoded_features)</span></dt><dd><p>The transformed data.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>X_tr</strong><span class="classifier">ndarray of shape (n_samples, n_features)</span></dt><dd><p>Inverse transformed array.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dirty_cat.SimilarityEncoder.set_output">
+<span class="sig-name descname"><span class="pre">set_output</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/ea009b9/dirty_cat/../miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/utils/_set_output.py#L210"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.SimilarityEncoder.set_output" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set output container.</p>
+<p>See <a class="reference external" href="https://scikit-learn.org/stable/auto_examples/miscellaneous/plot_set_output.html#sphx-glr-auto-examples-miscellaneous-plot-set-output-py" title="(in scikit-learn v1.2)"><span>Introducing the set_output API</span></a>
+for an example on how to use the API.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>transform</strong><span class="classifier">{“default”, “pandas”}, default=None</span></dt><dd><p>Configure output of <cite>transform</cite> and <cite>fit_transform</cite>.</p>
+<ul class="simple">
+<li><p><cite>“default”</cite>: Default output format of a transformer</p></li>
+<li><p><cite>“pandas”</cite>: DataFrame output</p></li>
+<li><p><cite>None</cite>: Transform configuration is unchanged</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">estimator instance</span></dt><dd><p>Estimator instance.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dirty_cat.SimilarityEncoder.set_params">
+<span class="sig-name descname"><span class="pre">set_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/ea009b9/dirty_cat/../miniconda/envs/testenv/lib/python3.8/site-packages/sklearn/base.py#L177"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.SimilarityEncoder.set_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the parameters of this estimator.</p>
+<p>The method works on simple estimators as well as on nested objects
+(such as <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="(in scikit-learn v1.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a>). The latter have
+parameters of the form <code class="docutils literal notranslate"><span class="pre">&lt;component&gt;__&lt;parameter&gt;</span></code> so that it’s
+possible to update each component of a nested object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>**params</strong><span class="classifier">dict</span></dt><dd><p>Estimator parameters.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">estimator instance</span></dt><dd><p>Estimator instance.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dirty_cat.SimilarityEncoder.transform">
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fast</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/ea009b9/dirty_cat/_similarity_encoder.py#L515"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.SimilarityEncoder.transform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transform X using specified encoding scheme.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like, shape [n_samples, n_features]</span></dt><dd><p>The data to encode.</p>
+</dd>
+<dt><strong>fast</strong><span class="classifier">bool</span></dt><dd><p>Whether to use the fast computation of ngrams.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>X_new</strong><span class="classifier">2-d array, shape [n_samples, n_features_new]</span></dt><dd><p>Transformed input.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<section id="examples-using-dirty-cat-similarityencoder">
+<h2>Examples using <code class="docutils literal notranslate"><span class="pre">dirty_cat.SimilarityEncoder</span></code><a class="headerlink" href="#examples-using-dirty-cat-similarityencoder" title="Permalink to this heading">¶</a></h2>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="Including strings that represent categories often calls for much data preparation. In particula..."><img alt="Dirty categories: machine learning with non normalized strings" src="../_images/sphx_glr_01_dirty_categories_thumb.png" />
+<p><a class="reference internal" href="../auto_examples/01_dirty_categories.html#sphx-glr-auto-examples-01-dirty-categories-py"><span class="std std-ref">Dirty categories: machine learning with non normalized strings</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Dirty categories: machine learning with non normalized strings</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="What are dirty categorical variables and how can a good encoding help with statistical learning..."><img alt="Investigating and interpreting dirty categories" src="../_images/sphx_glr_02_investigating_dirty_categories_thumb.png" />
+<p><a class="reference internal" href="../auto_examples/02_investigating_dirty_categories.html#sphx-glr-auto-examples-02-investigating-dirty-categories-py"><span class="std std-ref">Investigating and interpreting dirty categories</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Investigating and interpreting dirty categories</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="We discuss in this notebook how to efficiently apply the SimilarityEncoder to larger datasets: ..."><img alt="Scalability considerations for similarity encoding" src="../_images/sphx_glr_04_dimension_reduction_and_performance_thumb.png" />
+<p><a class="reference internal" href="../auto_examples/04_dimension_reduction_and_performance.html#sphx-glr-auto-examples-04-dimension-reduction-and-performance-py"><span class="std std-ref">Scalability considerations for similarity encoding</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Scalability considerations for similarity encoding</div>
+</div></div><div class="clearer"></div></section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2018-2023, the dirty_cat developers.
+      
+      |
+      <a href="../_sources/generated/dirty_cat.SimilarityEncoder.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
