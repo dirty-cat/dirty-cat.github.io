@@ -129,24 +129,23 @@ the main steps and appropriate resources:</p>
 <li><p>Update <code class="docutils literal notranslate"><span class="pre">dirty_cat/CHANGES.rst</span></code>. It should be updated at each PR,
 but double-checking before the release is good practice.</p></li>
 <li><p>Create a branch by running <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">checkout</span> <span class="pre">-b</span> <span class="pre">0.&lt;version&gt;.X</span></code>
-(e.g. <code class="docutils literal notranslate"><span class="pre">0.1.X</span></code>).</p></li>
+(e.g. <code class="docutils literal notranslate"><span class="pre">0.2.X</span></code>).</p></li>
 <li><p>Update <code class="docutils literal notranslate"><span class="pre">dirty_cat/dirty_cat/VERSION.txt</span></code> with the new version
-number (e.g. <code class="docutils literal notranslate"><span class="pre">1.0</span></code>).</p></li>
+number (e.g. <code class="docutils literal notranslate"><span class="pre">0.2.0</span></code>).</p></li>
 <li><p>Update <code class="docutils literal notranslate"><span class="pre">dirty_cat/setup.py</span></code> (e.g. Python version supported and dependencies).</p></li>
-<li><p>You have to commit the changes with a new tag: the version you’re
-going to push with the commands
-<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">commit</span> <span class="pre">-m</span> <span class="pre">&quot;Bump</span> <span class="pre">version</span> <span class="pre">0.1.0&quot;</span></code>. Push the branch to the <code class="docutils literal notranslate"><span class="pre">dirty_cat</span></code>
-repository. This will push and create an associated folder in the documentation
-repository.</p></li>
+<li><p>Commit the changes with a new tag: the version you’re going to push,
+with the commands <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">commit</span> <span class="pre">-m</span> <span class="pre">&quot;Bump</span> <span class="pre">to</span> <span class="pre">version</span> <span class="pre">0.2.0&quot;</span></code>.
+Push the branch to the <code class="docutils literal notranslate"><span class="pre">dirty_cat</span></code> repository.
+The CI will automatically create an associated folder in the documentation repo.</p></li>
 <li><p>In the documentation repository (e.g. <code class="docutils literal notranslate"><span class="pre">https://github.com/dirty-cat/dirty-cat.github.io</span></code>),
 update the <code class="docutils literal notranslate"><span class="pre">stable</span></code> symlink to the latest stable version: first, unlink <code class="docutils literal notranslate"><span class="pre">stable</span></code>
-(i.e. <code class="docutils literal notranslate"><span class="pre">unlink</span> <span class="pre">stable</span></code>); then, create a new symlink (i.e. <code class="docutils literal notranslate"><span class="pre">ln</span> <span class="pre">-s</span> <span class="pre">0.1</span> <span class="pre">stable</span></code>);
+(i.e. <code class="docutils literal notranslate"><span class="pre">unlink</span> <span class="pre">stable</span></code>); then, create a new symlink (i.e. <code class="docutils literal notranslate"><span class="pre">ln</span> <span class="pre">-s</span> <span class="pre">0.2</span> <span class="pre">stable</span></code>);
 finally, commit and push the changes into the repository.</p></li>
 <li><p>Create a new release and tag via GitHub: <code class="docutils literal notranslate"><span class="pre">https://github.com/dirty-cat/dirty_cat/releases/new</span></code>.
-Provide the tag using the current version, e.g. <code class="docutils literal notranslate"><span class="pre">0.1.0</span></code> and make sure to select
-the target branch created earlier (e.g. <code class="docutils literal notranslate"><span class="pre">0.1.X</span></code>).</p></li>
-<li><p>Next, you will need to install the <code class="docutils literal notranslate"><span class="pre">twine</span></code> package with
-<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">--upgrade</span> <span class="pre">twine</span></code></p></li>
+Provide the tag using the current version, e.g. <code class="docutils literal notranslate"><span class="pre">0.2.0</span></code> and make sure to select
+the target branch created earlier (e.g. <code class="docutils literal notranslate"><span class="pre">0.2.X</span></code>).</p></li>
+<li><p>Next, you will need to install the <code class="docutils literal notranslate"><span class="pre">twine</span></code> and <code class="docutils literal notranslate"><span class="pre">setuptools</span></code> packages with
+<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">--upgrade</span> <span class="pre">twine</span> <span class="pre">setuptools</span></code>.</p></li>
 <li><p>Build the source with <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">bdist_wheel</span> <span class="pre">sdist</span></code></p></li>
 <li><p><a class="reference external" href="https://shouldideploy.today/">Check if today is a good day for releasing</a></p></li>
 <li><p>It is advised to first push the version on the test package index
@@ -157,18 +156,20 @@ This is useful to test if the build done by twine and the push to
 the package indexer is working.</p></li>
 <li><p>Install the new release from the test package index on a dedicated
 environment with the command
-<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">--index-url</span> <span class="pre">https://test.pypi.org/simple/</span> <span class="pre">--extra-index-url</span> <span class="pre">https://test.pypi.org/simple/</span> <span class="pre">dirty_cat</span></code></p></li>
+<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">--index-url</span> <span class="pre">https://test.pypi.org/simple/</span> <span class="pre">--extra-index-url</span> <span class="pre">https://test.pypi.org/simple/</span> <span class="pre">dirty_cat</span></code>.
+If there are other package install errors, it probably means those packages are not on test.pypi.org.
+Download them from pypi.org directly with just <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span></code>.</p></li>
 <li><p>Finally, if that works fine, you can push to the official package
 index with <code class="docutils literal notranslate"><span class="pre">twine</span> <span class="pre">upload</span> <span class="pre">dist/*</span></code></p></li>
 <li><p>It is also good practice at this point to create a new environment
 and try installing and using the library (for example by launching examples).
 Be sure to install it with the command <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">dirty_cat==&lt;version&gt;</span></code>
-(e.g. <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">dirty_cat==1.0</span></code>), otherwise some package/env managers
+(e.g. <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">dirty_cat==0.2.0</span></code>), otherwise some package/env managers
 such as conda might use a cached version.</p></li>
 <li><p>To finish the procedure, create a new release on the GitHub repository.</p></li>
 </ol>
-<p>For the bug fix release (e.g. 0.1.0 -&gt; 0.1.1), the process is similar. You don’t need
-to create the branch <code class="docutils literal notranslate"><span class="pre">0.1.X</span></code> because it exists already. You need to cherry-pick the
+<p>For the bug fix release (e.g. 0.2.0 -&gt; 0.2.1), the process is similar. You don’t need
+to create the branch <code class="docutils literal notranslate"><span class="pre">0.2.X</span></code> because it exists already. You need to cherry-pick the
 commits from <code class="docutils literal notranslate"><span class="pre">master</span></code> into this branch and then follow the same steps as above:
 bumping the version, update the setup, commit and push the changes and finally create
 and update the wheel.</p>
