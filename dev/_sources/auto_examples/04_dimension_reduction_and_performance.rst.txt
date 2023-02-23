@@ -276,7 +276,7 @@ a |OHE| and a |SE|.
 
  .. code-block:: none
 
-    Time to vectorize: 0.204s
+    Time to vectorize: 0.198s
 
 
 
@@ -307,7 +307,7 @@ Let's now run a cross-validation:
 
  .. code-block:: none
 
-    Run time: 3.63s | Memory used: 13.14MB. 
+    Run time: 3.29s | Memory used: 13.14MB. 
     Cross-validation score: [0.98513011 0.98884758 0.96641791 0.98134328 0.98880597]
 
 
@@ -387,7 +387,7 @@ Check that the prediction is still as good:
 
  .. code-block:: none
 
-    Run time: 2.98s | Memory used: 9.69MB. 
+    Run time: 2.75s | Memory used: 9.69MB. 
     Cross-validation score: [0.98513011 0.99256506 0.97014925 0.98507463 0.98880597]
 
 
@@ -465,7 +465,7 @@ Check that the prediction is still as good:
 
  .. code-block:: none
 
-    Run time: 8.42s | Memory used: 9.16MB. 
+    Run time: 7.77s | Memory used: 9.16MB. 
     Cross-validation score: [0.98884758 0.99256506 0.97014925 0.98507463 0.98880597]
 
 
@@ -525,7 +525,7 @@ Summary
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 2 minutes  29.526 seconds)
+   **Total running time of the script:** ( 0 minutes  24.441 seconds)
 
 
 .. _sphx_glr_download_auto_examples_04_dimension_reduction_and_performance.py:
@@ -538,7 +538,7 @@ Summary
     .. container:: binder-badge
 
       .. image:: images/binder_badge_logo.svg
-        :target: https://mybinder.org/v2/gh/dirty-cat/dirty-cat.github.io/main?filepath=dev/auto_examples/04_dimension_reduction_and_performance.ipynb
+        :target: https://mybinder.org/v2/gh/dirty-cat/dirty-cat.github.io/main?filepath=dev/dev/auto_examples/04_dimension_reduction_and_performance.ipynb
         :alt: Launch binder
         :width: 150 px
 
