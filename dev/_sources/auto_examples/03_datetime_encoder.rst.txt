@@ -47,12 +47,6 @@ handle datetime features easily.
     warnings.filterwarnings("ignore")
 
 
-
-
-
-
-
-
 .. GENERATED FROM PYTHON SOURCE LINES 27-34
 
 Data Importing
@@ -76,99 +70,6 @@ on the date and the time of measurement.
     X = data[["city", "date.utc"]]
     X
 
-
-
-
-
-
-.. raw:: html
-
-    <div class="output_subarea output_html rendered_html output_result">
-    <div>
-    <style scoped>
-        .dataframe tbody tr th:only-of-type {
-            vertical-align: middle;
-        }
-
-        .dataframe tbody tr th {
-            vertical-align: top;
-        }
-
-        .dataframe thead th {
-            text-align: right;
-        }
-    </style>
-    <table border="1" class="dataframe">
-      <thead>
-        <tr style="text-align: right;">
-          <th></th>
-          <th>city</th>
-          <th>date.utc</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th>0</th>
-          <td>Paris</td>
-          <td>2019-06-21 00:00:00+00:00</td>
-        </tr>
-        <tr>
-          <th>1</th>
-          <td>Paris</td>
-          <td>2019-06-20 23:00:00+00:00</td>
-        </tr>
-        <tr>
-          <th>2</th>
-          <td>Paris</td>
-          <td>2019-06-20 22:00:00+00:00</td>
-        </tr>
-        <tr>
-          <th>3</th>
-          <td>Paris</td>
-          <td>2019-06-20 21:00:00+00:00</td>
-        </tr>
-        <tr>
-          <th>4</th>
-          <td>Paris</td>
-          <td>2019-06-20 20:00:00+00:00</td>
-        </tr>
-        <tr>
-          <th>...</th>
-          <td>...</td>
-          <td>...</td>
-        </tr>
-        <tr>
-          <th>2063</th>
-          <td>London</td>
-          <td>2019-05-07 06:00:00+00:00</td>
-        </tr>
-        <tr>
-          <th>2064</th>
-          <td>London</td>
-          <td>2019-05-07 04:00:00+00:00</td>
-        </tr>
-        <tr>
-          <th>2065</th>
-          <td>London</td>
-          <td>2019-05-07 03:00:00+00:00</td>
-        </tr>
-        <tr>
-          <th>2066</th>
-          <td>London</td>
-          <td>2019-05-07 02:00:00+00:00</td>
-        </tr>
-        <tr>
-          <th>2067</th>
-          <td>London</td>
-          <td>2019-05-07 01:00:00+00:00</td>
-        </tr>
-      </tbody>
-    </table>
-    <p>2068 rows × 2 columns</p>
-    </div>
-    </div>
-    <br />
-    <br />
 
 .. GENERATED FROM PYTHON SOURCE LINES 44-49
 
@@ -203,12 +104,6 @@ Encoders for categorical and datetime features
     )
 
 
-
-
-
-
-
-
 .. GENERATED FROM PYTHON SOURCE LINES 70-76
 
 Transforming the input data
@@ -225,44 +120,11 @@ because they are constant.
     X_ = encoder.fit_transform(X)
     encoder.get_feature_names_out()
 
-
-
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-
-    array(['onehotencoder__city_Antwerpen', 'onehotencoder__city_London',
-           'onehotencoder__city_Paris', 'datetimeencoder__date.utc_month',
-           'datetimeencoder__date.utc_day', 'datetimeencoder__date.utc_hour',
-           'datetimeencoder__date.utc_dayofweek'], dtype=object)
-
-
-
 .. GENERATED FROM PYTHON SOURCE LINES 79-81
 
 .. code-block:: default
 
     X_
-
-
-
-
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-
-    array([[ 0.,  0.,  1., ..., 21.,  0.,  4.],
-           [ 0.,  0.,  1., ..., 20., 23.,  3.],
-           [ 0.,  0.,  1., ..., 20., 22.,  3.],
-           ...,
-           [ 0.,  1.,  0., ...,  7.,  3.,  1.],
-           [ 0.,  1.,  0., ...,  7.,  2.,  1.],
-           [ 0.,  1.,  0., ...,  7.,  1.,  1.]])
-
 
 
 .. GENERATED FROM PYTHON SOURCE LINES 82-86
@@ -284,23 +146,6 @@ automatically detects datetime features.
     pprint(table_vec.get_feature_names_out())
 
 
-
-
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    ['date.utc_month',
-     'date.utc_day',
-     'date.utc_hour',
-     'city_Antwerpen',
-     'city_London',
-     'city_Paris']
-
-
-
-
 .. GENERATED FROM PYTHON SOURCE LINES 94-95
 
 If we want the day of the week, we can just replace |TV|'s default parameter:
@@ -316,18 +161,6 @@ If we want the day of the week, we can just replace |TV|'s default parameter:
     table_vec.get_feature_names_out()
 
 
-
-
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-
-    ['date.utc_month', 'date.utc_day', 'date.utc_hour', 'date.utc_dayofweek', 'city_Antwerpen', 'city_London', 'city_Paris']
-
-
-
 .. GENERATED FROM PYTHON SOURCE LINES 102-104
 
 We can see that the |TV| is indeed using
@@ -338,21 +171,6 @@ a |DtE| for the datetime features.
 .. code-block:: default
 
     pprint(table_vec.transformers_)
-
-
-
-
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    [('datetime', DatetimeEncoder(add_day_of_the_week=True), ['date.utc']),
-     ('low_card_cat',
-      OneHotEncoder(drop='if_binary', handle_unknown='ignore'),
-      ['city'])]
-
-
 
 
 .. GENERATED FROM PYTHON SOURCE LINES 107-112
@@ -376,12 +194,6 @@ pipeline, combined with a model that uses the features extracted by the
     )
     reg = HistGradientBoostingRegressor()
     pipeline = make_pipeline(table_vec, reg)
-
-
-
-
-
-
 
 
 .. GENERATED FROM PYTHON SOURCE LINES 123-130
@@ -412,19 +224,6 @@ which makes sure that the test set is always in the future.
         scoring="neg_mean_squared_error",
         cv=TimeSeriesSplit(n_splits=5),
     )
-
-
-
-
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-
-    array([-120.29551054, -192.65273375, -170.69606296, -225.30467065,
-           -214.21981371])
-
 
 
 .. GENERATED FROM PYTHON SOURCE LINES 146-150
@@ -470,17 +269,6 @@ visually the prediction of our model with the actual values.
     plt.show()
 
 
-
-
-.. image-sg:: /auto_examples/images/sphx_glr_03_datetime_encoder_001.png
-   :alt: Paris, London, Antwerpen
-   :srcset: /auto_examples/images/sphx_glr_03_datetime_encoder_001.png
-   :class: sphx-glr-single-img
-
-
-
-
-
 .. GENERATED FROM PYTHON SOURCE LINES 182-183
 
 Let's zoom on a few days:
@@ -524,17 +312,6 @@ Let's zoom on a few days:
     plt.show()
 
 
-
-
-.. image-sg:: /auto_examples/images/sphx_glr_03_datetime_encoder_002.png
-   :alt: London, Paris
-   :srcset: /auto_examples/images/sphx_glr_03_datetime_encoder_002.png
-   :class: sphx-glr-single-img
-
-
-
-
-
 .. GENERATED FROM PYTHON SOURCE LINES 218-225
 
 Feature importances
@@ -576,17 +353,6 @@ basically shuffles a feature and sees how the model changes its prediction.
     plt.show()
 
 
-
-
-.. image-sg:: /auto_examples/images/sphx_glr_03_datetime_encoder_003.png
-   :alt: Feature importances
-   :srcset: /auto_examples/images/sphx_glr_03_datetime_encoder_003.png
-   :class: sphx-glr-single-img
-
-
-
-
-
 .. GENERATED FROM PYTHON SOURCE LINES 254-256
 
 We can see that the hour of the day is the most important feature,
@@ -595,7 +361,7 @@ which seems reasonable.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  3.557 seconds)
+   **Total running time of the script:** ( 0 minutes  0.000 seconds)
 
 
 .. _sphx_glr_download_auto_examples_03_datetime_encoder.py:
@@ -608,7 +374,7 @@ which seems reasonable.
     .. container:: binder-badge
 
       .. image:: images/binder_badge_logo.svg
-        :target: https://mybinder.org/v2/gh/dirty-cat/dirty-cat.github.io/main?filepath=dev/dev/auto_examples/03_datetime_encoder.ipynb
+        :target: https://mybinder.org/v2/gh/dirty-cat/dirty-cat/main?urlpath=lab/tree/notebooks/auto_examples/03_datetime_encoder.ipynb
         :alt: Launch binder
         :width: 150 px
 

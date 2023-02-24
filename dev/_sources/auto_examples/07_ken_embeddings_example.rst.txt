@@ -78,94 +78,6 @@ We first retrieve the dataset:
     X.head(3)
 
 
-
-
-
-
-.. raw:: html
-
-    <div class="output_subarea output_html rendered_html output_result">
-    <div>
-    <style scoped>
-        .dataframe tbody tr th:only-of-type {
-            vertical-align: middle;
-        }
-
-        .dataframe tbody tr th {
-            vertical-align: top;
-        }
-
-        .dataframe thead th {
-            text-align: right;
-        }
-    </style>
-    <table border="1" class="dataframe">
-      <thead>
-        <tr style="text-align: right;">
-          <th></th>
-          <th>Rank</th>
-          <th>Name</th>
-          <th>Platform</th>
-          <th>Year</th>
-          <th>Genre</th>
-          <th>Publisher</th>
-          <th>NA_Sales</th>
-          <th>EU_Sales</th>
-          <th>JP_Sales</th>
-          <th>Other_Sales</th>
-          <th>Global_Sales</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th>0</th>
-          <td>6500</td>
-          <td>Star Wars: Bounty Hunter</td>
-          <td>GC</td>
-          <td>2002</td>
-          <td>Shooter</td>
-          <td>LucasArts</td>
-          <td>0.20</td>
-          <td>0.05</td>
-          <td>0.0</td>
-          <td>0.01</td>
-          <td>0.26</td>
-        </tr>
-        <tr>
-          <th>1</th>
-          <td>13442</td>
-          <td>Thrillville: Off the Rails</td>
-          <td>DS</td>
-          <td>2007</td>
-          <td>Strategy</td>
-          <td>LucasArts</td>
-          <td>0.03</td>
-          <td>0.01</td>
-          <td>0.0</td>
-          <td>0.00</td>
-          <td>0.05</td>
-        </tr>
-        <tr>
-          <th>2</th>
-          <td>15074</td>
-          <td>Thomas and Friends: Steaming around Sodor</td>
-          <td>3DS</td>
-          <td>2015</td>
-          <td>Action</td>
-          <td>Avanquest Software</td>
-          <td>0.00</td>
-          <td>0.02</td>
-          <td>0.0</td>
-          <td>0.00</td>
-          <td>0.02</td>
-        </tr>
-      </tbody>
-    </table>
-    </div>
-    </div>
-    <br />
-    <br />
-
 .. GENERATED FROM PYTHON SOURCE LINES 57-58
 
 Our goal will be to predict y, our target column (the sales amount):
@@ -176,29 +88,6 @@ Our goal will be to predict y, our target column (the sales amount):
 
     y = X["Global_Sales"]
     y
-
-
-
-
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-
-    0        0.26
-    1        0.05
-    2        0.02
-    3        1.16
-    4        0.03
-             ... 
-    16567    0.25
-    16568    0.49
-    16569    0.22
-    16570    0.53
-    16571    0.11
-    Name: Global_Sales, Length: 16572, dtype: float64
-
 
 
 .. GENERATED FROM PYTHON SOURCE LINES 62-63
@@ -218,17 +107,6 @@ Let's take a look at the distribution of our target variable:
     plt.show()
 
 
-
-
-.. image-sg:: /auto_examples/images/sphx_glr_07_ken_embeddings_example_001.png
-   :alt: 07 ken embeddings example
-   :srcset: /auto_examples/images/sphx_glr_07_ken_embeddings_example_001.png
-   :class: sphx-glr-single-img
-
-
-
-
-
 .. GENERATED FROM PYTHON SOURCE LINES 72-73
 
 It seems better to take the log of sales rather than the sales amount itself:
@@ -242,17 +120,6 @@ It seems better to take the log of sales rather than the sales amount itself:
     y = np.log(y)
     sns.histplot(y)
     plt.show()
-
-
-
-
-.. image-sg:: /auto_examples/images/sphx_glr_07_ken_embeddings_example_002.png
-   :alt: 07 ken embeddings example
-   :srcset: /auto_examples/images/sphx_glr_07_ken_embeddings_example_002.png
-   :class: sphx-glr-single-img
-
-
-
 
 
 .. GENERATED FROM PYTHON SOURCE LINES 80-81
@@ -273,12 +140,6 @@ Now, let's carry out some basic preprocessing:
     y = y[~mask2]
 
 
-
-
-
-
-
-
 .. GENERATED FROM PYTHON SOURCE LINES 91-95
 
 Extracting entity embeddings
@@ -291,12 +152,6 @@ of entities we need:
 .. code-block:: default
 
     from dirty_cat.datasets import get_ken_embeddings
-
-
-
-
-
-
 
 
 .. GENERATED FROM PYTHON SOURCE LINES 98-104
@@ -317,12 +172,6 @@ and exclude those with type name "companies" or "developer".
         exclude="companies|developer",
         embedding_table_id="games",
     )
-
-
-
-
-
-
 
 
 .. GENERATED FROM PYTHON SOURCE LINES 111-113
@@ -348,12 +197,6 @@ In a second table, we include all embeddings containing the type name
     emb_columns2 = [f"X{j}_aux" for j in range(n_dim)]
 
 
-
-
-
-
-
-
 .. GENERATED FROM PYTHON SOURCE LINES 127-136
 
 Merging the entities
@@ -377,12 +220,6 @@ column "Publisher"
 
     X_full = fa1.fit_transform(X)
     X_full = fa2.fit_transform(X_full)
-
-
-
-
-
-
 
 
 .. GENERATED FROM PYTHON SOURCE LINES 145-151
@@ -420,12 +257,6 @@ categorical variables using the |MinHash| and |OneHotEncoder|:
     )
 
 
-
-
-
-
-
-
 .. GENERATED FROM PYTHON SOURCE LINES 172-174
 
 We incorporate our |ColumnTransformer| into a |Pipeline|.
@@ -440,12 +271,6 @@ We define a predictor, |HGBR|, fast and reliable for big datasets.
 
     hgb = HistGradientBoostingRegressor(random_state=0)
     pipeline = make_pipeline(encoder, hgb)
-
-
-
-
-
-
 
 
 .. GENERATED FROM PYTHON SOURCE LINES 181-182
@@ -478,19 +303,6 @@ The |Pipeline| can now be readily applied to the dataframe for prediction:
     )
 
 
-
-
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    With base features:
-    Mean R2 is 0.21 +- 0.01 and the RMSE is 1.30 +- 0.01
-
-
-
-
 .. GENERATED FROM PYTHON SOURCE LINES 204-209
 
 Prediction with KEN Embeddings
@@ -512,12 +324,6 @@ We keep only the embeddings columns:
     )
 
 
-
-
-
-
-
-
 .. GENERATED FROM PYTHON SOURCE LINES 217-218
 
 We redefine the |Pipeline|:
@@ -527,12 +333,6 @@ We redefine the |Pipeline|:
 .. code-block:: default
 
     pipeline2 = make_pipeline(encoder2, hgb)
-
-
-
-
-
-
 
 
 .. GENERATED FROM PYTHON SOURCE LINES 221-222
@@ -557,19 +357,6 @@ Let's look at the results:
         f" {all_rmse_scores['KEN features'].mean():.2f} +-"
         f" {all_rmse_scores['KEN features'].std():.2f}"
     )
-
-
-
-
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    With KEN Embeddings:
-    Mean R2 is 0.36 +- 0.01 and the RMSE is 1.16 +- 0.01
-
-
 
 
 .. GENERATED FROM PYTHON SOURCE LINES 238-240
@@ -604,12 +391,6 @@ We include both the embeddings and the base features:
     )
 
 
-
-
-
-
-
-
 .. GENERATED FROM PYTHON SOURCE LINES 261-262
 
 We redefine the |Pipeline|:
@@ -619,12 +400,6 @@ We redefine the |Pipeline|:
 .. code-block:: default
 
     pipeline3 = make_pipeline(encoder3, hgb)
-
-
-
-
-
-
 
 
 .. GENERATED FROM PYTHON SOURCE LINES 265-266
@@ -651,19 +426,6 @@ Let's look at the results:
     )
 
 
-
-
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    With KEN Embeddings and base features:
-    Mean R2 is 0.49 +- 0.01 and the RMSE is 1.05 +- 0.01
-
-
-
-
 .. GENERATED FROM PYTHON SOURCE LINES 282-286
 
 Plotting the results
@@ -683,17 +445,6 @@ Finally, we plot the scores on a boxplot:
     plt.tight_layout()
 
 
-
-
-.. image-sg:: /auto_examples/images/sphx_glr_07_ken_embeddings_example_003.png
-   :alt: 07 ken embeddings example
-   :srcset: /auto_examples/images/sphx_glr_07_ken_embeddings_example_003.png
-   :class: sphx-glr-single-img
-
-
-
-
-
 .. GENERATED FROM PYTHON SOURCE LINES 294-303
 
 There is a clear improvement when including the KEN embeddings among the
@@ -709,7 +460,7 @@ It helped significantly improve the prediction score.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 10 minutes  27.830 seconds)
+   **Total running time of the script:** ( 0 minutes  0.000 seconds)
 
 
 .. _sphx_glr_download_auto_examples_07_ken_embeddings_example.py:
@@ -722,7 +473,7 @@ It helped significantly improve the prediction score.
     .. container:: binder-badge
 
       .. image:: images/binder_badge_logo.svg
-        :target: https://mybinder.org/v2/gh/dirty-cat/dirty-cat.github.io/main?filepath=dev/dev/auto_examples/07_ken_embeddings_example.ipynb
+        :target: https://mybinder.org/v2/gh/dirty-cat/dirty-cat/main?urlpath=lab/tree/notebooks/auto_examples/07_ken_embeddings_example.ipynb
         :alt: Launch binder
         :width: 150 px
 

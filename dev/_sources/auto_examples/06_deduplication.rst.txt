@@ -87,23 +87,6 @@ Let's generate some example data that demonstrate this.
     ex_series.head()
 
 
-
-
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-
-    Cantrivan    1
-    Ccntrivan    1
-    Cegtrivan    1
-    Cfntrivan    1
-    Cintrivan    1
-    dtype: int64
-
-
-
 .. GENERATED FROM PYTHON SOURCE LINES 66-68
 
 Visualize the data
@@ -119,23 +102,6 @@ Visualize the data
     ex_series.plot.barh(figsize=(10, 15))
     plt.xlabel("Medication name")
     plt.ylabel("Counts")
-
-
-
-
-.. image-sg:: /auto_examples/images/sphx_glr_06_deduplication_001.png
-   :alt: 06 deduplication
-   :srcset: /auto_examples/images/sphx_glr_06_deduplication_001.png
-   :class: sphx-glr-single-img
-
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-
-    Text(33.847222222222214, 0.5, 'Counts')
-
 
 
 .. GENERATED FROM PYTHON SOURCE LINES 76-83
@@ -177,23 +143,6 @@ clusters - the original medication names and their misspellings that cluster aro
     )
 
 
-
-
-.. image-sg:: /auto_examples/images/sphx_glr_06_deduplication_002.png
-   :alt: 06 deduplication
-   :srcset: /auto_examples/images/sphx_glr_06_deduplication_002.png
-   :class: sphx-glr-single-img
-
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-
-    <AxesSubplot: >
-
-
-
 .. GENERATED FROM PYTHON SOURCE LINES 107-118
 
 .. _example_deduplication:
@@ -218,12 +167,6 @@ via the `silhouette score <https://scikit-learn.org/stable/modules/clustering.ht
     deduplicated_data = deduplicate(duplicated_names)
 
 
-
-
-
-
-
-
 .. GENERATED FROM PYTHON SOURCE LINES 124-125
 
 We can visualize the distribution of categories in the deduplicated data:
@@ -241,23 +184,6 @@ We can visualize the distribution of categories in the deduplicated data:
     deduplicated_series.plot.barh(figsize=(10, 15))
     plt.xlabel("Medication name")
     plt.ylabel("Counts")
-
-
-
-
-.. image-sg:: /auto_examples/images/sphx_glr_06_deduplication_003.png
-   :alt: 06 deduplication
-   :srcset: /auto_examples/images/sphx_glr_06_deduplication_003.png
-   :class: sphx-glr-single-img
-
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-
-    Text(38.722222222222214, 0.5, 'Counts')
-
 
 
 .. GENERATED FROM PYTHON SOURCE LINES 136-144
@@ -281,12 +207,6 @@ It consists of the (potentially) misspelled category names as indices and the
 
     # remove duplicates in the original data
     translation_table = translation_table[~translation_table.index.duplicated(keep="first")]
-
-
-
-
-
-
 
 
 .. GENERATED FROM PYTHON SOURCE LINES 152-155
@@ -313,33 +233,6 @@ most common exemplars (the guessed correct spelling):
     print_corrections(translation_table)
 
 
-
-
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    Guessed correct spelling: 'Contrivan' for ['Contrivan' 'Cantrivan' 'Cootrivan' 'Contrijan' 'Contcivan' 'yontrivan'
-     'Contrivaj' 'Ccntrivan' 'Covtrivan' 'Cfntrivan' 'Contriban' 'wontrivan'
-     'Contrivyn' 'Cintrivan' 'Conhrivan' 'Cuntrivan' 'Contrixan' 'Coyarivan'
-     'Contriqan' 'Contrivam' 'Cegtrivan' 'Contryvan' 'Contrivas' 'Coatrivan'
-     'Contrican' 'Copthivan' 'gontrivan']
-    Guessed correct spelling: 'Genericon' for ['Genericon' 'Generukon' 'Genzricon' 'oenericon' 'yenericon']
-    Guessed correct spelling: 'Zipholan' for ['Zipholan' 'Zimholan' 'Ziphtlan' 'fipholan' 'Ziphelan' 'Zivholan'
-     'Ziphodan' 'sipholan' 'oipholan' 'Ziuholen' 'Zikholan' 'Zirhojan'
-     'Ziphopan' 'dipholan' 'Zspholan' 'Ziphowan' 'Zipholen' 'Ziphooan'
-     'Zipfolan' 'Zipholwn' 'Zipholab' 'Zjpholan' 'tfpholan' 'Zipholas'
-     'Zizholan' 'Zoaholan' 'Zhpholan' 'Zipholaz' 'uipholan' 'Zkpholan'
-     'Zipnolan' 'aipholan' 'Ziphnlan' 'Zipzolan' 'Ziphojan' 'Ziqholan'
-     'kipholjn' 'Zioholan' 'Ziplolan' 'Zipholcn' 'Zvpholan' 'Ziprolan'
-     'Zipholxn' 'Zzpgolan' 'Ziphklan' 'ripholan' 'wipholan' 'Zipholap'
-     'Ziwholan' 'cipholan' 'Ziphzlan' 'Zimholah' 'Ziphoxan' 'Zieholan'
-     'Zigholan' 'Zipholsn' 'Ziphovas' 'Zlpholan' 'Zixholan' 'yipholan']
-
-
-
-
 .. GENERATED FROM PYTHON SOURCE LINES 169-172
 
 In case we want to adapt the translation table post-hoc we can easily
@@ -356,15 +249,9 @@ correspondance for the last entry as such:
     assert (new_deduplicated_names == "Completely new category").sum() > 0
 
 
-
-
-
-
-
-
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  4.702 seconds)
+   **Total running time of the script:** ( 0 minutes  0.000 seconds)
 
 
 .. _sphx_glr_download_auto_examples_06_deduplication.py:
@@ -377,7 +264,7 @@ correspondance for the last entry as such:
     .. container:: binder-badge
 
       .. image:: images/binder_badge_logo.svg
-        :target: https://mybinder.org/v2/gh/dirty-cat/dirty-cat.github.io/main?filepath=dev/dev/auto_examples/06_deduplication.ipynb
+        :target: https://mybinder.org/v2/gh/dirty-cat/dirty-cat/main?urlpath=lab/tree/notebooks/auto_examples/06_deduplication.ipynb
         :alt: Launch binder
         :width: 150 px
 

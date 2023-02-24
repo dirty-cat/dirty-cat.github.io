@@ -87,21 +87,6 @@ We first retrieve the dataset:
     employee_salaries = fetch_employee_salaries()
 
 
-
-
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    /home/circleci/project/dirty_cat/datasets/_fetching.py:590: UserWarning: Could not find the dataset 42125 locally. Downloading it from OpenML; this might take a while... If it is interrupted, some files might be invalid/incomplete: if on the following run, the fetching raises errors, you can try fixing this issue by deleting the directory /home/circleci/project/dirty_cat/datasets/data.
-      info = _fetch_openml_dataset(dataset_id, data_directory)
-    /home/circleci/project/miniconda/envs/testenv/lib/python3.9/site-packages/sklearn/datasets/_openml.py:932: FutureWarning: The default value of `parser` will change from `'liac-arff'` to `'auto'` in 1.4. You can set `parser='auto'` to silence this warning. Therefore, an `ImportError` will be raised from 1.4 if the dataset is dense and pandas is not installed. Note that the pandas parser may return different data types. See the Notes Section in fetch_openml's API doc for details.
-      warn(
-
-
-
-
 .. GENERATED FROM PYTHON SOURCE LINES 67-68
 
 X, the input data (descriptions of employees):
@@ -114,183 +99,6 @@ X, the input data (descriptions of employees):
     X
 
 
-
-
-
-
-.. raw:: html
-
-    <div class="output_subarea output_html rendered_html output_result">
-    <div>
-    <style scoped>
-        .dataframe tbody tr th:only-of-type {
-            vertical-align: middle;
-        }
-
-        .dataframe tbody tr th {
-            vertical-align: top;
-        }
-
-        .dataframe thead th {
-            text-align: right;
-        }
-    </style>
-    <table border="1" class="dataframe">
-      <thead>
-        <tr style="text-align: right;">
-          <th></th>
-          <th>gender</th>
-          <th>department</th>
-          <th>department_name</th>
-          <th>division</th>
-          <th>assignment_category</th>
-          <th>employee_position_title</th>
-          <th>underfilled_job_title</th>
-          <th>date_first_hired</th>
-          <th>year_first_hired</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th>0</th>
-          <td>F</td>
-          <td>POL</td>
-          <td>Department of Police</td>
-          <td>MSB Information Mgmt and Tech Division Records...</td>
-          <td>Fulltime-Regular</td>
-          <td>Office Services Coordinator</td>
-          <td>NaN</td>
-          <td>09/22/1986</td>
-          <td>1986</td>
-        </tr>
-        <tr>
-          <th>1</th>
-          <td>M</td>
-          <td>POL</td>
-          <td>Department of Police</td>
-          <td>ISB Major Crimes Division Fugitive Section</td>
-          <td>Fulltime-Regular</td>
-          <td>Master Police Officer</td>
-          <td>NaN</td>
-          <td>09/12/1988</td>
-          <td>1988</td>
-        </tr>
-        <tr>
-          <th>2</th>
-          <td>F</td>
-          <td>HHS</td>
-          <td>Department of Health and Human Services</td>
-          <td>Adult Protective and Case Management Services</td>
-          <td>Fulltime-Regular</td>
-          <td>Social Worker IV</td>
-          <td>NaN</td>
-          <td>11/19/1989</td>
-          <td>1989</td>
-        </tr>
-        <tr>
-          <th>3</th>
-          <td>M</td>
-          <td>COR</td>
-          <td>Correction and Rehabilitation</td>
-          <td>PRRS Facility and Security</td>
-          <td>Fulltime-Regular</td>
-          <td>Resident Supervisor II</td>
-          <td>NaN</td>
-          <td>05/05/2014</td>
-          <td>2014</td>
-        </tr>
-        <tr>
-          <th>4</th>
-          <td>M</td>
-          <td>HCA</td>
-          <td>Department of Housing and Community Affairs</td>
-          <td>Affordable Housing Programs</td>
-          <td>Fulltime-Regular</td>
-          <td>Planning Specialist III</td>
-          <td>NaN</td>
-          <td>03/05/2007</td>
-          <td>2007</td>
-        </tr>
-        <tr>
-          <th>...</th>
-          <td>...</td>
-          <td>...</td>
-          <td>...</td>
-          <td>...</td>
-          <td>...</td>
-          <td>...</td>
-          <td>...</td>
-          <td>...</td>
-          <td>...</td>
-        </tr>
-        <tr>
-          <th>9223</th>
-          <td>F</td>
-          <td>HHS</td>
-          <td>Department of Health and Human Services</td>
-          <td>School Based Health Centers</td>
-          <td>Fulltime-Regular</td>
-          <td>Community Health Nurse II</td>
-          <td>NaN</td>
-          <td>11/03/2015</td>
-          <td>2015</td>
-        </tr>
-        <tr>
-          <th>9224</th>
-          <td>F</td>
-          <td>FRS</td>
-          <td>Fire and Rescue Services</td>
-          <td>Human Resources Division</td>
-          <td>Fulltime-Regular</td>
-          <td>Fire/Rescue Division Chief</td>
-          <td>NaN</td>
-          <td>11/28/1988</td>
-          <td>1988</td>
-        </tr>
-        <tr>
-          <th>9225</th>
-          <td>M</td>
-          <td>HHS</td>
-          <td>Department of Health and Human Services</td>
-          <td>Child and Adolescent Mental Health Clinic Serv...</td>
-          <td>Parttime-Regular</td>
-          <td>Medical Doctor IV - Psychiatrist</td>
-          <td>NaN</td>
-          <td>04/30/2001</td>
-          <td>2001</td>
-        </tr>
-        <tr>
-          <th>9226</th>
-          <td>M</td>
-          <td>CCL</td>
-          <td>County Council</td>
-          <td>Council Central Staff</td>
-          <td>Fulltime-Regular</td>
-          <td>Manager II</td>
-          <td>NaN</td>
-          <td>09/05/2006</td>
-          <td>2006</td>
-        </tr>
-        <tr>
-          <th>9227</th>
-          <td>M</td>
-          <td>DLC</td>
-          <td>Department of Liquor Control</td>
-          <td>Licensure, Regulation and Education</td>
-          <td>Fulltime-Regular</td>
-          <td>Alcohol/Tobacco Enforcement Specialist II</td>
-          <td>NaN</td>
-          <td>01/30/2012</td>
-          <td>2012</td>
-        </tr>
-      </tbody>
-    </table>
-    <p>9228 rows × 9 columns</p>
-    </div>
-    </div>
-    <br />
-    <br />
-
 .. GENERATED FROM PYTHON SOURCE LINES 72-73
 
 and y, our target column (the annual salary):
@@ -301,18 +109,6 @@ and y, our target column (the annual salary):
 
     y = employee_salaries.y
     y.name
-
-
-
-
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-
-    'current_annual_salary'
-
 
 
 .. GENERATED FROM PYTHON SOURCE LINES 77-78
@@ -344,12 +140,6 @@ Now, let's carry out some basic preprocessing:
     # column, and apply a supervised learning model on top.
 
 
-
-
-
-
-
-
 .. GENERATED FROM PYTHON SOURCE LINES 99-104
 
 The categorical encoders
@@ -365,12 +155,6 @@ representation:
     from sklearn.preprocessing import OneHotEncoder
 
     one_hot = OneHotEncoder(handle_unknown="ignore", sparse=False)
-
-
-
-
-
-
 
 
 .. GENERATED FROM PYTHON SOURCE LINES 109-112
@@ -393,12 +177,6 @@ alongside with the column names on which each must be applied:
         (one_hot, ["employee_position_title"]),
         remainder="drop",
     )
-
-
-
-
-
-
 
 
 .. GENERATED FROM PYTHON SOURCE LINES 124-131
@@ -426,19 +204,6 @@ earlier than 1.0):
     pipeline = make_pipeline(encoder, HistGradientBoostingRegressor())
 
 
-
-
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    /home/circleci/project/miniconda/envs/testenv/lib/python3.9/site-packages/sklearn/experimental/enable_hist_gradient_boosting.py:16: UserWarning: Since version 1.0, it is not needed to import enable_hist_gradient_boosting anymore. HistGradientBoostingClassifier and HistGradientBoostingRegressor are now stable and can be normally imported from sklearn.ensemble.
-      warnings.warn(
-
-
-
-
 .. GENERATED FROM PYTHON SOURCE LINES 142-143
 
 The pipeline can be readily applied to the dataframe for prediction:
@@ -449,63 +214,6 @@ The pipeline can be readily applied to the dataframe for prediction:
 
     pipeline.fit(X, y)
 
-
-
-
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    /home/circleci/project/miniconda/envs/testenv/lib/python3.9/site-packages/sklearn/preprocessing/_encoders.py:828: FutureWarning: `sparse` was renamed to `sparse_output` in version 1.2 and will be removed in 1.4. `sparse_output` is ignored unless you leave `sparse` to its default value.
-      warnings.warn(
-    /home/circleci/project/miniconda/envs/testenv/lib/python3.9/site-packages/sklearn/preprocessing/_encoders.py:828: FutureWarning: `sparse` was renamed to `sparse_output` in version 1.2 and will be removed in 1.4. `sparse_output` is ignored unless you leave `sparse` to its default value.
-      warnings.warn(
-
-
-.. raw:: html
-
-    <div class="output_subarea output_html rendered_html output_result">
-    <style>#sk-container-id-1 {color: black;background-color: white;}#sk-container-id-1 pre{padding: 0;}#sk-container-id-1 div.sk-toggleable {background-color: white;}#sk-container-id-1 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-1 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-1 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-1 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-1 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-1 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-1 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-1 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-1 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-1 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-1 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-1 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-1 div.sk-item {position: relative;z-index: 1;}#sk-container-id-1 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-1 div.sk-item::before, #sk-container-id-1 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-1 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-1 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-1 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-1 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-1 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-1 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-1 div.sk-label-container {text-align: center;}#sk-container-id-1 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-1 div.sk-text-repr-fallback {display: none;}</style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>Pipeline(steps=[(&#x27;columntransformer&#x27;,
-                     ColumnTransformer(transformers=[(&#x27;onehotencoder-1&#x27;,
-                                                      OneHotEncoder(handle_unknown=&#x27;ignore&#x27;,
-                                                                    sparse=False),
-                                                      [&#x27;gender&#x27;, &#x27;department_name&#x27;,
-                                                       &#x27;assignment_category&#x27;]),
-                                                     (&#x27;passthrough&#x27;, &#x27;passthrough&#x27;,
-                                                      [&#x27;year_first_hired&#x27;]),
-                                                     (&#x27;onehotencoder-2&#x27;,
-                                                      OneHotEncoder(handle_unknown=&#x27;ignore&#x27;,
-                                                                    sparse=False),
-                                                      [&#x27;employee_position_title&#x27;])])),
-                    (&#x27;histgradientboostingregressor&#x27;,
-                     HistGradientBoostingRegressor())])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" ><label for="sk-estimator-id-1" class="sk-toggleable__label sk-toggleable__label-arrow">Pipeline</label><div class="sk-toggleable__content"><pre>Pipeline(steps=[(&#x27;columntransformer&#x27;,
-                     ColumnTransformer(transformers=[(&#x27;onehotencoder-1&#x27;,
-                                                      OneHotEncoder(handle_unknown=&#x27;ignore&#x27;,
-                                                                    sparse=False),
-                                                      [&#x27;gender&#x27;, &#x27;department_name&#x27;,
-                                                       &#x27;assignment_category&#x27;]),
-                                                     (&#x27;passthrough&#x27;, &#x27;passthrough&#x27;,
-                                                      [&#x27;year_first_hired&#x27;]),
-                                                     (&#x27;onehotencoder-2&#x27;,
-                                                      OneHotEncoder(handle_unknown=&#x27;ignore&#x27;,
-                                                                    sparse=False),
-                                                      [&#x27;employee_position_title&#x27;])])),
-                    (&#x27;histgradientboostingregressor&#x27;,
-                     HistGradientBoostingRegressor())])</pre></div></div></div><div class="sk-serial"><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox" ><label for="sk-estimator-id-2" class="sk-toggleable__label sk-toggleable__label-arrow">columntransformer: ColumnTransformer</label><div class="sk-toggleable__content"><pre>ColumnTransformer(transformers=[(&#x27;onehotencoder-1&#x27;,
-                                     OneHotEncoder(handle_unknown=&#x27;ignore&#x27;,
-                                                   sparse=False),
-                                     [&#x27;gender&#x27;, &#x27;department_name&#x27;,
-                                      &#x27;assignment_category&#x27;]),
-                                    (&#x27;passthrough&#x27;, &#x27;passthrough&#x27;,
-                                     [&#x27;year_first_hired&#x27;]),
-                                    (&#x27;onehotencoder-2&#x27;,
-                                     OneHotEncoder(handle_unknown=&#x27;ignore&#x27;,
-                                                   sparse=False),
-                                     [&#x27;employee_position_title&#x27;])])</pre></div></div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-3" type="checkbox" ><label for="sk-estimator-id-3" class="sk-toggleable__label sk-toggleable__label-arrow">onehotencoder-1</label><div class="sk-toggleable__content"><pre>[&#x27;gender&#x27;, &#x27;department_name&#x27;, &#x27;assignment_category&#x27;]</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-4" type="checkbox" ><label for="sk-estimator-id-4" class="sk-toggleable__label sk-toggleable__label-arrow">OneHotEncoder</label><div class="sk-toggleable__content"><pre>OneHotEncoder(handle_unknown=&#x27;ignore&#x27;, sparse=False)</pre></div></div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-5" type="checkbox" ><label for="sk-estimator-id-5" class="sk-toggleable__label sk-toggleable__label-arrow">passthrough</label><div class="sk-toggleable__content"><pre>[&#x27;year_first_hired&#x27;]</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-6" type="checkbox" ><label for="sk-estimator-id-6" class="sk-toggleable__label sk-toggleable__label-arrow">passthrough</label><div class="sk-toggleable__content"><pre>passthrough</pre></div></div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-7" type="checkbox" ><label for="sk-estimator-id-7" class="sk-toggleable__label sk-toggleable__label-arrow">onehotencoder-2</label><div class="sk-toggleable__content"><pre>[&#x27;employee_position_title&#x27;]</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-8" type="checkbox" ><label for="sk-estimator-id-8" class="sk-toggleable__label sk-toggleable__label-arrow">OneHotEncoder</label><div class="sk-toggleable__content"><pre>OneHotEncoder(handle_unknown=&#x27;ignore&#x27;, sparse=False)</pre></div></div></div></div></div></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-9" type="checkbox" ><label for="sk-estimator-id-9" class="sk-toggleable__label sk-toggleable__label-arrow">HistGradientBoostingRegressor</label><div class="sk-toggleable__content"><pre>HistGradientBoostingRegressor()</pre></div></div></div></div></div></div></div>
-    </div>
-    <br />
-    <br />
 
 .. GENERATED FROM PYTHON SOURCE LINES 146-151
 
@@ -522,19 +230,6 @@ Position Title' column, as this column contains 400 different entries:
     import numpy as np
 
     np.unique(y)
-
-
-
-
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-
-    array([  9196.  ,  11147.24,  13244.5 , ..., 233003.  , 239566.  ,
-           303091.  ])
-
 
 
 .. GENERATED FROM PYTHON SOURCE LINES 156-160
@@ -563,12 +258,6 @@ dirty columns:
         "minhash": MinHashEncoder(n_components=100),
         "gap": GapEncoder(n_components=100),
     }
-
-
-
-
-
-
 
 
 .. GENERATED FROM PYTHON SOURCE LINES 177-180
@@ -602,92 +291,6 @@ and store the returned cross-validation score:
         all_scores[name] = scores
 
 
-
-
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    /home/circleci/project/miniconda/envs/testenv/lib/python3.9/site-packages/sklearn/preprocessing/_encoders.py:828: FutureWarning: `sparse` was renamed to `sparse_output` in version 1.2 and will be removed in 1.4. `sparse_output` is ignored unless you leave `sparse` to its default value.
-      warnings.warn(
-    /home/circleci/project/miniconda/envs/testenv/lib/python3.9/site-packages/sklearn/preprocessing/_encoders.py:828: FutureWarning: `sparse` was renamed to `sparse_output` in version 1.2 and will be removed in 1.4. `sparse_output` is ignored unless you leave `sparse` to its default value.
-      warnings.warn(
-    /home/circleci/project/miniconda/envs/testenv/lib/python3.9/site-packages/sklearn/preprocessing/_encoders.py:828: FutureWarning: `sparse` was renamed to `sparse_output` in version 1.2 and will be removed in 1.4. `sparse_output` is ignored unless you leave `sparse` to its default value.
-      warnings.warn(
-    /home/circleci/project/miniconda/envs/testenv/lib/python3.9/site-packages/sklearn/preprocessing/_encoders.py:828: FutureWarning: `sparse` was renamed to `sparse_output` in version 1.2 and will be removed in 1.4. `sparse_output` is ignored unless you leave `sparse` to its default value.
-      warnings.warn(
-    /home/circleci/project/miniconda/envs/testenv/lib/python3.9/site-packages/sklearn/preprocessing/_encoders.py:828: FutureWarning: `sparse` was renamed to `sparse_output` in version 1.2 and will be removed in 1.4. `sparse_output` is ignored unless you leave `sparse` to its default value.
-      warnings.warn(
-    /home/circleci/project/miniconda/envs/testenv/lib/python3.9/site-packages/sklearn/preprocessing/_encoders.py:828: FutureWarning: `sparse` was renamed to `sparse_output` in version 1.2 and will be removed in 1.4. `sparse_output` is ignored unless you leave `sparse` to its default value.
-      warnings.warn(
-    /home/circleci/project/miniconda/envs/testenv/lib/python3.9/site-packages/sklearn/preprocessing/_encoders.py:828: FutureWarning: `sparse` was renamed to `sparse_output` in version 1.2 and will be removed in 1.4. `sparse_output` is ignored unless you leave `sparse` to its default value.
-      warnings.warn(
-    /home/circleci/project/miniconda/envs/testenv/lib/python3.9/site-packages/sklearn/preprocessing/_encoders.py:828: FutureWarning: `sparse` was renamed to `sparse_output` in version 1.2 and will be removed in 1.4. `sparse_output` is ignored unless you leave `sparse` to its default value.
-      warnings.warn(
-    /home/circleci/project/miniconda/envs/testenv/lib/python3.9/site-packages/sklearn/preprocessing/_encoders.py:828: FutureWarning: `sparse` was renamed to `sparse_output` in version 1.2 and will be removed in 1.4. `sparse_output` is ignored unless you leave `sparse` to its default value.
-      warnings.warn(
-    /home/circleci/project/miniconda/envs/testenv/lib/python3.9/site-packages/sklearn/preprocessing/_encoders.py:828: FutureWarning: `sparse` was renamed to `sparse_output` in version 1.2 and will be removed in 1.4. `sparse_output` is ignored unless you leave `sparse` to its default value.
-      warnings.warn(
-    one-hot encoding
-    r2 score:  mean: 0.776; std: 0.028
-
-    /home/circleci/project/miniconda/envs/testenv/lib/python3.9/site-packages/sklearn/preprocessing/_encoders.py:828: FutureWarning: `sparse` was renamed to `sparse_output` in version 1.2 and will be removed in 1.4. `sparse_output` is ignored unless you leave `sparse` to its default value.
-      warnings.warn(
-    /home/circleci/project/miniconda/envs/testenv/lib/python3.9/site-packages/sklearn/preprocessing/_encoders.py:828: FutureWarning: `sparse` was renamed to `sparse_output` in version 1.2 and will be removed in 1.4. `sparse_output` is ignored unless you leave `sparse` to its default value.
-      warnings.warn(
-    /home/circleci/project/miniconda/envs/testenv/lib/python3.9/site-packages/sklearn/preprocessing/_encoders.py:828: FutureWarning: `sparse` was renamed to `sparse_output` in version 1.2 and will be removed in 1.4. `sparse_output` is ignored unless you leave `sparse` to its default value.
-      warnings.warn(
-    /home/circleci/project/miniconda/envs/testenv/lib/python3.9/site-packages/sklearn/preprocessing/_encoders.py:828: FutureWarning: `sparse` was renamed to `sparse_output` in version 1.2 and will be removed in 1.4. `sparse_output` is ignored unless you leave `sparse` to its default value.
-      warnings.warn(
-    /home/circleci/project/miniconda/envs/testenv/lib/python3.9/site-packages/sklearn/preprocessing/_encoders.py:828: FutureWarning: `sparse` was renamed to `sparse_output` in version 1.2 and will be removed in 1.4. `sparse_output` is ignored unless you leave `sparse` to its default value.
-      warnings.warn(
-    similarity encoding
-    r2 score:  mean: 0.923; std: 0.014
-
-    /home/circleci/project/miniconda/envs/testenv/lib/python3.9/site-packages/sklearn/preprocessing/_encoders.py:828: FutureWarning: `sparse` was renamed to `sparse_output` in version 1.2 and will be removed in 1.4. `sparse_output` is ignored unless you leave `sparse` to its default value.
-      warnings.warn(
-    /home/circleci/project/miniconda/envs/testenv/lib/python3.9/site-packages/sklearn/preprocessing/_encoders.py:828: FutureWarning: `sparse` was renamed to `sparse_output` in version 1.2 and will be removed in 1.4. `sparse_output` is ignored unless you leave `sparse` to its default value.
-      warnings.warn(
-    /home/circleci/project/miniconda/envs/testenv/lib/python3.9/site-packages/sklearn/preprocessing/_encoders.py:828: FutureWarning: `sparse` was renamed to `sparse_output` in version 1.2 and will be removed in 1.4. `sparse_output` is ignored unless you leave `sparse` to its default value.
-      warnings.warn(
-    /home/circleci/project/miniconda/envs/testenv/lib/python3.9/site-packages/sklearn/preprocessing/_encoders.py:828: FutureWarning: `sparse` was renamed to `sparse_output` in version 1.2 and will be removed in 1.4. `sparse_output` is ignored unless you leave `sparse` to its default value.
-      warnings.warn(
-    /home/circleci/project/miniconda/envs/testenv/lib/python3.9/site-packages/sklearn/preprocessing/_encoders.py:828: FutureWarning: `sparse` was renamed to `sparse_output` in version 1.2 and will be removed in 1.4. `sparse_output` is ignored unless you leave `sparse` to its default value.
-      warnings.warn(
-    target encoding
-    r2 score:  mean: 0.842; std: 0.030
-
-    /home/circleci/project/miniconda/envs/testenv/lib/python3.9/site-packages/sklearn/preprocessing/_encoders.py:828: FutureWarning: `sparse` was renamed to `sparse_output` in version 1.2 and will be removed in 1.4. `sparse_output` is ignored unless you leave `sparse` to its default value.
-      warnings.warn(
-    /home/circleci/project/miniconda/envs/testenv/lib/python3.9/site-packages/sklearn/preprocessing/_encoders.py:828: FutureWarning: `sparse` was renamed to `sparse_output` in version 1.2 and will be removed in 1.4. `sparse_output` is ignored unless you leave `sparse` to its default value.
-      warnings.warn(
-    /home/circleci/project/miniconda/envs/testenv/lib/python3.9/site-packages/sklearn/preprocessing/_encoders.py:828: FutureWarning: `sparse` was renamed to `sparse_output` in version 1.2 and will be removed in 1.4. `sparse_output` is ignored unless you leave `sparse` to its default value.
-      warnings.warn(
-    /home/circleci/project/miniconda/envs/testenv/lib/python3.9/site-packages/sklearn/preprocessing/_encoders.py:828: FutureWarning: `sparse` was renamed to `sparse_output` in version 1.2 and will be removed in 1.4. `sparse_output` is ignored unless you leave `sparse` to its default value.
-      warnings.warn(
-    /home/circleci/project/miniconda/envs/testenv/lib/python3.9/site-packages/sklearn/preprocessing/_encoders.py:828: FutureWarning: `sparse` was renamed to `sparse_output` in version 1.2 and will be removed in 1.4. `sparse_output` is ignored unless you leave `sparse` to its default value.
-      warnings.warn(
-    minhash encoding
-    r2 score:  mean: 0.919; std: 0.012
-
-    /home/circleci/project/miniconda/envs/testenv/lib/python3.9/site-packages/sklearn/preprocessing/_encoders.py:828: FutureWarning: `sparse` was renamed to `sparse_output` in version 1.2 and will be removed in 1.4. `sparse_output` is ignored unless you leave `sparse` to its default value.
-      warnings.warn(
-    /home/circleci/project/miniconda/envs/testenv/lib/python3.9/site-packages/sklearn/preprocessing/_encoders.py:828: FutureWarning: `sparse` was renamed to `sparse_output` in version 1.2 and will be removed in 1.4. `sparse_output` is ignored unless you leave `sparse` to its default value.
-      warnings.warn(
-    /home/circleci/project/miniconda/envs/testenv/lib/python3.9/site-packages/sklearn/preprocessing/_encoders.py:828: FutureWarning: `sparse` was renamed to `sparse_output` in version 1.2 and will be removed in 1.4. `sparse_output` is ignored unless you leave `sparse` to its default value.
-      warnings.warn(
-    /home/circleci/project/miniconda/envs/testenv/lib/python3.9/site-packages/sklearn/preprocessing/_encoders.py:828: FutureWarning: `sparse` was renamed to `sparse_output` in version 1.2 and will be removed in 1.4. `sparse_output` is ignored unless you leave `sparse` to its default value.
-      warnings.warn(
-    /home/circleci/project/miniconda/envs/testenv/lib/python3.9/site-packages/sklearn/preprocessing/_encoders.py:828: FutureWarning: `sparse` was renamed to `sparse_output` in version 1.2 and will be removed in 1.4. `sparse_output` is ignored unless you leave `sparse` to its default value.
-      warnings.warn(
-    gap encoding
-    r2 score:  mean: 0.910; std: 0.018
-
-
-
-
-
 .. GENERATED FROM PYTHON SOURCE LINES 201-205
 
 Plotting the results
@@ -709,17 +312,6 @@ Finally, we plot the scores on a boxplot:
     plt.xlabel("Prediction accuracy     ", size=20)
     plt.yticks(size=20)
     plt.tight_layout()
-
-
-
-
-.. image-sg:: /auto_examples/images/sphx_glr_01_dirty_categories_001.png
-   :alt: 01 dirty categories
-   :srcset: /auto_examples/images/sphx_glr_01_dirty_categories_001.png
-   :class: sphx-glr-single-img
-
-
-
 
 
 .. GENERATED FROM PYTHON SOURCE LINES 217-228
@@ -757,12 +349,6 @@ Let's start again from the raw data:
     y = employee_salaries.y
 
 
-
-
-
-
-
-
 .. GENERATED FROM PYTHON SOURCE LINES 244-246
 
 We'll drop the 'date_first_hired' column as it's redundant with
@@ -775,12 +361,6 @@ We'll drop the 'date_first_hired' column as it's redundant with
     X = X.drop(["date_first_hired"], axis=1)
 
 
-
-
-
-
-
-
 .. GENERATED FROM PYTHON SOURCE LINES 249-250
 
 We still have a complex and heterogeneous dataframe:
@@ -791,171 +371,6 @@ We still have a complex and heterogeneous dataframe:
 
     X
 
-
-
-
-
-
-.. raw:: html
-
-    <div class="output_subarea output_html rendered_html output_result">
-    <div>
-    <style scoped>
-        .dataframe tbody tr th:only-of-type {
-            vertical-align: middle;
-        }
-
-        .dataframe tbody tr th {
-            vertical-align: top;
-        }
-
-        .dataframe thead th {
-            text-align: right;
-        }
-    </style>
-    <table border="1" class="dataframe">
-      <thead>
-        <tr style="text-align: right;">
-          <th></th>
-          <th>gender</th>
-          <th>department</th>
-          <th>department_name</th>
-          <th>division</th>
-          <th>assignment_category</th>
-          <th>employee_position_title</th>
-          <th>underfilled_job_title</th>
-          <th>year_first_hired</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th>0</th>
-          <td>F</td>
-          <td>POL</td>
-          <td>Department of Police</td>
-          <td>MSB Information Mgmt and Tech Division Records...</td>
-          <td>Fulltime-Regular</td>
-          <td>Office Services Coordinator</td>
-          <td>NaN</td>
-          <td>1986</td>
-        </tr>
-        <tr>
-          <th>1</th>
-          <td>M</td>
-          <td>POL</td>
-          <td>Department of Police</td>
-          <td>ISB Major Crimes Division Fugitive Section</td>
-          <td>Fulltime-Regular</td>
-          <td>Master Police Officer</td>
-          <td>NaN</td>
-          <td>1988</td>
-        </tr>
-        <tr>
-          <th>2</th>
-          <td>F</td>
-          <td>HHS</td>
-          <td>Department of Health and Human Services</td>
-          <td>Adult Protective and Case Management Services</td>
-          <td>Fulltime-Regular</td>
-          <td>Social Worker IV</td>
-          <td>NaN</td>
-          <td>1989</td>
-        </tr>
-        <tr>
-          <th>3</th>
-          <td>M</td>
-          <td>COR</td>
-          <td>Correction and Rehabilitation</td>
-          <td>PRRS Facility and Security</td>
-          <td>Fulltime-Regular</td>
-          <td>Resident Supervisor II</td>
-          <td>NaN</td>
-          <td>2014</td>
-        </tr>
-        <tr>
-          <th>4</th>
-          <td>M</td>
-          <td>HCA</td>
-          <td>Department of Housing and Community Affairs</td>
-          <td>Affordable Housing Programs</td>
-          <td>Fulltime-Regular</td>
-          <td>Planning Specialist III</td>
-          <td>NaN</td>
-          <td>2007</td>
-        </tr>
-        <tr>
-          <th>...</th>
-          <td>...</td>
-          <td>...</td>
-          <td>...</td>
-          <td>...</td>
-          <td>...</td>
-          <td>...</td>
-          <td>...</td>
-          <td>...</td>
-        </tr>
-        <tr>
-          <th>9223</th>
-          <td>F</td>
-          <td>HHS</td>
-          <td>Department of Health and Human Services</td>
-          <td>School Based Health Centers</td>
-          <td>Fulltime-Regular</td>
-          <td>Community Health Nurse II</td>
-          <td>NaN</td>
-          <td>2015</td>
-        </tr>
-        <tr>
-          <th>9224</th>
-          <td>F</td>
-          <td>FRS</td>
-          <td>Fire and Rescue Services</td>
-          <td>Human Resources Division</td>
-          <td>Fulltime-Regular</td>
-          <td>Fire/Rescue Division Chief</td>
-          <td>NaN</td>
-          <td>1988</td>
-        </tr>
-        <tr>
-          <th>9225</th>
-          <td>M</td>
-          <td>HHS</td>
-          <td>Department of Health and Human Services</td>
-          <td>Child and Adolescent Mental Health Clinic Serv...</td>
-          <td>Parttime-Regular</td>
-          <td>Medical Doctor IV - Psychiatrist</td>
-          <td>NaN</td>
-          <td>2001</td>
-        </tr>
-        <tr>
-          <th>9226</th>
-          <td>M</td>
-          <td>CCL</td>
-          <td>County Council</td>
-          <td>Council Central Staff</td>
-          <td>Fulltime-Regular</td>
-          <td>Manager II</td>
-          <td>NaN</td>
-          <td>2006</td>
-        </tr>
-        <tr>
-          <th>9227</th>
-          <td>M</td>
-          <td>DLC</td>
-          <td>Department of Liquor Control</td>
-          <td>Licensure, Regulation and Education</td>
-          <td>Fulltime-Regular</td>
-          <td>Alcohol/Tobacco Enforcement Specialist II</td>
-          <td>NaN</td>
-          <td>2012</td>
-        </tr>
-      </tbody>
-    </table>
-    <p>9228 rows × 8 columns</p>
-    </div>
-    </div>
-    <br />
-    <br />
 
 .. GENERATED FROM PYTHON SOURCE LINES 253-255
 
@@ -986,12 +401,6 @@ The |TV| requires at least dirty_cat 0.2.0.
     )
 
 
-
-
-
-
-
-
 .. GENERATED FROM PYTHON SOURCE LINES 274-275
 
 Let's perform a cross-validation to see how well this model predicts:
@@ -1008,20 +417,6 @@ Let's perform a cross-validation to see how well this model predicts:
     print(f"scores={scores}")
     print(f"mean={np.mean(scores)}")
     print(f"std={np.std(scores)}")
-
-
-
-
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    scores=[0.91130464 0.89181055 0.92241106 0.92801534 0.92458331]
-    mean=0.9156249787062258
-    std=0.013157629842905486
-
-
 
 
 .. GENERATED FROM PYTHON SOURCE LINES 285-288
@@ -1045,12 +440,6 @@ analyze the TableVectorizer's mechanisms along the way.
     table_vec = TableVectorizer(auto_cast=True)
 
 
-
-
-
-
-
-
 .. GENERATED FROM PYTHON SOURCE LINES 298-299
 
 We split the data between train and test, and transform them:
@@ -1069,12 +458,6 @@ We split the data between train and test, and transform them:
     X_test_enc = table_vec.transform(X_test)
 
 
-
-
-
-
-
-
 .. GENERATED FROM PYTHON SOURCE LINES 309-310
 
 The encoded data, X_train_enc and X_test_enc are numerical arrays:
@@ -1086,30 +469,6 @@ The encoded data, X_train_enc and X_test_enc are numerical arrays:
     X_train_enc
 
 
-
-
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-
-    array([[0.00000000e+00, 1.00000000e+00, 0.00000000e+00, ...,
-            5.59943445e-02, 4.09810732e-01, 2.00700000e+03],
-           [1.00000000e+00, 0.00000000e+00, 0.00000000e+00, ...,
-            5.00000000e-02, 5.00000000e-02, 2.00500000e+03],
-           [1.00000000e+00, 0.00000000e+00, 0.00000000e+00, ...,
-            5.00000000e-02, 5.00000000e-02, 2.00900000e+03],
-           ...,
-           [1.00000000e+00, 0.00000000e+00, 0.00000000e+00, ...,
-            5.00000000e-02, 5.00000000e-02, 1.99000000e+03],
-           [0.00000000e+00, 1.00000000e+00, 0.00000000e+00, ...,
-            5.00000000e-02, 5.00000000e-02, 2.01200000e+03],
-           [1.00000000e+00, 0.00000000e+00, 0.00000000e+00, ...,
-            5.00000000e-02, 5.00000000e-02, 2.01400000e+03]])
-
-
-
 .. GENERATED FROM PYTHON SOURCE LINES 313-314
 
 They have more columns than the original dataframe, but not much more:
@@ -1119,18 +478,6 @@ They have more columns than the original dataframe, but not much more:
 .. code-block:: default
 
     X_train.shape, X_train_enc.shape
-
-
-
-
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-
-    ((7843, 8), (7843, 169))
-
 
 
 .. GENERATED FROM PYTHON SOURCE LINES 317-322
@@ -1148,24 +495,6 @@ choice:
     from pprint import pprint
 
     pprint(table_vec.transformers_)
-
-
-
-
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    [('low_card_cat',
-      OneHotEncoder(drop='if_binary', handle_unknown='ignore'),
-      ['gender', 'department', 'department_name', 'assignment_category']),
-     ('high_card_cat',
-      GapEncoder(n_components=30),
-      ['division', 'employee_position_title', 'underfilled_job_title']),
-     ('remainder', 'passthrough', ['year_first_hired'])]
-
-
 
 
 .. GENERATED FROM PYTHON SOURCE LINES 327-340
@@ -1191,18 +520,6 @@ Before encoding:
     X.columns.to_list()
 
 
-
-
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-
-    ['gender', 'department', 'department_name', 'division', 'assignment_category', 'employee_position_title', 'underfilled_job_title', 'year_first_hired']
-
-
-
 .. GENERATED FROM PYTHON SOURCE LINES 343-344
 
 After encoding (we only plot the first 8 feature names):
@@ -1213,18 +530,6 @@ After encoding (we only plot the first 8 feature names):
 
     feature_names = table_vec.get_feature_names_out()
     feature_names[:8]
-
-
-
-
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-
-    ['gender_F', 'gender_M', 'gender_nan', 'department_BOA', 'department_BOE', 'department_CAT', 'department_CCL', 'department_CEC']
-
 
 
 .. GENERATED FROM PYTHON SOURCE LINES 348-354
@@ -1241,18 +546,6 @@ In total, we have a reasonable number of encoded columns:
 .. code-block:: default
 
     len(feature_names)
-
-
-
-
-
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-
-    169
 
 
 
@@ -1282,18 +575,6 @@ First, let's train the |RandomForestRegressor|:
     regressor.fit(X_train_enc, y_train)
 
 
-
-
-
-
-.. raw:: html
-
-    <div class="output_subarea output_html rendered_html output_result">
-    <style>#sk-container-id-2 {color: black;background-color: white;}#sk-container-id-2 pre{padding: 0;}#sk-container-id-2 div.sk-toggleable {background-color: white;}#sk-container-id-2 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-2 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-2 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-2 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-2 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-2 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-2 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-2 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-2 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-2 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-2 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-2 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-2 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-2 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-2 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-2 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-2 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-2 div.sk-item {position: relative;z-index: 1;}#sk-container-id-2 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-2 div.sk-item::before, #sk-container-id-2 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-2 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-2 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-2 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-2 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-2 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-2 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-2 div.sk-label-container {text-align: center;}#sk-container-id-2 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-2 div.sk-text-repr-fallback {display: none;}</style><div id="sk-container-id-2" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>RandomForestRegressor()</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-10" type="checkbox" checked><label for="sk-estimator-id-10" class="sk-toggleable__label sk-toggleable__label-arrow">RandomForestRegressor</label><div class="sk-toggleable__content"><pre>RandomForestRegressor()</pre></div></div></div></div></div>
-    </div>
-    <br />
-    <br />
-
 .. GENERATED FROM PYTHON SOURCE LINES 377-378
 
 Retrieving the feature importances:
@@ -1308,12 +589,6 @@ Retrieving the feature importances:
     indices = np.argsort(importances)
     # Sort from least to most
     indices = list(reversed(indices))
-
-
-
-
-
-
 
 
 .. GENERATED FROM PYTHON SOURCE LINES 386-387
@@ -1338,17 +613,6 @@ Plotting the results:
     plt.show()
 
 
-
-
-.. image-sg:: /auto_examples/images/sphx_glr_01_dirty_categories_002.png
-   :alt: Feature importances
-   :srcset: /auto_examples/images/sphx_glr_01_dirty_categories_002.png
-   :class: sphx-glr-single-img
-
-
-
-
-
 .. GENERATED FROM PYTHON SOURCE LINES 401-412
 
 We can deduce from this data that the three factors that define the
@@ -1366,7 +630,7 @@ having a permanent, full-time job :)
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 2 minutes  48.480 seconds)
+   **Total running time of the script:** ( 0 minutes  0.000 seconds)
 
 
 .. _sphx_glr_download_auto_examples_01_dirty_categories.py:
@@ -1379,7 +643,7 @@ having a permanent, full-time job :)
     .. container:: binder-badge
 
       .. image:: images/binder_badge_logo.svg
-        :target: https://mybinder.org/v2/gh/dirty-cat/dirty-cat.github.io/main?filepath=dev/dev/auto_examples/01_dirty_categories.ipynb
+        :target: https://mybinder.org/v2/gh/dirty-cat/dirty-cat/main?urlpath=lab/tree/notebooks/auto_examples/01_dirty_categories.ipynb
         :alt: Launch binder
         :width: 150 px
 

@@ -59,26 +59,6 @@ Let's look at the dataset:
     print(data.head(n=5))
 
 
-
-
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    Annual salary information including gross pay and overtime pay for all active, permanent employees of Montgomery County, MD paid in calendar year 2016. This information will be published annually each year.
-      gender department  ... date_first_hired year_first_hired
-    0      F        POL  ...       09/22/1986             1986
-    1      M        POL  ...       09/12/1988             1988
-    2      F        HHS  ...       11/19/1989             1989
-    3      M        COR  ...       05/05/2014             2014
-    4      M        HCA  ...       03/05/2007             2007
-
-    [5 rows x 9 columns]
-
-
-
-
 .. GENERATED FROM PYTHON SOURCE LINES 38-39
 
 Here is the number of unique entries per column:
@@ -90,27 +70,6 @@ Here is the number of unique entries per column:
     print(data.nunique())
 
 
-
-
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    gender                        2
-    department                   37
-    department_name              37
-    division                    694
-    assignment_category           2
-    employee_position_title     385
-    underfilled_job_title        84
-    date_first_hired           2264
-    year_first_hired             51
-    dtype: int64
-
-
-
-
 .. GENERATED FROM PYTHON SOURCE LINES 42-43
 
 As we can see, some entries have many unique values:
@@ -120,29 +79,6 @@ As we can see, some entries have many unique values:
 .. code-block:: default
 
     print(data["employee_position_title"].value_counts().sort_index())
-
-
-
-
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    Abandoned Vehicle Code Enforcement Specialist        4
-    Accountant/Auditor I                                 3
-    Accountant/Auditor II                                1
-    Accountant/Auditor III                              35
-    Administrative Assistant to the County Executive     1
-                                                        ..
-    Welder                                               3
-    Work Force Leader I                                  1
-    Work Force Leader II                                28
-    Work Force Leader III                                2
-    Work Force Leader IV                                 9
-    Name: employee_position_title, Length: 385, dtype: int64
-
-
 
 
 .. GENERATED FROM PYTHON SOURCE LINES 46-65
@@ -176,12 +112,6 @@ employee's position title:
     values.insert(0, "current_annual_salary", employee_salaries.y)
 
 
-
-
-
-
-
-
 .. GENERATED FROM PYTHON SOURCE LINES 70-78
 
 .. _example_similarity_encoder:
@@ -204,12 +134,6 @@ creates a similarity matrix based on an n-gram representation of the data.
 
     similarity_encoder = SimilarityEncoder()
     transformed_values = similarity_encoder.fit_transform(sorted_values.reshape(-1, 1))
-
-
-
-
-
-
 
 
 .. GENERATED FROM PYTHON SOURCE LINES 87-92
@@ -235,21 +159,6 @@ representation to get an intuition of what the |SE| is doing:
     print(sorted_values.shape)
 
 
-
-
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    /home/circleci/project/miniconda/envs/testenv/lib/python3.9/site-packages/sklearn/manifold/_mds.py:299: FutureWarning: The default value of `normalized_stress` will change to `'auto'` in version 1.4. To suppress this warning, manually set the value of `normalized_stress`.
-      warnings.warn(
-    (385, 2)
-    (385,)
-
-
-
-
 .. GENERATED FROM PYTHON SOURCE LINES 103-104
 
 We first quickly fit a KNN so that the plots does not get too busy:
@@ -271,12 +180,6 @@ We first quickly fit a KNN so that the plots does not get too busy:
     nn = NearestNeighbors(n_neighbors=2).fit(transformed_values)
     _, indices_ = nn.kneighbors(transformed_values[random_points])
     indices = np.unique(indices_.squeeze())
-
-
-
-
-
-
 
 
 .. GENERATED FROM PYTHON SOURCE LINES 119-120
@@ -303,23 +206,6 @@ Then we plot it, adding the categories in the scatter plot:
     ax.set_title("multi-dimensional-scaling representation using a 3gram similarity matrix")
 
 
-
-
-.. image-sg:: /auto_examples/images/sphx_glr_02_investigating_dirty_categories_001.png
-   :alt: multi-dimensional-scaling representation using a 3gram similarity matrix
-   :srcset: /auto_examples/images/sphx_glr_02_investigating_dirty_categories_001.png
-   :class: sphx-glr-single-img
-
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-
-    Text(0.5, 1.0, 'multi-dimensional-scaling representation using a 3gram similarity matrix')
-
-
-
 .. GENERATED FROM PYTHON SOURCE LINES 136-140
 
 Heatmap of the similarity matrix
@@ -342,17 +228,6 @@ We can also plot the distance matrix for those observations:
     ax2.set_title("Similarities across categories")
     f2.colorbar(cax2)
     f2.tight_layout()
-
-
-
-
-.. image-sg:: /auto_examples/images/sphx_glr_02_investigating_dirty_categories_002.png
-   :alt: Similarities across categories
-   :srcset: /auto_examples/images/sphx_glr_02_investigating_dirty_categories_002.png
-   :class: sphx-glr-single-img
-
-
-
 
 
 .. GENERATED FROM PYTHON SOURCE LINES 153-159
@@ -389,25 +264,6 @@ First, let's retrieve the dirty column to encode:
     print(f"Number of dirty entries = {len(X_dirty)}")
 
 
-
-
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-           employee_position_title
-    0  Office Services Coordinator
-    1        Master Police Officer
-    2             Social Worker IV
-    3       Resident Supervisor II
-    4      Planning Specialist III
-
-    Number of dirty entries = 9228
-
-
-
-
 .. GENERATED FROM PYTHON SOURCE LINES 179-185
 
 .. _example_gap_encoder:
@@ -427,12 +283,6 @@ Then, we'll create an instance of the |Gap| with 10 components:
     enc = GapEncoder(n_components=10, random_state=42)
 
 
-
-
-
-
-
-
 .. GENERATED FROM PYTHON SOURCE LINES 191-193
 
 Finally, we'll fit the model on the dirty categorical data and transform it
@@ -445,18 +295,6 @@ in order to obtain encoded vectors of size 10:
 
     X_enc = enc.fit_transform(X_dirty)
     print(f"Shape of encoded vectors = {X_enc.shape}")
-
-
-
-
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    Shape of encoded vectors = (9228, 10)
-
-
 
 
 .. GENERATED FROM PYTHON SOURCE LINES 198-208
@@ -481,27 +319,6 @@ In the example below we select 3 labels to summarize each topic.
     for k in range(len(topic_labels)):
         labels = topic_labels[k]
         print(f"Topic n°{k}: {labels}")
-
-
-
-
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    Topic n°0: correctional, correction, warehouse
-    Topic n°1: administrative, specialist, principal
-    Topic n°2: services, officer, service
-    Topic n°3: coordinator, equipment, operator
-    Topic n°4: firefighter, rescuer, rescue
-    Topic n°5: management, enforcement, permitting
-    Topic n°6: technology, technician, mechanic
-    Topic n°7: community, sergeant, sheriff
-    Topic n°8: representative, accountant, auditor
-    Topic n°9: assistant, library, safety
-
-
 
 
 .. GENERATED FROM PYTHON SOURCE LINES 215-220
@@ -529,17 +346,6 @@ This enables us to understand the encoding of different samples
     plt.show()
 
 
-
-
-.. image-sg:: /auto_examples/images/sphx_glr_02_investigating_dirty_categories_003.png
-   :alt: 02 investigating dirty categories
-   :srcset: /auto_examples/images/sphx_glr_02_investigating_dirty_categories_003.png
-   :class: sphx-glr-single-img
-
-
-
-
-
 .. GENERATED FROM PYTHON SOURCE LINES 233-236
 
 As we can see, each dirty category encodes on a small number of topics,
@@ -549,7 +355,7 @@ effect latent categories captured from the data.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  9.097 seconds)
+   **Total running time of the script:** ( 0 minutes  0.000 seconds)
 
 
 .. _sphx_glr_download_auto_examples_02_investigating_dirty_categories.py:
@@ -562,7 +368,7 @@ effect latent categories captured from the data.
     .. container:: binder-badge
 
       .. image:: images/binder_badge_logo.svg
-        :target: https://mybinder.org/v2/gh/dirty-cat/dirty-cat.github.io/main?filepath=dev/dev/auto_examples/02_investigating_dirty_categories.ipynb
+        :target: https://mybinder.org/v2/gh/dirty-cat/dirty-cat/main?urlpath=lab/tree/notebooks/auto_examples/02_investigating_dirty_categories.ipynb
         :alt: Launch binder
         :width: 150 px
 
