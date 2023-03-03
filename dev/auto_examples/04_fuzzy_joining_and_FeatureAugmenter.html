@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 <meta property="og:title" content="Fuzzy joining dirty tables and the FeatureAugmenter" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://dirty-cat.github.io/stable/auto_examples/05_fuzzy_joining_and_FeatureAugmenter.html" />
+<meta property="og:url" content="https://dirty-cat.github.io/stable/auto_examples/04_fuzzy_joining_and_FeatureAugmenter.html" />
 <meta property="og:site_name" content="dirty_cat" />
 <meta property="og:description" content="Here we show how to combine data from different sources, with a vocabulary not well normalized. Joining is difficult: one entry on one side does not have an exact match on the other side. The fuzzy..." />
 <meta property="og:image" content="https://dirty-cat.github.io/stable/_static/dirty_cat.svg" />
@@ -29,8 +29,8 @@
     <script src="../_static/scrolltoc.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Deduplicating misspelled categories with deduplicate" href="06_deduplication.html" />
-    <link rel="prev" title="Scalability considerations for similarity encoding" href="04_dimension_reduction_and_performance.html" />
+    <link rel="next" title="Deduplicating misspelled categories with deduplicate" href="05_deduplication.html" />
+    <link rel="prev" title="Handling datetime features with the DatetimeEncoder" href="03_datetime_encoder.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
@@ -118,8 +118,8 @@
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="04_dimension_reduction_and_performance.html" title="previous chapter">Scalability considerations for similarity encoding</a></li>
-      <li>Next: <a href="06_deduplication.html" title="next chapter">Deduplicating misspelled categories with deduplicate</a></li>
+      <li>Previous: <a href="03_datetime_encoder.html" title="previous chapter">Handling datetime features with the DatetimeEncoder</a></li>
+      <li>Next: <a href="05_deduplication.html" title="next chapter">Deduplicating misspelled categories with deduplicate</a></li>
   </ul></li>
 </ul>
 </div>
@@ -133,11 +133,11 @@
             
   <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-05-fuzzy-joining-and-featureaugmenter-py"><span class="std std-ref">here</span></a>
+<p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-04-fuzzy-joining-and-featureaugmenter-py"><span class="std std-ref">here</span></a>
 to download the full example code or to run this example in your browser via Binder</p>
 </div>
 <section class="sphx-glr-example-title" id="fuzzy-joining-dirty-tables-and-the-featureaugmenter">
-<span id="sphx-glr-auto-examples-05-fuzzy-joining-and-featureaugmenter-py"></span><h1>Fuzzy joining dirty tables and the FeatureAugmenter<a class="headerlink" href="#fuzzy-joining-dirty-tables-and-the-featureaugmenter" title="Permalink to this heading">¶</a></h1>
+<span id="sphx-glr-auto-examples-04-fuzzy-joining-and-featureaugmenter-py"></span><h1>Fuzzy joining dirty tables and the FeatureAugmenter<a class="headerlink" href="#fuzzy-joining-dirty-tables-and-the-featureaugmenter" title="Permalink to this heading">¶</a></h1>
 <p>Here we show how to combine data from different sources,
 with a vocabulary not well normalized.</p>
 <p>Joining is difficult: one entry on one side does not have
@@ -536,15 +536,15 @@ refitting the pipeline on the data.</p>
 <p>Great, by evaluating the correct <code class="docutils literal notranslate"><span class="pre">match_score</span></code> we improved our
 results significantly!</p>
 <p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.000 seconds)</p>
-<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-05-fuzzy-joining-and-featureaugmenter-py">
+<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-04-fuzzy-joining-and-featureaugmenter-py">
 <div class="binder-badge docutils container">
-<a class="reference external image-reference" href="https://mybinder.org/v2/gh/dirty-cat/dirty-cat/main?urlpath=lab/tree/notebooks/auto_examples/05_fuzzy_joining_and_FeatureAugmenter.ipynb"><img alt="Launch binder" src="../_images/binder_badge_logo.svg" width="150px" /></a>
+<a class="reference external image-reference" href="https://mybinder.org/v2/gh/dirty-cat/dirty-cat/main?urlpath=lab/tree/notebooks/auto_examples/04_fuzzy_joining_and_FeatureAugmenter.ipynb"><img alt="Launch binder" src="../_images/binder_badge_logo.svg" width="150px" /></a>
 </div>
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
-<p><a class="reference download internal" download="" href="../_downloads/3acee343111239ea24326204b8d1f54e/05_fuzzy_joining_and_FeatureAugmenter.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">05_fuzzy_joining_and_FeatureAugmenter.py</span></code></a></p>
+<p><a class="reference download internal" download="" href="../_downloads/2cab9c21226b30d5e8a51407cfca312d/04_fuzzy_joining_and_FeatureAugmenter.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">04_fuzzy_joining_and_FeatureAugmenter.py</span></code></a></p>
 </div>
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
-<p><a class="reference download internal" download="" href="../_downloads/62e192895617a2ae442bbb73d2c0753c/05_fuzzy_joining_and_FeatureAugmenter.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">05_fuzzy_joining_and_FeatureAugmenter.ipynb</span></code></a></p>
+<p><a class="reference download internal" download="" href="../_downloads/dc3f5cdf2aadf10362d28ddfcf68662d/04_fuzzy_joining_and_FeatureAugmenter.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">04_fuzzy_joining_and_FeatureAugmenter.ipynb</span></code></a></p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
@@ -563,7 +563,7 @@ results significantly!</p>
       &copy;2018-2023, the dirty_cat developers.
       
       |
-      <a href="../_sources/auto_examples/05_fuzzy_joining_and_FeatureAugmenter.rst.txt"
+      <a href="../_sources/auto_examples/04_fuzzy_joining_and_FeatureAugmenter.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 

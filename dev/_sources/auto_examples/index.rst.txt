@@ -63,31 +63,14 @@ Using dirty_cat
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="We discuss in this notebook how to efficiently apply the SimilarityEncoder to larger datasets: ...">
-
-.. only:: html
-
-  .. image:: /auto_examples/images/thumb/sphx_glr_04_dimension_reduction_and_performance_thumb.png
-    :alt: Scalability considerations for similarity encoding
-
-  :ref:`sphx_glr_auto_examples_04_dimension_reduction_and_performance.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Scalability considerations for similarity encoding</div>
-    </div>
-
-
-.. raw:: html
-
     <div class="sphx-glr-thumbcontainer" tooltip="Here we show how to combine data from different sources, with a vocabulary not well normalized.">
 
 .. only:: html
 
-  .. image:: /auto_examples/images/thumb/sphx_glr_05_fuzzy_joining_and_FeatureAugmenter_thumb.png
+  .. image:: /auto_examples/images/thumb/sphx_glr_04_fuzzy_joining_and_FeatureAugmenter_thumb.png
     :alt: Fuzzy joining dirty tables and the FeatureAugmenter
 
-  :ref:`sphx_glr_auto_examples_05_fuzzy_joining_and_FeatureAugmenter.py`
+  :ref:`sphx_glr_auto_examples_04_fuzzy_joining_and_FeatureAugmenter.py`
 
 .. raw:: html
 
@@ -101,10 +84,10 @@ Using dirty_cat
 
 .. only:: html
 
-  .. image:: /auto_examples/images/thumb/sphx_glr_06_deduplication_thumb.png
+  .. image:: /auto_examples/images/thumb/sphx_glr_05_deduplication_thumb.png
     :alt: Deduplicating misspelled categories with deduplicate
 
-  :ref:`sphx_glr_auto_examples_06_deduplication.py`
+  :ref:`sphx_glr_auto_examples_05_deduplication.py`
 
 .. raw:: html
 
@@ -118,10 +101,10 @@ Using dirty_cat
 
 .. only:: html
 
-  .. image:: /auto_examples/images/thumb/sphx_glr_07_ken_embeddings_example_thumb.png
+  .. image:: /auto_examples/images/thumb/sphx_glr_06_ken_embeddings_example_thumb.png
     :alt: Wikipedia embeddings to enrich the data
 
-  :ref:`sphx_glr_auto_examples_07_ken_embeddings_example.py`
+  :ref:`sphx_glr_auto_examples_06_ken_embeddings_example.py`
 
 .. raw:: html
 
@@ -140,10 +123,9 @@ Using dirty_cat
    /auto_examples/01_dirty_categories
    /auto_examples/02_investigating_dirty_categories
    /auto_examples/03_datetime_encoder
-   /auto_examples/04_dimension_reduction_and_performance
-   /auto_examples/05_fuzzy_joining_and_FeatureAugmenter
-   /auto_examples/06_deduplication
-   /auto_examples/07_ken_embeddings_example
+   /auto_examples/04_fuzzy_joining_and_FeatureAugmenter
+   /auto_examples/05_deduplication
+   /auto_examples/06_ken_embeddings_example
 
 
 
