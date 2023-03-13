@@ -5,16 +5,16 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
-<meta property="og:title" content="Release 0.4.0" />
+<meta property="og:title" content="Release 0.4.1" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://dirty-cat.github.io/stable/CHANGES.html" />
 <meta property="og:site_name" content="dirty_cat" />
-<meta property="og:description" content="Major changes: SuperVectorizer is renamed as TableVectorizer, a warning is raised when using the old name..#484 by Jovan Stojanovic New experimental feature: joining tables using fuzzy_join() by ap..." />
+<meta property="og:description" content="Major changes: fuzzy_join() and FeatureAugmenter now perform joins on missing values as in pandas.merge..#522 by Jovan Stojanovic Release 0.4.0: Major changes: SuperVectorizer is renamed as TableVe..." />
 <meta property="og:image" content="https://dirty-cat.github.io/stable/_static/dirty_cat.svg" />
 <meta property="og:image:alt" content="dirty_cat" />
-<meta name="description" content="Major changes: SuperVectorizer is renamed as TableVectorizer, a warning is raised when using the old name..#484 by Jovan Stojanovic New experimental feature: joining tables using fuzzy_join() by ap..." />
+<meta name="description" content="Major changes: fuzzy_join() and FeatureAugmenter now perform joins on missing values as in pandas.merge..#522 by Jovan Stojanovic Release 0.4.0: Major changes: SuperVectorizer is renamed as TableVe..." />
 
-    <title>Release 0.4.0 &#8212; dirty_cat</title>
+    <title>Release 0.4.1 &#8212; dirty_cat</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
     <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css" />
@@ -93,45 +93,49 @@
 </ul>
   <h3 class="this-page"><a href="index.html">This page</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Release 0.4.0</a><ul>
+<li><a class="reference internal" href="#">Release 0.4.1</a><ul>
 <li><a class="reference internal" href="#major-changes">Major changes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#release-0-4-0">Release 0.4.0</a><ul>
+<li><a class="reference internal" href="#id1">Major changes</a></li>
 <li><a class="reference internal" href="#minor-changes">Minor changes</a></li>
 <li><a class="reference internal" href="#bug-fixes">Bug fixes</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#release-0-3-0">Release 0.3.0</a><ul>
-<li><a class="reference internal" href="#id1">Major changes</a></li>
+<li><a class="reference internal" href="#id2">Major changes</a></li>
 <li><a class="reference internal" href="#notes">Notes</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#release-0-2-2">Release 0.2.2</a><ul>
-<li><a class="reference internal" href="#id2">Bug fixes</a></li>
+<li><a class="reference internal" href="#id3">Bug fixes</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#release-0-2-1">Release 0.2.1</a><ul>
-<li><a class="reference internal" href="#id3">Major changes</a></li>
-<li><a class="reference internal" href="#id4">Bug-fixes</a></li>
-<li><a class="reference internal" href="#id5">Notes</a></li>
+<li><a class="reference internal" href="#id4">Major changes</a></li>
+<li><a class="reference internal" href="#id5">Bug-fixes</a></li>
+<li><a class="reference internal" href="#id6">Notes</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#release-0-2-0">Release 0.2.0</a><ul>
-<li><a class="reference internal" href="#id6">Major changes</a></li>
-<li><a class="reference internal" href="#id7">Notes</a></li>
+<li><a class="reference internal" href="#id7">Major changes</a></li>
+<li><a class="reference internal" href="#id8">Notes</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#release-0-2-0a1">Release 0.2.0a1</a><ul>
-<li><a class="reference internal" href="#id8">Major changes</a></li>
-<li><a class="reference internal" href="#id9">Bug-fixes</a></li>
+<li><a class="reference internal" href="#id9">Major changes</a></li>
+<li><a class="reference internal" href="#id10">Bug-fixes</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#release-0-1-1">Release 0.1.1</a><ul>
-<li><a class="reference internal" href="#id10">Major changes</a></li>
-<li><a class="reference internal" href="#id11">Bug-fixes</a></li>
+<li><a class="reference internal" href="#id11">Major changes</a></li>
+<li><a class="reference internal" href="#id12">Bug-fixes</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#release-0-1-0">Release 0.1.0</a><ul>
-<li><a class="reference internal" href="#id12">Major changes</a></li>
-<li><a class="reference internal" href="#id13">Bug-fixes</a></li>
+<li><a class="reference internal" href="#id13">Major changes</a></li>
+<li><a class="reference internal" href="#id14">Bug-fixes</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#release-0-0-7">Release 0.0.7</a></li>
@@ -153,10 +157,20 @@
 
           <div class="body" role="main">
             
-  <section id="release-0-4-0">
-<h1>Release 0.4.0<a class="headerlink" href="#release-0-4-0" title="Permalink to this heading">¶</a></h1>
+  <section id="release-0-4-1">
+<h1>Release 0.4.1<a class="headerlink" href="#release-0-4-1" title="Permalink to this heading">¶</a></h1>
 <section id="major-changes">
 <h2>Major changes<a class="headerlink" href="#major-changes" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="generated/dirty_cat.fuzzy_join.html#dirty_cat.fuzzy_join" title="dirty_cat.fuzzy_join"><code class="xref py py-func docutils literal notranslate"><span class="pre">fuzzy_join()</span></code></a> and <a class="reference internal" href="generated/dirty_cat.FeatureAugmenter.html#dirty_cat.FeatureAugmenter" title="dirty_cat.FeatureAugmenter"><code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureAugmenter</span></code></a> now perform joins on missing values as in <cite>pandas.merge</cite>.</p></li>
+</ul>
+<p><a class="reference external" href="https://github.com/dirty-cat/dirty_cat/pull/522">#522</a> by <a class="reference external" href="https://github.com/jovan-stojanovic">Jovan Stojanovic</a></p>
+</section>
+</section>
+<section id="release-0-4-0">
+<h1>Release 0.4.0<a class="headerlink" href="#release-0-4-0" title="Permalink to this heading">¶</a></h1>
+<section id="id1">
+<h2>Major changes<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p><cite>SuperVectorizer</cite> is renamed as <a class="reference internal" href="generated/dirty_cat.TableVectorizer.html#dirty_cat.TableVectorizer" title="dirty_cat.TableVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">TableVectorizer</span></code></a>, a warning is raised when using the old name.</p></li>
 </ul>
@@ -212,8 +226,8 @@ than raising an error. <a class="reference external" href="https://github.com/di
 </section>
 <section id="release-0-3-0">
 <h1>Release 0.3.0<a class="headerlink" href="#release-0-3-0" title="Permalink to this heading">¶</a></h1>
-<section id="id1">
-<h2>Major changes<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h2>
+<section id="id2">
+<h2>Major changes<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
 <ul>
 <li><p>New encoder: <a class="reference internal" href="generated/dirty_cat.DatetimeEncoder.html#dirty_cat.DatetimeEncoder" title="dirty_cat.DatetimeEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">DatetimeEncoder</span></code></a> can transform a datetime column into several numerical columns
 (year, month, day, hour, minute, second, …). It is now the default transformer used
@@ -257,8 +271,8 @@ names instead of column indices for the “remainder” columns. <a class="refer
 </section>
 <section id="release-0-2-2">
 <h1>Release 0.2.2<a class="headerlink" href="#release-0-2-2" title="Permalink to this heading">¶</a></h1>
-<section id="id2">
-<h2>Bug fixes<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
+<section id="id3">
+<h2>Bug fixes<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Fixed a bug in the <a class="reference internal" href="generated/dirty_cat.TableVectorizer.html#dirty_cat.TableVectorizer" title="dirty_cat.TableVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">TableVectorizer</span></code></a> causing a <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#FutureWarning" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">FutureWarning</span></code></a>
 when using the <code class="xref py py-func docutils literal notranslate"><span class="pre">get_feature_names_out()</span></code> method. <a class="reference external" href="https://github.com/dirty-cat/dirty_cat/pull/262">#262</a> by <a class="reference external" href="https://github.com/LilianBoulard">Lilian Boulard</a></p></li>
@@ -267,8 +281,8 @@ when using the <code class="xref py py-func docutils literal notranslate"><span 
 </section>
 <section id="release-0-2-1">
 <h1>Release 0.2.1<a class="headerlink" href="#release-0-2-1" title="Permalink to this heading">¶</a></h1>
-<section id="id3">
-<h2>Major changes<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
+<section id="id4">
+<h2>Major changes<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h2>
 <ul>
 <li><p>Improvements to the <a class="reference internal" href="generated/dirty_cat.TableVectorizer.html#dirty_cat.TableVectorizer" title="dirty_cat.TableVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">TableVectorizer</span></code></a></p>
 <blockquote>
@@ -292,16 +306,16 @@ on multiple columns.</p></li>
 </li>
 </ul>
 </section>
-<section id="id4">
-<h2>Bug-fixes<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h2>
+<section id="id5">
+<h2>Bug-fixes<a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Fixed a bug that resulted in the <a class="reference internal" href="generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder" title="dirty_cat.GapEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">GapEncoder</span></code></a> ignoring the analyzer argument. <a class="reference external" href="https://github.com/dirty-cat/dirty_cat/pull/242">#242</a> by <a class="reference external" href="https://github.com/jovan-stojanovic">Jovan Stojanovic</a></p></li>
 <li><p><a class="reference internal" href="generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder" title="dirty_cat.GapEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">GapEncoder</span></code></a>’s <cite>get_feature_names_out</cite> now accepts all iterators, not just lists. <a class="reference external" href="https://github.com/dirty-cat/dirty_cat/pull/255">#255</a> by <a class="reference external" href="https://github.com/LilianBoulard">Lilian Boulard</a></p></li>
 <li><p>Fixed <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#DeprecationWarning" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DeprecationWarning</span></code></a> raised by the usage of <cite>distutils.version.LooseVersion</cite>. <a class="reference external" href="https://github.com/dirty-cat/dirty_cat/pull/261">#261</a> by <a class="reference external" href="https://github.com/LilianBoulard">Lilian Boulard</a></p></li>
 </ul>
 </section>
-<section id="id5">
-<h2>Notes<a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h2>
+<section id="id6">
+<h2>Notes<a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Remove trailing imports in the <a class="reference internal" href="generated/dirty_cat.MinHashEncoder.html#dirty_cat.MinHashEncoder" title="dirty_cat.MinHashEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">MinHashEncoder</span></code></a>.</p></li>
 <li><p>Fix typos and update links for website.</p></li>
@@ -312,8 +326,8 @@ on multiple columns.</p></li>
 <section id="release-0-2-0">
 <h1>Release 0.2.0<a class="headerlink" href="#release-0-2-0" title="Permalink to this heading">¶</a></h1>
 <p>Also see pre-release 0.2.0a1 below for additional changes.</p>
-<section id="id6">
-<h2>Major changes<a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h2>
+<section id="id7">
+<h2>Major changes<a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h2>
 <ul>
 <li><p>Bump minimum dependencies:</p>
 <ul class="simple">
@@ -347,8 +361,8 @@ only supports two dimensional inputs of shape (N_samples, 1).
 since <cite>get_feature_names</cite> will be depreciated in scikit-learn 1.2. <a class="reference external" href="https://github.com/dirty-cat/dirty_cat/pull/216">#216</a> by <a class="reference external" href="https://github.com/alexis-cvetkov">Alexis Cvetkov</a></p></li>
 </ul>
 </section>
-<section id="id7">
-<h2>Notes<a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h2>
+<section id="id8">
+<h2>Notes<a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h2>
 <ul>
 <li><p>Removed hard-coded CSV file <cite>dirty_cat/data/FiveThirtyEight_Midwest_Survey.csv</cite>.</p></li>
 <li><p>Improvements to the <a class="reference internal" href="generated/dirty_cat.TableVectorizer.html#dirty_cat.TableVectorizer" title="dirty_cat.TableVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">TableVectorizer</span></code></a></p>
@@ -373,8 +387,8 @@ To try it, you have to install it manually using:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">git</span><span class="o">+</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">dirty</span><span class="o">-</span><span class="n">cat</span><span class="o">/</span><span class="n">dirty_cat</span><span class="o">.</span><span class="n">git</span>
 </pre></div>
 </div>
-<section id="id8">
-<h2>Major changes<a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h2>
+<section id="id9">
+<h2>Major changes<a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Bump minimum dependencies:</p>
 <ul>
@@ -396,8 +410,8 @@ and are then concatenated into a single matrix.
 <a class="reference external" href="https://github.com/dirty-cat/dirty_cat/pull/185">#185</a> by <a class="reference external" href="https://github.com/LilianBoulard">Lilian Boulard</a> and <a class="reference external" href="https://github.com/alexis-cvetkov">Alexis Cvetkov</a>.</p></li>
 </ul>
 </section>
-<section id="id9">
-<h2>Bug-fixes<a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h2>
+<section id="id10">
+<h2>Bug-fixes<a class="headerlink" href="#id10" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Fix <cite>get_feature_names</cite> for scikit-learn &gt; 0.21. <a class="reference external" href="https://github.com/dirty-cat/dirty_cat/pull/216">#216</a> by <a class="reference external" href="https://github.com/alexis-cvetkov">Alexis Cvetkov</a></p></li>
 </ul>
@@ -405,11 +419,11 @@ and are then concatenated into a single matrix.
 </section>
 <section id="release-0-1-1">
 <h1>Release 0.1.1<a class="headerlink" href="#release-0-1-1" title="Permalink to this heading">¶</a></h1>
-<section id="id10">
-<h2>Major changes<a class="headerlink" href="#id10" title="Permalink to this heading">¶</a></h2>
-</section>
 <section id="id11">
-<h2>Bug-fixes<a class="headerlink" href="#id11" title="Permalink to this heading">¶</a></h2>
+<h2>Major changes<a class="headerlink" href="#id11" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="id12">
+<h2>Bug-fixes<a class="headerlink" href="#id12" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>RuntimeWarnings due to overflow in <a class="reference internal" href="generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder" title="dirty_cat.GapEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">GapEncoder</span></code></a>. <a class="reference external" href="https://github.com/dirty-cat/dirty_cat/pull/161">#161</a> by <a class="reference external" href="https://github.com/alexis-cvetkov">Alexis Cvetkov</a></p></li>
 </ul>
@@ -417,8 +431,8 @@ and are then concatenated into a single matrix.
 </section>
 <section id="release-0-1-0">
 <h1>Release 0.1.0<a class="headerlink" href="#release-0-1-0" title="Permalink to this heading">¶</a></h1>
-<section id="id12">
-<h2>Major changes<a class="headerlink" href="#id12" title="Permalink to this heading">¶</a></h2>
+<section id="id13">
+<h2>Major changes<a class="headerlink" href="#id13" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference internal" href="generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder" title="dirty_cat.GapEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">GapEncoder</span></code></a>: Added online Gamma-Poisson factorization through the
 <a class="reference internal" href="generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder" title="dirty_cat.GapEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">GapEncoder</span></code></a> class. This method discovers latent categories formed
@@ -426,8 +440,8 @@ via combinations of substrings, and encodes string data as combinations of
 these categories. To be used if interpretability is important. <a class="reference external" href="https://github.com/dirty-cat/dirty_cat/pull/153">#153</a> by <a class="reference external" href="https://github.com/alexis-cvetkov">Alexis Cvetkov</a></p></li>
 </ul>
 </section>
-<section id="id13">
-<h2>Bug-fixes<a class="headerlink" href="#id13" title="Permalink to this heading">¶</a></h2>
+<section id="id14">
+<h2>Bug-fixes<a class="headerlink" href="#id14" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Multiprocessing exception in notebook. <a class="reference external" href="https://github.com/dirty-cat/dirty_cat/pull/154">#154</a> by <a class="reference external" href="https://github.com/LilianBoulard">Lilian Boulard</a></p></li>
 </ul>
