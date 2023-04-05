@@ -27,6 +27,7 @@
     <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/scrolltoc.js"></script>
+    <script src="../_static/stable_doc_redirect.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Investigating and interpreting dirty categories" href="02_investigating_dirty_categories.html" />
@@ -50,7 +51,7 @@
 <div class="warn-banner">
     <p>
         This is the documentation for the unstable development version.<br />
-        <a href="https://dirty-cat.github.io/stable/">Click here to go to the stable version documentation</a>.
+        <a id="stable_page_link" href="https://dirty-cat.github.io/stable/">Click here to go to the stable version documentation</a>.
     </p>
 </div>
 
@@ -592,7 +593,7 @@ r2 score:  mean: 0.919; std: 0.012
 /home/circleci/project/miniconda/envs/testenv/lib/python3.9/site-packages/sklearn/preprocessing/_encoders.py:868: FutureWarning: `sparse` was renamed to `sparse_output` in version 1.2 and will be removed in 1.4. `sparse_output` is ignored unless you leave `sparse` to its default value.
   warnings.warn(
 gap encoding
-r2 score:  mean: 0.909; std: 0.013
+r2 score:  mean: 0.906; std: 0.017
 </pre></div>
 </div>
 <section id="plotting-the-results">
@@ -823,9 +824,9 @@ can be readily applied to the dataframe</strong>.</p>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;std=</span><span class="si">{</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.std.html#numpy.std" title="numpy.std" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">std</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">scores</span></a><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>scores=[0.92094122 0.87502134 0.93017922 0.92397174 0.92148157]
-mean=0.9143190163727756
-std=0.019920765722855272
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>scores=[0.9174578  0.86433434 0.92137901 0.92560234 0.92938518]
+mean=0.9116317330911539
+std=0.023984822302189013
 </pre></div>
 </div>
 <p>The prediction performed here is pretty much as good as above
@@ -855,7 +856,7 @@ analyze the TableVectorizer’s mechanisms along the way.</p>
 </pre></div>
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>array([[0.00000000e+00, 1.00000000e+00, 0.00000000e+00, ...,
-        5.40348012e-02, 6.10369446e-02, 2.00700000e+03],
+        5.39085662e-02, 6.83092986e-02, 2.00700000e+03],
        [1.00000000e+00, 0.00000000e+00, 0.00000000e+00, ...,
         5.00000000e-02, 5.00000000e-02, 2.00500000e+03],
        [1.00000000e+00, 0.00000000e+00, 0.00000000e+00, ...,
@@ -982,7 +983,7 @@ having a permanent, full-time job :)</p>
 automated by the <a class="reference internal" href="../generated/dirty_cat.TableVectorizer.html#dirty_cat.TableVectorizer" title="dirty_cat.TableVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">TableVectorizer</span></code></a>, and the resulting pipeline can still be
 inspected, even with non-normalized entries.</p>
 </aside>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 2 minutes  59.854 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 2 minutes  34.778 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-01-dirty-categories-py">
 <div class="binder-badge docutils container">
 <a class="reference external image-reference" href="https://mybinder.org/v2/gh/dirty-cat/dirty-cat/main?urlpath=lab/tree/notebooks/auto_examples/01_dirty_categories.ipynb"><img alt="Launch binder" src="../_images/binder_badge_logo.svg" width="150px" /></a>

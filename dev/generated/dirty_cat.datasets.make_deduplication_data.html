@@ -27,6 +27,7 @@
     <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/scrolltoc.js"></script>
+    <script src="../_static/stable_doc_redirect.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="prev" title="dirty_cat.datasets.get_data_dir" href="dirty_cat.datasets.get_data_dir.html" />
@@ -49,7 +50,7 @@
 <div class="warn-banner">
     <p>
         This is the documentation for the unstable development version.<br />
-        <a href="https://dirty-cat.github.io/stable/">Click here to go to the stable version documentation</a>.
+        <a id="stable_page_link" href="https://dirty-cat.github.io/stable/">Click here to go to the stable version documentation</a>.
     </p>
 </div>
 
@@ -119,7 +120,7 @@
 <h1><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat.datasets</span></code>.make_deduplication_data<a class="headerlink" href="#dirty-cat-datasets-make-deduplication-data" title="Permalink to this heading">¶</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="dirty_cat.datasets.make_deduplication_data">
-<span class="sig-prename descclassname"><span class="pre">dirty_cat.datasets.</span></span><span class="sig-name descname"><span class="pre">make_deduplication_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">examples</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entries_per_example</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prob_mistake_per_letter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/dd882d6/dirty_cat/datasets/_generating.py#L14"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.datasets.make_deduplication_data" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">dirty_cat.datasets.</span></span><span class="sig-name descname"><span class="pre">make_deduplication_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">examples</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entries_per_example</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prob_mistake_per_letter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/b336826/dirty_cat/datasets/_generating.py#L14"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.datasets.make_deduplication_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Duplicates examples with spelling mistakes.
 Characters are misspelled with probability <cite>prob_mistake_per_letter</cite>.</p>
 <dl class="field-list simple">
