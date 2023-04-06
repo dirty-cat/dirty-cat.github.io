@@ -799,25 +799,9 @@ the data (e.g. remove the * after country name) and look
 for matching patterns in every observation.</p>
 </aside>
 <p>Let’s do some more inspection of the merging done.</p>
-<p>The best way to inspect the matches is to use the following function:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-
-
-<span class="k">def</span> <span class="nf">print_worst_matches</span><span class="p">(</span><span class="n">joined_table</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Prints n worst matches for inspection.&quot;&quot;&quot;</span>
-    <span class="n">max_ind</span> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.argsort.html#numpy.argsort" title="numpy.argsort" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">argsort</span></a><span class="p">(</span><span class="n">joined_table</span><span class="p">[</span><span class="s2">&quot;matching_score&quot;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)[:</span><span class="n">n</span><span class="p">]</span>
-    <span class="n">max_dist</span> <span class="o">=</span> <a href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class"><span class="n">pd</span><span class="o">.</span><span class="n">Series</span></a><span class="p">(</span>
-        <span class="n">joined_table</span><span class="p">[</span><span class="s2">&quot;matching_score&quot;</span><span class="p">][</span><span class="n">max_ind</span><span class="o">.</span><span class="n">ravel</span><span class="p">()]</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span>
-        <span class="n">index</span><span class="o">=</span><span class="n">max_ind</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span>
-    <span class="p">)</span>
-    <span class="n">worst_matches</span> <span class="o">=</span> <span class="n">joined_table</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">max_ind</span><span class="o">.</span><span class="n">ravel</span><span class="p">())]</span>
-    <span class="n">worst_matches</span> <span class="o">=</span> <span class="n">worst_matches</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">matching_score</span><span class="o">=</span><span class="n">max_dist</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">worst_matches</span>
-</pre></div>
-</div>
 <p>Let’s print the four worst matches, which will give
 us an overview of the situation:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">print_worst_matches</span><span class="p">(</span><a href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">df1</span></a><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.sort_values.html#pandas.DataFrame.sort_values" title="pandas.DataFrame.sort_values" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-method"><span class="n">df1</span><span class="o">.</span><span class="n">sort_values</span></a><span class="p">(</span><span class="s2">&quot;matching_score&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="output_subarea output_html rendered_html output_result">
@@ -897,7 +881,7 @@ so as to include only precise-enough matches:</p>
     <span class="n">match_score</span><span class="o">=</span><span class="mf">0.35</span><span class="p">,</span>
     <span class="n">return_score</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="n">print_worst_matches</span><span class="p">(</span><a href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">df1</span></a><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<a href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.sort_values.html#pandas.DataFrame.sort_values" title="pandas.DataFrame.sort_values" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-method"><span class="n">df1</span><span class="o">.</span><span class="n">sort_values</span></a><span class="p">(</span><span class="s2">&quot;matching_score&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="output_subarea output_html rendered_html output_result">
@@ -1428,7 +1412,7 @@ Let’s create our machine learning pipeline:</p>
 <a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">pipeline</span></a> <span class="o">=</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.make_pipeline.html#sklearn.pipeline.make_pipeline" title="sklearn.pipeline.make_pipeline" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-function"><span class="n">make_pipeline</span></a><span class="p">(</span><a href="../generated/dirty_cat.FeatureAugmenter.html#dirty_cat.FeatureAugmenter" title="dirty_cat.FeatureAugmenter" class="sphx-glr-backref-module-dirty_cat sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fa</span></a><span class="p">,</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.compose.ColumnTransformer.html#sklearn.compose.ColumnTransformer" title="sklearn.compose.ColumnTransformer" class="sphx-glr-backref-module-sklearn-compose sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">encoder</span></a><span class="p">,</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.HistGradientBoostingRegressor.html#sklearn.ensemble.HistGradientBoostingRegressor" title="sklearn.ensemble._hist_gradient_boosting.gradient_boosting.HistGradientBoostingRegressor" class="sphx-glr-backref-module-sklearn-ensemble-_hist_gradient_boosting-gradient_boosting sphx-glr-backref-type-py-class"><span class="n">HistGradientBoostingRegressor</span></a><span class="p">())</span>
 </pre></div>
 </div>
-<p>And the best part is that we are now able to evaluate the paramaters of the <a class="reference internal" href="../generated/dirty_cat.fuzzy_join.html#dirty_cat.fuzzy_join" title="dirty_cat.fuzzy_join"><code class="xref py py-func docutils literal notranslate"><span class="pre">fuzzy_join()</span></code></a>.
+<p>And the best part is that we are now able to evaluate the parameters of the <a class="reference internal" href="../generated/dirty_cat.fuzzy_join.html#dirty_cat.fuzzy_join" title="dirty_cat.fuzzy_join"><code class="xref py py-func docutils literal notranslate"><span class="pre">fuzzy_join()</span></code></a>.
 For instance, the <code class="docutils literal notranslate"><span class="pre">match_score</span></code> was manually picked and can now be
 introduced into a grid search:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html#sklearn.model_selection.GridSearchCV" title="sklearn.model_selection.GridSearchCV" class="sphx-glr-backref-module-sklearn-model_selection sphx-glr-backref-type-py-class"><span class="n">GridSearchCV</span></a>
@@ -1462,7 +1446,7 @@ refitting the pipeline on the data.</p>
 </aside>
 <p>Great, by evaluating the correct <code class="docutils literal notranslate"><span class="pre">match_score</span></code> we improved our
 results significantly!</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  11.780 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  12.904 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-04-fuzzy-joining-and-featureaugmenter-py">
 <div class="binder-badge docutils container">
 <a class="reference external image-reference" href="https://mybinder.org/v2/gh/dirty-cat/dirty-cat/main?urlpath=lab/tree/notebooks/auto_examples/04_fuzzy_joining_and_FeatureAugmenter.ipynb"><img alt="Launch binder" src="../_images/binder_badge_logo.svg" width="150px" /></a>

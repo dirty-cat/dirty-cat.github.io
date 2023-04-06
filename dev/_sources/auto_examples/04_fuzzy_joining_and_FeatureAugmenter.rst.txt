@@ -858,47 +858,17 @@ For instance, "Czechia" is well identified as "Czech Republic" and
 
 Let's do some more inspection of the merging done.
 
-.. GENERATED FROM PYTHON SOURCE LINES 163-164
-
-The best way to inspect the matches is to use the following function:
-
-.. GENERATED FROM PYTHON SOURCE LINES 164-179
-
-.. code-block:: default
-
-    import numpy as np
-
-
-    def print_worst_matches(joined_table, n=5):
-        """Prints n worst matches for inspection."""
-        max_ind = np.argsort(joined_table["matching_score"], axis=0)[:n]
-        max_dist = pd.Series(
-            joined_table["matching_score"][max_ind.ravel()].ravel(),
-            index=max_ind.ravel(),
-        )
-        worst_matches = joined_table.iloc[list(max_ind.ravel())]
-        worst_matches = worst_matches.assign(matching_score=max_dist)
-        return worst_matches
-
-
-
-
-
-
-
-
-
-.. GENERATED FROM PYTHON SOURCE LINES 180-182
+.. GENERATED FROM PYTHON SOURCE LINES 163-165
 
 Let's print the four worst matches, which will give
 us an overview of the situation:
 
-.. GENERATED FROM PYTHON SOURCE LINES 182-185
+.. GENERATED FROM PYTHON SOURCE LINES 165-168
 
 .. code-block:: default
 
 
-    print_worst_matches(df1, n=4)
+    df1.sort_values("matching_score").head(4)
 
 
 
@@ -973,19 +943,19 @@ us an overview of the situation:
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 186-189
+.. GENERATED FROM PYTHON SOURCE LINES 169-172
 
 We see that some matches were unsuccesful
 (e.g "Palestinian Territories*" and "Palau"),
 because there is simply no match in the two tables.
 
-.. GENERATED FROM PYTHON SOURCE LINES 191-194
+.. GENERATED FROM PYTHON SOURCE LINES 174-177
 
 In this case, it is better to use the threshold parameter
 so as to include only precise-enough matches:
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 194-204
+.. GENERATED FROM PYTHON SOURCE LINES 177-187
 
 .. code-block:: default
 
@@ -997,7 +967,7 @@ so as to include only precise-enough matches:
         match_score=0.35,
         return_score=True,
     )
-    print_worst_matches(df1, n=4)
+    df1.sort_values("matching_score").head(4)
 
 
 
@@ -1072,12 +1042,12 @@ so as to include only precise-enough matches:
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 205-207
+.. GENERATED FROM PYTHON SOURCE LINES 188-190
 
 Matches that are not available (or precise enough) are marked as `NaN`.
 We will remove them using the drop_unmatched parameter:
 
-.. GENERATED FROM PYTHON SOURCE LINES 207-219
+.. GENERATED FROM PYTHON SOURCE LINES 190-202
 
 .. code-block:: default
 
@@ -1100,12 +1070,12 @@ We will remove them using the drop_unmatched parameter:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 220-222
+.. GENERATED FROM PYTHON SOURCE LINES 203-205
 
 We can finally plot and look at the link between GDP per capital
 and happiness:
 
-.. GENERATED FROM PYTHON SOURCE LINES 222-239
+.. GENERATED FROM PYTHON SOURCE LINES 205-222
 
 .. code-block:: default
 
@@ -1138,14 +1108,14 @@ and happiness:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 240-244
+.. GENERATED FROM PYTHON SOURCE LINES 223-227
 
 It seems that the happiest countries are those
 having a high GDP per capita.
 However, unhappy countries do not have only low levels
 of GDP per capita. We have to search for other patterns.
 
-.. GENERATED FROM PYTHON SOURCE LINES 246-251
+.. GENERATED FROM PYTHON SOURCE LINES 229-234
 
 2. Joining life expectancy table
 ................................
@@ -1153,7 +1123,7 @@ of GDP per capita. We have to search for other patterns.
 Now let's include other information that may be relevant, such as in the
 life_exp table:
 
-.. GENERATED FROM PYTHON SOURCE LINES 251-263
+.. GENERATED FROM PYTHON SOURCE LINES 234-246
 
 .. code-block:: default
 
@@ -1230,11 +1200,11 @@ life_exp table:
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 264-265
+.. GENERATED FROM PYTHON SOURCE LINES 247-248
 
 Let's plot this relation:
 
-.. GENERATED FROM PYTHON SOURCE LINES 265-277
+.. GENERATED FROM PYTHON SOURCE LINES 248-260
 
 .. code-block:: default
 
@@ -1262,19 +1232,19 @@ Let's plot this relation:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 278-280
+.. GENERATED FROM PYTHON SOURCE LINES 261-263
 
 It seems the answer is yes!
 Countries with higher life expectancy are also happier.
 
-.. GENERATED FROM PYTHON SOURCE LINES 283-287
+.. GENERATED FROM PYTHON SOURCE LINES 266-270
 
 3. Joining legal rights strength table
 ......................................
 
 And the table with a measure of legal rights strength in the country:
 
-.. GENERATED FROM PYTHON SOURCE LINES 287-299
+.. GENERATED FROM PYTHON SOURCE LINES 270-282
 
 .. code-block:: default
 
@@ -1355,11 +1325,11 @@ And the table with a measure of legal rights strength in the country:
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 300-301
+.. GENERATED FROM PYTHON SOURCE LINES 283-284
 
 Let's take a look at their correspondance in a figure:
 
-.. GENERATED FROM PYTHON SOURCE LINES 301-313
+.. GENERATED FROM PYTHON SOURCE LINES 284-296
 
 .. code-block:: default
 
@@ -1387,17 +1357,17 @@ Let's take a look at their correspondance in a figure:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 314-316
+.. GENERATED FROM PYTHON SOURCE LINES 297-299
 
 From this plot, it is not clear that this measure of legal strength
 is linked to happiness.
 
-.. GENERATED FROM PYTHON SOURCE LINES 318-320
+.. GENERATED FROM PYTHON SOURCE LINES 301-303
 
 Great! Our joined table has become bigger and full of useful information.
 And now we are ready to apply a first machine learning model to it!
 
-.. GENERATED FROM PYTHON SOURCE LINES 322-327
+.. GENERATED FROM PYTHON SOURCE LINES 305-310
 
 Prediction model
 ----------------
@@ -1405,7 +1375,7 @@ Prediction model
 We now separate our covariates (X), from the target (or exogenous)
 variables: y
 
-.. GENERATED FROM PYTHON SOURCE LINES 327-330
+.. GENERATED FROM PYTHON SOURCE LINES 310-313
 
 .. code-block:: default
 
@@ -1419,11 +1389,11 @@ variables: y
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 331-332
+.. GENERATED FROM PYTHON SOURCE LINES 314-315
 
 Let us now define the model that will be used to predict the happiness score:
 
-.. GENERATED FROM PYTHON SOURCE LINES 332-342
+.. GENERATED FROM PYTHON SOURCE LINES 315-325
 
 .. code-block:: default
 
@@ -1444,14 +1414,14 @@ Let us now define the model that will be used to predict the happiness score:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 343-347
+.. GENERATED FROM PYTHON SOURCE LINES 326-330
 
 To evaluate our model, we will apply a `4-fold cross-validation`.
 We evaluate our model using the `R2` score.
 
 Let's finally assess the results of our models:
 
-.. GENERATED FROM PYTHON SOURCE LINES 347-355
+.. GENERATED FROM PYTHON SOURCE LINES 330-338
 
 .. code-block:: default
 
@@ -1476,7 +1446,7 @@ Let's finally assess the results of our models:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 356-367
+.. GENERATED FROM PYTHON SOURCE LINES 339-350
 
 We have a satisfying first result: an R2 of 0.66!
 
@@ -1490,7 +1460,7 @@ Data transformation is also often very costly in both time and ressources.
 Now up to you, try improving our model by adding information into it and
 beating our result!
 
-.. GENERATED FROM PYTHON SOURCE LINES 369-376
+.. GENERATED FROM PYTHON SOURCE LINES 352-359
 
 Using the |fa| to fuzzy join multiple tables
 --------------------------------------------
@@ -1500,14 +1470,14 @@ to `X` is to use the |fa|.
 The |fa| is a transformer that can easily chain joins of tables on
 a main table.
 
-.. GENERATED FROM PYTHON SOURCE LINES 378-382
+.. GENERATED FROM PYTHON SOURCE LINES 361-365
 
 .. _example_feature_augmenter:
 
 Instantiating the transformer
 .............................
 
-.. GENERATED FROM PYTHON SOURCE LINES 382-384
+.. GENERATED FROM PYTHON SOURCE LINES 365-367
 
 .. code-block:: default
 
@@ -1520,13 +1490,13 @@ Instantiating the transformer
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 385-388
+.. GENERATED FROM PYTHON SOURCE LINES 368-371
 
 We gather the auxilliary tables into a
 list of (tables, keys) for the `tables` parameter.
 An instance of the transformer with the necessary information is:
 
-.. GENERATED FROM PYTHON SOURCE LINES 388-399
+.. GENERATED FROM PYTHON SOURCE LINES 371-382
 
 .. code-block:: default
 
@@ -1548,14 +1518,14 @@ An instance of the transformer with the necessary information is:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 400-404
+.. GENERATED FROM PYTHON SOURCE LINES 383-387
 
 Fitting and transforming into the final table
 .............................................
 To get our final joined table we will fit and transform the main table (df)
 with our create instance of the |fa|:
 
-.. GENERATED FROM PYTHON SOURCE LINES 404-408
+.. GENERATED FROM PYTHON SOURCE LINES 387-391
 
 .. code-block:: default
 
@@ -1717,13 +1687,13 @@ with our create instance of the |fa|:
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 409-412
+.. GENERATED FROM PYTHON SOURCE LINES 392-395
 
 And that's it! As previously, we now have a big table
 ready for machine learning.
 Let's create our machine learning pipeline:
 
-.. GENERATED FROM PYTHON SOURCE LINES 412-430
+.. GENERATED FROM PYTHON SOURCE LINES 395-413
 
 .. code-block:: default
 
@@ -1752,13 +1722,13 @@ Let's create our machine learning pipeline:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 431-434
+.. GENERATED FROM PYTHON SOURCE LINES 414-417
 
-And the best part is that we are now able to evaluate the paramaters of the |fj|.
+And the best part is that we are now able to evaluate the parameters of the |fj|.
 For instance, the ``match_score`` was manually picked and can now be
 introduced into a grid search:
 
-.. GENERATED FROM PYTHON SOURCE LINES 434-444
+.. GENERATED FROM PYTHON SOURCE LINES 417-427
 
 .. code-block:: default
 
@@ -1785,13 +1755,13 @@ introduced into a grid search:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 445-448
+.. GENERATED FROM PYTHON SOURCE LINES 428-431
 
 The grid searching gave us the best value of 0.5 for the parameter
 ``match_score``. Let's use this value in our regression:
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 448-451
+.. GENERATED FROM PYTHON SOURCE LINES 431-434
 
 .. code-block:: default
 
@@ -1811,7 +1781,7 @@ The grid searching gave us the best value of 0.5 for the parameter
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 452-463
+.. GENERATED FROM PYTHON SOURCE LINES 435-446
 
 .. topic:: Note:
 
@@ -1828,7 +1798,7 @@ results significantly!
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  11.780 seconds)
+   **Total running time of the script:** ( 0 minutes  12.904 seconds)
 
 
 .. _sphx_glr_download_auto_examples_04_fuzzy_joining_and_FeatureAugmenter.py:
