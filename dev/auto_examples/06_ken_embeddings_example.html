@@ -141,7 +141,7 @@ sources may be the key to improving the analysis.</p>
 <p>Embeddings, or vectorial representations of entities, are a conveniant way to
 capture and summarize the information on an entity.
 Relational data embeddings capture all common entities from Wikipedia. <a class="footnote-reference brackets" href="#id2" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>
-These will be called <cite>KEN Embeddings</cite> in the following example.</p>
+These will be called <cite>KEN embeddings</cite> in the following example.</p>
 <p>We will see that these embeddings of common entities significantly
 improve our results.</p>
 <aside class="footnote brackets" id="id2" role="note">
@@ -150,8 +150,8 @@ improve our results.</p>
 </aside>
 <section id="the-data">
 <h2>The data<a class="headerlink" href="#the-data" title="Permalink to this heading">¶</a></h2>
-<p>We will take a look at the Video Game sales dataset.
-We first retrieve the dataset:</p>
+<p>We will take a look at the video game sales dataset.
+Let’s retrieve the dataset:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
 <a href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X</span></a> <span class="o">=</span> <a href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html#pandas.read_csv" title="pandas.read_csv" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-function"><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span></a><span class="p">(</span>
@@ -159,7 +159,7 @@ We first retrieve the dataset:</p>
     <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;;&quot;</span><span class="p">,</span>
     <span class="n">on_bad_lines</span><span class="o">=</span><span class="s2">&quot;skip&quot;</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="c1"># We shuffle the data</span>
+<span class="c1"># Shuffle the data</span>
 <a href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X</span></a> <span class="o">=</span> <a href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.sample.html#pandas.DataFrame.sample" title="pandas.DataFrame.sample" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-method"><span class="n">X</span><span class="o">.</span><span class="n">sample</span></a><span class="p">(</span><span class="n">frac</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <a href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.head.html#pandas.DataFrame.head" title="pandas.DataFrame.head" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-method"><span class="n">X</span><span class="o">.</span><span class="n">head</span></a><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 </pre></div>
@@ -244,7 +244,7 @@ We first retrieve the dataset:</p>
 </div>
 </div>
 <br />
-<br /><p>Our goal will be to predict y, our target column (the sales amount):</p>
+<br /><p>Our goal will be to predict the sales amount (y, our target column):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a> <span class="o">=</span> <a href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X</span></a><span class="p">[</span><span class="s2">&quot;Global_Sales&quot;</span><span class="p">]</span>
 <a href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a>
 </pre></div>
@@ -273,7 +273,7 @@ Name: Global_Sales, Length: 16572, dtype: float64
 <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.show.html#matplotlib.pyplot.show" title="matplotlib.pyplot.show" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../_images/sphx_glr_06_ken_embeddings_example_001.png" srcset="../_images/sphx_glr_06_ken_embeddings_example_001.png" alt="06 ken embeddings example" class = "sphx-glr-single-img"/><p>It seems better to take the log of sales rather than the sales amount itself:</p>
+<img src="../_images/sphx_glr_06_ken_embeddings_example_001.png" srcset="../_images/sphx_glr_06_ken_embeddings_example_001.png" alt="06 ken embeddings example" class = "sphx-glr-single-img"/><p>It seems better to take the log of sales rather than the absolute values:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <a href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ufunc.html#numpy.ufunc" title="numpy.ufunc" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">np</span><span class="o">.</span><span class="n">log</span></a><span class="p">(</span><a href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a><span class="p">)</span>
@@ -281,25 +281,117 @@ Name: Global_Sales, Length: 16572, dtype: float64
 <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.show.html#matplotlib.pyplot.show" title="matplotlib.pyplot.show" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../_images/sphx_glr_06_ken_embeddings_example_002.png" srcset="../_images/sphx_glr_06_ken_embeddings_example_002.png" alt="06 ken embeddings example" class = "sphx-glr-single-img"/><p>Now, let’s carry out some basic preprocessing:</p>
+<img src="../_images/sphx_glr_06_ken_embeddings_example_002.png" srcset="../_images/sphx_glr_06_ken_embeddings_example_002.png" alt="06 ken embeddings example" class = "sphx-glr-single-img"/><p>Before moving further, let’s carry out some basic preprocessing:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get a mask of the rows with missing values in &quot;Publisher&quot; and &quot;Global_Sales&quot;</span>
-<a href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">mask1</span></a> <span class="o">=</span> <a href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.isna.html#pandas.DataFrame.isna" title="pandas.DataFrame.isna" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-method"><span class="n">X</span><span class="o">.</span><span class="n">isna</span></a><span class="p">()[</span><span class="s2">&quot;Publisher&quot;</span><span class="p">]</span>
-<a href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">mask2</span></a> <span class="o">=</span> <a href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.isna.html#pandas.DataFrame.isna" title="pandas.DataFrame.isna" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-method"><span class="n">X</span><span class="o">.</span><span class="n">isna</span></a><span class="p">()[</span><span class="s2">&quot;Global_Sales&quot;</span><span class="p">]</span>
+<a href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">mask</span></a> <span class="o">=</span> <a href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.isna.html#pandas.DataFrame.isna" title="pandas.DataFrame.isna" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-method"><span class="n">X</span><span class="o">.</span><span class="n">isna</span></a><span class="p">()[</span><span class="s2">&quot;Publisher&quot;</span><span class="p">]</span> <span class="o">|</span> <a href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.isna.html#pandas.DataFrame.isna" title="pandas.DataFrame.isna" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-method"><span class="n">X</span><span class="o">.</span><span class="n">isna</span></a><span class="p">()[</span><span class="s2">&quot;Global_Sales&quot;</span><span class="p">]</span>
 <span class="c1"># And remove them</span>
 <a href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.dropna.html#pandas.DataFrame.dropna" title="pandas.DataFrame.dropna" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-method"><span class="n">X</span><span class="o">.</span><span class="n">dropna</span></a><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Publisher&quot;</span><span class="p">,</span> <span class="s2">&quot;Global_Sales&quot;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<a href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a> <span class="o">=</span> <a href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a><span class="p">[</span><span class="o">~</span><a href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">mask1</span></a><span class="p">]</span>
-<a href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a> <span class="o">=</span> <a href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a><span class="p">[</span><span class="o">~</span><a href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">mask2</span></a><span class="p">]</span>
+<a href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a> <span class="o">=</span> <a href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a><span class="p">[</span><span class="o">~</span><a href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">mask</span></a><span class="p">]</span>
 </pre></div>
 </div>
 </section>
 <section id="extracting-entity-embeddings">
 <h2>Extracting entity embeddings<a class="headerlink" href="#extracting-entity-embeddings" title="Permalink to this heading">¶</a></h2>
-<p>We will use the <a class="reference internal" href="../generated/dirty_cat.datasets.get_ken_embeddings.html#dirty_cat.datasets.get_ken_embeddings" title="dirty_cat.datasets.get_ken_embeddings"><code class="xref py py-class docutils literal notranslate"><span class="pre">get_ken_embeddings</span></code></a> function to extract the embeddings
-of entities we need:</p>
+<p>We will use KEN embeddings to enrich our data.</p>
+<p>We will start by checking out the available tables with
+<code class="xref py py-class docutils literal notranslate"><span class="pre">get_ken_table_aliases</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dirty_cat.datasets</span> <span class="kn">import</span> <span class="n">get_ken_table_aliases</span>
+
+<span class="n">get_ken_table_aliases</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>{&#39;companies&#39;, &#39;movies&#39;, &#39;schools&#39;, &#39;games&#39;, &#39;albums&#39;, &#39;all_entities&#39;}
+</pre></div>
+</div>
+<p>The <em>games</em> table is the most relevant to our case.
+Let’s see what kind of types we can find in it with the function
+<code class="xref py py-class docutils literal notranslate"><span class="pre">get_ken_types</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dirty_cat.datasets</span> <span class="kn">import</span> <span class="n">get_ken_types</span>
+
+<span class="n">get_ken_types</span><span class="p">(</span><span class="n">embedding_table_id</span><span class="o">=</span><span class="s2">&quot;games&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="output_subarea output_html rendered_html output_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>&lt;wikicat_1994_video_games&gt;</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>&lt;wikicat_irem_games&gt;</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>&lt;wikicat_ea_guingamp_players&gt;</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>&lt;wikicat_video_game_companies_of_the_united_ki...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>&lt;wikicat_asian_games_medalists_in_swimming&gt;</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>636</th>
+      <td>&lt;wikicat_college_football_games&gt;</td>
+    </tr>
+    <tr>
+      <th>637</th>
+      <td>&lt;wikicat_sonic_team_games&gt;</td>
+    </tr>
+    <tr>
+      <th>638</th>
+      <td>&lt;wikicat_space_opera_video_games&gt;</td>
+    </tr>
+    <tr>
+      <th>639</th>
+      <td>&lt;wikicat_boxers_at_the_2002_asian_games&gt;</td>
+    </tr>
+    <tr>
+      <th>640</th>
+      <td>&lt;wikicat_motorcycle_video_games&gt;</td>
+    </tr>
+  </tbody>
+</table>
+<p>641 rows × 1 columns</p>
+</div>
+</div>
+<br />
+<br /><p>Interesting, we have a broad range of topics!</p>
+<p>Next, we’ll use <a class="reference internal" href="../generated/dirty_cat.datasets.get_ken_embeddings.html#dirty_cat.datasets.get_ken_embeddings" title="dirty_cat.datasets.get_ken_embeddings"><code class="xref py py-class docutils literal notranslate"><span class="pre">get_ken_embeddings</span></code></a>
+to extract the embeddings of entities we need:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dirty_cat.datasets</span> <span class="kn">import</span> <a href="../generated/dirty_cat.datasets.get_ken_embeddings.html#dirty_cat.datasets.get_ken_embeddings" title="dirty_cat.datasets.get_ken_embeddings" class="sphx-glr-backref-module-dirty_cat-datasets sphx-glr-backref-type-py-function"><span class="n">get_ken_embeddings</span></a>
 </pre></div>
 </div>
-<p>KEN Embeddings are classified by types. The <a class="reference internal" href="../generated/dirty_cat.datasets.get_ken_embeddings.html#dirty_cat.datasets.get_ken_embeddings" title="dirty_cat.datasets.get_ken_embeddings"><code class="xref py py-class docutils literal notranslate"><span class="pre">get_ken_embeddings</span></code></a> function
+<p>KEN Embeddings are classified by types.
+The <a class="reference internal" href="../generated/dirty_cat.datasets.get_ken_embeddings.html#dirty_cat.datasets.get_ken_embeddings" title="dirty_cat.datasets.get_ken_embeddings"><code class="xref py py-class docutils literal notranslate"><span class="pre">get_ken_embeddings</span></code></a> function
 allows us to specify the types to be included and/or excluded
 so as not to load all Wikipedia entity embeddings in a table.</p>
 <p>In a first table, we include all embeddings with the type name “game”
@@ -502,7 +594,7 @@ explanatory variables.</p>
 additional background information on the game and the publisher of the
 game that would otherwise be missed.</p>
 <p>It helped significantly improve the prediction score.</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 11 minutes  13.028 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 10 minutes  42.059 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-06-ken-embeddings-example-py">
 <div class="binder-badge docutils container">
 <a class="reference external image-reference" href="https://mybinder.org/v2/gh/dirty-cat/dirty-cat/main?urlpath=lab/tree/notebooks/auto_examples/06_ken_embeddings_example.ipynb"><img alt="Launch binder" src="../_images/binder_badge_logo.svg" width="150px" /></a>
