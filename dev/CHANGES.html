@@ -9,10 +9,10 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://dirty-cat.github.io/stable/CHANGES.html" />
 <meta property="og:site_name" content="dirty_cat" />
-<meta property="og:description" content="Major changes: GapEncoder.transform() will not continue fitting of the instance anymore. It makes functions that depend on it ( get_feature_names_out(), score(), etc.) deterministic once fitted.#54..." />
+<meta property="og:description" content="Major changes: fuzzy_join() and FeatureAugmenter can now join on numerical columns based on the euclidean distance.#530 by Jovan Stojanovic, fuzzy_join() and FeatureAugmenter can perform many-to-ma..." />
 <meta property="og:image" content="https://dirty-cat.github.io/stable/_static/dirty_cat.svg" />
 <meta property="og:image:alt" content="dirty_cat" />
-<meta name="description" content="Major changes: GapEncoder.transform() will not continue fitting of the instance anymore. It makes functions that depend on it ( get_feature_names_out(), score(), etc.) deterministic once fitted.#54..." />
+<meta name="description" content="Major changes: fuzzy_join() and FeatureAugmenter can now join on numerical columns based on the euclidean distance.#530 by Jovan Stojanovic, fuzzy_join() and FeatureAugmenter can perform many-to-ma..." />
 
     <title>Release 0.4.1 &#8212; dirty_cat</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
@@ -164,6 +164,10 @@
 <section id="major-changes">
 <h2>Major changes<a class="headerlink" href="#major-changes" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
+<li><p><a class="reference internal" href="generated/dirty_cat.fuzzy_join.html#dirty_cat.fuzzy_join" title="dirty_cat.fuzzy_join"><code class="xref py py-func docutils literal notranslate"><span class="pre">fuzzy_join()</span></code></a> and <a class="reference internal" href="generated/dirty_cat.FeatureAugmenter.html#dirty_cat.FeatureAugmenter" title="dirty_cat.FeatureAugmenter"><code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureAugmenter</span></code></a> can now join on numerical columns based on the euclidean distance.
+<a class="reference external" href="https://github.com/dirty-cat/dirty_cat/pull/530">#530</a> by <a class="reference external" href="https://github.com/jovan-stojanovic">Jovan Stojanovic</a></p></li>
+<li><p><a class="reference internal" href="generated/dirty_cat.fuzzy_join.html#dirty_cat.fuzzy_join" title="dirty_cat.fuzzy_join"><code class="xref py py-func docutils literal notranslate"><span class="pre">fuzzy_join()</span></code></a> and <a class="reference internal" href="generated/dirty_cat.FeatureAugmenter.html#dirty_cat.FeatureAugmenter" title="dirty_cat.FeatureAugmenter"><code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureAugmenter</span></code></a> can perform many-to-many joins on lists of numerical or string key columns.
+<a class="reference external" href="https://github.com/dirty-cat/dirty_cat/pull/530">#530</a> by <a class="reference external" href="https://github.com/jovan-stojanovic">Jovan Stojanovic</a></p></li>
 <li><p><a class="reference internal" href="generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder.transform" title="dirty_cat.GapEncoder.transform"><code class="xref py py-func docutils literal notranslate"><span class="pre">GapEncoder.transform()</span></code></a> will not continue fitting of the instance anymore.
 It makes functions that depend on it (<a class="reference internal" href="generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder.get_feature_names_out" title="dirty_cat.GapEncoder.get_feature_names_out"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_feature_names_out()</span></code></a>,
 <a class="reference internal" href="generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder.score" title="dirty_cat.GapEncoder.score"><code class="xref py py-func docutils literal notranslate"><span class="pre">score()</span></code></a>, etc.) deterministic once fitted.

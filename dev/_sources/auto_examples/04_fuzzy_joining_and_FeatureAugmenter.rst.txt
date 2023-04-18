@@ -679,7 +679,7 @@ To join them with dirty_cat, we only need to do the following:
           <td>4339.0</td>
           <td>Madagascar</td>
           <td>500.511032</td>
-          <td>0.710141</td>
+          <td>0.779244</td>
         </tr>
         <tr>
           <th>128</th>
@@ -687,7 +687,7 @@ To join them with dirty_cat, we only need to do the following:
           <td>4288.0</td>
           <td>Egypt, Arab Rep.</td>
           <td>3698.834981</td>
-          <td>0.510738</td>
+          <td>0.627379</td>
         </tr>
         <tr>
           <th>129</th>
@@ -695,7 +695,7 @@ To join them with dirty_cat, we only need to do the following:
           <td>4251.0</td>
           <td>Chad</td>
           <td>685.690284</td>
-          <td>0.552203</td>
+          <td>0.658960</td>
         </tr>
         <tr>
           <th>130</th>
@@ -711,7 +711,7 @@ To join them with dirty_cat, we only need to do the following:
           <td>4197.0</td>
           <td>Yemen, Rep.</td>
           <td>701.714878</td>
-          <td>0.510213</td>
+          <td>0.626980</td>
         </tr>
         <tr>
           <th>132</th>
@@ -719,7 +719,7 @@ To join them with dirty_cat, we only need to do the following:
           <td>4153.0</td>
           <td>Mauritania</td>
           <td>2166.046799</td>
-          <td>0.732338</td>
+          <td>0.796150</td>
         </tr>
         <tr>
           <th>133</th>
@@ -783,7 +783,7 @@ To join them with dirty_cat, we only need to do the following:
           <td>3512.0</td>
           <td>Lesotho</td>
           <td>1094.098185</td>
-          <td>0.653840</td>
+          <td>0.736366</td>
         </tr>
         <tr>
           <th>141</th>
@@ -791,7 +791,7 @@ To join them with dirty_cat, we only need to do the following:
           <td>3471.0</td>
           <td>Botswana</td>
           <td>6805.221274</td>
-          <td>0.711254</td>
+          <td>0.780092</td>
         </tr>
         <tr>
           <th>142</th>
@@ -799,7 +799,7 @@ To join them with dirty_cat, we only need to do the following:
           <td>3268.0</td>
           <td>Rwanda</td>
           <td>822.347989</td>
-          <td>0.652952</td>
+          <td>0.735689</td>
         </tr>
         <tr>
           <th>143</th>
@@ -910,7 +910,7 @@ us an overview of the situation:
           <td>5235.0</td>
           <td>East Asia &amp; Pacific</td>
           <td>13041.781186</td>
-          <td>0.343485</td>
+          <td>0.500000</td>
         </tr>
         <tr>
           <th>121</th>
@@ -918,7 +918,7 @@ us an overview of the situation:
           <td>4483.0</td>
           <td>Palau</td>
           <td>12083.888149</td>
-          <td>0.344937</td>
+          <td>0.501106</td>
         </tr>
         <tr>
           <th>94</th>
@@ -926,7 +926,7 @@ us an overview of the situation:
           <td>5140.0</td>
           <td>Lao PDR</td>
           <td>2535.623432</td>
-          <td>0.425257</td>
+          <td>0.562278</td>
         </tr>
         <tr>
           <th>111</th>
@@ -934,7 +934,7 @@ us an overview of the situation:
           <td>4744.0</td>
           <td>Turkiye</td>
           <td>9661.235975</td>
-          <td>0.431527</td>
+          <td>0.567053</td>
         </tr>
       </tbody>
     </table>
@@ -1007,17 +1007,17 @@ so as to include only precise-enough matches:
           <th>87</th>
           <td>Ivory Coast</td>
           <td>5235.0</td>
-          <td>NaN</td>
-          <td>NaN</td>
-          <td>0.343485</td>
+          <td>East Asia &amp; Pacific</td>
+          <td>13041.781186</td>
+          <td>0.500000</td>
         </tr>
         <tr>
           <th>121</th>
           <td>Palestinian Territories*</td>
           <td>4483.0</td>
-          <td>NaN</td>
-          <td>NaN</td>
-          <td>0.344937</td>
+          <td>Palau</td>
+          <td>12083.888149</td>
+          <td>0.501106</td>
         </tr>
         <tr>
           <th>94</th>
@@ -1025,7 +1025,7 @@ so as to include only precise-enough matches:
           <td>5140.0</td>
           <td>Lao PDR</td>
           <td>2535.623432</td>
-          <td>0.425257</td>
+          <td>0.562278</td>
         </tr>
         <tr>
           <th>111</th>
@@ -1033,7 +1033,7 @@ so as to include only precise-enough matches:
           <td>4744.0</td>
           <td>Turkiye</td>
           <td>9661.235975</td>
-          <td>0.431527</td>
+          <td>0.567053</td>
         </tr>
       </tbody>
     </table>
@@ -1441,7 +1441,7 @@ Let's finally assess the results of our models:
 
  .. code-block:: none
 
-    Mean R2 score is 0.60 +- 0.03
+    Mean R2 score is 0.63 +- 0.03
 
 
 
@@ -1750,7 +1750,7 @@ introduced into a grid search:
 
  .. code-block:: none
 
-    {'featureaugmenter__match_score': 0.5}
+    {'featureaugmenter__match_score': 0.2}
 
 
 
@@ -1776,7 +1776,7 @@ The grid searching gave us the best value of 0.5 for the parameter
 
  .. code-block:: none
 
-    Mean R2 score with pipeline is 0.84
+    Mean R2 score with pipeline is 0.83
 
 
 
@@ -1798,7 +1798,7 @@ results significantly!
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  11.870 seconds)
+   **Total running time of the script:** ( 0 minutes  12.913 seconds)
 
 
 .. _sphx_glr_download_auto_examples_04_fuzzy_joining_and_FeatureAugmenter.py:
