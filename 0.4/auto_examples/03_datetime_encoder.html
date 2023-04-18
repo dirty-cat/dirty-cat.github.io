@@ -27,9 +27,10 @@
     <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/scrolltoc.js"></script>
+    <script src="../_static/stable_doc_redirect.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Scalability considerations for similarity encoding" href="04_dimension_reduction_and_performance.html" />
+    <link rel="next" title="Fuzzy joining dirty tables and the FeatureAugmenter" href="04_fuzzy_joining_and_FeatureAugmenter.html" />
     <link rel="prev" title="Investigating and interpreting dirty categories" href="02_investigating_dirty_categories.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
@@ -56,7 +57,7 @@
     
   </a>
   <div class="version-switcher">
-    <h4>Version 0.4.0</h4>
+    <h4>Version 0.4.1</h4>
     <details>
 	<summary>Other versions</summary>
 	<ul>
@@ -110,7 +111,7 @@
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
       <li>Previous: <a href="02_investigating_dirty_categories.html" title="previous chapter">Investigating and interpreting dirty categories</a></li>
-      <li>Next: <a href="04_dimension_reduction_and_performance.html" title="next chapter">Scalability considerations for similarity encoding</a></li>
+      <li>Next: <a href="04_fuzzy_joining_and_FeatureAugmenter.html" title="next chapter">Fuzzy joining dirty tables and the FeatureAugmenter</a></li>
   </ul></li>
 </ul>
 </div>
@@ -124,7 +125,7 @@
             
   <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-03-datetime-encoder-py"><span class="std std-ref">here</span></a>
+<p><a class="reference internal" href="#sphx-glr-download-auto-examples-03-datetime-encoder-py"><span class="std std-ref">Go to the end</span></a>
 to download the full example code or to run this example in your browser via Binder</p>
 </div>
 <section class="sphx-glr-example-title" id="handling-datetime-features-with-the-datetimeencoder">
@@ -496,10 +497,10 @@ basically shuffles a feature and sees how the model changes its prediction.</p>
 </div>
 <img src="../_images/sphx_glr_03_datetime_encoder_003.png" srcset="../_images/sphx_glr_03_datetime_encoder_003.png" alt="Feature importances" class = "sphx-glr-single-img"/><p>We can see that the hour of the day is the most important feature,
 which seems reasonable.</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  3.781 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  4.132 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-03-datetime-encoder-py">
 <div class="binder-badge docutils container">
-<a class="reference external image-reference" href="https://mybinder.org/v2/gh/dirty-cat/dirty-cat.github.io/main?filepath=dev/auto_examples/03_datetime_encoder.ipynb"><img alt="Launch binder" src="../_images/binder_badge_logo.svg" width="150px" /></a>
+<a class="reference external image-reference" href="https://mybinder.org/v2/gh/dirty-cat/dirty-cat/0.4.1?urlpath=lab/tree/notebooks/auto_examples/03_datetime_encoder.ipynb"><img alt="Launch binder" src="../_images/binder_badge_logo.svg" width="150px" /></a>
 </div>
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/7de14b88e615096d17e357b51a473449/03_datetime_encoder.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">03_datetime_encoder.py</span></code></a></p>

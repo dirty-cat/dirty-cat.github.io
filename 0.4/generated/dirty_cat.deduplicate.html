@@ -9,10 +9,10 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://dirty-cat.github.io/stable/generated/dirty_cat.deduplicate.html" />
 <meta property="og:site_name" content="dirty_cat" />
-<meta property="og:description" content="Examples using dirty_cat.deduplicate: Deduplicating misspelled categories with deduplicate Deduplicating misspelled categories with deduplicate" />
-<meta property="og:image" content="https://dirty-cat.github.io/stable/_images/sphx_glr_06_deduplication_thumb.png" />
-<meta property="og:image:alt" content="Deduplicating misspelled categories with deduplicate" />
-<meta name="description" content="Examples using dirty_cat.deduplicate: Deduplicating misspelled categories with deduplicate Deduplicating misspelled categories with deduplicate" />
+<meta property="og:description" content="Examples using dirty_cat.deduplicate: Deduplicating misspelled categories with deduplicate" />
+<meta property="og:image" content="https://dirty-cat.github.io/stable/_images/sphx_glr_05_deduplication_thumb.png" />
+<meta property="og:image:alt" content="" />
+<meta name="description" content="Examples using dirty_cat.deduplicate: Deduplicating misspelled categories with deduplicate" />
 
     <title>dirty_cat.deduplicate &#8212; dirty_cat</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
@@ -27,6 +27,7 @@
     <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/scrolltoc.js"></script>
+    <script src="../_static/stable_doc_redirect.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="dirty_cat.datasets.fetch_employee_salaries" href="dirty_cat.datasets.fetch_employee_salaries.html" />
@@ -56,7 +57,7 @@
     
   </a>
   <div class="version-switcher">
-    <h4>Version 0.4.0</h4>
+    <h4>Version 0.4.1</h4>
     <details>
 	<summary>Other versions</summary>
 	<ul>
@@ -114,7 +115,7 @@
 <h1><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat</span></code>.deduplicate<a class="headerlink" href="#dirty-cat-deduplicate" title="Permalink to this heading">¶</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="dirty_cat.deduplicate">
-<span class="sig-prename descclassname"><span class="pre">dirty_cat.</span></span><span class="sig-name descname"><span class="pre">deduplicate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_clusters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ngram_range</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(2,</span> <span class="pre">4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">analyzer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'char_wb'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'average'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/ea009b9/dirty_cat/_deduplicate.py#L122"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.deduplicate" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">dirty_cat.</span></span><span class="sig-name descname"><span class="pre">deduplicate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_clusters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ngram_range</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(2,</span> <span class="pre">4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">analyzer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'char_wb'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'average'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/e81edec/dirty_cat/_deduplicate.py#L122"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.deduplicate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Deduplicate data by hierarchically clustering similar strings.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -209,8 +210,8 @@ A deduplicated version of the initial list can easily be created:</p>
 
 <section id="examples-using-dirty-cat-deduplicate">
 <h2>Examples using <code class="docutils literal notranslate"><span class="pre">dirty_cat.deduplicate</span></code><a class="headerlink" href="#examples-using-dirty-cat-deduplicate" title="Permalink to this heading">¶</a></h2>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="Real world datasets often come with slight misspellings in the category names, for instance if ..."><img alt="Deduplicating misspelled categories with deduplicate" src="../_images/sphx_glr_06_deduplication_thumb.png" />
-<p><a class="reference internal" href="../auto_examples/06_deduplication.html#sphx-glr-auto-examples-06-deduplication-py"><span class="std std-ref">Deduplicating misspelled categories with deduplicate</span></a></p>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="Real world datasets often come with slight misspellings in the category names, for instance if ..."><img alt="" src="../_images/sphx_glr_05_deduplication_thumb.png" />
+<p><a class="reference internal" href="../auto_examples/05_deduplication.html#sphx-glr-auto-examples-05-deduplication-py"><span class="std std-ref">Deduplicating misspelled categories with deduplicate</span></a></p>
   <div class="sphx-glr-thumbnail-title">Deduplicating misspelled categories with deduplicate</div>
 </div></div><div class="clearer"></div></section>
 </section>
