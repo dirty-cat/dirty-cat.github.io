@@ -301,7 +301,7 @@ We will start by checking out the available tables with
  .. code-block:: none
 
 
-    {'companies', 'games', 'movies', 'albums', 'schools', 'all_entities'}
+    {'schools', 'albums', 'all_entities', 'companies', 'games', 'movies'}
 
 
 
@@ -832,7 +832,7 @@ It helped significantly improve the prediction score.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 10 minutes  51.612 seconds)
+   **Total running time of the script:** ( 12 minutes  38.913 seconds)
 
 
 .. _sphx_glr_download_auto_examples_06_ken_embeddings_example.py:
@@ -845,7 +845,7 @@ It helped significantly improve the prediction score.
     .. container:: binder-badge
 
       .. image:: images/binder_badge_logo.svg
-        :target: https://mybinder.org/v2/gh/dirty-cat/dirty-cat/0.4.1?urlpath=lab/tree/notebooks/auto_examples/06_ken_embeddings_example.ipynb
+        :target: https://mybinder.org/v2/gh/dirty-cat/dirty-cat/main?urlpath=lab/tree/notebooks/auto_examples/06_ken_embeddings_example.ipynb
         :alt: Launch binder
         :width: 150 px
 
