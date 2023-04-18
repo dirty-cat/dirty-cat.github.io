@@ -46,13 +46,6 @@
     Only the "Version" number is added.
 -->
 
-<div class="warn-banner">
-    <p>
-        This is the documentation for the unstable development version.<br />
-        <a id="stable_page_link" href="https://dirty-cat.github.io/stable/">Click here to go to the stable version documentation</a>.
-    </p>
-</div>
-
 
 <p class="logo">
   <a href="index.html">
@@ -62,7 +55,7 @@
     
   </a>
   <div class="version-switcher">
-    <h4>Version 0.4.1.dev0</h4>
+    <h4>Version 0.4.1</h4>
     <details>
 	<summary>Other versions</summary>
 	<ul>
@@ -140,7 +133,7 @@ but double-checking before the release is good practice.</p></li>
 (e.g. <code class="docutils literal notranslate"><span class="pre">0.2.X</span></code>).</p></li>
 <li><p>Update <code class="docutils literal notranslate"><span class="pre">dirty_cat/dirty_cat/VERSION.txt</span></code> with the new version
 number (e.g. <code class="docutils literal notranslate"><span class="pre">0.2.0</span></code>).</p></li>
-<li><p>Update <code class="docutils literal notranslate"><span class="pre">dirty_cat/setup.py</span></code> (e.g. Python version supported and dependencies).</p></li>
+<li><p>Update <code class="docutils literal notranslate"><span class="pre">dirty_cat/setup.cfg</span></code> (e.g. Python version supported and dependencies).</p></li>
 <li><p>Commit the changes with a new tag: the version you’re going to push,
 with the commands <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">commit</span> <span class="pre">-m</span> <span class="pre">&quot;Bump</span> <span class="pre">to</span> <span class="pre">version</span> <span class="pre">0.2.0&quot;</span></code>.
 Push the branch to the <code class="docutils literal notranslate"><span class="pre">dirty_cat</span></code> repository.
@@ -178,7 +171,7 @@ such as conda might use a cached version.</p></li>
 </ol>
 <p>For the bug fix release (e.g. 0.2.0 -&gt; 0.2.1), the process is similar. You don’t need
 to create the branch <code class="docutils literal notranslate"><span class="pre">0.2.X</span></code> because it exists already. You need to cherry-pick the
-commits from <code class="docutils literal notranslate"><span class="pre">master</span></code> into this branch and then follow the same steps as above:
+commits from <code class="docutils literal notranslate"><span class="pre">main</span></code> into this branch and then follow the same steps as above:
 bumping the version, update the setup, commit and push the changes and finally create
 and update the wheel.</p>
 </section>

@@ -46,13 +46,6 @@
     Only the "Version" number is added.
 -->
 
-<div class="warn-banner">
-    <p>
-        This is the documentation for the unstable development version.<br />
-        <a id="stable_page_link" href="https://dirty-cat.github.io/stable/">Click here to go to the stable version documentation</a>.
-    </p>
-</div>
-
 
 <p class="logo">
   <a href="index.html">
@@ -62,7 +55,7 @@
     
   </a>
   <div class="version-switcher">
-    <h4>Version 0.4.1.dev0</h4>
+    <h4>Version 0.4.1</h4>
     <details>
 	<summary>Other versions</summary>
 	<ul>
@@ -181,11 +174,11 @@ KEN embeddings. <a class="reference external" href="https://github.com/dirty-cat
 <section id="minor-changes">
 <h2>Minor changes<a class="headerlink" href="#minor-changes" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
-<li><p>Improvement of date column detection and date format inference in <a class="reference internal" href="generated/dirty_cat.TableVectorizer.html#dirty_cat.TableVectorizer" title="dirty_cat.TableVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">TableVectorizer</span></code></a>. The</p></li>
-</ul>
-<p>format inference now finds a format which works for all non-missing values of the column, instead
+<li><p>Improvement of date column detection and date format inference in <a class="reference internal" href="generated/dirty_cat.TableVectorizer.html#dirty_cat.TableVectorizer" title="dirty_cat.TableVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">TableVectorizer</span></code></a>. The
+format inference now finds a format which works for all non-missing values of the column, instead
 of relying on pandas behavior. If no such format exists, the column is not casted to a date column.
-<a class="reference external" href="https://github.com/dirty-cat/dirty_cat/pull/543">#543</a> by <a class="reference external" href="https://github.com/LeoGrin">Leo Grinsztajn</a></p>
+<a class="reference external" href="https://github.com/dirty-cat/dirty_cat/pull/543">#543</a> by <a class="reference external" href="https://github.com/LeoGrin">Leo Grinsztajn</a></p></li>
+</ul>
 </section>
 </section>
 <section id="release-0-4-0">
@@ -193,10 +186,8 @@ of relying on pandas behavior. If no such format exists, the column is not caste
 <section id="id1">
 <h2>Major changes<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><cite>SuperVectorizer</cite> is renamed as <a class="reference internal" href="generated/dirty_cat.TableVectorizer.html#dirty_cat.TableVectorizer" title="dirty_cat.TableVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">TableVectorizer</span></code></a>, a warning is raised when using the old name.</p></li>
-</ul>
-<p><a class="reference external" href="https://github.com/dirty-cat/dirty_cat/pull/484">#484</a> by <a class="reference external" href="https://github.com/jovan-stojanovic">Jovan Stojanovic</a></p>
-<ul class="simple">
+<li><p><cite>SuperVectorizer</cite> is renamed as <a class="reference internal" href="generated/dirty_cat.TableVectorizer.html#dirty_cat.TableVectorizer" title="dirty_cat.TableVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">TableVectorizer</span></code></a>, a warning is raised when using the old name.
+<a class="reference external" href="https://github.com/dirty-cat/dirty_cat/pull/484">#484</a> by <a class="reference external" href="https://github.com/jovan-stojanovic">Jovan Stojanovic</a></p></li>
 <li><p>New experimental feature: joining tables using <a class="reference internal" href="generated/dirty_cat.fuzzy_join.html#dirty_cat.fuzzy_join" title="dirty_cat.fuzzy_join"><code class="xref py py-func docutils literal notranslate"><span class="pre">fuzzy_join()</span></code></a> by approximate key matching. Matches are based
 on string similarities and the nearest neighbors matches are found for each category.
 <a class="reference external" href="https://github.com/dirty-cat/dirty_cat/pull/291">#291</a> by <a class="reference external" href="https://github.com/jovan-stojanovic">Jovan Stojanovic</a> and <a class="reference external" href="https://github.com/LeoGrin">Leo Grinsztajn</a></p></li>
