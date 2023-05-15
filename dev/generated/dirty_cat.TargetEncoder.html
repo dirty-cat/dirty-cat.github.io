@@ -123,40 +123,41 @@
 <p class="side-comment">Usage examples at the bottom of this page.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="dirty_cat.TargetEncoder">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">dirty_cat.</span></span><span class="sig-name descname"><span class="pre">TargetEncoder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">categories='auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clf_type='binary-clf'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype=&lt;class</span> <span class="pre">'numpy.float64'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">handle_unknown='error'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">handle_missing=''</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/61e1fb5/dirty_cat/_target_encoder.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.TargetEncoder" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">dirty_cat.</span></span><span class="sig-name descname"><span class="pre">TargetEncoder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">categories='auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clf_type='binary-clf'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype=&lt;class</span> <span class="pre">'numpy.float64'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">handle_unknown='error'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">handle_missing=''</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/152bc75/dirty_cat/_target_encoder.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.TargetEncoder" title="Permalink to this definition">¶</a></dt>
 <dd><p>Encode categorical features as a numeric array given a target vector.</p>
 <p>Each category is encoded given the effect that it has in the
-target variable y. The method considers that categorical
+target variable <a class="reference external" href="https://scikit-learn.org/stable/glossary.html#term-y" title="(in scikit-learn v1.2)"><span class="xref std std-term">y</span></a>. The method considers that categorical
 variables can present rare categories. It represents each category by the
-probability of y conditional on this category.
+probability of <a class="reference external" href="https://scikit-learn.org/stable/glossary.html#term-y" title="(in scikit-learn v1.2)"><span class="xref std std-term">y</span></a> conditional on this category.
 In addition, it takes an empirical Bayes approach to shrink the estimate.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl>
-<dt><strong>categories</strong><span class="classifier">typing.Union[typing.Literal[“auto”], typing.List[typing.List[typing.Union[str, int]]]  # noqa</span></dt><dd><p>Categories (unique values) per feature:</p>
+<dt><strong>categories</strong><span class="classifier">‘auto’ or list of list of int or str</span></dt><dd><p>Categories (unique values) per feature:</p>
 <ul class="simple">
 <li><p>‘auto’ : Determine categories automatically from the training data.</p></li>
-<li><p>list : <code class="docutils literal notranslate"><span class="pre">categories[i]</span></code> holds the categories expected in the i-th
+<li><p>list : <cite>categories[i]</cite> holds the categories expected in the <cite>i</cite>-th
 column. The passed categories must be sorted and should not mix
 strings and numeric values.</p></li>
 </ul>
 <p>The categories used can be found in the <code class="docutils literal notranslate"><span class="pre">categories_</span></code> attribute.</p>
 </dd>
-<dt><strong>clf_type</strong><span class="classifier">typing.Literal[“regression”, “binary-clf”, “multiclass-clf”]</span></dt><dd><p>The type of classification/regression problem.</p>
+<dt><strong>clf_type</strong><span class="classifier">{‘regression’, ‘binary-clf’, ‘multiclass-clf’}, default=’binary-clf’</span></dt><dd><p>The type of classification/regression problem.</p>
 </dd>
-<dt><strong>dtype</strong><span class="classifier">type, default=np.float64</span></dt><dd><p>Desired dtype of output.</p>
+<dt><strong>dtype</strong><span class="classifier">number type, default=np.float64</span></dt><dd><p>Desired dtype of output.</p>
 </dd>
-<dt><strong>handle_unknown</strong><span class="classifier">typing.Literal[“error”, “ignore”], default=”error”</span></dt><dd><p>Whether to raise an error or ignore if a unknown categorical feature is
+<dt><strong>handle_unknown</strong><span class="classifier">{‘error’, ‘ignore’}, default=’error’</span></dt><dd><p>Whether to raise an error or ignore if an unknown categorical feature is
 present during transform (default is to raise). When this parameter
 is set to ‘ignore’ and an unknown category is encountered during
 transform, the encoded columns for this feature
 will be assigned the prior mean of the target variable.</p>
 </dd>
-<dt><strong>handle_missing</strong><span class="classifier">typing.Literal[“error”, “”], default=””</span></dt><dd><p>Whether to raise an error or impute with blank string ‘’ if missing
-values (NaN) are present during fit (default is to impute).
+<dt><strong>handle_missing</strong><span class="classifier">{‘error’, ‘’}, default=’’</span></dt><dd><p>Whether to raise an error or impute with blank string ‘’ if missing
+values (NaN) are present during <a class="reference internal" href="#dirty_cat.TargetEncoder.fit" title="dirty_cat.TargetEncoder.fit"><code class="xref py py-func docutils literal notranslate"><span class="pre">fit()</span></code></a>
+(default is to impute).
 When this parameter is set to ‘’, and a missing value is encountered
-during fit_transform, the resulting encoded columns for this feature
-will be all zeros.</p>
+during <a class="reference internal" href="#dirty_cat.TargetEncoder.fit_transform" title="dirty_cat.TargetEncoder.fit_transform"><code class="xref py py-func docutils literal notranslate"><span class="pre">fit_transform()</span></code></a>, the resulting encoded
+columns for this feature will be all zeros.</p>
 </dd>
 </dl>
 </dd>
@@ -164,11 +165,11 @@ will be all zeros.</p>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <dl class="simple">
-<dt><a class="reference internal" href="dirty_cat.GapEncoder.html#dirty_cat.GapEncoder" title="dirty_cat.GapEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">GapEncoder</span></code></a></dt><dd><p>Encodes dirty categories (strings) by constructing latent topics with continuous encoding.</p>
+<dt><a class="reference internal" href="dirty_cat.GapEncoder.html#dirty_cat.GapEncoder" title="dirty_cat.GapEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">dirty_cat.GapEncoder</span></code></a></dt><dd><p>Encodes dirty categories (strings) by constructing latent topics with continuous encoding.</p>
 </dd>
-<dt><a class="reference internal" href="dirty_cat.MinHashEncoder.html#dirty_cat.MinHashEncoder" title="dirty_cat.MinHashEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">MinHashEncoder</span></code></a></dt><dd><p>Encode string columns as a numeric array with the minhash method.</p>
+<dt><a class="reference internal" href="dirty_cat.MinHashEncoder.html#dirty_cat.MinHashEncoder" title="dirty_cat.MinHashEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">dirty_cat.MinHashEncoder</span></code></a></dt><dd><p>Encode string columns as a numeric array with the minhash method.</p>
 </dd>
-<dt><a class="reference internal" href="dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="dirty_cat.SimilarityEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimilarityEncoder</span></code></a></dt><dd><p>Encode string columns as a numeric array with n-gram string similarity.</p>
+<dt><a class="reference internal" href="dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="dirty_cat.SimilarityEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">dirty_cat.SimilarityEncoder</span></code></a></dt><dd><p>Encode string columns as a numeric array with n-gram string similarity.</p>
 </dd>
 </dl>
 </div>
@@ -205,13 +206,15 @@ problems.</p>
 </div>
 <p>As expected, they were encoded according to their influence on y.
 The unknown categories were assigned the mean of the target variable.</p>
-<dl class="field-list simple">
+<dl class="field-list">
 <dt class="field-odd">Attributes<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>n_features_in_: int</strong></dt><dd><p>Number of features in the data seen during fit.</p>
+<dd class="field-odd"><dl>
+<dt><strong>n_features_in_</strong><span class="classifier">int</span></dt><dd><p>Number of features in the data seen during <a class="reference internal" href="#dirty_cat.TargetEncoder.fit" title="dirty_cat.TargetEncoder.fit"><code class="xref py py-func docutils literal notranslate"><span class="pre">fit()</span></code></a>.</p>
 </dd>
-<dt><strong>categories_</strong><span class="classifier">typing.List[np.ndarray]</span></dt><dd><p>The categories of each feature determined during fitting
-(in order corresponding with output of <code class="docutils literal notranslate"><span class="pre">transform</span></code>).</p>
+<dt><strong>categories_</strong><span class="classifier">list of <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray</span></code></a></span></dt><dd><p>The categories of each feature determined during <a class="reference internal" href="#dirty_cat.TargetEncoder.fit" title="dirty_cat.TargetEncoder.fit"><code class="xref py py-func docutils literal notranslate"><span class="pre">fit()</span></code></a>
+(in order corresponding with output of <a class="reference internal" href="#dirty_cat.TargetEncoder.transform" title="dirty_cat.TargetEncoder.transform"><code class="xref py py-func docutils literal notranslate"><span class="pre">transform()</span></code></a>).</p>
+</dd>
+<dt><strong>n_</strong><span class="classifier">int</span></dt><dd><p>Length of <a class="reference external" href="https://scikit-learn.org/stable/glossary.html#term-y" title="(in scikit-learn v1.2)"><span class="xref std std-term">y</span></a></p>
 </dd>
 </dl>
 </dd>
@@ -220,7 +223,7 @@ The unknown categories were assigned the mean of the target variable.</p>
 <table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#dirty_cat.TargetEncoder.fit" title="dirty_cat.TargetEncoder.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a>(X, y)</p></td>
-<td><p>Fit the instance to X.</p></td>
+<td><p>Fit the instance to <cite>X</cite>.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#dirty_cat.TargetEncoder.fit_transform" title="dirty_cat.TargetEncoder.fit_transform"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit_transform</span></code></a>(X[, y])</p></td>
 <td><p>Fit to data, then transform it.</p></td>
@@ -235,26 +238,26 @@ The unknown categories were assigned the mean of the target variable.</p>
 <td><p>Set the parameters of this estimator.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#dirty_cat.TargetEncoder.transform" title="dirty_cat.TargetEncoder.transform"><code class="xref py py-obj docutils literal notranslate"><span class="pre">transform</span></code></a>(X)</p></td>
-<td><p>Transform X using the specified encoding scheme.</p></td>
+<td><p>Transform <cite>X</cite> using the specified encoding scheme.</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="py method">
 <dt class="sig sig-object py" id="dirty_cat.TargetEncoder.fit">
-<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/61e1fb5/dirty_cat/_target_encoder.py#L134"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.TargetEncoder.fit" title="Permalink to this definition">¶</a></dt>
-<dd><p>Fit the instance to X.</p>
-<dl class="field-list simple">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/152bc75/dirty_cat/_target_encoder.py#L136"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.TargetEncoder.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fit the instance to <cite>X</cite>.</p>
+<dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
+<dd class="field-odd"><dl>
 <dt><strong>X</strong><span class="classifier">array-like, shape [n_samples, n_features]</span></dt><dd><p>The data to determine the categories of each feature.</p>
 </dd>
-<dt><strong>y</strong><span class="classifier">array</span></dt><dd><p>The associated target vector.</p>
+<dt><strong>y</strong><span class="classifier"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray</span></code></a></span></dt><dd><p>The associated target vector.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
-<dt><a class="reference internal" href="#dirty_cat.TargetEncoder" title="dirty_cat.TargetEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">TargetEncoder</span></code></a></dt><dd><p>Fitted <a class="reference internal" href="#dirty_cat.TargetEncoder" title="dirty_cat.TargetEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">TargetEncoder</span></code></a> instance (self).</p>
+<dt><a class="reference internal" href="#dirty_cat.TargetEncoder" title="dirty_cat.TargetEncoder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TargetEncoder</span></code></a></dt><dd><p>Fitted <a class="reference internal" href="#dirty_cat.TargetEncoder" title="dirty_cat.TargetEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">TargetEncoder</span></code></a> instance (self).</p>
 </dd>
 </dl>
 </dd>
@@ -263,7 +266,7 @@ The unknown categories were assigned the mean of the target variable.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="dirty_cat.TargetEncoder.fit_transform">
-<span class="sig-name descname"><span class="pre">fit_transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">fit_params</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/61e1fb5/dirty_cat/../miniconda/envs/testenv/lib/python3.9/site-packages/sklearn/base.py#L850"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.TargetEncoder.fit_transform" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">fit_transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">fit_params</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/152bc75/dirty_cat/../miniconda/envs/testenv/lib/python3.9/site-packages/sklearn/base.py#L850"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.TargetEncoder.fit_transform" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fit to data, then transform it.</p>
 <p>Fits transformer to <cite>X</cite> and <cite>y</cite> with optional parameters <cite>fit_params</cite>
 and returns a transformed version of <cite>X</cite>.</p>
@@ -289,7 +292,7 @@ and returns a transformed version of <cite>X</cite>.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="dirty_cat.TargetEncoder.get_params">
-<span class="sig-name descname"><span class="pre">get_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">deep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/61e1fb5/dirty_cat/../miniconda/envs/testenv/lib/python3.9/site-packages/sklearn/base.py#L153"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.TargetEncoder.get_params" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">deep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/152bc75/dirty_cat/../miniconda/envs/testenv/lib/python3.9/site-packages/sklearn/base.py#L153"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.TargetEncoder.get_params" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get parameters for this estimator.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -310,7 +313,7 @@ contained subobjects that are estimators.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="dirty_cat.TargetEncoder.set_output">
-<span class="sig-name descname"><span class="pre">set_output</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/61e1fb5/dirty_cat/../miniconda/envs/testenv/lib/python3.9/site-packages/sklearn/utils/_set_output.py#L208"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.TargetEncoder.set_output" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">set_output</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/152bc75/dirty_cat/../miniconda/envs/testenv/lib/python3.9/site-packages/sklearn/utils/_set_output.py#L208"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.TargetEncoder.set_output" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set output container.</p>
 <p>See <a class="reference external" href="https://scikit-learn.org/stable/auto_examples/miscellaneous/plot_set_output.html#sphx-glr-auto-examples-miscellaneous-plot-set-output-py" title="(in scikit-learn v1.2)"><span>Introducing the set_output API</span></a>
 for an example on how to use the API.</p>
@@ -337,7 +340,7 @@ for an example on how to use the API.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="dirty_cat.TargetEncoder.set_params">
-<span class="sig-name descname"><span class="pre">set_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/61e1fb5/dirty_cat/../miniconda/envs/testenv/lib/python3.9/site-packages/sklearn/base.py#L177"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.TargetEncoder.set_params" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">set_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/152bc75/dirty_cat/../miniconda/envs/testenv/lib/python3.9/site-packages/sklearn/base.py#L177"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.TargetEncoder.set_params" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set the parameters of this estimator.</p>
 <p>The method works on simple estimators as well as on nested objects
 (such as <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="(in scikit-learn v1.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a>). The latter have
@@ -361,8 +364,8 @@ possible to update each component of a nested object.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="dirty_cat.TargetEncoder.transform">
-<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/61e1fb5/dirty_cat/_target_encoder.py#L228"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.TargetEncoder.transform" title="Permalink to this definition">¶</a></dt>
-<dd><p>Transform X using the specified encoding scheme.</p>
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/152bc75/dirty_cat/_target_encoder.py#L229"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.TargetEncoder.transform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transform <cite>X</cite> using the specified encoding scheme.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">

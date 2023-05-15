@@ -332,17 +332,17 @@ Then another table, with life expectancy by country:
         <tr>
           <th>0</th>
           <td>Aruba</td>
-          <td>75.723000</td>
+          <td>74.626000</td>
         </tr>
         <tr>
           <th>1</th>
           <td>Africa Eastern and Southern</td>
-          <td>63.313856</td>
+          <td>62.454585</td>
         </tr>
         <tr>
           <th>2</th>
           <td>Afghanistan</td>
-          <td>62.575000</td>
+          <td>61.982000</td>
         </tr>
       </tbody>
     </table>
@@ -1177,21 +1177,21 @@ life_exp table:
           <td>Finland</td>
           <td>7821.0</td>
           <td>53654.750296</td>
-          <td>82.131707</td>
+          <td>81.934146</td>
         </tr>
         <tr>
           <th>1</th>
           <td>Denmark</td>
           <td>7636.0</td>
           <td>68007.756673</td>
-          <td>81.551220</td>
+          <td>81.404878</td>
         </tr>
         <tr>
           <th>2</th>
           <td>Iceland</td>
           <td>7557.0</td>
           <td>68727.636665</td>
-          <td>83.065854</td>
+          <td>83.117073</td>
         </tr>
       </tbody>
     </table>
@@ -1299,7 +1299,7 @@ And the table with a measure of legal rights strength in the country:
           <td>Finland</td>
           <td>7821.0</td>
           <td>53654.750296</td>
-          <td>82.131707</td>
+          <td>81.934146</td>
           <td>6.0</td>
         </tr>
         <tr>
@@ -1307,7 +1307,7 @@ And the table with a measure of legal rights strength in the country:
           <td>Denmark</td>
           <td>7636.0</td>
           <td>68007.756673</td>
-          <td>81.551220</td>
+          <td>81.404878</td>
           <td>8.0</td>
         </tr>
         <tr>
@@ -1315,7 +1315,7 @@ And the table with a measure of legal rights strength in the country:
           <td>Iceland</td>
           <td>7557.0</td>
           <td>68727.636665</td>
-          <td>83.065854</td>
+          <td>83.117073</td>
           <td>4.0</td>
         </tr>
       </tbody>
@@ -1441,7 +1441,7 @@ Let's finally assess the results of our models:
 
  .. code-block:: none
 
-    Mean R2 score is 0.63 +- 0.03
+    Mean R2 score is 0.66 +- 0.00
 
 
 
@@ -1577,7 +1577,7 @@ with our create instance of the |fa|:
           <td>Finland</td>
           <td>53654.750296</td>
           <td>Finland</td>
-          <td>82.131707</td>
+          <td>81.934146</td>
           <td>Finland</td>
           <td>6.0</td>
         </tr>
@@ -1588,7 +1588,7 @@ with our create instance of the |fa|:
           <td>Denmark</td>
           <td>68007.756673</td>
           <td>Denmark</td>
-          <td>81.551220</td>
+          <td>81.404878</td>
           <td>Denmark</td>
           <td>8.0</td>
         </tr>
@@ -1599,7 +1599,7 @@ with our create instance of the |fa|:
           <td>Iceland</td>
           <td>68727.636665</td>
           <td>Iceland</td>
-          <td>83.065854</td>
+          <td>83.117073</td>
           <td>Iceland</td>
           <td>4.0</td>
         </tr>
@@ -1610,7 +1610,7 @@ with our create instance of the |fa|:
           <td>Switzerland</td>
           <td>91991.600458</td>
           <td>Switzerland</td>
-          <td>83.100000</td>
+          <td>83.851220</td>
           <td>Switzerland</td>
           <td>6.0</td>
         </tr>
@@ -1621,7 +1621,7 @@ with our create instance of the |fa|:
           <td>Netherlands</td>
           <td>57767.878811</td>
           <td>Netherlands</td>
-          <td>81.409756</td>
+          <td>81.460976</td>
           <td>Netherlands</td>
           <td>2.0</td>
         </tr>
@@ -1632,7 +1632,7 @@ with our create instance of the |fa|:
           <td>Luxembourg</td>
           <td>133590.146976</td>
           <td>Luxembourg</td>
-          <td>81.741463</td>
+          <td>82.748780</td>
           <td>Luxembourg</td>
           <td>3.0</td>
         </tr>
@@ -1643,7 +1643,7 @@ with our create instance of the |fa|:
           <td>Sweden</td>
           <td>61028.738060</td>
           <td>Sweden</td>
-          <td>82.407317</td>
+          <td>83.156098</td>
           <td>Sweden</td>
           <td>7.0</td>
         </tr>
@@ -1654,7 +1654,7 @@ with our create instance of the |fa|:
           <td>Norway</td>
           <td>89154.276093</td>
           <td>Norway</td>
-          <td>83.209756</td>
+          <td>83.163415</td>
           <td>Norway</td>
           <td>5.0</td>
         </tr>
@@ -1665,7 +1665,7 @@ with our create instance of the |fa|:
           <td>Israel</td>
           <td>52170.711862</td>
           <td>Israel</td>
-          <td>82.700000</td>
+          <td>82.500000</td>
           <td>Israel</td>
           <td>6.0</td>
         </tr>
@@ -1676,7 +1676,7 @@ with our create instance of the |fa|:
           <td>New Zealand</td>
           <td>48781.026633</td>
           <td>New Zealand</td>
-          <td>82.056098</td>
+          <td>82.207317</td>
           <td>New Zealand</td>
           <td>12.0</td>
         </tr>
@@ -1798,7 +1798,7 @@ results significantly!
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  14.079 seconds)
+   **Total running time of the script:** ( 0 minutes  13.469 seconds)
 
 
 .. _sphx_glr_download_auto_examples_04_fuzzy_joining_and_FeatureAugmenter.py:

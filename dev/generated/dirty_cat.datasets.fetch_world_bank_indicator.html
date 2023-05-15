@@ -30,7 +30,7 @@
     <script src="../_static/stable_doc_redirect.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="dirty_cat.datasets.get_ken_embeddings" href="dirty_cat.datasets.get_ken_embeddings.html" />
+    <link rel="next" title="dirty_cat.datasets.get_ken_table_aliases" href="dirty_cat.datasets.get_ken_table_aliases.html" />
     <link rel="prev" title="dirty_cat.datasets.fetch_drug_directory" href="dirty_cat.datasets.fetch_drug_directory.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
@@ -106,7 +106,7 @@
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
       <li>Previous: <a href="dirty_cat.datasets.fetch_drug_directory.html" title="previous chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat.datasets</span></code>.fetch_drug_directory</a></li>
-      <li>Next: <a href="dirty_cat.datasets.get_ken_embeddings.html" title="next chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat.datasets</span></code>.get_ken_embeddings</a></li>
+      <li>Next: <a href="dirty_cat.datasets.get_ken_table_aliases.html" title="next chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat.datasets</span></code>.get_ken_table_aliases</a></li>
   </ul></li>
 </ul>
 </div>
@@ -122,23 +122,20 @@
 <h1><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat.datasets</span></code>.fetch_world_bank_indicator<a class="headerlink" href="#dirty-cat-datasets-fetch-world-bank-indicator" title="Permalink to this heading">¶</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="dirty_cat.datasets.fetch_world_bank_indicator">
-<span class="sig-prename descclassname"><span class="pre">dirty_cat.datasets.</span></span><span class="sig-name descname"><span class="pre">fetch_world_bank_indicator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indicator_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_dataframe</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/61e1fb5/dirty_cat/datasets/_fetching.py#L920"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.datasets.fetch_world_bank_indicator" title="Permalink to this definition">¶</a></dt>
-<dd><p>Fetches a dataset of an indicator from the World Bank
-open data platform.</p>
-<blockquote>
-<div><p>Description of the dataset:
-&gt; The dataset contains two columns: the indicator value and the</p>
-<blockquote>
-<div><p>country names. A list of all available indicators can be found
+<span class="sig-prename descclassname"><span class="pre">dirty_cat.datasets.</span></span><span class="sig-name descname"><span class="pre">fetch_world_bank_indicator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indicator_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_dataframe</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/152bc75/dirty_cat/datasets/_fetching.py#L893"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.datasets.fetch_world_bank_indicator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetches a dataset of an indicator from the World Bank open data platform.</p>
+<dl class="simple">
+<dt>Description of the dataset:</dt><dd><p>The dataset contains two columns: the indicator value and the
+country names. A list of all available indicators can be found
 at <a class="reference external" href="https://data.worldbank.org/indicator">https://data.worldbank.org/indicator</a>.</p>
-</div></blockquote>
-</div></blockquote>
+</dd>
+</dl>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
-<dt>DatasetAll</dt><dd><p>If <cite>load_dataframe=True</cite></p>
+<dt><a class="reference internal" href="dirty_cat.datasets.DatasetAll.html#dirty_cat.datasets.DatasetAll" title="dirty_cat.datasets.DatasetAll"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DatasetAll</span></code></a></dt><dd><p>If <cite>load_dataframe=True</cite></p>
 </dd>
-<dt>DatasetInfoOnly</dt><dd><p>If <cite>load_dataframe=False</cite></p>
+<dt><a class="reference internal" href="dirty_cat.datasets.DatasetInfoOnly.html#dirty_cat.datasets.DatasetInfoOnly" title="dirty_cat.datasets.DatasetInfoOnly"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DatasetInfoOnly</span></code></a></dt><dd><p>If <cite>load_dataframe=False</cite></p>
 </dd>
 </dl>
 </dd>

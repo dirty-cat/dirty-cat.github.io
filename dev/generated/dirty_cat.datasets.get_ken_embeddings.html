@@ -31,7 +31,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="dirty_cat.datasets.get_data_dir" href="dirty_cat.datasets.get_data_dir.html" />
-    <link rel="prev" title="dirty_cat.datasets.fetch_world_bank_indicator" href="dirty_cat.datasets.fetch_world_bank_indicator.html" />
+    <link rel="prev" title="dirty_cat.datasets.get_ken_types" href="dirty_cat.datasets.get_ken_types.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
@@ -105,7 +105,7 @@
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="dirty_cat.datasets.fetch_world_bank_indicator.html" title="previous chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat.datasets</span></code>.fetch_world_bank_indicator</a></li>
+      <li>Previous: <a href="dirty_cat.datasets.get_ken_types.html" title="previous chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat.datasets</span></code>.get_ken_types</a></li>
       <li>Next: <a href="dirty_cat.datasets.get_data_dir.html" title="next chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat.datasets</span></code>.get_data_dir</a></li>
   </ul></li>
 </ul>
@@ -122,7 +122,7 @@
 <h1><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat.datasets</span></code>.get_ken_embeddings<a class="headerlink" href="#dirty-cat-datasets-get-ken-embeddings" title="Permalink to this heading">¶</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="dirty_cat.datasets.get_ken_embeddings">
-<span class="sig-prename descclassname"><span class="pre">dirty_cat.datasets.</span></span><span class="sig-name descname"><span class="pre">get_ken_embeddings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">types</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embedding_table_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all_entities'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embedding_type_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pca_components</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suffix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/61e1fb5/dirty_cat/datasets/_ken_embeddings.py#L106"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.datasets.get_ken_embeddings" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">dirty_cat.datasets.</span></span><span class="sig-name descname"><span class="pre">get_ken_embeddings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">types</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embedding_table_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all_entities'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embedding_type_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pca_components</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suffix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/152bc75/dirty_cat/datasets/_ken_embeddings.py#L105"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.datasets.get_ken_embeddings" title="Permalink to this definition">¶</a></dt>
 <dd><p>Download Wikipedia embeddings by type.</p>
 <p>More details on the embeddings can be found on
 <a class="reference external" href="https://soda-inria.github.io/ken_embeddings/">https://soda-inria.github.io/ken_embeddings/</a>.</p>
@@ -131,29 +131,29 @@
 <dd class="field-odd"><dl class="simple">
 <dt><strong>types</strong><span class="classifier">str, optional</span></dt><dd><p>Substring pattern that filters the types of entities.
 Will keep all entity types containing the substring.
-Write in lowercase. If None, all types will be passed.</p>
+Write in lowercase. If <cite>None</cite>, all types will be passed.</p>
 </dd>
 <dt><strong>exclude</strong><span class="classifier">str, optional</span></dt><dd><p>Type of embeddings to exclude from the types search.</p>
 </dd>
-<dt><strong>embedding_table_id</strong><span class="classifier">str, optional, default=’all_entities’</span></dt><dd><p>Table of embedded entities from which to extract the embeddings.
-Get the supported tables with <code class="xref py py-func docutils literal notranslate"><span class="pre">get_ken_table_aliases()</span></code>.
+<dt><strong>embedding_table_id</strong><span class="classifier">str, default=’all_entities’</span></dt><dd><p>Table of embedded entities from which to extract the embeddings.
+Get the supported tables with <a class="reference internal" href="dirty_cat.datasets.get_ken_table_aliases.html#dirty_cat.datasets.get_ken_table_aliases" title="dirty_cat.datasets.get_ken_table_aliases"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_ken_table_aliases()</span></code></a>.
 It is also possible to pass a custom figshare ID.</p>
 </dd>
 <dt><strong>embedding_type_id</strong><span class="classifier">str, optional</span></dt><dd><p>Figshare ID of the file containing the type of embeddings.
-Get the supported tables with <code class="xref py py-func docutils literal notranslate"><span class="pre">get_ken_types()</span></code>.
+Get the supported tables with <a class="reference internal" href="dirty_cat.datasets.get_ken_types.html#dirty_cat.datasets.get_ken_types" title="dirty_cat.datasets.get_ken_types"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_ken_types()</span></code></a>.
 Ignored unless a custom <cite>embedding_table_id</cite> is provided.</p>
 </dd>
 <dt><strong>pca_components</strong><span class="classifier">int, optional</span></dt><dd><p>Size of the dimensional space on which the embeddings will be projected
 by a principal component analysis.
 If None, the default dimension (200) of the embeddings will be kept.</p>
 </dd>
-<dt><strong>suffix</strong><span class="classifier">str, optional, default=””</span></dt><dd><p>Suffix to add to the column names of the embeddings.</p>
+<dt><strong>suffix</strong><span class="classifier">str, optional, default=’’</span></dt><dd><p>Suffix to add to the column names of the embeddings.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
-<dt><a class="reference external" href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.0.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a></dt><dd><p>The embeddings of entities and the specified type from Wikipedia.</p>
+<dt><a class="reference external" href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.0.1)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DataFrame</span></code></a></dt><dd><p>The embeddings of entities and the specified type from Wikipedia.</p>
 </dd>
 </dl>
 </dd>
@@ -161,13 +161,13 @@ If None, the default dimension (200) of the embeddings will be kept.</p>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <dl class="simple">
-<dt><code class="xref py py-func docutils literal notranslate"><span class="pre">get_ken_table_aliases()</span></code></dt><dd><p>Get the supported aliases of embedded entities tables.</p>
+<dt><a class="reference internal" href="dirty_cat.datasets.get_ken_table_aliases.html#dirty_cat.datasets.get_ken_table_aliases" title="dirty_cat.datasets.get_ken_table_aliases"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_ken_table_aliases()</span></code></a></dt><dd><p>Get the supported aliases of embedded entities tables.</p>
 </dd>
-<dt><code class="xref py py-func docutils literal notranslate"><span class="pre">get_ken_types()</span></code></dt><dd><p>Helper function to search for entity types.</p>
+<dt><a class="reference internal" href="dirty_cat.datasets.get_ken_types.html#dirty_cat.datasets.get_ken_types" title="dirty_cat.datasets.get_ken_types"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_ken_types()</span></code></a></dt><dd><p>Helper function to search for entity types.</p>
 </dd>
-<dt><a class="reference internal" href="dirty_cat.fuzzy_join.html#dirty_cat.fuzzy_join" title="dirty_cat.fuzzy_join"><code class="xref py py-func docutils literal notranslate"><span class="pre">fuzzy_join()</span></code></a></dt><dd><p>Join two tables (dataframes) based on approximate column matching.</p>
+<dt><a class="reference internal" href="dirty_cat.fuzzy_join.html#dirty_cat.fuzzy_join" title="dirty_cat.fuzzy_join"><code class="xref py py-func docutils literal notranslate"><span class="pre">dirty_cat.fuzzy_join()</span></code></a></dt><dd><p>Join two tables (dataframes) based on approximate column matching.</p>
 </dd>
-<dt><a class="reference internal" href="dirty_cat.FeatureAugmenter.html#dirty_cat.FeatureAugmenter" title="dirty_cat.FeatureAugmenter"><code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureAugmenter</span></code></a></dt><dd><p>Transformer to enrich a given table via one or more fuzzy joins to external resources.</p>
+<dt><a class="reference internal" href="dirty_cat.FeatureAugmenter.html#dirty_cat.FeatureAugmenter" title="dirty_cat.FeatureAugmenter"><code class="xref py py-class docutils literal notranslate"><span class="pre">dirty_cat.FeatureAugmenter</span></code></a></dt><dd><p>Transformer to enrich a given table via one or more fuzzy joins to external resources.</p>
 </dd>
 </dl>
 </div>
@@ -181,7 +181,7 @@ In case the input is “music”, all types with this string will be included
 Going directly for the exact type name (e.g. “wikicat_rock_music_bands”)
 is possible but may not be complete (as some relevant bands may be
 in other similar types).
-For searching the types, the <code class="xref py py-class docutils literal notranslate"><span class="pre">get_ken_types</span></code>
+For searching the types, the <a class="reference internal" href="dirty_cat.datasets.get_ken_types.html#dirty_cat.datasets.get_ken_types" title="dirty_cat.datasets.get_ken_types"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_ken_types()</span></code></a>
 function can be used.</p>
 <p class="rubric">References</p>
 <p>For more details, see Cvetkov-Iliev, A., Allauzen, A. &amp; Varoquaux, G.:

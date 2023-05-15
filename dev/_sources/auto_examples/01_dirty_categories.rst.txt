@@ -94,7 +94,7 @@ We first retrieve the dataset:
 
  .. code-block:: none
 
-    /home/circleci/project/dirty_cat/datasets/_fetching.py:608: UserWarning: Could not find the dataset 42125 locally. Downloading it from OpenML; this might take a while... If it is interrupted, some files might be invalid/incomplete: if on the following run, the fetching raises errors, you can try fixing this issue by deleting the directory /home/circleci/project/dirty_cat/datasets/data.
+    /home/circleci/project/dirty_cat/datasets/_fetching.py:588: UserWarning: Could not find the dataset 42125 locally. Downloading it from OpenML; this might take a while... If it is interrupted, some files might be invalid/incomplete: if on the following run, the fetching raises errors, you can try fixing this issue by deleting the directory /home/circleci/project/dirty_cat/datasets/data.
       info = _fetch_openml_dataset(dataset_id, data_directory)
 
 
@@ -678,7 +678,7 @@ and store the returned cross-validation score:
     /home/circleci/project/miniconda/envs/testenv/lib/python3.9/site-packages/sklearn/preprocessing/_encoders.py:868: FutureWarning: `sparse` was renamed to `sparse_output` in version 1.2 and will be removed in 1.4. `sparse_output` is ignored unless you leave `sparse` to its default value.
       warnings.warn(
     gap encoding
-    r2 score:  mean: 0.921; std: 0.017
+    r2 score:  mean: 0.926; std: 0.011
 
 
 
@@ -1013,9 +1013,9 @@ Let's perform a cross-validation to see how well this model predicts:
 
  .. code-block:: none
 
-    scores=[0.92548083 0.90174011 0.93117024 0.93293799 0.93761349]
-    mean=0.9257885325232127
-    std=0.012635886524975406
+    scores=[0.92783914 0.9050299  0.91599243 0.93787945 0.93879985]
+    mean=0.9251081551597355
+    std=0.012994302626721221
 
 
 
@@ -1091,7 +1091,7 @@ The encoded data, X_train_enc and X_test_enc are numerical arrays:
 
 
     array([[0.00000000e+00, 1.00000000e+00, 0.00000000e+00, ...,
-            5.97990482e-02, 5.61637783e-02, 2.00700000e+03],
+            5.65005423e-02, 5.17932628e-02, 2.00700000e+03],
            [1.00000000e+00, 0.00000000e+00, 0.00000000e+00, ...,
             5.00000000e-02, 5.00000000e-02, 2.00500000e+03],
            [1.00000000e+00, 0.00000000e+00, 0.00000000e+00, ...,
@@ -1362,7 +1362,7 @@ having a permanent, full-time job :)
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 3 minutes  10.938 seconds)
+   **Total running time of the script:** ( 4 minutes  23.118 seconds)
 
 
 .. _sphx_glr_download_auto_examples_01_dirty_categories.py:

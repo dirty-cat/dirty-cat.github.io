@@ -123,7 +123,7 @@
 <p class="side-comment">Usage examples at the bottom of this page.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="dirty_cat.GapEncoder">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">dirty_cat.</span></span><span class="sig-name descname"><span class="pre">GapEncoder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_components</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">128</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma_shape_prior</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma_scale_prior</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rho</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.95</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rescale_rho</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hashing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hashing_n_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4096</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'k-means++'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ngram_range</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(2,</span> <span class="pre">4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">analyzer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'char'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add_words</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rescale_W</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iter_e_step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">handle_missing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'zero_impute'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/61e1fb5/dirty_cat/_gap_encoder.py#L551"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.GapEncoder" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">dirty_cat.</span></span><span class="sig-name descname"><span class="pre">GapEncoder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_components</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">128</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma_shape_prior</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma_scale_prior</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rho</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.95</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rescale_rho</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hashing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hashing_n_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4096</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'k-means++'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ngram_range</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(2,</span> <span class="pre">4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">analyzer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'char'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add_words</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rescale_W</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iter_e_step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">handle_missing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'zero_impute'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/152bc75/dirty_cat/_gap_encoder.py#L555"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.GapEncoder" title="Permalink to this definition">¶</a></dt>
 <dd><p>Constructs latent topics with continuous encoding.</p>
 <p>This encoder can be understood as a continuous encoding on a set of latent
 categories estimated from the data. The latent categories are built by
@@ -131,6 +131,21 @@ capturing combinations of substrings that frequently co-occur.</p>
 <p>The <a class="reference internal" href="#dirty_cat.GapEncoder" title="dirty_cat.GapEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">GapEncoder</span></code></a> supports online learning on batches of
 data for scalability through the <a class="reference internal" href="#dirty_cat.GapEncoder.partial_fit" title="dirty_cat.GapEncoder.partial_fit"><code class="xref py py-func docutils literal notranslate"><span class="pre">partial_fit()</span></code></a>
 method.</p>
+<p>The principle is as follows:</p>
+<ol class="arabic simple">
+<li><p>Given an input string array <cite>X</cite>, we build its bag-of-n-grams
+representation <cite>V</cite> (<cite>n_samples</cite>, <cite>vocab_size</cite>).</p></li>
+<li><p>Instead of using the n-grams counts as encodings, we look for low-
+dimensional representations by modeling n-grams counts as linear
+combinations of topics <code class="docutils literal notranslate"><span class="pre">V</span> <span class="pre">=</span> <span class="pre">HW</span></code>, with <cite>W</cite> (<cite>n_topics</cite>, <cite>vocab_size</cite>)
+the topics and <cite>H</cite> (<cite>n_samples</cite>, <cite>n_topics</cite>) the associated activations.</p></li>
+<li><p>Assuming that n-grams counts follow a Poisson law, we fit <cite>H</cite> and <cite>W</cite> to
+maximize the likelihood of the data, with a Gamma prior for the
+activations <cite>H</cite> to induce sparsity.</p></li>
+<li><p>In practice, this is equivalent to a non-negative matrix factorization
+with the Kullback-Leibler divergence as loss, and a Gamma prior on <cite>H</cite>.
+We thus optimize <cite>H</cite> and <cite>W</cite> with the multiplicative update method.</p></li>
+</ol>
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl>
@@ -142,55 +157,64 @@ method.</p>
 </dd>
 <dt><strong>gamma_scale_prior</strong><span class="classifier">float, optional, default=1.0</span></dt><dd><p>Scale parameter for the Gamma prior distribution.</p>
 </dd>
-<dt><strong>rho</strong><span class="classifier">float, optional, default=0.95</span></dt><dd><p>Weight parameter for the update of the <em>W</em> matrix.</p>
+<dt><strong>rho</strong><span class="classifier">float, optional, default=0.95</span></dt><dd><p>Weight parameter for the update of the <cite>W</cite> matrix.</p>
 </dd>
-<dt><strong>rescale_rho</strong><span class="classifier">bool, optional, default=False</span></dt><dd><p>If true, use <code class="docutils literal notranslate"><span class="pre">rho</span> <span class="pre">**</span> <span class="pre">(batch_size</span> <span class="pre">/</span> <span class="pre">len(X))</span></code> instead of rho to obtain an
-update rate per iteration that is independent of the batch size.</p>
+<dt><strong>rescale_rho</strong><span class="classifier">bool, optional, default=False</span></dt><dd><p>If <cite>True</cite>, use <code class="docutils literal notranslate"><span class="pre">rho</span> <span class="pre">**</span> <span class="pre">(batch_size</span> <span class="pre">/</span> <span class="pre">len(X))</span></code> instead of rho to obtain
+an update rate per iteration that is independent of the batch size.</p>
 </dd>
-<dt><strong>hashing</strong><span class="classifier">bool, optional, default=False</span></dt><dd><p>If true, <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.HashingVectorizer.html#sklearn.feature_extraction.text.HashingVectorizer" title="(in scikit-learn v1.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">HashingVectorizer</span></code></a>
+<dt><strong>hashing</strong><span class="classifier">bool, optional, default=False</span></dt><dd><p>If <cite>True</cite>, <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.HashingVectorizer.html#sklearn.feature_extraction.text.HashingVectorizer" title="(in scikit-learn v1.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">HashingVectorizer</span></code></a>
 is used instead of <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html#sklearn.feature_extraction.text.CountVectorizer" title="(in scikit-learn v1.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CountVectorizer</span></code></a>.
 It has the advantage of being very low memory, scalable to large
 datasets as there is no need to store a vocabulary dictionary in
 memory.</p>
 </dd>
-<dt><strong>hashing_n_features</strong><span class="classifier">int, optional, default=2**12</span></dt><dd><p>Number of features for the <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.HashingVectorizer.html#sklearn.feature_extraction.text.HashingVectorizer" title="(in scikit-learn v1.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">HashingVectorizer</span></code></a>.
+<dt><strong>hashing_n_features</strong><span class="classifier">int, default=2**12</span></dt><dd><p>Number of features for the
+<a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.HashingVectorizer.html#sklearn.feature_extraction.text.HashingVectorizer" title="(in scikit-learn v1.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">HashingVectorizer</span></code></a>.
 Only relevant if <cite>hashing=True</cite>.</p>
 </dd>
-<dt><strong>init</strong><span class="classifier">{“k-means++”, “random”, “k-means”}, optional, default=’k-means++’</span></dt><dd><p>Initialization method of the W matrix.
-If <cite>init=’k-means++’</cite>, we use the init method of <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html#sklearn.cluster.KMeans" title="(in scikit-learn v1.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">KMeans</span></code></a>.
+<dt><strong>init</strong><span class="classifier">{‘k-means++’, ‘random’, ‘k-means’}, default=’k-means++’</span></dt><dd><p>Initialization method of the <cite>W</cite> matrix.
+If <cite>init=’k-means++’</cite>, we use the init method of
+<a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html#sklearn.cluster.KMeans" title="(in scikit-learn v1.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">KMeans</span></code></a>.
 If <cite>init=’random’</cite>, topics are initialized with a Gamma distribution.
-If <cite>init=’k-means’</cite>, topics are initialized with a KMeans on the n-grams
-counts. This usually makes convergence faster but is a bit slower.</p>
+If <cite>init=’k-means’</cite>, topics are initialized with a
+<a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html#sklearn.cluster.KMeans" title="(in scikit-learn v1.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">KMeans</span></code></a> on the n-grams counts.</p>
 </dd>
-<dt><strong>tol</strong><span class="classifier">float, default=1e-4</span></dt><dd><p>Tolerance for the convergence of the matrix <em>W</em>.</p>
+<dt><strong>tol</strong><span class="classifier">float, default=1e-4</span></dt><dd><p>Tolerance for the convergence of the matrix <cite>W</cite>.</p>
 </dd>
-<dt><strong>min_iter</strong><span class="classifier">int, optional, default=2</span></dt><dd><p>Minimum number of iterations on the input data.</p>
+<dt><strong>min_iter</strong><span class="classifier">int, default=2</span></dt><dd><p>Minimum number of iterations on the input data.</p>
 </dd>
-<dt><strong>max_iter</strong><span class="classifier">int, optional, default=5</span></dt><dd><p>Maximum number of iterations on the input data.</p>
+<dt><strong>max_iter</strong><span class="classifier">int, default=5</span></dt><dd><p>Maximum number of iterations on the input data.</p>
 </dd>
-<dt><strong>ngram_range</strong><span class="classifier">int 2-tuple, optional, default=(2, 4)</span></dt><dd><p>The range of ngram length that will be used to build the
-bag-of-n-grams representation of the input data.</p>
+<dt><strong>ngram_range</strong><span class="classifier">int 2-tuple, default=(2, 4)</span></dt><dd><dl class="simple">
+<dt>The lower and upper boundaries of the range of n-values for different</dt><dd><p>n-grams used in the string similarity. All values of <cite>n</cite> such
+that <code class="docutils literal notranslate"><span class="pre">min_n</span> <span class="pre">&lt;=</span> <span class="pre">n</span> <span class="pre">&lt;=</span> <span class="pre">max_n</span></code> will be used.</p>
 </dd>
-<dt><strong>analyzer</strong><span class="classifier">{“word”, “char”, “char_wb”}, optional, default=’char’</span></dt><dd><p>Analyzer parameter for the <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.HashingVectorizer.html#sklearn.feature_extraction.text.HashingVectorizer" title="(in scikit-learn v1.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">HashingVectorizer</span></code></a>
-/ <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html#sklearn.feature_extraction.text.CountVectorizer" title="(in scikit-learn v1.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CountVectorizer</span></code></a>.
-Describes whether the matrix <em>V</em> to factorize should be made of word counts
-or character n-gram counts.
+</dl>
+</dd>
+<dt><strong>analyzer</strong><span class="classifier">{‘word’, ‘char’, ‘char_wb’}, default=’char’</span></dt><dd><p>Analyzer parameter for the
+<a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.HashingVectorizer.html#sklearn.feature_extraction.text.HashingVectorizer" title="(in scikit-learn v1.2)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">HashingVectorizer</span></code></a>
+/ <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html#sklearn.feature_extraction.text.CountVectorizer" title="(in scikit-learn v1.2)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CountVectorizer</span></code></a>.
+Describes whether the matrix <cite>V</cite> to factorize should be made of
+word counts or character-level n-gram counts.
 Option ‘char_wb’ creates character n-grams only from text inside word
 boundaries; n-grams at the edges of words are padded with space.</p>
 </dd>
-<dt><strong>add_words</strong><span class="classifier">bool, optional, default=False</span></dt><dd><p>If true, add the words counts to the bag-of-n-grams representation
+<dt><strong>add_words</strong><span class="classifier">bool, default=False</span></dt><dd><p>If <cite>True</cite>, add the words counts to the bag-of-n-grams representation
 of the input data.</p>
 </dd>
-<dt><strong>random_state</strong><span class="classifier">int, <a class="reference external" href="https://numpy.org/doc/stable/reference/random/legacy.html#numpy.random.RandomState" title="(in NumPy v1.24)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.random.RandomState</span></code></a> or None, optional, default=None</span></dt><dd><p>RNG seed for reproducible output across multiple function calls.</p>
+<dt><strong>random_state</strong><span class="classifier">int or <a class="reference external" href="https://numpy.org/doc/stable/reference/random/legacy.html#numpy.random.RandomState" title="(in NumPy v1.24)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RandomState</span></code></a>, optional</span></dt><dd><p>Random number generator seed for reproducible output across multiple
+function calls.</p>
 </dd>
-<dt><strong>rescale_W</strong><span class="classifier">bool, optional, default=True</span></dt><dd><p>If true, the weight matrix <em>W</em> is rescaled at each iteration
+<dt><strong>rescale_W</strong><span class="classifier">bool, default=True</span></dt><dd><p>If <cite>True</cite>, the weight matrix <cite>W</cite> is rescaled at each iteration
 to have a l1 norm equal to 1 for each row.</p>
 </dd>
 <dt><strong>max_iter_e_step</strong><span class="classifier">int, default=20</span></dt><dd><p>Maximum number of iterations to adjust the activations h at each step.</p>
 </dd>
-<dt><strong>handle_missing</strong><span class="classifier">{“error”, “empty_impute”}, optional, default=’empty_impute’</span></dt><dd><p>Whether to raise an error or impute with empty string <code class="docutils literal notranslate"><span class="pre">''</span></code> if missing
-values (NaN) are present during fit (default is to impute).
-In the inverse transform, the missing category will be denoted as None.</p>
+<dt><strong>handle_missing</strong><span class="classifier">{‘error’, ‘empty_impute’}, default=’empty_impute’</span></dt><dd><p>Whether to raise an error or impute with empty string (‘’) if missing
+values (NaN) are present during <a class="reference internal" href="#dirty_cat.GapEncoder.fit" title="dirty_cat.GapEncoder.fit"><code class="xref py py-func docutils literal notranslate"><span class="pre">fit()</span></code></a>
+(default is to impute).
+In <code class="xref py py-func docutils literal notranslate"><span class="pre">inverse_transform()</span></code>, the missing categories will
+be denoted as <cite>None</cite>.</p>
 </dd>
 </dl>
 </dd>
@@ -198,11 +222,11 @@ In the inverse transform, the missing category will be denoted as None.</p>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <dl class="simple">
-<dt><a class="reference internal" href="dirty_cat.MinHashEncoder.html#dirty_cat.MinHashEncoder" title="dirty_cat.MinHashEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">MinHashEncoder</span></code></a></dt><dd><p>Encode string columns as a numeric array with the minhash method.</p>
+<dt><a class="reference internal" href="dirty_cat.MinHashEncoder.html#dirty_cat.MinHashEncoder" title="dirty_cat.MinHashEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">dirty_cat.MinHashEncoder</span></code></a></dt><dd><p>Encode string columns as a numeric array with the minhash method.</p>
 </dd>
-<dt><a class="reference internal" href="dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="dirty_cat.SimilarityEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimilarityEncoder</span></code></a></dt><dd><p>Encode string columns as a numeric array with n-gram string similarity.</p>
+<dt><a class="reference internal" href="dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="dirty_cat.SimilarityEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">dirty_cat.SimilarityEncoder</span></code></a></dt><dd><p>Encode string columns as a numeric array with n-gram string similarity.</p>
 </dd>
-<dt><a class="reference internal" href="dirty_cat.deduplicate.html#dirty_cat.deduplicate" title="dirty_cat.deduplicate"><code class="xref py py-class docutils literal notranslate"><span class="pre">deduplicate</span></code></a></dt><dd><p>Deduplicate data by hierarchically clustering similar strings.</p>
+<dt><a class="reference internal" href="dirty_cat.deduplicate.html#dirty_cat.deduplicate" title="dirty_cat.deduplicate"><code class="xref py py-class docutils literal notranslate"><span class="pre">dirty_cat.deduplicate</span></code></a></dt><dd><p>Deduplicate data by hierarchically clustering similar strings.</p>
 </dd>
 </dl>
 </div>
@@ -243,14 +267,14 @@ activation of each topic for each category:</p>
 </pre></div>
 </div>
 <p>The higher the value, the bigger the correspondance with the topic.</p>
-<dl class="field-list simple">
+<dl class="field-list">
 <dt class="field-odd">Attributes<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>rho_: float</strong></dt><dd><p>Effective update rate for the W matrix</p>
+<dd class="field-odd"><dl>
+<dt><strong>rho_</strong><span class="classifier">float</span></dt><dd><p>Effective update rate for the <cite>W</cite> matrix.</p>
 </dd>
-<dt><strong>fitted_models_: list of GapEncoderColumn</strong></dt><dd><p>Column-wise fitted GapEncoders</p>
+<dt><strong>fitted_models_</strong><span class="classifier">list of <code class="xref py py-obj docutils literal notranslate"><span class="pre">GapEncoderColumn</span></code></span></dt><dd><p>Column-wise fitted GapEncoders.</p>
 </dd>
-<dt><strong>column_names_: list of str</strong></dt><dd><p>Column names of the data the Gap was fitted on</p>
+<dt><strong>column_names_</strong><span class="classifier">list of str</span></dt><dd><p>Column names of the data the Gap was fitted on.</p>
 </dd>
 </dl>
 </dd>
@@ -259,25 +283,25 @@ activation of each topic for each category:</p>
 <table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#dirty_cat.GapEncoder.fit" title="dirty_cat.GapEncoder.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a>(X[, y])</p></td>
-<td><p>Fit the instance on batches of X.</p></td>
+<td><p>Fit the instance on X.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#dirty_cat.GapEncoder.fit_transform" title="dirty_cat.GapEncoder.fit_transform"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit_transform</span></code></a>(X[, y])</p></td>
 <td><p>Fit to data, then transform it.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#dirty_cat.GapEncoder.get_feature_names" title="dirty_cat.GapEncoder.get_feature_names"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_feature_names</span></code></a>([input_features, ...])</p></td>
-<td><p>Ensures compatibility with sklearn &lt; 1.0.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#dirty_cat.GapEncoder.get_feature_names" title="dirty_cat.GapEncoder.get_feature_names"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_feature_names</span></code></a>([col_names, n_labels, ...])</p></td>
+<td><p>Return clean feature names.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#dirty_cat.GapEncoder.get_feature_names_out" title="dirty_cat.GapEncoder.get_feature_names_out"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_feature_names_out</span></code></a>([col_names, n_labels])</p></td>
-<td><p>Returns the labels that best summarize the learned components/topics.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#dirty_cat.GapEncoder.get_feature_names_out" title="dirty_cat.GapEncoder.get_feature_names_out"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_feature_names_out</span></code></a>([col_names, n_labels, ...])</p></td>
+<td><p>Return the labels that best summarize the learned components/topics.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#dirty_cat.GapEncoder.get_params" title="dirty_cat.GapEncoder.get_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_params</span></code></a>([deep])</p></td>
 <td><p>Get parameters for this estimator.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#dirty_cat.GapEncoder.partial_fit" title="dirty_cat.GapEncoder.partial_fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">partial_fit</span></code></a>(X[, y])</p></td>
-<td><p>Partial fit of the GapEncoder on X.</p></td>
+<td><p>Partial fit this instance on X.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#dirty_cat.GapEncoder.score" title="dirty_cat.GapEncoder.score"><code class="xref py py-obj docutils literal notranslate"><span class="pre">score</span></code></a>(X)</p></td>
-<td><p>Returns the sum over the columns of X of the Kullback-Leibler divergence between the n-grams counts matrix V of X, and its non-negative factorization HW.</p></td>
+<td><p>Score this instance on <cite>X</cite>.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#dirty_cat.GapEncoder.set_output" title="dirty_cat.GapEncoder.set_output"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_output</span></code></a>(*[, transform])</p></td>
 <td><p>Set output container.</p></td>
@@ -286,14 +310,14 @@ activation of each topic for each category:</p>
 <td><p>Set the parameters of this estimator.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#dirty_cat.GapEncoder.transform" title="dirty_cat.GapEncoder.transform"><code class="xref py py-obj docutils literal notranslate"><span class="pre">transform</span></code></a>(X)</p></td>
-<td><p>Return the encoded vectors (activations) H of input strings in X.</p></td>
+<td><p>Return the encoded vectors (activations) <cite>H</cite> of input strings in <cite>X</cite>.</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="py method">
 <dt class="sig sig-object py" id="dirty_cat.GapEncoder.fit">
-<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/61e1fb5/dirty_cat/_gap_encoder.py#L777"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.GapEncoder.fit" title="Permalink to this definition">¶</a></dt>
-<dd><p>Fit the instance on batches of X.</p>
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/152bc75/dirty_cat/_gap_encoder.py#L805"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.GapEncoder.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fit the instance on X.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
@@ -305,7 +329,7 @@ activation of each topic for each category:</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
-<dt><a class="reference internal" href="#dirty_cat.GapEncoder" title="dirty_cat.GapEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">GapEncoder</span></code></a></dt><dd><p>Fitted <a class="reference internal" href="#dirty_cat.GapEncoder" title="dirty_cat.GapEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">GapEncoder</span></code></a> instance (self).</p>
+<dt><a class="reference internal" href="#dirty_cat.GapEncoder" title="dirty_cat.GapEncoder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GapEncoder</span></code></a></dt><dd><p>The fitted <a class="reference internal" href="#dirty_cat.GapEncoder" title="dirty_cat.GapEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">GapEncoder</span></code></a> instance (self).</p>
 </dd>
 </dl>
 </dd>
@@ -314,7 +338,7 @@ activation of each topic for each category:</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="dirty_cat.GapEncoder.fit_transform">
-<span class="sig-name descname"><span class="pre">fit_transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">fit_params</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/61e1fb5/dirty_cat/../miniconda/envs/testenv/lib/python3.9/site-packages/sklearn/base.py#L850"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.GapEncoder.fit_transform" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">fit_transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">fit_params</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/152bc75/dirty_cat/../miniconda/envs/testenv/lib/python3.9/site-packages/sklearn/base.py#L850"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.GapEncoder.fit_transform" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fit to data, then transform it.</p>
 <p>Fits transformer to <cite>X</cite> and <cite>y</cite> with optional parameters <cite>fit_params</cite>
 and returns a transformed version of <cite>X</cite>.</p>
@@ -340,37 +364,71 @@ and returns a transformed version of <cite>X</cite>.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="dirty_cat.GapEncoder.get_feature_names">
-<span class="sig-name descname"><span class="pre">get_feature_names</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/61e1fb5/dirty_cat/_gap_encoder.py#L924"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.GapEncoder.get_feature_names" title="Permalink to this definition">¶</a></dt>
-<dd><p>Ensures compatibility with sklearn &lt; 1.0.
-Use <cite>get_feature_names_out</cite> instead.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="dirty_cat.GapEncoder.get_feature_names_out">
-<span class="sig-name descname"><span class="pre">get_feature_names_out</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">col_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/61e1fb5/dirty_cat/_gap_encoder.py#L879"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.GapEncoder.get_feature_names_out" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the labels that best summarize the learned components/topics.
-For each topic, labels with the highest activations are selected.</p>
+<span class="sig-name descname"><span class="pre">get_feature_names</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">col_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/152bc75/dirty_cat/_gap_encoder.py#L958"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.GapEncoder.get_feature_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return clean feature names. Compatibility method for sklearn &lt; 1.0.</p>
+<p>Use <a class="reference internal" href="#dirty_cat.GapEncoder.get_feature_names_out" title="dirty_cat.GapEncoder.get_feature_names_out"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_feature_names_out()</span></code></a> instead.</p>
+<p>For each topic, labels with the highest activations are selected.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl>
-<dt><strong>col_names</strong><span class="classifier">“auto” or list of strings, optional</span></dt><dd><p>The column names to be added as prefixes before the labels.
-If col_names == None, no prefixes are used.
-If col_names == ‘auto’, column names are automatically defined:</p>
+<dt><strong>col_names</strong><span class="classifier">‘auto’ or list of str, optional</span></dt><dd><p>The column names to be added as prefixes before the labels.
+If <cite>col_names=None</cite>, no prefixes are used.
+If <cite>col_names=’auto’</cite>, column names are automatically defined:</p>
 <blockquote>
 <div><ul class="simple">
-<li><p>if the input data was a dataframe, its column names are used,</p></li>
+<li><p>if the input data was a <a class="reference external" href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.0.1)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DataFrame</span></code></a>,
+its column names are used,</p></li>
 <li><p>otherwise, ‘col1’, …, ‘colN’ are used as prefixes.</p></li>
 </ul>
 </div></blockquote>
-<p>Prefixes can be manually set by passing a list for col_names.</p>
+<p>Prefixes can be manually set by passing a list for <cite>col_names</cite>.</p>
 </dd>
 <dt><strong>n_labels</strong><span class="classifier">int, default=3</span></dt><dd><p>The number of labels used to describe each topic.</p>
+</dd>
+<dt><strong>input_features</strong><span class="classifier">None</span></dt><dd><p>Unused, only here for compatibility.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
-<dt>list of strings</dt><dd><p>The labels that best describe each topic.</p>
+<dt>list of str</dt><dd><p>The labels that best describe each topic.
+Each element contains the labels joined by a comma.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dirty_cat.GapEncoder.get_feature_names_out">
+<span class="sig-name descname"><span class="pre">get_feature_names_out</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">col_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/152bc75/dirty_cat/_gap_encoder.py#L906"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.GapEncoder.get_feature_names_out" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the labels that best summarize the learned components/topics.</p>
+<p>For each topic, labels with the highest activations are selected.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl>
+<dt><strong>col_names</strong><span class="classifier">‘auto’ or list of str, optional</span></dt><dd><p>The column names to be added as prefixes before the labels.
+If <cite>col_names=None</cite>, no prefixes are used.
+If <cite>col_names=’auto’</cite>, column names are automatically defined:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>if the input data was a <a class="reference external" href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.0.1)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DataFrame</span></code></a>,
+its column names are used,</p></li>
+<li><p>otherwise, ‘col1’, …, ‘colN’ are used as prefixes.</p></li>
+</ul>
+</div></blockquote>
+<p>Prefixes can be manually set by passing a list for <cite>col_names</cite>.</p>
+</dd>
+<dt><strong>n_labels</strong><span class="classifier">int, default=3</span></dt><dd><p>The number of labels used to describe each topic.</p>
+</dd>
+<dt><strong>input_features</strong><span class="classifier">None</span></dt><dd><p>Unused, only here for compatibility.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>list of str</dt><dd><p>The labels that best describe each topic.
+Each element contains the labels joined by a comma.</p>
 </dd>
 </dl>
 </dd>
@@ -379,7 +437,7 @@ If col_names == ‘auto’, column names are automatically defined:</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="dirty_cat.GapEncoder.get_params">
-<span class="sig-name descname"><span class="pre">get_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">deep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/61e1fb5/dirty_cat/../miniconda/envs/testenv/lib/python3.9/site-packages/sklearn/base.py#L153"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.GapEncoder.get_params" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">deep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/152bc75/dirty_cat/../miniconda/envs/testenv/lib/python3.9/site-packages/sklearn/base.py#L153"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.GapEncoder.get_params" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get parameters for this estimator.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -400,9 +458,9 @@ contained subobjects that are estimators.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="dirty_cat.GapEncoder.partial_fit">
-<span class="sig-name descname"><span class="pre">partial_fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/61e1fb5/dirty_cat/_gap_encoder.py#L844"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.GapEncoder.partial_fit" title="Permalink to this definition">¶</a></dt>
-<dd><p>Partial fit of the GapEncoder on X.
-To be used in an online learning procedure where batches of data are
+<span class="sig-name descname"><span class="pre">partial_fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/152bc75/dirty_cat/_gap_encoder.py#L871"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.GapEncoder.partial_fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Partial fit this instance on X.</p>
+<p>To be used in an online learning procedure where batches of data are
 coming one by one.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -415,7 +473,7 @@ coming one by one.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
-<dt>GapEncoder</dt><dd><p>Fitted GapEncoder instance.</p>
+<dt><a class="reference internal" href="#dirty_cat.GapEncoder" title="dirty_cat.GapEncoder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GapEncoder</span></code></a></dt><dd><p>The fitted <a class="reference internal" href="#dirty_cat.GapEncoder" title="dirty_cat.GapEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">GapEncoder</span></code></a> instance (self).</p>
 </dd>
 </dl>
 </dd>
@@ -424,20 +482,21 @@ coming one by one.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="dirty_cat.GapEncoder.score">
-<span class="sig-name descname"><span class="pre">score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/61e1fb5/dirty_cat/_gap_encoder.py#L941"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.GapEncoder.score" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the sum over the columns of X of the Kullback-Leibler
-divergence between the n-grams counts matrix V of X, and its
-non-negative factorization HW.</p>
+<span class="sig-name descname"><span class="pre">score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/152bc75/dirty_cat/_gap_encoder.py#L1005"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.GapEncoder.score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Score this instance on <cite>X</cite>.</p>
+<p>Returns the sum over the columns of <cite>X</cite> of the Kullback-Leibler
+divergence between the n-grams counts matrix <cite>V</cite> of <cite>X</cite>, and its
+non-negative factorization <cite>HW</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>X</strong><span class="classifier">array-like (str), shape (n_samples, n_features)</span></dt><dd><p>The data to encode.</p>
+<dt><strong>X</strong><span class="classifier">array-like, shape (n_samples, n_features)</span></dt><dd><p>The data to encode.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
-<dt>float.</dt><dd><p>The Kullback-Leibler divergence.</p>
+<dt>float</dt><dd><p>The Kullback-Leibler divergence.</p>
 </dd>
 </dl>
 </dd>
@@ -446,7 +505,7 @@ non-negative factorization HW.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="dirty_cat.GapEncoder.set_output">
-<span class="sig-name descname"><span class="pre">set_output</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/61e1fb5/dirty_cat/../miniconda/envs/testenv/lib/python3.9/site-packages/sklearn/utils/_set_output.py#L208"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.GapEncoder.set_output" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">set_output</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/152bc75/dirty_cat/../miniconda/envs/testenv/lib/python3.9/site-packages/sklearn/utils/_set_output.py#L208"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.GapEncoder.set_output" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set output container.</p>
 <p>See <a class="reference external" href="https://scikit-learn.org/stable/auto_examples/miscellaneous/plot_set_output.html#sphx-glr-auto-examples-miscellaneous-plot-set-output-py" title="(in scikit-learn v1.2)"><span>Introducing the set_output API</span></a>
 for an example on how to use the API.</p>
@@ -473,7 +532,7 @@ for an example on how to use the API.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="dirty_cat.GapEncoder.set_params">
-<span class="sig-name descname"><span class="pre">set_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/61e1fb5/dirty_cat/../miniconda/envs/testenv/lib/python3.9/site-packages/sklearn/base.py#L177"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.GapEncoder.set_params" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">set_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/152bc75/dirty_cat/../miniconda/envs/testenv/lib/python3.9/site-packages/sklearn/base.py#L177"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.GapEncoder.set_params" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set the parameters of this estimator.</p>
 <p>The method works on simple estimators as well as on nested objects
 (such as <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="(in scikit-learn v1.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a>). The latter have
@@ -497,13 +556,13 @@ possible to update each component of a nested object.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="dirty_cat.GapEncoder.transform">
-<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/61e1fb5/dirty_cat/_gap_encoder.py#L813"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.GapEncoder.transform" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the encoded vectors (activations) H of input strings in X.
-Given the learnt topics W, the activations H are tuned to fit V = HW.
-When X has several columns, they are encoded separately and
-then concatenated.</p>
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/152bc75/dirty_cat/_gap_encoder.py#L840"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.GapEncoder.transform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the encoded vectors (activations) <cite>H</cite> of input strings in <cite>X</cite>.</p>
+<p>Given the learnt topics <cite>W</cite>, the activations <cite>H</cite> are tuned to fit
+<code class="docutils literal notranslate"><span class="pre">V</span> <span class="pre">=</span> <span class="pre">HW</span></code>. When <cite>X</cite> has several columns, they are encoded separately
+and then concatenated.</p>
 <p>Remark: calling transform multiple times in a row on the same
-input X can give slightly different encodings. This is expected
+input <cite>X</cite> can give slightly different encodings. This is expected
 due to a caching mechanism to speed things up.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -514,7 +573,7 @@ due to a caching mechanism to speed things up.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
-<dt><strong>H</strong><span class="classifier">2-d array, shape (n_samples, n_topics * n_features)</span></dt><dd><p>Transformed input.</p>
+<dt><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray</span></code></a>, shape (n_samples, n_topics * n_features)</dt><dd><p>Transformed input.</p>
 </dd>
 </dl>
 </dd>
