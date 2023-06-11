@@ -4,15 +4,15 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 <meta property="og:title" content="dirty_cat.TableVectorizer" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://dirty-cat.github.io/stable/generated/dirty_cat.TableVectorizer.html" />
 <meta property="og:site_name" content="dirty_cat" />
-<meta property="og:description" content="Usage examples at the bottom of this page. Examples using dirty_cat.TableVectorizer: Dirty categories: machine learning with non normalized strings Handling datetime features with the DatetimeEncoder" />
+<meta property="og:description" content="Usage examples at the bottom of this page. Examples using dirty_cat.TableVectorizer: Dirty categories: machine learning with non normalized strings Dirty categories: machine learning with non norma..." />
 <meta property="og:image" content="https://dirty-cat.github.io/stable/_images/sphx_glr_01_dirty_categories_thumb.png" />
-<meta property="og:image:alt" content="" />
-<meta name="description" content="Usage examples at the bottom of this page. Examples using dirty_cat.TableVectorizer: Dirty categories: machine learning with non normalized strings Handling datetime features with the DatetimeEncoder" />
+<meta property="og:image:alt" content="Dirty categories: machine learning with non normalized strings" />
+<meta name="description" content="Usage examples at the bottom of this page. Examples using dirty_cat.TableVectorizer: Dirty categories: machine learning with non normalized strings Dirty categories: machine learning with non norma..." />
 
     <title>dirty_cat.TableVectorizer &#8212; dirty_cat</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
@@ -26,6 +26,7 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/scrolltoc.js"></script>
     <script src="../_static/stable_doc_redirect.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -47,6 +48,13 @@
     https://github.com/bitprophet/alabaster/blob/master/alabaster/about.html
     Only the "Version" number is added.
 -->
+<div class="warn-banner">
+    <p><b>
+        <i>dirty_cat</i> has migrated to <a href="https://skrub-data.org">skrub</a>.
+        This package will no longer be maintained.
+        Please use <a href="https://skrub-data.org">skrub</a> instead.
+    </b></p>
+</div>
 
 
 <p class="logo">
@@ -90,6 +98,18 @@
   <h3 class="this-page"><a href="../index.html">This page</a></h3>
   <ul>
 <li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat</span></code>.TableVectorizer</a><ul>
+<li><a class="reference internal" href="#dirty_cat.TableVectorizer"><code class="docutils literal notranslate"><span class="pre">TableVectorizer</span></code></a><ul>
+<li><a class="reference internal" href="#dirty_cat.TableVectorizer.fit"><code class="docutils literal notranslate"><span class="pre">TableVectorizer.fit()</span></code></a></li>
+<li><a class="reference internal" href="#dirty_cat.TableVectorizer.fit_transform"><code class="docutils literal notranslate"><span class="pre">TableVectorizer.fit_transform()</span></code></a></li>
+<li><a class="reference internal" href="#dirty_cat.TableVectorizer.get_feature_names"><code class="docutils literal notranslate"><span class="pre">TableVectorizer.get_feature_names()</span></code></a></li>
+<li><a class="reference internal" href="#dirty_cat.TableVectorizer.get_feature_names_out"><code class="docutils literal notranslate"><span class="pre">TableVectorizer.get_feature_names_out()</span></code></a></li>
+<li><a class="reference internal" href="#dirty_cat.TableVectorizer.get_params"><code class="docutils literal notranslate"><span class="pre">TableVectorizer.get_params()</span></code></a></li>
+<li><a class="reference internal" href="#dirty_cat.TableVectorizer.named_transformers_"><code class="docutils literal notranslate"><span class="pre">TableVectorizer.named_transformers_</span></code></a></li>
+<li><a class="reference internal" href="#dirty_cat.TableVectorizer.set_output"><code class="docutils literal notranslate"><span class="pre">TableVectorizer.set_output()</span></code></a></li>
+<li><a class="reference internal" href="#dirty_cat.TableVectorizer.set_params"><code class="docutils literal notranslate"><span class="pre">TableVectorizer.set_params()</span></code></a></li>
+<li><a class="reference internal" href="#dirty_cat.TableVectorizer.transform"><code class="docutils literal notranslate"><span class="pre">TableVectorizer.transform()</span></code></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#examples-using-dirty-cat-tablevectorizer">Examples using <code class="docutils literal notranslate"><span class="pre">dirty_cat.TableVectorizer</span></code></a></li>
 </ul>
 </li>
@@ -116,10 +136,10 @@
 <p class="side-comment">Usage examples at the bottom of this page.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="dirty_cat.TableVectorizer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">dirty_cat.</span></span><span class="sig-name descname"><span class="pre">TableVectorizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cardinality_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">40</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">low_card_cat_transformer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">high_card_cat_transformer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numerical_transformer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">datetime_transformer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto_cast</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">impute_missing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remainder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'passthrough'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_jobs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transformer_weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/e81edec/dirty_cat/_table_vectorizer.py#L153"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.TableVectorizer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Easily transform a heterogeneous array to a numerical one.</p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">dirty_cat.</span></span><span class="sig-name descname"><span class="pre">TableVectorizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cardinality_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">40</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">low_card_cat_transformer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">high_card_cat_transformer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numerical_transformer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">datetime_transformer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto_cast</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">impute_missing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remainder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'passthrough'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_jobs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transformer_weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/d6c89bb/dirty_cat/_table_vectorizer.py#L154"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.TableVectorizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Automatically transform a heterogeneous dataframe to a numerical array.</p>
 <p>Easily transforms a heterogeneous data table
-(such as a <a class="reference external" href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a>) to a numerical array for machine
+(such as a <a class="reference external" href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.0.2)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DataFrame</span></code></a>) to a numerical array for machine
 learning. For this it transforms each column depending on its data type.
 It provides a simplified interface for the
 <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.compose.ColumnTransformer.html#sklearn.compose.ColumnTransformer" title="(in scikit-learn v1.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ColumnTransformer</span></code></a>; more documentation of
@@ -130,7 +150,7 @@ attributes and functions are available in its doc.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>cardinality_threshold</strong><span class="classifier">int, optional, default=40</span></dt><dd><p>Two lists of features will be created depending on this value: strictly
+<dt><strong>cardinality_threshold</strong><span class="classifier">int, default=40</span></dt><dd><p>Two lists of features will be created depending on this value: strictly
 under this value, the low cardinality categorical features, and above or
 equal, the high cardinality categorical features.
 Different transformers will be applied to these two groups,
@@ -139,7 +159,7 @@ defined by the parameters <cite>low_card_cat_transformer</cite> and
 Note: currently, missing values are counted as a single unique value
 (so they count in the cardinality).</p>
 </dd>
-<dt><strong>low_card_cat_transformer</strong><span class="classifier">{“drop”, “remainder”, “passthrough”} or Transformer, optional</span></dt><dd><p>Transformer used on categorical/string features with low cardinality
+<dt><strong>low_card_cat_transformer</strong><span class="classifier">{‘drop’, ‘remainder’, ‘passthrough’} or Transformer, optional</span></dt><dd><p>Transformer used on categorical/string features with low cardinality
 (threshold is defined by <cite>cardinality_threshold</cite>).
 Can either be a transformer object instance
 (e.g. <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.OneHotEncoder.html#sklearn.preprocessing.OneHotEncoder" title="(in scikit-learn v1.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">OneHotEncoder</span></code></a>),
@@ -152,7 +172,7 @@ or <cite>None</cite> to use the default transformer
 Features classified under this category are imputed based on the
 strategy defined with <cite>impute_missing</cite>.</p>
 </dd>
-<dt><strong>high_card_cat_transformer</strong><span class="classifier">{“drop”, “remainder”, “passthrough”} or Transformer, optional</span></dt><dd><p>Transformer used on categorical/string features with high cardinality
+<dt><strong>high_card_cat_transformer</strong><span class="classifier">{‘drop’, ‘remainder’, ‘passthrough’} or Transformer, optional</span></dt><dd><p>Transformer used on categorical/string features with high cardinality
 (threshold is defined by <cite>cardinality_threshold</cite>).
 Can either be a transformer object instance
 (e.g. <a class="reference internal" href="dirty_cat.GapEncoder.html#dirty_cat.GapEncoder" title="dirty_cat.GapEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">GapEncoder</span></code></a>),
@@ -165,7 +185,7 @@ or <cite>None</cite> to use the default transformer
 Features classified under this category are imputed based on the
 strategy defined with <cite>impute_missing</cite>.</p>
 </dd>
-<dt><strong>numerical_transformer</strong><span class="classifier">{“drop”, “remainder”, “passthrough”} or Transformer, optional</span></dt><dd><p>Transformer used on numerical features.
+<dt><strong>numerical_transformer</strong><span class="classifier">{‘drop’, ‘remainder’, ‘passthrough’} or Transformer, optional</span></dt><dd><p>Transformer used on numerical features.
 Can either be a transformer object instance
 (e.g. <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html#sklearn.preprocessing.StandardScaler" title="(in scikit-learn v1.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">StandardScaler</span></code></a>),
 a <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="(in scikit-learn v1.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a> containing the preprocessing steps,
@@ -176,7 +196,7 @@ or <cite>None</cite> to use the default transformer (here nothing, so ‘passthr
 Features classified under this category are not imputed at all
 (regardless of <cite>impute_missing</cite>).</p>
 </dd>
-<dt><strong>datetime_transformer</strong><span class="classifier">{“drop”, “remainder”, “passthrough”} or Transformer, optional</span></dt><dd><p>Transformer used on datetime features.
+<dt><strong>datetime_transformer</strong><span class="classifier">{‘drop’, ‘remainder’, ‘passthrough’} or Transformer, optional</span></dt><dd><p>Transformer used on datetime features.
 Can either be a transformer object instance
 (e.g. <a class="reference internal" href="dirty_cat.DatetimeEncoder.html#dirty_cat.DatetimeEncoder" title="dirty_cat.DatetimeEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">DatetimeEncoder</span></code></a>),
 a <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="(in scikit-learn v1.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a> containing the preprocessing steps,
@@ -190,7 +210,7 @@ Features classified under this category are not imputed at all
 <dt><strong>auto_cast</strong><span class="classifier">bool, optional, default=True</span></dt><dd><p>If set to <cite>True</cite>, will try to convert each column to the best possible
 data type (dtype).</p>
 </dd>
-<dt><strong>impute_missing</strong><span class="classifier">{“auto”, “force”, “skip”}, optional, default=’auto’</span></dt><dd><p>When to impute missing values in categorical (textual) columns.
+<dt><strong>impute_missing</strong><span class="classifier">{‘auto’, ‘force’, ‘skip’}, default=’auto’</span></dt><dd><p>When to impute missing values in categorical (textual) columns.
 ‘auto’ will impute missing values if it is considered appropriate
 (we are using an encoder that does not support missing values and/or
 specific versions of pandas, numpy and scikit-learn).
@@ -201,7 +221,7 @@ As imputation logic for numerical features can be quite intricate,
 it is left to the user to manage.
 See also attribute <code class="xref py py-attr docutils literal notranslate"><span class="pre">imputed_columns_</span></code>.</p>
 </dd>
-<dt><strong>remainder</strong><span class="classifier">{“drop”, “passthrough”} or Transformer, optional, default=’drop’</span></dt><dd><p>By default, only the specified columns in <cite>transformers</cite> are
+<dt><strong>remainder</strong><span class="classifier">{‘drop’, ‘passthrough’} or Transformer, default=’drop’</span></dt><dd><p>By default, only the specified columns in <cite>transformers</cite> are
 transformed and combined in the output, and the non-specified
 columns are dropped. (default ‘drop’).
 By specifying <cite>remainder=’passthrough’</cite>, all remaining columns that
@@ -214,7 +234,7 @@ estimator must support <a class="reference external" href="https://scikit-learn.
 Note that using this feature requires that the DataFrame columns
 input at <a class="reference external" href="https://scikit-learn.org/stable/glossary.html#term-fit" title="(in scikit-learn v1.2)"><span class="xref std std-term">fit</span></a> and <a class="reference external" href="https://scikit-learn.org/stable/glossary.html#term-transform" title="(in scikit-learn v1.2)"><span class="xref std std-term">transform</span></a> have identical order.</p>
 </dd>
-<dt><strong>sparse_threshold</strong><span class="classifier">float, optional, default=0.3</span></dt><dd><p>If the output of the different transformers contains sparse matrices,
+<dt><strong>sparse_threshold</strong><span class="classifier">float, default=0.3</span></dt><dd><p>If the output of the different transformers contains sparse matrices,
 these will be stacked as a sparse matrix if the overall density is
 lower than this value. Use <cite>sparse_threshold=0</cite> to always return dense.
 When the transformed output consists of all dense data, the stacked
@@ -229,7 +249,7 @@ result will be dense, and this keyword will be ignored.</p>
 transformer is multiplied by these weights. Keys are transformer names,
 values the weights.</p>
 </dd>
-<dt><strong>verbose</strong><span class="classifier">bool, optional, default=False</span></dt><dd><p>If True, the time elapsed while fitting each transformer will be
+<dt><strong>verbose</strong><span class="classifier">bool, default=False</span></dt><dd><p>If True, the time elapsed while fitting each transformer will be
 printed as it is completed.</p>
 </dd>
 </dl>
@@ -238,30 +258,57 @@ printed as it is completed.</p>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <dl class="simple">
-<dt><a class="reference internal" href="dirty_cat.GapEncoder.html#dirty_cat.GapEncoder" title="dirty_cat.GapEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">GapEncoder</span></code></a></dt><dd><p>Encodes dirty categories (strings) by constructing latent topics with continuous encoding.</p>
+<dt><a class="reference internal" href="dirty_cat.GapEncoder.html#dirty_cat.GapEncoder" title="dirty_cat.GapEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">dirty_cat.GapEncoder</span></code></a></dt><dd><p>Encodes dirty categories (strings) by constructing latent topics with continuous encoding.</p>
 </dd>
-<dt><a class="reference internal" href="dirty_cat.MinHashEncoder.html#dirty_cat.MinHashEncoder" title="dirty_cat.MinHashEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">MinHashEncoder</span></code></a></dt><dd><p>Encode string columns as a numeric array with the minhash method.</p>
+<dt><a class="reference internal" href="dirty_cat.MinHashEncoder.html#dirty_cat.MinHashEncoder" title="dirty_cat.MinHashEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">dirty_cat.MinHashEncoder</span></code></a></dt><dd><p>Encode string columns as a numeric array with the minhash method.</p>
 </dd>
-<dt><a class="reference internal" href="dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="dirty_cat.SimilarityEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimilarityEncoder</span></code></a></dt><dd><p>Encode string columns as a numeric array with n-gram string similarity.</p>
+<dt><a class="reference internal" href="dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="dirty_cat.SimilarityEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">dirty_cat.SimilarityEncoder</span></code></a></dt><dd><p>Encode string columns as a numeric array with n-gram string similarity.</p>
 </dd>
 </dl>
 </div>
 <p class="rubric">Notes</p>
 <p>The column order of the input data is not guaranteed to be the same
-as the output data (returned by <a class="reference internal" href="#dirty_cat.TableVectorizer.transform" title="dirty_cat.TableVectorizer.transform"><code class="xref py py-func docutils literal notranslate"><span class="pre">TableVectorizer.transform()</span></code></a>).
-This is a due to the way the <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.compose.ColumnTransformer.html#sklearn.compose.ColumnTransformer" title="(in scikit-learn v1.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.compose.ColumnTransformer</span></code></a>
+as the output data (returned by <a class="reference internal" href="#dirty_cat.TableVectorizer.transform" title="dirty_cat.TableVectorizer.transform"><code class="xref py py-func docutils literal notranslate"><span class="pre">transform()</span></code></a>).
+This is a due to the way the <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.compose.ColumnTransformer.html#sklearn.compose.ColumnTransformer" title="(in scikit-learn v1.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ColumnTransformer</span></code></a>
 works.
 However, the output column order will always be the same for different
-calls to <a class="reference internal" href="#dirty_cat.TableVectorizer.transform" title="dirty_cat.TableVectorizer.transform"><code class="xref py py-func docutils literal notranslate"><span class="pre">TableVectorizer.transform()</span></code></a> on a same fitted
+calls to <a class="reference internal" href="#dirty_cat.TableVectorizer.transform" title="dirty_cat.TableVectorizer.transform"><code class="xref py py-func docutils literal notranslate"><span class="pre">transform()</span></code></a> on a same fitted
 <a class="reference internal" href="#dirty_cat.TableVectorizer" title="dirty_cat.TableVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">TableVectorizer</span></code></a> instance.
 For example, if input data has columns [‘name’, ‘job’, ‘year’], then output
-columns might be shuffled, e.g., [‘job’, ‘year’, ‘name’], but every call
-to <a class="reference internal" href="#dirty_cat.TableVectorizer.transform" title="dirty_cat.TableVectorizer.transform"><code class="xref py py-func docutils literal notranslate"><span class="pre">TableVectorizer.transform()</span></code></a> on this instance will return this
+columns might be shuffled, e.g. [‘job’, ‘year’, ‘name’], but every call
+to <a class="reference internal" href="#dirty_cat.TableVectorizer.transform" title="dirty_cat.TableVectorizer.transform"><code class="xref py py-func docutils literal notranslate"><span class="pre">transform()</span></code></a> on this instance will return this
 order.</p>
-<dl class="field-list simple">
+<p class="rubric">Examples</p>
+<p>Fit a <a class="reference internal" href="#dirty_cat.TableVectorizer" title="dirty_cat.TableVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">TableVectorizer</span></code></a> on an example dataset:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">dirty_cat.datasets</span> <span class="kn">import</span> <span class="n">fetch_employee_salaries</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ds</span> <span class="o">=</span> <span class="n">fetch_employee_salaries</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ds</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="go">  gender department                          department_name                                           division assignment_category      employee_position_title underfilled_job_title date_first_hired  year_first_hired</span>
+<span class="go">0      F        POL                     Department of Police  MSB Information Mgmt and Tech Division Records...    Fulltime-Regular  Office Services Coordinator                   NaN       09/22/1986              1986</span>
+<span class="go">1      M        POL                     Department of Police         ISB Major Crimes Division Fugitive Section    Fulltime-Regular        Master Police Officer                   NaN       09/12/1988              1988</span>
+<span class="go">2      F        HHS  Department of Health and Human Services      Adult Protective and Case Management Services    Fulltime-Regular             Social Worker IV                   NaN       11/19/1989              1989</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tv</span> <span class="o">=</span> <span class="n">TableVectorizer</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tv</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">X</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now, we can inspect the transformers assigned to each column:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tv</span><span class="o">.</span><span class="n">transformers_</span>
+<span class="go">[</span>
+<span class="go">    (&#39;datetime&#39;, DatetimeEncoder(), [&#39;date_first_hired&#39;]),</span>
+<span class="go">    (&#39;low_card_cat&#39;, OneHotEncoder(drop=&#39;if_binary&#39;, handle_unknown=&#39;ignore&#39;),</span>
+<span class="go">     [&#39;gender&#39;, &#39;department&#39;, &#39;department_name&#39;, &#39;assignment_category&#39;]),</span>
+<span class="go">    (&#39;high_card_cat&#39;, GapEncoder(n_components=30),</span>
+<span class="go">     [&#39;division&#39;, &#39;employee_position_title&#39;, &#39;underfilled_job_title&#39;]),</span>
+<span class="go">    (&#39;remainder&#39;, &#39;passthrough&#39;, [&#39;year_first_hired&#39;])</span>
+<span class="go">]</span>
+</pre></div>
+</div>
+<dl class="field-list">
 <dt class="field-odd">Attributes<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>transformers_: list of 3-tuples (str, Transformer or str, list of str)</strong></dt><dd><p>The collection of fitted transformers as tuples of
+<dd class="field-odd"><dl>
+<dt><strong>transformers_</strong><span class="classifier">list of 3-tuples (str, Transformer or str, list of str)</span></dt><dd><p>The collection of fitted transformers as tuples of
 (name, fitted_transformer, column). <cite>fitted_transformer</cite> can be an
 estimator, ‘drop’, or ‘passthrough’. In case there were no columns
 selected, this will be an unfitted transformer.
@@ -272,14 +319,14 @@ form:
 <code class="docutils literal notranslate"><span class="pre">len(transformers_)==len(transformers)+1</span></code>, otherwise
 <code class="docutils literal notranslate"><span class="pre">len(transformers_)==len(transformers)</span></code>.</p>
 </dd>
-<dt><strong>columns_: pandas.Index</strong></dt><dd><p>The fitted array’s columns. They are applied to the data passed
+<dt><strong>columns_</strong><span class="classifier"><a class="reference external" href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Index.html#pandas.Index" title="(in pandas v2.0.2)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Index</span></code></a></span></dt><dd><p>The fitted array’s columns. They are applied to the data passed
 to the <cite>transform</cite> method.</p>
 </dd>
-<dt><strong>types_: dict mapping str to type</strong></dt><dd><p>A mapping of inferred types per column.
+<dt><strong>types_</strong><span class="classifier">dict mapping of str to type</span></dt><dd><p>A mapping of inferred types per column.
 Key is the column name, value is the inferred dtype.
 Exists only if <cite>auto_cast=True</cite>.</p>
 </dd>
-<dt><strong>imputed_columns_: list of str</strong></dt><dd><p>The list of columns in which we imputed the missing values.</p>
+<dt><strong>imputed_columns_</strong><span class="classifier">list of str</span></dt><dd><p>The list of columns in which we imputed the missing values.</p>
 </dd>
 </dl>
 </dd>
@@ -294,10 +341,10 @@ Exists only if <cite>auto_cast=True</cite>.</p>
 <td><p>Fit all transformers, transform the data, and concatenate the results.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#dirty_cat.TableVectorizer.get_feature_names" title="dirty_cat.TableVectorizer.get_feature_names"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_feature_names</span></code></a>([input_features])</p></td>
-<td><p>Ensures compatibility with sklearn &lt; 1.0.</p></td>
+<td><p>Return clean feature names.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#dirty_cat.TableVectorizer.get_feature_names_out" title="dirty_cat.TableVectorizer.get_feature_names_out"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_feature_names_out</span></code></a>([input_features])</p></td>
-<td><p>Returns clean feature names with format &quot;&lt;column_name&gt;_&lt;value&gt;&quot; if encoded by OneHotEncoder or alike, e.g.</p></td>
+<td><p>Return clean feature names.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#dirty_cat.TableVectorizer.get_params" title="dirty_cat.TableVectorizer.get_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_params</span></code></a>([deep])</p></td>
 <td><p>Get parameters for this estimator.</p></td>
@@ -309,13 +356,13 @@ Exists only if <cite>auto_cast=True</cite>.</p>
 <td><p>Set the parameters of this estimator.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#dirty_cat.TableVectorizer.transform" title="dirty_cat.TableVectorizer.transform"><code class="xref py py-obj docutils literal notranslate"><span class="pre">transform</span></code></a>(X)</p></td>
-<td><p>Transform X by applying fitted transformers on each column, and concatenate the results.</p></td>
+<td><p>Transform <cite>X</cite> by applying the fitted transformers on the columns.</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="py method">
 <dt class="sig sig-object py" id="dirty_cat.TableVectorizer.fit">
-<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/e81edec/dirty_cat/../miniconda/envs/testenv/lib/python3.9/site-packages/sklearn/compose/_column_transformer.py#L675"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.TableVectorizer.fit" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/d6c89bb/dirty_cat/../../../../../usr/lib/python3/dist-packages/sklearn/compose/_column_transformer.py#L675"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.TableVectorizer.fit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fit all transformers using X.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -338,26 +385,26 @@ transformers.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="dirty_cat.TableVectorizer.fit_transform">
-<span class="sig-name descname"><span class="pre">fit_transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/e81edec/dirty_cat/_table_vectorizer.py#L534"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.TableVectorizer.fit_transform" title="Permalink to this definition">¶</a></dt>
-<dd><p>Fit all transformers, transform the data, and concatenate the results.
-In practice, it (1) converts features to their best possible types
+<span class="sig-name descname"><span class="pre">fit_transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/d6c89bb/dirty_cat/_table_vectorizer.py#L558"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.TableVectorizer.fit_transform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fit all transformers, transform the data, and concatenate the results.</p>
+<p>In practice, it (1) converts features to their best possible types
 if <cite>auto_cast=True</cite>, (2) classify columns based on their data type,
-(3) replaces “false missing” (see function <cite>_replace_false_missing</cite>),
+(3) replaces “false missing” (see <code class="xref py py-func docutils literal notranslate"><span class="pre">_replace_false_missing()</span></code>),
 and imputes categorical columns depending on <cite>impute_missing</cite>, and
-finally, transforms X.</p>
+finally, transforms <cite>X</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>X</strong><span class="classifier">{array-like, dataframe} of shape (n_samples, n_features)</span></dt><dd><p>Input data, of which specified subsets are used to fit the
+<dt><strong>X</strong><span class="classifier">array-like of shape (n_samples, n_features)</span></dt><dd><p>Input data, of which specified subsets are used to fit the
 transformers.</p>
 </dd>
-<dt><strong>y</strong><span class="classifier">array-like of shape (n_samples,), default=None</span></dt><dd><p>Targets for supervised learning.</p>
+<dt><strong>y</strong><span class="classifier">array-like of shape (n_samples,), optional</span></dt><dd><p>Targets for supervised learning.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
-<dt>{array-like, sparse matrix} of shape (n_samples, sum_n_components)</dt><dd><p>hstack of results of transformers. sum_n_components is the
+<dt>{array-like, sparse matrix} of shape (n_samples, sum_n_components)</dt><dd><p>Hstack of results of transformers. sum_n_components is the
 sum of n_components (output dimension) over transformers. If
 any result is a sparse matrix, everything will be converted to
 sparse matrices.</p>
@@ -369,21 +416,43 @@ sparse matrices.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="dirty_cat.TableVectorizer.get_feature_names">
-<span class="sig-name descname"><span class="pre">get_feature_names</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/e81edec/dirty_cat/_table_vectorizer.py#L772"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.TableVectorizer.get_feature_names" title="Permalink to this definition">¶</a></dt>
-<dd><p>Ensures compatibility with sklearn &lt; 1.0.
-Use <cite>get_feature_names_out</cite> instead.</p>
+<span class="sig-name descname"><span class="pre">get_feature_names</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/d6c89bb/dirty_cat/_table_vectorizer.py#L801"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.TableVectorizer.get_feature_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return clean feature names. Compatibility method for sklearn &lt; 1.0.</p>
+<p>Use <a class="reference internal" href="#dirty_cat.TableVectorizer.get_feature_names_out" title="dirty_cat.TableVectorizer.get_feature_names_out"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_feature_names_out()</span></code></a> instead.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>input_features</strong><span class="classifier">None</span></dt><dd><p>Unused, only here for compatibility.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>list of str</dt><dd><p>Feature names.</p>
+</dd>
+</dl>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="dirty_cat.TableVectorizer.get_feature_names_out">
-<span class="sig-name descname"><span class="pre">get_feature_names_out</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/e81edec/dirty_cat/_table_vectorizer.py#L734"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.TableVectorizer.get_feature_names_out" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns clean feature names with format
-“&lt;column_name&gt;_&lt;value&gt;” if encoded by OneHotEncoder or alike,
-e.g. “job_title_Police officer”, or “&lt;column_name&gt;” otherwise.</p>
+<span class="sig-name descname"><span class="pre">get_feature_names_out</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/d6c89bb/dirty_cat/_table_vectorizer.py#L756"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.TableVectorizer.get_feature_names_out" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return clean feature names.</p>
+<p>Feature names are formatted like:
+“&lt;column_name&gt;_&lt;value&gt;” if encoded by
+<a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.OneHotEncoder.html#sklearn.preprocessing.OneHotEncoder" title="(in scikit-learn v1.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">OneHotEncoder</span></code></a> or alike,
+(e.g. “job_title_Police officer”), or “&lt;column_name&gt;” otherwise.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
-<dt>typing.List[str]</dt><dd><p>Feature names.</p>
+<dt><strong>input_features</strong><span class="classifier">None</span></dt><dd><p>Unused, only here for compatibility.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>list of str</dt><dd><p>Feature names.</p>
 </dd>
 </dl>
 </dd>
@@ -392,7 +461,7 @@ e.g. “job_title_Police officer”, or “&lt;column_name&gt;” otherwise.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="dirty_cat.TableVectorizer.get_params">
-<span class="sig-name descname"><span class="pre">get_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">deep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/e81edec/dirty_cat/../miniconda/envs/testenv/lib/python3.9/site-packages/sklearn/compose/_column_transformer.py#L291"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.TableVectorizer.get_params" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">deep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/d6c89bb/dirty_cat/../../../../../usr/lib/python3/dist-packages/sklearn/compose/_column_transformer.py#L291"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.TableVectorizer.get_params" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get parameters for this estimator.</p>
 <p>Returns the parameters given in the constructor as well as the
 estimators contained within the <cite>transformers</cite> of the
@@ -425,7 +494,7 @@ objects.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="dirty_cat.TableVectorizer.set_output">
-<span class="sig-name descname"><span class="pre">set_output</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/e81edec/dirty_cat/../miniconda/envs/testenv/lib/python3.9/site-packages/sklearn/compose/_column_transformer.py#L258"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.TableVectorizer.set_output" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">set_output</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/d6c89bb/dirty_cat/../../../../../usr/lib/python3/dist-packages/sklearn/compose/_column_transformer.py#L258"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.TableVectorizer.set_output" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set the output container when <cite>“transform”</cite> and <cite>“fit_transform”</cite> are called.</p>
 <p>Calling <cite>set_output</cite> will set the output of all estimators in <cite>transformers</cite>
 and <cite>transformers_</cite>.</p>
@@ -452,7 +521,7 @@ and <cite>transformers_</cite>.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="dirty_cat.TableVectorizer.set_params">
-<span class="sig-name descname"><span class="pre">set_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/e81edec/dirty_cat/../miniconda/envs/testenv/lib/python3.9/site-packages/sklearn/compose/_column_transformer.py#L311"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.TableVectorizer.set_params" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">set_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/d6c89bb/dirty_cat/../../../../../usr/lib/python3/dist-packages/sklearn/compose/_column_transformer.py#L311"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.TableVectorizer.set_params" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set the parameters of this estimator.</p>
 <p>Valid parameter keys can be listed with <code class="docutils literal notranslate"><span class="pre">get_params()</span></code>. Note that you
 can directly set the parameters of the estimators contained in
@@ -475,19 +544,18 @@ can directly set the parameters of the estimators contained in
 
 <dl class="py method">
 <dt class="sig sig-object py" id="dirty_cat.TableVectorizer.transform">
-<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/e81edec/dirty_cat/_table_vectorizer.py#L694"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.TableVectorizer.transform" title="Permalink to this definition">¶</a></dt>
-<dd><p>Transform X by applying fitted transformers on each column,
-and concatenate the results.</p>
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/d6c89bb/dirty_cat/_table_vectorizer.py#L718"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.TableVectorizer.transform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transform <cite>X</cite> by applying the fitted transformers on the columns.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>X</strong><span class="classifier">{array-like, dataframe} of shape (n_samples, n_features)</span></dt><dd><p>The data to be transformed.</p>
+<dt><strong>X</strong><span class="classifier">array-like of shape (n_samples, n_features)</span></dt><dd><p>The data to be transformed.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
-<dt>{array-like, sparse matrix} of shape (n_samples, sum_n_components)</dt><dd><p>hstack of results of transformers. sum_n_components is the
+<dt>{array-like, sparse matrix} of shape (n_samples, sum_n_components)</dt><dd><p>Hstack of results of transformers. sum_n_components is the
 sum of n_components (output dimension) over transformers. If
 any result is a sparse matrix, everything will be converted to
 sparse matrices.</p>
@@ -501,13 +569,19 @@ sparse matrices.</p>
 
 <section id="examples-using-dirty-cat-tablevectorizer">
 <h2>Examples using <code class="docutils literal notranslate"><span class="pre">dirty_cat.TableVectorizer</span></code><a class="headerlink" href="#examples-using-dirty-cat-tablevectorizer" title="Permalink to this heading">¶</a></h2>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="Including strings that represent categories often calls for much data preparation. In particula..."><img alt="" src="../_images/sphx_glr_01_dirty_categories_thumb.png" />
-<p><a class="reference internal" href="../auto_examples/01_dirty_categories.html#sphx-glr-auto-examples-01-dirty-categories-py"><span class="std std-ref">Dirty categories: machine learning with non normalized strings</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Dirty categories: machine learning with non normalized strings</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="We illustrate here how to handle datetime features with the DatetimeEncoder."><img alt="" src="../_images/sphx_glr_03_datetime_encoder_thumb.png" />
-<p><a class="reference internal" href="../auto_examples/03_datetime_encoder.html#sphx-glr-auto-examples-03-datetime-encoder-py"><span class="std std-ref">Handling datetime features with the DatetimeEncoder</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Handling datetime features with the DatetimeEncoder</div>
-</div></div><div class="clearer"></div></section>
+<div class="sphx-glr-thumbcontainer" tooltip="Including strings that represent categories often calls for much data preparation. In particula..."><figure class="align-default" id="id1">
+<img alt="Dirty categories: machine learning with non normalized strings" src="../_images/sphx_glr_01_dirty_categories_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../auto_examples/01_dirty_categories.html#sphx-glr-auto-examples-01-dirty-categories-py"><span class="std std-ref">Dirty categories: machine learning with non normalized strings</span></a></span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-thumbcontainer" tooltip="We illustrate here how to handle datetime features with the DatetimeEncoder."><figure class="align-default" id="id2">
+<img alt="Handling datetime features with the DatetimeEncoder" src="../_images/sphx_glr_03_datetime_encoder_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../auto_examples/03_datetime_encoder.html#sphx-glr-auto-examples-03-datetime-encoder-py"><span class="std std-ref">Handling datetime features with the DatetimeEncoder</span></a></span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="clearer"></div></section>
 </section>
 
 

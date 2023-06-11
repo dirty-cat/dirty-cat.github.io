@@ -4,14 +4,14 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 <meta property="og:title" content="dirty_cat: machine learning with dirty categories" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://dirty-cat.github.io/stable/index.html" />
 <meta property="og:site_name" content="dirty_cat" />
 <meta property="og:description" content="dirty_cat facilitates machine-learning with non-curated categories: robust to morphological variants, such as typos. See examples, such as the first one, for an introduction to problems of dirty ca..." />
 <meta property="og:image" content="https://dirty-cat.github.io/stable/_images/sphx_glr_01_dirty_categories_thumb.png" />
-<meta property="og:image:alt" content="" />
+<meta property="og:image:alt" content="Dirty categories: machine learning with non normalized strings" />
 <meta name="description" content="dirty_cat facilitates machine-learning with non-curated categories: robust to morphological variants, such as typos. See examples, such as the first one, for an introduction to problems of dirty ca..." />
 
     <title>dirty_cat: machine learning with dirty categories &#8212; dirty_cat</title>
@@ -26,6 +26,7 @@
     <script src="_static/underscore.js"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/scrolltoc.js"></script>
     <script src="_static/stable_doc_redirect.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -46,6 +47,13 @@
     https://github.com/bitprophet/alabaster/blob/master/alabaster/about.html
     Only the "Version" number is added.
 -->
+<div class="warn-banner">
+    <p><b>
+        <i>dirty_cat</i> has migrated to <a href="https://skrub-data.org">skrub</a>.
+        This package will no longer be maintained.
+        Please use <a href="https://skrub-data.org">skrub</a> instead.
+    </b></p>
+</div>
 
 
 <p class="logo">
@@ -117,9 +125,9 @@ entities.</p>
 </div>
 <div class="flex-container">
 <div class="flex-content">
-<span class="container-title">Automatic features from heterogeneous dataframes</span><p><a class="reference internal" href="generated/dirty_cat.TableVectorizer.html#dirty_cat.TableVectorizer" title="dirty_cat.TableVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">TableVectorizer</span></code></a>: a transformer <strong>automatically turning a pandas
-dataframe into a numpy array</strong> for machine learning – a default encoding
-pipeline you can tweak.</p>
+<span class="container-title">Automatic features from heterogeneous dataframes</span><p><a class="reference internal" href="generated/dirty_cat.TableVectorizer.html#dirty_cat.TableVectorizer" title="dirty_cat.TableVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">TableVectorizer</span></code></a>: a transformer to <strong>easily turn a pandas
+dataframe into a numpy array</strong> suitable for machine learning – a default
+encoding pipeline you can tweak.</p>
 <p class="centered"><a class="reference internal" href="auto_examples/01_dirty_categories.html#example-table-vectorizer"><span class="std std-ref">An example</span></a></p>
 </div>
 <div class="flex-content">
@@ -127,10 +135,10 @@ pipeline you can tweak.</p>
 <li><p><a class="reference internal" href="generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder" title="dirty_cat.GapEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">GapEncoder</span></code></a>, scalable and interpretable, where each encoding
 dimension corresponds to a topic that summarizes substrings captured.
 <a class="reference internal" href="auto_examples/02_investigating_dirty_categories.html#example-gap-encoder"><span class="std std-ref">Example</span></a></p></li>
-<li><p><a class="reference internal" href="generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="dirty_cat.SimilarityEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimilarityEncoder</span></code></a>, a simple modification of one-hot encoding
-to capture the strings.
+<li><p><a class="reference internal" href="generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="dirty_cat.SimilarityEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimilarityEncoder</span></code></a>, an enhanced one-hot encoder
+able to capture the string similarities in the data.
 <a class="reference internal" href="auto_examples/02_investigating_dirty_categories.html#example-similarity-encoder"><span class="std std-ref">Example</span></a></p></li>
-<li><p><a class="reference internal" href="generated/dirty_cat.MinHashEncoder.html#dirty_cat.MinHashEncoder" title="dirty_cat.MinHashEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">MinHashEncoder</span></code></a>, very scalable.
+<li><p><a class="reference internal" href="generated/dirty_cat.MinHashEncoder.html#dirty_cat.MinHashEncoder" title="dirty_cat.MinHashEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">MinHashEncoder</span></code></a>, very scalable, suitable for big data.
 <a class="reference internal" href="auto_examples/01_dirty_categories.html#example-minhash-encoder"><span class="std std-ref">Example</span></a></p></li>
 </ul>
 </div>
@@ -138,7 +146,7 @@ to capture the strings.
 <span class="container-title">Joining tables on non-normalized categories</span><ul class="simple">
 <li><p><a class="reference internal" href="generated/dirty_cat.fuzzy_join.html#dirty_cat.fuzzy_join" title="dirty_cat.fuzzy_join"><code class="xref py py-func docutils literal notranslate"><span class="pre">fuzzy_join()</span></code></a>, approximate matching using morphological similarity.
 <a class="reference internal" href="auto_examples/04_fuzzy_joining_and_FeatureAugmenter.html#example-fuzzy-join"><span class="std std-ref">Example</span></a></p></li>
-<li><p><a class="reference internal" href="generated/dirty_cat.FeatureAugmenter.html#dirty_cat.FeatureAugmenter" title="dirty_cat.FeatureAugmenter"><code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureAugmenter</span></code></a>, a scikit-learn transformer for joining multiple tables.
+<li><p><a class="reference internal" href="generated/dirty_cat.FeatureAugmenter.html#dirty_cat.FeatureAugmenter" title="dirty_cat.FeatureAugmenter"><code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureAugmenter</span></code></a>, a transformer for joining multiple tables together.
 <a class="reference internal" href="auto_examples/04_fuzzy_joining_and_FeatureAugmenter.html#example-feature-augmenter"><span class="std std-ref">Example</span></a></p></li>
 </ul>
 </div>
@@ -160,27 +168,55 @@ to capture the strings.
 <section id="usage-examples">
 <span id="id1"></span><h2>Usage examples<a class="headerlink" href="#usage-examples" title="Permalink to this heading">¶</a></h2>
 <div class="larger-container docutils container">
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="Including strings that represent categories often calls for much data preparation. In particula..."><img alt="" src="_images/sphx_glr_01_dirty_categories_thumb.png" />
-<p><a class="reference internal" href="auto_examples/01_dirty_categories.html#sphx-glr-auto-examples-01-dirty-categories-py"><span class="std std-ref">Dirty categories: machine learning with non normalized strings</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Dirty categories: machine learning with non normalized strings</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="What are dirty categorical variables and how can a good encoding help with statistical learning..."><img alt="" src="_images/sphx_glr_02_investigating_dirty_categories_thumb.png" />
-<p><a class="reference internal" href="auto_examples/02_investigating_dirty_categories.html#sphx-glr-auto-examples-02-investigating-dirty-categories-py"><span class="std std-ref">Investigating and interpreting dirty categories</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Investigating and interpreting dirty categories</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="We illustrate here how to handle datetime features with the DatetimeEncoder."><img alt="" src="_images/sphx_glr_03_datetime_encoder_thumb.png" />
-<p><a class="reference internal" href="auto_examples/03_datetime_encoder.html#sphx-glr-auto-examples-03-datetime-encoder-py"><span class="std std-ref">Handling datetime features with the DatetimeEncoder</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Handling datetime features with the DatetimeEncoder</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Here we show how to combine data from different sources, with a vocabulary not well normalized."><img alt="" src="_images/sphx_glr_04_fuzzy_joining_and_FeatureAugmenter_thumb.png" />
-<p><a class="reference internal" href="auto_examples/04_fuzzy_joining_and_FeatureAugmenter.html#sphx-glr-auto-examples-04-fuzzy-joining-and-featureaugmenter-py"><span class="std std-ref">Fuzzy joining dirty tables and the FeatureAugmenter</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Fuzzy joining dirty tables and the FeatureAugmenter</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Real world datasets often come with slight misspellings in the category names, for instance if ..."><img alt="" src="_images/sphx_glr_05_deduplication_thumb.png" />
-<p><a class="reference internal" href="auto_examples/05_deduplication.html#sphx-glr-auto-examples-05-deduplication-py"><span class="std std-ref">Deduplicating misspelled categories with deduplicate</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Deduplicating misspelled categories with deduplicate</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="When the data comprises common entities (cities, companies or famous people), bringing new info..."><img alt="" src="_images/sphx_glr_06_ken_embeddings_example_thumb.png" />
-<p><a class="reference internal" href="auto_examples/06_ken_embeddings_example.html#sphx-glr-auto-examples-06-ken-embeddings-example-py"><span class="std std-ref">Wikipedia embeddings to enrich the data</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Wikipedia embeddings to enrich the data</div>
-</div></div><div class="toctree-wrapper compound">
+<div class="sphx-glr-thumbcontainer" tooltip="Including strings that represent categories often calls for much data preparation. In particula..."><figure class="align-default" id="id6">
+<img alt="Dirty categories: machine learning with non normalized strings" src="_images/sphx_glr_01_dirty_categories_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="auto_examples/01_dirty_categories.html#sphx-glr-auto-examples-01-dirty-categories-py"><span class="std std-ref">Dirty categories: machine learning with non normalized strings</span></a></span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="toctree-wrapper compound">
 </div>
+<div class="sphx-glr-thumbcontainer" tooltip="What are dirty categorical variables and how can a good encoding help with statistical learning..."><figure class="align-default" id="id7">
+<img alt="Investigating and interpreting dirty categories" src="_images/sphx_glr_02_investigating_dirty_categories_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="auto_examples/02_investigating_dirty_categories.html#sphx-glr-auto-examples-02-investigating-dirty-categories-py"><span class="std std-ref">Investigating and interpreting dirty categories</span></a></span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="toctree-wrapper compound">
 </div>
+<div class="sphx-glr-thumbcontainer" tooltip="We illustrate here how to handle datetime features with the DatetimeEncoder."><figure class="align-default" id="id8">
+<img alt="Handling datetime features with the DatetimeEncoder" src="_images/sphx_glr_03_datetime_encoder_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="auto_examples/03_datetime_encoder.html#sphx-glr-auto-examples-03-datetime-encoder-py"><span class="std std-ref">Handling datetime features with the DatetimeEncoder</span></a></span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="Here we show how to combine data from different sources, with a vocabulary not well normalized."><figure class="align-default" id="id9">
+<img alt="Fuzzy joining dirty tables and the FeatureAugmenter" src="_images/sphx_glr_04_fuzzy_joining_and_FeatureAugmenter_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="auto_examples/04_fuzzy_joining_and_FeatureAugmenter.html#sphx-glr-auto-examples-04-fuzzy-joining-and-featureaugmenter-py"><span class="std std-ref">Fuzzy joining dirty tables and the FeatureAugmenter</span></a></span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="Real world datasets often come with slight misspellings in the category names, for instance if ..."><figure class="align-default" id="id10">
+<img alt="Deduplicating misspelled categories with deduplicate" src="_images/sphx_glr_05_deduplication_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="auto_examples/05_deduplication.html#sphx-glr-auto-examples-05-deduplication-py"><span class="std std-ref">Deduplicating misspelled categories with deduplicate</span></a></span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="When the data comprises common entities (cities, companies or famous people), bringing new info..."><figure class="align-default" id="id11">
+<img alt="Wikipedia embeddings to enrich the data" src="_images/sphx_glr_06_ken_embeddings_example_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="auto_examples/06_ken_embeddings_example.html#sphx-glr-auto-examples-06-ken-embeddings-example-py"><span class="std std-ref">Wikipedia embeddings to enrich the data</span></a></span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-clear"></div></div>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
@@ -201,23 +237,23 @@ string categorical variables</a> <a class="footnote-reference brackets" href="#i
 <table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/dirty_cat.TableVectorizer.html#dirty_cat.TableVectorizer" title="dirty_cat.TableVectorizer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TableVectorizer</span></code></a></p></td>
-<td><p>Easily transform a heterogeneous array to a numerical one.</p></td>
+<td><p>Automatically transform a heterogeneous dataframe to a numerical array.</p></td>
 </tr>
 </tbody>
 </table>
 </section>
 <section id="dirty-category-encoders">
-<h3>Dirty Category encoders<a class="headerlink" href="#dirty-category-encoders" title="Permalink to this heading">¶</a></h3>
+<h3>Dirty category encoders<a class="headerlink" href="#dirty-category-encoders" title="Permalink to this heading">¶</a></h3>
 <table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/dirty_cat.GapEncoder.html#dirty_cat.GapEncoder" title="dirty_cat.GapEncoder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GapEncoder</span></code></a></p></td>
 <td><p>Constructs latent topics with continuous encoding.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="generated/dirty_cat.MinHashEncoder.html#dirty_cat.MinHashEncoder" title="dirty_cat.MinHashEncoder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MinHashEncoder</span></code></a></p></td>
-<td><p>Encode string categorical features as a numeric array, minhash method applied to ngram decomposition of strings based on ngram decomposition of the string.</p></td>
+<td><p>Encode string categorical features by applying the MinHash method to n-gram decompositions of strings.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="dirty_cat.SimilarityEncoder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SimilarityEncoder</span></code></a></p></td>
-<td><p>Encode string categorical features as a numeric array.</p></td>
+<td><p>Encode string categorical features to a similarity matrix.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="generated/dirty_cat.TargetEncoder.html#dirty_cat.TargetEncoder" title="dirty_cat.TargetEncoder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TargetEncoder</span></code></a></p></td>
 <td><p>Encode categorical features as a numeric array given a target vector.</p></td>
@@ -240,14 +276,14 @@ string categorical variables</a> <a class="footnote-reference brackets" href="#i
 <table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/dirty_cat.fuzzy_join.html#dirty_cat.fuzzy_join" title="dirty_cat.fuzzy_join"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fuzzy_join</span></code></a></p></td>
-<td><p>Join two tables categorical string columns based on approximate matching and using morphological similarity.</p></td>
+<td><p>Join two tables with categorical columns based on approximate matching of morphological similarity.</p></td>
 </tr>
 </tbody>
 </table>
 <table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/dirty_cat.FeatureAugmenter.html#dirty_cat.FeatureAugmenter" title="dirty_cat.FeatureAugmenter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FeatureAugmenter</span></code></a></p></td>
-<td><p>Transformer augmenting number of features in a table by joining multiple tables.</p></td>
+<td><p>Augment a main table by automatically joining multiple auxiliary tables on it.</p></td>
 </tr>
 </tbody>
 </table>
@@ -257,7 +293,7 @@ string categorical variables</a> <a class="footnote-reference brackets" href="#i
 <table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/dirty_cat.deduplicate.html#dirty_cat.deduplicate" title="dirty_cat.deduplicate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">deduplicate</span></code></a></p></td>
-<td><p>Deduplicate data by hierarchically clustering similar strings.</p></td>
+<td><p>Deduplicate categorical data by hierarchically clustering similar strings.</p></td>
 </tr>
 </tbody>
 </table>
@@ -267,7 +303,7 @@ string categorical variables</a> <a class="footnote-reference brackets" href="#i
 <table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/dirty_cat.datasets.fetch_employee_salaries.html#dirty_cat.datasets.fetch_employee_salaries" title="dirty_cat.datasets.fetch_employee_salaries"><code class="xref py py-obj docutils literal notranslate"><span class="pre">datasets.fetch_employee_salaries</span></code></a></p></td>
-<td><p>Fetches the employee_salaries dataset (regression), available at <a class="reference external" href="https://openml.org/d/42125">https://openml.org/d/42125</a></p></td>
+<td><p>Fetches the employee salaries dataset (regression), available at <a class="reference external" href="https://openml.org/d/42125">https://openml.org/d/42125</a></p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="generated/dirty_cat.datasets.fetch_medical_charge.html#dirty_cat.datasets.fetch_medical_charge" title="dirty_cat.datasets.fetch_medical_charge"><code class="xref py py-obj docutils literal notranslate"><span class="pre">datasets.fetch_medical_charge</span></code></a></p></td>
 <td><p>Fetches the medical charge dataset (regression), available at <a class="reference external" href="https://openml.org/d/42720">https://openml.org/d/42720</a></p></td>
@@ -290,6 +326,12 @@ string categorical variables</a> <a class="footnote-reference brackets" href="#i
 <tr class="row-even"><td><p><a class="reference internal" href="generated/dirty_cat.datasets.fetch_world_bank_indicator.html#dirty_cat.datasets.fetch_world_bank_indicator" title="dirty_cat.datasets.fetch_world_bank_indicator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">datasets.fetch_world_bank_indicator</span></code></a></p></td>
 <td><p>Fetches a dataset of an indicator from the World Bank open data platform.</p></td>
 </tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/dirty_cat.datasets.get_ken_table_aliases.html#dirty_cat.datasets.get_ken_table_aliases" title="dirty_cat.datasets.get_ken_table_aliases"><code class="xref py py-obj docutils literal notranslate"><span class="pre">datasets.get_ken_table_aliases</span></code></a></p></td>
+<td><p>Get the supported aliases of embedded KEN entities tables.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/dirty_cat.datasets.get_ken_types.html#dirty_cat.datasets.get_ken_types" title="dirty_cat.datasets.get_ken_types"><code class="xref py py-obj docutils literal notranslate"><span class="pre">datasets.get_ken_types</span></code></a></p></td>
+<td><p>Helper function to search for KEN entity types.</p></td>
+</tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/dirty_cat.datasets.get_ken_embeddings.html#dirty_cat.datasets.get_ken_embeddings" title="dirty_cat.datasets.get_ken_embeddings"><code class="xref py py-obj docutils literal notranslate"><span class="pre">datasets.get_ken_embeddings</span></code></a></p></td>
 <td><p>Download Wikipedia embeddings by type.</p></td>
 </tr>
@@ -305,12 +347,12 @@ string categorical variables</a> <a class="footnote-reference brackets" href="#i
 </section>
 <section id="about">
 <h2>About<a class="headerlink" href="#about" title="Permalink to this heading">¶</a></h2>
-<p>dirty_cat is for now a repository for ideas coming out of a research
-project: there is still little known about the problems of dirty
-categories. Tradeoffs will emerge in the long run. We really need people
-giving feedback on success and failures with the different techniques and
-pointing us to open datasets on which we can do more empirical work.
+<p>dirty_cat is a young project born from research. We really need people
+giving feedback on successes and failures with the different techniques on real
+world data, and pointing us to open datasets on which we can do more
+empirical work.
 dirty-cat received funding from <a class="reference external" href="https://project.inria.fr/dirtydata/">project DirtyData</a> (ANR-17-CE23-0018).</p>
+<aside class="footnote-list brackets">
 <aside class="footnote brackets" id="id4" role="note">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">1</a><span class="fn-bracket">]</span></span>
 <p>Patricio Cerda, Gaël Varoquaux. Encoding high-cardinality string categorical variables. 2020. IEEE Transactions on Knowledge &amp; Data Engineering.</p>
@@ -319,12 +361,13 @@ dirty-cat received funding from <a class="reference external" href="https://proj
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">2</a><span class="fn-bracket">]</span></span>
 <p>Patricio Cerda, Gaël Varoquaux, Balázs Kégl. Similarity encoding for learning with dirty categorical variables. 2018. Machine Learning journal, Springer.</p>
 </aside>
+</aside>
 </section>
 <section id="related-projects">
 <h2>Related projects<a class="headerlink" href="#related-projects" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/scikit-learn/scikit-learn">scikit-learn</a>
-- a very popular machine learning library; dirty_cat inherits its API</p></li>
+- a very popular machine learning library; <em>dirty_cat</em> inherits its API</p></li>
 <li><p><a class="reference external" href="https://contrib.scikit-learn.org/category_encoders/">categorical-encoding</a>
 - scikit-learn compatible classic categorical encoding schemes</p></li>
 <li><p><a class="reference external" href="https://github.com/rakutentech/spark-dirty-cat">spark-dirty-cat</a>
@@ -332,7 +375,7 @@ dirty-cat received funding from <a class="reference external" href="https://proj
 <li><p><a class="reference external" href="https://github.com/alan-turing-institute/CleverCSV">CleverCSV</a>
 - a package for dealing with dirty csv files</p></li>
 <li><p><a class="reference external" href="https://github.com/openml-labs/gama">GAMA</a>
-- a modular AutoML assistant that uses dirty_cat as part of its search space</p></li>
+- a modular AutoML assistant that uses <em>dirty_cat</em> as part of its search space</p></li>
 </ul>
 </section>
 </section>

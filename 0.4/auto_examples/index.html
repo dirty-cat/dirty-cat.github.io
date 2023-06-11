@@ -4,15 +4,15 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 <meta property="og:title" content="Using dirty_cat" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://dirty-cat.github.io/stable/auto_examples/index.html" />
 <meta property="og:site_name" content="dirty_cat" />
-<meta property="og:description" content="Dirty categories: machine learning with non normalized strings Investigating and interpreting dirty categories Handling datetime features with the DatetimeEncoder Fuzzy joining dirty tables and the..." />
+<meta property="og:description" content="Dirty categories: machine learning with non normalized strings Dirty categories: machine learning with non normalized strings, Investigating and interpreting dirty categories Investigating and inte..." />
 <meta property="og:image" content="https://dirty-cat.github.io/stable/_images/sphx_glr_01_dirty_categories_thumb.png" />
-<meta property="og:image:alt" content="" />
-<meta name="description" content="Dirty categories: machine learning with non normalized strings Investigating and interpreting dirty categories Handling datetime features with the DatetimeEncoder Fuzzy joining dirty tables and the..." />
+<meta property="og:image:alt" content="Dirty categories: machine learning with non normalized strings" />
+<meta name="description" content="Dirty categories: machine learning with non normalized strings Dirty categories: machine learning with non normalized strings, Investigating and interpreting dirty categories Investigating and inte..." />
 
     <title>Using dirty_cat &#8212; dirty_cat</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
@@ -26,6 +26,7 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/scrolltoc.js"></script>
     <script src="../_static/stable_doc_redirect.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -45,6 +46,13 @@
     https://github.com/bitprophet/alabaster/blob/master/alabaster/about.html
     Only the "Version" number is added.
 -->
+<div class="warn-banner">
+    <p><b>
+        <i>dirty_cat</i> has migrated to <a href="https://skrub-data.org">skrub</a>.
+        This package will no longer be maintained.
+        Please use <a href="https://skrub-data.org">skrub</a> instead.
+    </b></p>
+</div>
 
 
 <p class="logo">
@@ -100,28 +108,56 @@
           <div class="body" role="main">
             
   <section id="using-dirty-cat">
-<h1>Using dirty_cat<a class="headerlink" href="#using-dirty-cat" title="Permalink to this heading">¶</a></h1>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="Including strings that represent categories often calls for much data preparation. In particula..."><img alt="" src="../_images/sphx_glr_01_dirty_categories_thumb.png" />
-<p><a class="reference internal" href="01_dirty_categories.html#sphx-glr-auto-examples-01-dirty-categories-py"><span class="std std-ref">Dirty categories: machine learning with non normalized strings</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Dirty categories: machine learning with non normalized strings</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="What are dirty categorical variables and how can a good encoding help with statistical learning..."><img alt="" src="../_images/sphx_glr_02_investigating_dirty_categories_thumb.png" />
-<p><a class="reference internal" href="02_investigating_dirty_categories.html#sphx-glr-auto-examples-02-investigating-dirty-categories-py"><span class="std std-ref">Investigating and interpreting dirty categories</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Investigating and interpreting dirty categories</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="We illustrate here how to handle datetime features with the DatetimeEncoder."><img alt="" src="../_images/sphx_glr_03_datetime_encoder_thumb.png" />
-<p><a class="reference internal" href="03_datetime_encoder.html#sphx-glr-auto-examples-03-datetime-encoder-py"><span class="std std-ref">Handling datetime features with the DatetimeEncoder</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Handling datetime features with the DatetimeEncoder</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Here we show how to combine data from different sources, with a vocabulary not well normalized."><img alt="" src="../_images/sphx_glr_04_fuzzy_joining_and_FeatureAugmenter_thumb.png" />
-<p><a class="reference internal" href="04_fuzzy_joining_and_FeatureAugmenter.html#sphx-glr-auto-examples-04-fuzzy-joining-and-featureaugmenter-py"><span class="std std-ref">Fuzzy joining dirty tables and the FeatureAugmenter</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Fuzzy joining dirty tables and the FeatureAugmenter</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Real world datasets often come with slight misspellings in the category names, for instance if ..."><img alt="" src="../_images/sphx_glr_05_deduplication_thumb.png" />
-<p><a class="reference internal" href="05_deduplication.html#sphx-glr-auto-examples-05-deduplication-py"><span class="std std-ref">Deduplicating misspelled categories with deduplicate</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Deduplicating misspelled categories with deduplicate</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="When the data comprises common entities (cities, companies or famous people), bringing new info..."><img alt="" src="../_images/sphx_glr_06_ken_embeddings_example_thumb.png" />
-<p><a class="reference internal" href="06_ken_embeddings_example.html#sphx-glr-auto-examples-06-ken-embeddings-example-py"><span class="std std-ref">Wikipedia embeddings to enrich the data</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Wikipedia embeddings to enrich the data</div>
-</div></div><div class="toctree-wrapper compound">
+<span id="sphx-glr-auto-examples"></span><h1>Using dirty_cat<a class="headerlink" href="#using-dirty-cat" title="Permalink to this heading">¶</a></h1>
+<div class="sphx-glr-thumbcontainer" tooltip="Including strings that represent categories often calls for much data preparation. In particula..."><figure class="align-default" id="id1">
+<img alt="Dirty categories: machine learning with non normalized strings" src="../_images/sphx_glr_01_dirty_categories_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="01_dirty_categories.html#sphx-glr-auto-examples-01-dirty-categories-py"><span class="std std-ref">Dirty categories: machine learning with non normalized strings</span></a></span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="toctree-wrapper compound">
 </div>
-<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+<div class="sphx-glr-thumbcontainer" tooltip="What are dirty categorical variables and how can a good encoding help with statistical learning..."><figure class="align-default" id="id2">
+<img alt="Investigating and interpreting dirty categories" src="../_images/sphx_glr_02_investigating_dirty_categories_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="02_investigating_dirty_categories.html#sphx-glr-auto-examples-02-investigating-dirty-categories-py"><span class="std std-ref">Investigating and interpreting dirty categories</span></a></span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="We illustrate here how to handle datetime features with the DatetimeEncoder."><figure class="align-default" id="id3">
+<img alt="Handling datetime features with the DatetimeEncoder" src="../_images/sphx_glr_03_datetime_encoder_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="03_datetime_encoder.html#sphx-glr-auto-examples-03-datetime-encoder-py"><span class="std std-ref">Handling datetime features with the DatetimeEncoder</span></a></span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="Here we show how to combine data from different sources, with a vocabulary not well normalized."><figure class="align-default" id="id4">
+<img alt="Fuzzy joining dirty tables and the FeatureAugmenter" src="../_images/sphx_glr_04_fuzzy_joining_and_FeatureAugmenter_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="04_fuzzy_joining_and_FeatureAugmenter.html#sphx-glr-auto-examples-04-fuzzy-joining-and-featureaugmenter-py"><span class="std std-ref">Fuzzy joining dirty tables and the FeatureAugmenter</span></a></span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="Real world datasets often come with slight misspellings in the category names, for instance if ..."><figure class="align-default" id="id5">
+<img alt="Deduplicating misspelled categories with deduplicate" src="../_images/sphx_glr_05_deduplication_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="05_deduplication.html#sphx-glr-auto-examples-05-deduplication-py"><span class="std std-ref">Deduplicating misspelled categories with deduplicate</span></a></span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="When the data comprises common entities (cities, companies or famous people), bringing new info..."><figure class="align-default" id="id6">
+<img alt="Wikipedia embeddings to enrich the data" src="../_images/sphx_glr_06_ken_embeddings_example_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="06_ken_embeddings_example.html#sphx-glr-auto-examples-06-ken-embeddings-example-py"><span class="std std-ref">Wikipedia embeddings to enrich the data</span></a></span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-clear"></div><p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
 </section>
 
 

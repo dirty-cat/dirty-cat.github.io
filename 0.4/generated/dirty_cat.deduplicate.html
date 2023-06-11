@@ -4,15 +4,15 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 <meta property="og:title" content="dirty_cat.deduplicate" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://dirty-cat.github.io/stable/generated/dirty_cat.deduplicate.html" />
 <meta property="og:site_name" content="dirty_cat" />
-<meta property="og:description" content="Examples using dirty_cat.deduplicate: Deduplicating misspelled categories with deduplicate" />
+<meta property="og:description" content="Examples using dirty_cat.deduplicate: Deduplicating misspelled categories with deduplicate Deduplicating misspelled categories with deduplicate," />
 <meta property="og:image" content="https://dirty-cat.github.io/stable/_images/sphx_glr_05_deduplication_thumb.png" />
-<meta property="og:image:alt" content="" />
-<meta name="description" content="Examples using dirty_cat.deduplicate: Deduplicating misspelled categories with deduplicate" />
+<meta property="og:image:alt" content="Deduplicating misspelled categories with deduplicate" />
+<meta name="description" content="Examples using dirty_cat.deduplicate: Deduplicating misspelled categories with deduplicate Deduplicating misspelled categories with deduplicate," />
 
     <title>dirty_cat.deduplicate &#8212; dirty_cat</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
@@ -26,6 +26,7 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/scrolltoc.js"></script>
     <script src="../_static/stable_doc_redirect.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -47,6 +48,13 @@
     https://github.com/bitprophet/alabaster/blob/master/alabaster/about.html
     Only the "Version" number is added.
 -->
+<div class="warn-banner">
+    <p><b>
+        <i>dirty_cat</i> has migrated to <a href="https://skrub-data.org">skrub</a>.
+        This package will no longer be maintained.
+        Please use <a href="https://skrub-data.org">skrub</a> instead.
+    </b></p>
+</div>
 
 
 <p class="logo">
@@ -90,6 +98,7 @@
   <h3 class="this-page"><a href="../index.html">This page</a></h3>
   <ul>
 <li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat</span></code>.deduplicate</a><ul>
+<li><a class="reference internal" href="#dirty_cat.deduplicate"><code class="docutils literal notranslate"><span class="pre">deduplicate()</span></code></a></li>
 <li><a class="reference internal" href="#examples-using-dirty-cat-deduplicate">Examples using <code class="docutils literal notranslate"><span class="pre">dirty_cat.deduplicate</span></code></a></li>
 </ul>
 </li>
@@ -115,37 +124,39 @@
 <h1><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat</span></code>.deduplicate<a class="headerlink" href="#dirty-cat-deduplicate" title="Permalink to this heading">¶</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="dirty_cat.deduplicate">
-<span class="sig-prename descclassname"><span class="pre">dirty_cat.</span></span><span class="sig-name descname"><span class="pre">deduplicate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_clusters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ngram_range</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(2,</span> <span class="pre">4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">analyzer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'char_wb'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'average'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/e81edec/dirty_cat/_deduplicate.py#L122"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.deduplicate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Deduplicate data by hierarchically clustering similar strings.</p>
-<dl class="field-list simple">
+<span class="sig-prename descclassname"><span class="pre">dirty_cat.</span></span><span class="sig-name descname"><span class="pre">deduplicate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_clusters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ngram_range</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(2,</span> <span class="pre">4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">analyzer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'char_wb'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'average'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/d6c89bb/dirty_cat/_deduplicate.py#L127"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.deduplicate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deduplicate categorical data by hierarchically clustering similar strings.</p>
+<p>This works best if there is a number of underlying categories that
+sometimes appear in the data with small variations and/or misspellings.</p>
+<dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>data</strong><span class="classifier">Sequence[str]</span></dt><dd><p>The data to be deduplicated.</p>
+<dd class="field-odd"><dl>
+<dt><strong>data</strong><span class="classifier">sequence of str</span></dt><dd><p>The data to be deduplicated.</p>
 </dd>
-<dt><strong>n_clusters</strong><span class="classifier">Optional[int], optional, default=None</span></dt><dd><p>Number of clusters to use for hierarchical clustering, if None use the
+<dt><strong>n_clusters</strong><span class="classifier">int, optional</span></dt><dd><p>Number of clusters to use for hierarchical clustering, if <cite>None</cite> use the
 number of clusters that lead to the lowest silhouette score.</p>
 </dd>
-<dt><strong>ngram_range</strong><span class="classifier">Tuple[int, int], optional, default=(2, 4)</span></dt><dd><p>Range to use for computing n-gram distance.</p>
+<dt><strong>ngram_range</strong><span class="classifier">2-tuple of int, default=(2, 4)</span></dt><dd><p>The lower and upper boundaries of the range of n-values for different
+n-grams used in the string similarity. All values of <cite>n</cite> such
+that <code class="docutils literal notranslate"><span class="pre">min_n</span> <span class="pre">&lt;=</span> <span class="pre">n</span> <span class="pre">&lt;=</span> <span class="pre">max_n</span></code> will be used.</p>
 </dd>
-<dt><strong>analyzer</strong><span class="classifier">typing.Literal[“word”, “char”, “char_wb”], optional, default=`char_wb`</span></dt><dd><p>Analyzer parameter for the CountVectorizer used for the string
-similarities.
-Options: {<cite>word</cite>, <cite>char</cite>, <cite>char_wb</cite>}, describing whether the matrix V
-to factorize should be made of word counts or character n-gram counts.
+<dt><strong>analyzer</strong><span class="classifier">{‘word’, ‘char’, ‘char_wb’}, default=`char_wb`</span></dt><dd><p>Analyzer parameter for the <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html#sklearn.feature_extraction.text.CountVectorizer" title="(in scikit-learn v1.2)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CountVectorizer</span></code></a>
+used for the string similarities.
+Describes whether the matrix <cite>V</cite> to factorize should be made of
+word counts or character n-gram counts.
 Option <cite>char_wb</cite> creates character n-grams only from text inside word
 boundaries; n-grams at the edges of words are padded with space.</p>
 </dd>
-<dt><strong>method</strong><span class="classifier">str, optional, default=`average`</span></dt><dd><p>Linkage method parameter to use for merging clusters via scipy’s
-<cite>linkage</cite> method.
-Options: {<cite>single</cite>, <cite>complete</cite>, <cite>average</cite>, <cite>centroid</cite>, <cite>median</cite>, <cite>ward</cite>},
-describing different methods to calculate the distance between two clusters.
-Option <cite>average</cite> calculates the distance between two clusters as the average
-distance between data points in the first and second cluster.</p>
+<dt><strong>method</strong><span class="classifier">{<cite>single</cite>, <cite>complete</cite>, <cite>average</cite>, <cite>centroid</cite>, <cite>median</cite>, <cite>ward</cite>}, default=`average`</span></dt><dd><p>Linkage method parameter to use for merging clusters via
+<a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.cluster.hierarchy.linkage.html#scipy.cluster.hierarchy.linkage" title="(in SciPy v1.10.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">scipy.cluster.hierarchy.linkage()</span></code></a>.
+Option <cite>average</cite> calculates the distance between two clusters as the
+average distance between data points in the first and second cluster.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
-<dt>List[str]</dt><dd><p>The deduplicated data.</p>
+<dt>list of str</dt><dd><p>The deduplicated data.</p>
 </dd>
 </dl>
 </dd>
@@ -153,11 +164,11 @@ distance between data points in the first and second cluster.</p>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <dl class="simple">
-<dt><a class="reference internal" href="dirty_cat.GapEncoder.html#dirty_cat.GapEncoder" title="dirty_cat.GapEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">GapEncoder</span></code></a></dt><dd><p>Encodes dirty categories (strings) by constructing latent topics with continuous encoding.</p>
+<dt><a class="reference internal" href="dirty_cat.GapEncoder.html#dirty_cat.GapEncoder" title="dirty_cat.GapEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">dirty_cat.GapEncoder</span></code></a></dt><dd><p>Encodes dirty categories (strings) by constructing latent topics with continuous encoding.</p>
 </dd>
-<dt><a class="reference internal" href="dirty_cat.MinHashEncoder.html#dirty_cat.MinHashEncoder" title="dirty_cat.MinHashEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">MinHashEncoder</span></code></a></dt><dd><p>Encode string columns as a numeric array with the minhash method.</p>
+<dt><a class="reference internal" href="dirty_cat.MinHashEncoder.html#dirty_cat.MinHashEncoder" title="dirty_cat.MinHashEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">dirty_cat.MinHashEncoder</span></code></a></dt><dd><p>Encode string columns as a numeric array with the minhash method.</p>
 </dd>
-<dt><a class="reference internal" href="dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="dirty_cat.SimilarityEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimilarityEncoder</span></code></a></dt><dd><p>Encode string columns as a numeric array with n-gram string similarity.</p>
+<dt><a class="reference internal" href="dirty_cat.SimilarityEncoder.html#dirty_cat.SimilarityEncoder" title="dirty_cat.SimilarityEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">dirty_cat.SimilarityEncoder</span></code></a></dt><dd><p>Encode string columns as a numeric array with n-gram string similarity.</p>
 </dd>
 </dl>
 </div>
@@ -210,10 +221,13 @@ A deduplicated version of the initial list can easily be created:</p>
 
 <section id="examples-using-dirty-cat-deduplicate">
 <h2>Examples using <code class="docutils literal notranslate"><span class="pre">dirty_cat.deduplicate</span></code><a class="headerlink" href="#examples-using-dirty-cat-deduplicate" title="Permalink to this heading">¶</a></h2>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="Real world datasets often come with slight misspellings in the category names, for instance if ..."><img alt="" src="../_images/sphx_glr_05_deduplication_thumb.png" />
-<p><a class="reference internal" href="../auto_examples/05_deduplication.html#sphx-glr-auto-examples-05-deduplication-py"><span class="std std-ref">Deduplicating misspelled categories with deduplicate</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Deduplicating misspelled categories with deduplicate</div>
-</div></div><div class="clearer"></div></section>
+<div class="sphx-glr-thumbcontainer" tooltip="Real world datasets often come with slight misspellings in the category names, for instance if ..."><figure class="align-default" id="id1">
+<img alt="Deduplicating misspelled categories with deduplicate" src="../_images/sphx_glr_05_deduplication_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../auto_examples/05_deduplication.html#sphx-glr-auto-examples-05-deduplication-py"><span class="std std-ref">Deduplicating misspelled categories with deduplicate</span></a></span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="clearer"></div></section>
 </section>
 
 

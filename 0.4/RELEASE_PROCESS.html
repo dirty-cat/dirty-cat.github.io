@@ -4,7 +4,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 <meta property="og:title" content="Release process" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://dirty-cat.github.io/stable/RELEASE_PROCESS.html" />
@@ -26,6 +26,7 @@
     <script src="_static/underscore.js"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/scrolltoc.js"></script>
     <script src="_static/stable_doc_redirect.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -45,6 +46,13 @@
     https://github.com/bitprophet/alabaster/blob/master/alabaster/about.html
     Only the "Version" number is added.
 -->
+<div class="warn-banner">
+    <p><b>
+        <i>dirty_cat</i> has migrated to <a href="https://skrub-data.org">skrub</a>.
+        This package will no longer be maintained.
+        Please use <a href="https://skrub-data.org">skrub</a> instead.
+    </b></p>
+</div>
 
 
 <p class="logo">
@@ -135,14 +143,15 @@ but double-checking before the release is good practice.</p></li>
 number (e.g. <code class="docutils literal notranslate"><span class="pre">0.2.0</span></code>).</p></li>
 <li><p>Update <code class="docutils literal notranslate"><span class="pre">dirty_cat/setup.cfg</span></code> (e.g. Python version supported and dependencies).</p></li>
 <li><p>Commit the changes with a new tag: the version you’re going to push,
-with the commands <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">commit</span> <span class="pre">-m</span> <span class="pre">&quot;Bump</span> <span class="pre">to</span> <span class="pre">version</span> <span class="pre">0.2.0&quot;</span></code>.
+with the commands <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">commit</span> <span class="pre">-m</span> <span class="pre">&quot;Bump</span> <span class="pre">to</span> <span class="pre">version</span> <span class="pre">0.2.0&quot;</span></code> and
+<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">push</span> <span class="pre">origin</span> <span class="pre">0.2.0</span></code>.
 Push the branch to the <code class="docutils literal notranslate"><span class="pre">dirty_cat</span></code> repository.
 The CI will automatically create an associated folder in the documentation repo.</p></li>
 <li><p>In the documentation repository (e.g. <code class="docutils literal notranslate"><span class="pre">https://github.com/dirty-cat/dirty-cat.github.io</span></code>),
 update the <code class="docutils literal notranslate"><span class="pre">stable</span></code> symlink to the latest stable version: first, unlink <code class="docutils literal notranslate"><span class="pre">stable</span></code>
 (i.e. <code class="docutils literal notranslate"><span class="pre">unlink</span> <span class="pre">stable</span></code>); then, create a new symlink (i.e. <code class="docutils literal notranslate"><span class="pre">ln</span> <span class="pre">-s</span> <span class="pre">0.2</span> <span class="pre">stable</span></code>);
 finally, commit and push the changes into the repository.</p></li>
-<li><p>Create a new release and tag via GitHub: <code class="docutils literal notranslate"><span class="pre">https://github.com/dirty-cat/dirty_cat/releases/new</span></code>.
+<li><p>Create a new release via GitHub: <code class="docutils literal notranslate"><span class="pre">https://github.com/dirty-cat/dirty_cat/releases/new</span></code>.
 Provide the tag using the current version, e.g. <code class="docutils literal notranslate"><span class="pre">0.2.0</span></code> and make sure to select
 the target branch created earlier (e.g. <code class="docutils literal notranslate"><span class="pre">0.2.X</span></code>).</p></li>
 <li><p>Next, you will need to install the <code class="docutils literal notranslate"><span class="pre">twine</span></code> and <code class="docutils literal notranslate"><span class="pre">setuptools</span></code> packages with
@@ -167,7 +176,7 @@ and try installing and using the library (for example by launching examples).
 Be sure to install it with the command <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">dirty_cat==&lt;version&gt;</span></code>
 (e.g. <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">dirty_cat==0.2.0</span></code>), otherwise some package/env managers
 such as conda might use a cached version.</p></li>
-<li><p>To finish the procedure, create a new release on the GitHub repository.</p></li>
+<li><p>Set package version to <code class="docutils literal notranslate"><span class="pre">&lt;next_version&gt;.dev0</span></code>, commit and push.</p></li>
 </ol>
 <p>For the bug fix release (e.g. 0.2.0 -&gt; 0.2.1), the process is similar. You don’t need
 to create the branch <code class="docutils literal notranslate"><span class="pre">0.2.X</span></code> because it exists already. You need to cherry-pick the

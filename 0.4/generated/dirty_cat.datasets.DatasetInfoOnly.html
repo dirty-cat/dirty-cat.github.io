@@ -4,15 +4,15 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 <meta property="og:title" content="dirty_cat.datasets.DatasetInfoOnly" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://dirty-cat.github.io/stable/generated/dirty_cat.datasets.DatasetInfoOnly.html" />
 <meta property="og:site_name" content="dirty_cat" />
-<meta property="og:description" content="Usage examples at the bottom of this page." />
-<meta property="og:image" content="https://dirty-cat.github.io/stable/_static/dirty_cat.svg" />
-<meta property="og:image:alt" content="dirty_cat" />
-<meta name="description" content="Usage examples at the bottom of this page." />
+<meta property="og:description" content="Usage examples at the bottom of this page. Examples using dirty_cat.datasets.DatasetInfoOnly: Fitting scalable, non-linear models on data with dirty categories Fitting scalable, non-linear models o..." />
+<meta property="og:image" content="https://dirty-cat.github.io/stable/_images/sphx_glr_05_scaling_non_linear_models_thumb.png" />
+<meta property="og:image:alt" content="Fitting scalable, non-linear models on data with dirty categories" />
+<meta name="description" content="Usage examples at the bottom of this page. Examples using dirty_cat.datasets.DatasetInfoOnly: Fitting scalable, non-linear models on data with dirty categories Fitting scalable, non-linear models o..." />
 
     <title>dirty_cat.datasets.DatasetInfoOnly &#8212; dirty_cat</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
@@ -26,6 +26,7 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/scrolltoc.js"></script>
     <script src="../_static/stable_doc_redirect.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -45,6 +46,13 @@
     https://github.com/bitprophet/alabaster/blob/master/alabaster/about.html
     Only the "Version" number is added.
 -->
+<div class="warn-banner">
+    <p><b>
+        <i>dirty_cat</i> has migrated to <a href="https://skrub-data.org">skrub</a>.
+        This package will no longer be maintained.
+        Please use <a href="https://skrub-data.org">skrub</a> instead.
+    </b></p>
+</div>
 
 
 <p class="logo">
@@ -84,7 +92,16 @@
     <li class="toctree-l1"><a href="../index.html#usage-examples">Usage</a></li>
     <li class="toctree-l1"><a href="../index.html#api-documentation">API</a></li>
     <li class="toctree-l1"><a href="../index.html#about">About</a></li>
-</ul><div class="relations">
+</ul>
+  <h3 class="this-page"><a href="../index.html">This page</a></h3>
+  <ul>
+<li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">dirty_cat.datasets</span></code>.DatasetInfoOnly</a><ul>
+<li><a class="reference internal" href="#dirty_cat.datasets.DatasetInfoOnly"><code class="docutils literal notranslate"><span class="pre">DatasetInfoOnly</span></code></a></li>
+<li><a class="reference internal" href="#examples-using-dirty-cat-datasets-datasetinfoonly">Examples using <code class="docutils literal notranslate"><span class="pre">dirty_cat.datasets.DatasetInfoOnly</span></code></a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
@@ -104,17 +121,26 @@
 <p class="side-comment">Usage examples at the bottom of this page.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="dirty_cat.datasets.DatasetInfoOnly">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">dirty_cat.datasets.</span></span><span class="sig-name descname"><span class="pre">DatasetInfoOnly</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">read_csv_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/e81edec/dirty_cat/datasets/_fetching.py#L115"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.datasets.DatasetInfoOnly" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">dirty_cat.datasets.</span></span><span class="sig-name descname"><span class="pre">DatasetInfoOnly</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">read_csv_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/dirty-cat/dirty-cat/blob/d6c89bb/dirty_cat/datasets/_fetching.py#L120"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dirty_cat.datasets.DatasetInfoOnly" title="Permalink to this definition">¶</a></dt>
 <dd><p>Represents a dataset and its information.
 With this state, the dataset is NOT loaded in memory, but can be read
-with <code class="docutils literal notranslate"><span class="pre">path</span></code> and <code class="docutils literal notranslate"><span class="pre">read_csv_kwargs</span></code>, as such:</p>
+with <cite>path</cite> and <cite>read_csv_kwargs</cite>, as such:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">fetch_employee_salaries</span><span class="p">(</span><span class="n">load_dataframe</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="o">**</span><span class="n">ds</span><span class="o">.</span><span class="n">read_csv_kwargs</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
 
-<div class="clearer"></div></section>
+<section id="examples-using-dirty-cat-datasets-datasetinfoonly">
+<h2>Examples using <code class="docutils literal notranslate"><span class="pre">dirty_cat.datasets.DatasetInfoOnly</span></code><a class="headerlink" href="#examples-using-dirty-cat-datasets-datasetinfoonly" title="Permalink to this heading">¶</a></h2>
+<div class="sphx-glr-thumbcontainer" tooltip="When training a machine learning model, it is often hard to choose between linear and a non-lin..."><figure class="align-default" id="id1">
+<img alt="Fitting scalable, non-linear models on data with dirty categories" src="../_images/sphx_glr_05_scaling_non_linear_models_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../auto_examples/05_scaling_non_linear_models.html#sphx-glr-auto-examples-05-scaling-non-linear-models-py"><span class="std std-ref">Fitting scalable, non-linear models on data with dirty categories</span></a></span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="clearer"></div></section>
+</section>
 
 
           </div>
